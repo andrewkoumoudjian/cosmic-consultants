@@ -29,3 +29,4 @@ import Analog.Prior.Jumps
 -- Analog.Prior.Patterns NOT imported: blocked on Ville-chain re-proof under current Mathlib (docs/research/06).
 import Analog.Prior.TheoryModels1
 -- Analog.Prior.ExperimentGate NOT imported: blocked on Ville-chain re-proof under current Mathlib (docs/research/06).
+import Analog.Atlas
