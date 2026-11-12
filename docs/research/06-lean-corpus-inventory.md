@@ -16,10 +16,11 @@ are remapped `PerpTheory.*`/`PerpChief.*` → `Analog.Prior.*`. Upstream files a
 frozen; ported copies carry a provenance header. Any further edit beyond the
 mechanical renames listed in §3 would be a new module, not a port edit.
 
-## 1. ADDED — imported, builds clean, audited (19 modules + 1 aggregator chain)
+## 1. ADDED — imported, builds clean, audited (21 modules + 1 aggregator chain)
 
 Verified 2026-11-12: `lake build` RC=0 (18,288 jobs); `Analog/Audit.lean` RC=0,
 27 audited theorems on `[propext, Classical.choice, Quot.sound]` only.
+Cantelli joined 2026-11-13 (issue #9): see §1.1.
 
 | Module (`Analog.Prior.*`) | Thms | Use for the analog problem |
 |---|---:|---|
@@ -44,6 +45,17 @@ Verified 2026-11-12: `lake build` RC=0 (18,288 jobs); `Analog/Audit.lean` RC=0,
 | Jumps | 13 | Weissman EVT extrapolation + error, hazard parity/budgets, residual hazard — thermal/dust extreme extrapolation beyond observed record |
 | TheoryModels1 | 6 | Metric identity batch (incl. bucket-local ACI identity) |
 
+### 1.1 Cantelli (joined 2026-11-13, issue #9)
+
+| Module (`Analog.Prior.*`) | Thms | Use for the analog problem |
+|---|---:|---|
+| Cantelli | 4 | One-sided Chebyshev (`P(X−E[X] ≥ k) ≤ v/(v+k²)`, standardized exactly `cantelliBound k = 1/(1+k²)`) — distribution-free extreme-tail bound for thermal/dust dimensions |
+
+Statements verbatim from the frozen upstream file; proof structure verbatim
+except the mapping renames in §3 below. No upstream Mathlib Cantelli exists at
+the pinned rev (checked 2026-11-13: only Borel–Cantelli files), so no
+re-export shortcut was possible.
+
 Plus, already in from the scaffold commit (`333c4cd`), from
 `QUARCC-Umbrella/quant-fund:fastopt/proofs`: `Analog.Screening` (CVaR / worst-
 realisation screening exactness) and `Analog.Certificate` (`subopt_le`).
@@ -57,7 +69,6 @@ re-proof passes the ADR-0001 proof gate.
 
 | Module | Blocker observed 2026-11-12 | What it would buy |
 |---|---|---|
-| Cantelli (174L) | `Memℒp`/`eLpNorm` enorm refactor; `integral_mul_left`, `ofReal_norm_eq_coe_nnnorm`, `meas_ge_le_mul_pow_eLpNorm` gone/changed signatures | One-sided Cantelli tail bound for thermal/dust extremes (distribution-free) |
 | Ville (834L) | Conditional-expectation API replaced (`condexp_*` unknown), `Supermartingale` structure changed, `Set.indicator_of_not_mem` gone | Anytime-valid evidence accumulation for site claims (peek-proof testing) |
 | HazardTest (356L) | Depends on Ville | Anytime-valid hazard-rate test validity |
 | FrameB | Depends on Ville (+ Ceiling, which is in) | Betting-test frame bounds |
@@ -76,6 +87,18 @@ Toolchain drift v4.15.0 → v4.36.0-rc2, applied and then re-verified by build:
 - `Jumps.hazard_parity_exposure`: final step rewritten `rw [le_div_iff₀]; nlinarith` → `rw [mul_comm]; exact hgain` (current `field_simp` normalizes to exactly `Events.vol_managed_gain` up to commutation)
 - header comments: `Fill in \`sorry\`` → `Fill in the proof holes` (5 files) so the CI no-sorry grep stays a true gate
 
+Cantelli renames (2026-11-13, issue #9) — statements verbatim, proof structure
+verbatim outside these:
+
+- `Memℒp` → `MemLp`; `memℒp_const` → `memLp_const` (enorm-refactor spelling)
+- `integral_mul_left` → `integral_const_mul`
+- `hX.variance_eq` → `variance_eq_integral hX.aemeasurable` (same ∫(X−𝔼[X])² content)
+- `meas_ge_le_mul_pow_eLpNorm μ … hfmeas hε` → `meas_ge_le_mul_pow_eLpNorm_enorm μ … (f := g) hε htop` (Markov lemma lost the AEStronglyMeasurable arg, gained an `ε = ∞ → μ{‖g‖ₑ = ∞} = 0` side condition; `f` must now be pinned by name or `ε'` typeclasses go stuck)
+- `eLpNorm_eq_lintegral_rpow_nnnorm` → `eLpNorm_eq_lintegral_rpow_enorm_toReal`
+- `ofReal_norm_eq_coe_nnnorm` → `Real.enorm_eq_ofReal` (for nonneg reals)
+- `Set.mem_setOf_eq` → `Set.mem_ofPred_eq`; `ENNReal.one_toReal` → `ENNReal.toReal_one`
+- file-level `set_option maxHeartbeats 1000000` (two `rw [hstep1, hstep2, …]` unifications)
+
 ## 4. REVIEWED, NOT ADDED (with reasons — silence would be a claim too)
 
 | Area | Disposition |
@@ -88,7 +111,7 @@ Toolchain drift v4.15.0 → v4.36.0-rc2, applied and then re-verified by build:
 | probe*.lean tools, drafts, `_WORKING_UNCOMMITTED`, anything with live `sorry` in proof position | Not proofs yet by ADR-0001 definition; never imported |
 | Remaining ~120 sorry-free-looking files not named above | Surveyed at theorem-name/header level (method: `/tmp` survey script run 2026-11-12), all fall in the rows above; a file-level re-survey is cheap to redo from §0 sources if the owner disputes a row |
 
-Next candidates in value order: Cantelli (small, self-contained re-proof) →
-Ville chain (unlocks ExperimentGate FWER) → SW06 abstention (if Ville stays out).
-Each is a `gate:proof` work order with the frozen upstream file as its statement
-source; open on request, not by default.
+Next candidates in value order: Ville chain (unlocks ExperimentGate FWER) →
+SW06 abstention (if Ville stays out). ~~Cantelli~~ done 2026-11-13 (issue #9,
+§1.1). Each is a `gate:proof` work order with the frozen upstream file as its
+statement source; open on request, not by default.

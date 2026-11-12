@@ -20,14 +20,17 @@ Toolchain pin: `leanprover/lean4:v4.36.0-rc2`, Mathlib rev
 `5f44e8099aaff86b8804252d5189966a5b3b8f78` (from the `fastopt` manifest; see
 `lake-manifest.json`). Do not silently build on any other toolchain.
 
-**Prior-corpus row (2026-11-12):** 20 owner's modules ported into
-`Analog/Prior/*` (namespaces verbatim) build clean; 19 representative theorems
-join the audit (27 total audited, all standard axioms, RC=0). These are
+**Prior-corpus row (2026-11-13):** 21 owner's modules ported into
+`Analog/Prior/*` (namespaces verbatim) build clean; 20 representative theorems
+join the audit (28 total audited, all standard axioms, RC=0). These are
 **Lean-clean as mathematics**; none is yet *instantiated* for analog semantics
 — instantiations are new statements under S1–S5 (e.g. S2-atlas may cite
 `Math222SimplexCertV2`/`F096`/`L13Mixing`; process dimensions may cite
-`ACI`/`C05Window`/`Jumps`). Cantelli and the Ville→ExperimentGate chain are
-**candidates** (preserved unimported, re-proof pending). Full dispositions:
+`ACI`/`C05Window`/`Jumps`). Cantelli re-proved 2026-11-13 (issue #9):
+`Analog.Prior.Cantelli` imported, `PerpTheory.cantelli` in the audit — the
+applied Mathlib renames are listed in doc 06 §3. The Ville→ExperimentGate
+chain remains **candidates** (preserved unimported, re-proof pending). Full
+dispositions:
 [`docs/research/06-lean-corpus-inventory.md`](/home/drew/cosmic-consultants/docs/research/06-lean-corpus-inventory.md).
 
 File hashes at freeze time are recorded in git history (scaffold commit); a
