@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mola-megdr
+title: "MGS MOLA Mission Experiment Gridded Data Records (MEGDR, 128 ppd)"
+status: candidate
+bodies: [mars]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 12896 B, sha256 a5fb768fdf2a…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/"
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "global Mars"
+  temporal: "unverified: 1997-2001"
+  resolution: "unverified: 128 ppd (~463 m)"
+analysisReady: false
+independenceGroup: laser-altimetry
+plannedUse: "Mars target envelope (OP-5LM): slope/roughness of reference zones"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

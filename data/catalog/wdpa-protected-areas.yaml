@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: wdpa-protected-areas
+title: "World Database on Protected Areas (WDPA)"
+status: restricted
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "UNEP-WCMC Protected Planet"
+  endpoint: "https://www.protectedplanet.net/en/thematic-areas/wdpa"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 55864 B, sha256 6a8769da7649…"
+probe:
+  kind: http
+  url: "https://www.protectedplanet.net/en/thematic-areas/wdpa"
+  expect: ["Protected"]
+license:
+  id: wdpa-terms-noncommercial
+  textUrl: "https://www.protectedplanet.net/en/legal"
+  expect: ["No Commercial Use"]
+  verified: true
+  note: "Derivative works may not be put to commercial use without UNEP-WCMC permission. Hackathon/non-commercial use only; confirm attribution wording before publishing."
+coverage:
+  spatial: "global"
+  temporal: "unverified: monthly releases"
+  resolution: "vector polygons"
+analysisReady: false
+independenceGroup: legal-registry
+plannedUse: "operations gate 5: legal/protected status of a site"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

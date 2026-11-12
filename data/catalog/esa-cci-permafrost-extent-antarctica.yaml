@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: esa-cci-permafrost-extent-antarctica
+title: "ESA Permafrost_cci: Permafrost extent for the Antarctic"
+status: candidate
+bodies: [earth]
+dimensions: [waterIce, thermal]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "CEDA (ESA CCI)"
+  endpoint: "https://catalogue.ceda.ac.uk/uuid/25447c253cbe435b937347756fe47146/"
+  probedAt: 2026-11-12T21:38:47Z
+  probeResult: "HTTP 200, 60652 B, sha256 d0a1644130b7…"
+probe:
+  kind: http
+  url: "https://catalogue.ceda.ac.uk/uuid/25447c253cbe435b937347756fe47146/"
+  expect: ["Antarctic"]
+license:
+  id: esa-cci-permafrost-terms
+  textUrl: null
+  expect: ["esacci_permafrost_terms_and_conditions"]
+  verified: true
+  note: "as the NH record"
+coverage:
+  spatial: "unverified: Antarctica ice-free areas"
+  temporal: "unverified: yearly"
+  resolution: "unverified: 1 km"
+analysisReady: true
+independenceGroup: model-lst-driven
+plannedUse: "waterIce: Antarctic dry-valley coverage (golden site McMurdo)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

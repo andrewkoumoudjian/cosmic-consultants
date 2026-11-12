@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lola-polar-illumination
+title: "Lunar Polar Illumination (Mazarico et al. 2011 and updates)"
+status: candidate
+bodies: [moon]
+dimensions: [illumination]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA GSFC PGDA (products also on PDS)"
+  endpoint: "https://pgda.gsfc.nasa.gov/products/69"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 27981 B, sha256 aca046555f29…"
+probe:
+  kind: http
+  url: "https://pgda.gsfc.nasa.gov/products/69"
+  expect: ["Illumination"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PGDA page; check data usage section before adoption"
+coverage:
+  spatial: "lunar polar regions"
+  temporal: "multi-year simulation, hourly step"
+  resolution: "unverified: 240 m and finer updates"
+analysisReady: true
+independenceGroup: illumination-model
+plannedUse: "LI-5L low-sun landing: fraction of time illuminated, min sun elevation"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

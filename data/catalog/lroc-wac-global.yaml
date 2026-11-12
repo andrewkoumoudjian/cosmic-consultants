@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lroc-wac-global
+title: "LROC WAC Global Morphologic Map"
+status: candidate
+bodies: [moon]
+dimensions: []
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "LROC (ASU) RDR"
+  endpoint: "https://data.lroc.im-ldi.com/lroc/view_rdr/WAC_GLOBAL"
+  probedAt: 2026-11-12T21:38:49Z
+  probeResult: "HTTP 200, 36654 B, sha256 0880337b772f…"
+probe:
+  kind: http
+  url: "https://data.lroc.im-ldi.com/lroc/view_rdr/WAC_GLOBAL"
+  expect: ["WAC global mosaic"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "LROC terms not checked"
+coverage:
+  spatial: "global Moon"
+  temporal: "2009-11/2011-02"
+  resolution: "unverified: 100 m/pixel class"
+analysisReady: true
+independenceGroup: visualization
+plannedUse: "context imagery for dossiers; not a scoring input"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

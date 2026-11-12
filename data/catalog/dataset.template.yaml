@@ -1,24 +1,37 @@
-# One file per adopted dataset: data/catalog/<datasetId>.yaml
-# Standard: docs/research/01 §4 and 05 §5. A row is accepted only after the
-# resolved source endpoint has been probed live (paste probe output in the PR).
+# One file per candidate/adopted dataset: data/catalog/<datasetId>.yaml
+# Standard: docs/research/01 §4 and 05 §5. A row counts only after its resolved
+# source endpoint has been probed live by scripts/registry_probe.py (the probe
+# log lands in data/snapshots/registry-probes/<date>/ and is quoted in the PR).
+# Probe-owned fields (never hand-edit): source.probedAt, source.probeResult,
+# license.verified. Values not confirmed by a probe are prefixed "unverified: ".
 datasetId: example-id            # kebab-case, stable, ours
 title: ""
+status: candidate                # candidate | adopted (by a work order) | restricted | unresolved | rejected
 bodies: []                       # earth | moon | mars
-dimensions: []                   # terrain|thermal|illumination|dustProcess|waterIce|surfaceMaterial|subsurface|operations
+dimensions: []                   # terrain|thermal|illumination|dustProcess|waterIce|surfaceMaterial|subsurface|operations ([] = visualization only)
 discovery:
   ckanName: null                 # data.nasa.gov package name, if found there
-  doi: null                      # e.g. https://doi.org/10.48322/...
+  doi: null                      # e.g. 10.5067/...
 source:                          # RESOLVED archive, not the CKAN landing page
-  archive: ""                    # Earthdata | PDS <node> | USGS Astrogeology | Trek | ESA PSA | ...
-  endpoint: ""                   # STAC / WMTS / API URL actually fetched
-  probedAt: null                 # ISO date of live probe
-  probeResult: ""                # e.g. "200, 3,950 identifiers" (full output in PR)
+  archive: ""                    # Earthdata <DAAC> | PDS <node> | USGS Astrogeology | Trek | CEDA | ...
+  endpoint: ""                   # STAC / WMTS / API / landing URL actually used
+  probedAt: null                 # written by the probe script (UTC)
+  probeResult: ""                # written by the probe script (summary; full output in the probe log)
+probe:
+  kind: http                     # cmr (conceptId) | stac (url) | http (url) | wmts (url)
+  url: ""
+  expect: []                     # regexes that must appear in the fetched page for the probe to pass
 license:
-  id: ""                         # us-pd | cc-zero | other (with textUrl)
-  textUrl: null
+  id: ""                         # cc0 | cc0-1.0 | cc-by-3.0 | <named terms> | unresolved
+  textUrl: null                  # page holding the license text; null = the probed page itself
+  expect: []                     # regexes that must appear in that text; verified=true only if all match
+  verified: false                # written by the probe script
+  note: ""
 coverage:
   spatial: ""
   temporal: ""
   resolution: ""
 analysisReady: false             # true only if machine-readable without bespoke volume tooling
+independenceGroup: ""            # sensor/method family; ARL gate 3 needs >=2 groups per dimension (ADR-0002)
+plannedUse: ""                   # which dimension/gate/objective it would feed; no analog claims
 snapshotPolicy: ""               # what gets stored under data/snapshots/ and refresh cadence

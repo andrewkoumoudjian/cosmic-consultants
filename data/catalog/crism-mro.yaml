@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: crism-mro
+title: "MRO CRISM derived products (MTRDR, mosaics)"
+status: candidate
+bodies: [mars]
+dimensions: [surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+  probedAt: 2026-11-12T21:38:47Z
+  probeResult: "HTTP 200, 58477 B, sha256 df7a7e7bf3c9…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/missions/mro/crism.htm"
+  expect: ["MTRDR"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "targeted + mapping"
+  temporal: "2006-"
+  resolution: "unverified: 18-200 m/pixel"
+analysisReady: false
+independenceGroup: vnir-spectrometer
+plannedUse: "Mars mineralogy (phyllosilicates, sulfates, olivine) for surfaceMaterial envelopes"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

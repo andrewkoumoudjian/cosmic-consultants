@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: esa-cci-permafrost-extent-nh
+title: "ESA Permafrost_cci: Permafrost extent for the Northern Hemisphere, v5.0"
+status: candidate
+bodies: [earth]
+dimensions: [waterIce, thermal]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "CEDA (ESA CCI)"
+  endpoint: "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/"
+  probedAt: 2026-11-12T21:38:47Z
+  probeResult: "HTTP 200, 60852 B, sha256 a6226efb71e9…"
+probe:
+  kind: http
+  url: "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/"
+  expect: ["Permafrost extent for the Northern Hemisphere"]
+license:
+  id: esa-cci-permafrost-terms
+  textUrl: null
+  expect: ["esacci_permafrost_terms_and_conditions"]
+  verified: true
+  note: "CEDA record points to the ESA CCI Permafrost terms PDF; read it before redistribution"
+coverage:
+  spatial: "northern hemisphere"
+  temporal: "unverified: yearly, multi-decade"
+  resolution: "1 km"
+analysisReady: true
+independenceGroup: model-lst-driven
+plannedUse: "waterIce gate 1-2: permafrost probability / zonation (MODIS-LST-driven model)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

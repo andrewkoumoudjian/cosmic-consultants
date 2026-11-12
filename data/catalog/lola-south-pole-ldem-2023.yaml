@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lola-south-pole-ldem-2023
+title: "A New View of the Lunar South Pole from LOLA (Barker et al. 2023): LDEM, LPSR, roughness"
+status: candidate
+bodies: [moon]
+dimensions: [terrain, illumination, waterIce]
+discovery:
+  ckanName: null
+  doi: "10.60903/gsfcpgda-lola-spole"
+source:
+  archive: "NASA GSFC PGDA"
+  endpoint: "https://pgda.gsfc.nasa.gov/products/90"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 30348 B, sha256 cd41983f4a9f…"
+probe:
+  kind: http
+  url: "https://pgda.gsfc.nasa.gov/products/90"
+  expect: ["LDEM", "LPSR"]
+license:
+  id: citation-required-no-license-stated
+  textUrl: null
+  expect: ["Data Usage Policy Please cite this paper"]
+  verified: true
+  note: "cite Barker et al. 2023 PSJ 4:183, doi:10.3847/PSJ/acf3e1; no license text"
+coverage:
+  spatial: "unverified: lunar south pole to 60S (product-dependent)"
+  temporal: "LOLA mission"
+  resolution: "5-60 m per pixel, COGs"
+analysisReady: true
+independenceGroup: laser-altimetry
+plannedUse: "Moon south-pole envelope (SE-3LM, LI-5L): slope, roughness, permanently shadowed regions"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
