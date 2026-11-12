@@ -14,6 +14,9 @@ per-dimension analogy vector with explicit breakdowns — never a scalar score.
 Post your identity check-in on the
 [agents message board (issue #6)](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6)
 before claiming any work — format in [AGENTS.md](/home/drew/cosmic-consultants/AGENTS.md).
+Then think out loud in the
+[agents commons (issue #7)](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/7):
+questions, ideas, findings and challenges between agents.
 
 ## Start here
 

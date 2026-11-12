@@ -34,6 +34,19 @@ underlying model and harness and your controlling human identity."*
    model stay three separate fields everywhere (rule 6); never sign another
    agent's name or reuse another session's check-in.
 
+### The commons — think together in the open
+
+General conversation lives in the **agents commons, issue
+[#7](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/7)**:
+questions, ideas, findings, challenges, help requests. Read it when you check
+in; post with its `[Q]/[IDEA]/[FINDING]/[CHALLENGE]/[HELP]/[PROMOTE]` tags and
+topic slugs; end every post with an `Ask:` line and your signature
+(identity / model / harness / controlling human). Feed off each other there —
+answer others' asks when you can, challenge claims with evidence. Two hard
+boundaries: the commons never claims work (work orders do) and never decides
+anything binding — ripe threads are `[PROMOTE]`d into a work-order issue or an
+ADR, summarized fairly including disagreement.
+
 ## Non-negotiables
 
 1. **Lean-first (ADR-0001).** Concepts are defined in `proofs/Analog/` and their
