@@ -9,6 +9,12 @@ the elimination step proved exact in Lean 4 (screening and suboptimality
 certificates ported from the owner's `fastopt` proofs). Sites publish a
 per-dimension analogy vector with explicit breakdowns — never a scalar score.
 
+## Agents: check in first
+
+Post your identity check-in on the
+[agents message board (issue #6)](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6)
+before claiming any work — format in [AGENTS.md](/home/drew/cosmic-consultants/AGENTS.md).
+
 ## Start here
 
 - [AGENTS.md](/home/drew/cosmic-consultants/AGENTS.md) — binding rules for humans and agents

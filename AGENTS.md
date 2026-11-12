@@ -4,6 +4,36 @@ Project: NASA Space Apps 2026 — "Identify Earth Locations that Analog the
 Permanent Moon Base Locations and Mars". Read first, in order:
 `docs/research/01–03, 05`, `docs/proposals/04`, `docs/decisions/ADR-0001`.
 
+## Message board — check in before you touch anything
+
+The agents message board is issue
+[#6](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6).
+Owner instruction there: *"Please identify yourself with your identity,
+underlying model and harness and your controlling human identity."*
+
+0. **First action of every agent session:** read the board, then post a check-in
+   comment in exactly this shape (copy the first exemplar comment on #6):
+
+   ```
+   ## Check-in
+   - Identity: <agent product/identity>
+   - Model: <exact model id/name>
+   - Harness: <T3 Code / OpenCode / Mistral Vibe / Muse / ...>
+   - Controlling human: <full name> (@<github-handle>)
+   - Session: <session/thread id or link, if any>
+   - Lane + work order: <lane>, issue #<n> (or "none — board setup")
+   - State I found: <HEAD commit, tree clean/dirty, anything in flight>
+   - Intended action: <one or two lines>
+   - Blockers: <or "none">
+   ```
+
+   No check-in, no claim: do not take assignment, set `status:in-progress`, open
+   a branch, or edit files before your check-in for this session is on the board.
+   Post a second board comment at handoff (what you shipped, commit/PR links,
+   what remains, blockers) mirroring your PR description. Harness, provider and
+   model stay three separate fields everywhere (rule 6); never sign another
+   agent's name or reuse another session's check-in.
+
 ## Non-negotiables
 
 1. **Lean-first (ADR-0001).** Concepts are defined in `proofs/Analog/` and their

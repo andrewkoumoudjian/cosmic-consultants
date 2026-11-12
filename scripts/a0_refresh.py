@@ -13,9 +13,17 @@ CTX.verify_mode = ssl.CERT_NONE
 UA = {"User-Agent": "Mozilla/5.0 cosmic-consultants A0"}
 
 def fetch(url, limit=2_000_000):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=60, context=CTX) as r:
-        return r.status, r.read(limit)
+    # data.nasa.gov intermittently stalls first connects (observed 2026-11-12:
+    # 2 of 4 CKAN queries timed out at 60s while others answered). One retry.
+    last = None
+    for _ in range(2):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            with urllib.request.urlopen(req, timeout=90, context=CTX) as r:
+                return r.status, r.read(limit)
+        except Exception as e:  # noqa: BLE001 - reported as ERROR line by caller
+            last = e
+    raise last
 
 def line(name, fn):
     try:
