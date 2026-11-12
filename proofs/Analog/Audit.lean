@@ -14,6 +14,9 @@ import Analog
 #print axioms Analog.Semantics.not_dominates_self
 #print axioms Analog.Semantics.dominates_trans
 #print axioms Analog.Semantics.not_frontier_of_dominated
+#print axioms Analog.AtlasProofs.s2a_weight_mono
+#print axioms Analog.AtlasProofs.s2b_frontier_covers
+#print axioms Analog.AtlasProofs.s2c_no_unique_minimiser
 -- Ported prior work (Analog.Prior.*), representative theorems per module:
 #print axioms PerpTheory.stdize_inv
 #print axioms PerpTheory.chebyshev_finite

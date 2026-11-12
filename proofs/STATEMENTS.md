@@ -9,7 +9,7 @@ compiler output, audit output) quoted in the linked issue/PR.
 | S1 | Analogy semantics: loss orientation, `AnalogyVector` with per-dimension breakdown, `PermanentMismatch` non-scored by construction | `Analog/Semantics.lean` | **frozen + Lean-clean** (definitions + dominance/frontier lemmas; build and axiom audit in scaffold commit) |
 | S5 | Body coherence: `TargetEnvelope` same type for Moon/Mars | `Analog/Semantics.lean` | **frozen + Lean-clean** (by construction; no theorem needed beyond the type) |
 | S2 (generic) | Screening exactness for CVaR / worst-realisation objectives | `Analog/Screening.lean` (`cvar_screening_exact`, `wr_screening_exact`) | **Lean-clean**, ported from owner's `FastOpt` (statements/proofs unchanged, namespace only) |
-| S2 (atlas) | Screening ⇒ eliminated Earth cell cannot reach the frontier under the declared weight family, over `Analog.Semantics` losses | `Analog/Atlas.lean` (`S2a_weight_mono`, `S2b_frontier_covers`, `S2c_no_unique_minimiser` as `def … : Prop`) | **statement candidate** (W1 PR; freezes on owner approval of that PR's semantics — not yet frozen, nothing proved) |
+| S2 (atlas) | Screening ⇒ eliminated Earth cell cannot reach the frontier under the declared weight family, over `Analog.Semantics` losses | `Analog/Atlas.lean` (`S2a_weight_mono`, `S2b_frontier_covers`, `S2c_no_unique_minimiser` as `def … : Prop`); proofs in `Analog/AtlasProofs.lean` | **Lean-clean** (statement frozen by owner approval via PR #11 merge `42cfe45`; theorems proved in `Analog/AtlasProofs.lean`, audited, standard axioms only) |
 | S3 (generic) | Suboptimality certificate bound from dual residual | `Analog/Certificate.lean` (`subopt_le`) | **Lean-clean** (ported as S2-generic) |
 | S3 (atlas) | Score certificates emitted by the Rust engine satisfy the `subopt_le` hypotheses | — | **proposed** (needs engine + certificate schema conformance) |
 | S4 | Pareto soundness: dominated ⇒ not frontier | `Analog/Semantics.lean` (`not_frontier_of_dominated`) | **Lean-clean** |
@@ -32,6 +32,13 @@ applied Mathlib renames are listed in doc 06 §3. The Ville→ExperimentGate
 chain remains **candidates** (preserved unimported, re-proof pending). Full
 dispositions:
 [`docs/research/06-lean-corpus-inventory.md`](/home/drew/cosmic-consultants/docs/research/06-lean-corpus-inventory.md).
+
+**W2 row (2026-11-13):** the three frozen S2-atlas statements are **proved**
+in `Analog/AtlasProofs.lean` (issue #3): the audit joins them on top of the
+prior corpus — 31 theorems total, all `[propext, Classical.choice,
+Quot.sound]`, RC=0, zero sorry. S2 screening-exactness is now Lean-clean at
+statement+proof level for the atlas; what remains for end-to-end exactness is
+execution-side: S3-atlas (engine emitters satisfy `subopt_le`'s hypotheses).
 
 File hashes at freeze time are recorded in git history (scaffold commit); a
 frozen file that changes gets a new statement ID and the old row is marked
