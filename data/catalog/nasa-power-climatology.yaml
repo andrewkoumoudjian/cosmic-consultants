@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: nasa-power-climatology
+title: "NASA POWER climatology point/regional API"
+status: candidate
+bodies: [earth]
+dimensions: [thermal, illumination]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA LaRC POWER"
+  endpoint: "https://power.larc.nasa.gov/api/temporal/climatology/point"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 1379 B, sha256 66317835294b…"
+probe:
+  kind: http
+  url: "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M_MIN,T2M_MAX,ALLSKY_SFC_SW_DWN&community=RE&longitude=-69.2&latitude=-23.5&format=JSON"
+  expect: ["T2M_MIN"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "POWER docs probed 2026-11-12 state no license; NASA-produced, cite POWER per its Referencing page."
+coverage:
+  spatial: "global"
+  temporal: "unverified: multi-decade climatology"
+  resolution: "unverified: 0.5 x 0.625 deg (MERRA-2 based) / 1 deg (CERES)"
+analysisReady: true
+independenceGroup: reanalysis
+plannedUse: "thermal gate 3: non-imagery second source (air temperature, reanalysis) per brief P2; insolation context"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

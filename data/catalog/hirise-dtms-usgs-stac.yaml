@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: hirise-dtms-usgs-stac
+title: "MRO HiRISE SOCET DTMs (USGS Astrogeology STAC)"
+status: candidate
+bodies: [mars]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology STAC"
+  endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "STAC mro_hirise_socet_dtms: HTTP 200, license CC0-1.0, items 1262"
+probe:
+  kind: stac
+  url: "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms"
+license:
+  id: cc0-1.0
+  textUrl: null
+  expect: ["\"license\": \"CC0-1.0\""]
+  verified: true
+  note: "license field of the USGS STAC collection record"
+coverage:
+  spatial: "targeted sites"
+  temporal: "MRO mission"
+  resolution: "unverified: 1-2 m/pixel"
+analysisReady: true
+independenceGroup: optical-stereo
+plannedUse: "Mars rover-scale roughness at candidate landing sites"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

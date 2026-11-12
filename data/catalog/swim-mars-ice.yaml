@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: swim-mars-ice
+title: "Subsurface Water Ice Mapping (SWIM) on Mars"
+status: candidate
+bodies: [mars]
+dimensions: [waterIce]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PSI SWIM project"
+  endpoint: "https://swim.psi.edu/"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 13418 B, sha256 3e264e6c5001…"
+probe:
+  kind: http
+  url: "https://swim.psi.edu/"
+  expect: ["Subsurface Water Ice Mapping"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "no license text; cite Morgan et al. 2021 Nature Astronomy"
+coverage:
+  spatial: "unverified: Mars mid-latitudes"
+  temporal: "SWIM 1.0/2.0"
+  resolution: "unverified: regional consistency maps"
+analysisReady: true
+independenceGroup: multi-instrument-synthesis
+plannedUse: "Mars waterIce envelope (ground ice consistency)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

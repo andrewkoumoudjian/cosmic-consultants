@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: tes-mgs
+title: "MGS TES data products (thermal inertia, albedo, dust opacity)"
+status: candidate
+bodies: [mars]
+dimensions: [thermal, surfaceMaterial, dustProcess]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/mgs/tes.html"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 27468 B, sha256 7b4e7ce99eec…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/missions/mgs/tes.html"
+  expect: ["TES"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "global Mars"
+  temporal: "unverified: 1997-2006"
+  resolution: "unverified: ~3 km footprint; gridded maps vary"
+analysisReady: false
+independenceGroup: thermal-spectrometer
+plannedUse: "Mars thermal/dust envelope; specific product (e.g. Putzig thermal inertia map) to pin in W5"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

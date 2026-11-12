@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mars-dust-climatology-lmd
+title: "Climatologies of the Martian Atmospheric Dust Optical Depth (Montabone et al.), MY24-MY36"
+status: candidate
+bodies: [mars]
+dimensions: [dustProcess]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "LMD (Mars Climate Database team)"
+  endpoint: "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html"
+  probedAt: 2026-11-12T21:38:49Z
+  probeResult: "HTTP 200, 12713 B, sha256 2a4ed4397a87…"
+probe:
+  kind: http
+  url: "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html"
+  expect: ["Martian year 24 to 36"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "no license text on page; cite Montabone et al. 2015 Icarus"
+coverage:
+  spatial: "global Mars"
+  temporal: "unverified: MY24-MY36 (1999-2022)"
+  resolution: "gridded, multi-instrument"
+analysisReady: true
+independenceGroup: multi-instrument-climatology
+plannedUse: "Mars dustProcess envelope: column dust optical depth seasonality"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

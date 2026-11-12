@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mola-hrsc-blended-dem
+title: "Mars MGS MOLA - MEX HRSC Blended DEM Global 200m v2"
+status: candidate
+bodies: [mars]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (Astropedia)"
+  endpoint: "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 36482 B, sha256 9309a442805b…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m"
+  expect: ["200 meters per pixel"]
+license:
+  id: cc0+cc-by-sa-3.0-igo
+  textUrl: null
+  expect: ["MOLA \\(CC0\\) and HRSC \\(CC BY-SA 3.0 IGO\\)"]
+  verified: true
+  note: "HRSC component is share-alike: derived rasters we redistribute must carry CC BY-SA 3.0 IGO"
+coverage:
+  spatial: "global Mars"
+  temporal: ""
+  resolution: "200 m/pixel"
+analysisReady: true
+independenceGroup: altimetry+stereo
+plannedUse: "Mars terrain envelope at 200 m"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

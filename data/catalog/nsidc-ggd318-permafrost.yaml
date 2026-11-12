@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: nsidc-ggd318-permafrost
+title: "Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2"
+status: candidate
+bodies: [earth]
+dimensions: [waterIce]
+discovery:
+  ckanName: null
+  doi: "10.7265/skbg-kf16"
+source:
+  archive: "NSIDC"
+  endpoint: "https://nsidc.org/data/ggd318/versions/2"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 111118 B, sha256 a08b15115ba8…"
+probe:
+  kind: http
+  url: "https://nsidc.org/data/ggd318/versions/2"
+  expect: ["Circum-Arctic Map of Permafrost"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "NSIDC citation policy probed; no explicit data license found for this record"
+coverage:
+  spatial: "northern hemisphere 28N-90N"
+  temporal: "static map"
+  resolution: "unverified: vector (1:10,000,000)"
+analysisReady: true
+independenceGroup: field-compiled-map
+plannedUse: "waterIce gate 3: non-imagery permafrost and ground-ice content map"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

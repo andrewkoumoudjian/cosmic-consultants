@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: glim-0p5deg
+title: "Global Lithological Map Database v1.0 (gridded to 0.5 deg), Hartmann & Moosdorf 2012"
+status: candidate
+bodies: [earth]
+dimensions: [surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: "10.1594/PANGAEA.788537"
+source:
+  archive: "PANGAEA"
+  endpoint: "https://doi.pangaea.de/10.1594/PANGAEA.788537"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 27662 B, sha256 3f99fe1da8a1…"
+probe:
+  kind: http
+  url: "https://doi.pangaea.de/10.1594/PANGAEA.788537"
+  expect: ["Global Lithological Map Database"]
+license:
+  id: cc-by-3.0
+  textUrl: null
+  expect: ["CC-BY-3.0"]
+  verified: true
+  note: "PANGAEA record states CC-BY-3.0; cite Hartmann & Moosdorf 2012, G3, doi:10.1029/2012GC004370"
+coverage:
+  spatial: "global land"
+  temporal: "static compilation"
+  resolution: "0.5 deg grid (vector original at higher resolution, separate record)"
+analysisReady: true
+independenceGroup: geologic-map
+plannedUse: "surfaceMaterial gate 3: non-imagery lithology (basic volcanics, carbonates, unconsolidated sediments) per brief P2"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

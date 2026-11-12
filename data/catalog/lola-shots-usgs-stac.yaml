@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lola-shots-usgs-stac
+title: "LOLA Shot Observations (USGS Astrogeology STAC)"
+status: candidate
+bodies: [moon]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology STAC"
+  endpoint: "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "STAC lunar_orbiter_laser_altimeter: HTTP 200, license CC0-1.0, items 288"
+probe:
+  kind: stac
+  url: "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter"
+license:
+  id: cc0-1.0
+  textUrl: null
+  expect: ["\"license\": \"CC0-1.0\""]
+  verified: true
+  note: "license field of the USGS STAC collection record"
+coverage:
+  spatial: "global Moon"
+  temporal: "LOLA mission"
+  resolution: "point shots"
+analysisReady: true
+independenceGroup: laser-altimetry
+plannedUse: "cloud-native access path to LOLA (same instrument as lola-gdr)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

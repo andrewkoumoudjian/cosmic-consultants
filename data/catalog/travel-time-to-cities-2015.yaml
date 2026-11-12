@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: travel-time-to-cities-2015
+title: "Global travel time to cities (accessibility), candidate source"
+status: unresolved
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "unresolved (Malaria Atlas Project / figshare)"
+  endpoint: "https://malariaatlas.org/project-resources/accessibility-to-cities/"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "HTTP 200, 61222 B, sha256 29513c14e8cc… \u2014 PROBE FAILED (expectation not met)"
+probe:
+  kind: http
+  url: "https://malariaatlas.org/project-resources/accessibility-to-cities/"
+  expect: ["accessibility to cities"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "MAP page redirected to accessibility-to-healthcare on 2026-11-12; figshare API (Nelson et al. 2019) returned 403 to scripted access. Needs manual resolution."
+coverage:
+  spatial: "global"
+  temporal: "unverified: 2015"
+  resolution: "unverified: ~1 km"
+analysisReady: false
+independenceGroup: model-access
+plannedUse: "operations gate 5: access cost for a field campaign"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

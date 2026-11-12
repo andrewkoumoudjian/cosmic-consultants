@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: themis-ir-controlled-mosaics
+title: "Mars Odyssey THEMIS IR controlled mosaics (STAC)"
+status: candidate
+bodies: [mars]
+dimensions: [thermal, surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology STAC"
+  endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics"
+  probedAt: 2026-11-12T21:38:50Z
+  probeResult: "STAC mo_themis_controlled_mosaics: HTTP 200, license CC0-1.0, items 56"
+probe:
+  kind: stac
+  url: "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics"
+license:
+  id: cc0-1.0
+  textUrl: null
+  expect: ["\"license\": \"CC0-1.0\""]
+  verified: true
+  note: "license field of the USGS STAC collection record"
+coverage:
+  spatial: "unverified: Mars quadrangles"
+  temporal: "Odyssey mission"
+  resolution: "unverified: 100 m/pixel"
+analysisReady: true
+independenceGroup: thermal-imager
+plannedUse: "Mars thermophysical character (day/night IR)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

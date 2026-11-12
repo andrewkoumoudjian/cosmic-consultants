@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: insight-weather-archive
+title: "InSight Mars Weather Service API (frozen 2018-2022 archive)"
+status: candidate
+bodies: [mars]
+dimensions: [thermal]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "api.nasa.gov"
+  endpoint: "https://api.nasa.gov/insight_weather/"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 36505 B, sha256 c5df364deee3…"
+probe:
+  kind: http
+  url: "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
+  expect: ["sol_keys"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "api.nasa.gov catalog gives no license for this entry"
+coverage:
+  spatial: "Elysium Planitia point"
+  temporal: "2018-2022 (lander retired)"
+  resolution: "per sol"
+analysisReady: true
+independenceGroup: in-situ
+plannedUse: "in-situ Mars ground truth for thermal envelope; always labelled as a frozen archive"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

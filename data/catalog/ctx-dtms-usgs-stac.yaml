@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: ctx-dtms-usgs-stac
+title: "MRO CTX controlled USGS DTMs (STAC)"
+status: candidate
+bodies: [mars]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology STAC"
+  endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms"
+  probedAt: 2026-11-12T21:38:47Z
+  probeResult: "STAC mro_ctx_controlled_usgs_dtms: HTTP 200, license CC0-1.0, items 44628"
+probe:
+  kind: stac
+  url: "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms"
+license:
+  id: cc0-1.0
+  textUrl: null
+  expect: ["\"license\": \"CC0-1.0\""]
+  verified: true
+  note: "license field of the USGS STAC collection record"
+coverage:
+  spatial: "targeted sites"
+  temporal: "MRO mission"
+  resolution: "unverified: ~20 m/pixel"
+analysisReady: true
+independenceGroup: optical-stereo
+plannedUse: "Mars site-scale slope, independent of MOLA"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

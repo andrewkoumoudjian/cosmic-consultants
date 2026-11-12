@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lamp
+title: "LRO LAMP (Lyman-Alpha Mapping Project) archive"
+status: candidate
+bodies: [moon]
+dimensions: [waterIce]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Imaging Node"
+  endpoint: "https://pds-imaging.jpl.nasa.gov/volumes/lro.html"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 193632 B, sha256 e849112f7665…"
+probe:
+  kind: http
+  url: "https://pds-imaging.jpl.nasa.gov/volumes/lro.html"
+  expect: ["Lyman-Alpha Mapping Project"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "unverified: global, PSR emphasis"
+  temporal: "2009-2025 releases"
+  resolution: "unverified: product-dependent"
+analysisReady: false
+independenceGroup: uv-spectrometer
+plannedUse: "Moon waterIce gate 3 (target side): surface frost in PSRs, independent of LEND"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mcs-mro
+title: "MRO Mars Climate Sounder archive"
+status: candidate
+bodies: [mars]
+dimensions: [thermal, dustProcess]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Atmospheres Node"
+  endpoint: "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html"
+  probedAt: 2026-11-12T21:38:49Z
+  probeResult: "HTTP 200, 70345 B, sha256 c3a8eab5de2d…"
+probe:
+  kind: http
+  url: "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html"
+  expect: ["Mars Climate Sounder"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "global Mars, atmospheric profiles"
+  temporal: "unverified: 2006-"
+  resolution: "profile-level"
+analysisReady: false
+independenceGroup: thermal-radiometer
+plannedUse: "Mars near-surface temperature and dust climatology (second source to TES)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

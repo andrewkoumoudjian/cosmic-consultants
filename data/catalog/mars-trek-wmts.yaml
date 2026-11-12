@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mars-trek-wmts
+title: "Mars Trek WMTS: MGS MOLA colour shaded relief 463m"
+status: candidate
+bodies: [mars]
+dimensions: []
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA Solar System Treks"
+  endpoint: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml"
+  probedAt: 2026-11-12T21:38:49Z
+  probeResult: "HTTP 200, 7040 B, sha256 2fb4722b5af0…, layers 1"
+probe:
+  kind: wmts
+  url: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml"
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "Trek pages state no license"
+coverage:
+  spatial: "global Mars"
+  temporal: ""
+  resolution: "463 m"
+analysisReady: true
+independenceGroup: visualization
+plannedUse: "Mars side panel basemap (P1)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

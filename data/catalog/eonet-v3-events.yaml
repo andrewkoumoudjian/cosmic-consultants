@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: eonet-v3-events
+title: "EONET v3 natural events (dust/haze, volcanoes, sea and lake ice)"
+status: candidate
+bodies: [earth]
+dimensions: [dustProcess]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA EONET"
+  endpoint: "https://eonet.gsfc.nasa.gov/api/v3/events"
+  probedAt: 2026-11-12T21:38:47Z
+  probeResult: "HTTP 200, 4469 B, sha256 a3e9c492a313…"
+probe:
+  kind: http
+  url: "https://eonet.gsfc.nasa.gov/api/v3/categories"
+  expect: ["dustHaze"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "no license statement on the API; NASA GSFC service"
+coverage:
+  spatial: "global, event points"
+  temporal: "unverified: curated events, recent years"
+  resolution: "event-level"
+analysisReady: true
+independenceGroup: event-catalog
+plannedUse: "dustProcess gate 3: independent event record of dust storms (non-raster, curated)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

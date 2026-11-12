@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lola-gdr
+title: "LRO LOLA Gridded Data Records (global LDEM)"
+status: candidate
+bodies: [moon]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/"
+  probedAt: 2026-11-12T21:38:48Z
+  probeResult: "HTTP 200, 582 B, sha256 b8146dff064c…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/"
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "global Moon"
+  temporal: "unverified: 2009-"
+  resolution: "unverified: 4-1024 ppd grids"
+analysisReady: false
+independenceGroup: laser-altimetry
+plannedUse: "Moon target envelope: slope/roughness distribution"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
