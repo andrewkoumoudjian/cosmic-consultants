@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/envelope.schema.json",
+  "title": "TargetEnvelope",
+  "description": "Body-tagged target envelope mirroring Analog.Semantics.TargetEnvelope + Envelope (S5: same schema for Moon and Mars), plus the declared weight family screening is certified over (S2-atlas). lo <= hi per dimension (Envelope.valid) is checked by validators, not expressible in JSON Schema.",
+  "type": "object",
+  "required": ["envelopeId", "body", "targetName", "dimensions", "weightFamily"],
+  "additionalProperties": false,
+  "properties": {
+    "envelopeId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "body": { "type": "string", "enum": ["moon", "mars"] },
+    "targetName": { "type": "string", "description": "e.g. Artemis south-polar candidate region name, or Mars reference landing zone" },
+    "dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dimension", "lo", "hi", "unit", "sourceDataset"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": ["terrain", "thermal", "illumination", "dustProcess", "waterIce", "surfaceMaterial", "subsurface", "operations"]
+          },
+          "lo": { "type": "number" },
+          "hi": { "type": "number" },
+          "unit": { "type": "string" },
+          "sourceDataset": { "type": "string", "description": "Registry datasetId this bound was derived from" }
+        }
+      }
+    },
+    "weightFamily": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "enum": ["simplex", "box", "cvarTail", "worstRealisation"] },
+        "parameters": { "type": "object" }
+      },
+      "description": "Declared family only; screening certificates are valid exactly over this family (Analog.Screening instantiations)."
+    }
+  }
+}

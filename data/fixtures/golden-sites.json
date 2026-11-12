@@ -1,0 +1,10 @@
+{
+  "description": "Validation fixtures (brief P4/P5). A correct screening run must RETAIN cells containing these coordinates for their named strong dimensions, and must flag their known breakdowns. They are calibration targets, never claimed discoveries. Coordinates are site centroids (WGS84), characterization pending registry datasets.",
+  "sites": [
+    { "siteId": "haughton-crater-ca", "name": "Haughton Impact Crater, Devon Island, Canada", "centroidLat": 75.3833, "centroidLon": -89.6667, "targetBody": "mars", "strongDimensions": ["terrain"], "expectedRetained": true },
+    { "siteId": "atacama-cl", "name": "Atacama Desert (core hyperarid zone), Chile", "centroidLat": -23.5, "centroidLon": -69.2, "targetBody": "mars", "strongDimensions": ["thermal", "dustProcess"], "expectedRetained": true },
+    { "siteId": "death-valley-us", "name": "Death Valley, California, USA", "centroidLat": 36.24, "centroidLon": -116.82, "targetBody": "mars", "strongDimensions": ["dustProcess", "surfaceMaterial"], "expectedRetained": true },
+    { "siteId": "mistastin-lake-ca", "name": "Mistastin Lake Impact Structure, Labrador, Canada", "centroidLat": 55.8833, "centroidLon": -63.3, "targetBody": "moon", "strongDimensions": ["terrain", "surfaceMaterial"], "expectedRetained": true },
+    { "siteId": "mcmurdo-dry-valleys-aq", "name": "McMurdo Dry Valleys, Antarctica", "centroidLat": -77.47, "centroidLon": 162.52, "targetBody": "mars", "strongDimensions": ["thermal", "waterIce"], "expectedRetained": true }
+  ]
+}

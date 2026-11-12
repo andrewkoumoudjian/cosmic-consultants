@@ -1,0 +1,24 @@
+# One file per adopted dataset: data/catalog/<datasetId>.yaml
+# Standard: docs/research/01 §4 and 05 §5. A row is accepted only after the
+# resolved source endpoint has been probed live (paste probe output in the PR).
+datasetId: example-id            # kebab-case, stable, ours
+title: ""
+bodies: []                       # earth | moon | mars
+dimensions: []                   # terrain|thermal|illumination|dustProcess|waterIce|surfaceMaterial|subsurface|operations
+discovery:
+  ckanName: null                 # data.nasa.gov package name, if found there
+  doi: null                      # e.g. https://doi.org/10.48322/...
+source:                          # RESOLVED archive, not the CKAN landing page
+  archive: ""                    # Earthdata | PDS <node> | USGS Astrogeology | Trek | ESA PSA | ...
+  endpoint: ""                   # STAC / WMTS / API URL actually fetched
+  probedAt: null                 # ISO date of live probe
+  probeResult: ""                # e.g. "200, 3,950 identifiers" (full output in PR)
+license:
+  id: ""                         # us-pd | cc-zero | other (with textUrl)
+  textUrl: null
+coverage:
+  spatial: ""
+  temporal: ""
+  resolution: ""
+analysisReady: false             # true only if machine-readable without bespoke volume tooling
+snapshotPolicy: ""               # what gets stored under data/snapshots/ and refresh cadence

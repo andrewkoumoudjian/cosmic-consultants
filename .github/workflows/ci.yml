@@ -1,0 +1,41 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lean:
+    name: Lean build + axiom audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan (pinned by proofs/lean-toolchain)
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: No sorry/admit in accepted modules
+        run: |
+          if grep -rnw -e sorry -e admit proofs/Analog --include='*.lean' | grep -v Audit.lean; then
+            echo '::error::sorry/admit found in proofs/Analog'; exit 1
+          fi
+      - name: Mathlib cache + build (return code is lake's)
+        working-directory: proofs
+        run: |
+          lake exe cache get
+          lake build
+      - name: Axiom audit (standard axioms only)
+        working-directory: proofs
+        run: |
+          lake env lean Analog/Audit.lean | tee /tmp/audit.txt
+          if grep -Ev 'depends on axioms: \[(propext, |Classical\.choice, |Quot\.sound|, )*\]|does not depend on any axioms' /tmp/audit.txt | grep -q .; then
+            echo '::error::non-standard axiom in audit output'; cat /tmp/audit.txt; exit 1
+          fi
+
+  contracts:
+    name: Contract schemas parse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JSON validity
+        run: python3 -c "import json,glob; [json.load(open(f)) for f in glob.glob('contracts/*.json') + glob.glob('data/fixtures/*.json')]; print('all contract/fixture JSON parses')"

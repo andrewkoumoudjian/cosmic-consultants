@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/certificate.schema.json",
+  "title": "RunCertificate",
+  "description": "Artifacts a screening/scoring run must emit so its claims are checkable against Analog.Screening (screening exactness) and Analog.Certificate.subopt_le (error bound). A run without a certificate publishes no scores (ADR-0001 experiment gate).",
+  "type": "object",
+  "required": ["runId", "envelopeId", "statementLedger", "screening", "snapshotHashes"],
+  "additionalProperties": false,
+  "properties": {
+    "runId": { "type": "string" },
+    "envelopeId": { "type": "string" },
+    "statementLedger": { "type": "string", "description": "Git commit of proofs/STATEMENTS.md + Analog/*.lean used" },
+    "screening": {
+      "type": "object",
+      "required": ["cellsTotal", "cellsRetained", "cellsEliminated", "readdedViolators", "exactnessCheckPassed"],
+      "additionalProperties": false,
+      "properties": {
+        "cellsTotal": { "type": "integer", "minimum": 0 },
+        "cellsRetained": { "type": "integer", "minimum": 0 },
+        "cellsEliminated": { "type": "integer", "minimum": 0 },
+        "readdedViolators": { "type": "integer", "minimum": 0 },
+        "exactnessCheckPassed": {
+          "type": "boolean",
+          "description": "The runtime checked the tightness/feasibility condition of the screening theorem (no dropped cell violates the threshold) before accepting the result"
+        }
+      }
+    },
+    "scoreBound": {
+      "type": ["object", "null"],
+      "required": ["dualTerm", "residualInfNorm", "boundValue"],
+      "additionalProperties": false,
+      "properties": {
+        "dualTerm": { "type": "number" },
+        "residualInfNorm": { "type": "number", "minimum": 0 },
+        "boundValue": { "type": "number", "minimum": 0 }
+      }
+    },
+    "snapshotHashes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["datasetId", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "datasetId": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    }
+  }
+}

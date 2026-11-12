@@ -1,0 +1,18 @@
+# Lean build artifacts (toolchain pinned; rebuild via lake exe cache get)
+proofs/.lake/
+# JS/TS
+node_modules/
+dist/
+.wrangler/
+# Rust
+target/
+# Python
+__pycache__/
+.venv/
+# Fetched dataset bytes: tracked manifests + hashes only, payloads stay local
+data/snapshots/*
+!data/snapshots/.gitkeep
+!data/snapshots/MANIFEST.json
+# Secrets (NASA API key lives in services/api env)
+.env
+.env.*

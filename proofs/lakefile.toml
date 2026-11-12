@@ -1,0 +1,9 @@
+name = "analog_proofs"
+defaultTargets = ["Analog"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+
+[[lean_lib]]
+name = "Analog"
