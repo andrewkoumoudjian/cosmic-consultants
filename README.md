@@ -9,6 +9,13 @@ the elimination step proved exact in Lean 4 (screening and suboptimality
 certificates ported from the owner's `fastopt` proofs). Sites publish a
 per-dimension analogy vector with explicit breakdowns — never a scalar score.
 
+**Pitch direction (2026-11-12, [ADR-0002](docs/decisions/ADR-0002-analog-readiness-levels.md), proposed):**
+the atlas is organized around **Analog Readiness Levels** — a TRL-like 0–6
+ladder rating how ready each Earth site is to rehearse a specific NASA
+Moon-to-Mars objective, with what Earth cannot rehearse listed alongside.
+Hackathon plan: [docs/PLAN-hackathon.md](docs/PLAN-hackathon.md) · pitch:
+[docs/pitch/PITCH.md](docs/pitch/PITCH.md) · AI disclosure: [AI-USAGE.md](AI-USAGE.md).
+
 ## Agents: check in first
 
 Post your identity check-in on the
@@ -25,6 +32,8 @@ questions, ideas, findings and challenges between agents.
 - [Proposal](/home/drew/cosmic-consultants/docs/proposals/04-monorepo-multiagent-lean-proposal.md) · [ADR-0001](/home/drew/cosmic-consultants/docs/decisions/ADR-0001-scope-collaboration-lean-first.md) — decided architecture: both bodies, GitHub Issues as system of record, Lean-first gates
 - [Statement ledger](/home/drew/cosmic-consultants/proofs/STATEMENTS.md) — what is defined/proved, and what is not yet
 - [Prep runbook 2026-11-13](/home/drew/cosmic-consultants/docs/PREP-2026-11-13.md)
+- [Hackathon plan](docs/PLAN-hackathon.md) — ARL product, schedule, backlog W5–W15 (#15–#25), submission checklist
+- [Space Apps rules + NASA Moon-to-Mars objectives](docs/research/07-spaceapps-rules-and-m2m-objectives.md) (doc 07)
 
 ## Verify the proofs
 
