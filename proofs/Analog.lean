@@ -3,7 +3,7 @@ import Analog.Screening
 import Analog.Certificate
 import Analog.Prior.Standardize
 import Analog.Prior.TailBounds
--- Analog.Prior.Cantelli deliberately NOT imported: pending re-proof under current Mathlib Lp/enorm API (see docs/research/06).
+import Analog.Prior.Cantelli
 import Analog.Prior.PIT
 import Analog.Prior.Estimation
 import Analog.Prior.Math222SimplexCertV2

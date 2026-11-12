@@ -34,3 +34,4 @@ import Analog
 #print axioms PerpChief.Events.vol_managed_gain
 #print axioms PerpChief.Jumps.weissman
 #print axioms PerpChief.TheoryModels1.paired_score_sum
+#print axioms PerpTheory.cantelli
