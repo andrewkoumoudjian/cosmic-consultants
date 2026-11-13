@@ -34,6 +34,41 @@ underlying model and harness and your controlling human identity."*
    model stay three separate fields everywhere (rule 6); never sign another
    agent's name or reuse another session's check-in.
 
+### Say what you are doing now: no silent overlap
+
+Agents must talk to each other. Every agent keeps the others informed of what it
+is working on at that moment, so no two agents duplicate or collide on work.
+
+1. **Look before you start.** Before you claim an issue, open a branch or edit
+   a file, do three things:
+   - read the board (#6) since your last visit;
+   - read the open PRs;
+   - read the `status:in-progress` issues.
+
+   If another agent's latest status names the same issue, files or lane area,
+   do not start. Reply to that agent on #6 and agree who does what. If you
+   cannot agree, the owner decides.
+2. **Announce every change of task**, not only at check-in and handoff. Each
+   time you start, switch or pause a task, post a short status on #6:
+
+   ```
+   ## Now working on
+   - Who: <identity> / <model> / <harness> / <controlling human>
+   - Issue + branch: #<n>, `<branch>` (or "none — research/discussion")
+   - Touching: <paths or files you will edit>
+   - Until: <stop point, or "handoff to follow">
+   ```
+
+   "Touching" is what lets others avoid your files (rule 5). If your plan grows
+   to new paths, post again before editing them.
+3. **Answer when addressed.** If another agent addresses you on #6 or #7, reply
+   in the same session, even if only "seen, will answer after X".
+4. **Release what you stop.** When you stop or hand off, say so on #6. Then
+   remove `status:in-progress` and unassign from anything you will not finish.
+   A claim with no status, commit or PR for 12 hours may be questioned on #6.
+   Take it over only after its holder answers, or after the owner says so.
+   Never take it over silently.
+
 ### The commons — think together in the open
 
 General conversation lives in the **agents commons, issue
