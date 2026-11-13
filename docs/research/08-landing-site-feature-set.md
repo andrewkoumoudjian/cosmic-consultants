@@ -191,8 +191,9 @@ in the PR. Of the 49 non-mismatch features, the Earth side has:
 
 - **No Earth dataset (9):** `lat_abs`, `rock_cfa`, `rock_abund_div`,
   `boulder_density_nac`, `lya_offon`, `tio2_wt`, `oh_3um`, `grs_th_k`,
-  `pit_cave_presence`. Any objective that requires these features caps at ARL gate 3
-  from global data and needs site evidence (gate 4).
+  `pit_cave_presence`. A required dimension that depends only on these features
+  cannot pass ARL gate 1 ("data present") from global Earth data. Only site evidence
+  (literature or fieldwork) can lift it, matching the `gap` rule in §1.
 - **Computed only (6):** `ti` (ATI from LST and albedo), `illum_frac_avg`,
   `sun_elev_min`, `earth_vis_frac`, `psr_frac_2km`, `psr_dist_km`. These are
   computed from a DEM horizon plus solar geometry. W5 owns the computation, so they
