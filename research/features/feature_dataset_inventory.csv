@@ -1,0 +1,164 @@
+feature_id,family,dimension,earth_match,side,dataset_id,role,dataset_bodies,independence_group,licence_id,licence_verified,registry_status,coverage_spatial,resolution,note
+slope_2_5km,engineering,terrain,direct,target,mola-megdr,primary,mars,laser-altimetry,us-pd,True,candidate,global Mars,unverified: 128 ppd (~463 m),
+slope_2_5km,engineering,terrain,direct,target,mola-hrsc-blended-dem,secondary,mars,altimetry+stereo,cc0+cc-by-sa-3.0-igo,True,candidate,global Mars,200 m/pixel,
+slope_2_5km,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_2_5km,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_2_5km,engineering,terrain,direct,earth,aster-gdem-v3,secondary,earth,optical-stereo,cc0,True,candidate,unverified: global land 83N-83S,1 arc-second (~30 m),
+slope_200_500m,engineering,terrain,direct,target,mola-megdr,primary,mars,laser-altimetry,us-pd,True,candidate,global Mars,unverified: 128 ppd (~463 m),~463 m posting: at the limit of the baseline
+slope_200_500m,engineering,terrain,direct,target,ctx-dtms-usgs-stac,primary,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: ~20 m/pixel,local DTMs only
+slope_200_500m,engineering,terrain,direct,target,mola-hrsc-blended-dem,secondary,mars,altimetry+stereo,cc0+cc-by-sa-3.0-igo,True,candidate,global Mars,200 m/pixel,
+slope_200_500m,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_200_500m,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_20_40m,engineering,terrain,direct,target,ctx-dtms-usgs-stac,primary,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: ~20 m/pixel,
+slope_20_40m,engineering,terrain,direct,target,hirise-dtms-usgs-stac,secondary,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: 1-2 m/pixel,
+slope_20_40m,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_20_40m,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_20_40m,engineering,terrain,direct,earth,arcticdem,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",polar only (>60N)
+slope_20_40m,engineering,terrain,direct,earth,rema,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",Antarctica only
+slope_5m,engineering,terrain,direct,target,hirise-dtms-usgs-stac,primary,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: 1-2 m/pixel,
+slope_5m,engineering,terrain,direct,earth,arcticdem,primary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser","2 m strips, >60N only"
+slope_5m,engineering,terrain,direct,earth,rema,primary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser","2 m strips, Antarctica only"
+slope_100m,engineering,terrain,direct,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",
+slope_100m,engineering,terrain,direct,target,kaguya-tc-dtm-southpolar,secondary,moon,optical-stereo,cc0-1.0,True,candidate,lunar south polar,unverified: DTM tiles,independent optical-stereo cross-check
+slope_100m,engineering,terrain,direct,target,lola-gdr,secondary,moon,laser-altimetry,us-pd,True,candidate,global Moon,unverified: 4-1024 ppd grids,
+slope_100m,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_100m,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_100m,engineering,terrain,direct,earth,arcticdem,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",polar only (>60N)
+slope_100m,engineering,terrain,direct,earth,rema,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",Antarctica only
+slope_2km_eva,engineering,terrain,direct,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",
+slope_2km_eva,engineering,terrain,direct,target,lola-gdr,secondary,moon,laser-altimetry,us-pd,True,candidate,global Moon,unverified: 4-1024 ppd grids,
+slope_2km_eva,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_2km_eva,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_trav_mean,engineering,terrain,direct,target,hirise-dtms-usgs-stac,primary,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: 1-2 m/pixel,Mars
+slope_trav_mean,engineering,terrain,direct,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",Moon
+slope_trav_mean,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+slope_trav_mean,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+slope_trav_mean,engineering,terrain,direct,earth,arcticdem,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",polar only (>60N)
+slope_trav_mean,engineering,terrain,direct,earth,rema,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",Antarctica only
+rough_rms_lola,engineering,terrain,direct,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",ROUGH products
+rough_rms_lola,engineering,terrain,direct,target,lola-shots-usgs-stac,secondary,moon,laser-altimetry,cc0-1.0,True,candidate,global Moon,point shots,per-shot roughness
+rough_rms_lola,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+rough_rms_lola,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+rough_rms_lola,engineering,terrain,direct,earth,arcticdem,secondary,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",2 m: allows matching LOLA baselines in the Arctic
+relief_ellipse,engineering,terrain,direct,target,mola-megdr,primary,mars,laser-altimetry,us-pd,True,candidate,global Mars,unverified: 128 ppd (~463 m),Mars
+relief_ellipse,engineering,terrain,direct,target,lola-gdr,primary,moon,laser-altimetry,us-pd,True,candidate,global Moon,unverified: 4-1024 ppd grids,Moon
+relief_ellipse,engineering,terrain,direct,earth,nasadem-hgt,primary,earth,srtm-radar,cc0,True,candidate,global land 60N-56S (SRTM footprint),1 arc-second (~30 m),"60N-56S only; mixed lineage: SRTM radar void-filled with ASTER GDEM / AW3D30, ICESat control; NUM layer gives per-pixel source (#7)"
+relief_ellipse,engineering,terrain,direct,earth,copernicus-dem-glo30,primary,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+elev_areoid,engineering,operations,mismatch,target,mola-megdr,primary,mars,laser-altimetry,us-pd,True,candidate,global Mars,unverified: 128 ppd (~463 m),
+lat_abs,engineering,operations,proxy,-,,,,,,,,,,no registry dataset (see feature notes)
+rock_cfa,engineering,terrain,gap,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,TES rock abundance (Nowicki & Christensen)
+rock_cfa,engineering,terrain,gap,target,hirise-dtms-usgs-stac,context,mars,optical-stereo,cc0-1.0,True,candidate,targeted sites,unverified: 1-2 m/pixel,orthoimages for counts
+rock_abund_div,engineering,terrain,gap,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),
+boulder_density_nac,engineering,terrain,gap,target,lroc-nac-boulders-watkins,primary,moon,boulder-catalogue,unresolved,False,candidate,unverified: selected sites,NAC (0.5 m-class) mapped boulders,Moon: NAC boulder database
+boulder_density_nac,engineering,terrain,gap,target,lroc-wac-global,context,moon,visualization,us-pd,True,candidate,global Moon,unverified: 100 m/pixel class,
+ti,thermophysical,thermal,proxy,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,
+ti,thermophysical,thermal,proxy,target,themis-ir-controlled-mosaics,secondary,mars,thermal-imager,cc0-1.0,True,candidate,unverified: Mars quadrangles,unverified: 100 m/pixel,"100 m; mosaics are brightness, TI needs the derived product"
+ti,thermophysical,thermal,proxy,earth,modis-mod11c3,derived-input,earth,modis-tir,cc0,True,candidate,global,0.05 deg (~5.6 km),day/night LST (Terra) for ATI
+ti,thermophysical,thermal,proxy,earth,modis-myd11c3,derived-input,earth,modis-tir,cc0,True,candidate,global,0.05 deg,day/night LST (Aqua); same MOD11 algorithm family
+ti,thermophysical,thermal,proxy,earth,modis-mcd43c3-albedo,derived-input,earth,modis-vnir,cc0,True,candidate,global,0.05 deg,albedo term of ATI
+albedo,thermophysical,surfaceMaterial,direct,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,Mars
+albedo,thermophysical,surfaceMaterial,direct,target,lroc-wac-global,primary,moon,visualization,us-pd,True,candidate,global Moon,unverified: 100 m/pixel class,"Moon (normalized reflectance, not bolometric)"
+albedo,thermophysical,surfaceMaterial,direct,earth,modis-mcd43c3-albedo,primary,earth,modis-vnir,cc0,True,candidate,global,0.05 deg,0.05 deg climate-modelling grid
+albedo,thermophysical,surfaceMaterial,direct,earth,modis-mcd43a3-albedo,secondary,earth,modis-vnir,cc0,True,candidate,global,500 m,500 m
+dust_cover_index,thermophysical,dustProcess,proxy,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,
+dust_cover_index,thermophysical,dustProcess,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"dust-source mineralogy; sunlit acquisitions ~52N-52S, not wall-to-wall (#7)"
+dust_cover_index,thermophysical,dustProcess,proxy,earth,modis-mod44b,secondary,earth,modis-vnir,cc0,True,candidate,global,250 m,bare-ground fraction
+radar_ka_backscatter,engineering,operations,proxy,earth,alos-palsar-rtc-high,primary,earth,l-band-sar,asf-alos-palsar-rtc-eula,True,candidate,regional scenes,12.5 m,"L-band, not Ka"
+cpr_minirf,composition,waterIce,weak,target,minirf-pds,primary,moon,s-band-sar,us-pd,True,candidate,global mosaics + targeted,unverified: ~30 m,
+cpr_minirf,composition,waterIce,weak,earth,alos-palsar-rtc-high,primary,earth,l-band-sar,asf-alos-palsar-rtc-eula,True,candidate,regional scenes,12.5 m,linear polarization only
+regolith_thick,engineering,subsurface,proxy,earth,soilgrids,primary,earth,model-soil,cc-by-4.0,True,candidate,global land,250 m,modelled depth to bedrock
+wind_h_edl,environment,operations,proxy,earth,merra2-m2t1nxslv,primary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,hourly 10 m / 50 m wind
+wind_h_edl,environment,operations,proxy,earth,merra2-m2tmnxslv,secondary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,monthly means
+wind_v_edl,environment,operations,mismatch,-,,,,,,,,,,no registry dataset (see feature notes)
+cdod_ann,environment,dustProcess,direct,target,mars-dust-climatology-lmd,primary,mars,multi-instrument-climatology,cc-by-sa-3.0,True,candidate,global Mars,"gridded, multi-instrument",
+cdod_ann,environment,dustProcess,direct,target,mcs-mro,secondary,mars,thermal-radiometer,us-pd,True,candidate,"global Mars, atmospheric profiles",profile-level,MCS dust profiles feed the climatology: not independent of it
+cdod_ann,environment,dustProcess,direct,earth,merra2-m2tmnxaer,primary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,DUEXTTAU
+cdod_storm_freq,environment,dustProcess,proxy,target,mars-dust-climatology-lmd,primary,mars,multi-instrument-climatology,cc-by-sa-3.0,True,candidate,global Mars,"gridded, multi-instrument",
+cdod_storm_freq,environment,dustProcess,proxy,earth,merra2-m2tmnxaer,primary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,
+cdod_storm_freq,environment,dustProcess,proxy,earth,eonet-v3-events,secondary,earth,event-catalog,unresolved,False,candidate,"global, event points",event-level,"dustHaze events; event catalogue, not a field"
+tsurf_max,environment,thermal,direct,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),Moon
+tsurf_max,environment,thermal,direct,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,Mars
+tsurf_max,environment,thermal,direct,target,themis-ir-controlled-mosaics,secondary,mars,thermal-imager,cc0-1.0,True,candidate,unverified: Mars quadrangles,unverified: 100 m/pixel,
+tsurf_max,environment,thermal,direct,target,insight-weather-archive,context,mars,in-situ,unresolved,False,candidate,Elysium Planitia point,per sol,"single site, air not surface"
+tsurf_max,environment,thermal,direct,earth,modis-mod11c1-daily,primary,earth,modis-tir,cc0,True,candidate,global,0.05 deg,observed daily clear-sky extremes (#7: monthly LST is an average)
+tsurf_max,environment,thermal,direct,earth,modis-mod21c3,secondary,earth,modis-tir,cc0,True,candidate,global,0.05 deg,"TES-algorithm LST; same sensor as MOD11, different retrieval"
+tsurf_max,environment,thermal,direct,earth,merra2-m2t1nxslv,secondary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,reanalysis TS: independent of MODIS (all-sky)
+tsurf_min,environment,thermal,direct,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),Moon
+tsurf_min,environment,thermal,direct,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,Mars
+tsurf_min,environment,thermal,direct,earth,modis-mod11c1-daily,primary,earth,modis-tir,cc0,True,candidate,global,0.05 deg,observed daily clear-sky extremes
+tsurf_min,environment,thermal,direct,earth,merra2-m2t1nxslv,secondary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,reanalysis TS
+tsurf_range,environment,thermal,direct,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),Moon
+tsurf_range,environment,thermal,direct,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,Mars
+tsurf_range,environment,thermal,direct,earth,modis-mod11c1-daily,primary,earth,modis-tir,cc0,True,candidate,global,0.05 deg,day minus night from the same day
+tsurf_range,environment,thermal,direct,earth,modis-myd11c3,secondary,earth,modis-tir,cc0,True,candidate,global,0.05 deg,"Aqua 01:30/13:30 overpass, monthly"
+tsurf_range,environment,thermal,direct,earth,merra2-m2t1nxslv,secondary,earth,reanalysis,cc0,True,candidate,global,0.5 x 0.625 deg,hourly TS gives the full diurnal cycle
+tsurf_ann_max_psr,volatiles,waterIce,mismatch,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),Polar Resource Product
+illum_frac_avg,illumination,illumination,proxy,target,lola-polar-illumination,primary,moon,illumination-model,unresolved,False,candidate,lunar polar regions,unverified: 240 m and finer updates,
+illum_frac_avg,illumination,illumination,proxy,earth,copernicus-dem-glo30,derived-input,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,horizon for computed solar geometry
+illum_frac_avg,illumination,illumination,proxy,earth,arcticdem,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",horizon for computed solar geometry
+illum_frac_avg,illumination,illumination,proxy,earth,rema,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",horizon for computed solar geometry
+sun_elev_min,illumination,illumination,direct,target,lola-polar-illumination,primary,moon,illumination-model,unresolved,False,candidate,lunar polar regions,unverified: 240 m and finer updates,
+sun_elev_min,illumination,illumination,direct,earth,copernicus-dem-glo30,derived-input,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,horizon for computed solar geometry
+sun_elev_min,illumination,illumination,direct,earth,arcticdem,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",horizon for computed solar geometry
+sun_elev_min,illumination,illumination,direct,earth,rema,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",horizon for computed solar geometry
+earth_vis_frac,illumination,operations,weak,target,lola-south-pole-ldem-2023,derived-input,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",horizon model input
+earth_vis_frac,illumination,operations,weak,earth,copernicus-dem-glo30,derived-input,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,terrain masking only
+psr_frac_2km,volatiles,waterIce,proxy,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",LPSR layer
+psr_frac_2km,volatiles,waterIce,proxy,earth,copernicus-dem-glo30,derived-input,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,topographic shadow computed from DEM
+psr_frac_2km,volatiles,waterIce,proxy,earth,arcticdem,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",topographic shadow computed from DEM
+psr_frac_2km,volatiles,waterIce,proxy,earth,rema,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",topographic shadow computed from DEM
+psr_dist_km,volatiles,waterIce,proxy,target,lola-south-pole-ldem-2023,primary,moon,laser-altimetry,citation-required-no-license-stated,True,candidate,unverified: lunar south pole to 60S (product-dependent),"5-60 m per pixel, COGs",LPSR layer
+psr_dist_km,volatiles,waterIce,proxy,earth,copernicus-dem-glo30,derived-input,earth,tandemx-radar,copernicus-dem-licence,True,candidate,global,unverified: 30 m,
+psr_dist_km,volatiles,waterIce,proxy,earth,arcticdem,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Arctic (north of ~60N),"2 m (strips), mosaics coarser",
+psr_dist_km,volatiles,waterIce,proxy,earth,rema,derived-input,earth,optical-stereo-hr,cc-by-4.0,True,candidate,Antarctica,"2 m (strips), mosaics coarser",
+ice_stab_depth,volatiles,waterIce,weak,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),Moon PRP
+ice_stab_depth,volatiles,waterIce,weak,target,swim-mars-ice,primary,mars,multi-instrument-synthesis,unresolved,False,candidate,unverified: Mars mid-latitudes,unverified: regional consistency maps,Mars
+ice_stab_depth,volatiles,waterIce,weak,earth,esa-cci-permafrost-extent-nh,primary,earth,model-lst-driven,esa-cci-permafrost-terms,True,candidate,northern hemisphere,1 km,"permafrost probability, NOT ice-table depth (#7)"
+ice_stab_depth,volatiles,waterIce,weak,earth,esa-cci-permafrost-extent-antarctica,primary,earth,model-lst-driven,esa-cci-permafrost-terms,True,candidate,unverified: Antarctica ice-free areas,unverified: 1 km,same caveat
+ice_stab_depth,volatiles,waterIce,weak,earth,nsidc-ggd318-permafrost,secondary,earth,field-compiled-map,unresolved,False,candidate,northern hemisphere 28N-90N,"unverified: vector (1:10,000,000)","ground-ice content class, not depth"
+h_wt_neutron,volatiles,waterIce,weak,target,lend,primary,moon,neutron,us-pd,True,candidate,"global, polar emphasis",unverified: tens of km (collimated),Moon
+h_wt_neutron,volatiles,waterIce,weak,target,ody-grs-pds,primary,mars,gamma-neutron,unresolved,False,candidate,global Mars (mid/low latitudes for elements),unverified: ~5 deg bins,Mars (GRS suite incl. neutron spectrometer)
+h_wt_neutron,volatiles,waterIce,weak,target,lp-grs-pds,secondary,moon,gamma-neutron,us-pd,True,candidate,global Moon,unverified: ~0.5-5 deg,Moon elemental context
+h_wt_neutron,volatiles,waterIce,weak,earth,nsidc-ggd318-permafrost,primary,earth,field-compiled-map,unresolved,False,candidate,northern hemisphere 28N-90N,"unverified: vector (1:10,000,000)",ground-ice content class
+h_wt_neutron,volatiles,waterIce,weak,earth,smap-spl3smp-e,secondary,earth,l-band-radiometer,cc0,True,candidate,global,9 km,top ~5 cm soil moisture only
+lya_offon,volatiles,waterIce,gap,target,lamp,primary,moon,uv-spectrometer,us-pd,True,candidate,"unverified: global, PSR emphasis",unverified: product-dependent,
+ice_consistency_swim,volatiles,waterIce,proxy,target,swim-mars-ice,primary,mars,multi-instrument-synthesis,unresolved,False,candidate,unverified: Mars mid-latitudes,unverified: regional consistency maps,
+ice_consistency_swim,volatiles,waterIce,proxy,earth,nsidc-ggd318-permafrost,primary,earth,field-compiled-map,unresolved,False,candidate,northern hemisphere 28N-90N,"unverified: vector (1:10,000,000)",
+ice_consistency_swim,volatiles,waterIce,proxy,earth,esa-cci-permafrost-extent-nh,secondary,earth,model-lst-driven,esa-cci-permafrost-terms,True,candidate,northern hemisphere,1 km,
+feo_wt,composition,surfaceMaterial,proxy,target,kaguya-mi-59mpp,primary,moon,vnir-multiband,jaxa-conditions,True,candidate,unverified: 50S-50N (search-result statement; topographic-shading limit),59 m/pixel (resampled from 15 m),UV-VIS Lucey-method input
+feo_wt,composition,surfaceMaterial,proxy,target,lp-grs-pds,secondary,moon,gamma-neutron,us-pd,True,candidate,global Moon,unverified: ~0.5-5 deg,"GRS Fe, ~100s km"
+feo_wt,composition,surfaceMaterial,proxy,earth,aster-ged-ag100,primary,earth,aster-tir,cc0,True,candidate,global land,100 m,TIR emissivity mafic proxy
+feo_wt,composition,surfaceMaterial,proxy,earth,glim-0p5deg,secondary,earth,geologic-map,cc-by-3.0,True,candidate,global land,"0.5 deg grid (vector original at higher resolution, separate record)",lithology class
+tio2_wt,composition,surfaceMaterial,gap,target,kaguya-mi-59mpp,primary,moon,vnir-multiband,jaxa-conditions,True,candidate,unverified: 50S-50N (search-result statement; topographic-shading limit),59 m/pixel (resampled from 15 m),
+tio2_wt,composition,surfaceMaterial,gap,target,lroc-wac-global,context,moon,visualization,us-pd,True,candidate,global Moon,unverified: 100 m/pixel class,
+mafic_bd_1um,composition,surfaceMaterial,proxy,target,m3-pds,primary,moon,vswir-imaging-spectrometer,unresolved,False,candidate,near-global Moon,unverified: 140 m (global mode) - 70 m (target),Moon
+mafic_bd_1um,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,Mars: OLINDEX3 / LCPINDEX2 / HCPINDEX2
+mafic_bd_1um,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,~52N-52S sunlit acquisitions; selected-mineral band depths (#7)
+oh_3um,composition,waterIce,gap,target,m3-pds,primary,moon,vswir-imaging-spectrometer,unresolved,False,candidate,near-global Moon,unverified: 140 m (global mode) - 70 m (target),
+cf_position,composition,surfaceMaterial,proxy,target,diviner-l4,primary,moon,thermal-radiometer,us-pd,True,candidate,global + polar,unverified: product-dependent (polar 240 m-class),
+cf_position,composition,surfaceMaterial,proxy,earth,aster-ged-ag100,primary,earth,aster-tir,cc0,True,candidate,global land,100 m,5-band emissivity: not a spectrum (#7)
+tes_mineral_frac,composition,surfaceMaterial,proxy,target,tes-mgs,primary,mars,thermal-spectrometer,us-pd,True,candidate,global Mars,unverified: ~3 km footprint; gridded maps vary,
+tes_mineral_frac,composition,surfaceMaterial,proxy,earth,aster-ged-ag100,primary,earth,aster-tir,cc0,True,candidate,global land,100 m,5 bands cannot be unmixed like TES (#7)
+crism_hydration,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,BD1900_2
+crism_hydration,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
+crism_fe_mg_smectite,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,D2300
+crism_fe_mg_smectite,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
+crism_al_oh,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,BD2210_2
+crism_al_oh,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
+crism_sulfate,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,SINDEX2
+crism_sulfate,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
+crism_carbonate,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,MIN2295_2480; MIN2345_2537; BD2500_2
+crism_carbonate,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
+grs_th_k,composition,surfaceMaterial,gap,target,lp-grs-pds,primary,moon,gamma-neutron,us-pd,True,candidate,global Moon,unverified: ~0.5-5 deg,Moon
+grs_th_k,composition,surfaceMaterial,gap,target,ody-grs-pds,primary,mars,gamma-neutron,unresolved,False,candidate,global Mars (mid/low latitudes for elements),unverified: ~5 deg bins,Mars
+geo_unit,context,surfaceMaterial,proxy,target,unified-geologic-map-moon,primary,moon,geologic-map,cc0,True,candidate,global Moon,"1:5,000,000",Moon 1:5M
+geo_unit,context,surfaceMaterial,proxy,target,mars-geologic-map-sim3292,primary,mars,geologic-map,unresolved,False,candidate,global Mars,"1:20,000,000",Mars 1:20M
+geo_unit,context,surfaceMaterial,proxy,earth,glim-0p5deg,primary,earth,geologic-map,cc-by-3.0,True,candidate,global land,"0.5 deg grid (vector original at higher resolution, separate record)",
+crater_density,context,terrain,weak,target,robbins-moon-craters,primary,moon,crater-catalogue,unresolved,False,candidate,global Moon,craters >~1-2 km,
+crater_density,context,terrain,weak,target,robbins-mars-craters,primary,mars,crater-catalogue,unresolved,False,candidate,global Mars,craters >= ~1 km,
+crater_density,context,terrain,weak,earth,earth-impact-database,primary,earth,impact-catalogue,unresolved,False,unresolved,"global, point catalogue",site-level,point catalogue; source currently unreachable
+pit_cave_presence,subsurface,subsurface,gap,target,lroc-pits-atlas,primary,moon,cave-catalogue,unresolved,False,candidate,global Moon,site-level,Moon
+pit_cave_presence,subsurface,subsurface,gap,target,mgc3-mars-caves,primary,mars,cave-catalogue,us-pd,True,candidate,global Mars,candidate points,Mars
+gravity,mismatch,permanentMismatch,mismatch,-,,,,,,,,,,no registry dataset (see feature notes)
+psurf,mismatch,permanentMismatch,mismatch,target,insight-weather-archive,context,mars,in-situ,unresolved,False,candidate,Elysium Planitia point,per sol,Mars pressure record; never scored
+radiation_dose,mismatch,permanentMismatch,mismatch,-,,,,,,,,,,no registry dataset (see feature notes)
