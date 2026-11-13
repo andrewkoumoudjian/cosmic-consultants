@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "PDS Imaging Node"
   endpoint: "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
-  probedAt: 2026-11-13T00:20:21Z
+  probedAt: 2026-11-13T04:03:29Z
   probeResult: "HTTP 200, 6960 B, sha256 2543dca3defa…"
 probe:
   kind: http
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  note: "Issue #41 rechecked the M3 volume page without establishing applicable reuse terms. A NASA/PDS host or another derived M3 product's licence is not a blanket grant for these volumes. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "near-global Moon"
   temporal: "2008-2009"

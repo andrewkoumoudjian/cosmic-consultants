@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "USGS Publications Warehouse"
   endpoint: "https://pubs.usgs.gov/publication/sim3292"
-  probedAt: 2026-11-13T00:20:22Z
-  probeResult: "HTTP 200, 83871 B, sha256 471f4d8f9f82…"
+  probedAt: 2026-11-13T04:03:29Z
+  probeResult: "HTTP 200, 83871 B, sha256 f02d847cfa48…"
 probe:
   kind: http
   url: "https://pubs.usgs.gov/publication/sim3292"
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "USGS publication; licence statement not found on the landing page"
+  note: "Issue #41 inspected the linked FGDC XML: access constraints None, use constraints please cite authors. This is not an explicit licence grant. Linked DOI 10.5066/P9PBKSGE describes an interactive map and has no rightsList entry. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "global Mars"
   temporal: "2014"

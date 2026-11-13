@@ -117,7 +117,7 @@ ice_stab_depth,volatiles,waterIce,weak,earth,esa-cci-permafrost-extent-nh,primar
 ice_stab_depth,volatiles,waterIce,weak,earth,esa-cci-permafrost-extent-antarctica,primary,earth,model-lst-driven,esa-cci-permafrost-terms,True,candidate,unverified: Antarctica ice-free areas,unverified: 1 km,same caveat
 ice_stab_depth,volatiles,waterIce,weak,earth,nsidc-ggd318-permafrost,secondary,earth,field-compiled-map,unresolved,False,candidate,northern hemisphere 28N-90N,"unverified: vector (1:10,000,000)","ground-ice content class, not depth"
 h_wt_neutron,volatiles,waterIce,weak,target,lend,primary,moon,neutron,us-pd,True,candidate,"global, polar emphasis",unverified: tens of km (collimated),Moon
-h_wt_neutron,volatiles,waterIce,weak,target,ody-grs-pds,primary,mars,gamma-neutron,unresolved,False,candidate,global Mars (mid/low latitudes for elements),unverified: ~5 deg bins,Mars (GRS suite incl. neutron spectrometer)
+h_wt_neutron,volatiles,waterIce,weak,target,ody-grs-pds,primary,mars,gamma-neutron,us-pd,True,candidate,Mars; non-radioactive species mask polar regions (not wall-to-wall valid coverage),"unsmoothed 2x2, 5x5, 10x10 degree bins; smoothed 5x5 degree bins",Mars (GRS suite incl. neutron spectrometer)
 h_wt_neutron,volatiles,waterIce,weak,target,lp-grs-pds,secondary,moon,gamma-neutron,us-pd,True,candidate,global Moon,unverified: ~0.5-5 deg,Moon elemental context
 h_wt_neutron,volatiles,waterIce,weak,earth,nsidc-ggd318-permafrost,primary,earth,field-compiled-map,unresolved,False,candidate,northern hemisphere 28N-90N,"unverified: vector (1:10,000,000)",ground-ice content class
 h_wt_neutron,volatiles,waterIce,weak,earth,smap-spl3smp-e,secondary,earth,l-band-radiometer,cc0,True,candidate,global,9 km,top ~5 cm soil moisture only
@@ -150,7 +150,7 @@ crism_sulfate,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,
 crism_carbonate,composition,surfaceMaterial,proxy,target,crism-mro,primary,mars,vnir-spectrometer,us-pd,True,candidate,targeted + mapping,unverified: 18-200 m/pixel,MIN2295_2480; MIN2345_2537; BD2500_2
 crism_carbonate,composition,surfaceMaterial,proxy,earth,emit-l2b-min-v002,primary,earth,vswir-imaging-spectrometer,cc0,True,candidate,"ISS orbit, ~52N-52S sunlit acquisitions (per #7 metadata check); not wall-to-wall",60 m,"selected-mineral feature depth, not a fixed index (#7); ~52N-52S"
 grs_th_k,composition,surfaceMaterial,gap,target,lp-grs-pds,primary,moon,gamma-neutron,us-pd,True,candidate,global Moon,unverified: ~0.5-5 deg,Moon
-grs_th_k,composition,surfaceMaterial,gap,target,ody-grs-pds,primary,mars,gamma-neutron,unresolved,False,candidate,global Mars (mid/low latitudes for elements),unverified: ~5 deg bins,Mars
+grs_th_k,composition,surfaceMaterial,gap,target,ody-grs-pds,primary,mars,gamma-neutron,us-pd,True,candidate,Mars; non-radioactive species mask polar regions (not wall-to-wall valid coverage),"unsmoothed 2x2, 5x5, 10x10 degree bins; smoothed 5x5 degree bins",Mars
 geo_unit,context,surfaceMaterial,proxy,target,unified-geologic-map-moon,primary,moon,geologic-map,cc0,True,candidate,global Moon,"1:5,000,000",Moon 1:5M
 geo_unit,context,surfaceMaterial,proxy,target,mars-geologic-map-sim3292,primary,mars,geologic-map,unresolved,False,candidate,global Mars,"1:20,000,000",Mars 1:20M
 geo_unit,context,surfaceMaterial,proxy,earth,glim-0p5deg,primary,earth,geologic-map,cc-by-3.0,True,candidate,global land,"0.5 deg grid (vector original at higher resolution, separate record)",

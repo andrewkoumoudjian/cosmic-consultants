@@ -32,7 +32,7 @@ Status values: `candidate` (probed, not yet adopted by a work order) · `restric
 | [modis-myd11c3](modis-myd11c3.yaml) | earth | thermal | Earthdata (LP DAAC, LPCLOUD) | candidate | cc0 | yes | CMR C2565794044-LPCLOUD: HTTP 200, MYD11C3 v061, DOI 10.5067/MODIS/MYD11C3.061, granules 292 |
 | [nasa-power-climatology](nasa-power-climatology.yaml) | earth | thermal, illumination | NASA LaRC POWER | candidate | unresolved | no | HTTP 200, 1379 B, sha256 cc42282c69d8… |
 | [nasadem-hgt](nasadem-hgt.yaml) | earth | terrain | Earthdata (LP DAAC, LPCLOUD) | candidate | cc0 | yes | CMR C2763264762-LPCLOUD: HTTP 200, NASADEM_HGT v001, DOI 10.5067/MEASURES/NASADEM/NASADEM_HGT.001, granules 14520 |
-| [nsidc-ggd318-permafrost](nsidc-ggd318-permafrost.yaml) | earth | waterIce | NSIDC | candidate | unresolved | no | HTTP 200, 111118 B, sha256 9485d55339c9… |
+| [nsidc-ggd318-permafrost](nsidc-ggd318-permafrost.yaml) | earth | waterIce | NSIDC | candidate | unresolved | no | HTTP 200, 111118 B, sha256 019cfc89158e… |
 | [rema](rema.yaml) | earth | terrain | Polar Geospatial Center via AWS Registry of Open Data | candidate | cc-by-4.0 | yes | HTTP 200, 11614 B, sha256 a04dde8186e5… |
 | [smap-spl3smp-e](smap-spl3smp-e.yaml) | earth | waterIce | Earthdata (NSIDC DAAC) | candidate | cc0 | yes | CMR C2938664763-NSIDC_CPRD: HTTP 200, SPL3SMP_E v006, DOI 10.5067/M20OXIZHY3RJ, granules 4166 |
 | [soilgrids](soilgrids.yaml) | earth | subsurface | ISRIC | candidate | cc-by-4.0 | yes | HTTP 200, 279476 B, sha256 e32f3952255b… |
@@ -43,13 +43,13 @@ Status values: `candidate` (probed, not yet adopted by a work order) · `restric
 | [hirise-dtms-usgs-stac](hirise-dtms-usgs-stac.yaml) | mars | terrain | USGS Astrogeology STAC | candidate | cc0-1.0 | yes | STAC mro_hirise_socet_dtms: HTTP 200, license CC0-1.0, items 1262 |
 | [insight-weather-archive](insight-weather-archive.yaml) | mars | thermal | api.nasa.gov | candidate | unresolved | no | HTTP 429, 174 B, sha256 3f95d2152942… — PROBE FAILED (HTTP 429) |
 | [mars-dust-climatology-lmd](mars-dust-climatology-lmd.yaml) | mars | dustProcess | LMD (Mars Climate Database team) | candidate | cc-by-sa-3.0 | yes | HTTP 200, 12713 B, sha256 2a4ed4397a87… |
-| [mars-geologic-map-sim3292](mars-geologic-map-sim3292.yaml) | mars | surfaceMaterial | USGS Publications Warehouse | candidate | unresolved | no | HTTP 200, 83871 B, sha256 471f4d8f9f82… |
+| [mars-geologic-map-sim3292](mars-geologic-map-sim3292.yaml) | mars | surfaceMaterial | USGS Publications Warehouse | candidate | unresolved | no | HTTP 200, 83871 B, sha256 f02d847cfa48… |
 | [mars-trek-wmts](mars-trek-wmts.yaml) | mars | — | NASA Solar System Treks | candidate | unresolved | no | HTTP 200, 7040 B, sha256 2fb4722b5af0…, layers 1 |
 | [mcs-mro](mcs-mro.yaml) | mars | thermal, dustProcess | PDS Atmospheres Node | candidate | us-pd | yes | HTTP 200, 70345 B, sha256 c3a8eab5de2d… |
 | [mgc3-mars-caves](mgc3-mars-caves.yaml) | mars | subsurface | USGS Astrogeology (Astropedia); PDS archive bundle | candidate | us-pd | yes | HTTP 200, 24560 B, sha256 ab8f70427c79… |
 | [mola-hrsc-blended-dem](mola-hrsc-blended-dem.yaml) | mars | terrain | USGS Astrogeology (Astropedia) | candidate | cc0+cc-by-sa-3.0-igo | yes | HTTP 200, 36482 B, sha256 c27c8dbc0b5e… |
 | [mola-megdr](mola-megdr.yaml) | mars | terrain | PDS Geosciences Node | candidate | us-pd | yes | HTTP 200, 12896 B, sha256 a5fb768fdf2a… |
-| [ody-grs-pds](ody-grs-pds.yaml) | mars | surfaceMaterial, waterIce | PDS Geosciences Node | candidate | unresolved | no | HTTP 200, 29231 B, sha256 81a37882aa26… |
+| [ody-grs-pds](ody-grs-pds.yaml) | mars | surfaceMaterial, waterIce | PDS Geosciences Node | candidate | us-pd | yes | HTTP 200, 27993 B, sha256 47474e2866ad… |
 | [robbins-mars-craters](robbins-mars-craters.yaml) | mars | terrain | USGS Astrogeology (pygeoapi) | candidate | unresolved | no | HTTP 200, 2950 B, sha256 1e89ec9cc43e… |
 | [swim-mars-ice](swim-mars-ice.yaml) | mars | waterIce | PSI SWIM project | candidate | unresolved | no | HTTP 200, 13418 B, sha256 3e264e6c5001… |
 | [tes-mgs](tes-mgs.yaml) | mars | thermal, surfaceMaterial, dustProcess | PDS Geosciences Node | candidate | us-pd | yes | HTTP 200, 27468 B, sha256 7b4e7ce99eec… |
@@ -64,11 +64,11 @@ Status values: `candidate` (probed, not yet adopted by a work order) · `restric
 | [lola-shots-usgs-stac](lola-shots-usgs-stac.yaml) | moon | terrain | USGS Astrogeology STAC | candidate | cc0-1.0 | yes | STAC lunar_orbiter_laser_altimeter: HTTP 200, license CC0-1.0, items 288 |
 | [lola-south-pole-ldem-2023](lola-south-pole-ldem-2023.yaml) | moon | terrain, illumination, waterIce | NASA GSFC PGDA | candidate | citation-required-no-license-stated | yes | HTTP 200, 30348 B, sha256 cd41983f4a9f… |
 | [lp-grs-pds](lp-grs-pds.yaml) | moon | surfaceMaterial, waterIce | PDS Geosciences Node | candidate | us-pd | yes | HTTP 200, 24306 B, sha256 9742a3163af1… |
-| [lroc-nac-boulders-watkins](lroc-nac-boulders-watkins.yaml) | moon | terrain | USGS Astrogeology (Astropedia) | candidate | unresolved | no | HTTP 200, 18873 B, sha256 cf68d0d4f08c… |
+| [lroc-nac-boulders-watkins](lroc-nac-boulders-watkins.yaml) | moon | terrain | USGS Astrogeology (Astropedia) | candidate | unresolved | no | HTTP 200, 18873 B, sha256 2e31feaf3b47… |
 | [lroc-pits-atlas](lroc-pits-atlas.yaml) | moon | subsurface | LROC (ASU) | candidate | unresolved | no | HTTP 200, 40605 B, sha256 74fb23d82359… |
 | [lroc-wac-global](lroc-wac-global.yaml) | moon | — | LROC (ASU) RDR | candidate | us-pd | yes | HTTP 200, 36654 B, sha256 0880337b772f… |
 | [m3-pds](m3-pds.yaml) | moon | surfaceMaterial, waterIce | PDS Imaging Node | candidate | unresolved | no | HTTP 200, 6960 B, sha256 2543dca3defa… |
 | [minirf-pds](minirf-pds.yaml) | moon | waterIce, terrain | PDS Geosciences Node | candidate | us-pd | yes | HTTP 200, 38682 B, sha256 6de9eac71b68… |
 | [moon-trek-wmts](moon-trek-wmts.yaml) | moon | — | NASA Solar System Treks | candidate | unresolved | no | HTTP 200, 7241 B, sha256 44ea74fb1697…, layers 1 |
-| [robbins-moon-craters](robbins-moon-craters.yaml) | moon | terrain | USGS Astrogeology (Astropedia) | candidate | unresolved | no | HTTP 200, 30423 B, sha256 1bbc71617adc… |
+| [robbins-moon-craters](robbins-moon-craters.yaml) | moon | terrain | USGS Astrogeology (Astropedia) | candidate | unresolved | no | HTTP 200, 30423 B, sha256 b6ff6d48038c… |
 | [unified-geologic-map-moon](unified-geologic-map-moon.yaml) | moon | surfaceMaterial | USGS Astrogeology (Astropedia) | candidate | cc0 | yes | HTTP 200, 26134 B, sha256 967908b8032a… |

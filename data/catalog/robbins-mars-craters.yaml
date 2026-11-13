@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology (pygeoapi)"
   endpoint: "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1"
-  probedAt: 2026-11-13T00:21:54Z
+  probedAt: 2026-11-13T04:03:29Z
   probeResult: "HTTP 200, 2950 B, sha256 1e89ec9cc43e…"
 probe:
   kind: http
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "collection metadata licence not yet read"
+  note: "Issue #41 read collection JSON: no licence/rights field; its canonical link points to a geologic-map image rather than an identified crater release. Do not inherit that image's terms. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "global Mars"
   temporal: ""

@@ -179,7 +179,7 @@ KINDS = {"cmr": probe_cmr, "stac": probe_stac, "http": probe_http, "wmts": probe
 
 
 def probe_row(path: pathlib.Path) -> dict:
-    row = yaml.safe_load(path.read_text())
+    row = yaml.safe_load(path.read_text(encoding="utf-8"))
     spec = row["probe"]
     res, summary, text = KINDS[spec["kind"]](spec)
     lic = row.get("license") or {}
@@ -194,19 +194,19 @@ def probe_row(path: pathlib.Path) -> dict:
         else:
             lic_ev = {"fetch": "row probe body", "matches": match_all(lic["expect"], text)}
     verified = bool(lic_ev) and all(lic_ev["matches"].values())
-    return {"datasetId": row["datasetId"], "file": str(path.relative_to(ROOT)),
+    return {"datasetId": row["datasetId"], "file": path.relative_to(ROOT).as_posix(),
             "probe": res, "summary": summary, "license": {"id": lic.get("id"), "verified": verified,
                                                           "evidence": lic_ev}}
 
 
 def write_back(path: pathlib.Path, entry: dict) -> None:
     """Rewrite only probe-owned scalar lines, preserving layout and comments."""
-    s = path.read_text()
+    s = path.read_text(encoding="utf-8")
     probed = entry["probe"]["fetches"][0].get("fetchedAt")
     s = re.sub(r"(?m)^(  probedAt:).*$", lambda m: f"{m.group(1)} {probed}", s, count=1)
     s = re.sub(r"(?m)^(  probeResult:).*$", lambda m: f"{m.group(1)} {json.dumps(entry['summary'], ensure_ascii=False)}", s, count=1)
     s = re.sub(r"(?m)^(  verified:).*$", lambda m: f"{m.group(1)} {str(entry['license']['verified']).lower()}", s, count=1)
-    path.write_text(s)
+    path.write_text(s, encoding="utf-8")
 
 
 def ckan_queues() -> dict:
@@ -261,16 +261,16 @@ def main() -> int:
     out = ROOT / "data" / "snapshots" / "registry-probes" / day
     out.mkdir(parents=True, exist_ok=True)
     log = {"generatedAt": now(), "tool": "scripts/registry_probe.py", "entries": entries}
-    (out / "probe-log.json").write_text(json.dumps(log, indent=1, default=str) + "\n")
+    (out / "probe-log.json").write_text(json.dumps(log, indent=1, default=str) + "\n", encoding="utf-8")
     for p, e in zip(paths, entries):
         write_back(p, e)
     if not a.only:
-        rows = {yaml.safe_load(p.read_text())["datasetId"]: yaml.safe_load(p.read_text()) for p in paths}
-        (CATALOG / "INDEX.md").write_text(index_md(entries, rows, day))
+        rows = {yaml.safe_load(p.read_text(encoding="utf-8"))["datasetId"]: yaml.safe_load(p.read_text(encoding="utf-8")) for p in paths}
+        (CATALOG / "INDEX.md").write_text(index_md(entries, rows, day), encoding="utf-8")
     if not a.no_ckan:
         q = {"generatedAt": now(), "source": CKAN, "note": "Ungraded triage queues (doc 05 §3). "
              "A record here is a lead, never a registry row.", "queues": ckan_queues()}
-        (out / "ckan-queues.json").write_text(json.dumps(q, indent=1) + "\n")
+        (out / "ckan-queues.json").write_text(json.dumps(q, indent=1) + "\n", encoding="utf-8")
     bad = [e for e in entries if not e["probe"].get("ok", True) or any(
         f.get("status") != 200 for f in e["probe"]["fetches"][:1])]
     for e in entries:
