@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mgc3-mars-caves
+title: "Mars Global Cave Candidate Catalog v1 (Cushing)"
+status: candidate
+bodies: [mars]
+dimensions: [subsurface]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (Astropedia); PDS archive bundle"
+  endpoint: "https://astrogeology.usgs.gov/search/map/mars_global_cave_candidate_catalog_v1_cushing"
+  probedAt: 2026-11-13T00:20:27Z
+  probeResult: "HTTP 200, 24560 B, sha256 ab8f70427c79…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/search/map/mars_global_cave_candidate_catalog_v1_cushing"
+  expect: ["Cave Candidate"]
+license:
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mars-global-cave-candidate-catalog-archive-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "mars-global-cave-candidate-catalog-archive-bundle"]
+  verified: true
+  note: "data.nasa.gov record mars-global-cave-candidate-catalog-archive-bundle declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
+coverage:
+  spatial: "global Mars"
+  temporal: "v1 (2017)"
+  resolution: "candidate points"
+analysisReady: true
+independenceGroup: cave-catalogue
+plannedUse: "pit_cave_presence (Mars)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: soilgrids
+title: "SoilGrids global gridded soil information (ISRIC)"
+status: candidate
+bodies: [earth]
+dimensions: [subsurface]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "ISRIC"
+  endpoint: "https://isric.org/explore/soilgrids"
+  probedAt: 2026-11-13T00:21:55Z
+  probeResult: "HTTP 200, 279476 B, sha256 e32f3952255b…"
+probe:
+  kind: http
+  url: "https://isric.org/explore/soilgrids"
+  expect: ["SoilGrids"]
+license:
+  id: cc-by-4.0
+  textUrl: "https://isric.org/explore/soilgrids"
+  expect: ["SoilGrids maps are publicly available on the SoilGrids website under the CC-BY 4.0 License"]
+  verified: true
+  note: "ISRIC SoilGrids page states the maps are CC-BY 4.0; attribution to ISRIC required (W3b, 2026-11-12)."
+coverage:
+  spatial: "global land"
+  temporal: "unverified: static"
+  resolution: "250 m"
+analysisReady: true
+independenceGroup: model-soil
+plannedUse: "regolith_thick counterpart (depth to bedrock), pending layer check"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

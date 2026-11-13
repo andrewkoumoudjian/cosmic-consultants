@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lroc-nac-boulders-watkins
+title: "Moon LRO LROC NAC Boulder Database v1 (Watkins)"
+status: candidate
+bodies: [moon]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (Astropedia)"
+  endpoint: "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins"
+  probedAt: 2026-11-13T00:20:21Z
+  probeResult: "HTTP 200, 18873 B, sha256 cf68d0d4f08c…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins"
+  expect: ["Boulder Database"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "no licence text on the Astropedia page"
+coverage:
+  spatial: "unverified: selected sites"
+  temporal: ""
+  resolution: "NAC (0.5 m-class) mapped boulders"
+analysisReady: true
+independenceGroup: boulder-catalogue
+plannedUse: "boulder_density_nac (Moon) at catalogued sites"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

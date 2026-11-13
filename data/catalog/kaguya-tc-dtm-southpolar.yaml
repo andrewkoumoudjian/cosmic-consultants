@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology STAC"
   endpoint: "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2_southpolar"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:20Z
   probeResult: "STAC kaguya_terrain_camera_usgs_dtms_v2_southpolar: HTTP 200, license CC0-1.0, items 19646"
 probe:
   kind: stac

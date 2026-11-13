@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lroc-pits-atlas
+title: "LROC Lunar Pits Atlas"
+status: candidate
+bodies: [moon]
+dimensions: [subsurface]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "LROC (ASU)"
+  endpoint: "https://www.lroc.im-ldi.com/atlases/pits"
+  probedAt: 2026-11-13T00:20:21Z
+  probeResult: "HTTP 200, 40605 B, sha256 74fb23d82359…"
+probe:
+  kind: http
+  url: "https://www.lroc.im-ldi.com/atlases/pits"
+  expect: ["Pits Atlas"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "LROC terms not stated on page"
+coverage:
+  spatial: "global Moon"
+  temporal: ""
+  resolution: "site-level"
+analysisReady: true
+independenceGroup: cave-catalogue
+plannedUse: "pit_cave_presence (Moon)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "NSIDC"
   endpoint: "https://nsidc.org/data/ggd318/versions/2"
-  probedAt: 2026-11-12T21:38:50Z
-  probeResult: "HTTP 200, 111118 B, sha256 a08b15115ba8…"
+  probedAt: 2026-11-13T00:21:53Z
+  probeResult: "HTTP 200, 111118 B, sha256 9485d55339c9…"
 probe:
   kind: http
   url: "https://nsidc.org/data/ggd318/versions/2"

@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "NASA GSFC PGDA (products also on PDS)"
   endpoint: "https://pgda.gsfc.nasa.gov/products/69"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:20Z
   probeResult: "HTTP 200, 27981 B, sha256 aca046555f29…"
 probe:
   kind: http

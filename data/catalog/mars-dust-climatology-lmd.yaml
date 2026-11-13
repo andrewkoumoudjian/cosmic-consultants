@@ -11,18 +11,18 @@ discovery:
 source:
   archive: "LMD (Mars Climate Database team)"
   endpoint: "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html"
-  probedAt: 2026-11-12T21:38:49Z
+  probedAt: 2026-11-13T00:20:22Z
   probeResult: "HTTP 200, 12713 B, sha256 2a4ed4397a87…"
 probe:
   kind: http
   url: "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html"
   expect: ["Martian year 24 to 36"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "no license text on page; cite Montabone et al. 2015 Icarus"
+  id: cc-by-sa-3.0
+  textUrl: "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html"
+  expect: ["Creative Commons Attribution-ShareAlike 3.0 Unported License"]
+  verified: true
+  note: "LMD dust climatology page: NetCDF data 'publicly available with open access, under Creative Commons Attribution-ShareAlike 3.0 Unported'. ShareAlike: derived layers we redistribute inherit CC BY-SA 3.0 and must credit Montabone et al. (W3b, 2026-11-12)."
 coverage:
   spatial: "global Mars"
   temporal: "unverified: MY24-MY36 (1999-2022)"

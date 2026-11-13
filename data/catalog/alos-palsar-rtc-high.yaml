@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: alos-palsar-rtc-high
+title: "ALOS PALSAR High Resolution Radiometric Terrain Corrected Product (ASF)"
+status: candidate
+bodies: [earth]
+dimensions: [terrain, operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "Earthdata (ASF DAAC)"
+  endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "CMR C1206487504-ASF: HTTP 200, ALOS_PSR_RTC_HIGH v1, DOI 10.5067/Z97HFCNKR6VA, granules 506657"
+probe:
+  kind: cmr
+  conceptId: C1206487504-ASF
+license:
+  id: asf-alos-palsar-rtc-eula
+  textUrl: "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF.umm_json"
+  expect: ["ALOS PALSAR RTC Product License", "There are no restrictions on their use", "Includes Material © JAXA, METI"]
+  verified: true
+  note: "ASF End User License Agreement embedded in the CMR UMM record (UseConstraints.LicenseText): 'provided in accordance with NASA's free and open data policy. There are no restrictions on their use', but every embodiment must carry the notice '© NASA [Year], Includes Material © JAXA, METI [Year]' and copyright notices may not be removed. Open use with a mandatory attribution notice (W3b, 2026-11-12)."
+coverage:
+  spatial: "regional scenes"
+  temporal: "2006-03-23/2011-04-22"
+  resolution: "12.5 m"
+analysisReady: true
+independenceGroup: l-band-sar
+plannedUse: "L-band backscatter as proxy for Ka-band reflectivity and roughness (different band and polarization: proxy only)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

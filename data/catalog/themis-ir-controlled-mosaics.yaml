@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology STAC"
   endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:22:02Z
   probeResult: "STAC mo_themis_controlled_mosaics: HTTP 200, license CC0-1.0, items 56"
 probe:
   kind: stac

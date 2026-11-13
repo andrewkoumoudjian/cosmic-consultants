@@ -11,18 +11,18 @@ discovery:
 source:
   archive: "PDS Atmospheres Node"
   endpoint: "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html"
-  probedAt: 2026-11-12T21:38:49Z
+  probedAt: 2026-11-13T00:20:23Z
   probeResult: "HTTP 200, 70345 B, sha256 c3a8eab5de2d…"
 probe:
   kind: http
   url: "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html"
   expect: ["Mars Climate Sounder"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c"]
+  verified: true
+  note: "data.nasa.gov record mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
 coverage:
   spatial: "global Mars, atmospheric profiles"
   temporal: "unverified: 2006-"

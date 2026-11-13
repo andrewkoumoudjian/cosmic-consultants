@@ -1,0 +1,3488 @@
+{
+ "generatedAt": "2026-11-13T00:29:24Z",
+ "tool": "scripts/registry_probe.py",
+ "entries": [
+  {
+   "datasetId": "alos-palsar-rtc-high",
+   "file": "data/catalog/alos-palsar-rtc-high.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 28374,
+      "sha256": "e33f4f168951abf68881f63370527192ad42147ed0ac60d1530f24291b51c871",
+      "headers": {
+       "cmr-request-id": "20bd5a4d-2a00-4ca0-aa64-9305a622812e"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1206487504-ASF&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1206487504-ASF&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 203,
+      "sha256": "85684488ecd0b547fbea7ccc31305c6316fb5cd0aa345bca88204eef408c8140",
+      "headers": {
+       "cmr-request-id": "c7ff0133-6f29-4a66-a236-7a9c77e9ee49",
+       "cmr-hits": "506657",
+       "cmr-took": "13"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "ALOS_PSR_RTC_HIGH",
+     "version": "1",
+     "entryTitle": "ALOS PALSAR High Resolution Radiometric Terrain Corrected Product",
+     "doi": "10.5067/Z97HFCNKR6VA",
+     "temporal": [
+      "2006-03-23T16:10:55.000Z",
+      "2011-04-22T20:23:36.000Z"
+     ],
+     "resolution": null,
+     "useConstraints": {
+      "EULAIdentifiers": [
+       "1b454cfb-c298-4072-ae3c-3c133ce810c8"
+      ],
+      "FreeAndOpenData": true,
+      "LicenseText": "ALOS PALSAR RTC Product License\r\n\r\nThe Alaska Satellite Facility (ASF) grants the End User use of Radiometrically Terrain Corrected (RTC) Advanced Land Observing Satellite (ALOS) PALSAR data if the End User accepts and agrees to the following ALOS PALSAR RTC End User License Agreement. The End User will be deemed to have accepted and agreed to the terms and conditions if the End User starts using ALOS PALSAR RTC data including but not limited to downloading, installing, manipulation or other action.\r\n\r\n    Section 1 Definitions\r\n\r\n 1. \u201cEnd User\u201d means the person, legal business entity, public entity or any other legal entity who obtains the Product and is considered to have accepted this End User License Agreement. In the case of a public entity, the End User is deemed to be only the part, division, etc. of the public entity located at the address to which the Product is supplied, unless otherwise agreed upon by ASF in writing and in advance.\r\n\r\nValue Added Product (VAP) \u2013 A modified Standard or Derivative Work Product with high-level processing that cannot be converted back to the original product. The high-level processing includes data analysis or combining multiple-satellite data, image processing based on external information, and physical quantity conversion.\r\n\r\n 2. \u201cProduct\u201d means any ALOS RTC satellite data product supplied by ASF.  Product is classified as Value Added Product (VAP). Definition of the product types is shown below.\r\n\r\n 3. \u201cJAXA\u201d means the Japan Aerospace Exploration Agency.\r\n\r\n 4. \u201cMETI\u201d means the Japanese Ministry of Economy, Trade, and Industry.\r\n\r\n 5. \u201cRelated Parties\u201d means the parties that have been involved in the creation, production, distribution or delivery of the Product.\r\n\r\n    Section 2 Permitted Uses\r\n\r\nThese data are provided in accordance with NASA\u2019s free and open data policy. There are no restrictions on their use.\r\n\r\n    Section 3 Prohibited Uses\r\n\r\n1. The End User shall not delete, obscure, remove or alter any copyright notice that is contained in or appears on the Product.\r\n\r\n    Section 4 Intellectual Property Right and Copyright Notice\r\n\r\n1. The End user confirms that NASA retains the copyright to the ALOS PALSAR RTC products, and that JAXA/METI retain the copyright to the original data from which the Product was derived.\r\n\r\n2. The End User owns all intellectual property rights, including copyrights, which result from the End User\u2019s act of interpretation, adaptation, authorship or any other work on the Product resulting in the creation of another VAP. All VAP products must be accompanied with the appropriate copyright notice.\r\n\r\n3. The End User agrees that any embodiment of the Product permitted under this agreement shall contain the following copyright notice.  The copyright notice shall be prominently displayed and the [Year] field correctly filled with a numerical value corresponding to the year of raw data acquisition.\r\n\r\n    Copyright Notice for ALOS PALSAR RTC: \u00a9 NASA [Year], Includes Material \u00a9 JAXA, METI [Year]\r\n\r\n    Section 5 Limited Warranty \u2013 Disclaimer\r\n\r\n1. Neither ASF nor the Related Parties, if any, warrants that the Product is free of bugs, errors, defects or omissions.\r\n\r\n2. The Product is provided as is with no warranty of merchantability or fitness for a particular purpose.\r\n\r\n3. ASF and the Related Parties shall have no liability to the End User for any damage suffered by the End User or any third party, as a result of using ALOS PALSAR RTC products. This damage is including but not limited to consequential loss and lost earnings.\r\n\r\n    Section 6 Modification of this Agreement\r\n\r\nASF reserves the right to modify this agreement if necessary and the modified agreement will govern. In the case of modification ASF will announce on ASF internet site.\r\n\r\n    Section 7 Governing Law and Jurisdiction\r\n\r\nThis End User License Agreement shall be governed by the laws of the United States of America."
+     },
+     "archiveCenter": [
+      "ASF"
+     ],
+     "granuleHits": "506657"
+    }
+   },
+   "summary": "CMR C1206487504-ASF: HTTP 200, ALOS_PSR_RTC_HIGH v1, DOI 10.5067/Z97HFCNKR6VA, granules 506657",
+   "license": {
+    "id": "asf-alos-palsar-rtc-eula",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1206487504-ASF.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 28374,
+      "sha256": "e33f4f168951abf68881f63370527192ad42147ed0ac60d1530f24291b51c871",
+      "headers": {
+       "cmr-request-id": "3e7109b6-72ff-40d3-8141-540d626f62c2"
+      }
+     },
+     "matches": {
+      "ALOS PALSAR RTC Product License": ":[\"1b454cfb-c298-4072-ae3c-3c133ce810c8\"],\"FreeAndOpenData\":true,\"LicenseText\":\"ALOS PALSAR RTC Product License\\r\\n\\r\\nThe Alaska Satellite Facility (ASF) grants the End User use of Radiometrically Terrain Corrected (RTC) Advanced ",
+      "There are no restrictions on their use": "r\\nThese data are provided in accordance with NASA\u2019s free and open data policy. There are no restrictions on their use.\\r\\n\\r\\n Section 3 Prohibited Uses\\r\\n\\r\\n1. The End User shall not delete, obscure, remove or alter any copyright noti",
+      "Includes Material \u00a9 JAXA, METI": " data acquisition.\\r\\n\\r\\n Copyright Notice for ALOS PALSAR RTC: \u00a9 NASA [Year], Includes Material \u00a9 JAXA, METI [Year]\\r\\n\\r\\n Section 5 Limited Warranty \u2013 Disclaimer\\r\\n\\r\\n1. Neither ASF nor the Related Parties, if any, warrants "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "arcticdem",
+   "file": "data/catalog/arcticdem.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://registry.opendata.aws/pgc-arcticdem/",
+      "finalUrl": "https://registry.opendata.aws/pgc-arcticdem/",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 11617,
+      "sha256": "849ac06a12aabefa1677703ec9db832ef28be0ad939364809a53a15c36850026",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "ArcticDEM - Registry of Open Data on AWS",
+     "expect": {
+      "2m GSD Digital Elevation Models": "ial mapping open source software satellite imagery stac Description ArcticDEM - 2m GSD Digital Elevation Models (DEMs) and mosaics from 2007 to the present. The ArcticDEM project seeks to fill the need for high-resolution time-seri"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 11617 B, sha256 849ac06a12aa\u2026",
+   "license": {
+    "id": "cc-by-4.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "Creative Commons Attribution 4.0 International \\(CC BY 4.0\\)": " twice yearly. Mosaic products are added as soon as they are available. License Creative Commons Attribution 4.0 International (CC BY 4.0) Documentation https://www.pgc.umn.edu/data/arcticdem/ Managed By See all datasets managed by Polar Geospatial Center . "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "aster-gdem-v3",
+   "file": "data/catalog/aster-gdem-v3.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1711961296-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1711961296-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 14164,
+      "sha256": "763fd51b4f29abd7dc793a91f7ad5a9431b11cf7e7ca4a487f7e39ad1f54b782",
+      "headers": {
+       "cmr-request-id": "be7da03b-4400-4cec-9d72-3f6f55e6d804"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1711961296-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1711961296-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "94af4ed3e2f0a2388ff3c32a892b3c0bc25c5c3666630825aeb57fd0cf095f2e",
+      "headers": {
+       "cmr-request-id": "5623767e-995d-427b-826f-e4101c814de3",
+       "cmr-hits": "22912",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "ASTGTM",
+     "version": "003",
+     "entryTitle": "ASTER Global Digital Elevation Model V003",
+     "doi": "10.5067/ASTER/ASTGTM.003",
+     "temporal": [
+      "2000-03-01T00:00:00.000Z",
+      "2013-11-30T23:59:59.999Z"
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 30,
+        "YDimension": 30,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "22912"
+    }
+   },
+   "summary": "CMR C1711961296-LPCLOUD: HTTP 200, ASTGTM v003, DOI 10.5067/ASTER/ASTGTM.003, granules 22912",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "aster-ged-ag100",
+   "file": "data/catalog/aster-ged-ag100.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2763266348-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2763266348-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 14953,
+      "sha256": "3623b427499d057e1f98a4f76d2a3252cef0acb7fe8518971f9321b82af3122f",
+      "headers": {
+       "cmr-request-id": "b14fefaa-37f1-48fa-837a-6888d5e3f33e"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763266348-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763266348-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "73bc184dc8acaf1204160613eef26ef47c2e715826b4b6ac191581b26e7998fa",
+      "headers": {
+       "cmr-request-id": "95d2283d-ad37-4c56-aa71-48bcb4dd6428",
+       "cmr-hits": "24873",
+       "cmr-took": "14"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "AG100",
+     "version": "003",
+     "entryTitle": "ASTER Global Emissivity Dataset, 100 meter, HDF5 V003",
+     "doi": "10.5067/COMMUNITY/ASTER_GED/AG100.003",
+     "temporal": [
+      "2000-01-01T00:00:00.000Z",
+      "2008-12-31T23:59:59.999Z"
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 100,
+        "YDimension": 100,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "24873"
+    }
+   },
+   "summary": "CMR C2763266348-LPCLOUD: HTTP 200, AG100 v003, DOI 10.5067/COMMUNITY/ASTER_GED/AG100.003, granules 24873",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "aster-ged-ag1km",
+   "file": "data/catalog/aster-ged-ag1km.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2763266350-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2763266350-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 14894,
+      "sha256": "a762e1dcd45927d76c140a3dc24f377edd86e10dba10c6f32c3a9259f565375c",
+      "headers": {
+       "cmr-request-id": "f7910075-c3df-4596-9ee4-250c50e7124f"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763266350-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763266350-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "1c31760f1a3c91c1303dd85ecdc5b2af08ee023819d37c92393a5e3ef1a96f14",
+      "headers": {
+       "cmr-request-id": "5aa94532-2dc8-4060-a83c-5c1d3d726ce4",
+       "cmr-hits": "24873",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "AG1km",
+     "version": "003",
+     "entryTitle": "ASTER Global Emissivity Dataset, 1 kilometer, HDF5 V003",
+     "doi": "10.5067/COMMUNITY/ASTER_GED/AG1KM.003",
+     "temporal": [
+      "2000-01-01T00:00:00.000Z",
+      "2008-12-31T23:59:59.999Z"
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 1000,
+        "YDimension": 1000,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "24873"
+    }
+   },
+   "summary": "CMR C2763266350-LPCLOUD: HTTP 200, AG1km v003, DOI 10.5067/COMMUNITY/ASTER_GED/AG1KM.003, granules 24873",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "copernicus-dem-glo30",
+   "file": "data/catalog/copernicus-dem-glo30.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://registry.opendata.aws/copernicus-dem/",
+      "finalUrl": "https://registry.opendata.aws/copernicus-dem/",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 10002,
+      "sha256": "04b2d63198acecd854a2a04100feb63d71aeecd83773c692b7f5093a0a4defca",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Copernicus Digital Elevation Model (DEM) - Registry of Open Data on AWS",
+     "expect": {
+      "Cloud Optimized GeoTIFF": "ve tiles, there one can assume height values equal to zero. Data is provided as Cloud Optimized GeoTIFFs and comes from Copernicus DEM 2021 release. Update Frequency None, except GLO-30 Public can be updated if the public t"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 10002 B, sha256 04b2d63198ac\u2026",
+   "license": {
+    "id": "copernicus-dem-licence",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "available on a free basis for the general public": "e updated if the public tile list changes. License GLO-30 Public and GLO-90 are available on a free basis for the general public under the terms and conditions of the Licence found on here . Documentation https://copernicus-dem-30m.s3.amazonaws.com"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "crism-mro",
+   "file": "data/catalog/crism-mro.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/mro/crism.htm",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 58477,
+      "sha256": "df7a7e7bf3c9c9c1897401c1c27d5f2a85784a4529031db11f595f0fa55cf966",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: MRO CRISM",
+     "expect": {
+      "MTRDR": "e at APL for the latest news about CRISM. CRISM Data Sets Derived Data Products MTRDR (PDS4) - Map-Projected Targeted Reduced Data Records contain TER data map-projected using terrain models of the Martian"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 58477 B, sha256 df7a7e7bf3c9\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mro-crism-map-projected-targeted-reduced-data-record-v1-0-ae389%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mro-crism-map-projected-targeted-reduced-data-record-v1-0-ae389%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 381,
+      "sha256": "515f5a8508373ed1c075b866db559e1697f71740bd8bb8de4f74dfd9297bebd8",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "0-ae389\", \"title\": \"MRO CRISM MAP-PROJECTED TARGETED REDUCED DATA RECORD V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "mro-crism-map-projected-targeted-reduced-data-record-v1-0-ae389": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"mro-crism-map-projected-targeted-reduced-data-record-v1-0-ae389\", \"title\": \"MRO CRISM MAP-PROJECTED TARGETED REDUCED DATA RECORD V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, m"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "ctx-dtms-usgs-stac",
+   "file": "data/catalog/ctx-dtms-usgs-stac.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 4529,
+      "sha256": "38b8d386f905952480256b8da3bad923480b431fd1da2f358e3b3cdd85cf4668",
+      "headers": {}
+     },
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms/items?limit=1",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms/items?limit=1",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 10866,
+      "sha256": "3ee6bb5b0a806ef40884fd522abc8e6f6fbaf79d57611ccb4d3a576978c5c771",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "id": "mro_ctx_controlled_usgs_dtms",
+     "title": "Mars Reconnaissance Orbiter (MRO) Context Camera (CTX) Digital Terrain Models (DTMs)",
+     "license": "CC0-1.0",
+     "extent": {
+      "spatial": {
+       "bbox": [
+        [
+         -179.75421556071058,
+         -65.44609866145721,
+         179.75566451529946,
+         65.94191738560878
+        ]
+       ]
+      },
+      "temporal": {
+       "interval": [
+        [
+         "2023-04-18T12:00:00Z",
+         "2025-07-04T00:00:00Z"
+        ]
+       ]
+      }
+     },
+     "numberMatched": 44628
+    }
+   },
+   "summary": "STAC mro_ctx_controlled_usgs_dtms: HTTP 200, license CC0-1.0, items 44628",
+   "license": {
+    "id": "cc0-1.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "\"license\": \"CC0-1.0\"": "connaissance Orbiter (MRO) Context Camera (CTX) Digital Terrain Models (DTMs)\", \"license\": \"CC0-1.0\", \"extent\": {\"spatial\": {\"bbox\": [[-179.75421556071058, -65.44609866145721, 179.75566451529946, 65.94191738560878]]}, \"t"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "diviner-l4",
+   "file": "data/catalog/diviner-l4.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 39498,
+      "sha256": "89f3c4412e549df606f682da98c62fea94f1dd17a4543e5a0f661c354d883cb6",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: LRO DIVINER",
+     "expect": {
+      "Polar Resource Products": "2016 \u00a0\u00a0\u00a0 PCP - Polar Cumulative Products Jul. 5, 2009 - Mar. 15, 2020 \u00a0\u00a0\u00a0 PRP - Polar Resource Products \u00a0 N/A \u00a0\u00a0\u00a0 RCP - Regional Cumulative Products Jul. 5, 2009 - Mar. 1, 2021 \u00a0\u00a0\u00a0 GHRM - Global High-Resolution Mosaics Jul.",
+      "Global Cumulative Products": ", 2026 Derived Data Products (PDS4) - Bundle 1 \u00a0 Bundle Root Coverage \u00a0\u00a0\u00a0 GCP - Global Cumulative Products Jul. 5, 2009 - Apr. 1, 2015 \u00a0 \u00a0 GDR - Global Data Records \u00a0 \u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 GDR_L2 Jul. 5, 2009 - Oct. 23, 2016 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 GDR_L"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 39498 B, sha256 89f3c4412e54\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-dlre-5-polar-resource-product-17cb1%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-dlre-5-polar-resource-product-17cb1%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 333,
+      "sha256": "60824ffe95c0234ca9eff40ccd8792dee8301336c4b1a4fe09f0582cdc7e5b03",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "-5-polar-resource-product-17cb1\", \"title\": \"LRO DLRE 5 POLAR RESOURCE PRODUCT\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-dlre-5-polar-resource-product-17cb1": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-dlre-5-polar-resource-product-17cb1\", \"title\": \"LRO DLRE 5 POLAR RESOURCE PRODUCT\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "earth-impact-database",
+   "file": "data/catalog/earth-impact-database.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html",
+      "finalUrl": "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 114,
+      "sha256": "6dc9c7fc93bb488bb0520a6c780a8d3c0fb5486a4711aca49b4c53fac7393023",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "Earth Impact Database": null
+     }
+    },
+    "ok": false
+   },
+   "summary": "HTTP 200, 114 B, sha256 6dc9c7fc93bb\u2026 \u2014 PROBE FAILED (expectation not met)",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "emit-l2b-min-v002",
+   "file": "data/catalog/emit-l2b-min-v002.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C4079846859-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C4079846859-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 16931,
+      "sha256": "5a13da97611221042708aec6bab7d9262fd2933fb1599442de1f743dad91c52c",
+      "headers": {
+       "cmr-request-id": "700f6047-0bb1-4db6-a59b-9a03c04f4e94"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C4079846859-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C4079846859-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "66bbd6f401ac5dd8fe47a6d4b93543fd681dd9dec219fa1c30959fa73efbd62b",
+      "headers": {
+       "cmr-request-id": "9ced1662-5e8b-4281-843c-690804f40bb7",
+       "cmr-hits": "124877",
+       "cmr-took": "17"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "EMITL2BMIN",
+     "version": "002",
+     "entryTitle": "EMIT L2B Estimated Mineral Identification and Band Depth and Uncertainty 60 m V002",
+     "doi": "10.5067/EMIT/EMITL2BMIN.002",
+     "temporal": [
+      "2022-08-09T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 60,
+        "YDimension": 60,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": null,
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "124877"
+    }
+   },
+   "summary": "CMR C4079846859-LPCLOUD: HTTP 200, EMITL2BMIN v002, DOI 10.5067/EMIT/EMITL2BMIN.002, granules 124877",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "eonet-v3-events",
+   "file": "data/catalog/eonet-v3-events.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "finalUrl": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 4469,
+      "sha256": "a3e9c492a3137de7df0463583cb2b9f5e6c83c8d09b740c3c3df2d09609c0f2c",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "dustHaze": "er.\", \"layers\": \"https://eonet.gsfc.nasa.gov/api/v3/layers/drought\" }, { \"id\": \"dustHaze\", \"title\": \"Dust and Haze\", \"link\": \"https://eonet.gsfc.nasa.gov/api/v3/categories/dustHaze\", \"description\": \"Related t"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 4469 B, sha256 a3e9c492a313\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "esa-cci-permafrost-extent-antarctica",
+   "file": "data/catalog/esa-cci-permafrost-extent-antarctica.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://catalogue.ceda.ac.uk/uuid/25447c253cbe435b937347756fe47146/",
+      "finalUrl": "https://catalogue.ceda.ac.uk/uuid/25447c253cbe435b937347756fe47146/",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 60652,
+      "sha256": "abc77a7a6abea3c1fff1b5d0c0994a9ec7e3793eb07484ab0fdb4cbb7e6fddb9",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Dataset Record: ESA Permafrost Climate Change Initiative (Permafrost_cci): Permafrost extent for Antarctica, v5.0",
+     "expect": {
+      "Antarctic": "SA Permafrost Climate Change Initiative (Permafrost_cci): Permafrost extent for Antarctica, v5.0 This website uses cookies. By continuing to use this website you are agreeing to our use of cookies.\u00a0 OK Find ou"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 60652 B, sha256 abc77a7a6abe\u2026",
+   "license": {
+    "id": "esa-cci-permafrost-terms",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "esacci_permafrost_terms_and_conditions": "e following licence(s): https://artefacts.ceda.ac.uk/licences/specific_licences/esacci_permafrost_terms_and_conditions.pdf When using these data you must cite them correctly using the citation given on the CEDA Data Catalogue record. Data"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "esa-cci-permafrost-extent-nh",
+   "file": "data/catalog/esa-cci-permafrost-extent-nh.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/",
+      "finalUrl": "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 60852,
+      "sha256": "12868e41675ed430c3026ac5dba676273a11c2a0f0f65f595c3415ce2bd5c5c6",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Dataset Record: ESA Permafrost Climate Change Initiative (Permafrost_cci): Permafrost extent for the Northern Hemisphere, v5.0",
+     "expect": {
+      "Permafrost extent for the Northern Hemisphere": " Dataset Record: ESA Permafrost Climate Change Initiative (Permafrost_cci): Permafrost extent for the Northern Hemisphere, v5.0 This website uses cookies. By continuing to use this website you are agreeing to our use of cookies.\u00a0 OK Find out"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 60852 B, sha256 12868e41675e\u2026",
+   "license": {
+    "id": "esa-cci-permafrost-terms",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "esacci_permafrost_terms_and_conditions": "e following licence(s): https://artefacts.ceda.ac.uk/licences/specific_licences/esacci_permafrost_terms_and_conditions.pdf When using these data you must cite them correctly using the citation given on the CEDA Data Catalogue record. Data"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "gibs-wmts",
+   "file": "data/catalog/gibs-wmts.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&REQUEST=GetCapabilities",
+      "finalUrl": "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&REQUEST=GetCapabilities",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 5319261,
+      "sha256": "4c0c1ecfef51984da53f68a9ab20cd5456a8a0e7439b647e3ed96d84b9dde5f9",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "layers": 1330,
+     "identifiers": [
+      "MERRA2_2m_Air_Temperature_Monthly",
+      "default",
+      "Time",
+      "MERRA2_2m_Air_Temperature_Assimilated_Monthly",
+      "default"
+     ],
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 5319261 B, sha256 4c0c1ecfef51\u2026, layers 1330",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:30Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "glim-0p5deg",
+   "file": "data/catalog/glim-0p5deg.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://doi.pangaea.de/10.1594/PANGAEA.788537",
+      "finalUrl": "https://doi.pangaea.de/10.1594/PANGAEA.788537",
+      "fetchedAt": "2026-11-13T00:20:19Z",
+      "status": 200,
+      "bytes": 27662,
+      "sha256": "3f99fe1da8a127d1f04766ab90adf009bee5ef3ac9c62fc1e5a33d2770db08cd",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Hartmann, J; Moosdorf, N (2012): Global Lithological Map Database v1.0 (gridded to 0.5\u00b0 spatial resolution)",
+     "expect": {
+      "Global Lithological Map Database": " Hartmann, J; Moosdorf, N (2012): Global Lithological Map Database v1.0 (gridded to 0.5\u00b0 spatial resolution) Not logged in PANGAEA . Data Publisher for Earth & Environmental Science Sear"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 27662 B, sha256 3f99fe1da8a1\u2026",
+   "license": {
+    "id": "cc-by-3.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "CC-BY-3.0": "ted to Jens instead of J\u00f6rg License: Creative Commons Attribution 3.0 Unported (CC-BY-3.0) Size: 37.8 kBytes Download Data Download dataset PANGAEA is hosted by Alfred Wegener Institute, Helmholtz Center for P"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "hirise-dtms-usgs-stac",
+   "file": "data/catalog/hirise-dtms-usgs-stac.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 3471,
+      "sha256": "cd78ee81896c27f61a9884406c7de9c2cee3b6107a3ac9a7f6deb95d3b8c5742",
+      "headers": {}
+     },
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms/items?limit=1",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms/items?limit=1",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 7960,
+      "sha256": "41137f422c564ea7329d3373d313641f0fa01c5374de487b7aa064594b69a862",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "id": "mro_hirise_socet_dtms",
+     "title": "Mars Reconnaissance Orbiter (MRO) High Resolution Imaging Science Experiment (HiRISE) Socet Set Created Digital Terrain Models (DTMs)",
+     "license": "CC0-1.0",
+     "extent": {
+      "spatial": {
+       "bbox": [
+        [
+         -179.6659,
+         -89.0364,
+         179.004,
+         88.982
+        ]
+       ]
+      },
+      "temporal": {
+       "interval": [
+        [
+         "2009-12-09T03:16:33.333Z",
+         "2023-07-01T00:00:00Z"
+        ]
+       ]
+      }
+     },
+     "numberMatched": 1262
+    }
+   },
+   "summary": "STAC mro_hirise_socet_dtms: HTTP 200, license CC0-1.0, items 1262",
+   "license": {
+    "id": "cc0-1.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "\"license\": \"CC0-1.0\"": "g Science Experiment (HiRISE) Socet Set Created Digital Terrain Models (DTMs)\", \"license\": \"CC0-1.0\", \"extent\": {\"spatial\": {\"bbox\": [[-179.6659, -89.0364, 179.004, 88.982]]}, \"temporal\": {\"interval\": [[\"2009-12-09T03:16"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "insight-weather-archive",
+   "file": "data/catalog/insight-weather-archive.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 429,
+      "bytes": 174,
+      "sha256": "3f95d2152942e83322c1c3596dde76ce81175b5ca7650428ad0830753de2e8fa",
+      "error": "HTTP 429"
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "sol_keys": null
+     }
+    },
+    "ok": false
+   },
+   "summary": "HTTP 429, 174 B, sha256 3f95d2152942\u2026 \u2014 PROBE FAILED (HTTP 429)",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "kaguya-mi-59mpp",
+   "file": "data/catalog/kaguya-mi-59mpp.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/kaguya_lunar_multiband_imager_59mpp",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/kaguya_lunar_multiband_imager_59mpp",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 27722,
+      "sha256": "e6bed4e61f76cd6c0fe5a2e0b3d0418c4b8ba2ca4ce84f5b6980bc9708d8bae6",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Kaguya Lunar Multiband Imager  59mpp",
+     "expect": {
+      "512 ppd \\(59 meters/pixel\\)": "sented in a future publication. The mosaic presented here has been resampled to 512 ppd (59 meters/pixel) from its original resolution of 2048 ppd (15 meters/pixel). Retrieve the graphical 8bit-stretched full-res GeoTiff and "
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 27722 B, sha256 e6bed4e61f76\u2026",
+   "license": {
+    "id": "jaxa-conditions",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "JAXA Conditions for material usage": "s section at the right-side of this page. For usage rights, please refer to the JAXA Conditions for material usage page ( http://jda.jaxa.jp/en/service.php ) and please credit JAXA and the SELENE/Kaguya data. \u00c2\u00a9JAXA/SELENE References:"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "kaguya-tc-dtm-southpolar",
+   "file": "data/catalog/kaguya-tc-dtm-southpolar.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2_southpolar",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2_southpolar",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 3355,
+      "sha256": "89799051be2f2b06279297a9addec87ede1dc9492d552b9fe954a9af8eb9504f",
+      "headers": {}
+     },
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2_southpolar/items?limit=1",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/kaguya_terrain_camera_usgs_dtms_v2_southpolar/items?limit=1",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 11051,
+      "sha256": "8a72ca897f2599eb24e759ba78ad3032bca2b8f29cfc87370377b380f4793417",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "id": "kaguya_terrain_camera_usgs_dtms_v2_southpolar",
+     "title": "Kaguya/SELENE Terrain Camera (TC) Version 2.0 USGS DTMs",
+     "license": "CC0-1.0",
+     "extent": {
+      "spatial": {
+       "bbox": [
+        [
+         -180,
+         -90,
+         180,
+         90
+        ]
+       ]
+      },
+      "temporal": {
+       "interval": [
+        [
+         "2007-09-07T00:00:00Z",
+         "2009-06-10T00:00:00Z"
+        ]
+       ]
+      }
+     },
+     "numberMatched": 19646
+    }
+   },
+   "summary": "STAC kaguya_terrain_camera_usgs_dtms_v2_southpolar: HTTP 200, license CC0-1.0, items 19646",
+   "license": {
+    "id": "cc0-1.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "\"license\": \"CC0-1.0\"": "outhpolar\", \"title\": \"Kaguya/SELENE Terrain Camera (TC) Version 2.0 USGS DTMs\", \"license\": \"CC0-1.0\", \"extent\": {\"spatial\": {\"bbox\": [[-180, -90, 180, 90]]}, \"temporal\": {\"interval\": [[\"2007-09-07T00:00:00Z\", \"2009-06-10"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lamp",
+   "file": "data/catalog/lamp.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-imaging.jpl.nasa.gov/volumes/lro.html",
+      "finalUrl": "https://pds-imaging.jpl.nasa.gov/volumes/lro.html",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 193632,
+      "sha256": "e849112f7665869055c27c875036f71469ae74635b252f80533e7ce31b3c4ff9",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Lunar Reconnaissance Orbiter Online Data Volumes",
+     "expect": {
+      "Lyman-Alpha Mapping Project": " GEO WASHU (MO) ATM NMSU (NM) Rings SETI (CA) DN UofA (AZ) DN ASU (AZ) ZIP FILE Lyman-Alpha Mapping Project (LAMP) PDS4 Archive lro_lamp LAMP raw and calibrated data \u00a0\u00a0\u00a0\u00a0Releases 60-62 data acquired 06/15/24 to \u001a03/14/25 --> Ly"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 193632 B, sha256 e849112f7665\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-lamp-5-gridded-data-record-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-lamp-5-gridded-data-record-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 341,
+      "sha256": "b572b067ec34e3de7eb731c5a271d7b9c90473dc60a8e1f1af1ce8f87dcf22a2",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "gridded-data-record-v1-0\", \"title\": \"LRO MOON LAMP 5 GRIDDED DATA RECORD V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-moon-lamp-5-gridded-data-record-v1-0": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-moon-lamp-5-gridded-data-record-v1-0\", \"title\": \"LRO MOON LAMP 5 GRIDDED DATA RECORD V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lend",
+   "file": "data/catalog/lend.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/lro/lend.htm",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lro/lend.htm",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 31256,
+      "sha256": "1f28ac413c32f5f4e3cad5d1636719f58febf8f98e07d076d1e4efaa6820c91d",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: LRO LEND",
+     "expect": {
+      "Lunar Exploration Neutron Detector": "DR_DLX data acquired between December 15, 2025, and March 14, 2026. LEND is the Lunar Exploration Neutron Detector, which measures the flux of neutrons from the lunar surface. LEND data sets are produced by the LEND Science Team at th"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 31256 B, sha256 1f28ac413c32\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-lunar-exploration-neutron-detector-2-edr-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-lunar-exploration-neutron-detector-2-edr-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 359,
+      "sha256": "aa87570c4ea3c7b295b11d3240be4b2748e8ecf6bda630d84df00ba662bca739",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "ctor-2-edr-v1-0\", \"title\": \"LRO LUNAR EXPLORATION NEUTRON DETECTOR 2 EDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-lunar-exploration-neutron-detector-2-edr-v1-0": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-lunar-exploration-neutron-detector-2-edr-v1-0\", \"title\": \"LRO LUNAR EXPLORATION NEUTRON DETECTOR 2 EDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lola-gdr",
+   "file": "data/catalog/lola-gdr.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 582,
+      "sha256": "b8146dff064c687732bfaaf05f0f495df6e2e87a908b9cc5237d63d497209201",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "pds-geosciences.wustl.edu - /lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/",
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 582 B, sha256 b8146dff064c\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-laser-altimeter-4-gdr-v1-0-17e02%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-laser-altimeter-4-gdr-v1-0-17e02%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 337,
+      "sha256": "b09cb9cdbe1318f926964f3edc60b23e3d3a451f001f230f5441e5473f82247b",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "er-altimeter-4-gdr-v1-0-17e02\", \"title\": \"LRO MOON LASER ALTIMETER 4 GDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-moon-laser-altimeter-4-gdr-v1-0-17e02": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-moon-laser-altimeter-4-gdr-v1-0-17e02\", \"title\": \"LRO MOON LASER ALTIMETER 4 GDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\""
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lola-polar-illumination",
+   "file": "data/catalog/lola-polar-illumination.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pgda.gsfc.nasa.gov/products/69",
+      "finalUrl": "https://pgda.gsfc.nasa.gov/products/69",
+      "fetchedAt": "2026-11-13T00:20:20Z",
+      "status": 200,
+      "bytes": 27981,
+      "sha256": "aca046555f29da9fcbe926c0b90450ce69e78a44cc406bc2a60d9a010eb3fe42",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PGDA - Lunar Polar Illumination",
+     "expect": {
+      "Illumination": " PGDA - Lunar Polar Illumination NASA\u2019s Planetary Geology, Geophysics and Geochemistry Laboratory Goddard Space Flight Center \u00a0 MENU Home Search Product"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 27981 B, sha256 aca046555f29\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "lola-shots-usgs-stac",
+   "file": "data/catalog/lola-shots-usgs-stac.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 2704,
+      "sha256": "ba30e0023531700b5a231a79e1d1d56ec6f08f074e96c637c92a9659394df30c",
+      "headers": {}
+     },
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter/items?limit=1",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter/items?limit=1",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 6246,
+      "sha256": "afa89e692ae39dec1cc5d8c6eab048ddb6ed1f5590302feaa4402cd2f251601f",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "id": "lunar_orbiter_laser_altimeter",
+     "title": "Lunar Orbiter Laser Altimeter (LOLA) Shot Observations",
+     "license": "CC0-1.0",
+     "extent": {
+      "spatial": {
+       "bbox": [
+        [
+         -180,
+         -90,
+         180,
+         90
+        ]
+       ]
+      },
+      "temporal": {
+       "interval": [
+        [
+         "2009-06-23T00:00:00Z",
+         "2022-07-23T00:00:00Z"
+        ]
+       ]
+      }
+     },
+     "numberMatched": 288
+    }
+   },
+   "summary": "STAC lunar_orbiter_laser_altimeter: HTTP 200, license CC0-1.0, items 288",
+   "license": {
+    "id": "cc0-1.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "\"license\": \"CC0-1.0\"": "_altimeter\", \"title\": \"Lunar Orbiter Laser Altimeter (LOLA) Shot Observations\", \"license\": \"CC0-1.0\", \"extent\": {\"spatial\": {\"bbox\": [[-180, -90, 180, 90]]}, \"temporal\": {\"interval\": [[\"2009-06-23T00:00:00Z\", \"2022-07-23"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lola-south-pole-ldem-2023",
+   "file": "data/catalog/lola-south-pole-ldem-2023.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pgda.gsfc.nasa.gov/products/90",
+      "finalUrl": "https://pgda.gsfc.nasa.gov/products/90",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 30348,
+      "sha256": "cd41983f4a9fa1ac3d065bee5cee5c0aa920cac5b2157cd7a1d7a66064452634",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PGDA - A New View of the Lunar South Pole from LOLA",
+     "expect": {
+      "LDEM": "is. Filename format: PREFIX_LAT_PIX_STEMS.TIF where PREFIX gives the data type (LDEM, LDEC, LDSM, LDRM, or LPSR), LAT gives the latitude limit (80S, 83S, 75S or\u00a0 60S), PIX gives the pixel scale in meters ",
+      "LPSR": "_LAT_PIX_STEMS.TIF where PREFIX gives the data type (LDEM, LDEC, LDSM, LDRM, or LPSR), LAT gives the latitude limit (80S, 83S, 75S or\u00a0 60S), PIX gives the pixel scale in meters per pixel (e.g., 10MPP, 20M"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 30348 B, sha256 cd41983f4a9f\u2026",
+   "license": {
+    "id": "citation-required-no-license-stated",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "Data Usage Policy Please cite this paper": "0MPP or LDRM in the filename. LDEM_60S_ADJ.XYZI - 48G - For all other products. Data Usage Policy Please cite this paper when using these products: Barker et al., 2023 Planet. Sci. J., 4, 183. https://doi.org/10.3847/PSJ/acf3e1 Paper DOI:\u00a0 "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lp-grs-pds",
+   "file": "data/catalog/lp-grs-pds.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lunarp/reduced.html",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 24306,
+      "sha256": "9742a3163af192cc68f2e3d0405b1767825c0c0b5854a71a397953fb7e99f9e2",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: Lunar Prospector Reduced",
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 24306 B, sha256 9742a3163af1\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lunar-prospector-grs-elemental-abundance-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lunar-prospector-grs-elemental-abundance-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 355,
+      "sha256": "c690596b8d1abb9163e3472a905ab4b175d39c98b92e167d4eb5c479ad2fa338",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "-abundance-bundle\", \"title\": \"Lunar Prospector GRS Elemental Abundance Bundle\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lunar-prospector-grs-elemental-abundance-bundle": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lunar-prospector-grs-elemental-abundance-bundle\", \"title\": \"Lunar Prospector GRS Elemental Abundance Bundle\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_mo"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "lroc-nac-boulders-watkins",
+   "file": "data/catalog/lroc-nac-boulders-watkins.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 18873,
+      "sha256": "cf68d0d4f08c1a6a7cfd15db8b27a5de223502e340253f56952eca5120e3a587",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Moon LRO LROC NAC Boulder Database v1 Watkins",
+     "expect": {
+      "Boulder Database": " Astropedia - Moon LRO LROC NAC Boulder Database v1 Watkins Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Download (17"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 18873 B, sha256 cf68d0d4f08c\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "lroc-pits-atlas",
+   "file": "data/catalog/lroc-pits-atlas.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://www.lroc.im-ldi.com/atlases/pits",
+      "finalUrl": "https://www.lroc.im-ldi.com/atlases/pits",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 40605,
+      "sha256": "74fb23d823593a6f87384c43a00079ff374798ccf801c65eb51406b52fea4fd8",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Pits | Lunar Reconnaissance Orbiter Camera",
+     "expect": {
+      "Pits Atlas": "ors Lunar History Lunar Science Activities Events Public exhibits Public events Pits Atlas Pits list Download Pits Atlas LROC Lunar Reconnaissance Orbiter Camera Science Operations Center Phoenix, Arizona Moon "
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 40605 B, sha256 74fb23d82359\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "lroc-wac-global",
+   "file": "data/catalog/lroc-wac-global.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://data.lroc.im-ldi.com/lroc/view_rdr/WAC_GLOBAL",
+      "finalUrl": "https://data.lroc.im-ldi.com/lroc/view_rdr/WAC_GLOBAL",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 36654,
+      "sha256": "0880337b772f84ca3603a3b693c03580f37c582b1610a57b51fa6d2ac9e64d51",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Viewing WAC Global Morphologic Map",
+     "expect": {
+      "WAC global mosaic": "hive News Educators WMS Browser Thumbnail Browser Image Search RDR Products The WAC global mosaic is comprised of over 15,000 images acquired between November 2009 and February 2011. The WAC maps the whole Moon in one"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 36654 B, sha256 0880337b772f\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-lroc-5-rdr-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-lroc-5-rdr-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:26:21Z",
+      "status": 200,
+      "bytes": 309,
+      "sha256": "143d69faf1380d9865364838a3c62a3eea7ced4a47b7f57ddd961c15c7ffa7a2",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "ts\": [{\"name\": \"lro-moon-lroc-5-rdr-v1-0\", \"title\": \"LRO MOON LROC 5 RDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-moon-lroc-5-rdr-v1-0": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-moon-lroc-5-rdr-v1-0\", \"title\": \"LRO MOON LROC 5 RDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_f"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "m3-pds",
+   "file": "data/catalog/m3-pds.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+      "finalUrl": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+      "fetchedAt": "2026-11-13T00:20:21Z",
+      "status": 200,
+      "bytes": 6960,
+      "sha256": "2543dca3defa19fe9e114eb9b43fc97cb8eba16bf71db927021b5f3a5833944b",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Moon Mineralogy Mapper Online Data Volumes",
+     "expect": {
+      "Moon Mineralogy Mapper": " Moon Mineralogy Mapper Online Data Volumes Moon Mineralogy Mapper (M 3 ) Online Data Volumes Online data volumes may be found at one or more s"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 6960 B, sha256 2543dca3defa\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "mars-dust-climatology-lmd",
+   "file": "data/catalog/mars-dust-climatology-lmd.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html",
+      "finalUrl": "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html",
+      "fetchedAt": "2026-11-13T00:20:22Z",
+      "status": 200,
+      "bytes": 12713,
+      "sha256": "2a4ed4397a875ca320a05c17134419e84cbc468c63535e3ca870c8f8d1d96399",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Climatologies of the Martian Atmospheric Dust Optical Depth",
+     "expect": {
+      "Martian year 24 to 36": "l Depth Introduction We provide a multiannual climatology of airborne dust from Martian year 24 to 36 using observations of the Martian atmosphere from April 1999 to December 2022 made by the Thermal Emission Spectrometer"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 12713 B, sha256 2a4ed4397a87\u2026",
+   "license": {
+    "id": "cc-by-sa-3.0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html",
+      "finalUrl": "https://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html",
+      "fetchedAt": "2026-11-13T00:20:22Z",
+      "status": 200,
+      "bytes": 12713,
+      "sha256": "2a4ed4397a875ca320a05c17134419e84cbc468c63535e3ca870c8f8d1d96399",
+      "headers": {}
+     },
+     "matches": {
+      "Creative Commons Attribution-ShareAlike 3.0 Unported License": "cluded in the NetCDF files above are publicly available with open access, under Creative Commons Attribution-ShareAlike 3.0 Unported License (i.e. you are free to copy, redistribute, and modify the material for scientific as well as commercial purposes, as far"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "mars-geologic-map-sim3292",
+   "file": "data/catalog/mars-geologic-map-sim3292.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pubs.usgs.gov/publication/sim3292",
+      "finalUrl": "https://pubs.usgs.gov/publication/sim3292",
+      "fetchedAt": "2026-11-13T00:20:22Z",
+      "status": 200,
+      "bytes": 83871,
+      "sha256": "471f4d8f9f820039bd918f7d9d11adcd0014fef77325247431c436ea9c350e6a",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Geologic map of Mars",
+     "expect": {
+      "Scientific Investigations Map 3292": " Geological Survey Report Series Contact Disclaimer Search Geologic map of Mars Scientific Investigations Map 3292 Prepared for the National Aeronautics and Space Administration By: Kenneth L. Tanaka ,\u00a0 James A. Skinner ,\u00a0 James M. Do"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 83871 B, sha256 471f4d8f9f82\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "mars-trek-wmts",
+   "file": "data/catalog/mars-trek-wmts.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+      "finalUrl": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+      "fetchedAt": "2026-11-13T00:20:23Z",
+      "status": 200,
+      "bytes": 7040,
+      "sha256": "2fb4722b5af0417980052354eab806cb9bdea003617548433cec8d8813d8d125",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "layers": 1,
+     "identifiers": [
+      "Mars_MGS_MOLA_ClrShade_merge_global_463m",
+      "default",
+      "default028mm",
+      "0",
+      "1"
+     ],
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 7040 B, sha256 2fb4722b5af0\u2026, layers 1",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "mcs-mro",
+   "file": "data/catalog/mcs-mro.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html",
+      "finalUrl": "https://atmos.nmsu.edu/data_and_services/atmospheres_data/MARS/mcs.html",
+      "fetchedAt": "2026-11-13T00:20:23Z",
+      "status": 200,
+      "bytes": 70345,
+      "sha256": "c3a8eab5de2d7cd9a8374e7ad8b3158205816b0819dcc7caf97fd19695c26889",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Mars Reconnaissance Orbiter Archive -- Mars Climate Sounder (MCS)",
+     "expect": {
+      "Mars Climate Sounder": " Mars Reconnaissance Orbiter Archive -- Mars Climate Sounder (MCS) Menu: Skip within this page Skip to main content Skip to menu \u00a0PDS: The Planetary Atmospheres Node BETA --> --> S"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 70345 B, sha256 c3a8eab5de2d\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:26:22Z",
+      "status": 200,
+      "bytes": 349,
+      "sha256": "9a3e921c70e6e04c5b83e3d73d789a29b183a0c77abf3ac9adceb3f184046b35",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "-level-4-rdr-v1-0-7ad0c\", \"title\": \"MRO MARS CLIMATE SOUNDER LEVEL 4 RDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"mro-mars-climate-sounder-level-4-rdr-v1-0-7ad0c\", \"title\": \"MRO MARS CLIMATE SOUNDER LEVEL 4 RDR V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "merra2-m2t1nxslv",
+   "file": "data/catalog/merra2-m2t1nxslv.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812863-GES_DISC.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812863-GES_DISC.umm_json",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 19774,
+      "sha256": "3ef9b8e62da5f30d1dda68c8d5fa5cb40a65a3f417c6bf74d279d4671e44b616",
+      "headers": {
+       "cmr-request-id": "011c4988-9ba3-492a-8468-8987bb836b15"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812863-GES_DISC&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812863-GES_DISC&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 208,
+      "sha256": "c9a2ef39eed361356f0c0d06f5ab6885eeaa0e0addc01ec273d880be8dee7a4d",
+      "headers": {
+       "cmr-request-id": "56ad3fa0-bff2-4c86-9530-188bc437a417",
+       "cmr-hits": "17076",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "M2T1NXSLV",
+     "version": "5.12.4",
+     "entryTitle": "MERRA-2 tavg1_2d_slv_Nx: 2d,1-Hourly,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics 0.625 x 0.5 degree V5.12.4 (M2T1NXSLV) ",
+     "doi": "10.5067/VJAFPLI1CSIV",
+     "temporal": [
+      "1980-01-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 0.625,
+        "YDimension": 0.5,
+        "Unit": "Decimal Degrees"
+       }
+      ]
+     },
+     "useConstraints": {
+      "Description": "The Earth Observing System Data and Information System (EOSDIS) data use and citation guidance for NASA data can be accessed at https://earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance. For information on how to properly cite and acknowledge data from the NASA GES DISC, refer to https://disc.gsfc.nasa.gov/data-guidelines."
+     },
+     "archiveCenter": [
+      "NASA/GSFC/SED/ESD/TISL/GESDISC"
+     ],
+     "granuleHits": "17076"
+    }
+   },
+   "summary": "CMR C1276812863-GES_DISC: HTTP 200, M2T1NXSLV v5.12.4, DOI 10.5067/VJAFPLI1CSIV, granules 17076",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "merra2-m2tmnxaer",
+   "file": "data/catalog/merra2-m2tmnxaer.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812866-GES_DISC.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812866-GES_DISC.umm_json",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 19760,
+      "sha256": "7688b6f4b5ff51772743c691dcd0d13196d5d29fd8bf1037e7dcfac39924bc32",
+      "headers": {
+       "cmr-request-id": "9785311b-7c19-49e9-aa88-b86f13b8b652"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812866-GES_DISC&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812866-GES_DISC&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 208,
+      "sha256": "f3826338280ca1a97ae23cfb6c59eb3fa7b97c9afeece63b752837e689c4acad",
+      "headers": {
+       "cmr-request-id": "8fc5a558-462c-468a-a9b2-6377ab08e6e4",
+       "cmr-hits": "561",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "M2TMNXAER",
+     "version": "5.12.4",
+     "entryTitle": "MERRA-2 tavgM_2d_aer_Nx: 2d,Monthly mean,Time-averaged,Single-Level,Assimilation,Aerosol Diagnostics 0.625 x 0.5 degree V5.12.4 (M2TMNXAER) ",
+     "doi": "10.5067/FH9A0MLJPC7N",
+     "temporal": [
+      "1980-01-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 0.625,
+        "YDimension": 0.5,
+        "Unit": "Decimal Degrees"
+       }
+      ]
+     },
+     "useConstraints": {
+      "Description": "The Earth Observing System Data and Information System (EOSDIS) data use and citation guidance for NASA data can be accessed at https://earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance. For information on how to properly cite and acknowledge data from the NASA GES DISC, refer to https://disc.gsfc.nasa.gov/data-guidelines."
+     },
+     "archiveCenter": [
+      "NASA/GSFC/SED/ESD/TISL/GESDISC"
+     ],
+     "granuleHits": "561"
+    }
+   },
+   "summary": "CMR C1276812866-GES_DISC: HTTP 200, M2TMNXAER v5.12.4, DOI 10.5067/FH9A0MLJPC7N, granules 561",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:26Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "merra2-m2tmnxslv",
+   "file": "data/catalog/merra2-m2tmnxslv.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812859-GES_DISC.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C1276812859-GES_DISC.umm_json",
+      "fetchedAt": "2026-11-13T00:20:27Z",
+      "status": 200,
+      "bytes": 20047,
+      "sha256": "aa861aadbc439fc62957c778c01d53dc437c16bb241a2dbe622b62b701f025c8",
+      "headers": {
+       "cmr-request-id": "65fb35fd-f725-486d-860d-ddbaa47daea1"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812859-GES_DISC&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812859-GES_DISC&page_size=0",
+      "fetchedAt": "2026-11-13T00:20:27Z",
+      "status": 200,
+      "bytes": 208,
+      "sha256": "071a2d3b5a4f2f83a853cea12e8986a2a8451b65a0a86759665b6a943aabcac2",
+      "headers": {
+       "cmr-request-id": "caaec2cc-8b95-4cb6-9b87-7fe39c19bc36",
+       "cmr-hits": "561",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "M2TMNXSLV",
+     "version": "5.12.4",
+     "entryTitle": "MERRA-2 tavgM_2d_slv_Nx: 2d,Monthly mean,Time-Averaged,Single-Level,Assimilation,Single-Level Diagnostics 0.625 x 0.5 degree V5.12.4 (M2TMNXSLV) ",
+     "doi": "10.5067/AP1B0BA5PD2K",
+     "temporal": [
+      "1980-01-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 0.625,
+        "YDimension": 0.5,
+        "Unit": "Decimal Degrees"
+       }
+      ]
+     },
+     "useConstraints": {
+      "Description": "The Earth Observing System Data and Information System (EOSDIS) data use and citation guidance for NASA data can be accessed at https://earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance. For information on how to properly cite and acknowledge data from the NASA GES DISC, refer to https://disc.gsfc.nasa.gov/data-guidelines."
+     },
+     "archiveCenter": [
+      "NASA/GSFC/SED/ESD/TISL/GESDISC"
+     ],
+     "granuleHits": "561"
+    }
+   },
+   "summary": "CMR C1276812859-GES_DISC: HTTP 200, M2TMNXSLV v5.12.4, DOI 10.5067/AP1B0BA5PD2K, granules 561",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:20:27Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "mgc3-mars-caves",
+   "file": "data/catalog/mgc3-mars-caves.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/mars_global_cave_candidate_catalog_v1_cushing",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/mars_global_cave_candidate_catalog_v1_cushing",
+      "fetchedAt": "2026-11-13T00:20:27Z",
+      "status": 200,
+      "bytes": 24560,
+      "sha256": "ab8f70427c7966eec3522636dc036d84fed0bdd10fbe7db58dd5d8dde3acb0b7",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Mars Global Cave Candidate Catalog  v1 Cushing",
+     "expect": {
+      "Cave Candidate": " Astropedia - Mars Global Cave Candidate Catalog v1 Cushing Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Down"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 24560 B, sha256 ab8f70427c79\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mars-global-cave-candidate-catalog-archive-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mars-global-cave-candidate-catalog-archive-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:26:23Z",
+      "status": 200,
+      "bytes": 359,
+      "sha256": "3e353a6ca6e1e9b9dcc573825c7b0c7ef527bba57d42e661362237c573675a58",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "-archive-bundle\", \"title\": \"Mars Global Cave Candidate Catalog Archive Bundle\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "mars-global-cave-candidate-catalog-archive-bundle": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"mars-global-cave-candidate-catalog-archive-bundle\", \"title\": \"Mars Global Cave Candidate Catalog Archive Bundle\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "minirf-pds",
+   "file": "data/catalog/minirf-pds.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/lro/mrf.htm",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/lro/mrf.htm",
+      "fetchedAt": "2026-11-13T00:20:30Z",
+      "status": 200,
+      "bytes": 38682,
+      "sha256": "6de9eac71b6800f9f7721a2ed111ad3c6b8b72ca09c0295a2571764c35bb8ac9",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: LRO Mini-RF",
+     "expect": {
+      "Mini-RF": "\ufeff PDS Geosciences Node Data and Services: LRO Mini-RF + NASA Homepage + NASA en Espa\u00f1ol + Contact NASA HOME DATA AND SERVICES TOOLS ABOUT US CONTACT US SITE MAP Services Ana"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 38682 B, sha256 6de9eac71b68\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-mini-rf-5-global-mosaic-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-mini-rf-5-global-mosaic-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:26:24Z",
+      "status": 200,
+      "bytes": 335,
+      "sha256": "08b22407a9600e42badd2760bb3a333379e9ee8f1e72e6e888c006d09a86cd2c",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "ini-rf-5-global-mosaic-v1-0\", \"title\": \"LRO MOON MINI-RF 5 GLOBAL MOSAIC V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "lro-moon-mini-rf-5-global-mosaic-v1-0": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"lro-moon-mini-rf-5-global-mosaic-v1-0\", \"title\": \"LRO MOON MINI-RF 5 GLOBAL MOSAIC V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified des"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mcd12c1",
+   "file": "data/catalog/modis-mcd12c1.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2484078896-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2484078896-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 13484,
+      "sha256": "998dbdd52dea8e6ab3937b749a97f926a317d3c8165ce3a31fa803bb5406e305",
+      "headers": {
+       "cmr-request-id": "6da42582-2ac1-475c-85cd-91b39ffaa3e3"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2484078896-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2484078896-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "a6c21182fa9ebe17ef36973d733e9e8f2e13ac89eec7d1dc7f12a20d3edc5eed",
+      "headers": {
+       "cmr-request-id": "15c955f0-7b02-4b3f-9853-f0217df26dfe",
+       "cmr-hits": "25",
+       "cmr-took": "17"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MCD12C1",
+     "version": "061",
+     "entryTitle": "MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MCD12C1.061",
+     "temporal": [
+      "2001-01-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": null,
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "25"
+    }
+   },
+   "summary": "CMR C2484078896-LPCLOUD: HTTP 200, MCD12C1 v061, DOI 10.5067/MODIS/MCD12C1.061, granules 25",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mcd43a3-albedo",
+   "file": "data/catalog/modis-mcd43a3-albedo.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2278860820-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2278860820-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 18118,
+      "sha256": "1fc9234e16911be5ad56510a8be981aafaf5a880d562f88589a9ef7a248307b0",
+      "headers": {
+       "cmr-request-id": "45884850-ac71-495c-bd08-7d52ddcc39cf"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2278860820-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2278860820-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "235070a43e017d3ad63f73d40c4310dc7cce130c5a2f0d78c305d2804b4b176d",
+      "headers": {
+       "cmr-request-id": "e82d0bdc-f0ab-47e5-8da6-bd72f35eacf9",
+       "cmr-hits": "2997734",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MCD43A3",
+     "version": "061",
+     "entryTitle": "MODIS/Terra+Aqua BRDF/Albedo Albedo Daily L3 Global - 500m V061",
+     "doi": "10.5067/MODIS/MCD43A3.061",
+     "temporal": [
+      "2000-02-16T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 500,
+        "YDimension": 500,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "2997734"
+    }
+   },
+   "summary": "CMR C2278860820-LPCLOUD: HTTP 200, MCD43A3 v061, DOI 10.5067/MODIS/MCD43A3.061, granules 2997734",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mcd43c3-albedo",
+   "file": "data/catalog/modis-mcd43c3-albedo.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 17957,
+      "sha256": "be4b9363ea69b09fc663f3aae63f9803ac6d9f7475763e6a019fa0e6380b58d5",
+      "headers": {
+       "cmr-request-id": "c005c75a-6c97-46a8-97a8-d075440851c9"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532068039-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532068039-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "c8b29692c363ef2d0fe94b4ee3261d1266f4001e1b9d2f59e1f36a6741e76b4f",
+      "headers": {
+       "cmr-request-id": "fcb48871-5461-4fc8-839e-73f6e4cf3622",
+       "cmr-hits": "9748",
+       "cmr-took": "15"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MCD43C3",
+     "version": "061",
+     "entryTitle": "MODIS/Terra+Aqua BRDF/Albedo Albedo Daily L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MCD43C3.061",
+     "temporal": [
+      "2000-02-16T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "9748"
+    }
+   },
+   "summary": "CMR C2532068039-LPCLOUD: HTTP 200, MCD43C3 v061, DOI 10.5067/MODIS/MCD43C3.061, granules 9748",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod11a2",
+   "file": "data/catalog/modis-mod11a2.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2269056084-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2269056084-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 15157,
+      "sha256": "6c52eba598a3fb0a3e103e784de0debd0fbf3635d521c1097b21071971728071",
+      "headers": {
+       "cmr-request-id": "3d43736c-db37-4928-bbc6-be2aefc0758b"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2269056084-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2269056084-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "22d0ddf37b575a4fe4432a3c0b0285ee194e32e314ccbf01ff6118623c1e3c78",
+      "headers": {
+       "cmr-request-id": "1227b870-ad5a-4913-9349-041572958e95",
+       "cmr-hits": "388853",
+       "cmr-took": "24"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD11A2",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Land Surface Temperature/Emissivity 8-Day L3 Global 1km SIN Grid V061",
+     "doi": "10.5067/MODIS/MOD11A2.061",
+     "temporal": [
+      "2000-02-18T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 1000,
+        "YDimension": 1000,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "388853"
+    }
+   },
+   "summary": "CMR C2269056084-LPCLOUD: HTTP 200, MOD11A2 v061, DOI 10.5067/MODIS/MOD11A2.061, granules 388853",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod11c1-daily",
+   "file": "data/catalog/modis-mod11c1-daily.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788888-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788888-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 13686,
+      "sha256": "4bb257f7bda0128a3cdb5b6edb4debedc05d19eeacca2c42cee2798a8f0db0bc",
+      "headers": {
+       "cmr-request-id": "b1b8f364-fb39-4464-827d-d47a3b9ea808"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788888-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788888-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "e0df0ce52c4cee33afc75e678c72ea839a18ecf2e8b39a791e53c6d5a8e5c75e",
+      "headers": {
+       "cmr-request-id": "8dbb15ac-d842-4fe2-8a64-cdfbcb84e13c",
+       "cmr-hits": "9643",
+       "cmr-took": "15"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD11C1",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Land Surface Temperature/Emissivity Daily L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MOD11C1.061",
+     "temporal": [
+      "2000-02-27T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "9643"
+    }
+   },
+   "summary": "CMR C2565788888-LPCLOUD: HTTP 200, MOD11C1 v061, DOI 10.5067/MODIS/MOD11C1.061, granules 9643",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod11c3",
+   "file": "data/catalog/modis-mod11c3.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788897-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788897-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:51Z",
+      "status": 200,
+      "bytes": 14228,
+      "sha256": "d16fed2a4de58198470a00654dfb38052dfa970e56a42e217c06c731706c1c87",
+      "headers": {
+       "cmr-request-id": "2eb9c0e9-d553-4852-8eb9-5d25a5548384"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788897-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788897-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "70f143b5a77a32ce70234de01f307862a331f7223c1eae4920e0480f61d545b4",
+      "headers": {
+       "cmr-request-id": "f9a2e8a6-e945-4500-99f0-7d199fb34256",
+       "cmr-hits": "321",
+       "cmr-took": "68"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD11C3",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Land Surface Temperature/Emissivity Monthly L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MOD11C3.061",
+     "temporal": [
+      "2000-02-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "321"
+    }
+   },
+   "summary": "CMR C2565788897-LPCLOUD: HTTP 200, MOD11C3 v061, DOI 10.5067/MODIS/MOD11C3.061, granules 321",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod13c2",
+   "file": "data/catalog/modis-mod13c2.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788914-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565788914-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 14299,
+      "sha256": "686de23f9b1991710ef5a07a9b695d2ea3e7e91e9d26fd47449ec2860618e4db",
+      "headers": {
+       "cmr-request-id": "09b4e418-0d08-42d5-ace0-21af8a507b17"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788914-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565788914-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "2e1583f106766f78775539fd302fb2fc5a6337fd7f6848597fa40a844bab3fb5",
+      "headers": {
+       "cmr-request-id": "96a2f99b-20c0-45dd-b699-e8e5926e3129",
+       "cmr-hits": "321",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD13C2",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Vegetation Indices Monthly L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MOD13C2.061",
+     "temporal": [
+      "2000-02-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "321"
+    }
+   },
+   "summary": "CMR C2565788914-LPCLOUD: HTTP 200, MOD13C2 v061, DOI 10.5067/MODIS/MOD13C2.061, granules 321",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod21c3",
+   "file": "data/catalog/modis-mod21c3.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565791050-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565791050-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 16457,
+      "sha256": "141ca4aefacf9c7c1f7d72e2472df2fafc0b2cb77c168594a6d381fa87b4173c",
+      "headers": {
+       "cmr-request-id": "91d39431-ee6f-4b86-b0f8-0732b64ae1f0"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565791050-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565791050-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "557857aa2ac65dc4c708a40ec964cc10554855995528332a63f599fecbee2497",
+      "headers": {
+       "cmr-request-id": "8ca035e5-588f-4452-89db-fa34da6e7c94",
+       "cmr-hits": "323",
+       "cmr-took": "14"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD21C3",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Land Surface Temperature/3-Band Emissivity Monthly L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MOD21C3.061",
+     "temporal": [
+      "2000-02-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "323"
+    }
+   },
+   "summary": "CMR C2565791050-LPCLOUD: HTTP 200, MOD21C3 v061, DOI 10.5067/MODIS/MOD21C3.061, granules 323",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mod44b",
+   "file": "data/catalog/modis-mod44b.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565805839-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565805839-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 16286,
+      "sha256": "da490dea43748f83c1aba1965f82d27d48209138f86e9ed19d7472c3dfe5a602",
+      "headers": {
+       "cmr-request-id": "44acbc2d-1731-4b01-8bfc-8cf9e22ac2f7"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565805839-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565805839-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "8117a221fe303763c9f0ccddbdaf3b2480240b0a4f33ff5090fc613b86080862",
+      "headers": {
+       "cmr-request-id": "3af9a732-f485-46a1-bdae-0c23308d2a95",
+       "cmr-hits": "7564",
+       "cmr-took": "16"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MOD44B",
+     "version": "061",
+     "entryTitle": "MODIS/Terra Vegetation Continuous Fields Yearly L3 Global 250m SIN Grid V061",
+     "doi": "10.5067/MODIS/MOD44B.061",
+     "temporal": [
+      "2000-03-05T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 250,
+        "YDimension": 250,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": null,
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "7564"
+    }
+   },
+   "summary": "CMR C2565805839-LPCLOUD: HTTP 200, MOD44B v061, DOI 10.5067/MODIS/MOD44B.061, granules 7564",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-myd11c3",
+   "file": "data/catalog/modis-myd11c3.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565794044-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565794044-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 14266,
+      "sha256": "e4b1237f2ec47041a56e9779c2e19c78f6b36416d70d69432245721a282f1104",
+      "headers": {
+       "cmr-request-id": "0a9c5620-e637-4f69-8536-d527af033b8b"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565794044-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565794044-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "95520c1686a3322491fd397861a28d34ca68fb9ded0790f1027169034d2844f0",
+      "headers": {
+       "cmr-request-id": "a2f86411-553a-4b5b-8de7-14247e4d75fb",
+       "cmr-hits": "292",
+       "cmr-took": "14"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MYD11C3",
+     "version": "061",
+     "entryTitle": "MODIS/Aqua Land Surface Temperature/Emissivity Monthly L3 Global 0.05Deg CMG V061",
+     "doi": "10.5067/MODIS/MYD11C3.061",
+     "temporal": [
+      "2002-07-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 5600,
+        "YDimension": 5600,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "292"
+    }
+   },
+   "summary": "CMR C2565794044-LPCLOUD: HTTP 200, MYD11C3 v061, DOI 10.5067/MODIS/MYD11C3.061, granules 292",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "mola-hrsc-blended-dem",
+   "file": "data/catalog/mola-hrsc-blended-dem.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m",
+      "fetchedAt": "2026-11-13T00:21:52Z",
+      "status": 200,
+      "bytes": 36482,
+      "sha256": "c27c8dbc0b5e0fdbf5d5567792c55e4ec3683a2650344718295912d490e2b107",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Mars MGS MOLA - MEX HRSC Blended DEM Global 200m",
+     "expect": {
+      "200 meters per pixel": "reation for Mars (Fergason et al., 2017; Laura & Fergason, 2016). Resolution is 200 meters per pixel (m). MOLA fired infrared laser pulses downward 10 times per second, and measured the time it took for the reflected pul"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 36482 B, sha256 c27c8dbc0b5e\u2026",
+   "license": {
+    "id": "cc0+cc-by-sa-3.0-igo",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "MOLA \\(CC0\\) and HRSC \\(CC BY-SA 3.0 IGO\\)": "al Elevation Model, Grey Scale, Raster Data, Topographic Map Access Constraints MOLA (CC0) and HRSC (CC BY-SA 3.0 IGO) Access Scope PDS Use Constraints Please cite authors Edition v2 Edition Name HRSC and MOLA Blend Supplemental Informati"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "mola-megdr",
+   "file": "data/catalog/mola-megdr.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/",
+      "finalUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 12896,
+      "sha256": "a5fb768fdf2aa7724053c9e20188f38445a40a77170cee3a85e051873c5b1dc0",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "pds-geosciences.wustl.edu - /mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/",
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 12896 B, sha256 a5fb768fdf2a\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mola-mission-experiment-gridded-data-record-f184e%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mola-mission-experiment-gridded-data-record-f184e%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:29:24Z",
+      "status": 200,
+      "bytes": 353,
+      "sha256": "60821791625e410cb4aa674cea7f202134ab9f2079f7cf3c66f9e15bfcc4ffdc",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "ded-data-record-f184e\", \"title\": \"MOLA MISSION EXPERIMENT GRIDDED DATA RECORD\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "mola-mission-experiment-gridded-data-record-f184e": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"mola-mission-experiment-gridded-data-record-f184e\", \"title\": \"MOLA MISSION EXPERIMENT GRIDDED DATA RECORD\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modifi"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "moon-trek-wmts",
+   "file": "data/catalog/moon-trek-wmts.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml",
+      "finalUrl": "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 7241,
+      "sha256": "44ea74fb169734a5f84d637083968bc27a523e7eb6cce20c340d4798c194cf4c",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "layers": 1,
+     "identifiers": [
+      "LRO_WAC_Mosaic_Global_303ppd_v02",
+      "default",
+      "default028mm",
+      "0",
+      "1"
+     ],
+     "expect": {}
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 7241 B, sha256 44ea74fb1697\u2026, layers 1",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "nasa-power-climatology",
+   "file": "data/catalog/nasa-power-climatology.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M_MIN,T2M_MAX,ALLSKY_SFC_SW_DWN&community=RE&longitude=-69.2&latitude=-23.5&format=JSON",
+      "finalUrl": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M_MIN,T2M_MAX,ALLSKY_SFC_SW_DWN&community=RE&longitude=-69.2&latitude=-23.5&format=JSON",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 1379,
+      "sha256": "cc42282c69d87ec91733c6892e150cabf9bcb4814bc8d28e73cabfa0082f31d6",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "T2M_MIN": "33.12,\"AUG\":32.09,\"SEP\":31.39,\"OCT\":32.44,\"NOV\":32.11,\"DEC\":32.78,\"ANN\":33.65},\"T2M_MIN\":{\"JAN\":9.69,\"FEB\":9.39,\"MAR\":7.89,\"APR\":4.94,\"MAY\":1.39,\"JUN\":-0.04,\"JUL\":-1.59,\"AUG\":-1.37,\"SEP\":1.39,\"OCT\":3.11,\"NOV"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 1379 B, sha256 cc42282c69d8\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "nasadem-hgt",
+   "file": "data/catalog/nasadem-hgt.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2763264762-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2763264762-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 12436,
+      "sha256": "aa87b8f816317e51faa6490d9add82e4946b5dedd88067d3bea178652eb337ea",
+      "headers": {
+       "cmr-request-id": "37e11339-ffa1-4d16-af1e-67b8c9d4420a"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763264762-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2763264762-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "9ddb987a7ea93e4a2a6adbc5c6d44b7369640e18585c31f647ff2ee98f8d8573",
+      "headers": {
+       "cmr-request-id": "76ca1048-745e-40a0-8667-fd6db3c8ac1c",
+       "cmr-hits": "14520",
+       "cmr-took": "14"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "NASADEM_HGT",
+     "version": "001",
+     "entryTitle": "NASADEM Merged DEM Global 1 arc second V001",
+     "doi": "10.5067/MEASURES/NASADEM/NASADEM_HGT.001",
+     "temporal": [
+      "2000-02-11T00:00:00.000Z",
+      "2000-02-21T23:59:59.000Z"
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 30,
+        "YDimension": 30,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseURL": {
+       "Name": "Data Use Policy",
+       "Linkage": "https://earthdata.nasa.gov/earth-observation-data/data-use-policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "14520"
+    }
+   },
+   "summary": "CMR C2763264762-LPCLOUD: HTTP 200, NASADEM_HGT v001, DOI 10.5067/MEASURES/NASADEM/NASADEM_HGT.001, granules 14520",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "nsidc-ggd318-permafrost",
+   "file": "data/catalog/nsidc-ggd318-permafrost.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://nsidc.org/data/ggd318/versions/2",
+      "finalUrl": "https://nsidc.org/data/ggd318/versions/2",
+      "fetchedAt": "2026-11-13T00:21:53Z",
+      "status": 200,
+      "bytes": 111118,
+      "sha256": "9485d55339c9869ba363b259e2c3b57a079bac4e275c936a3ade2ffcab117549",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 | National Snow and Ice Data Center",
+     "expect": {
+      "Circum-Arctic Map of Permafrost": " Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 | National Snow and Ice Data Center Menu National Snow and Ice Data Center NSIDC a"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 111118 B, sha256 9485d55339c9\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "ody-grs-pds",
+   "file": "data/catalog/ody-grs-pds.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html",
+      "fetchedAt": "2026-11-13T00:21:54Z",
+      "status": 200,
+      "bytes": 29231,
+      "sha256": "81a37882aa2622195c8d7f88ccb010acf5ef1e9daa5a1c1489de6720ebd69210",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: Odyssey GRS",
+     "expect": {
+      "Odyssey GRS": "\ufeff PDS Geosciences Node Data and Services: Odyssey GRS + NASA Homepage + NASA en Espa\u00f1ol + Contact NASA HOME DATA AND SERVICES TOOLS ABOUT US CONTACT US SITE MAP Services Ana"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 29231 B, sha256 81a37882aa26\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "rema",
+   "file": "data/catalog/rema.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://registry.opendata.aws/pgc-rema/",
+      "finalUrl": "https://registry.opendata.aws/pgc-rema/",
+      "fetchedAt": "2026-11-13T00:21:54Z",
+      "status": 200,
+      "bytes": 11614,
+      "sha256": "a04dde8186e520950db4684092074215a9906a20cb7e50b1491f703936815e4b",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Reference Elevation Model of Antarctica (REMA) - Registry of Open Data on AWS",
+     "expect": {
+      "Reference Elevation Model of Antarctica": " Reference Elevation Model of Antarctica (REMA) - Registry of Open Data on AWS Registry of Open Data on AWS Reference Elevation Model of Antarctica (REMA) cog e"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 11614 B, sha256 a04dde8186e5\u2026",
+   "license": {
+    "id": "cc-by-4.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "Creative Commons Attribution 4.0 International \\(CC BY 4.0\\)": " twice yearly. Mosaic products are added as soon as they are available. License Creative Commons Attribution 4.0 International (CC BY 4.0) Documentation https://www.pgc.umn.edu/data/rema/ Managed By See all datasets managed by Polar Geospatial Center . Conta"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "robbins-mars-craters",
+   "file": "data/catalog/robbins-mars-craters.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+      "finalUrl": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+      "fetchedAt": "2026-11-13T00:21:54Z",
+      "status": 200,
+      "bytes": 2950,
+      "sha256": "1e89ec9cc43e0a2b05e6f5f48a1525f833861e7109e8a1673ce85e160233a6a4",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "robbins": "{ \"id\": \"mars/robbinsv1\", \"title\": \"Robbins V1 Crater Database\", \"description\": \"TBD\", \"keywords\": [ \"crater\", \"Mars\" ], \"links\": [ { \"type\":"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 2950 B, sha256 1e89ec9cc43e\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "robbins-moon-craters",
+   "file": "data/catalog/robbins-moon-craters.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+      "fetchedAt": "2026-11-13T00:21:54Z",
+      "status": 200,
+      "bytes": 30423,
+      "sha256": "1bbc71617adce976ae9a595f758c502e555ce870dca9e1b440dc4aa503ae3246",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Moon Crater Database v1 Robbins",
+     "expect": {
+      "Moon Crater Database v1 Robbins": " Astropedia - Moon Crater Database v1 Robbins Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Download (91.77 MB) ope"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 30423 B, sha256 1bbc71617adc\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "smap-spl3smp-e",
+   "file": "data/catalog/smap-spl3smp-e.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2938664763-NSIDC_CPRD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2938664763-NSIDC_CPRD.umm_json",
+      "fetchedAt": "2026-11-13T00:21:54Z",
+      "status": 200,
+      "bytes": 12832,
+      "sha256": "0b36948cfbe658f86d50a15c9be62fdfb2620777acf97af3b5fc51e0bce261ba",
+      "headers": {
+       "cmr-request-id": "00791959-3779-49c9-9b29-ac511e884145"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2938664763-NSIDC_CPRD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2938664763-NSIDC_CPRD&page_size=0",
+      "fetchedAt": "2026-11-13T00:21:55Z",
+      "status": 200,
+      "bytes": 210,
+      "sha256": "08bdd1ccfd047ced70363f08cfb416a136ebed1f8dfd32d75d0167533d3da7e5",
+      "headers": {
+       "cmr-request-id": "ea663553-a206-465d-bc42-32488a909451",
+       "cmr-hits": "4166",
+       "cmr-took": "14"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "SPL3SMP_E",
+     "version": "006",
+     "entryTitle": "SMAP Enhanced L3 Radiometer Global and Polar Grid Daily 9 km EASE-Grid Soil Moisture V006",
+     "doi": "10.5067/M20OXIZHY3RJ",
+     "temporal": [
+      "2015-03-31T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GriddedResolutions": [
+       {
+        "XDimension": 9.0,
+        "YDimension": 9.0,
+        "Unit": "Kilometers"
+       }
+      ]
+     },
+     "useConstraints": {
+      "LicenseText": " These data are freely, openly, and fully available to use without restrictions, provided that you cite the data according to the recommended citation at https://nsidc.org/about/use_copyright.html. For more information on the NASA EOSDIS Data Use Policy, see https://earthdata.nasa.gov/earth-observation-data/data-use-policy."
+     },
+     "archiveCenter": [
+      "NASA NSIDC DAAC"
+     ],
+     "granuleHits": "4166"
+    }
+   },
+   "summary": "CMR C2938664763-NSIDC_CPRD: HTTP 200, SPL3SMP_E v006, DOI 10.5067/M20OXIZHY3RJ, granules 4166",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-13T00:21:55Z",
+      "status": 200,
+      "bytes": 141328,
+      "sha256": "d6118a50b90e2576db637ab13130b87e60056a7ab545bdc03ebf438d1cc3c11c",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "soilgrids",
+   "file": "data/catalog/soilgrids.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://isric.org/explore/soilgrids",
+      "finalUrl": "https://isric.org/explore/soilgrids",
+      "fetchedAt": "2026-11-13T00:21:55Z",
+      "status": 200,
+      "bytes": 279476,
+      "sha256": "e32f3952255bb96615763c97e65e166bbb2374985fe6455a0cbe34ce8de29a02",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "SoilGrids - Global gridded soil information",
+     "expect": {
+      "SoilGrids": " SoilGrids - Global gridded soil information ISRIC About us Who we are Strategy Accountability Accreditations Partnerships Careers"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 279476 B, sha256 e32f3952255b\u2026",
+   "license": {
+    "id": "cc-by-4.0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://isric.org/explore/soilgrids",
+      "finalUrl": "https://isric.org/explore/soilgrids",
+      "fetchedAt": "2026-11-13T00:22:01Z",
+      "status": 200,
+      "bytes": 279476,
+      "sha256": "e32f3952255bb96615763c97e65e166bbb2374985fe6455a0cbe34ce8de29a02",
+      "headers": {}
+     },
+     "matches": {
+      "SoilGrids maps are publicly available on the SoilGrids website under the CC-BY 4.0 License": "Sciences. For additional information, please visit the SoilGrids FAQ page . The SoilGrids maps are publicly available on the SoilGrids website under the CC-BY 4.0 License . Acknowledgements SoilGrids was funded from ISRIC's core funding, with additional support from the EU-H2020 CIRCASA pr"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "swim-mars-ice",
+   "file": "data/catalog/swim-mars-ice.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://swim.psi.edu/",
+      "finalUrl": "https://swim.psi.edu/",
+      "fetchedAt": "2026-11-13T00:21:55Z",
+      "status": 200,
+      "bytes": 13418,
+      "sha256": "3e264e6c5001f9c8ab43e4349043092934b5e7e3c3d028770ed80d44f60d2544",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Subsurface Water Ice Mapping",
+     "expect": {
+      "Subsurface Water Ice Mapping": " Subsurface Water Ice Mapping Home About Presentations Products SWIM4MIM Products SWIM2.0 Products 2019 Northern Hemisphere 2018 Pilot Study Contact "
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 13418 B, sha256 3e264e6c5001\u2026",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "tes-mgs",
+   "file": "data/catalog/tes-mgs.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://pds-geosciences.wustl.edu/missions/mgs/tes.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/mgs/tes.html",
+      "fetchedAt": "2026-11-13T00:21:57Z",
+      "status": 200,
+      "bytes": 27468,
+      "sha256": "7b4e7ce99eec0d45484c11fe69c73737a1171f100cb8ac73586d08a52793e8e6",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "PDS Geosciences Node Data and Services: MGS TES",
+     "expect": {
+      "TES": "\ufeff PDS Geosciences Node Data and Services: MGS TES + NASA Homepage + NASA en Espa\u00f1ol + Contact NASA HOME DATA AND SERVICES TOOLS ABOUT US CONTACT US SITE MAP Services Ana"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 27468 B, sha256 7b4e7ce99eec\u2026",
+   "license": {
+    "id": "us-pd",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mgs-mars-tes-derived-thermal-inertia-maps-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mgs-mars-tes-derived-thermal-inertia-maps-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id",
+      "fetchedAt": "2026-11-13T00:29:24Z",
+      "status": 200,
+      "bytes": 393,
+      "sha256": "851dc4159469831d64ee63bb003f7ce6a6dd8a3cd3da07bc56c6f27e898729c3",
+      "headers": {}
+     },
+     "matches": {
+      "\"license_id\": ?\"us-pd\"": "nertia-maps-v1-0\", \"title\": \"MGS MARS TES DERIVED THERMAL INERTIA\\n MAPS V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_modified desc\", \"search_facets\": {}}}",
+      "mgs-mars-tes-derived-thermal-inertia-maps-v1-0": "h\", \"success\": true, \"result\": {\"count\": 1, \"facets\": {}, \"results\": [{\"name\": \"mgs-mars-tes-derived-thermal-inertia-maps-v1-0\", \"title\": \"MGS MARS TES DERIVED THERMAL INERTIA\\n MAPS V1.0\", \"license_id\": \"us-pd\"}], \"sort\": \"score desc, metadata_m"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "themis-ir-controlled-mosaics",
+   "file": "data/catalog/themis-ir-controlled-mosaics.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics",
+      "fetchedAt": "2026-11-13T00:22:02Z",
+      "status": 200,
+      "bytes": 3327,
+      "sha256": "f3aad61d4e8d32e3ac1f94f5d0181d4734b4e68adc872b59db34d6d44ef80b8b",
+      "headers": {}
+     },
+     {
+      "url": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=1",
+      "finalUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=1",
+      "fetchedAt": "2026-11-13T00:22:02Z",
+      "status": 200,
+      "bytes": 6940,
+      "sha256": "f67db787b162035a1e24fae835412ba4ddc1c3881c887eecc239a81f29e6b3b0",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "id": "mo_themis_controlled_mosaics",
+     "title": "Mars Odyssey (MO) Thermal Emission Imaging System (THEMIS) Infrared (IR) Controlled Image Mosaics",
+     "license": "CC0-1.0",
+     "extent": {
+      "spatial": {
+       "bbox": [
+        [
+         -10669445.147182181,
+         -1778200,
+         10669445.55419512,
+         1778410.2431924134
+        ]
+       ]
+      },
+      "temporal": {
+       "interval": [
+        [
+         "2021-10-01T00:00:00Z",
+         "2021-10-01T00:00:00Z"
+        ]
+       ]
+      }
+     },
+     "numberMatched": 56
+    }
+   },
+   "summary": "STAC mo_themis_controlled_mosaics: HTTP 200, license CC0-1.0, items 56",
+   "license": {
+    "id": "cc0-1.0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "\"license\": \"CC0-1.0\"": "ermal Emission Imaging System (THEMIS) Infrared (IR) Controlled Image Mosaics\", \"license\": \"CC0-1.0\", \"extent\": {\"spatial\": {\"bbox\": [[-10669445.147182181, -1778200, 10669445.55419512, 1778410.2431924134]]}, \"temporal\": "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "travel-time-to-cities-2015",
+   "file": "data/catalog/travel-time-to-cities-2015.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://malariaatlas.org/project-resources/accessibility-to-cities/",
+      "finalUrl": "https://malariaatlas.org/project-resources/accessibility-to-healthcare/",
+      "fetchedAt": "2026-11-13T00:22:03Z",
+      "status": 200,
+      "bytes": 60488,
+      "sha256": "fd5465d4f11375496219ddd7f8ba499e89ec9b5af2b98ff368dbfd0316de58e7",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Accessibility to Healthcare \u2013 MAP",
+     "expect": {
+      "accessibility to cities": null
+     }
+    },
+    "ok": false
+   },
+   "summary": "HTTP 200, 60488 B, sha256 fd5465d4f113\u2026 \u2014 PROBE FAILED (expectation not met)",
+   "license": {
+    "id": "unresolved",
+    "verified": false,
+    "evidence": {}
+   }
+  },
+  {
+   "datasetId": "unified-geologic-map-moon",
+   "file": "data/catalog/unified-geologic-map-moon.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020",
+      "fetchedAt": "2026-11-13T00:22:06Z",
+      "status": 200,
+      "bytes": 26134,
+      "sha256": "967908b8032aefff37be70324cdc24b154aac59a1bb5544f964a627fb0d57372",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "Astropedia - Unified Geologic Map of the Moon, 1:5M, 2020",
+     "expect": {
+      "Unified Geologic Map of the Moon": " Astropedia - Unified Geologic Map of the Moon, 1:5M, 2020 Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Download (2"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 26134 B, sha256 967908b8032a\u2026",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": "row probe body",
+     "matches": {
+      "Use Constraints CC0": "istribution Format Geologic Map Access Constraints none Access Scope MRCTR, PGM Use Constraints CC0, but please cite authors Edition 2.0, March 3, 2020 Edition Name Version Supplemental Information https://www.hou.usra."
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "wdpa-protected-areas",
+   "file": "data/catalog/wdpa-protected-areas.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://www.protectedplanet.net/en/thematic-areas/wdpa",
+      "finalUrl": "https://www.protectedplanet.net/en/data/wdpca",
+      "fetchedAt": "2026-11-13T00:22:06Z",
+      "status": 200,
+      "bytes": 55864,
+      "sha256": "3f70d4737af104b80c3efa599b0d6dcbc92cbdfb06fe338ce383914d69ef7311",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": "World Database on Protected and Conserved Areas (WDPCA) | Protected Planet",
+     "expect": {
+      "Protected": " World Database on Protected and Conserved Areas (WDPCA) | Protected Planet World Database on Protected and Conserved Areas (WDPCA) The World Databa"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 55864 B, sha256 3f70d4737af1\u2026",
+   "license": {
+    "id": "wdpa-terms-noncommercial",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.protectedplanet.net/en/legal",
+      "finalUrl": "https://www.protectedplanet.net/en/legal",
+      "fetchedAt": "2026-11-13T00:22:07Z",
+      "status": 200,
+      "bytes": 31642,
+      "sha256": "d81878173d681d6130125357861f6155c1e4d8b03ba1ed2753319172ab2b723d",
+      "headers": {}
+     },
+     "matches": {
+      "No Commercial Use": "DPLANET.NET YOU ACCEPT AND AGREE TO COMPLY WITH THE TERMS AND CONDITIONS BELOW. No Commercial Use Neither (a) the WDPCA Materials and the GD-PAME Materials nor (b) any work derived from or based upon the WDPCA Materia"
+     }
+    }
+   }
+  }
+ ]
+}

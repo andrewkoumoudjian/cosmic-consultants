@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: m3-pds
+title: "Chandrayaan-1 Moon Mineralogy Mapper (M3) PDS volumes"
+status: candidate
+bodies: [moon]
+dimensions: [surfaceMaterial, waterIce]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Imaging Node"
+  endpoint: "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+  probedAt: 2026-11-13T00:20:21Z
+  probeResult: "HTTP 200, 6960 B, sha256 2543dca3defa…"
+probe:
+  kind: http
+  url: "https://pds-imaging.jpl.nasa.gov/volumes/m3.html"
+  expect: ["Moon Mineralogy Mapper"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "near-global Moon"
+  temporal: "2008-2009"
+  resolution: "unverified: 140 m (global mode) - 70 m (target)"
+analysisReady: false
+independenceGroup: vswir-imaging-spectrometer
+plannedUse: "mafic_bd_1um and oh_3um (Moon)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

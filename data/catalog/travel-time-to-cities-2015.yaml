@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "unresolved (Malaria Atlas Project / figshare)"
   endpoint: "https://malariaatlas.org/project-resources/accessibility-to-cities/"
-  probedAt: 2026-11-12T21:38:50Z
-  probeResult: "HTTP 200, 61222 B, sha256 29513c14e8cc… \u2014 PROBE FAILED (expectation not met)"
+  probedAt: 2026-11-13T00:22:03Z
+  probeResult: "HTTP 200, 60488 B, sha256 fd5465d4f113… — PROBE FAILED (expectation not met)"
 probe:
   kind: http
   url: "https://malariaatlas.org/project-resources/accessibility-to-cities/"

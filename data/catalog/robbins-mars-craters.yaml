@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: robbins-mars-craters
+title: "Mars crater database v1 (Robbins & Hynek 2012), USGS pygeoapi collection"
+status: candidate
+bodies: [mars]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (pygeoapi)"
+  endpoint: "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1"
+  probedAt: 2026-11-13T00:21:54Z
+  probeResult: "HTTP 200, 2950 B, sha256 1e89ec9cc43e…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json"
+  expect: ["robbins"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "collection metadata licence not yet read"
+coverage:
+  spatial: "global Mars"
+  temporal: ""
+  resolution: "craters >= ~1 km"
+analysisReady: true
+independenceGroup: crater-catalogue
+plannedUse: "crater_density (Mars)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

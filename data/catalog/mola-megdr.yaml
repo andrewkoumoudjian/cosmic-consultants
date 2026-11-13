@@ -11,17 +11,17 @@ discovery:
 source:
   archive: "PDS Geosciences Node"
   endpoint: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:21:53Z
   probeResult: "HTTP 200, 12896 B, sha256 a5fb768fdf2a…"
 probe:
   kind: http
   url: "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/"
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mola-mission-experiment-gridded-data-record-f184e%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "mola-mission-experiment-gridded-data-record-f184e"]
+  verified: true
+  note: "data.nasa.gov record mola-mission-experiment-gridded-data-record-f184e (PDS data_set mgs-m-mola-5-megdr-l3-v1.0) declares us-pd. The portal also holds duplicate harvests of the same product labelled other-license-specified and notspecified; licence evidence is the us-pd record, conflict noted. Found via the W3b CKAN triage (mola queue), 2026-11-12."
 coverage:
   spatial: "global Mars"
   temporal: "unverified: 1997-2001"

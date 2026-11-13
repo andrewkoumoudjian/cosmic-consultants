@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: minirf-pds
+title: "LRO Mini-RF data products (PDS Geosciences)"
+status: candidate
+bodies: [moon]
+dimensions: [waterIce, terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/lro/mrf.htm"
+  probedAt: 2026-11-13T00:20:30Z
+  probeResult: "HTTP 200, 38682 B, sha256 6de9eac71b68…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/missions/lro/mrf.htm"
+  expect: ["Mini-RF"]
+license:
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-mini-rf-5-global-mosaic-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "lro-moon-mini-rf-5-global-mosaic-v1-0"]
+  verified: true
+  note: "data.nasa.gov record lro-moon-mini-rf-5-global-mosaic-v1-0 declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
+coverage:
+  spatial: "global mosaics + targeted"
+  temporal: "2009-"
+  resolution: "unverified: ~30 m"
+analysisReady: false
+independenceGroup: s-band-sar
+plannedUse: "cpr_minirf; radar roughness"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

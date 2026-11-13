@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: mars-geologic-map-sim3292
+title: "Geologic map of Mars (Tanaka et al. 2014), USGS SIM 3292"
+status: candidate
+bodies: [mars]
+dimensions: [surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Publications Warehouse"
+  endpoint: "https://pubs.usgs.gov/publication/sim3292"
+  probedAt: 2026-11-13T00:20:22Z
+  probeResult: "HTTP 200, 83871 B, sha256 471f4d8f9f82…"
+probe:
+  kind: http
+  url: "https://pubs.usgs.gov/publication/sim3292"
+  expect: ["Scientific Investigations Map 3292"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "USGS publication; licence statement not found on the landing page"
+coverage:
+  spatial: "global Mars"
+  temporal: "2014"
+  resolution: "1:20,000,000"
+analysisReady: true
+independenceGroup: geologic-map
+plannedUse: "geo_unit (Mars); doi:10.3133/sim3292"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

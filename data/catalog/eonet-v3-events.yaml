@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "NASA EONET"
   endpoint: "https://eonet.gsfc.nasa.gov/api/v3/events"
-  probedAt: 2026-11-12T21:38:47Z
+  probedAt: 2026-11-13T00:20:19Z
   probeResult: "HTTP 200, 4469 B, sha256 a3e9c492a313…"
 probe:
   kind: http

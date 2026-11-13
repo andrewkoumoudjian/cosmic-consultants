@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: aster-ged-ag100
+title: "ASTER Global Emissivity Dataset, 100 m, V003"
+status: candidate
+bodies: [earth]
+dimensions: [surfaceMaterial, thermal]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "Earthdata (LP DAAC, LPCLOUD)"
+  endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C2763266348-LPCLOUD"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "CMR C2763266348-LPCLOUD: HTTP 200, AG100 v003, DOI 10.5067/COMMUNITY/ASTER_GED/AG100.003, granules 24873"
+probe:
+  kind: cmr
+  conceptId: C2763266348-LPCLOUD
+license:
+  id: cc0
+  textUrl: "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance"
+  expect: ["licensed as Creative Commons Zero"]
+  verified: true
+  note: "NASA ESDIS default: CC0 unless the record is marked otherwise; UMM UseConstraints captured in the probe log."
+coverage:
+  spatial: "global land"
+  temporal: "2000-2008 mean"
+  resolution: "100 m"
+analysisReady: true
+independenceGroup: aster-tir
+plannedUse: "TIR emissivity (5 bands 8-12 um): silica / mafic indices as proxy for TES mineral fractions and Diviner CF position"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
