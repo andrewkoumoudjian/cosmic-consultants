@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "NASA Solar System Treks"
   endpoint: "https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/WMTSCapabilities.xml"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:21:53Z
   probeResult: "HTTP 200, 7241 B, sha256 44ea74fb1697…, layers 1"
 probe:
   kind: wmts

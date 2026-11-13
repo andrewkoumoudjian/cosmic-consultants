@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: kaguya-mi-59mpp
+title: "Kaguya Lunar Multiband Imager 59 m/pixel mosaics and Lemelin et al. FeO/OMAT/mineral maps (USGS Astropedia)"
+status: candidate
+bodies: [moon]
+dimensions: [surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (Astropedia)"
+  endpoint: "https://astrogeology.usgs.gov/search/map/kaguya_lunar_multiband_imager_59mpp"
+  probedAt: 2026-11-13T00:20:20Z
+  probeResult: "HTTP 200, 27722 B, sha256 e6bed4e61f76…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/search/map/kaguya_lunar_multiband_imager_59mpp"
+  expect: ["512 ppd \\(59 meters/pixel\\)"]
+license:
+  id: jaxa-conditions
+  textUrl: null
+  expect: ["JAXA Conditions for material usage"]
+  verified: true
+  note: "credit JAXA and the SELENE/Kaguya data; read http://jda.jaxa.jp/en/service.php before redistribution"
+coverage:
+  spatial: "unverified: 50S-50N (search-result statement; topographic-shading limit)"
+  temporal: "SELENE mission"
+  resolution: "59 m/pixel (resampled from 15 m)"
+analysisReady: true
+independenceGroup: vnir-multiband
+plannedUse: "feo_wt (and mineral maps); TiO2 product availability on this page to confirm"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

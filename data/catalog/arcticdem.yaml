@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: arcticdem
+title: "ArcticDEM 2 m DEM strips and mosaics (PGC)"
+status: candidate
+bodies: [earth]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "Polar Geospatial Center via AWS Registry of Open Data"
+  endpoint: "https://registry.opendata.aws/pgc-arcticdem/"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "HTTP 200, 11617 B, sha256 849ac06a12aa…"
+probe:
+  kind: http
+  url: "https://registry.opendata.aws/pgc-arcticdem/"
+  expect: ["2m GSD Digital Elevation Models"]
+license:
+  id: cc-by-4.0
+  textUrl: null
+  expect: ["Creative Commons Attribution 4.0 International \\(CC BY 4.0\\)"]
+  verified: true
+  note: "PGC attribution wording required"
+coverage:
+  spatial: "Arctic (north of ~60N)"
+  temporal: "2007/present"
+  resolution: "2 m (strips), mosaics coarser"
+analysisReady: true
+independenceGroup: optical-stereo-hr
+plannedUse: "only Earth source for 2-5 m slope baselines (slope_5m), Arctic analog sites (e.g. Haughton)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

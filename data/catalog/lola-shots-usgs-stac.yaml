@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology STAC"
   endpoint: "https://stac.astrogeology.usgs.gov/api/collections/lunar_orbiter_laser_altimeter"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:21Z
   probeResult: "STAC lunar_orbiter_laser_altimeter: HTTP 200, license CC0-1.0, items 288"
 probe:
   kind: stac

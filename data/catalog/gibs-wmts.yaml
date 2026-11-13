@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "Earthdata GIBS"
   endpoint: "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&REQUEST=GetCapabilities"
-  probedAt: 2026-11-12T21:38:48Z
-  probeResult: "HTTP 200, 5319261 B, sha256 2576475e8a19…, layers 1330"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "HTTP 200, 5319261 B, sha256 4c0c1ecfef51…, layers 1330"
 probe:
   kind: wmts
   url: "https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/wmts.cgi?SERVICE=WMTS&REQUEST=GetCapabilities"

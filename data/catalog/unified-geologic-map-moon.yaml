@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: unified-geologic-map-moon
+title: "Unified Geologic Map of the Moon, 1:5M, 2020 (Fortezzo et al.)"
+status: candidate
+bodies: [moon]
+dimensions: [surfaceMaterial]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology (Astropedia)"
+  endpoint: "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020"
+  probedAt: 2026-11-13T00:22:06Z
+  probeResult: "HTTP 200, 26134 B, sha256 967908b8032a…"
+probe:
+  kind: http
+  url: "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020"
+  expect: ["Unified Geologic Map of the Moon"]
+license:
+  id: cc0
+  textUrl: null
+  expect: ["Use Constraints CC0"]
+  verified: true
+  note: "page: 'CC0, but please cite authors'"
+coverage:
+  spatial: "global Moon"
+  temporal: "Edition 2.0, 2020-03-03"
+  resolution: "1:5,000,000"
+analysisReady: true
+independenceGroup: geologic-map
+plannedUse: "geo_unit (Moon)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

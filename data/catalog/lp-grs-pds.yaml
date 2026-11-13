@@ -1,0 +1,32 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: lp-grs-pds
+title: "Lunar Prospector reduced spectrometer data (GRS/NS) (PDS Geosciences)"
+status: candidate
+bodies: [moon]
+dimensions: [surfaceMaterial, waterIce]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/lunarp/reduced.html"
+  probedAt: 2026-11-13T00:20:21Z
+  probeResult: "HTTP 200, 24306 B, sha256 9742a3163af1…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/missions/lunarp/reduced.html"
+license:
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lunar-prospector-grs-elemental-abundance-bundle%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "lunar-prospector-grs-elemental-abundance-bundle"]
+  verified: true
+  note: "data.nasa.gov record lunar-prospector-grs-elemental-abundance-bundle declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
+coverage:
+  spatial: "global Moon"
+  temporal: "1998-1999"
+  resolution: "unverified: ~0.5-5 deg"
+analysisReady: false
+independenceGroup: gamma-neutron
+plannedUse: "grs_th_k (Th, K, Fe) and neutron hydrogen (second source to LEND)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

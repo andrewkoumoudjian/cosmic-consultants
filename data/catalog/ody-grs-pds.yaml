@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: ody-grs-pds
+title: "Mars Odyssey Gamma Ray Spectrometer data (PDS Geosciences)"
+status: candidate
+bodies: [mars]
+dimensions: [surfaceMaterial, waterIce]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PDS Geosciences Node"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html"
+  probedAt: 2026-11-13T00:21:54Z
+  probeResult: "HTTP 200, 29231 B, sha256 81a37882aa26…"
+probe:
+  kind: http
+  url: "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html"
+  expect: ["Odyssey GRS"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+coverage:
+  spatial: "global Mars (mid/low latitudes for elements)"
+  temporal: "2002-"
+  resolution: "unverified: ~5 deg bins"
+analysisReady: false
+independenceGroup: gamma-neutron
+plannedUse: "grs_th_k (Mars) and water-equivalent hydrogen"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

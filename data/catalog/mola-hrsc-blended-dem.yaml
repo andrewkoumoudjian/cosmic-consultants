@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "USGS Astrogeology (Astropedia)"
   endpoint: "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m"
-  probedAt: 2026-11-12T21:38:50Z
-  probeResult: "HTTP 200, 36482 B, sha256 9309a442805b…"
+  probedAt: 2026-11-13T00:21:52Z
+  probeResult: "HTTP 200, 36482 B, sha256 c27c8dbc0b5e…"
 probe:
   kind: http
   url: "https://astrogeology.usgs.gov/search/map/mars_mgs_mola_mex_hrsc_blended_dem_global_200m"

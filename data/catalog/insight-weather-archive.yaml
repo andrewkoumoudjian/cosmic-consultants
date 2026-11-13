@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "api.nasa.gov"
   endpoint: "https://api.nasa.gov/insight_weather/"
-  probedAt: 2026-11-12T21:38:48Z
-  probeResult: "HTTP 200, 36505 B, sha256 c5df364deee3…"
+  probedAt: 2026-11-13T00:20:20Z
+  probeResult: "HTTP 429, 174 B, sha256 3f95d2152942… — PROBE FAILED (HTTP 429)"
 probe:
   kind: http
   url: "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"

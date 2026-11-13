@@ -11,18 +11,18 @@ discovery:
 source:
   archive: "PDS Geosciences Node"
   endpoint: "https://pds-geosciences.wustl.edu/missions/mgs/tes.html"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:21:57Z
   probeResult: "HTTP 200, 27468 B, sha256 7b4e7ce99eec…"
 probe:
   kind: http
   url: "https://pds-geosciences.wustl.edu/missions/mgs/tes.html"
   expect: ["TES"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22mgs-mars-tes-derived-thermal-inertia-maps-v1-0%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "mgs-mars-tes-derived-thermal-inertia-maps-v1-0"]
+  verified: true
+  note: "data.nasa.gov record mgs-mars-tes-derived-thermal-inertia-maps-v1-0 declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
 coverage:
   spatial: "global Mars"
   temporal: "unverified: 1997-2006"

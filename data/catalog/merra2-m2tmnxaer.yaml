@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "Earthdata (GES DISC)"
   endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C1276812866-GES_DISC"
-  probedAt: 2026-11-12T21:38:49Z
+  probedAt: 2026-11-13T00:20:26Z
   probeResult: "CMR C1276812866-GES_DISC: HTTP 200, M2TMNXAER v5.12.4, DOI 10.5067/FH9A0MLJPC7N, granules 561"
 probe:
   kind: cmr

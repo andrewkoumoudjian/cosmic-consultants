@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "Earthdata (LP DAAC, LPCLOUD)"
   endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C2763264762-LPCLOUD"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:21:53Z
   probeResult: "CMR C2763264762-LPCLOUD: HTTP 200, NASADEM_HGT v001, DOI 10.5067/MEASURES/NASADEM/NASADEM_HGT.001, granules 14520"
 probe:
   kind: cmr

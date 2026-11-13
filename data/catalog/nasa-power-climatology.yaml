@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "NASA LaRC POWER"
   endpoint: "https://power.larc.nasa.gov/api/temporal/climatology/point"
-  probedAt: 2026-11-12T21:38:50Z
-  probeResult: "HTTP 200, 1379 B, sha256 66317835294b…"
+  probedAt: 2026-11-13T00:21:53Z
+  probeResult: "HTTP 200, 1379 B, sha256 cc42282c69d8…"
 probe:
   kind: http
   url: "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M_MIN,T2M_MAX,ALLSKY_SFC_SW_DWN&community=RE&longitude=-69.2&latitude=-23.5&format=JSON"

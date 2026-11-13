@@ -11,17 +11,17 @@ discovery:
 source:
   archive: "PDS Geosciences Node"
   endpoint: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:20Z
   probeResult: "HTTP 200, 582 B, sha256 b8146dff064c…"
 probe:
   kind: http
   url: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/"
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-laser-altimeter-4-gdr-v1-0-17e02%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "lro-moon-laser-altimeter-4-gdr-v1-0-17e02"]
+  verified: true
+  note: "data.nasa.gov record lro-moon-laser-altimeter-4-gdr-v1-0-17e02 declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
 coverage:
   spatial: "global Moon"
   temporal: "unverified: 2009-"

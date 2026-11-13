@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: earth-impact-database
+title: "Earth Impact Database (PASSC, University of New Brunswick)"
+status: unresolved
+bodies: [earth]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "PASSC (unresolved)"
+  endpoint: "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "HTTP 200, 114 B, sha256 6dc9c7fc93bb… — PROBE FAILED (expectation not met)"
+probe:
+  kind: http
+  url: "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html"
+  expect: ["Earth Impact Database"]
+license:
+  id: unresolved
+  textUrl: null
+  expect: []
+  verified: false
+  note: "2026-11-12: the passc.net URL serves a parked-domain redirect to /lander; the database site appears gone. Find a maintained mirror or successor before use."
+coverage:
+  spatial: "global, point catalogue"
+  temporal: ""
+  resolution: "site-level"
+analysisReady: false
+independenceGroup: impact-catalogue
+plannedUse: "crater_density / impact_structure Earth counterpart (point analogs only)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

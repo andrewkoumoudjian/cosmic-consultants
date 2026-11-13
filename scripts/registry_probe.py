@@ -32,8 +32,10 @@ import html
 import json
 import pathlib
 import re
+import threading
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 import yaml
@@ -59,8 +61,21 @@ def now() -> str:
     return dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+# data.nasa.gov (CKAN) stalls under concurrent queries: serialize every request to it
+# and give it more attempts. Other hosts stay parallel.
+_SERIAL = {"data.nasa.gov": threading.Lock()}
+
+
 def fetch(url: str, limit: int = 25_000_000, tries: int = 2, timeout: int = 90):
     """GET url -> dict(status, bytes, sha256, finalUrl, fetchedAt, body|error, headers)."""
+    lock = _SERIAL.get(urllib.parse.urlsplit(url).hostname or "")
+    if lock is not None:
+        with lock:
+            return _fetch(url, limit, max(tries, 3), timeout)
+    return _fetch(url, limit, tries, timeout)
+
+
+def _fetch(url: str, limit: int, tries: int, timeout: int):
     last = None
     for _ in range(tries):
         t = now()

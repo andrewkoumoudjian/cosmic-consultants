@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology STAC"
   endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mro_hirise_socet_dtms"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:20Z
   probeResult: "STAC mro_hirise_socet_dtms: HTTP 200, license CC0-1.0, items 1262"
 probe:
   kind: stac

@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "PSI SWIM project"
   endpoint: "https://swim.psi.edu/"
-  probedAt: 2026-11-12T21:38:50Z
+  probedAt: 2026-11-13T00:21:55Z
   probeResult: "HTTP 200, 13418 B, sha256 3e264e6c5001…"
 probe:
   kind: http

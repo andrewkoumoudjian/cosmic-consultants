@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "Earthdata (LP DAAC, LPCLOUD)"
   endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C2484078896-LPCLOUD"
-  probedAt: 2026-11-12T21:38:49Z
+  probedAt: 2026-11-13T00:21:51Z
   probeResult: "CMR C2484078896-LPCLOUD: HTTP 200, MCD12C1 v061, DOI 10.5067/MODIS/MCD12C1.061, granules 25"
 probe:
   kind: cmr

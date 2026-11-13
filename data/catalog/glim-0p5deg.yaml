@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "PANGAEA"
   endpoint: "https://doi.pangaea.de/10.1594/PANGAEA.788537"
-  probedAt: 2026-11-12T21:38:48Z
+  probedAt: 2026-11-13T00:20:19Z
   probeResult: "HTTP 200, 27662 B, sha256 3f99fe1da8a1…"
 probe:
   kind: http

@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "UNEP-WCMC Protected Planet"
   endpoint: "https://www.protectedplanet.net/en/thematic-areas/wdpa"
-  probedAt: 2026-11-12T21:38:50Z
-  probeResult: "HTTP 200, 55864 B, sha256 6a8769da7649…"
+  probedAt: 2026-11-13T00:22:06Z
+  probeResult: "HTTP 200, 55864 B, sha256 3f70d4737af1…"
 probe:
   kind: http
   url: "https://www.protectedplanet.net/en/thematic-areas/wdpa"

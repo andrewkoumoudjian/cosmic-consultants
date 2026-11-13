@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "ESA Copernicus via AWS Registry of Open Data"
   endpoint: "https://registry.opendata.aws/copernicus-dem/"
-  probedAt: 2026-11-12T21:38:47Z
+  probedAt: 2026-11-13T00:20:19Z
   probeResult: "HTTP 200, 10002 B, sha256 04b2d63198ac…"
 probe:
   kind: http

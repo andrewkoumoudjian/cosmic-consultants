@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "NASA Solar System Treks"
   endpoint: "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml"
-  probedAt: 2026-11-12T21:38:49Z
+  probedAt: 2026-11-13T00:20:23Z
   probeResult: "HTTP 200, 7040 B, sha256 2fb4722b5af0…, layers 1"
 probe:
   kind: wmts

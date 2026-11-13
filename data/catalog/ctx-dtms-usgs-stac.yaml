@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "USGS Astrogeology STAC"
   endpoint: "https://stac.astrogeology.usgs.gov/api/collections/mro_ctx_controlled_usgs_dtms"
-  probedAt: 2026-11-12T21:38:47Z
+  probedAt: 2026-11-13T00:20:19Z
   probeResult: "STAC mro_ctx_controlled_usgs_dtms: HTTP 200, license CC0-1.0, items 44628"
 probe:
   kind: stac

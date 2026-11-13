@@ -13,6 +13,9 @@ __pycache__/
 data/snapshots/*
 !data/snapshots/.gitkeep
 !data/snapshots/MANIFEST.json
+# Registry probe evidence (small JSON: URLs, times, hashes, licence matches) is
+# tracked so PR evidence survives; raw dataset bytes stay ignored (W3b).
+!data/snapshots/registry-probes/
 # Secrets (NASA API key lives in services/api env)
 .env
 .env.*

@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "CEDA (ESA CCI)"
   endpoint: "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/"
-  probedAt: 2026-11-12T21:38:47Z
-  probeResult: "HTTP 200, 60852 B, sha256 a6226efb71e9…"
+  probedAt: 2026-11-13T00:20:19Z
+  probeResult: "HTTP 200, 60852 B, sha256 12868e41675e…"
 probe:
   kind: http
   url: "https://catalogue.ceda.ac.uk/uuid/d235665772ec4b558e9a89ac85595e71/"

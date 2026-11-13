@@ -1,0 +1,33 @@
+# Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: rema
+title: "Reference Elevation Model of Antarctica (REMA), 2 m (PGC)"
+status: candidate
+bodies: [earth]
+dimensions: [terrain]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "Polar Geospatial Center via AWS Registry of Open Data"
+  endpoint: "https://registry.opendata.aws/pgc-rema/"
+  probedAt: 2026-11-13T00:21:54Z
+  probeResult: "HTTP 200, 11614 B, sha256 a04dde8186e5…"
+probe:
+  kind: http
+  url: "https://registry.opendata.aws/pgc-rema/"
+  expect: ["Reference Elevation Model of Antarctica"]
+license:
+  id: cc-by-4.0
+  textUrl: null
+  expect: ["Creative Commons Attribution 4.0 International \\(CC BY 4.0\\)"]
+  verified: true
+  note: "PGC attribution wording required"
+coverage:
+  spatial: "Antarctica"
+  temporal: "2009/present"
+  resolution: "2 m (strips), mosaics coarser"
+analysisReady: true
+independenceGroup: optical-stereo-hr
+plannedUse: "slope_5m for Antarctic analog sites (e.g. McMurdo Dry Valleys)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
