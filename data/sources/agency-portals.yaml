@@ -1,0 +1,103 @@
+authority: Owner source list, 2026-11-14
+purpose: Additional source discovery for acquisition and physical data preparation.
+policy: A reachable portal is not an acquired dataset or evidence that a feature is supported. Product licences, units, native support, QA and hashes must be checked separately.
+resources:
+  - id: earthdata-search
+    name: NASA Earthdata Search
+    url: https://search.earthdata.nasa.gov/
+    kind: discovery
+    bodies: [earth]
+    existingDatasetIds: [modis-mod11c3, modis-mod11c1-daily, modis-mcd43c3-albedo, merra2-m2tmnxaer, emit-l2b-min-v002, nasadem-hgt]
+    acquisitionRoute: CMR collection/granule metadata, then the source archive; Earthdata authentication where required.
+    preparationUse: Identify numeric temperature, dust, mineral, terrain, snow and moisture products with documented QA and time support.
+    limit: Resolve each physical quantity to a product/version. Earthdata discovery is already used; daily extrema and fine-scale material properties remain separate gaps.
+  - id: worldview
+    name: NASA Worldview
+    url: https://worldview.earthdata.nasa.gov/
+    kind: imagery-discovery
+    bodies: [earth]
+    existingDatasetIds: [gibs-wmts]
+    acquisitionRoute: Follow layer metadata to its numeric source product through Earthdata; retain acquisition dates.
+    preparationUse: Locate dust, snow, ice, fire and seasonal observations worth acquiring.
+    limit: Display imagery and rendered colours do not replace calibrated numeric variables or source QA.
+  - id: pds
+    name: NASA Planetary Data System
+    url: https://pds.nasa.gov/
+    kind: archive-discovery
+    bodies: [moon, mars]
+    existingDatasetIds: [diviner-l4, tes-mgs, mola-megdr, crism-mro, mcs-mro, minirf-pds, lend]
+    acquisitionRoute: Mission/instrument bundles and labelled products at the responsible PDS node.
+    preparationUse: Native planetary terrain, thermal, mineral, atmosphere and mission instrument observations.
+    limit: Orbital products and in-situ test measurements have different support. Preserve instrument, procedure, location, date, calibration and uncertainty for mission tests.
+  - id: lro
+    name: NASA Lunar Reconnaissance Orbiter
+    url: https://science.nasa.gov/mission/lro/
+    kind: mission-discovery
+    bodies: [moon]
+    existingDatasetIds: [lroc-wac-global, lola-gdr, lola-south-pole-ldem-2023, diviner-l4, lend, minirf-pds, lamp]
+    acquisitionRoute: Resolve LROC, LOLA, Diviner, LEND and Mini-RF products through their instrument archive/PDS.
+    preparationUse: Imagery and topography for documented terrain baselines; thermal model products; hydrogen and radar observations with their stated interpretation.
+    limit: Mission summaries are discovery only. Hydrogen/radar signals cannot be relabelled measured ice depth. Fine terrain quantities require appropriate native DEMs and frozen calculations.
+  - id: diviner
+    name: NASA LRO Diviner Lunar Data
+    url: https://pds-geosciences.wustl.edu/missions/lro/diviner.htm
+    kind: instrument-archive
+    bodies: [moon]
+    existingDatasetIds: [diviner-l4]
+    acquisitionRoute: PDS derived bundle; south PRP table/XML prepared in this batch.
+    preparationUse: Annual model temperature statistics and calculated ice-stability depth with exact source meanings.
+    limit: PRP average is 2 cm subsurface; maximum is surface. Calculated stability depth is not observed ice occurrence.
+  - id: radarsat-constellation
+    name: CSA RADARSAT Constellation Mission data
+    url: https://www.asc-csa.gc.ca/eng/satellites/radarsat/access-to-data/about.asp
+    kind: archive-discovery
+    bodies: [earth]
+    existingDatasetIds: []
+    acquisitionRoute: EODMS account and applicable public/vetted access; inspect selected product licence and metadata.
+    preparationUse: Candidate SAR observations for ice, surface change and wet/dry context after appropriate calibration and terrain correction.
+    limit: Public access covers selected products; broader access can require vetting. SAR backscatter is not a direct soil-strength, friction or regolith-depth measurement.
+  - id: radarsat-1
+    name: CSA RADARSAT-1 data
+    url: https://www.asc-csa.gc.ca/eng/satellites/radarsat1/data-access.asp
+    kind: archive-discovery
+    bodies: [earth]
+    existingDatasetIds: []
+    acquisitionRoute: EODMS or the official AWS archive; CSA states archive release under Open Government Licence.
+    preparationUse: Candidate historical SAR observations for campaign-era surface/ice change context where acquisitions overlap.
+    limit: Per-scene mode, polarization, processing level, calibration, geometry and acquisition date must be retained. Archive availability does not imply coverage of a campaign.
+  - id: csa-sar-tutorial
+    name: CSA Synthetic Aperture Radar Python/QGIS Tutorial
+    url: https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial
+    kind: processing-reference
+    bodies: [earth]
+    existingDatasetIds: []
+    acquisitionRoute: Official CSA repository; inspect its modified MIT licence and separately check example-data terms.
+    preparationUse: Reference for raster ingestion and SAR data handling; inspect code before reuse.
+    limit: A tutorial is not a measured feature dataset. Plotting an image does not establish calibrated physical quantities.
+  - id: copernicus-data-space
+    name: ESA Copernicus Data Space Ecosystem
+    url: https://dataspace.copernicus.eu/
+    kind: archive-discovery
+    bodies: [earth]
+    existingDatasetIds: [copernicus-dem-glo30]
+    acquisitionRoute: Sentinel STAC/OData discovery and product downloads with required account/token; check each product's terms.
+    preparationUse: Candidate Sentinel-1 SAR and Sentinel-2 optical observations for surface change, exposure, snow/ice and vegetation context.
+    limit: Free/open Sentinel access does not make every contributing/federated collection identical in licence. Clouds, terrain, calibration and pixel support remain explicit.
+  - id: esa-open-science
+    name: ESA Open Science Catalog
+    url: https://opensciencedata.esa.int/
+    kind: research-product-discovery
+    bodies: [earth]
+    existingDatasetIds: [esa-cci-permafrost-extent-nh, esa-cci-permafrost-extent-antarctica]
+    acquisitionRoute: Resolve catalog entries to their published dataset version, DOI, assets and licence.
+    preparationUse: Candidate cryosphere, geology, land and environmental research products for unresolved physical quantities.
+    limit: Product-specific model lineage, uncertainty and independence must be assessed; a catalog entry is not independent measured evidence.
+  - id: jaxa-g-portal
+    name: JAXA G-Portal
+    url: https://www.gportal.jaxa.jp/?lang=en
+    kind: archive-discovery
+    bodies: [earth]
+    existingDatasetIds: [alos-palsar-rtc-high]
+    acquisitionRoute: Current G-Portal physical-quantity/product search and documented catalogue/download services; check registration and product terms.
+    preparationUse: Candidate precipitation, snow, vegetation, land temperature and microwave observations with quality flags.
+    limit: Match exact product/version and dates; service notices and historical-product outages require a fresh access check. Existing ASF ALOS data are a separate delivery route.
