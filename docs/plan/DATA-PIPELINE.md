@@ -142,13 +142,20 @@ a short code (`no-lst-pixels`, `outside-permafrost-model`,
 | Column | Meaning | Source |
 |---|---|---|
 | `h3`, `month` | hexagon, month 1–12 of 2023 | — |
-| `lst_day_k`, `lst_night_k` | monthly mean day / night ground temperature, median over the hexagon's pixels [K] | MOD11C3 |
+| `lst_day_k`, `lst_night_k` | monthly mean day / night ground temperature, median over the hexagon's pixels [K]; null under the coverage rule | MOD11C3 |
 | `lst_diurnal_k` | `lst_day_k − lst_night_k` when both exist [K] | MOD11C3 |
 | `lst_valid_pixels` | pixels with both values that month | MOD11C3 |
 | `sun_noon_elev_deg` | noon sun height on the 15th of the month [deg] | computed |
 | `daylight_h` | day length on the 15th [hours] | computed |
 | `polar_day`, `polar_night` | sun never sets / never rises on the 15th | computed |
 | `dust_aod` | monthly dust optical depth; null until unblocked | MERRA-2 |
+
+**Coverage rule (team choice, found while building #58).** A monthly median
+counts only if at least **25%** of the hexagon's pixels have a value that
+month. Otherwise it's null, with reason `too-few-lst-pixels`. Without this
+rule, a cloudy month with 1 clear pixel out of 65 set a yearly night minimum
+of 240.5 K in the New Guinea highlands (the per-pixel rule gave 284.2 K). It
+drops 0.52% of hexagon-months.
 
 **One temperature rule for both tables.** Today L1 takes each pixel's
 warmest month, then the median over pixels. L1m takes the median over pixels
