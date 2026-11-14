@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T18:22:07Z",
+ "generatedAt": "2026-11-14T19:01:42Z",
  "tool": "scripts/registry_probe.py",
  "entries": [
   {
@@ -45,6 +45,161 @@
      }
     }
    }
+  },
+  {
+   "datasetId": "ornl-global-soil-regolith-sediment",
+   "file": "data/catalog/ornl-global-soil-regolith-sediment.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2216864025-ORNL_CLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2216864025-ORNL_CLOUD.umm_json",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 5346,
+      "sha256": "68d98eaea642082916c52119f82c33abc6b4c1dd8292a0c9f7aeb48c54421f88",
+      "headers": {
+       "cmr-request-id": "20a1aebe-27c4-4934-8d50-f50949d8940d"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=0",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 210,
+      "sha256": "1473b68683ec91f64c42e1cc6120ad85ca30cda2470c7523d19e9a9d5701f626",
+      "headers": {
+       "cmr-request-id": "9279265f-eb48-4e4b-bf4a-6847e6a401ae",
+       "cmr-hits": "6",
+       "cmr-took": "26"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "Global_Soil_Regolith_Sediment_1304",
+     "version": "1",
+     "entryTitle": "Global 1-km Gridded Thickness of Soil, Regolith, and Sedimentary Deposit Layers",
+     "doi": "10.3334/ORNLDAAC/1304",
+     "temporal": [
+      "1900-01-01T00:00:00.000Z",
+      "2015-12-31T23:59:59.999Z"
+     ],
+     "resolution": null,
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://science.nasa.gov/earth-science/earth-science-data/data-information-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "ORNL_DAAC"
+     ],
+     "granuleHits": "6"
+    }
+   },
+   "summary": "CMR C2216864025-ORNL_CLOUD: HTTP 200, Global_Soil_Regolith_Sediment_1304 v1, DOI 10.3334/ORNLDAAC/1304, granules 6",
+   "license": {
+    "id": "ornl-daac-open-no-restriction",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1304",
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-global-soil-regolith-sediment-1304-1",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 265622,
+      "sha256": "6461cb1dd52d1e74a14e33984cc8af539233b5d42855107628696bd92f780405",
+      "headers": {}
+     },
+     "matches": {
+      "openly shared, without restriction": "s critically important for dataset documentation and discovery. This dataset is openly shared, without restriction, in accordance with the EOSDIS Data Use and Citation Guidance . Copy Citation Select a Citation Style: APA BibTeX Chica"
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "modis-mcd43c3-albedo",
+   "file": "data/catalog/modis-mcd43c3-albedo.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532068039-LPCLOUD&temporal=2023-01-01T00:00:00Z,2023-12-31T23:59:59Z&page_size=2000&sort_key=start_date",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json",
+      "fetchedAt": "2026-11-14T19:46:13Z",
+      "status": 200,
+      "bytes": 1425234,
+      "sha256": "8c279761568a92190204998c94c06a1bdac702e07650584c0e49b5bb5f40f349",
+      "headers": {}
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-14T19:46:43Z",
+      "status": 200,
+      "bytes": 17957,
+      "sha256": "be4b9363ea69b09fc663f3aae63f9803ac6d9f7475763e6a019fa0e6380b58d5",
+      "headers": {}
+     },
+     {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-14T19:48:04Z",
+      "status": 200,
+      "bytes": 141648,
+      "sha256": "ad3eee8780ab7db36398e461393a9db3d728f79b3ec4ac28827ca607ee49d715",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "expect": "Creative Commons Zero",
+     "granules2023": "380 granules overlap 2023 temporally (daily product incl. 2022-12-25..31 and 2024-01-01..08 windows)",
+     "selection": "12 granules dated the 15th of each 2023 month (A2023015 A2023046 A2023074 A2023105 A2023135 A2023166 A2023196 A2023227 A2023258 A2023288 A2023319 A2023349), one per month, verified unique",
+     "windowEvidence": "CMR time spans confirm each granule is a 16-day window [date-8, date+7]; HDF CoreMetadata RANGE BEGIN/END of A2023015 read live and equals 2023-01-07..2023-01-22",
+     "sdsVerified": "Albedo_WSA_shortwave/Albedo_BSA_shortwave int16 valid_range [0,32766] _FillValue 32767 scale_factor 0.001; Albedo_Quality uint8 valid [0,254] fill 255 with 0='best quality, 100% with full inversions'"
+    },
+    "ok": true
+   },
+   "summary": "MCD43C3 v061 re-probed live at adoption (W26 #66): CMR UMM HTTP 200; 2023 temporal overlap = 380 daily granules; 12 dated samples selected, one per month (15th); SDS names/scale/fill and BRDF QA flags verified from a real downloaded granule; CC0 license expectation re-found live on the ESDIS data-use-guidance page."
+  },
+  {
+   "datasetId": "ornl-global-soil-regolith-sediment",
+   "file": "data/catalog/ornl-global-soil-regolith-sediment.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=100",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json",
+      "fetchedAt": "2026-11-14T19:46:13Z",
+      "status": 200,
+      "bytes": 21476,
+      "sha256": "1b01c16633f5b420ce446d25cb9ee1bcc51ed5b24480b6be4e5988b3a4cc6f3f",
+      "headers": {
+       "cmr-hits": "6"
+      }
+     },
+     {
+      "url": "https://daac.ornl.gov/SOILS/guides/Global_Soil_Regolith_Sediment.html",
+      "finalUrl": "https://d3o6w55j8uz1ro.cloudfront.net/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
+      "fetchedAt": "2026-11-14T19:47:11Z",
+      "status": 200,
+      "bytes": 736258,
+      "sha256": "0f9a45f104589283104746210179bf515153162ec125409a76ea17c3f7920d4d",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "granules": "6 GeoTIFFs (upland regolith, upland soil, hill-slope/valley-bottom fraction, sedimentary deposit, land-cover mask, weighted average) + bundle zip; data at data.ornldaac.earthdata.nasa.gov protected/... (Earthdata login) with public .sha256 sidecars",
+     "protectedProbe": "bearer-token GET of the protected regolith tif returned HTTP 200 image/tiff 85,980,757 B (Earthdata auth path exercised end to end)",
+     "sidecarCheck": "all 6 downloaded GeoTIFFs match their publisher .sha256 sidecars (6/6)",
+     "fileFactsVerified": "30-arcsec (ds.res 0.008333333), 43200x18000, EPSG:4326, bounds 90 N..60 S; regolith/sediment/average int8 NoData -1 values 0..50; soil float32 NoData -1, values 0..4.2; observed int8 max 50 equals the guide's cap; mask uint8 classes 0-4; regolith valid on mask=1 only, sediment valid on mask=1 and 2, per window cross-tabulation",
+     "license": "guide PDF (old HTML guide redirects to it) re-read: 'openly shared, without restriction, in accordance with the EOSDIS Data Use and Citation Guidance'; cite Pelletier et al. 2016 doi:10.3334/ORNLDAAC/1304"
+    },
+    "ok": true
+   },
+   "summary": "ORNL 1304 Pelletier 2016 re-probed live at adoption (W26 #66): CMR granule list HTTP 200 (6 files); user guide PDF fetched and stored; protected-path Earthdata auth verified end to end; all six GeoTIFF downloads match the publisher's public sha256 sidecars; native fill/ranges/cap 50 m verified from the files."
   }
  ]
 }

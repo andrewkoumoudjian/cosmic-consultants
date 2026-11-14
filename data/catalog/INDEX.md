@@ -33,6 +33,7 @@ Status values: `candidate` (probed, not yet adopted by a work order) · `restric
 | [nasa-power-climatology](nasa-power-climatology.yaml) | earth | thermal, illumination | NASA LaRC POWER | candidate | unresolved | no | HTTP 200, 1379 B, sha256 cc42282c69d8… |
 | [nasadem-hgt](nasadem-hgt.yaml) | earth | terrain | Earthdata (LP DAAC, LPCLOUD) | candidate | cc0 | yes | CMR C2763264762-LPCLOUD: HTTP 200, NASADEM_HGT v001, DOI 10.5067/MEASURES/NASADEM/NASADEM_HGT.001, granules 14520 |
 | [nsidc-ggd318-permafrost](nsidc-ggd318-permafrost.yaml) | earth | waterIce | NSIDC | candidate | unresolved | no | HTTP 200, 111118 B, sha256 019cfc89158e… |
+| [ornl-global-soil-regolith-sediment](ornl-global-soil-regolith-sediment.yaml) | earth | subsurface | Earthdata (ORNL DAAC, ORNL_CLOUD) | candidate | ornl-daac-open-no-restriction | yes | CMR C2216864025-ORNL_CLOUD: HTTP 200, Global_Soil_Regolith_Sediment_1304 v1, DOI 10.3334/ORNLDAAC/1304, granules 6 |
 | [rema](rema.yaml) | earth | terrain | Polar Geospatial Center via AWS Registry of Open Data | candidate | cc-by-4.0 | yes | HTTP 200, 11614 B, sha256 a04dde8186e5… |
 | [smap-spl3smp-e](smap-spl3smp-e.yaml) | earth | waterIce | Earthdata (NSIDC DAAC) | candidate | cc0 | yes | CMR C2938664763-NSIDC_CPRD: HTTP 200, SPL3SMP_E v006, DOI 10.5067/M20OXIZHY3RJ, granules 4166 |
 | [soilgrids](soilgrids.yaml) | earth | subsurface | ISRIC | candidate | cc-by-4.0 | yes | HTTP 200, 279476 B, sha256 e32f3952255b… |

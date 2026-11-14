@@ -1,0 +1,256 @@
+# Every feature is retained. Related columns are inputs, not implemented exact features.
+version: 1
+inventory: research/features/landing_site_features.csv
+workflowModules:
+  core:
+  - mission-objectives
+  - site-analysis-comparison
+  - gap-analysis
+  shouldHave:
+  - combined-operations
+  - mission-presets
+additionalEvidenceGaps:
+- Obstacle and rock-size distributions
+- Site-specific geology, geochemistry and mineralogy
+- Drillable ice quantity and depth
+- Instrument-specific material and subsurface properties
+- Cave geometry and access
+- Biological observations and contamination control
+- Local equipment, infrastructure and personnel
+- Permits, legal approvals and real field budgets
+features:
+  slope_2_5km:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: 240 m DEM summaries available; exact 2-5 km baseline feature not built.
+  slope_200_500m:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: 240 m slope summaries exist; named baseline statistic still needs explicit
+      implementation.
+  slope_20_40m:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: 240 m overview cannot resolve a 20-40 m baseline; acquire suitable-resolution
+      data.
+  slope_5m:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: Requires local/polar fine DEM; coarse global terrain cannot substitute.
+  slope_100m:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: 240 m overview mean slope does not implement 100 m baseline slope.
+  slope_2km_eva:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: Needs matched-baseline/traverse statistic; cell mean slope is insufficient.
+  slope_trav_mean:
+    relatedColumns:
+    - sites-r4.slope_mean_deg
+    notes: Needs a defined traverse corridor; cell mean slope is not the same support.
+  rough_rms_lola:
+    relatedColumns:
+    - sites-r4.elev_mean_m
+    notes: Elevation and slopes exist; RMS roughness at matched baseline not built.
+  relief_ellipse:
+    relatedColumns:
+    - sites-r4.elev_min_m
+    - sites-r4.elev_max_m
+    notes: Cell elevation min/max exist; selected-ellipse relief not built.
+  elev_areoid:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.
+  lat_abs:
+    relatedColumns:
+    - sites-r4.lat
+    notes: H3 centre latitude exists; absolute-latitude feature can be derived explicitly.
+  rock_cfa:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  rock_abund_div:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  boulder_density_nac:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  ti:
+    relatedColumns: []
+    notes: ATI derivation not built; LST/albedo prerequisites and physical interpretation
+      need review.
+  albedo:
+    relatedColumns:
+    - sites-r4.albedo_ws_sw_mean
+    - sites-r4.albedo_bs_sw_mean
+    - sites-r4-monthly.albedo_ws_sw
+    - sites-r4-monthly.albedo_bs_sw
+    notes: '#66 merged (PR #77): MCD43C3 v061 white-sky and black-sky shortwave, one dated
+      16-day-window sample per month (not a monthly mean), QA=0 only. The CSV Earth field
+      albedo_bsa matches the black-sky column in quantity, not in time support. Target-side
+      albedo (TES/Diviner bolometric) is a different band definition; no cross-body
+      transform defined.'
+  dust_cover_index:
+    relatedColumns: []
+    notes: Needs source mineral/bare-ground data; barren land share alone is not a
+      TES dust index.
+  radar_ka_backscatter:
+    relatedColumns: []
+    notes: Earth L-band SAR candidate only; differs from Ka-band target, preserve
+      proxy status.
+  cpr_minirf:
+    relatedColumns: []
+    notes: Linear-polarization SAR does not directly implement Mini-RF circular polarization
+      ratio.
+  regolith_thick:
+    relatedColumns:
+    - sites-r4.regolith_thick_m
+    - sites-r4.soil_thick_m
+    - sites-r4.sediment_thick_m
+    - sites-r4.avg_soil_sed_thick_m
+    notes: '#66 merged (PR #77): ORNL Pelletier et al. 2016 modeled upland regolith, soil
+      and sediment thickness, hexagon median of 30 arcsec pixels, 90N-60S only. Modeled
+      proxy, not a measurement (ADR-0009); 50 m is the published upper bound, not proof of
+      clipping.'
+  wind_h_edl:
+    relatedColumns: []
+    notes: Wind source acquisition/build absent; 10m Earth wind differs from EDL wind.
+  wind_v_edl:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.
+  cdod_ann:
+    relatedColumns:
+    - sites-r4.dust_aod_mean
+    notes: '#68 dust helper failed at startup; no accepted dust source table.'
+  cdod_storm_freq:
+    relatedColumns:
+    - sites-r4-monthly.dust_aod
+    notes: EONET event records exist, but do not estimate storm frequency. Needs explicit
+      time-series exceedance definition.
+  tsurf_max:
+    relatedColumns:
+    - sites-r4.lst_day_max_k
+    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
+      retrieval processing. Do not rename monthly averages as observed extrema.
+  tsurf_min:
+    relatedColumns:
+    - sites-r4.lst_night_min_k
+    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
+      retrieval processing. Do not rename monthly averages as observed extrema.
+  tsurf_range:
+    relatedColumns:
+    - sites-r4-monthly.lst_diurnal_k
+    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
+      retrieval processing. Do not rename monthly averages as observed extrema.
+  tsurf_ann_max_psr:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.
+  illum_frac_avg:
+    relatedColumns:
+    - sites-r4-monthly.polar_day
+    notes: Latitude-only polar flags exist; horizon-aware sunlit fraction not built.
+  sun_elev_min:
+    relatedColumns:
+    - sites-r4-monthly.sun_noon_elev_deg
+    notes: Noon/15th-of-month geometry exists; minimum over requested operations window
+      needs explicit computation.
+  earth_vis_frac:
+    relatedColumns: []
+    notes: Terrain-horizon masking not built; Earth direct-to-Earth comms has no literal
+      analogue.
+  psr_frac_2km:
+    relatedColumns:
+    - sites-r4-monthly.polar_night
+    notes: Needs defined 2 km support plus terrain-shadow calculation; polar-night
+      flag is insufficient.
+  psr_dist_km:
+    relatedColumns:
+    - sites-r4-monthly.polar_night
+    notes: Distance to terrain-shadow analogue not built; Earth shadow is not lunar
+      PSR.
+  ice_stab_depth:
+    relatedColumns:
+    - sites-r4.permafrost_pct
+    notes: ESA permafrost probability exists; it is not ice-table depth.
+  h_wt_neutron:
+    relatedColumns: []
+    notes: Ground-ice/soil-moisture sources not acquired; permafrost probability is
+      not hydrogen weight percent.
+  lya_offon:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  ice_consistency_swim:
+    relatedColumns:
+    - sites-r4.permafrost_pct
+    notes: Permafrost source exists; reviewed consistency mapping plus ground-ice
+      evidence still needed.
+  feo_wt:
+    relatedColumns: []
+    notes: ASTER emissivity/lithology candidate sources not acquired; neither directly
+      measures FeO weight percent.
+  tio2_wt:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  mafic_bd_1um:
+    relatedColumns: []
+    notes: EMIT candidate not acquired; selected-mineral feature depth differs from
+      CRISM indices.
+  oh_3um:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  cf_position:
+    relatedColumns: []
+    notes: ASTER candidate not acquired; five broad emissivity bands do not directly
+      yield Diviner feature position.
+  tes_mineral_frac:
+    relatedColumns: []
+    notes: ASTER candidate not acquired; mineral retrieval model/validation missing.
+  crism_hydration:
+    relatedColumns: []
+    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
+      identity, GLT/QA and proxy interpretation.
+  crism_fe_mg_smectite:
+    relatedColumns: []
+    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
+      identity, GLT/QA and proxy interpretation.
+  crism_al_oh:
+    relatedColumns: []
+    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
+      identity, GLT/QA and proxy interpretation.
+  crism_sulfate:
+    relatedColumns: []
+    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
+      identity, GLT/QA and proxy interpretation.
+  crism_carbonate:
+    relatedColumns: []
+    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
+      identity, GLT/QA and proxy interpretation.
+  grs_th_k:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  geo_unit:
+    relatedColumns: []
+    notes: GLiM acquisition and class-preserving spatial transformation not built.
+  crater_density:
+    relatedColumns: []
+    notes: Earth impact catalog candidate/access unresolved; preserve point support
+      and weak analogy.
+  pit_cave_presence:
+    relatedColumns: []
+    notes: No global Earth counterpart identified in inventory; investigate literature/local
+      sources; missing stays explicit.
+  gravity:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.
+  psurf:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.
+  radiation_dose:
+    relatedColumns: []
+    notes: Keep explicit target-body limitation; do not invent an Earth match.

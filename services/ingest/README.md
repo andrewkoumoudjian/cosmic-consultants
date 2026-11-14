@@ -1,5 +1,14 @@
 # services/ingest — W6 (#19): Earth P0 traits per H3 cell
 
+`python -m p0ingest.clean_audit` writes the #69 cleaning report. The assembler
+also runs it. It replays the current 2023 LST/land-cover thresholds against
+hashed raw inputs, counts output nulls separately and preserves unavailable
+historical input counts as unknown. The report exposes two current source
+quality gaps: MOD11C3 QC bits are not filtered, and the terrain reader does
+not apply a nodata mask. Metadata now describes those actual behaviours.
+No physical values are changed by this diagnostic; scientific review and
+source rebuilds remain separate work.
+
 Turns hashed NASA/ESA/Copernicus snapshots into one table: a row per H3 land
 cell (resolution 4, about 1,770 km² each, 91,800 cells), with the raw traits
 for terrain, thermal, illumination, surface material and water ice. Anything
@@ -69,6 +78,43 @@ noon sun height, day length and polar day/night on the 15th. Spec:
 - **`missing_reason`** in both files is JSON per row and names only that row's
   null traits.
 
+## Clean and assemble (W29, #69)
+
+Run `uv run python -m p0ingest.assemble` after source builders. It uses
+Polars and `data/pipeline/columns.yaml` to join yearly/monthly traits,
+historical monthly spread, named hazard events and campaign sites into
+`data/snapshots/_derived/assembled/`. The report records input/output hashes,
+key checks, unchanged-value checks, missingness and skipped planned sources.
+
+`data-coverage.json` includes every feature in the 55-feature inventory,
+using `data/pipeline/feature-preparation.yaml`. A related column is never
+reported as an implemented exact feature. Category availability is partial;
+field evidence, instrument-specific quantities and missing sources remain
+explicit. Historical spread describes 2014–2023; it is not a weather forecast.
+
+The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
+builders keep their own tables. The generic Drive sync script excludes
+`_derived/`; copy prepared outputs separately and verify their hashes.
+
+Run `python -m unittest discover -s tests -v` for the assembly regressions.
+
+## Temperature history (W24, #64)
+
+`uv run python -m p0ingest.years fetch|build|check` prepares the 2014–2023
+monthly temperature panel. It uses the same monthly medians and 25% pixel
+coverage rule as the 2023 table. The output is
+`_derived/cells-r4-monthly-years.parquet`, keyed by `(h3, year, month)`.
+
+The check verifies the 120 input hashes and output hash, requires exactly
+one row for every land cell and calendar month, compares 2023 to L1m exactly,
+and checks per-row missing reasons. Run the key-validation regression tests
+with `python -m unittest discover -s tests -v`.
+
+These are monthly composites, not observed daily temperature extremes.
+They do not complete the separate `tsurf_max`, `tsurf_min` or `tsurf_range`
+features in the 55-feature inventory. Additional years are for historical
+conditions; this table does not predict future weather or mission losses.
+
 ## Planetary source preparation (#74)
 
 ```bash
@@ -133,6 +179,37 @@ branch; reconcile committed entries when integrating source work.
   thermal.
 - **subsurface / operations:** not in P0 yet.
 - **illumination:** computed from latitude only (no terrain shadowing).
+
+## W26 (#66) source tables: albedo + regolith (my own section)
+
+Two additional source families, built by their own modules. The parent
+assembler joins them; these tables do not edit L1/L1m/L2.
+
+- `python -m p0ingest.albedo --fetch` downloads 12 MCD43C3 v061 daily CMG
+  granules, dated the 15th of each 2023 month (a dated 16-day BRDF retrieval
+  window each, NOT a calendar-month mean). `python -m p0ingest.albedo` builds
+  `_derived/albedo-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12,
+  `albedo_ws_sw`, `albedo_bs_sw`, per-field valid-pixel counts, per-row
+  `missing_reason`) and `_derived/albedo-r4.parquet` (91,800 rows:
+  `albedo_ws_sw_mean`, `albedo_months_used`, same for black-sky). Only
+  `Albedo_Quality == 0` pixels count and a hexagon keeps a value only with
+  >= 25% valid-pixel support; each `.meta.json` carries the real QA counts,
+  per-sample window dates read from the files, units and model limits.
+- `python -m p0ingest.regolith --fetch` downloads the six Pelletier et al.
+  2016 (ORNL DAAC 1304) 30-arcsec GeoTIFFs + the user guide; downloads are
+  checked against the publisher's public sha256 sidecars. `python -m
+  p0ingest.regolith` builds `_derived/regolith-r4.parquet` (91,800 rows):
+  per-hex exact histogram medians of upland regolith thickness
+  (`regolith_thick_m`), upland soil, sedimentary deposit and the product's
+  weighted average, with support fractions, per-class pixel counts, the
+  native fill kept as null, the published 50 m upper valid bound retained,
+  and per-row `missing_reason` (e.g. `outside-product-coverage` south of
+  60 S). Model output, not a measurement; lunar regolith is NOT claimed
+  equivalent.
+- `python -m p0ingest.w26_check` (also with `-O`) runs the transformation
+  regression tests, the key-domain checks against the master cell set and
+  5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
+  against the raw sources; exit 0 only if all pass.
 
 ## Map placement check (#74)
 
