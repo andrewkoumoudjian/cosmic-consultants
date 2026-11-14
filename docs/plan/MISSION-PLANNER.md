@@ -116,10 +116,11 @@ traits together.
 ### Step 5. Risks
 
 - **Scientist:** checks safety for the chosen months.
-- **Gets back:** per hazard type (wildfire, volcano, storm, dust, flood,
-  landslide, snow, extreme temperature, earthquake), past events by month, plus
-  terrain risk (share of slopes over 30°) and cold or heat extremes. Each
-  hazard is its own flag. There's no combined risk score.
+- **Gets back:** per hazard type, the notable events NASA's EONET recorded
+  near the site (name, date), burned area by month (P1), terrain risk (share
+  of slopes over 30°) and the coldest and hottest months from our temperature
+  table. Each hazard is its own flag. There's no combined risk score, and no
+  hazard rate: EONET is a curated list whose size changes a lot by year.
 - **Engine:** `risks(site, months)`.
 - **Data:** L2 `hazard_*`, L1 `slope_frac_gt30`, L1m temperatures.
 - **UI:** risk card, one row per hazard type, with "EONET is a curated list: 0
@@ -183,7 +184,7 @@ to split field days across (site, month) pairs:
 - Caps: max share per site or month (team capacity), as box bounds.
 - Cost: a linear term from travel time (stated proxy).
 - Risk: days lost to bad conditions in each past year (2014–2023, from L1m
-  years and EONET) as scenarios. Minimise the worst 10% (CVaR), which fastopt
+  years and burned area; not EONET, whose coverage changes by year) as scenarios. Minimise the worst 10% (CVaR), which fastopt
   solves directly (`Portfolio(...).optimization(rm="CVaR", obj="MinRisk")`).
 - Output: a table of (site, month, share of days) with each trait's coverage.
 

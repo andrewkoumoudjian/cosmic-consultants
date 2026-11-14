@@ -51,7 +51,7 @@ mirrored to Drive (§7). Their `.meta.json` lists every input sha256.
 | 2 Site finder | traits per hexagon (yearly + chosen months) | L1, L1m | L1 yes; L1m no (built from files we already have) |
 | 3 Gaps | same as step 2 + "Earth can't test" lists | L1, L1m, L3 | yes except L1m |
 | 4 Logistics | travel time, protected share, nearest airport, field-season months | L2, L1m | no |
-| 5 Risks | hazard events per month, temperature extremes, steep ground | L2, L1m, L1 | L1 yes; rest no |
+| 5 Risks | recorded hazard events, burned area by month, temperature extremes, steep ground | L2, L1m, L1 | L1 yes; rest no |
 | 6 Past missions | cited campaign table with site location and traits | L3 + L1 at the campaign's hexagon | no |
 
 ## 4. Sources (L0)
@@ -68,8 +68,9 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 | Sun position (computed) | noon sun height, day length, polar day/night | L1, L1m `sun_*`, `daylight_h`, `polar_*` | 2023 | have (no file needed) |
 | MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | blocked (GES DISC app approval) |
 | MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (risk scenarios, optimizer) | 2014–2023 | fetch (P2 only) |
-| NASA EONET v3 (`eonet-v3-events`) | natural hazard events with dates and points | L2 `hazard_*` | 2015–2024 | probe (licence) |
-| Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | probe (licence + endpoint) |
+| NASA EONET v3 (`eonet-v3-events`) | notable natural events with dates and points | L2 `eonet_*` | 2015–2024 | probe: API answers (§4.1); no licence statement on the API |
+| Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | probe: download link found (§4.1), licence not yet found |
+| MODIS burned area MCD64A1 (new catalog row) | burned area per month, 500 m | L2 `burned_pct_<month>` | 2015–2024 | probe (P1; better wildfire-by-month source than EONET) |
 | WDPA (`wdpa-protected-areas`) | protected-area polygons | L2 `protected_pct` | latest release | probe (licence is `restricted`: may not ship) |
 | Airports (new catalog row, e.g. OurAirports) | airport points | L2 `airport_km` | snapshot date | probe (new row needed) |
 | Campaign source documents (papers, NASA pages) | where and when past campaigns ran | L3 `data/campaigns/` | per campaign | to collect |
@@ -77,6 +78,24 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 If WDPA's licence doesn't allow publishing derived numbers, `protected_pct`
 stays in L2 for our own checks and L4 ships `null` with reason
 `licence-restricted`.
+
+### 4.1 Probe log (2026-11-14, Claude session c153a6ba)
+
+- **EONET:** `GET https://eonet.gsfc.nasa.gov/api/v3/events?status=all&start=2015-01-01&end=2024-12-31&limit=100000`
+  at 2026-11-14T17:31Z → HTTP 200, 10,443,929 bytes, 10,086 events. By
+  category: wildfires 8,323, severeStorms 919, volcanoes 516, seaLakeIce 134,
+  floods 116, waterColor 18, landslides 17, dustHaze 17, earthquakes 15,
+  tempExtremes 14, manmade 8, drought 7, snow 5. By first-event year: 2015 331,
+  2016 426, 2017 620, 2018 616, 2019 465, 2020 588, 2021 711, 2022 321, 2023 238,
+  **2024 5,754**. So EONET's volume swings with how much NASA curated each
+  year, and most categories are nearly empty. It can't give hazard rates.
+- **Travel time to cities 2015:** the Malaria Atlas Project page
+  `https://malariaatlas.org/project-resources/accessibility-to-cities/`
+  (HTTP 200) now lists it under "Accessibility to Healthcare" with a download
+  link `https://data.malariaatlas.org/geoserver/ows?service=CSW&version=2.0.1&request=DirectDownload&ResourceId=Explorer:2015_accessibility_to_cities_v1.0`.
+  No licence text on that page. Licence still to find before use.
+- **Airports:** `https://davidmegginson.github.io/ourairports-data/airports.csv`
+  → HTTP 200 (text/csv). Licence not yet checked.
 
 ## 5. Tables and columns
 
@@ -132,13 +151,20 @@ L1 `lst_night_min_k` = min of L1m `lst_night_k`, exactly.
 | `access_min_median`, `access_min_p10` | travel time to the nearest city, median and best 10% of the hexagon [minutes] | travel-time raster |
 | `protected_pct` | share of the hexagon inside a protected area [%] | WDPA (if licence allows) |
 | `airport_km` | distance from the hexagon centre to the nearest airport with a paved runway [km] | airports |
-| `hazard_<category>_<month>` | EONET events of that category whose point falls in the hexagon or within 50 km of its centre, by calendar month, summed over 2015–2024 [count] | EONET |
-| `hazard_years` | years covered by the EONET pull (for turning counts into rates) | EONET |
+| `eonet_<category>_events` | EONET events of that category whose point falls in the hexagon or within 50 km of its centre, 2015–2024 [count] | EONET |
+| `eonet_<category>_months` | which calendar months those events started in, as a 12-character string of 0/1 (Jan first) | EONET |
+| `burned_pct_<month>` | mean share of the hexagon burned in that calendar month, over 2015–2024 [%] (P1) | MCD64A1 |
 
-EONET categories kept: `wildfires`, `volcanoes`, `severeStorms`, `dustHaze`,
-`floods`, `landslides`, `snow`, `tempExtremes`, `drought`, `earthquakes`.
-EONET is a curated event list, not a full record: a zero means "no event in
-EONET", not "safe". The UI says so.
+EONET categories kept: `wildfires`, `volcanoes`, `severeStorms`, `floods`,
+`landslides`, `dustHaze`, `earthquakes`, `snow`, `tempExtremes`, `drought`.
+**EONET is a list of notable events NASA chose to curate, not a full record**
+(see §4.1: 238 events in 2023, 5,754 in 2024). So:
+
+- we show "events recorded by EONET near here", with their names and dates,
+  never a rate, a probability or "safe";
+- a zero means "none recorded in EONET";
+- cold and heat extremes come from L1m temperatures, not EONET;
+- wildfire by month comes from MCD64A1 burned area once it's in (P1).
 
 ### L3 curated reference tables (data lane, edited by PR, each row cited)
 
@@ -243,6 +269,6 @@ Checks every build must print (rule 2: paste them in the PR):
 | 8 | Permafrost is built from MODIS temperatures, so it can't confirm temperature | Never used as a second source for temperature |
 | 9 | ESA permafrost fill could read as 0% | Outside the model area it's null with a reason |
 | 10 | WDPA licence is restricted | Ship null + `licence-restricted` unless the licence allows derived numbers |
-| 11 | EONET zero events could read as "safe" | UI copy: "no event recorded in EONET" |
+| 11 | EONET zero events could read as "safe"; EONET counts could read as rates | EONET shown as named events only, never a rate (§4.1, L2) |
 | 12 | Team doc asks for "top X" sites; rule 4 bans a site score | Pareto layers + one user-chosen trait as tie-break (MISSION-PLANNER step 1) |
 | 13 | Team doc's 8 test categories need data we don't have (caves, biology, wind) | Category table in MISSION-PLANNER step 1 marks each one ready / partial / no; missing traits stay unknown |
