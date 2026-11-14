@@ -51,3 +51,16 @@ jobs:
       - uses: actions/checkout@v4
       - name: JSON validity
         run: python3 -c "import json,glob; [json.load(open(f)) for f in glob.glob('contracts/*.json') + glob.glob('data/fixtures/*.json')]; print('all contract/fixture JSON parses')"
+
+  contract-validation:
+    name: Contract schema validation + ARL recompute (W10)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned validators
+        run: python -m pip install jsonschema==4.23.0 pyyaml==6.0.2
+      - name: Validate objectives, site fixtures, ARL rule (with self-test)
+        run: python scripts/validate_contracts.py --self-test

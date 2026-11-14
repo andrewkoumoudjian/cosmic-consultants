@@ -1,0 +1,25 @@
+# P0 objective row (W10, #15). Mapping is our interpretation of NASA's text.
+objectiveId: OP-5LM
+body: mars
+title: Operate surface mobility systems (EVA suits, tools, vehicles) — shortened by us
+earthTestableComponent: Traverse and EVA procedures on rough, dusty, unvegetated terrain.
+rateable: true
+requiredDimensions: [terrain, surfaceMaterial, dustProcess, thermal]
+mapping:
+  status: proposed
+  sources:
+    - docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1
+    - docs/research/08-landing-site-feature-set.md (OP-5LM - slopes, rocks, TI/albedo, dust)
+toleranceSource:
+  envelopeId: null
+  note: No Mars envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown.
+notTestableOnEarth:
+  - mismatch: gravity
+    why: Suit and vehicle dynamics change at Mars gravity (about 0.38 g).
+  - mismatch: pressureRegime
+    why: Thin CO2 atmosphere changes dust charging, suit pressure and heat loss.
+source:
+  url: https://www.nasa.gov/wp-content/uploads/2022/09/m2m-objectives-exec-summary.pdf
+  sha256: 40b5af872fc5a3fd2eb79dad9b17b00f8af4fa241a636b6711dd0097ee66aca3
+  fetchedAt: "2026-11-12T19:18:00Z"
+  recordedIn: docs/research/07-spaceapps-rules-and-m2m-objectives.md §2 (probe record; snapshot into data/snapshots/ still pending)

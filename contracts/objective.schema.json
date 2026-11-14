@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/objective.schema.json",
+  "title": "MissionObjective",
+  "description": "One NASA Moon-to-Mars objective as the ARL ladder reads it (ADR-0002 D1). Mirrors Analog.Readiness.Objective: required scored dimensions, the not-testable-on-Earth list, and whether it is rateable. The dimension mapping is our interpretation of NASA's text, not NASA's.",
+  "type": "object",
+  "required": ["objectiveId", "body", "title", "earthTestableComponent", "rateable", "requiredDimensions", "mapping", "toleranceSource", "notTestableOnEarth", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "objectiveId": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,3}-[0-9]+(L|M|LM)?$",
+      "description": "Moon to Mars Objectives code, e.g. OP-5LM. The L/M/LM suffix is NASA's (lunar, Martian or both)."
+    },
+    "body": {
+      "type": "string",
+      "enum": ["moon", "mars"],
+      "description": "Target body this row rates. An LM objective gets one row per body."
+    },
+    "title": { "type": "string", "description": "Shortened objective text (ours). The verbatim text is in the source PDF." },
+    "earthTestableComponent": { "type": "string", "description": "One sentence: the part of the objective a field test on Earth can rehearse." },
+    "rateable": {
+      "type": "boolean",
+      "description": "False when the objective's main content can't be tested on Earth. Such rows get no ARL at all (Lean S6g)."
+    },
+    "requiredDimensions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["terrain", "thermal", "illumination", "dustProcess", "waterIce", "surfaceMaterial", "subsurface", "operations"]
+      },
+      "description": "Scored dimensions every per-dimension gate must pass. Same enum as site.schema.json."
+    },
+    "mapping": {
+      "type": "object",
+      "required": ["status", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "type": "string", "enum": ["proposed", "reviewed"], "description": "proposed = our interpretation, not yet reviewed by a subject expert." },
+        "sources": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Repo docs or URLs the mapping comes from." },
+        "notes": { "type": "string" }
+      }
+    },
+    "toleranceSource": {
+      "type": "object",
+      "required": ["envelopeId"],
+      "additionalProperties": false,
+      "properties": {
+        "envelopeId": {
+          "type": ["string", "null"],
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "envelope.schema.json envelopeId giving the tolerance per required dimension. null = no envelope yet, so gate 2 can only be unknown."
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "notTestableOnEarth": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["mismatch", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "mismatch": { "type": "string", "enum": ["gravity", "pressureRegime", "radiation"] },
+          "why": { "type": "string", "description": "Plain-English reason this part can't be rehearsed on Earth." }
+        }
+      },
+      "description": "Published next to the level, never changes it (Lean S6f)."
+    },
+    "source": {
+      "type": "object",
+      "required": ["url", "sha256", "fetchedAt"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$", "description": "null = not verified. Never guessed." },
+        "fetchedAt": { "type": ["string", "null"], "format": "date-time" },
+        "recordedIn": { "type": "string", "description": "Where the probe is recorded, e.g. a research doc or data/snapshots path." }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "if": { "properties": { "rateable": { "const": true } } },
+  "then": { "properties": { "requiredDimensions": { "minItems": 1 } } }
+}
