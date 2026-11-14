@@ -1,0 +1,394 @@
+{
+  "siteId": "synthetic-bolivian-altiplano",
+  "name": "SYNTHETIC demo cell - high dry plateau like the Altiplano",
+  "geometry": {
+    "centroidLat": -18.0,
+    "centroidLon": -67.5,
+    "cellSizeKm": 18
+  },
+  "analogy": [
+    {
+      "dimension": "terrain",
+      "loss": 0.15,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "surfaceMaterial",
+      "loss": 0.19,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "dustProcess",
+      "loss": 0.3,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "thermal",
+      "loss": 0.21,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "illumination",
+      "loss": 0.26,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "waterIce",
+      "loss": 0.93,
+      "breakdown": true,
+      "datasetRefs": [],
+      "breakdownReason": "SYNTHETIC: this dimension breaks down for this objective."
+    },
+    {
+      "dimension": "subsurface",
+      "loss": 0.36,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "operations",
+      "loss": 0.3,
+      "breakdown": false,
+      "datasetRefs": []
+    }
+  ],
+  "permanentMismatches": [
+    "gravity",
+    "pressureRegime"
+  ],
+  "explorationUse": [
+    "SYNTHETIC mock demo cell. Not a real assessment."
+  ],
+  "readiness": [
+    {
+      "objectiveId": "OP-5LM",
+      "body": "mars",
+      "arl": 3,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "terrain",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            }
+          },
+          {
+            "dimension": "surfaceMaterial",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            }
+          },
+          {
+            "dimension": "dustProcess",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "thermal",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          }
+        ],
+        "site": {
+          "operable": {
+            "outcome": "pass",
+            "evidenceRefs": [
+              "synthetic:mock-grid"
+            ]
+          },
+          "campaignProven": {
+            "outcome": "unknown",
+            "evidenceRefs": []
+          }
+        }
+      },
+      "limitingGate": "fieldCharacterized",
+      "limitingDimension": "dustProcess",
+      "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)"
+    },
+    {
+      "objectiveId": "SE-3LM",
+      "body": "moon",
+      "arl": 0,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "waterIce",
+            "observed": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "withinTolerance": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "corroborated": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "thermal",
+            "observed": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "withinTolerance": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "corroborated": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "subsurface",
+            "observed": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "withinTolerance": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "corroborated": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "illumination",
+            "observed": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "withinTolerance": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "corroborated": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          }
+        ],
+        "site": {
+          "operable": {
+            "outcome": "pass",
+            "evidenceRefs": [
+              "synthetic:mock-grid"
+            ]
+          },
+          "campaignProven": {
+            "outcome": "unknown",
+            "evidenceRefs": []
+          }
+        }
+      },
+      "limitingGate": "observed",
+      "limitingDimension": "waterIce",
+      "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)"
+    },
+    {
+      "objectiveId": "LI-5L",
+      "body": "moon",
+      "arl": 2,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "terrain",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "illumination",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          }
+        ],
+        "site": {
+          "operable": {
+            "outcome": "pass",
+            "evidenceRefs": [
+              "synthetic:mock-grid"
+            ]
+          },
+          "campaignProven": {
+            "outcome": "unknown",
+            "evidenceRefs": []
+          }
+        }
+      },
+      "limitingGate": "corroborated",
+      "limitingDimension": "illumination",
+      "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)"
+    }
+  ],
+  "provenance": {
+    "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)",
+    "snapshots": []
+  }
+}

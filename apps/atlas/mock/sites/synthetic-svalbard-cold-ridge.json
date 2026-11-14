@@ -1,0 +1,279 @@
+{
+  "siteId": "synthetic-svalbard-cold-ridge",
+  "name": "SYNTHETIC demo cell - cold ridge like Svalbard",
+  "geometry": {
+    "centroidLat": 78.2,
+    "centroidLon": 15.6,
+    "cellSizeKm": 22
+  },
+  "analogy": [
+    {
+      "dimension": "terrain",
+      "loss": 0.16,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "surfaceMaterial",
+      "loss": 0.23,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "dustProcess",
+      "loss": 0.66,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "thermal",
+      "loss": 0.14,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "illumination",
+      "loss": 0.19,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "waterIce",
+      "loss": 0.1,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "subsurface",
+      "loss": 0.26,
+      "breakdown": false,
+      "datasetRefs": []
+    },
+    {
+      "dimension": "operations",
+      "loss": 0.32,
+      "breakdown": false,
+      "datasetRefs": []
+    }
+  ],
+  "permanentMismatches": [
+    "pressureRegime",
+    "radiation"
+  ],
+  "explorationUse": [
+    "SYNTHETIC mock demo cell. Not a real assessment."
+  ],
+  "readiness": [
+    {
+      "objectiveId": "SE-3LM",
+      "body": "moon",
+      "arl": 3,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "waterIce",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            }
+          },
+          {
+            "dimension": "thermal",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "subsurface",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          },
+          {
+            "dimension": "illumination",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "unknown",
+              "evidenceRefs": [],
+              "note": "SYNTHETIC: no data in the mock grid, so this gate is unknown."
+            }
+          }
+        ],
+        "site": {
+          "operable": {
+            "outcome": "pass",
+            "evidenceRefs": [
+              "synthetic:mock-grid"
+            ]
+          },
+          "campaignProven": {
+            "outcome": "unknown",
+            "evidenceRefs": []
+          }
+        }
+      },
+      "limitingGate": "fieldCharacterized",
+      "limitingDimension": "thermal",
+      "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)"
+    },
+    {
+      "objectiveId": "LI-5L",
+      "body": "moon",
+      "arl": 5,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "terrain",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            }
+          },
+          {
+            "dimension": "illumination",
+            "observed": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "withinTolerance": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "corroborated": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            },
+            "fieldCharacterized": {
+              "outcome": "pass",
+              "evidenceRefs": [
+                "synthetic:mock-grid"
+              ]
+            }
+          }
+        ],
+        "site": {
+          "operable": {
+            "outcome": "pass",
+            "evidenceRefs": [
+              "synthetic:mock-grid"
+            ]
+          },
+          "campaignProven": {
+            "outcome": "unknown",
+            "evidenceRefs": []
+          }
+        }
+      },
+      "limitingGate": "campaignProven",
+      "limitingDimension": null,
+      "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)"
+    }
+  ],
+  "provenance": {
+    "statementLedger": "SYNTHETIC-MOCK (not a Lean-checked level)",
+    "snapshots": []
+  }
+}
