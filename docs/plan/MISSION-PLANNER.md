@@ -23,10 +23,11 @@ Most teams will show a "looks like Mars" map. Ours starts from the
   or unknown. And it always lists what Earth can't test: gravity, air
   pressure, radiation.
 - It links to the past: the closest earlier analog campaigns, with a Shapley
-  breakdown of *why* they're close.
+  breakdown of *why* they're close. (Shapley values split a difference fairly
+  between its causes, here between traits.)
 - It ends with a plan, not a map: a one-page brief you could attach to a
   proposal, with an approval-readiness checklist.
-- Every number links back to a NASA file and its hash.
+- Every number links back to its source file (NASA, ESA or Copernicus) and its hash.
 
 ## The workflow
 
@@ -40,7 +41,20 @@ computes, the data it reads, and the UI.
   NASA objective (OP-5LM, SE-3LM, LI-5L to start), or a preset from a past
   campaign. Chooses how many sites to see (all, or the top X). Sets the
   month window (e.g. Jun–Aug), length in days, team size, and hard limits: max
-  travel time, avoid protected land, max slope, and so on.
+  travel time, avoid protected land, max slope, and so on. Also:
+  - **Mission type:** robotic, crewed, or instrument test. It picks which
+    requirement presets show up (e.g. crewed adds access and temperature
+    limits).
+  - **Priorities, without weights.** Each requirement is either **must**
+    (filters sites out) or **nice** (shown, never filters). The scientist also
+    picks the one trait that sorts the list. Nothing is weighted or added up.
+  - **Success criteria.** Per requirement, one line on what "tested" means,
+    e.g. "drive 5 km over slopes under 5°".
+- **Gets back (requirement verification matrix, team doc):** one row per
+  requirement with its band, must/nice, success criterion, and **how it can be
+  checked**: `data` (we check it from L1/L1m/L2), `field` (only a field
+  measurement can check it, e.g. rock size) or `earth-cannot` (gravity, vacuum
+  or thin air, radiation).
 - **Gets back:** the test requirements as a table, one row per trait (Earth
   units, where each band came from, the caveat), plus a live funnel counter:
   "91,800 places → 12,400 pass your limits → 310 match every requirement".
@@ -69,8 +83,9 @@ every trait the category needs has an Earth column today or in P0.
 Categories marked "no" still appear. Their unknown traits are listed, never
 hidden.
 
-**"Top X" without a score.** We rank by Pareto layers: layer 1 is the places no
-other place beats on every gap, layer 2 is the same after removing layer 1,
+**"Top X" without a score.** We rank by Pareto layers. (Pareto means: a
+place is on the list if no other place is at least as good on every trait and
+better on one.) Layer 1 is the places no other place beats on every gap, layer 2 is the same after removing layer 1,
 and so on. Inside a layer, the user's chosen trait sorts. "Top 20" means the
 first 20 in that order. A layer number is an order, not a score: it never adds
 traits together.
@@ -107,11 +122,23 @@ traits together.
 - **Scientist:** checks if a team can get there and work.
 - **Gets back:** travel time to the nearest city, nearest airport, share of
   protected land, and the **field-season months**: months where every required
-  trait matches and the place is reachable.
+  trait matches and the place is reachable. Plus:
+  - **Logistics notes**, written from the data in plain words: "4 h from the
+    nearest city, airport 85 km away, protected land on 30% of the hexagon,
+    best months Jun–Aug".
+  - **What you can actually test here:** the objective's test list, split
+    into "matches here", "misses here" and "can't test on Earth" (team doc:
+    "determine what can actually be tested").
+  - **Planning fields we can't fill from data:** equipment, infrastructure,
+    personnel, permits and costs. There's no worldwide dataset for these, so
+    they're a checklist the scientist fills in, prompted by what we do know
+    (protected land → "permit needed"; travel time → "cost band" proxy). They
+    go into the brief as written, marked "from the scientist".
 - **Engine:** `logistics(site, months)`; `season(site, requirements)` returns
   the matching months.
 - **Data:** L2 context, L1m.
-- **UI:** logistics card with a 12-month strip (green = match + reachable).
+- **UI:** logistics card with a 12-month strip (green = match + reachable),
+  the notes, the test split and the checklist.
 
 ### Step 5. Risks
 
@@ -146,9 +173,11 @@ traits together.
   questions **only from the campaign table and its stored sources**. Every
   answer cites campaign rows. If the table doesn't say, it answers "not in our
   records". It runs through `services/api` (the Worker holds any API key, never
-  the browser). The team doc asks for a chat box on every step: the same box
-  appears on steps 2–5, answering only from that step's numbers for the open
-  site (L1, L1m, L2 rows plus their sources). It never makes up a value.
+  the browser). The team doc asks for a chat box on every step, so the same
+  box sits on all 6. On step 1 it answers from the objective rows, trait map
+  and presets ("why is the slope limit 5°?"). On steps 2–5 it answers from that
+  step's numbers for the open site (L1, L1m, L2 rows plus their sources). It
+  never makes up a value.
 
 ### Output: mission plan brief
 
@@ -233,15 +262,47 @@ not in the product:
 
 ## UI
 
-- Stepper on the left (1–6), map in the middle, step card on the right.
-- Step 1 has the funnel counter. Every later step reads the same request
-  (objective, months, limits), kept in the URL so a plan can be shared as a
-  link.
-- Colours: the three funnel classes, or one trait's gap. Never a count of
-  matches or a gradient of "goodness". Unknown is hatched grey.
-- Moon/Mars side panel (Trek WMTS) showing the target the requirement came
-  from (P1).
-- Export button on every step writes the brief.
+Layout: stepper on the left (1–6), map in the middle, step card on the right.
+One plan request drives every step and lives in the URL, so a plan is a
+shareable link:
+
+`?body=mars&obj=OP-5LM&type=robotic&months=6-8&days=14&team=6&lim=access:240,protected:0&must=terrain,surfaceMaterial&sort=terrain&top=20&pins=<h3>,<h3>`
+
+| Step | Interactions | Done when |
+|---|---|---|
+| 1 | presets dropdown; body → category → test; month range; must/nice per row; limits in an "advanced" drawer. The funnel counter updates within 300 ms of any change | changing a band changes the counter, and the URL round-trips the request exactly |
+| 2 | map toggles funnel view / trait view; click a hexagon to open it; pin up to 3 (a 4th pin replaces the oldest, with a toast); the shortlist shows top X, sorted by the chosen trait | the three classes match `golden-verdicts.json` for the golden hexagons |
+| 3 | open site → gap card; each miss shows its gap and unit; unknowns show their reason | every required trait appears exactly once, in one of the three groups |
+| 4 | 12-month strip; the checklist is editable and kept in the URL hash | season months equal the engine's `season()` output for the golden hexagons |
+| 5 | one row per hazard; click to expand the EONET event names and dates | rows with 0 events say "none recorded in EONET" |
+| 6 | precedent list; hover a Shapley bar to see each trait's share | the shares add up to the total closeness (Shapley sums exactly) |
+
+States: **loading** (skeleton card; the map stays usable), **no data** for a
+hexagon (hatched grey, with "unknown" and the reason), **fetch error** (a
+banner with retry; never shows stale numbers as current), **nothing passes**
+(the counter says which limit removed the most sites, so the user knows what
+to loosen).
+
+Export: the brief can be exported at any step. Steps not visited yet are
+printed as "not checked yet", never left out silently.
+
+Colours: the three funnel classes, or one trait's gap. Never a count of
+matches or a gradient of "goodness". Unknown is hatched grey. Moon/Mars side
+panel (Trek WMTS) showing the target the requirement came from (P1).
+
+**Mock vs real (P0 boundary).** The atlas builds against a **mock L4**
+(`apps/atlas/mock/l4/`, same files and format as §L4 of the pipeline spec,
+values marked synthetic) until W7 publishes the real L4. Switching is one
+config line. The mock banner stays up until then.
+
+**What we reuse from the current atlas (`apps/atlas`, merged in #53):**
+
+| Keep | Replace | Remove |
+|---|---|---|
+| MapLibre 6.18 setup and the GIBS base layer (`map.ts`), DOM helpers (`dom.ts`), objective loading (`objectives.ts`, `scripts/sync-objectives.mjs`), the mock-check script pattern | point-circle site layers in `map.ts` → an H3 hexagon fill layer (hexagon outlines built in the browser from the `h3` ids with `h3-js`, so no geometry download); `dossier.ts` → the six step cards; `types.ts` → types generated from the new contracts | `arl.ts` and the ARL legend (ARL is superseded) |
+
+`apps/atlas/README.md` still says "the map code does not change" (lines
+80–85). W11b corrects it, since that file belongs to the atlas lane.
 
 ## Priorities
 
@@ -262,7 +323,7 @@ not in the product:
 | W20 | New contracts: `plan-request`, `trait-map`, `site-plan` | contracts | W16 |
 | W21 | S7 funnel statement (frozen) then proof | proofs | W20 |
 | W7 (#20) | Planner engine: requirements, verdicts, shortlist, gaps, season, risks, precedents, publish | engine | W17, W18, W20, W21 statement |
-| W11b | Atlas stepper (steps 1–6) on mock L4, then real | atlas | W20 |
+| W11b | Atlas stepper (steps 1–6) on mock L4, then real; hexagon layer; README fix | atlas | W20 |
 | W15 (#23) | Calibration against past campaigns: does each campaign's own site match its objective? | data | W7, W19 |
 | W22 | fastopt optimizer (P2) | engine | W7 |
 | W23 | JSheets team workbook over L1/L1m/L2 (exploring only) | research | W17 |
