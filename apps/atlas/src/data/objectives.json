@@ -1,0 +1,120 @@
+[
+  {
+    "objectiveId": "LI-5L",
+    "body": "moon",
+    "title": "Precision landing — shortened by us",
+    "earthTestableComponent": "Hazard-detection and terrain-relative-navigation tests over rough terrain at low sun angle.",
+    "rateable": true,
+    "requiredDimensions": [
+      "terrain",
+      "illumination"
+    ],
+    "mapping": {
+      "status": "proposed",
+      "sources": [
+        "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1",
+        "docs/research/08-landing-site-feature-set.md (LI-5L - slope_100m, sun_elev_min, illum_frac_avg, earth_vis_frac)"
+      ]
+    },
+    "toleranceSource": {
+      "envelopeId": null,
+      "note": "No Moon south-pole envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown."
+    },
+    "notTestableOnEarth": [
+      {
+        "mismatch": "gravity",
+        "why": "Descent and touchdown dynamics depend on lunar gravity (about 0.17 g)."
+      },
+      {
+        "mismatch": "pressureRegime",
+        "why": "In vacuum, engine plumes blast the surface differently than in Earth's air."
+      }
+    ],
+    "source": {
+      "url": "https://www.nasa.gov/wp-content/uploads/2022/09/m2m-objectives-exec-summary.pdf",
+      "sha256": "40b5af872fc5a3fd2eb79dad9b17b00f8af4fa241a636b6711dd0097ee66aca3",
+      "fetchedAt": "2026-11-12T19:18:00Z",
+      "recordedIn": "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2 (probe record; snapshot into data/snapshots/ still pending)"
+    }
+  },
+  {
+    "objectiveId": "OP-5LM",
+    "body": "mars",
+    "title": "Operate surface mobility systems (EVA suits, tools, vehicles) — shortened by us",
+    "earthTestableComponent": "Traverse and EVA procedures on rough, dusty, unvegetated terrain.",
+    "rateable": true,
+    "requiredDimensions": [
+      "terrain",
+      "surfaceMaterial",
+      "dustProcess",
+      "thermal"
+    ],
+    "mapping": {
+      "status": "proposed",
+      "sources": [
+        "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1",
+        "docs/research/08-landing-site-feature-set.md (OP-5LM - slopes, rocks, TI/albedo, dust)"
+      ]
+    },
+    "toleranceSource": {
+      "envelopeId": null,
+      "note": "No Mars envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown."
+    },
+    "notTestableOnEarth": [
+      {
+        "mismatch": "gravity",
+        "why": "Suit and vehicle dynamics change at Mars gravity (about 0.38 g)."
+      },
+      {
+        "mismatch": "pressureRegime",
+        "why": "Thin CO2 atmosphere changes dust charging, suit pressure and heat loss."
+      }
+    ],
+    "source": {
+      "url": "https://www.nasa.gov/wp-content/uploads/2022/09/m2m-objectives-exec-summary.pdf",
+      "sha256": "40b5af872fc5a3fd2eb79dad9b17b00f8af4fa241a636b6711dd0097ee66aca3",
+      "fetchedAt": "2026-11-12T19:18:00Z",
+      "recordedIn": "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2 (probe record; snapshot into data/snapshots/ still pending)"
+    }
+  },
+  {
+    "objectiveId": "SE-3LM",
+    "body": "moon",
+    "title": "Characterize core frozen volatiles (permanently shadowed regions) — shortened by us",
+    "earthTestableComponent": "Drilling and coring frozen ground in cold, dark conditions.",
+    "rateable": true,
+    "requiredDimensions": [
+      "waterIce",
+      "thermal",
+      "subsurface",
+      "illumination"
+    ],
+    "mapping": {
+      "status": "proposed",
+      "sources": [
+        "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1",
+        "docs/research/08-landing-site-feature-set.md (SE-3LM - PSR, cold-trap temperature, ice stability, neutron H)"
+      ]
+    },
+    "toleranceSource": {
+      "envelopeId": null,
+      "note": "No Moon south-pole envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown."
+    },
+    "notTestableOnEarth": [
+      {
+        "mismatch": "pressureRegime",
+        "why": "In lunar vacuum, ice sublimates in ways Earth's air pressure can't reproduce."
+      },
+      {
+        "mismatch": "radiation",
+        "why": "Unshielded space radiation reaches the lunar surface; Earth's field and atmosphere block it."
+      }
+    ],
+    "source": {
+      "url": "https://www.nasa.gov/wp-content/uploads/2022/09/m2m-objectives-exec-summary.pdf",
+      "sha256": "40b5af872fc5a3fd2eb79dad9b17b00f8af4fa241a636b6711dd0097ee66aca3",
+      "fetchedAt": "2026-11-12T19:18:00Z",
+      "recordedIn": "docs/research/07-spaceapps-rules-and-m2m-objectives.md §2 (probe record; snapshot into data/snapshots/ still pending)"
+    }
+  }
+]

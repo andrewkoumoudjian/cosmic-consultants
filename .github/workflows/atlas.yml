@@ -1,0 +1,27 @@
+name: atlas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  atlas:
+    name: Atlas build + mock data check (W11)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/atlas
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/atlas/package-lock.json
+      - name: Install pinned dependencies
+        run: npm ci
+      - name: Type-check and build the static atlas
+        run: npm run build
+      - name: Check the mock data against contracts/site.schema.json and the ARL rule
+        run: npm run check:mock
