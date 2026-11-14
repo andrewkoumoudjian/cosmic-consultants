@@ -151,6 +151,126 @@
       "localPath": "data/snapshots/modis-mcd12c1/MCD12C1.A2023001.061.2024251212901.hdf"
     },
     {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023015.061.2023024104905/MCD43C3.A2023015.061.2023024104905.hdf",
+      "fetchedAt": "2026-11-14T19:48:59Z",
+      "sha256": "a563789ef5a93efc12e6da0b25af7b9acfb322222b4f8d74a4f75eb21d745625",
+      "bytes": 191120887,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023015.061.2023024104905.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023046.061.2023057224937/MCD43C3.A2023046.061.2023057224937.hdf",
+      "fetchedAt": "2026-11-14T19:49:20Z",
+      "sha256": "02b0cf1f06b9f5e34aef24eab597e85cf66c4a5f20cce29e7e0e9ae9df7bc215",
+      "bytes": 231332589,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023046.061.2023057224937.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023074.061.2023083070952/MCD43C3.A2023074.061.2023083070952.hdf",
+      "fetchedAt": "2026-11-14T19:49:42Z",
+      "sha256": "ad00b11d37026195a88d958ace5a04bc0117f70610bf3f7715db82e7d13e1594",
+      "bytes": 243753501,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023074.061.2023083070952.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023105.061.2023114063822/MCD43C3.A2023105.061.2023114063822.hdf",
+      "fetchedAt": "2026-11-14T19:50:00Z",
+      "sha256": "a47aa6e5f3364b8eb8fc0ea9fdd7d16fa420d83ff2ab66b6405537f78d57c0ce",
+      "bytes": 206311157,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023105.061.2023114063822.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023135.061.2023144071438/MCD43C3.A2023135.061.2023144071438.hdf",
+      "fetchedAt": "2026-11-14T19:50:28Z",
+      "sha256": "8f9fe82ff62c78876c7209b89d201e794169ee87a33f7abe226773075404f268",
+      "bytes": 198845242,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023135.061.2023144071438.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023166.061.2023175104425/MCD43C3.A2023166.061.2023175104425.hdf",
+      "fetchedAt": "2026-11-14T19:51:01Z",
+      "sha256": "f9c6946407f1da97daf2ddcf0d279e5c0323b62a3672f1e78a4217a3ed408ba1",
+      "bytes": 194021436,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023166.061.2023175104425.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023196.061.2023215170711/MCD43C3.A2023196.061.2023215170711.hdf",
+      "fetchedAt": "2026-11-14T19:51:40Z",
+      "sha256": "c5b1522698405865d8fe357bae0fdc50d12f578714bd3b528d722ffe4d03159c",
+      "bytes": 191073250,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023196.061.2023215170711.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023227.061.2023236071848/MCD43C3.A2023227.061.2023236071848.hdf",
+      "fetchedAt": "2026-11-14T19:52:16Z",
+      "sha256": "6b58ff6551e6a5284f8a4935c05b3d507576e2b9844e3406a30e9ad9b0ec8490",
+      "bytes": 189531870,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023227.061.2023236071848.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023258.061.2023267065355/MCD43C3.A2023258.061.2023267065355.hdf",
+      "fetchedAt": "2026-11-14T19:53:32Z",
+      "sha256": "a2b590273aeef4dd3731c6b8eff558c002f1b1ed379e34aff1442337b36952d9",
+      "bytes": 209964956,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023258.061.2023267065355.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023288.061.2023299045841/MCD43C3.A2023288.061.2023299045841.hdf",
+      "fetchedAt": "2026-11-14T19:54:22Z",
+      "sha256": "8b6ca66eecefd9ea6489fdc6aac8652daac393ef464af2847eb5c988c088a123",
+      "bytes": 234602662,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023288.061.2023299045841.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023319.061.2023328224454/MCD43C3.A2023319.061.2023328224454.hdf",
+      "fetchedAt": "2026-11-14T19:55:07Z",
+      "sha256": "047e59d4da5745ecfe0707ba01b90a97033e5e7eb3ce09a07d0d7708a447c3b5",
+      "bytes": 205862840,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023319.061.2023328224454.hdf"
+    },
+    {
+      "datasetId": "modis-mcd43c3-albedo",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD43C3.061/MCD43C3.A2023349.061.2023361073709/MCD43C3.A2023349.061.2023361073709.hdf",
+      "fetchedAt": "2026-11-14T19:55:28Z",
+      "sha256": "a829403b6ba84ea3897cccc27d419be96c02dd7662ea2f190455ebbe5e961b51",
+      "bytes": 183468974,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023349.061.2023361073709.hdf"
+    },
+    {
       "datasetId": "modis-mod11c3",
       "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MOD11C3.061/MOD11C3.A2023001.061.2023033164320/MOD11C3.A2023001.061.2023033164320.hdf",
       "fetchedAt": "2026-11-14T15:03:57Z",
@@ -269,6 +389,136 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
+      "fetchedAt": "2026-11-14T19:57:19Z",
+      "sha256": "0f9a45f104589283104746210179bf515153162ec125409a76ea17c3f7920d4d",
+      "bytes": 736258,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/Global_Soil_Regolith_Sediment.pdf"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif",
+      "fetchedAt": "2026-11-14T19:55:05Z",
+      "sha256": "9ba08f1c45ee38ed2f22316c51de9fdb218fe42256415ef3b90b4c53bf768181",
+      "bytes": 73091828,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:12Z",
+      "sha256": "86bcbc453662d544de4735a7e9e90c141ce14cdf1bcbc640d8d6d50105d6351d",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif",
+      "fetchedAt": "2026-11-14T19:53:27Z",
+      "sha256": "ce869b42692608e40f1c40cc0d16839d97665391765ad183fb80fc53bfc90027",
+      "bytes": 522582513,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:09Z",
+      "sha256": "bbb7b7f185e57533b72e21642737525a624af445c6b3cc2cd696853849753c67",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif",
+      "fetchedAt": "2026-11-14T19:54:36Z",
+      "sha256": "3fc82a6a8ba90404d7e1c2f41eb2a03f0fa6072aef2f48a6cfe1e843c4b7f5b9",
+      "bytes": 15654859,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:11Z",
+      "sha256": "ef4b5233580c044c2ab07ba26fa413ad2899d13835b397da7b50dc7619509177",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif",
+      "fetchedAt": "2026-11-14T19:51:22Z",
+      "sha256": "0b7b78aa885eb3796bf3900d87205def2d9f9900bc1f5790a416f6668ac2f03a",
+      "bytes": 85980757,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:06Z",
+      "sha256": "ae69159d171dfa2aa3eddf4267b3ef8bb684d8e7296b6d2b5a9c42fa91f14e2a",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif",
+      "fetchedAt": "2026-11-14T19:51:53Z",
+      "sha256": "5c190ef2f6b36585ea542c76516751a8730a9e37d93fadd7b348df970bbf0002",
+      "bytes": 217656520,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:08Z",
+      "sha256": "ac64e5edff2a291c47b4d2f6d88b014b38305c796c9786ea34b5d581cd7aac84",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif",
+      "fetchedAt": "2026-11-14T19:54:12Z",
+      "sha256": "15ae1c95f2a943798680487e8996fdcc7b94dbc48fa05dbfc9aee48c80b7e78a",
+      "bytes": 117974104,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:10Z",
+      "sha256": "28b8cde070cc2884477b59c9a9b5fe2ab103b30a77858874166ccc47d4c4bbbe",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256"
     },
     {
       "datasetId": "ourairports",
