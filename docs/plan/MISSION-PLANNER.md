@@ -256,7 +256,7 @@ not in the product:
 | W | What | Lane | Depends on |
 |---|---|---|---|
 | W16 (#56) | This plan + ADR-0005 + trait map v0 | docs | — |
-| W17 | L1m monthly table + L1 temperature rule change | ingest | W16 |
+| W17 | L1m monthly table + L1 temperature rule change + per-row `missing_reason` | ingest | W16 |
 | W18 | L2 context: EONET hazards, travel time, airports, WDPA (licence first) | ingest | W16 |
 | W19 | Past campaigns table (cited) + `campaign.schema.json` | data + contracts | W16 |
 | W20 | New contracts: `plan-request`, `trait-map`, `site-plan` | contracts | W16 |
