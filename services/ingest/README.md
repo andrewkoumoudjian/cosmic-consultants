@@ -210,3 +210,26 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## Map placement check (#74)
+
+`uv run python -m p0ingest.projection_check fetch|run` checks where the native
+planetary products sit on their body, using independent references only:
+MOLA MEGDR topography (4 and 16 px/deg) and the USGS/IAU Gazetteer of
+Planetary Nomenclature. MOLA itself is first checked against named montes and
+planitiae. The report goes to `_derived/planetary/projection-check.json`.
+
+- TES thermal inertia: the label text is right (line 1 = 90 N, sample 1 =
+  180 W). The DSMAP equations' signs are wrong. The night map matches MOLA's
+  fine structure under that mapping only, and the day map agrees with the night
+  map under the same mapping only.
+- Not resolved: a residual apparent longitude offset (night peak about
+  +0.3 deg east). Day and night disagree on it, so it is not one grid error.
+  Slope-aspect response and the IAU 1991 (TES) vs MOLA frame difference both
+  move it. No correction is applied. Treat TES positions as uncertain at that
+  size until a cited frame transform exists.
+- Diviner PRP: centre lat/lon recomputed from the three body-fixed vertices
+  match the table, and named south-polar crater floors are colder than their
+  rims far more often than with east/west mirrored positions.
+
+This is placement evidence only. No value changes and no target association.
