@@ -1,8 +1,8 @@
 # Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
 # source.probeResult and license.verified are written by scripts/registry_probe.py.
 datasetId: eonet-v3-events
-title: "EONET v3 natural events (dust/haze, volcanoes, sea and lake ice)"
-status: candidate
+title: "EONET v3 natural events (wildfires, storms, volcanoes, floods, dust/haze, ...)"
+status: adopted
 bodies: [earth]
 dimensions: [dustProcess]
 discovery:
@@ -11,23 +11,23 @@ discovery:
 source:
   archive: "NASA EONET"
   endpoint: "https://eonet.gsfc.nasa.gov/api/v3/events"
-  probedAt: 2026-11-13T00:20:19Z
+  probedAt: 2026-11-14T18:22:07Z
   probeResult: "HTTP 200, 4469 B, sha256 a3e9c492a313…"
 probe:
   kind: http
   url: "https://eonet.gsfc.nasa.gov/api/v3/categories"
   expect: ["dustHaze"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "no license statement on the API; NASA GSFC service"
+  id: nasa-esds-open-data-eonet-disclaimer
+  textUrl: "https://eonet.gsfc.nasa.gov/what-is-eonet"
+  expect: ["visualization and general information purposes only", "Earth Science Data Systems"]
+  verified: true
+  note: "Owner decision 2026-11-14 (ADR-0006, PR #62): use under NASA's full and open Earth science data policy (https://www.earthdata.nasa.gov/engage/open-data-services-software-policies) with EONET's disclaimer shown next to the data. Named events with dates and source links only; never a rate. EONET has no licence text of its own and its events come from outside sources."
 coverage:
   spatial: "global, event points"
   temporal: "unverified: curated events, recent years"
   resolution: "event-level"
-analysisReady: true
+analysisReady: false
 independenceGroup: event-catalog
-plannedUse: "dustProcess gate 3: independent event record of dust storms (non-raster, curated)"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+plannedUse: "L2 eonet_<category>_events / _months and the eonet-events-r4 list for workflow step 5 (risks), named events only"
+snapshotPolicy: "One frozen snapshot of the 2015-2024 events response (status=all), hashed in MANIFEST.json; refetch only by a new snapshot."

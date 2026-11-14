@@ -12,6 +12,16 @@
       "localPath": "data/snapshots/copernicus-dem-glo30/tileList.txt"
     },
     {
+      "datasetId": "eonet-v3-events",
+      "sourceUrl": "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&start=2015-01-01&end=2024-12-31&limit=100000",
+      "fetchedAt": "2026-11-14T18:22:27Z",
+      "sha256": "19c6767b4b3c9e26670f6531c44c1a022eead0666667811cfcd7eff4ac43bd5b",
+      "bytes": 10443929,
+      "license": "nasa-esds-open-data-eonet-disclaimer",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/eonet-v3-events/events-2015-2024.json"
+    },
+    {
       "datasetId": "esa-cci-permafrost-extent-antarctica",
       "sourceUrl": "https://dap.ceda.ac.uk/neodc/esacci/permafrost/data/permafrost_extent/L4/area4/pp/v05.0/Antarctica/2023/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA27_PP-2023-fv05.0.nc",
       "fetchedAt": "2026-11-14T15:27:54Z",
@@ -160,6 +170,36 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
+    },
+    {
+      "datasetId": "ourairports",
+      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+      "fetchedAt": "2026-11-14T17:51:36Z",
+      "sha256": "5b3b48a429c8513853ff13a51a03282d1ef159ddf347f40203ff66b583574e8b",
+      "bytes": 12760412,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ourairports/airports.csv"
+    },
+    {
+      "datasetId": "ourairports",
+      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/runways.csv",
+      "fetchedAt": "2026-11-14T17:51:37Z",
+      "sha256": "84d66ace2234e57c39a6a1d61d02db116e45f963137446c0829bae0547456b31",
+      "bytes": 3974694,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ourairports/runways.csv"
+    },
+    {
+      "datasetId": "travel-time-to-cities-2015",
+      "sourceUrl": "https://data.malariaatlas.org/geoserver/ows?service=CSW&version=2.0.1&request=DirectDownload&ResourceId=Explorer:2015_accessibility_to_cities_v1.0",
+      "fetchedAt": "2026-11-14T17:51:36Z",
+      "sha256": "5dbdef51be0be7107ee5b6fef85f2f00813328248e1b2535c3188efc9d0fd4f9",
+      "bytes": 381398991,
+      "license": "cc-by-3.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
     }
   ]
 }

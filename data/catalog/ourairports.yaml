@@ -1,0 +1,32 @@
+# W18 source row; licence checked live before downloading airports/runways CSVs.
+datasetId: ourairports
+title: "OurAirports airports and runways"
+status: adopted
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "OurAirports"
+  endpoint: "https://davidmegginson.github.io/ourairports-data/"
+  probedAt: 2026-11-14T17:44:31Z
+  probeResult: "Live OurAirports data page via curl -k: airports.csv and runways.csv are listed; page states all data is public domain. The site's TLS certificate was expired during this check."
+probe:
+  kind: http
+  url: "https://ourairports.com/data/"
+  expect: ["All data is released to the Public Domain"]
+license:
+  id: public-domain
+  textUrl: "https://ourairports.com/data/"
+  expect: ["All data is released to the Public Domain", "no guarantee of accuracy or fitness for use"]
+  verified: true
+  note: "Checked live by curl -k 2026-11-14 after curl reported the site's certificate expired. The page states: 'All data is released to the Public Domain, and comes with no guarantee of accuracy or fitness for use.'"
+coverage:
+  spatial: "global airport and runway records"
+  temporal: "current snapshot date; nightly CSV dumps"
+  resolution: "point locations and runway attributes"
+analysisReady: true
+independenceGroup: "crowdsourced-aviation-registry"
+plannedUse: "L2 distance from each H3 r4 centre to the nearest airport with a paved runway"
+snapshotPolicy: "Snapshot airports.csv and runways.csv with URL, fetch time, sha256 and public-domain licence in MANIFEST.json."

@@ -22,12 +22,12 @@ license:
   textUrl: "https://www.protectedplanet.net/en/legal"
   expect: ["No Commercial Use"]
   verified: true
-  note: "Derivative works may not be put to commercial use without UNEP-WCMC permission. Hackathon/non-commercial use only; confirm attribution wording before publishing."
+  note: "Checked live 2026-11-14. Protected Planet says derivative works may not be put to commercial use without prior written permission and WDPCA materials 'may not be sub-licensed' or redistributed including within derivative works without permission. No WDPA snapshot or derived protected_pct is published."
 coverage:
   spatial: "global"
   temporal: "unverified: monthly releases"
   resolution: "vector polygons"
 analysisReady: false
 independenceGroup: legal-registry
-plannedUse: "operations gate 5: legal/protected status of a site"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+plannedUse: "L2 protected share; currently withheld because the live terms restrict redistribution of derived data"
+snapshotPolicy: "No download or snapshot without written permission; output stays null with licence-restricted."
