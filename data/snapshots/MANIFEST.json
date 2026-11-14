@@ -2,6 +2,105 @@
   "description": "Hashed dataset snapshots used by W6 ingest. Payload bytes are local (gitignored); this file is the provenance record (AGENTS.md rule 3).",
   "entries": [
     {
+      "campaignId": "atacama-arads-2019",
+      "sourceRef": "arads-2019-article",
+      "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "9c614d86b0ec7f71bdacd03f9f161ef884470201469d1af2b8f5288408776dbe",
+      "bytes": 130207,
+      "licenseNote": "Full article text stored from the publisher page under CC BY 4.0; attribution is retained in the source URL.",
+      "localPath": "data/snapshots/campaign-sources/atacama-arads-2019/article.md",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "desert-rats-2010",
+      "sourceRef": "desert-rats-2010-ntrs",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20120011764/downloads/20120011764.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "cdd05764f04133e98bc6002daab9ee2a1ac7a0d5929bbb2efebb13098db0b9b2",
+      "bytes": 54377,
+      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
+      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-report.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "desert-rats-2010",
+      "sourceRef": "desert-rats-site-map-pdf",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "98a2aa01b44ab6fc0ab5d50ae8fc46c0ebab377e85c3c6afdb45866da38559ae",
+      "bytes": 2053898,
+      "licenseNote": "Original NASA site-map PDF stored for quote checks; NTRS lists Public Use Permitted.",
+      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates-original.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "desert-rats-2010",
+      "sourceRef": "desert-rats-site-map",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "239964637e02e01b4b7307fe39950bcd98a1681bb2281e11bd68323876539e03",
+      "bytes": 40669,
+      "licenseNote": "Searchable text was extracted from a NASA site-map PDF; NTRS lists Public Use Permitted.",
+      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates.md",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "fmars-expedition-12",
+      "sourceRef": "nasa-geophysical-2010",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1",
+      "bytes": 5823240,
+      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
+      "localPath": "data/snapshots/campaign-sources/fmars-expedition-12/nasa-2010-report.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-iv-article",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7831191/",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "aef5c1e2380637da6d4fabf35f76b7522ee371155ca6fb83f5673c5922c8bc0e",
+      "bytes": 165699,
+      "licenseNote": "Full article text stored under the article's CC BY 4.0 license.",
+      "localPath": "data/snapshots/campaign-sources/hiseas-iv/article.md",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "hmp-2015",
+      "sourceRef": "hmp-workshop-2015",
+      "sourceUrl": "https://www.nasa.gov/wp-content/uploads/2015/06/mars-c-abstracts_in_order_of_presentation10242015_0.pdf?emrc=bafbbc",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "299573328f4901da6ae5becd3d02eb16005ccac99898dc36f631b586c1dc3494",
+      "bytes": 11448452,
+      "licenseNote": "NASA workshop PDF; stored locally as a source snapshot for quote checks.",
+      "localPath": "data/snapshots/campaign-sources/hmp-haughton/hmp-workshop.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "mdrs-89",
+      "sourceRef": "nasa-geophysical-2010",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1",
+      "bytes": 5823240,
+      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
+      "localPath": "data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-site-coordinates",
+      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
+      "bytes": null,
+      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
+      "localPath": null,
+      "datasetId": "campaign-sources"
+    },
+    {
       "datasetId": "copernicus-dem-glo30",
       "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/tileList.txt",
       "fetchedAt": "2026-11-14T15:25:30Z",
@@ -200,96 +299,6 @@
       "license": "cc-by-3.0",
       "licenseVerified": true,
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
-    },
-    {
-      "campaignId": "atacama-arads-2019",
-      "sourceRef": "arads-2019-article",
-      "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "9c614d86b0ec7f71bdacd03f9f161ef884470201469d1af2b8f5288408776dbe",
-      "bytes": 130207,
-      "licenseNote": "Full article text stored from the publisher page under CC BY 4.0; attribution is retained in the source URL.",
-      "localPath": "data/snapshots/campaign-sources/atacama-arads-2019/article.md"
-    },
-    {
-      "campaignId": "desert-rats-2010",
-      "sourceRef": "desert-rats-2010-ntrs",
-      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20120011764/downloads/20120011764.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "cdd05764f04133e98bc6002daab9ee2a1ac7a0d5929bbb2efebb13098db0b9b2",
-      "bytes": 54377,
-      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
-      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-report.pdf"
-    },
-    {
-      "campaignId": "desert-rats-2010",
-      "sourceRef": "desert-rats-site-map",
-      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "239964637e02e01b4b7307fe39950bcd98a1681bb2281e11bd68323876539e03",
-      "bytes": 40669,
-      "licenseNote": "Searchable text was extracted from a NASA site-map PDF; NTRS lists Public Use Permitted.",
-      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates.md"
-    },
-    {
-      "campaignId": "desert-rats-2010",
-      "sourceRef": "desert-rats-site-map-pdf",
-      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "98a2aa01b44ab6fc0ab5d50ae8fc46c0ebab377e85c3c6afdb45866da38559ae",
-      "bytes": 2053898,
-      "licenseNote": "Original NASA site-map PDF stored for quote checks; NTRS lists Public Use Permitted.",
-      "localPath": "data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates-original.pdf"
-    },
-    {
-      "campaignId": "fmars-expedition-12",
-      "sourceRef": "nasa-geophysical-2010",
-      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1",
-      "bytes": 5823240,
-      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
-      "localPath": "data/snapshots/campaign-sources/fmars-expedition-12/nasa-2010-report.pdf"
-    },
-    {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-iv-article",
-      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7831191/",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "aef5c1e2380637da6d4fabf35f76b7522ee371155ca6fb83f5673c5922c8bc0e",
-      "bytes": 165699,
-      "licenseNote": "Full article text stored under the article's CC BY 4.0 license.",
-      "localPath": "data/snapshots/campaign-sources/hiseas-iv/article.md"
-    },
-    {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-site-coordinates",
-      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
-      "bytes": null,
-      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
-      "localPath": null
-    },
-    {
-      "campaignId": "hmp-2015",
-      "sourceRef": "hmp-workshop-2015",
-      "sourceUrl": "https://www.nasa.gov/wp-content/uploads/2015/06/mars-c-abstracts_in_order_of_presentation10242015_0.pdf?emrc=bafbbc",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "299573328f4901da6ae5becd3d02eb16005ccac99898dc36f631b586c1dc3494",
-      "bytes": 11448452,
-      "licenseNote": "NASA workshop PDF; stored locally as a source snapshot for quote checks.",
-      "localPath": "data/snapshots/campaign-sources/hmp-haughton/hmp-workshop.pdf"
-    },
-    {
-      "campaignId": "mdrs-89",
-      "sourceRef": "nasa-geophysical-2010",
-      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1",
-      "bytes": 5823240,
-      "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
-      "localPath": "data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf"
     }
   ]
 }

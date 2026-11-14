@@ -79,7 +79,7 @@ def load_manifest() -> dict:
 
 
 def save_manifest(m: dict) -> None:
-    m["entries"].sort(key=lambda e: (e["datasetId"], e["localPath"]))
+    m["entries"].sort(key=lambda e: (e.get("datasetId") or "", e.get("localPath") or e.get("sourceUrl") or ""))
     tmp = MANIFEST.with_suffix(".tmp")
     tmp.write_text(json.dumps(m, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     os.replace(tmp, MANIFEST)
