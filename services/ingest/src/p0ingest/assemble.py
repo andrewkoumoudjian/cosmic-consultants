@@ -20,6 +20,7 @@ Exit code 0 only if every join check passes.
 from __future__ import annotations
 
 import glob
+import csv
 import json
 import sys
 import time
@@ -37,6 +38,31 @@ OUT = DERIVED / "assembled"
 MIN_YEARS = 5  # spread needs at least this many years with a value (spec §5B)
 
 
+def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.DataFrame]) -> list[dict]:
+    """Track every inventory feature without promoting related data to an exact output."""
+    ids = [f["feature_id"] for f in features]
+    if len(set(ids)) != len(ids) or set(ids) != set(mappings):
+        raise ValueError("feature preparation mapping must cover every unique inventory feature exactly once")
+    result = []
+    for feature in features:
+        mapping = mappings[feature["feature_id"]]
+        backing = []
+        for ref in mapping.get("relatedColumns", []):
+            table, column = ref.split(".", 1)
+            frame = tables.get(table)
+            present = frame is not None and column in frame.columns
+            backing.append({"column": ref, "present": present,
+                            "nullRate": frame[column].null_count() / frame.height if present and frame.height else None})
+        relation = feature["earth_match"]
+        state = "limitation" if relation == "mismatch" else "source-gap" if relation == "gap" else (
+            "partial-inputs" if any(x["present"] for x in backing) else "not-built")
+        result.append({**feature, "preparationState": state, "implemented": False,
+                       "relatedColumns": backing, "notes": mapping["notes"],
+                       "scientificStatus": "proposed" if relation != "mismatch" else "limitation",
+                       "meaning": "Related columns and candidate source names do not establish this feature's quantity, scale or validity."})
+    return result
+
+
 def _reasons_expr(src_reason: str, items: list[tuple[str, str, str | None]]) -> pl.Expr:
     """Per-row JSON {assembled column: reason} listing exactly the null columns.
     items = (assembled name, source column, trait). The reason is the source
@@ -45,8 +71,10 @@ def _reasons_expr(src_reason: str, items: list[tuple[str, str, str | None]]) -> 
         by_col = pl.col(src_reason).str.json_path_match(f"$.{col}")
         by_trait = pl.col(src_reason).str.json_path_match(f"$.{trait}") if trait else pl.lit(None, pl.String)
         code = pl.coalesce(by_col, by_trait, pl.lit("null-without-reason"))
-        return pl.when(pl.col(name).is_null()).then(pl.lit(f'"{name}":"') + code + pl.lit('"')).otherwise(None)
-    return pl.concat_str([one(*it) for it in items], separator=",", ignore_nulls=True)
+        encoded = pl.struct(code.alias(name)).struct.json_encode().str.strip_prefix("{").str.strip_suffix("}")
+        return pl.when(pl.col(name).is_null()).then(encoded).otherwise(None)
+    fragment = pl.concat_str([one(*it) for it in items], separator=",", ignore_nulls=True)
+    return pl.when(fragment != "").then(fragment).otherwise(None)
 
 
 class Build:
@@ -80,9 +108,15 @@ class Build:
             per_cell = {("h3",): 1, ("h3", "month"): 12, ("h3", "year", "month"): 120}[tuple(key)]
             n_dup = df.height - df.select(key).unique().height
             unknown = df.join(self.master, on="h3", how="anti").height
-            ok = df.height == self.master.height * per_cell and n_dup == 0 and unknown == 0
+            bad_time = 0
+            if "month" in key:
+                bad_time += df.filter(~pl.col("month").is_between(1, 12)).height
+            if "year" in key:
+                bad_time += df.filter(~pl.col("year").is_between(2014, 2023)).height
+            null_keys = sum(df[k].null_count() for k in key)
+            ok = df.height == self.master.height * per_cell and n_dup == 0 and unknown == 0 and bad_time == 0 and null_keys == 0
             self.check(f"{sid}: keys complete and unique", ok,
-                       f"{df.height:,} rows (want {self.master.height * per_cell:,}), {n_dup} duplicate keys, {unknown} rows with a hexagon not in cells-r4")
+                       f"{df.height:,} rows (want {self.master.height * per_cell:,}), {n_dup} duplicate keys, {unknown} unknown hexagons, {bad_time} invalid times, {null_keys} null keys")
         self._cache[sid] = df
         return df
 
@@ -133,11 +167,11 @@ class Build:
             bad = 0
             for c in cols:
                 a, b = pl.col(c["name"]), pl.col(f"__src_{c['name']}")
-                bad += back.filter(~((a == b) | (a.is_null() & b.is_null()))).height
+                bad += back.filter(~a.eq_missing(b)).height
             self.check(f"{tname} <- {sid}: values unchanged", bad == 0, f"{len(cols)} columns, {bad} differing cells")
         out = out.with_columns(
             (pl.lit("{") + pl.concat_str(reasons, separator=",", ignore_nulls=True).fill_null("") + pl.lit("}")).alias("missing_reason")
-        ).with_columns(pl.col("missing_reason").str.replace_all(",+", ",").str.replace(r"^\{,", "{").str.replace(r",\}$", "}"))
+        )
         out = out.sort(["cell"] + [k for k in key if k != "h3"]).drop([c for c in out.columns if c.startswith("__mr_")] + ["cell"])
         # missing_reason lists exactly the null columns, and never 'null-without-reason'
         data_cols = [c for c in out.columns if c not in key and c != "missing_reason"]
@@ -183,7 +217,7 @@ class Build:
         lm = self.source("cells-r4-monthly").select("h3", pl.col("month").cast(pl.Int8), "lst_day_k", "lst_night_k")
         y23 = yrs.filter(pl.col("year") == 2023).select("h3", pl.col("month").cast(pl.Int8), "lst_day_k", "lst_night_k")
         j = lm.join(y23, on=["h3", "month"], how="inner", suffix="_y")
-        bad = sum(j.filter(~((pl.col(c) == pl.col(c + "_y")) | (pl.col(c).is_null() & pl.col(c + "_y").is_null()))).height
+        bad = sum(j.filter(~pl.col(c).eq_missing(pl.col(c + "_y"))).height
                   for c in ("lst_day_k", "lst_night_k"))
         self.check("L1m-years 2023 == L1m", bad == 0 and j.height == lm.height, f"{bad} differing values over {j.height:,} rows")
         return g
@@ -276,7 +310,20 @@ class Build:
         for k, c in self.reg["categories"].items():
             categories[str(k)] = {"name": c["name"],
                                   "traits": {t: {"checkedBy": kind(t), "columns": backing(t)} for t in c["traits"]}}
-        return {"objectives": objectives, "categories": categories, "earthCannot": self.reg["earthCannot"]}
+        feature_path = REPO / "research/features/landing_site_features.csv"
+        mapping_path = REPO / "data/pipeline/feature-preparation.yaml"
+        with feature_path.open(encoding="utf-8", newline="") as stream:
+            features = list(csv.DictReader(stream))
+        preparation = yaml.safe_load(mapping_path.read_text(encoding="utf-8"))
+        full = feature_coverage(features, preparation["features"], {"sites-r4": sites, "sites-r4-monthly": monthly})
+        for category in categories.values():
+            category["featureCompleteness"] = "not-established"
+            category["note"] = "Trait-column availability is not evidence that all tests in this category can be performed."
+        return {"objectives": objectives, "categories": categories, "earthCannot": self.reg["earthCannot"],
+                "featureInventory": {"path": str(feature_path.relative_to(REPO)), "sha256": sha256(feature_path),
+                                     "mappingSha256": sha256(mapping_path), "count": len(full)},
+                "features": full, "workflowModules": preparation["workflowModules"],
+                "additionalEvidenceGaps": preparation["additionalEvidenceGaps"]}
 
     # ---- run ----------------------------------------------------------------
     def run(self) -> int:

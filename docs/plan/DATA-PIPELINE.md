@@ -1,15 +1,34 @@
 # Data pipeline spec (mission planner)
 
-Status: **proposed** (work order #56). Decision: [ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md).
+Status: **implementation in progress** (work order #69). Current scope:
+[ADR-0007](../decisions/ADR-0007-data-preparation-scope.md).
+The team's Google Doc, **IDEA table**, takes precedence over repository
+product docs. Its core modules are objectives, site analysis/comparison and
+gaps; combined operations and mission presets are should-have modules.
+The historical six-step IDs below identify data consumers only.
 Product plan: [MISSION-PLANNER.md](MISSION-PLANNER.md). Owner of this spec:
 Andrew (data pipeline scope).
 
 This is the single description of what data we hold, how it's built, where
 it's stored and who reads it. If code or another doc disagrees with this file,
-this file wins until a PR changes it. If you find a contradiction, open an
+the Google Doc governs product requirements; align this file through a PR. If you find a contradiction, open an
 issue, don't route around it.
 
 ## 1. The rules (apply to every layer)
+
+**Full feature scope.** Data preparation covers every feature in
+`research/features/landing_site_features.csv` (55 current IDs), plus context
+and campaign evidence for the eight test categories. The per-feature
+preparation mapping is `data/pipeline/feature-preparation.yaml`; the assembler
+includes all its entries in `data-coverage.json`. Related available columns
+are reported as inputs, never as completed exact features. Category-level
+trait coverage does not establish support for every selectable test.
+
+Each feature retains its quantity, unit, spatial/time support, masks,
+derivation, source hashes and limitations. Monthly MOD11C3 composites are
+not observed daily extremes; 240 m cell slopes do not implement all fine
+baselines; permafrost is not ice depth. Site-scale and regional evidence
+remain at their actual support instead of being presented as global coverage.
 
 1. **Every number traces to a snapshot.** A snapshot is a source file or
    listing with its URL, fetch date, sha256 and licence in
@@ -81,8 +100,8 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 | Copernicus DEM GLO-30 (`copernicus-dem-glo30`) | elevation, read at 240 m | L1 `elev_*`, `slope_*` | static | have (streamed; tile ledger hashed) |
 | ESA CCI permafrost (`esa-cci-permafrost-extent-nh`, `-antarctica`) | permafrost probability | L1 `permafrost_pct` | 2023 | have |
 | Sun position (computed) | noon sun height, day length, polar day/night | L1, L1m `sun_*`, `daylight_h`, `polar_*` | 2023 | have (no file needed) |
-| MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | blocked (GES DISC app approval) |
-| MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (risk scenarios, optimizer) | 2014–2023 | fetch (P2 only) |
+| MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | access unblocked (issue #68, HTTP 200 at 2026-11-14T19:01Z); source table still pending |
+| MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (historical spread; future optimizer inputs) | 2014–2023 | built and checked in #64; Drive delivery and integration tracked in PR #72 |
 | NASA EONET v3 (`eonet-v3-events`) | notable natural events with dates and points | L2 `eonet_*` + `_derived/eonet-events-r4.parquet` | 2015–2024 | have (#62); used under NASA's open data policy + EONET disclaimer, owner decision ADR-0006 |
 | Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | have (#62); CC BY 3.0 |
 | MODIS burned area MCD64A1 (new catalog row) | burned area per month, 500 m | L2 `burned_pct_<month>` | 2015–2024 | probe (P1; better wildfire-by-month source than EONET) |
@@ -141,7 +160,7 @@ a short code (`no-lst-pixels`, `outside-permafrost-model`,
 | `dem_pixels`, `elev_mean_m`, `elev_min_m`, `elev_max_m` | 240 m DEM pixels, elevation [m] |
 | `slope_mean_deg`, `slope_frac_lt5`, `slope_frac_lt15`, `slope_frac_gt30` | mean slope [deg], shares of ground flatter than 5°/15°, steeper than 30° [0–1] |
 | `sun_noon_elev_max_deg`, `sun_noon_elev_min_deg`, `polar_night`, `polar_day` | yearly noon sun height range [deg], flags |
-| `dust_aod_mean` | yearly mean dust optical depth [unitless]; null until MERRA-2 is unblocked |
+| `dust_aod_mean` | yearly mean dust optical depth [unitless]; null until #68 builds a verified source table |
 
 ### L1m `cells-r4-monthly.parquet` (new, one row per hexagon and month: 1,101,600 rows)
 
@@ -154,7 +173,7 @@ a short code (`no-lst-pixels`, `outside-permafrost-model`,
 | `sun_noon_elev_deg` | noon sun height on the 15th of the month [deg] | computed |
 | `daylight_h` | day length on the 15th [hours] | computed |
 | `polar_day`, `polar_night` | sun never sets / never rises on the 15th | computed |
-| `dust_aod` | monthly dust optical depth; null until unblocked | MERRA-2 |
+| `dust_aod` | monthly dust optical depth; null until the #68 source table is built | MERRA-2 |
 
 **Coverage rule (team choice, found while building #58).** A monthly median
 counts only if at least **25%** of the hexagon's pixels have a value that
