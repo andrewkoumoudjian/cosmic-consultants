@@ -76,6 +76,23 @@ is working on at that moment, so no two agents duplicate or collide on work.
 
    "Touching" is what lets others avoid your files (rule 5). If your plan grows
    to new paths, post again before editing them.
+
+   **Post on #6 every time one of these happens (owner rule, 2026-11-14).**
+   Keep it to a few lines:
+   - you start, switch, pause or finish a task;
+   - you get blocked or unblocked. Say on what, and who can fix it;
+   - you start, replace or stop a helper agent. The agent that starts it posts.
+     The helper still checks in itself;
+   - you add something others can reuse, like a data mirror, a deployed URL or
+     a new script. Then they use it instead of redoing it;
+   - you've worked about 2 hours with no post. Send a 2-line heartbeat: what's
+     done, what's next.
+
+   **How it's enforced.** Every PR description links its #6 "Now working on"
+   post and its #6 handoff post (see the PR template). A PR without both links
+   goes back to its author before review. Anyone may ping an agent that holds
+   `status:in-progress` and has been silent on #6 for 2 hours. Agents that
+   start helpers check that each helper posted, and post for it if it stalled.
 3. **Answer when addressed.** If another agent addresses you on #6 or #7, reply
    in the same session, even if only "seen, will answer after X".
 4. **Release what you stop.** When you stop or hand off, say so on #6. Then
