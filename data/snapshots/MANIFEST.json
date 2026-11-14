@@ -1811,6 +1811,25 @@
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
     },
     {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=2000",
+      "fetchedAt": "2026-11-14T19:03:05Z",
+      "sha256": "689f752c96fb7461e31c0b48fef5683c3a65a954d89f5c3cda51dcedf151c887",
+      "bytes": 5209920,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://lpdaac.usgs.gov/documents/1006/MCD64_User_Guide_V61.pdf",
+      "fetchedAt": "2026-11-14T19:47:00Z",
+      "sha256": "9fff6bd6dcd2d56327d3c0ecb7c0c4ba76bb3858ee5f4c1cc890e447e1ffc36f",
+      "bytes": 1007034,
+      "licenseNote": "MCD64A1 Collection 6.1 User Guide (NASA LP DAAC documentation, publicly accessible); stored locally to verify versioned Burn Date, QA and unmapped/water semantics quoted in the #65 probe log and metadata.",
+      "localPath": "data/snapshots/modis-mcd64a1/MCD64_User_Guide_V61.pdf"
+    },
+    {
       "datasetId": "usgs-planetary-nomenclature",
       "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip",
       "fetchedAt": "2026-11-14T21:34:43Z",
@@ -1818,7 +1837,8 @@
       "bytes": 5421247,
       "license": "us-pd",
       "licenseVerified": true,
-      "localPath": "data/snapshots/usgs-planetary-nomenclature/MARS_nomenclature_center_pts.zip"
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MARS_nomenclature_center_pts.zip",
+      "note": "gzip JSONL ledger of every 2015-2024 MCD64A1 granule fetched by p0ingest.burned (url, sha256, bytes, time, pixel tallies); hashed here and in burned-r4-monthly.meta.json"
     },
     {
       "datasetId": "usgs-planetary-nomenclature",

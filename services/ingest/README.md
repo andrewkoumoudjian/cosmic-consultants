@@ -233,3 +233,31 @@ planitiae. The report goes to `_derived/planetary/projection-check.json`.
   rims far more often than with east/west mirrored positions.
 
 This is placement evidence only. No value changes and no target association.
+
+## Output: `burned-r4-monthly.parquet` (W25, issue #65, Mistral Vibe helper)
+
+One row per land cell and calendar month (91,800 x 12 = 1,101,600 rows):
+`h3`, `month` (1-12), `burned_pct` [%], `years_mapped` (0-10),
+`missing_reason` (JSON). Source: MODIS MCD64A1 v061 monthly 500-m tiles
+(CMR `C2565786756-LPCLOUD`, licence CC0), 2015-2024, 32,160 granules
+(268 tiles x 120 months, live count re-probed at use time).
+
+- `burned_pct` is the mean over 2015-2024 of each year's share of burned
+  mapped-land pixels (Burn Date > 0 / >= 0; water -2 never in the
+  denominator). Only years with mapped pixel support count, and
+  `years_mapped` says how many did.
+- No mapped support -> null, never 0, with a reason per row:
+  `outside-mcd64a1-tiles` (no granule tile covers the cell at all, e.g.
+  all Antarctic land) or `no-mapped-land-in-period` (pixels exist, none
+  mapped land in that month any year).
+- Streaming rule as `terrain.py`: each granule is downloaded, decoded,
+  hashed and dropped. Every source URL/hash/bytes/time is in
+  `_derived/burned-r4-ledger.jsonl.gz` (hashed in the meta and MANIFEST).
+  A checkpoint commits counts + ledger length atomically; on restart the
+  partial ledger is truncated to the checkpoint so uncommitted granules
+  are re-fetched, never skipped, and reissued/duplicate granules are a
+  hard error (no double counting).
+- Run: `uv run python -m p0ingest.burned` (resumable; Earthdata token
+  needed). Spot checks: `uv run python -m p0ingest.burned --spots`.
+  Tests: `uv run python -m unittest tests.test_burned` (also under `-O`).
+
