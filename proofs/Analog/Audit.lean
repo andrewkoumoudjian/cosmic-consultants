@@ -17,6 +17,22 @@ import Analog
 #print axioms Analog.AtlasProofs.s2a_weight_mono
 #print axioms Analog.AtlasProofs.s2b_frontier_covers
 #print axioms Analog.AtlasProofs.s2c_no_unique_minimiser
+-- W9 (#17): S6 ARL semantics, frozen at 28b166a
+#print axioms Analog.ReadinessProofs.s6a_weakest_link
+#print axioms Analog.ReadinessProofs.s6b_monotone
+#print axioms Analog.ReadinessProofs.s6b_monotone_outcomes
+#print axioms Analog.ReadinessProofs.s6c_no_compensation
+#print axioms Analog.ReadinessProofs.s6h_site_no_lift
+#print axioms Analog.ReadinessProofs.s6d_nonpass_blocks
+#print axioms Analog.ReadinessProofs.s6d_unobserved_zero
+#print axioms Analog.ReadinessProofs.s6d_observed_fail_one
+#print axioms Analog.ReadinessProofs.s6e_cumulative
+#print axioms Analog.ReadinessProofs.s6e_maximal
+#print axioms Analog.ReadinessProofs.s6f_mismatch_irrelevant
+#print axioms Analog.ReadinessProofs.s6f_required_only
+#print axioms Analog.ReadinessProofs.s6g_not_rateable
+#print axioms Analog.ReadinessProofs.s6z_empty_required
+#print axioms Analog.ReadinessProofs.s6u_all_unknown
 -- Ported prior work (Analog.Prior.*), representative theorems per module:
 #print axioms PerpTheory.stdize_inv
 #print axioms PerpTheory.chebyshev_finite
