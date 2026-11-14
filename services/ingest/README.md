@@ -69,6 +69,61 @@ noon sun height, day length and polar day/night on the 15th. Spec:
 - **`missing_reason`** in both files is JSON per row and names only that row's
   null traits.
 
+## Planetary source preparation (#74)
+
+```bash
+uv run python -m p0ingest.planetary fetch
+uv run python -m p0ingest.planetary build
+uv run python -m p0ingest.planetary check
+uv run python -m unittest discover -s tests -p test_planetary.py
+```
+
+The first batch downloads 14 labelled/documented PDS files (760 MB) and
+writes three Parquet files under `data/snapshots/_derived/planetary/`:
+
+- `diviner-south-prp.parquet`: 2,880,000 south-pole triangle records.
+  Source geometry and planetocentric centre coordinates are retained.
+  `temp_avg` is model annual average temperature **2 cm below the surface**;
+  `temp_max` is model annual surface maximum. Both are Kelvin.
+  `ice_depth` is calculated ice-stability depth in metres, not measured ice
+  depth. Source -999 becomes null; zero stays zero; the raw value is retained.
+- `tes-thermal-inertia-day.parquet` and `tes-thermal-inertia-night.parquet`:
+  25,920,000 pixels each. Thermal inertia is model-derived, in
+  J/(m² K √s), using 1999–2004 observations. The usable value excludes
+  source-interpolated pixels and values outside the published computed
+  range. Raw integers and interpolation flags survive. Zero-based source
+  line/sample indices retain the native grid; labels and DSMAP document
+  the IAU_1991 frame and 20 pixels/degree map. No Earth H3 assignment is made.
+
+`preparation-report.json` records every input/output hash, units, field
+descriptions, time support, null/exclusion counts and caveats. Readers use
+bounded batches and disk-backed source arrays. Byte counts, labels, masks,
+source exclusions and output hashes are checked; independent raw-file spot
+checks are recorded in the work order. Runtime checks establish preparation
+integrity; scientific status remains `executed-unreviewed`. Target-specific
+extraction, new physical feature calculations and source-model validation
+remain open. See ADR-0008.
+
+TES spatial extraction also needs review: the DSMAP equation signs conflict
+with the document's stated upper-left/edge convention. Source indices are
+preserved; no geographic lookup is performed in this batch.
+
+`uv run python -m p0ingest.campaign_measurements` extracts three reported
+ARADS 2019 achieved-result quantities into `_derived/campaign-measurements/`.
+It checks the existing raw article hash and retains exact source passages
+and character offsets. Unknown historical conditions stay explicit.
+
+The owner's eleven additional NASA/CSA/ESA/JAXA resources are mapped to
+existing catalog rows and candidate preparation uses in
+`data/sources/agency-portals.yaml`. Run `uv run python -m p0ingest.source_portals`
+to record fresh HTTP checks under `data/snapshots/source-portal-probes/`.
+These checks preserve failures and never claim dataset or licence acceptance.
+
+Mirror these source directories and `_derived/planetary/` with `rclone copy`,
+then run `rclone check --one-way --checksum`. Delivery is pending until that
+check completes. Do not overwrite the shared Drive MANIFEST from an isolated
+branch; reconcile committed entries when integrating source work.
+
 ## Known gaps (also in INVENTORY.md)
 
 - **dustProcess:** MERRA-2 is blocked. GES DISC returns HTTP 403 until the

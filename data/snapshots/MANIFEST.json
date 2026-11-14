@@ -111,6 +111,36 @@
       "localPath": "data/snapshots/copernicus-dem-glo30/tileList.txt"
     },
     {
+      "datasetId": "diviner-l4",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.lbl",
+      "fetchedAt": "2026-11-14T20:01:34Z",
+      "sha256": "6bb8d7fbdb6450608a163ffbc1871739e0e23e2dcd153b22424cc18456e364c7",
+      "bytes": 2167,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/diviner-l4/dlre_prp_south.lbl"
+    },
+    {
+      "datasetId": "diviner-l4",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.tab",
+      "fetchedAt": "2026-11-14T20:03:21Z",
+      "sha256": "393deaa5d8925d45bb2ed608f937a824f5eae029c2558aad1d2da8206b83a62d",
+      "bytes": 604800210,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/diviner-l4/dlre_prp_south.tab"
+    },
+    {
+      "datasetId": "diviner-l4",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.xml",
+      "fetchedAt": "2026-11-14T20:01:34Z",
+      "sha256": "24a7bba837bbf013f59dc657a8766b6c4d1d06c0d4eea35a5f497908b17beece",
+      "bytes": 14561,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/diviner-l4/dlre_prp_south.xml"
+    },
+    {
       "datasetId": "eonet-v3-events",
       "sourceUrl": "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&start=2015-01-01&end=2024-12-31&limit=100000",
       "fetchedAt": "2026-11-14T18:22:27Z",
@@ -539,6 +569,116 @@
       "license": "public-domain",
       "licenseVerified": true,
       "localPath": "data/snapshots/ourairports/runways.csv"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt",
+      "fetchedAt": "2026-11-14T20:02:14Z",
+      "sha256": "7988bf46a9fe8f01063717461fd74ce1a50fbd395d0756264def33fb04d07d26",
+      "bytes": 10194,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/aareadme.txt"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dataset.cat",
+      "fetchedAt": "2026-11-14T20:02:15Z",
+      "sha256": "9da4280c29256e9f5d92eacdf7d94f8f0e0442a033513db6b30df1b516aa90f2",
+      "bytes": 7931,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/dataset.cat"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dsmap.cat",
+      "fetchedAt": "2026-11-14T20:02:15Z",
+      "sha256": "1ae6871f04951b49bfeb728532d9d0ef29a2a68e9118b301a6287ebd1179b566",
+      "bytes": 3288,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/dsmap.cat"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.img",
+      "fetchedAt": "2026-11-14T20:02:01Z",
+      "sha256": "d8b1ac57c5f2c6d4f43d7e5331591fae0254f48af7629bd0d230c2603da48f9a",
+      "bytes": 51840000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.lbl",
+      "fetchedAt": "2026-11-14T20:01:34Z",
+      "sha256": "9355e67000b0018768b04b2a8ebfed2b278099dde14e49633081a8ffe6d13631",
+      "bytes": 2408,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.img",
+      "fetchedAt": "2026-11-14T20:02:10Z",
+      "sha256": "23bab175ab99e5aa7b68a4b664f3d616f08c92fcc410188c116d5083103d16cb",
+      "bytes": 25920000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.lbl",
+      "fetchedAt": "2026-11-14T20:02:02Z",
+      "sha256": "4189613d7fe1407f991a27fd2809b708ef3087cb48ca297a2df8f492cfe2c9fd",
+      "bytes": 2478,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.img",
+      "fetchedAt": "2026-11-14T20:02:18Z",
+      "sha256": "fca7ec6fab8b3e81226e1d14dbb3a22509ad111bda4e03bf2b64f050bd550d0b",
+      "bytes": 25920000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.lbl",
+      "fetchedAt": "2026-11-14T20:02:11Z",
+      "sha256": "164838970c1405b2dc6cf367a74c60c0de96d18f05f5e924db6c00f77038ee8a",
+      "bytes": 2485,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.img",
+      "fetchedAt": "2026-11-14T20:02:13Z",
+      "sha256": "faee32838da40045ee7ebd21bed156cc649620312c01165b556d77a2128258f4",
+      "bytes": 51840000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.lbl",
+      "fetchedAt": "2026-11-14T20:01:35Z",
+      "sha256": "c1c897d9bd5399292166f99d84a29a73e42432cedfb9dd9a81a1441b3004b72b",
+      "bytes": 2415,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.lbl"
     },
     {
       "datasetId": "travel-time-to-cities-2015",
