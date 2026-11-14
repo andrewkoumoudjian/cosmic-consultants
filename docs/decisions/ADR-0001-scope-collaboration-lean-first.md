@@ -1,5 +1,9 @@
 # ADR-0001 — Scope, collaboration system, Lean-first methodology
 
+> Historical accepted decision; substantive body preserved. Proposed
+> [ADR-0004](ADR-0004-evidence-backed-comparison.md) names the gates and
+> certificate promises it would supersede. It has not yet been adopted.
+
 Date: 2026-11-12. Status: **accepted by repo owner** (answers to proposal
 [`04`](/home/drew/cosmic-consultants/docs/proposals/04-monorepo-multiagent-lean-proposal.md) §7).
 Immutable once accepted; supersede by a new ADR, never edit in place.

@@ -1,7 +1,10 @@
 # ADR-0002 — Analog Readiness Levels (ARL): per-objective, evidence-staged readiness
 
-Date: 2026-11-12. Status: **proposed** — accepted when the owner merges the PR
-that adds this file (issue #14). Builds on
+Date: 2026-11-12. Status: **accepted by merge #26 (`5da36ce`)**, as its original
+merge-acceptance clause specified (issue #14). Status annotation corrected in
+work order #43; substantive decision below preserved. Proposed
+[ADR-0004](ADR-0004-evidence-backed-comparison.md) would replace mandatory ARL
+with separate evidence assessments; it is pending review. Builds on
 [ADR-0001](ADR-0001-scope-collaboration-lean-first.md); does not edit it.
 Sources: [doc 07](../research/07-spaceapps-rules-and-m2m-objectives.md)
 (M2M objectives, prior art, organizer rulings), [doc 02](../research/02-challenge-brief.md).

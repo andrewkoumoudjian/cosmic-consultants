@@ -1,101 +1,77 @@
-# Hackathon plan — Analog Readiness Levels (2026-11-14 → 11-15)
+# Bounded delivery plan — local redesign for review
 
-Written 2026-11-12 (issue #14). Decisions: [ADR-0002](decisions/ADR-0002-analog-readiness-levels.md)
-(ARL), [ADR-0003](decisions/ADR-0003-hackathon-delivery-scope.md) (48-h scope) —
-both **proposed** until the owner merges. Rules and sources:
-[doc 07](research/07-spaceapps-rules-and-m2m-objectives.md). Pitch:
-[`pitch/PITCH.md`](pitch/PITCH.md).
+Date: 2026-11-14 (America/Toronto). Work order: #43.
+Status: proposed under [ADR-0004](decisions/ADR-0004-evidence-backed-comparison.md).
+The accepted historical global-ARL plan remains in Git at `5da36ce`/`7ba4941`;
+this local rewrite is not approval to implement or publish it. See
+[status](STATUS.md) and the detailed [implementation plan](IMPLEMENTATION-PLAN.md).
 
-## The product in one paragraph
+## Deliverable
 
-Pick a NASA Moon-to-Mars objective — say *OP-5: operate EVA suits, tools and
-vehicles on Mars*. The map shows where on Earth that objective can be rehearsed
-and how ready each place is, on a 0–6 **Analog Readiness Level** ladder (like
-TRL, but for test sites): from "the data says it matches" up to "a campaign has
-already tested this here". Every level shows why: which dimension limits it,
-which evidence gate it hasn't passed yet, and what Earth **cannot** rehearse
-for that objective (gravity, vacuum or thin air, radiation). An **opportunity
-layer** highlights places the data rates as ready but nobody has characterized
-in the field yet — where NASA's next field campaign should go.
+One narrow exploration rehearsal task, one body/target scenario, a bounded named
+Earth candidate set, pinned measurements, explicit requirements and reproducible
+feature-level dossiers. A small static viewer displays the same artifacts.
+Compare fit and evidence; show access/campaign information separately. Include
+permanent breakdowns and unknowns. An optional contextual Pareto shortlist may be
+added after the complete comparison is correct. No ARL or global discovery claim.
 
-## Rules of the window
+## Build-window and submission verification
 
-- Build starts **Sat 2026-11-14 09:00 local**; nothing under `services/`,
-  `apps/`, new `contracts/` or new Lean before then (doc 07 §1.1). Before then:
-  research, registry/provenance, team formation, reading the Resources tab.
-- Submit through the Space Apps project page; ≥1 NASA dataset **from this
-  challenge's Resources tab** (Global Awards eligibility); 30-s demo video limit;
-  AI use disclosed for code and data (`AI-USAGE.md`).
-- AGENTS.md still binds: check in on #6, one issue = one branch = one PR,
-  evidence over narration, no fabricated fills.
+The recorded planning constraint is no new runtime/app, executable contracts or
+Lean before Sat 2026-11-14 09:00 local; research/design/provenance may precede it.
+This correction package does not change event rules or establish eligibility.
+A0 (#1) must re-read the current official challenge Resources, submission and
+judging guides, record dated evidence and reconcile rules before implementation.
+Old rules inventories are dated observations, not fresh verification.
 
-## Backlog → issues
+Confirm NASA-data eligibility, permitted prior work, required disclosures, video
+limits and the actual submission deadline from those guides. The previously
+assumed Sunday 23:59 local deadline is not independently confirmed here. Do not
+promise a submission buffer or current organizer permission from a stale note.
 
-| W | Issue | Lane | Depends on | Must be done by (local) |
-|---|---|---|---|---|
-| A0 | #1 | docs | guides live Fri 11-13 | **Fri 11-13** (allowed: reading resources) |
-| W3 | #4 | data | A0 | Fri 11-13 for registry rows (provenance only) |
-| W4 | #5 | research | — | Fri 11-13 (research) |
-| W10 | #15 | contracts | ADR-0002 merged | Sat 13:00 |
-| W8 | #16 | proofs (statement) | ADR-0002 | Sat 13:00 frozen |
-| W5 | #18 | data | W3, W10 | Sat 17:00 |
-| W6 | #19 | ingest | W3 | Sat 22:00 (first global pass) |
-| W9 | #17 | proofs (proof) | W8 | Sun 09:00 |
-| W7 | #20 | engine | W5, W6, W8, W10 | Sun 02:00 first end-to-end; Sun 12:00 final |
-| W12 | #22 | research | W4, W7 opportunity list | Sun 14:00 |
-| W15 | #23 | data | expectations frozen Sat; run after W7 | Sun 14:00 |
-| W11 | #21 | atlas | W10 (mock data from Sat 13:00), W7 | Sun 16:00 feature freeze |
-| W13 | #24 | pitch | W11, W15 | Sun 19:00 video locked |
-| W14 | #25 | docs | everything | Sun 22:00 submitted |
+## Priority and cut order
 
-The atlas starts at Sat 13:00 against **mock artifacts that validate against
-W10 contracts** (organizers explicitly allow mock data, #1787), so map and data
-pipelines run in parallel and meet Sunday morning.
-
-## Schedule (local time)
-
-| When | Milestone | Exit evidence |
+| Priority | Work | Acceptance |
 |---|---|---|
-| Fri 11-13 | A0: Resources tab + Submission/Judging guides read; registry rows for Resources-listed NASA datasets | A0 diff comment on #1 |
-| Sat 09:00 | Kickoff: owner merges/updates ADR-0002/0003; agents check in on #6 and claim W10, W8, W6, W11 | Check-ins on #6 |
-| Sat 13:00 | **Contracts + S6 statement frozen**; atlas on mock data | W10, W8 merged |
-| Sat 22:00 | First global ingest pass, hashed | W6 manifest |
-| Sun 02:00 | First end-to-end ARL artifacts for 1 objective | W7 draft PR |
-| Sun 09:00 | S6 Lean-clean (or fallback label per ADR-0003) | Audit output |
-| Sun 12:00 | All 3 P0 objectives computed; calibration run | W7, W15 |
-| Sun 16:00 | **Feature freeze**; deployed build | URL |
-| Sun 19:00 | **Video locked** (≤30 s) + walkthrough | ffprobe |
-| Sun 22:00 | **Submitted** (2-h buffer before 23:59) | Screenshot |
+| P0 | Feasibility-selected task; pinned evidence; all required features assessed for the named candidates; manifest and dossier | One reproducible local comparison with reviewed limitations and explicit unknowns. |
+| P0 | Minimal static table/map using the exact artifacts | Task, units/support, source evidence, fit and permanent breakdowns are visible. |
+| P1 | Optional contextual Pareto view and sensitivity checks | Candidate preservation, explicit context, numeric policy and independent reference comparisons pass. |
+| P2 | More sites, second task/body, richer literature/access evidence | Same end-to-end acceptance repeated; no assumed transfer of validation. |
+| Deferred | Global H3 grid, ARL, Rust/WASM, API, optimization certificates, extra prior-proof ports | Separate measured need, ADR/contract review and work order. |
 
-## Data plan for P0 (candidates — confirm against the Resources tab in A0)
+Choose the first task from actual accessible and comparable data. A terrain-only
+mobility-component comparison is a feasibility candidate, not a commitment to
+full EVA/mobility readiness. Do not claim rocks, dust, ice, materials or safety
+were assessed when only slope was measured. No thresholds or sites are adopted
+by this plan.
 
-| Dimension | Earth source (cell value) | Moon / Mars envelope source |
-|---|---|---|
-| terrain | NASADEM or Copernicus DEM → slope, roughness | LRO LOLA slope · MOLA slope / HiRISE DTM stats |
-| thermal | MODIS LST → min, max, diurnal range | LRO Diviner · TES / MCS temperatures |
-| illumination | computed solar geometry (min sun elevation, polar day/night) | LOLA-derived illumination maps (south pole) |
-| surfaceMaterial | MODIS land cover / NDVI (bare ground) + GLiM lithology (basaltic/anorthositic) | LROC/Clementine-class mineralogy · CRISM/TES mineralogy |
-| dustProcess | MERRA-2 dust optical depth | Mars dust climatology (TES/MCS) |
-| waterIce | permafrost extent (NSIDC / ESA CCI) | LEND/LAMP PSR ice · SHARAD ice |
-| operations (gate 5) | accessibility-to-cities raster + WDPA protected areas | — |
+## Schedule by evidence gates
 
-## Submission checklist (W14, refreshed after A0)
+Start with draft-PR team feedback and explicit adoption approval, then rules
+refresh and task feasibility. Freeze the
+release protocol, implement schemas/validators, ingest a bounded dataset and run
+the comparison before building presentation polish. Reserve time for independent
+scientific review and rerunning from retained inputs. Freeze scope after the
+first reproducible result; cut optional shortlist, added tasks and global coverage
+before cutting provenance or unknown handling. If evidence is insufficient,
+present a bounded partial comparison rather than inventing fit or readiness.
 
-- [ ] Project title + one-line summary
-- [ ] 30-s demo video link (no NASA logos, no minors, AI imagery watermarked)
-- [ ] Project link (repo and/or deployed atlas; owner decides repo visibility)
-- [ ] Detailed description incl. what Earth cannot rehearse (R4)
-- [ ] NASA data used (≥1 from challenge Resources) + other agencies' data
-- [ ] All resources/tools/code listed, incl. owner's prior Lean corpus (`proofs/Analog/Prior/*`, FastOpt port) as prior work
-- [ ] AI-use disclosure (code + data) — points to `AI-USAGE.md`
-- [ ] Every number on the page traceable to `data/snapshots/`
+## Backlog coordination
 
-## Risks
+Existing #15–#25 descriptions remain historical and were not modified by #43.
+Their proposed migration is in IMPLEMENTATION-PLAN.md. On adoption, the owner
+must reconcile them before new claims; do not silently take another contributor's
+work. Existing PRs #40/#42 remain separate review dependencies. This approved
+package may be published as a draft PR for feedback. No implementation, merge,
+deployment or remote backlog reassignment is authorized.
 
-| Risk | Mitigation |
-|---|---|
-| Resources tab prescribes datasets we didn't plan for | A0 Friday; registry first; dimensions without data show "unknown" |
-| Global ingest too slow | H3 resolution picked by measured budget (ADR-0003 D3); fall back to continent-scale for the demo region |
-| ARL thresholds look arbitrary to SME judges | Thresholds published per objective; calibration against golden sites (W15); say it's our choice, changeable |
-| Lean proof slips | ADR-0003 D1 fallback label; statement still frozen before code |
-| Over-claiming novelty of opportunity sites | Gate 4 failing is evidence of under-characterization only after a W12 literature check; otherwise "unknown" |
+## Submission checklist after implementation
+
+- Verify current official rules/eligibility and submission requirements.
+- Name the task/component and bounded candidate coverage; distinguish reference
+  sites from discoveries and tested behavior from formal guarantees.
+- Retain input assets and licenses, run/output hashes and a reproducible command.
+- Display feature fit, evidence, uncertainty, support and Earth-only limitations.
+- Qualify literature absence by search scope; no universal novelty claim.
+- Disclose AI and prior mathematics, including pre-window work, per verified rules.
+- Obtain user review of artifacts and actual claims before any release action.

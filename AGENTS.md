@@ -4,6 +4,15 @@ Project: NASA Space Apps 2026 — "Identify Earth Locations that Analog the
 Permanent Moon Base Locations and Mars". Read first, in order:
 `docs/research/01–03, 05`, `docs/proposals/04`, `docs/decisions/ADR-0001`.
 
+**Local policy transition (#43, pending review):** then read `docs/STATUS.md`,
+`docs/decisions/ADR-0004-evidence-backed-comparison.md` and
+`docs/design/evidence-comparison.md`. The changes below describe the proposed
+post-adoption rules. ADR-0004 is not accepted merely because its draft exists;
+until adoption the accepted ADR-0001/0002/0003 baseline applies. Historical
+proposals/runbooks do not override an accepted successor. Prepare this package
+for team review in a draft PR: the user has approved the local diff. Do not
+implement, merge or publish scientific results before the required further review.
+
 ## Message board — check in before you touch anything
 
 The agents message board is issue
@@ -84,8 +93,13 @@ ADR, summarized fairly including disagreement.
 
 ## Non-negotiables
 
-1. **Lean-first (ADR-0001).** Concepts are defined in `proofs/Analog/` and their
-   correctness theorems frozen before executing code computes with them. No
+1. **Explicit assurance (ADR-0004 on adoption).** Provenance-backed exploration
+   may inform a model but is labeled exploratory and excluded from released
+   scientific results. Freeze task, measurements, comparison rules, thresholds,
+   contracts and numeric policy before the release run. Lean is the authority
+   for formal claims: freeze the statement before proof work; no unproved
+   property or tested runtime is described as certified. Record scientific
+   review, runtime tests and proof/conformance status separately. No
    `sorry`/`admit`/custom axioms in accepted proofs. Pinned toolchain only
    (`proofs/lean-toolchain`); the parent/owner re-runs `lake build` and
    `lake env lean Analog/Audit.lean` before accepting any proof claim. Capture
@@ -99,12 +113,13 @@ ADR, summarized fairly including disagreement.
    no fabricated fills for missing records — missing stays explicit.
 4. **Partial analogy always (brief R4/P3).** `gravity`, `pressureRegime`,
    `radiation` are permanent breakdowns. No single scalar similarity score
-   anywhere in code or copy; analogy is the per-dimension vector. Sole
-   exception (ADR-0002): the per-objective **Analog Readiness Level**, an
-   ordinal evidence level set by gates on the weakest required dimension —
-   never averaged, never aggregated across objectives, and never shown without
-   its per-dimension vector, limiting dimension/gate and the objective's
-   not-testable-on-Earth list.
+   in published code or copy; expose feature-level fit and evidence with explicit
+   breakdowns. Keep operability and campaign history separate. Under proposed
+   ADR-0004, ARL is deferred; a future optional summary needs its own reviewed
+   ADR/schema/formal semantics. Internal weighted totals in historical proofs
+   remain proof devices, not published site scores. Preserve every candidate;
+   contextual Pareto shortlists are optional views, not global deletion. A known
+   analog is not required to be frontier.
 5. **One issue = one branch = one PR.** Claim by assignment + `status:in-progress`
    before coding. Stay inside your package lane (`CODEOWNERS`); cross-lane needs
    go through a `contracts/` change first. Never push to `main` directly after
@@ -119,11 +134,14 @@ ADR, summarized fairly including disagreement.
 
 ## Package lanes
 
-`proofs/` Lean spec+proofs · `contracts/` JSON Schemas (single source between
-lanes) · `services/ingest/` Python fetchers · `services/engine/` Rust screening
-(native+WASM) · `services/api/` TS Worker (only holder of the NASA API key) ·
+`proofs/` Lean spec+proofs · `contracts/` versioned JSON interfaces (existing
+schemas are legacy; migration design is in docs/design/) · `services/ingest/`
+Python fetchers/measurements · `services/engine/` proposed Python batch
+assessment + optional contextual shortlist (Rust requires a measured need) ·
+`services/api/` optional TS Worker (API keys remain server-side) ·
 `apps/atlas/` TS map (GIBS + Trek WMTS) · `data/` catalog/fixtures/snapshots ·
 `research/` corpus + notebooks (nothing ships from notebooks).
 
-Dependency rule: `apps → api artifacts`; `ingest → data/snapshots`;
+Dependency rule: `apps → versioned artifacts` (API only if justified);
+`ingest → data/snapshots`;
 `engine → contracts + snapshots`; `proofs` depend on contract *statements* only.

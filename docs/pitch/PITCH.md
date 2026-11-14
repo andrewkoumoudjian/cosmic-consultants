@@ -1,75 +1,57 @@
-# Pitch plan
+# Pitch draft — evidence for a specific rehearsal task
 
-Working title: **Proving Grounds — Analog Readiness Levels for NASA's Moon-to-Mars objectives**
-(name is a placeholder; owner picks). No NASA logos or mission insignia
-anywhere (doc 07 §1.1). Planning document; the deck and video are built in
-W13 (#24) during the window, from the build that actually exists.
+Date: 2026-11-14. Work order: #43. Proposed under
+[ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md); no working demo,
+deck or submission is claimed. The controlling human approved the local changes;
+team feedback and repository adoption are pending.
 
-## The one-liner
+## One sentence
 
-> Everyone can show you where Earth *looks* like Mars. We show NASA where on
-> Earth to **rehearse each Moon-to-Mars objective**, how ready that place is,
-> and what it can never rehearse there.
+Compare a small set of Earth sites for a specific exploration rehearsal task,
+showing which measured conditions fit, what evidence supports that assessment,
+and what remains unknown or cannot be reproduced on Earth.
 
-## Story arc (2–3 min live, or the walkthrough video)
+## Demonstration after implementation
 
-1. **Problem.** Analog field sites get picked by tradition — the same few
-   deserts and Antarctic valleys. The challenge itself says these sites "are
-   not entirely well characterized", and NASA's objective OP-1L asks for
-   demonstrations on Earth to "shorten the timeframe for system testing and
-   readiness".
-2. **Insight.** Technology has a readiness scale (TRL). **Test sites don't.**
-   Whether a site is "a good Mars analog" depends on *what you want to test
-   there* — rover traverses, ice coring, or precision landing all need
-   different conditions.
-3. **Product.** Pick a NASA objective → global heatmap of Analog Readiness
-   Levels 0–6 → click a site → its readiness ladder: which evidence it has,
-   the dimension holding it back, and the "Earth cannot rehearse this" list.
-4. **The twist (Surprise us).** The opportunity layer: sites the data rates as
-   ready (ARL 3) that nobody has characterized in the field yet. "Here's where
-   the next field campaign should go, and what it would prove."
-5. **Why believe it.** Open NASA data with hashed snapshots behind every
-   number; the ladder rules are machine-checked in Lean (it can't quietly
-   average a bad dimension away); calibrated against known analogs (Haughton,
-   Mistastin, Dry Valleys, Atacama, Death Valley) — including where we
-   disagree with them.
-6. **Who uses it.** Analog-campaign planners, rover/instrument teams choosing
-   test sites, crew science-training planners (SE-1).
+1. Name one task/component and its target scenario. Explain why these features
+   matter, which physical requirements were chosen and who reviewed them.
+2. Show the bounded candidate set and feature-level comparisons with units,
+   scale, time support, QA, uncertainty and source links. Preserve unknowns.
+3. Open a dossier: environmental fit, evidence support, dated operability and
+   task-relevant campaign history are distinct. No composite readiness level.
+4. If implemented, show a Pareto shortlist only within its visible comparison
+   context. Explain why a reference site can remain useful while being dominated.
+5. Show a reproducibility manifest and the actual validation/guarantee status.
+   End with the evidence needed for a follow-up investigation, which may confirm
+   or refute the proposed analogy.
 
-## 30-second demo video (storyboard — W13 replaces shots with real captures)
+## Claims that require evidence
 
-| Time | Shot | On-screen text / VO |
-|---|---|---|
-| 0–4 s | Earth globe, faint heatmap | "Where on Earth can we rehearse Mars?" |
-| 4–11 s | Select **OP-5: surface mobility & EVA (Mars)** → heatmap blooms | "Pick a NASA objective. See every place it can be rehearsed." |
-| 11–19 s | Click an opportunity site → dossier ladder ARL 3, limiting gate highlighted | "Readiness level, the evidence behind it, what's holding it back." |
-| 19–24 s | "Earth cannot rehearse" panel: gravity, thin air | "And what Earth can never test." |
-| 24–30 s | Switch to **SE-3: ice coring (Moon)** → map shifts to the poles; title card | "Proving Grounds: readiness levels for analog sites." |
-
-## Mapping to judging criteria (provisional — 2025 criteria; replace after A0 reads the 2026 guide)
-
-| Criterion | Our answer |
+| Allowed wording when supported | Wording to avoid |
 |---|---|
-| Impact | Mission planners get a decision tool keyed to NASA's own objectives (OP-1L) |
-| Creativity | First readiness ladder for analog sites (no prior scale found, doc 07 §3); opportunity layer |
-| Validity | Hashed open data, Lean-checked ladder logic, calibration with misses reported |
-| Relevance | Answers every brief requirement: identify (R1), characterize (R2), NASA data (R3), breakdowns (R4), exploration use (R5), map (R6) |
-| Presentation | 30-s video shows the full loop; live demo on the deployed map |
+| No relevant characterization found in the sources reviewed; list date/queries/coverage. | Nobody has characterized this site. |
+| These measurements fit these task-specific requirements under this model. | This site is ready for NASA or rehearses an entire broad objective. |
+| Hashes and source records make the input traceable. | Provenance certifies the geology. |
+| The cited theorem proves this mathematical property under these assumptions. | The atlas, runtime or physical measurements are certified by imported proofs. |
+| Additional fieldwork would test the unresolved claims. | One campaign will promote the site or prove it suitable. |
 
-## Judge Q&A (prepare answers with real numbers from the build)
+No universal-first/novelty claim is established by an unsuccessful literature
+search. NASA objective IDs provide context, not endorsement or an official scale.
 
-- **"Isn't ARL just a score?"** It's an evidence level for one named objective,
-  set by its weakest dimension, never averaged, always shown with the
-  per-dimension breakdown. No site gets an overall score.
-- **"Who chose the thresholds?"** We did, and published them per objective;
-  they come from the Moon/Mars target envelopes with cited sources. Change one
-  and the map changes.
-- **"Why Lean?"** It proves the ladder can't be gamed: more evidence never
-  lowers a level, and a strong dimension can't make up for a weak one. It
-  doesn't certify the geology; the data provenance does that.
-- **"Atacama is already known."** Exactly — it calibrates the ladder. The
-  opportunity layer is about the places that aren't.
-- **"What about gravity?"** Every objective lists what Earth can't rehearse.
-  Objectives that are mostly gravity or radiation are shown but never rated.
-- **"Next step?"** Feed field-campaign results back in as gate-4 evidence;
-  extend to all 63 objectives; let PIs submit evidence.
+## Questions to answer honestly
+
+- Who chose the requirements? Name the reviewer, revision, supporting sources
+  and how mission engineering limits were adapted to this rehearsal component.
+- Why Lean? Selected mathematical properties can be proved; runtime conformance
+  and scientific validity are separate. Do not claim a fresh proof pass from an
+  old ledger or imply an optimization-gap bound is measurement uncertainty.
+- What about new evidence? Contrary observations can lower fit or leave it
+  unresolved. The dossier retains the evidence rather than guaranteeing promotion.
+- Why a known analog? It is a source-backed reference case, not a guaranteed
+  frontier member or a discovery. Unexplained disagreement is reported.
+- What can Earth not reproduce? State gravity, pressure regime, radiation and
+  any additional task-specific limits beside the assessed features.
+
+Build a video/storyboard only from artifacts that actually exist and after
+verifying current presentation rules. No NASA endorsement, deployed product,
+full global coverage or completed experiment is implied by this draft.
