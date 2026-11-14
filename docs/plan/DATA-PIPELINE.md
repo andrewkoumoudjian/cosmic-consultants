@@ -209,6 +209,7 @@ silently. The UI lets the user edit any band; a user edit sets
 | Raw + derived files | gitignored locally; mirrored to Drive folder `1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_` with the same layout as `data/snapshots/` |
 | Drive tooling | rclone remote `ccdrive`; `scripts/drive_sync.sh` copies, never deletes; `restore` re-checks every sha256 |
 | Builds | any machine with `uv sync` in `services/ingest`. The Oracle instance is the always-on builder and uploader once it's linked to T3 (pending). |
+| Looking at the data | JSheets team workbook (DuckDB reads the Parquet files directly), in `research/`, never shipped. See MISSION-PLANNER "Team workbook". |
 | Run times today | L1 ≈ 1.5 min + terrain ≈ 30 min (cached). L1m and L2 targets: under 10 min each. |
 
 ## 8. Build order and checks

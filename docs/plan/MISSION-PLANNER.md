@@ -145,7 +145,9 @@ traits together.
   questions **only from the campaign table and its stored sources**. Every
   answer cites campaign rows. If the table doesn't say, it answers "not in our
   records". It runs through `services/api` (the Worker holds any API key, never
-  the browser).
+  the browser). The team doc asks for a chat box on every step: the same box
+  appears on steps 2–5, answering only from that step's numbers for the open
+  site (L1, L1m, L2 rows plus their sources). It never makes up a value.
 
 ### Output: mission plan brief
 
@@ -188,6 +190,30 @@ to split field days across (site, month) pairs:
 This is a plan for field time, not a rating of how alike two places are, so it
 fits ADR-0005 D5. Needs L1m for several years. Not built in the hackathon
 unless P0 and P1 are done.
+
+## Team workbook in JSheets (exploring, not shipping)
+
+[JSheets](https://github.com/matsonj/jsheets-releases/releases) is a desktop
+spreadsheet that runs on DuckDB and has a built-in MCP server, so agents can
+build and check workbooks. We use it as the team's shared look at the data,
+not in the product:
+
+- **Check the pipeline.** A workbook reads L1, L1m and L2 Parquet straight
+  through DuckDB. Pivot tables show null rates per column, per-month values at
+  the 5 spot-check places, and the funnel counts per objective. Teammates who
+  don't code can see the data and catch odd numbers.
+- **Prototype the workflow.** The trait-map bands sit in a sheet. Changing a
+  band shows the new funnel counts right away, so the team can try
+  thresholds before they go into `trait-map.yaml` by PR.
+- **Second check on the engine.** The workbook's match/miss counts per
+  objective must equal the engine's `golden-verdicts.json`. A mismatch is a
+  bug in one of them.
+- **Limits.** JSheets is pre-release (its own notes say to check important
+  results against Excel), desktop only, and its licence for redistribution
+  isn't checked. So the judges' demo stays the web atlas, workbook numbers are
+  never quoted in the pitch, and the workbook file lives in `research/` (where
+  nothing ships). The 0.5.2 Linux build publishes a sha256 to check before
+  installing.
 
 ## Engine
 
@@ -238,6 +264,7 @@ unless P0 and P1 are done.
 | W11b | Atlas stepper (steps 1–6) on mock L4, then real | atlas | W20 |
 | W15 (#23) | Calibration against past campaigns: does each campaign's own site match its objective? | data | W7, W19 |
 | W22 | fastopt optimizer (P2) | engine | W7 |
+| W23 | JSheets team workbook over L1/L1m/L2 (exploring only) | research | W17 |
 
 ## Open questions for the owner
 
