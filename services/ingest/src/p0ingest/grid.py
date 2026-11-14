@@ -25,8 +25,11 @@ def cmg_lon(j):
 
 
 def land_percent() -> np.ndarray:
-    """Percent_land_in_grid from the first MOD11C3 granule (same CMG grid for all months)."""
-    f = sorted(glob.glob(str(SNAP / "modis-mod11c3" / "*.hdf")))[0]
+    """Percent_land_in_grid from the January 2023 MOD11C3 granule (same CMG grid for all months).
+
+    Pinned to A2023001: "the first file" changed to 2014 once #64 fetched 2014-2022,
+    and the land share differs in 12 hexagons between those granules (#70)."""
+    f = sorted(glob.glob(str(SNAP / "modis-mod11c3" / "*.A2023001.*.hdf")))[0]
     return SD(f, SDC.READ).select("Percent_land_in_grid")[:].astype(np.uint8)
 
 
