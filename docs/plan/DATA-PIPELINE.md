@@ -11,15 +11,24 @@ issue, don't route around it.
 
 ## 1. The rules (apply to every layer)
 
-1. **Every number traces to a snapshot.** A snapshot is a downloaded source
-   file with its URL, fetch date, sha256 and licence in
+1. **Every number traces to a snapshot.** A snapshot is a source file or
+   listing with its URL, fetch date, sha256 and licence in
    `data/snapshots/MANIFEST.json`. Nothing is hand-edited (AGENTS.md rule 3).
-2. **Missing stays missing.** A value we can't compute is `null` and the row's
-   `missing_reason` says why. We never fill, guess or set a default. The UI
+   One exception is allowed, for sources too big to keep: a **streaming
+   ledger**. The MANIFEST holds the hashed listing (URL, fetch date, licence),
+   and a ledger file records every piece we read (URL, array sha256). Its own
+   sha256 goes in the derived table's `.meta.json`. Copernicus DEM works this
+   way: `tileList.txt` is in the MANIFEST, and `terrain-r4-ledger.jsonl.gz`
+   lists all 26,450 tiles.
+2. **Missing stays missing.** A value we can't compute is `null` and
+   `missing_reason` says why (format in §5). We never fill, guess or set a default. The UI
    shows `null` as "unknown", never as "bad".
-3. **Raw measurements only, up to L2.** Layers L0 to L2 hold what was measured,
-   in physical units. No verdicts, gaps or scores. Comparing a value to a
-   requirement is engine work (L4).
+3. **Measurements and documented derivations only, up to L2.** Layers L0
+   to L2 hold measured values in physical units, plus values derived from them
+   or computed by a stated method (slope from elevation, sun height from
+   latitude, permafrost probability from ESA's model). Each derivation is named
+   in the table's `.meta.json`. No verdicts, gaps or scores. Comparing a value
+   to a requirement is engine work (L4).
 4. **One grid.** Every gridded table uses H3 resolution 4 (about 1,770 km² per
    hexagon, 91,800 land hexagons). The key column is always `h3`.
 5. **One time base.** Monthly values use calendar months 1 to 12 of a named
@@ -99,21 +108,30 @@ stays in L2 for our own checks and L4 ships `null` with reason
 
 ## 5. Tables and columns
 
-Units in brackets. "K" is kelvin, "deg" is degrees. Every table also has
-`missing_reason` (text, `;`-joined codes such as `no-lst-pixels`,
-`outside-permafrost-model`, `dust-blocked`).
+Units in brackets. "K" is kelvin, "deg" is degrees.
+
+**`missing_reason`** is a JSON object as text: trait → reason, e.g.
+`{"dustProcess": "MERRA-2 ... HTTP 403", "waterIce": "ESA CCI ... fill 255"}`.
+*Today* (L1 at `343969b`) it's the same dataset-level object on every row
+(`process.py:191`), so it explains why a column can be null but not why *this*
+row is. **W17 changes it to per row:** only the traits null in that row, with
+a short code (`no-lst-pixels`, `outside-permafrost-model`,
+`permafrost-not-modelled`, `no-dem-tile`, `dust-blocked`). Every new table
+(L1m, L2) uses the per-row form from the start.
 
 ### L1 `cells-r4.parquet` (exists, one row per hexagon)
 
 | Column | Meaning |
 |---|---|
 | `h3`, `res`, `lat`, `lon` | hexagon id, resolution (4), centre [deg] |
-| `cmg_pixels`, `land_pct_mean` | 0.05° pixels in the hexagon, mean land share [%] |
+| `cmg_pixels`, `land_pct_mean` | 0.05° pixels in the hexagon that contain some land; mean land share over **those** pixels [%] |
 | `lst_day_max_k` | warmest month's daytime ground temperature in 2023 [K]: max over months of L1m `lst_day_k` (rule change, see L1m) |
 | `lst_night_min_k` | coldest month's night-time ground temperature in 2023 [K]: min over months of L1m `lst_night_k` (rule change, see L1m) |
-| `lst_diurnal_range_mean_k`, `lst_months_with_range`, `lst_valid_pixels` | mean day-night swing [K], months it's based on, pixels used |
+| `lst_diurnal_range_mean_k` | per pixel, the mean over months of (day − night); then the median over pixels [K]. It's signed and **can be negative** |
+| `lst_months_with_range` | median over pixels of how many months had both a day and a night value. A median, so it can be fractional (e.g. 11.5) |
+| `lst_valid_pixels` | pixels with at least one valid month |
 | `barren_pct`, `snow_ice_pct`, `water_pct` | land cover shares [%] |
-| `permafrost_pct` | mean permafrost probability [%]; null outside the ESA model area |
+| `permafrost_pct` | mean permafrost probability [%]. Null in two cases: outside the ESA model area (25–85°N, 60–85°S), and inside it where ESA writes fill 255 (not modelled: ocean and warm land). Both are unknown, not 0% |
 | `dem_pixels`, `elev_mean_m`, `elev_min_m`, `elev_max_m` | 240 m DEM pixels, elevation [m] |
 | `slope_mean_deg`, `slope_frac_lt5`, `slope_frac_lt15`, `slope_frac_gt30` | mean slope [deg], shares of ground flatter than 5°/15°, steeper than 30° [0–1] |
 | `sun_noon_elev_max_deg`, `sun_noon_elev_min_deg`, `polar_night`, `polar_day` | yearly noon sun height range [deg], flags |
@@ -217,7 +235,7 @@ rule:
   earthColumn: slope_mean_deg      # L1 column
   band: {lo: 0, hi: 10}            # Earth units
   unit: deg
-  origin: target                    # target | precedent | user
+  origin: target                    # target | precedent | team | user
   basis: "moon-south-pole-v0 terrain: max slope over 100 m <= 10 deg"
   scaleCaveat: "Earth value is a mean over a 240 m grid, the Moon band is a max over 100 m. Same number, different statistic."
   status: proposed                  # proposed | accepted
@@ -236,7 +254,7 @@ silently. The UI lets the user edit any band; a user edit sets
 | Drive tooling | rclone remote `ccdrive`; `scripts/drive_sync.sh` copies, never deletes; `restore` re-checks every sha256 |
 | Builds | any machine with `uv sync` in `services/ingest`. The Oracle instance is the always-on builder and uploader once it's linked to T3 (pending). |
 | Looking at the data | JSheets team workbook (DuckDB reads the Parquet files directly), in `research/`, never shipped. See MISSION-PLANNER "Team workbook". |
-| Run times today | L1 ≈ 1.5 min + terrain ≈ 30 min (cached). L1m and L2 targets: under 10 min each. |
+| Run times (measured 2026-11-14) | L1 53.1 s (`cells-r4.meta.json` `timing.total_s`); terrain 1,038.5 s for the last resumed run (`terrain-r4.meta.json` `secondsThisRun`; the full pass spanned restarts). L1m and L2 targets: under 10 min each. |
 
 ## 8. Build order and checks
 
