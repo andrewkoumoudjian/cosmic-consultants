@@ -122,7 +122,7 @@ traits together.
   table. Each hazard is its own flag. There's no combined risk score, and no
   hazard rate: EONET is a curated list whose size changes a lot by year.
 - **Engine:** `risks(site, months)`.
-- **Data:** L2 `hazard_*`, L1 `slope_frac_gt30`, L1m temperatures.
+- **Data:** L2 `eonet_*` and `burned_pct_*`, L1 `slope_frac_gt30`, L1m temperatures.
 - **UI:** risk card, one row per hazard type, with "EONET is a curated list: 0
   means none recorded, not none happened".
 
