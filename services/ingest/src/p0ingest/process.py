@@ -82,6 +82,9 @@ def row_reasons(lat: np.ndarray, cols: dict[str, np.ndarray]) -> list[str]:
     in_pf_model = ((lat >= 25) & (lat <= 85)) | ((lat >= -85) & (lat <= -60))
     checks = [
         ("thermal", np.isnan(cols["lst_day_max_k"]) | np.isnan(cols["lst_night_min_k"]), "no-lst-pixels"),
+        # extremes exist, but no pixel had a day AND a night value in the same month,
+        # so the diurnal range is null (found by the assembler, #69: 21 hexagons)
+        ("thermal", np.isnan(cols["lst_diurnal_range_mean_k"]), "no-same-month-day-night-pixels"),
         ("surfaceMaterial", np.isnan(cols["barren_pct"]), "no-landcover-pixels"),
         ("terrain", np.isnan(cols["slope_mean_deg"]) if "slope_mean_deg" in cols else np.ones(len(lat), bool), "no-dem-tile"),
     ]
@@ -90,7 +93,7 @@ def row_reasons(lat: np.ndarray, cols: dict[str, np.ndarray]) -> list[str]:
     for i in range(len(lat)):
         r = {"dustProcess": "dust-blocked"}
         for trait, mask, code in checks:
-            if mask[i]:
+            if mask[i] and trait not in r:  # first matching code wins
                 r[trait] = code
         if pf_null[i]:
             r["waterIce"] = "permafrost-not-modelled" if in_pf_model[i] else "outside-permafrost-model"

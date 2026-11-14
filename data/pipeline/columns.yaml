@@ -1,0 +1,124 @@
+# Column registry (W29, issue #69). Spec: docs/plan/DATA-PIPELINE.md §5B.
+#
+# The assembler (services/ingest/src/p0ingest/assemble.py) builds the workflow
+# tables in data/snapshots/_derived/assembled/ from this file alone:
+#   - status: active  -> the source table and column MUST exist, or the build fails
+#   - status: planned -> skipped while its source table is absent (listed in
+#                        assembly-report.json); becomes required once present
+# Assembly never changes a value: assembled column == source column, exactly.
+#
+# Fields per column:
+#   name     column name in the workflow table
+#   from     <source table>.<source column>  (source tables live in _derived/)
+#   unit     physical unit ("1" = unitless share 0-1, "%" = percent, "bool", "count", "text")
+#   trait    the M2M dimension it backs (terrain, thermal, surfaceMaterial, waterIce,
+#            illumination, dustProcess, subsurface, operations, hazard), or null
+#   steps    workflow steps that read it (1 objectives, 2 sites, 3 gaps,
+#            4 logistics, 5 risks, 6 past missions)
+#   clean    the cleaning rules its builder applies (documented in that table's meta cleanRules)
+#   reasonKey (optional) the key the source table uses in missing_reason when it differs
+#            from the trait (default: source column name, then trait)
+
+version: 1
+
+sources:
+  cells-r4:              {path: cells-r4.parquet,              key: [h3],                 issue: null}
+  cells-r4-monthly:      {path: cells-r4-monthly.parquet,      key: [h3, month],          issue: null}
+  cells-r4-monthly-years: {path: cells-r4-monthly-years.parquet, key: [h3, year, month],  issue: 64}
+  context-r4:            {path: context-r4.parquet,            key: [h3],                 issue: null}
+  eonet-events-r4:       {path: eonet-events-r4.parquet,       key: [h3, event_id, category], issue: null}
+  burned-r4-monthly:     {path: burned-r4-monthly.parquet,     key: [h3, month],          issue: 65}
+  albedo-r4:             {path: albedo-r4.parquet,             key: [h3],                 issue: 66}
+  albedo-r4-monthly:     {path: albedo-r4-monthly.parquet,     key: [h3, month],          issue: 66}
+  regolith-r4:           {path: regolith-r4.parquet,           key: [h3],                 issue: 66}
+  dust-r4:               {path: dust-r4.parquet,               key: [h3],                 issue: 68}
+  dust-r4-monthly:       {path: dust-r4-monthly.parquet,       key: [h3, month],          issue: 68}
+
+tables:
+  sites-r4:
+    key: [h3]
+    columns:
+      - {name: lat, from: cells-r4.lat, unit: deg, trait: null, steps: [2, 4], status: active, clean: [h3-centre]}
+      - {name: lon, from: cells-r4.lon, unit: deg, trait: null, steps: [2, 4], status: active, clean: [h3-centre]}
+      - {name: land_pct_mean, from: cells-r4.land_pct_mean, unit: "%", trait: null, steps: [2], status: active, clean: [mcd12c1-land-share]}
+      - {name: lst_day_max_k, from: cells-r4.lst_day_max_k, unit: K, trait: thermal, steps: [2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
+      - {name: lst_night_min_k, from: cells-r4.lst_night_min_k, unit: K, trait: thermal, steps: [2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
+      - {name: lst_diurnal_range_mean_k, from: cells-r4.lst_diurnal_range_mean_k, unit: K, trait: thermal, steps: [2, 3], status: active, clean: [lst-fill, lst-scale]}
+      - {name: barren_pct, from: cells-r4.barren_pct, unit: "%", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd12c1-shares]}
+      - {name: snow_ice_pct, from: cells-r4.snow_ice_pct, unit: "%", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd12c1-shares]}
+      - {name: water_pct, from: cells-r4.water_pct, unit: "%", trait: null, steps: [2], status: active, clean: [mcd12c1-shares]}
+      - {name: permafrost_pct, from: cells-r4.permafrost_pct, unit: "%", trait: waterIce, steps: [2, 3], status: active, clean: [esa-cci-fill-255, outside-model-null]}
+      - {name: elev_mean_m, from: cells-r4.elev_mean_m, unit: m, trait: terrain, steps: [2, 4], status: active, clean: [dem-nodata]}
+      - {name: elev_min_m, from: cells-r4.elev_min_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-nodata]}
+      - {name: elev_max_m, from: cells-r4.elev_max_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-nodata]}
+      - {name: slope_mean_deg, from: cells-r4.slope_mean_deg, unit: deg, trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
+      - {name: slope_frac_lt5, from: cells-r4.slope_frac_lt5, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
+      - {name: slope_frac_lt15, from: cells-r4.slope_frac_lt15, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
+      - {name: slope_frac_gt30, from: cells-r4.slope_frac_gt30, unit: "1", trait: hazard, reasonKey: terrain, steps: [3, 5], status: active, clean: [dem-nodata]}
+      - {name: sun_noon_elev_max_deg, from: cells-r4.sun_noon_elev_max_deg, unit: deg, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: sun_noon_elev_min_deg, from: cells-r4.sun_noon_elev_min_deg, unit: deg, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: polar_night, from: cells-r4.polar_night, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: polar_day, from: cells-r4.polar_day, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: access_min_median, from: context-r4.access_min_median, unit: min, trait: operations, steps: [4], status: active, clean: [raster-nodata, pixel-centre-in-hexagon]}
+      - {name: access_min_p10, from: context-r4.access_min_p10, unit: min, trait: operations, steps: [4], status: active, clean: [raster-nodata, pixel-centre-in-hexagon]}
+      - {name: airport_km, from: context-r4.airport_km, unit: km, trait: operations, steps: [4], status: active, clean: [paved-open-runways-only]}
+      - {name: protected_pct, from: context-r4.protected_pct, unit: "%", trait: operations, steps: [4, 5], status: active, clean: [licence-restricted-null]}
+      - {name: eonet_wildfires_events, from: context-r4.eonet_wildfires_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_volcanoes_events, from: context-r4.eonet_volcanoes_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_severeStorms_events, from: context-r4.eonet_severeStorms_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_floods_events, from: context-r4.eonet_floods_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_landslides_events, from: context-r4.eonet_landslides_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_dustHaze_events, from: context-r4.eonet_dustHaze_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_earthquakes_events, from: context-r4.eonet_earthquakes_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_snow_events, from: context-r4.eonet_snow_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_tempExtremes_events, from: context-r4.eonet_tempExtremes_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: eonet_drought_events, from: context-r4.eonet_drought_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
+      - {name: albedo_ws_sw_mean, from: albedo-r4.albedo_ws_sw_mean, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: planned, clean: [mcd43-fill, mcd43-scale, mcd43-quality, coverage-25pct]}
+      - {name: regolith_thick_m, from: regolith-r4.regolith_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: planned, clean: [ornl-nodata, product-cap-50m]}
+      - {name: dust_aod_mean, from: dust-r4.dust_aod_mean, unit: "1", trait: dustProcess, steps: [2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
+      - {name: dust_aod_max, from: dust-r4.dust_aod_max, unit: "1", trait: dustProcess, steps: [5], status: planned, clean: [merra2-fill, nearest-grid-box]}
+
+  sites-r4-monthly:
+    key: [h3, month]
+    columns:
+      - {name: lst_day_k, from: cells-r4-monthly.lst_day_k, unit: K, trait: thermal, steps: [1, 2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
+      - {name: lst_night_k, from: cells-r4-monthly.lst_night_k, unit: K, trait: thermal, steps: [1, 2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
+      - {name: lst_diurnal_k, from: cells-r4-monthly.lst_diurnal_k, unit: K, trait: thermal, steps: [2, 3], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
+      - {name: sun_noon_elev_deg, from: cells-r4-monthly.sun_noon_elev_deg, unit: deg, trait: illumination, steps: [1, 2, 3], status: active, clean: [computed-from-lat]}
+      - {name: daylight_h, from: cells-r4-monthly.daylight_h, unit: h, trait: illumination, steps: [1, 2, 3, 4], status: active, clean: [computed-from-lat]}
+      - {name: polar_day, from: cells-r4-monthly.polar_day, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: polar_night, from: cells-r4-monthly.polar_night, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
+      - {name: albedo_ws_sw, from: albedo-r4-monthly.albedo_ws_sw, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: planned, clean: [mcd43-fill, mcd43-scale, mcd43-quality, coverage-25pct]}
+      - {name: dust_aod, from: dust-r4-monthly.dust_aod, unit: "1", trait: dustProcess, steps: [1, 2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
+      - {name: burned_pct, from: burned-r4-monthly.burned_pct, unit: "%", trait: hazard, steps: [5], status: planned, clean: [mcd64-unmapped, mcd64-water, mapped-years-only]}
+
+# Computed in assembly (the only summaries allowed, spec §5B).
+derived:
+  sites-r4-monthly-spread:
+    key: [h3, month]
+    from: cells-r4-monthly-years
+    status: planned
+    columns:
+      - {name: lst_day_p10_k, of: lst_day_k, stat: p10, unit: K}
+      - {name: lst_day_p50_k, of: lst_day_k, stat: median, unit: K}
+      - {name: lst_day_p90_k, of: lst_day_k, stat: p90, unit: K}
+      - {name: lst_night_p10_k, of: lst_night_k, stat: p10, unit: K}
+      - {name: lst_night_p50_k, of: lst_night_k, stat: median, unit: K}
+      - {name: lst_night_p90_k, of: lst_night_k, stat: p90, unit: K}
+      - {name: lst_years_with_value, of: lst_night_k, stat: count, unit: count}
+    rule: "over 2014-2023, only years with a value; null if fewer than 5 years have one (reason too-few-years)"
+
+# The team doc's 8 test categories -> the traits they need (MISSION-PLANNER step 1).
+# data-coverage.json reports, per category and trait, which columns back it and how complete they are.
+categories:
+  1: {name: "Robotic mobility and navigation", traits: [terrain, surfaceMaterial]}
+  2: {name: "Geology and sampling", traits: [surfaceMaterial, terrain]}
+  3: {name: "Resources / ISRU", traits: [waterIce, subsurface, surfaceMaterial]}
+  4: {name: "Human habitation and operations", traits: [terrain, thermal, operations]}
+  5: {name: "Instrument and sensor testing", traits: [surfaceMaterial, terrain, subsurface]}
+  6: {name: "Environmental hazards and resilience", traits: [thermal, dustProcess, hazard]}
+  7: {name: "Subsurface exploration", traits: [subsurface]}
+  8: {name: "Astrobiology and habitability", traits: [waterIce, surfaceMaterial, thermal]}
+
+# Traits Earth can never reproduce (ADR-0005 D4). Always reported as earth-cannot.
+earthCannot: [gravity, pressureRegime, radiation]
