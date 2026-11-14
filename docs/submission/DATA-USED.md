@@ -13,14 +13,14 @@ either directly or through the portal named.
 
 | Dataset | What we use it for | Licence (catalog row) | On tab | Status |
 |---|---|---|---|---|
-| MODIS/Terra LST monthly (MOD11C3 v061), DOI 10.5067/MODIS/MOD11C3.061 | Ground temperature per hexagon and month (L1, L1m) | CC0 | via Earthdata Search | on main (2023); 2014–2022 in #72 |
+| MODIS/Terra LST monthly (MOD11C3 v061), DOI 10.5067/MODIS/MOD11C3.061 | Ground temperature per hexagon and month (L1, L1m) | CC0 | via Earthdata Search | on main (2023, plus 2014–2022 from #72, merged `fffaa63`) |
 | MODIS land cover (MCD12C1 v061) | Barren, snow/ice and water share (L1) | CC0 | via Earthdata Search | on main |
-| MODIS BRDF/albedo (MCD43C3 v061) | Earth albedo per hexagon | CC0 | via Earthdata Search | in PR #77 |
-| MODIS burned area (MCD64A1) | Burned area by month (risks) | check catalog row at freeze | via Earthdata Search | #65 in progress |
+| MODIS BRDF/albedo (MCD43C3 v061) | Earth albedo per hexagon | CC0 | via Earthdata Search | on main (#77, merged `4db1f96`) |
+| MODIS burned area (MCD64A1) | Burned area by month (risks) | check catalog row at freeze | via Earthdata Search | draft PR #91 |
 | MERRA-2 aerosol (M2TMNXAER) | Dust optical depth by month | CC0 | via Earthdata Search | built on #68, not merged yet |
 | NASA EONET v3 events | Named natural events near each site (risks) | NASA open data, EONET disclaimer (ADR-0006) | no (NASA, not on tab) | on main |
 | **LRO Diviner Level 4** (polar products) | Moon south-pole surface temperature | US public domain | **yes, named on the tab** | downloaded, hashed and decoded (#75); not yet tied to target locations (#74) |
-| MGS TES (thermal inertia, albedo, dust) | Mars thermal and surface targets | US public domain | via NASA PDS | decoded (#75); map projection under review (#74) |
+| MGS TES (thermal inertia, albedo, dust) | Mars thermal and surface targets | US public domain | via NASA PDS | decoded (#75); projection check in PR #87 (follows the label text) |
 | NASA GIBS (Worldview tiles) | Map base layer in the app | NASA open | via Worldview | used by `apps/atlas` |
 
 ## Other space agencies
@@ -37,7 +37,7 @@ either directly or through the portal named.
 |---|---|---|---|
 | Global travel time to cities 2015 (Weiss et al.) | Travel time (logistics) | CC BY 3.0 (attribution required) | on main |
 | OurAirports | Nearest paved-runway airport | public domain | on main |
-| ORNL DAAC Pelletier soil/regolith thickness | Depth to bedrock (subsurface proxy) | check catalog row at freeze | in PR #77 |
+| ORNL DAAC Pelletier soil/regolith thickness | Depth to bedrock (subsurface proxy) | check catalog row at freeze | on main (#77, merged `4db1f96`) |
 | WDPA protected areas | Protected-land share | restricted, so we ship null unless the licence allows derived numbers (DATA-PIPELINE §9 #10) | not used |
 | Past-campaign source documents (`campaign-sources`) | Quotes for the 6 campaign rows | per source, recorded in each campaign file | on main |
 
