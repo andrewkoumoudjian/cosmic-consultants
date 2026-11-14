@@ -84,8 +84,14 @@ features:
   albedo:
     relatedColumns:
     - sites-r4.albedo_ws_sw_mean
-    notes: '#66 planned white-sky shortwave midmonth samples; CSV Earth field albedo_bsa
-      differs. Resolve quantity/time support explicitly.'
+    - sites-r4.albedo_bs_sw_mean
+    - sites-r4-monthly.albedo_ws_sw
+    - sites-r4-monthly.albedo_bs_sw
+    notes: '#66 merged (PR #77): MCD43C3 v061 white-sky and black-sky shortwave, one dated
+      16-day-window sample per month (not a monthly mean), QA=0 only. The CSV Earth field
+      albedo_bsa matches the black-sky column in quantity, not in time support. Target-side
+      albedo (TES/Diviner bolometric) is a different band definition; no cross-body
+      transform defined.'
   dust_cover_index:
     relatedColumns: []
     notes: Needs source mineral/bare-ground data; barren land share alone is not a
@@ -101,8 +107,13 @@ features:
   regolith_thick:
     relatedColumns:
     - sites-r4.regolith_thick_m
-    notes: '#66 partial catalog work only; soil/regolith thickness remains a model
-      proxy, not direct measurement.'
+    - sites-r4.soil_thick_m
+    - sites-r4.sediment_thick_m
+    - sites-r4.avg_soil_sed_thick_m
+    notes: '#66 merged (PR #77): ORNL Pelletier et al. 2016 modeled upland regolith, soil
+      and sediment thickness, hexagon median of 30 arcsec pixels, 90N-60S only. Modeled
+      proxy, not a measurement (ADR-0009); 50 m is the published upper bound, not proof of
+      clipping.'
   wind_h_edl:
     relatedColumns: []
     notes: Wind source acquisition/build absent; 10m Earth wind differs from EDL wind.

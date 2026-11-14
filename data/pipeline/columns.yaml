@@ -73,8 +73,18 @@ tables:
       - {name: eonet_snow_events, from: context-r4.eonet_snow_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
       - {name: eonet_tempExtremes_events, from: context-r4.eonet_tempExtremes_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
       - {name: eonet_drought_events, from: context-r4.eonet_drought_events, unit: count, trait: hazard, steps: [5], status: active, clean: [eonet-dedupe-per-event, within-50km]}
-      - {name: albedo_ws_sw_mean, from: albedo-r4.albedo_ws_sw_mean, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: planned, clean: [mcd43-fill, mcd43-scale, mcd43-quality, coverage-25pct]}
-      - {name: regolith_thick_m, from: regolith-r4.regolith_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: planned, clean: [ornl-nodata, product-cap-50m]}
+      # W26 (#66, PR #77): dated MCD43C3 samples, not monthly means; modeled thickness (ADR-0009)
+      - {name: albedo_ws_sw_mean, from: albedo-r4.albedo_ws_sw_mean, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd43-fill, mcd43-scale, mcd43-qa-best, coverage-25pct, mean-of-dated-samples]}
+      - {name: albedo_bs_sw_mean, from: albedo-r4.albedo_bs_sw_mean, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd43-fill, mcd43-scale, mcd43-qa-best, coverage-25pct, mean-of-dated-samples]}
+      - {name: albedo_months_used, from: albedo-r4.albedo_months_used, unit: count, trait: surfaceMaterial, steps: [3], status: active, clean: [mcd43-qa-best, coverage-25pct]}
+      - {name: albedo_bs_months_used, from: albedo-r4.albedo_bs_months_used, unit: count, trait: surfaceMaterial, steps: [3], status: active, clean: [mcd43-qa-best, coverage-25pct]}
+      - {name: regolith_thick_m, from: regolith-r4.regolith_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, published-range-0-50m, hex-median-30arcsec]}
+      - {name: regolith_support_frac, from: regolith-r4.regolith_support_px, unit: "1", trait: subsurface, steps: [3], status: active, reasonKey: regolith_thick_m, clean: [ornl-nodata, published-range-0-50m, hex-median-30arcsec]}
+      - {name: soil_thick_m, from: regolith-r4.soil_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, published-range-0-4.2m, hex-median-30arcsec]}
+      - {name: soil_support_frac, from: regolith-r4.soil_support_px, unit: "1", trait: subsurface, steps: [3], status: active, reasonKey: soil_thick_m, clean: [ornl-nodata, hex-median-30arcsec]}
+      - {name: sediment_thick_m, from: regolith-r4.sediment_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, published-range-0-50m, hex-median-30arcsec]}
+      - {name: avg_soil_sed_thick_m, from: regolith-r4.avg_soil_sed_thick_m, unit: m, trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, published-range-0-50m, hex-median-30arcsec]}
+      - {name: hillslope_frac_mean, from: regolith-r4.hillslope_frac_mean, unit: "1", trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, hex-median-30arcsec]}
       - {name: dust_aod_mean, from: dust-r4.dust_aod_mean, unit: "1", trait: dustProcess, steps: [2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
       - {name: dust_aod_max, from: dust-r4.dust_aod_max, unit: "1", trait: dustProcess, steps: [5], status: planned, clean: [merra2-fill, nearest-grid-box]}
 
@@ -88,7 +98,10 @@ tables:
       - {name: daylight_h, from: cells-r4-monthly.daylight_h, unit: h, trait: illumination, steps: [1, 2, 3, 4], status: active, clean: [computed-from-lat]}
       - {name: polar_day, from: cells-r4-monthly.polar_day, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
       - {name: polar_night, from: cells-r4-monthly.polar_night, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
-      - {name: albedo_ws_sw, from: albedo-r4-monthly.albedo_ws_sw, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: planned, clean: [mcd43-fill, mcd43-scale, mcd43-quality, coverage-25pct]}
+      - {name: albedo_ws_sw, from: albedo-r4-monthly.albedo_ws_sw, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd43-fill, mcd43-scale, mcd43-qa-best, coverage-25pct, one-dated-sample-per-month]}
+      - {name: albedo_bs_sw, from: albedo-r4-monthly.albedo_bs_sw, unit: "1", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd43-fill, mcd43-scale, mcd43-qa-best, coverage-25pct, one-dated-sample-per-month]}
+      - {name: albedo_valid_px, from: albedo-r4-monthly.albedo_valid_px, unit: count, trait: surfaceMaterial, steps: [3], status: active, clean: [mcd43-qa-best]}
+      - {name: albedo_bs_valid_px, from: albedo-r4-monthly.albedo_bs_valid_px, unit: count, trait: surfaceMaterial, steps: [3], status: active, clean: [mcd43-qa-best]}
       - {name: dust_aod, from: dust-r4-monthly.dust_aod, unit: "1", trait: dustProcess, steps: [1, 2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
       - {name: burned_pct, from: burned-r4-monthly.burned_pct, unit: "%", trait: hazard, steps: [5], status: planned, clean: [mcd64-unmapped, mcd64-water, mapped-years-only]}
 
