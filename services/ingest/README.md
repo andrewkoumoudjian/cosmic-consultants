@@ -35,7 +35,8 @@ cd services/ingest
 uv sync
 uv run python -m p0ingest.fetch_p0      # MODIS LST + land cover 2023 (Earthdata token needed)
 uv run python -m p0ingest.terrain       # Copernicus GLO-30 overview pass, ~30 min, streams ~9 GB, stores none
-uv run python -m p0ingest.process       # -> data/snapshots/_derived/cells-r4.parquet (+ .meta.json)
+uv run python -m p0ingest.process       # -> _derived/cells-r4.parquet (L1) + cells-r4-monthly.parquet (L1m), ~80 s
+uv run --with pandas python -m p0ingest.check_monthly   # W17 checks; exit 0 only if all pass
 uv run python -m p0ingest.inventory     # -> services/ingest/INVENTORY.md
 ```
 
@@ -50,6 +51,23 @@ losses or scores. Comparing them with Moon/Mars target ranges is the engine's
 job (W7), using the envelopes from W5. The file's schema metadata and
 `cells-r4.meta.json` list every input file with its sha256, plus timing and
 the null rate per column.
+
+## Output: `cells-r4-monthly.parquet` (L1m)
+
+One row per H3 cell and month of 2023 (1,101,600 rows): monthly day and night
+ground temperature (median over the hexagon's pixels), the day-night swing,
+noon sun height, day length and polar day/night on the 15th. Spec:
+`docs/plan/DATA-PIPELINE.md` §5.
+
+- **One temperature rule:** L1 `lst_day_max_k` / `lst_night_min_k` are the
+  max / min over the L1m months, so the two files always agree.
+  `check_monthly` checks this exactly.
+- **Coverage rule:** a monthly median only counts if at least 25% of the
+  hexagon's pixels have a value that month (our choice). Otherwise it's null
+  with `too-few-lst-pixels`. It drops 0.52% of cell-months (mostly cloudy
+  tropics).
+- **`missing_reason`** in both files is JSON per row and names only that row's
+  null traits.
 
 ## Known gaps (also in INVENTORY.md)
 

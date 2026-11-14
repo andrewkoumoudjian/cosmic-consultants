@@ -83,6 +83,10 @@ def build() -> str:
     if cm:
         L += [f"- **Cells file:** `{cm['path']}`: {cm['cells']:,} H3 res-{cm['h3Res']} land cells,"
               f" sha256 `{cm['sha256'][:16]}…`, {_mb(cm['bytes'])}, built in {cm['timing']['total_s']} s.", ""]
+        mm = cm.get("monthly")
+        if mm:
+            L += [f"- **Monthly cells file (L1m):** `{mm['path']}`: {mm['rows']:,} rows (cell × month of {mm['year']}),"
+                  f" sha256 `{mm['sha256'][:16]}…`, {_mb(mm['bytes'])}. {mm['computed']['coverageRule']}.", ""]
     L += ["## Datasets", "",
           "| Dataset | Trait | Slice we used | Files | Size | Licence | Columns |", "|---|---|---|---|---|---|---|"]
     for ds in USES:
@@ -100,7 +104,8 @@ def build() -> str:
         L += ["## Null rate per column (share of cells with no value)", "",
               "| Column | Null rate |", "|---|---|"]
         L += [f"| `{k}` | {v:.2%} |" for k, v in cm["nullRate"].items()]
-        L += ["", "Why each null trait is null (also stored in every row as `missing_reason`):", ""]
+        L += ["", "Why each null trait is null. Each row's `missing_reason` (JSON) names only the traits null in"
+              " that row, with a short code; the long reasons are here:", ""]
         L += [f"- **{k}:** {v}" for k, v in cm["missing"].items()]
         L += ["", f"Timing (s): `{json.dumps(cm['timing'])}`", ""]
     L += ["## Every stored file", "", "| Dataset | File | Bytes | sha256 | Fetched (UTC) | Source |", "|---|---|---|---|---|---|"]
