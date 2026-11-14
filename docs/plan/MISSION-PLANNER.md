@@ -35,8 +35,10 @@ computes, the data it reads, and the UI.
 
 ### Step 1. Mission objectives
 
-- **Scientist:** picks the target body (Moon or Mars) and a NASA objective
-  (OP-5LM, SE-3LM, LI-5L to start), or a preset from a past campaign. Sets the
+- **Scientist:** picks the target body (Moon or Mars), a **test category**
+  and the specific test (the team's 8 categories, table below), which maps to a
+  NASA objective (OP-5LM, SE-3LM, LI-5L to start), or a preset from a past
+  campaign. Chooses how many sites to see (all, or the top X). Sets the
   month window (e.g. Jun–Aug), length in days, team size, and hard limits: max
   travel time, avoid protected land, max slope, and so on.
 - **Gets back:** the test requirements as a table, one row per trait (Earth
@@ -49,6 +51,29 @@ computes, the data it reads, and the UI.
   the counter.
 - **UI:** left-hand stepper (1–6). Form with presets, core dropdowns and an
   "advanced" panel (team doc: hybrid funnel). Funnel counter on top.
+
+**Test categories (from the team doc) and what we can support.** "Ready" means
+every trait the category needs has an Earth column today or in P0.
+
+| # | Category | Example tests | Traits | Earth data | Ready? |
+|---|---|---|---|---|---|
+| 1 | Robotic mobility and navigation | autonomous driving, traction, traversability | terrain, surfaceMaterial | slope, elevation range, barren share | yes (P0) |
+| 2 | Geology and sampling | rock ID, drilling, coring, mapping | surfaceMaterial, terrain | barren share; GLiM rock types (candidate) | partial (P1 with GLiM) |
+| 3 | Resources / ISRU | water-ice detection, regolith, excavation | waterIce, subsurface, surfaceMaterial | permafrost probability; no subsurface | partial |
+| 4 | Human habitation and operations | EVA, habitat build, crew traverses | terrain, thermal, operations | slope, monthly temperatures, access | yes (P0, access in L2) |
+| 5 | Instrument and sensor testing | spectroscopy, radar, imaging | depends on instrument | as category 1 or 2 | partial |
+| 6 | Environmental hazards and resilience | dust, thermal cycling, erosion | thermal, dustProcess | monthly temperature swing; dust blocked | partial |
+| 7 | Subsurface exploration | caves, lava tubes | subsurface | none worldwide | no (unknown, said so) |
+| 8 | Astrobiology and habitability | biosignatures, extremophiles | waterIce, surfaceMaterial, thermal | partial proxies only | no (P2) |
+
+Categories marked "no" still appear. Their unknown traits are listed, never
+hidden.
+
+**"Top X" without a score.** We rank by Pareto layers: layer 1 is the places no
+other place beats on every gap, layer 2 is the same after removing layer 1,
+and so on. Inside a layer, the user's chosen trait sorts. "Top 20" means the
+first 20 in that order. A layer number is an order, not a score: it never adds
+traits together.
 
 ### Step 2. Site finder and compare
 
@@ -116,6 +141,11 @@ computes, the data it reads, and the UI.
 - **Data:** L3 campaigns, L1 at each campaign's hexagon.
 - **UI:** precedent list. Each item has a bar split by trait, using the
   Shapley values.
+- **Ask the past missions (P1, team doc: "chatbot").** A chat box that answers
+  questions **only from the campaign table and its stored sources**. Every
+  answer cites campaign rows. If the table doesn't say, it answers "not in our
+  records". It runs through `services/api` (the Worker holds any API key, never
+  the browser).
 
 ### Output: mission plan brief
 

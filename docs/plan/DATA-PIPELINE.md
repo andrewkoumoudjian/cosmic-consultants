@@ -243,3 +243,5 @@ Checks every build must print (rule 2: paste them in the PR):
 | 9 | ESA permafrost fill could read as 0% | Outside the model area it's null with a reason |
 | 10 | WDPA licence is restricted | Ship null + `licence-restricted` unless the licence allows derived numbers |
 | 11 | EONET zero events could read as "safe" | UI copy: "no event recorded in EONET" |
+| 12 | Team doc asks for "top X" sites; rule 4 bans a site score | Pareto layers + one user-chosen trait as tie-break (MISSION-PLANNER step 1) |
+| 13 | Team doc's 8 test categories need data we don't have (caves, biology, wind) | Category table in MISSION-PLANNER step 1 marks each one ready / partial / no; missing traits stay unknown |

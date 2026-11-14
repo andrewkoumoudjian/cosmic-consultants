@@ -53,7 +53,9 @@ trait's unit) or `unknown` (no data or no band). There is **no single score
 for a site**. The shortlist is the sites that pass the hard limits and that no
 other site beats on every gap at once (the Pareto shortlist, already proved in
 `proofs/Analog/Atlas*.lean`). The user can sort the shortlist by one trait at a
-time. Sorting by one trait is not a combined score.
+time. Sorting by one trait is not a combined score. "Show the top X" uses
+Pareto layers (layer 1 is the shortlist, layer 2 is the shortlist once layer 1
+is removed, and so on), with the chosen trait breaking ties inside a layer.
 
 **D4. "Earth can't test this" is always shown.** Gravity, air pressure and
 radiation are permanent mismatches. Each objective lists which ones matter for
