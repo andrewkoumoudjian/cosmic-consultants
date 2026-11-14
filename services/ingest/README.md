@@ -210,3 +210,46 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## W42 (#101) Moon neutron and gamma-ray maps: moon_nuclear
+
+`uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares the PDS
+Lunar Prospector GRS elemental abundance maps (issue #101) and records the
+neutron-mapping gap.
+
+- **What is prepared:** `data/snapshots/_derived/planetary/lp-grs-pds/`
+  (`lpgrs-high1-elem-abundance-{2deg,5deg,20deg}.parquet`, 11,306 / 1,790 /
+  114 rows). Straight decoding of `LPGRS_HIGH1_ELEM_ABUNDANCE_{2DEG,5DEG,
+  20DEG}.TAB` (LP-L-GRS-5-ELEM-ABUNDANCE-V1.0, Prettyman et al. 2006): the
+  archive's own equal-area pixels with their lat/lon bounds, all published
+  weight fractions (oxides g/g, K/Th/U ppm), and the complete 45-term
+  error matrix as raw columns. The only added values are the label-declared
+  1-sigma columns `feo_1sigma_g_g`, `k_1sigma_ppm`, `th_1sigma_ppm` (square
+  root of the E[5,5]/E[6,6]/E[7,7] diagonals; label text says the diagonal
+  square root is the propagated uncertainty).
+- **Footprint:** GRS footprint ~5 deg of arc length at 100 km altitude per
+  the labels; the 2-deg pixels oversample it, and the archive itself flags
+  the 2-deg oxides other than FeO/TiO2/K/Th as poorly evaluated. The
+  2-degree table's `neutron_den` column also sits ~1e-4 g/cm3 while the
+  5/20-degree tables sit ~1.5e-6 g/cm3, same declared unit, no explanation
+  in the archive documentation; values are kept exactly as published and
+  both observations are recorded in `preparation-report.json`.
+- **Neutron gap (h_wt_neutron / the LEND row):** every neutron spectrometer
+  product in PDS is a time series - LEND is daily EDR/RDR binary tables
+  (bundle `lro-l-lend-2-edr-v1/lrolen_0xxx`, "binary time series tables"
+  per its readme), the LP Neutron Spectrometer is one mission-long
+  8/32-second counting-rate table (LP-L-NS-3-RDR-V1.0 index). Neither has a
+  PDS map product, and converting a count rate into a suppression
+  percentage or an H/WEH wt% would be a new scientific product, so no
+  neutron table is written. Evidence files are snapshotted under
+  `data/snapshots/lend/` (MANIFEST) and summarised in
+  `_derived/planetary/lend/lend-pds-gap-report.json`.
+- **Checks:** `check` verifies manifest hashes and licences, label-declared
+  row/column counts, unique ordered pixel keys, per-product physical
+  ranges, that `missing_reason` JSON keys equal the row's null value
+  columns exactly, the 1-sigma sqrt consistency, 5 re-decoded raw rows per
+  table (plain-IO path), and 5-deg regional physics: FeO about 26 wt% /
+  Th about 4.9 ppm in Procellarum, FeO 18 wt% at Mare Tranquillitatis, FeO
+  5.6 wt% and Th 1.1 ppm in the farside highlands, average atomic mass
+  21.4-23.9 amu as documented in dataset.cat. Passes with plain `python`
+  and `python -O`.
