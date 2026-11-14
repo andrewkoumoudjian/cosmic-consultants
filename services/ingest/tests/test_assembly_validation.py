@@ -106,3 +106,69 @@ class AssemblyValidation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class EvidenceDescriptors(unittest.TestCase):
+    """Issue #111: ideas adopted from deferred ADR-0004 (measurement kind/support, claim-specific
+    independence, non-finite rejection, dated absence scope). No scoring, ranking or Pareto."""
+
+    def setUp(self):
+        import yaml
+        from p0ingest.assemble import REPO, load_evidence
+        self.reg = yaml.safe_load((REPO / "data/pipeline/columns.yaml").read_text())
+        self.ev = load_evidence()
+
+    def test_every_registry_column_has_a_valid_descriptor(self):
+        from p0ingest.assemble import evidence_problems
+        self.assertEqual(evidence_problems(self.reg, self.ev), [])
+
+    def test_missing_unknown_invalid_and_synthetic_are_rejected(self):
+        import copy
+        from p0ingest.assemble import evidence_problems
+        ev = copy.deepcopy(self.ev)
+        del ev["columns"]["albedo_ws_sw"]
+        ev["columns"]["not_a_column"] = {"kind": "observed", "support": "x", "family": "y"}
+        ev["columns"]["lat"]["kind"] = "guess"
+        ev["columns"]["lon"]["support"] = " "
+        ev["columns"]["slope_mean_deg"]["family"] = ""
+        text = "\n".join(evidence_problems(self.reg, ev))
+        for needle in ("albedo_ws_sw: no evidence descriptor", "not_a_column: descriptor names no registry column",
+                       "lat: kind 'guess'", "lon: empty support", "slope_mean_deg: empty family"):
+            self.assertIn(needle, text)
+        ev = copy.deepcopy(self.ev)
+        ev["kinds"].append("synthetic")
+        self.assertIn("synthetic", "\n".join(evidence_problems(self.reg, ev)))
+
+    def test_nan_and_infinity_are_not_nulls_and_are_counted(self):
+        from p0ingest.assemble import nonfinite_counts
+        df = pl.DataFrame({"a": [1.0, None, float("nan")], "b": [float("inf"), 2.0, -float("inf")], "c": [1, 2, 3]})
+        self.assertEqual(nonfinite_counts(df), {"a": 1, "b": 2})
+        self.assertEqual(nonfinite_counts(pl.DataFrame({"a": [1.0, None]})), {})
+
+    def test_source_gap_features_carry_a_dated_absence_scope_and_never_a_claim_of_absence(self):
+        import csv
+        import yaml
+        from p0ingest.assemble import REPO, feature_coverage
+        prep = yaml.safe_load((REPO / "data/pipeline/feature-preparation.yaml").read_text())
+        with (REPO / "research/features/landing_site_features.csv").open(encoding="utf-8", newline="") as f:
+            feats = list(csv.DictReader(f))
+        out = feature_coverage(feats, prep["features"], {}, prep["absenceScope"])
+        gaps = [x for x in out if x["preparationState"] == "source-gap"]
+        self.assertTrue(gaps)
+        for g in gaps:
+            self.assertRegex(g["absenceScope"]["searchedOn"], r"^\d{4}-\d{2}-\d{2}$")
+            self.assertIn("not evidence that none exists", g["absenceScope"]["statement"])
+        with self.assertRaises(ValueError):
+            feature_coverage(feats, prep["features"], {})
+        self.assertTrue(all("absenceScope" not in x for x in out if x["preparationState"] != "source-gap"))
+
+    def test_coverage_exposes_kind_family_and_the_not_corroboration_note(self):
+        import yaml
+        from p0ingest.assemble import REPO
+        build = object.__new__(Build)
+        build.reg = yaml.safe_load((REPO / "data/pipeline/columns.yaml").read_text())
+        report = build.coverage(pl.DataFrame(), pl.DataFrame())
+        self.assertIn("Family counts are discovery hints only", report["evidenceNote"])
+        self.assertEqual(report["columnEvidence"]["regolith_thick_m"]["kind"], "modeled")
+        backed = [b for c in report["categories"].values() for t in c["traits"].values() for b in t["columns"]]
+        self.assertTrue(all(b["kind"] and b["family"] for b in backed))
