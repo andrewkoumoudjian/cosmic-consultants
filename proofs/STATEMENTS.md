@@ -18,7 +18,7 @@ pass. [ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) was
 | S3 atlas (historical proposed obligation) | Original plan to have engine certificates satisfy `subopt_le`. | Never implemented or proved. | Out of hackathon scope (ADR-0003). Do not emit solver fields or advertise this guarantee without a new application design. |
 | S4 | A candidate dominated by another member of the chosen set is not frontier. | `Semantics.not_frontier_of_dominated`, historical audit. | Does not prove a runtime computes that set/frontier correctly. |
 | Prior corpus | Imported mathematical lemmas; some candidate modules deliberately not imported. | Dispositions in doc 06. | No application validity inferred from theorem names/imports. |
-| S6 / ARL | Historical proposed ladder semantics in ADR-0002. | No Lean statement/proof or implementation exists. | Current plan (ADR-0002). Statement to be frozen in W8 (#16), proof in W9 (#17). Until then no level or monotonicity guarantee is published. |
+| S6 / ARL | `Readiness`: gate outcomes `pass/fail/unknown`; ARL = largest `k ≤ 6` with gates 1..k passing (gates 1–4 per required dimension, 5–6 per site); 15 Props S6a–S6u (weakest link, monotone, no compensation, site can't lift, unknown ≠ fail, cumulative + maximal, mismatch/irrelevant dims ignored, not rateable → no level, empty/all-unknown → 0). | **proposed** statement (W8, #16), awaiting owner freeze. Not proved in the repo yet (W9, #17). | No engine computes it yet. Lean checks the ladder logic only, never whether a gate outcome is right about the real world. `limitingDimension`/`limitingGate` are not stated. |
 
 Historical axiom-audit snapshots: scaffold recorded 8 theorems; prior work plus
 Cantelli recorded 28; W2 `eaabc9b` recorded 31, all with only
