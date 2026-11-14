@@ -1,0 +1,75 @@
+campaignId: hiseas-iv
+name: Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission
+agency:
+  - NASA
+  - University of Hawaii
+years:
+  first: 2015
+  last: 2016
+site:
+  name: HI-SEAS habitat, Mauna Loa, Hawaiʻi
+  lat: 19.603055555555557
+  lon: -155.4875
+  h3r4: 845d139ffffffff
+  quote: >-
+    HI-SEAS on Mauna Loa (19°36’11"N, 155°29′15"W)
+  sourceRef: hiseas-site-coordinates
+objectivesExercised:
+  - objectiveId: null
+    text: Isolated crew and habitat microbiome monitoring for future Moon or Mars outposts
+    quote: >-
+      Herein, we used the Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission, a 1 year-long isolation study, to investigate microbial transfer between crew and habitat, in order to understand adverse developments which may occur in a future outpost on the Moon or Mars.
+    sourceRef: hiseas-iv-article
+publishedConstraints:
+  - what: Simulated communication delay
+    value: 20
+    unit: minutes each way
+    quote: >-
+      The crew was physically isolated from other human beings for the whole mission duration and communications had a high latency (20-min delay in both directions).
+    sourceRef: hiseas-iv-article
+outcome:
+  - kind: worked
+    text: The study found stable surface microbiome composition alongside changing crew skin microbiomes.
+    quote: >-
+      The microbiome composition and diversity associated with abiotic surfaces was found to be rather stable
+    sourceRef: hiseas-iv-article
+  - kind: lesson
+    text: The study linked delayed microbiome homogenization to a malfunctioning sanitary facility.
+    quote: >-
+      quantitative and qualitative data supported the observation of a delayed longitudinal microbial homogenization between crew and habitat surfaces which was mainly caused by a malfunctioning sanitary facility.
+    sourceRef: hiseas-iv-article
+sources:
+  - ref: hiseas-iv-article
+    url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7831191/
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: aef5c1e2380637da6d4fabf35f76b7522ee371155ca6fb83f5673c5922c8bc0e
+    localPath: data/snapshots/campaign-sources/hiseas-iv/article.md
+    licenceNote: Full article text stored under the article's CC BY 4.0 license.
+  - ref: hiseas-site-coordinates
+    url: https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd
+    localPath: null
+    licenceNote: URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The article describes behavioral-health and microbiome research but does not identify one of the objective IDs currently present in data/objectives/.
+evidence:
+  - field: site.name
+    quote: >-
+      HI-SEAS on Mauna Loa (19°36’11"N, 155°29′15″W)
+    sourceRef: hiseas-site-coordinates
+  - field: campaignId
+    quote: >-
+      The 1-year Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission took place from August 28th, 2015 to August 28th, 2016
+    sourceRef: hiseas-iv-article
+  - field: name
+    quote: Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission
+    sourceRef: hiseas-iv-article
+  - field: agency
+    quote: Operated by the University of Hawaii, and funded by NASA, this habitat served primarily for NASA Behavioral Health and Performance (BHP) research.
+    sourceRef: hiseas-iv-article
+  - field: years
+    quote: >-
+      The 1-year Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission took place from August 28th, 2015 to August 28th, 2016
+    sourceRef: hiseas-iv-article

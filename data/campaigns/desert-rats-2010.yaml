@@ -1,0 +1,76 @@
+campaignId: desert-rats-2010
+name: Desert RATS 2010 geology crew operations test
+agency:
+  - NASA
+years:
+  first: 2010
+  last: 2010
+site:
+  name: Black Point Lava Flow test area, Arizona
+  lat: 35.6929
+  lon: -111.46
+  h3r4: 8448c9bffffffff
+  quote: >-
+    N35.6929, W111.46
+  sourceRef: desert-rats-site-map
+objectivesExercised:
+  - objectiveId: null
+    text: Simulated geological science traverses with crewed rovers
+    quote: >-
+      The 2010 test was designed to simulate geologic science traverses over a 14-day period through a volcanic field that is analogous to volcanic terrains observed throughout the Solar System.
+    sourceRef: desert-rats-2010-ntrs
+publishedConstraints:
+  - what: Rover test period
+    value: 14
+    unit: days
+    quote: >-
+      over a 14-day period
+    sourceRef: desert-rats-2010-ntrs
+outcome:
+  - kind: lesson
+    text: No rover operations mode was consistently best in the reported comparisons.
+    quote: >-
+      suggested that no mode was consistently preferable
+    sourceRef: desert-rats-2010-ntrs
+sources:
+  - ref: desert-rats-2010-ntrs
+    url: https://ntrs.nasa.gov/api/citations/20120011764/downloads/20120011764.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: cdd05764f04133e98bc6002daab9ee2a1ac7a0d5929bbb2efebb13098db0b9b2
+    localPath: data/snapshots/campaign-sources/desert-rats-2010/nasa-report.pdf
+    licenceNote: NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.
+  - ref: desert-rats-site-map
+    url: https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 239964637e02e01b4b7307fe39950bcd98a1681bb2281e11bd68323876539e03
+    localPath: data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates.md
+    licenceNote: Searchable text was extracted from a NASA site-map PDF; NTRS lists Public Use Permitted.
+  - ref: desert-rats-site-map-pdf
+    url: https://ntrs.nasa.gov/api/citations/20090012335/downloads/20090012335.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 98a2aa01b44ab6fc0ab5d50ae8fc46c0ebab377e85c3c6afdb45866da38559ae
+    localPath: data/snapshots/campaign-sources/desert-rats-2010/nasa-site-coordinates-original.pdf
+    licenceNote: Original NASA site-map PDF stored for quote checks; NTRS lists Public Use Permitted.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The source describes geology traverses but does not state a specific M2M objective ID.
+evidence:
+  - field: site.name
+    quote: >-
+      The Black Point Lava Flow (BPLF) test site offers a large scale test area
+    sourceRef: desert-rats-site-map
+  - field: campaignId
+    quote: >-
+      DESERT RATS 2010 OPERATIONS TESTS: INSIGHTS FROM THE GEOLOGY CREW MEMBERS.
+    sourceRef: desert-rats-2010-ntrs
+  - field: name
+    quote: >-
+      DESERT RATS 2010 OPERATIONS TESTS: INSIGHTS FROM THE GEOLOGY CREW MEMBERS.
+    sourceRef: desert-rats-2010-ntrs
+  - field: agency
+    quote: >-
+      NASA hardware and operations deployed in the high
+    sourceRef: desert-rats-2010-ntrs
+  - field: years
+    quote: The test was conducted between 31 August and 13 September 2010.
+    sourceRef: desert-rats-2010-ntrs
