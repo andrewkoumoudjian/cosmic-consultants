@@ -1779,6 +1779,15 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://lpdaac.usgs.gov/documents/1006/MCD64_User_Guide_V61.pdf",
+      "fetchedAt": "2026-11-14T19:47:00Z",
+      "sha256": "9fff6bd6dcd2d56327d3c0ecb7c0c4ba76bb3858ee5f4c1cc890e447e1ffc36f",
+      "bytes": 1007034,
+      "licenseNote": "MCD64A1 Collection 6.1 User Guide (NASA LP DAAC documentation, publicly accessible); stored locally to verify versioned Burn Date, QA and unmapped/water semantics quoted in the #65 probe log and metadata.",
+      "localPath": "data/snapshots/modis-mcd64a1/MCD64_User_Guide_V61.pdf"
     }
   ]
 }
