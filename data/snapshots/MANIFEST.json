@@ -1788,6 +1788,17 @@
       "bytes": 1007034,
       "licenseNote": "MCD64A1 Collection 6.1 User Guide (NASA LP DAAC documentation, publicly accessible); stored locally to verify versioned Burn Date, QA and unmapped/water semantics quoted in the #65 probe log and metadata.",
       "localPath": "data/snapshots/modis-mcd64a1/MCD64_User_Guide_V61.pdf"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=2000",
+      "fetchedAt": "2026-11-14T22:13:19+00:00",
+      "sha256": "059ae8f919aee7d12eab5bafa7892d72ea7c514c533fabc44dad21a32df216ce",
+      "bytes": 2676986,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/_derived/burned-r4-ledger.jsonl.gz",
+      "note": "gzip JSONL ledger of every 2015-2024 MCD64A1 granule fetched by p0ingest.burned (url, sha256, bytes, time, pixel tallies); hashed here and in burned-r4-monthly.meta.json"
     }
   ]
 }

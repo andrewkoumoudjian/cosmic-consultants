@@ -614,9 +614,10 @@ def finalize(run: Run, urls: list[str], listing: dict) -> dict:
                            "persistent cloud/smoke are not detected; unmapped pixels are "
                            "excluded from the denominator rather than counted unburned",
             "validation": PROBE_EVIDENCE["userGuide"]["quotes"]["validation"],
-            "coverage": "MCD64A1 tiles exist only where LP DAAC produces them (v <= 14 in the "
-                        "south); Antarctic land and other untiled areas are null with "
-                        "outside-mcd64a1-tiles, not zero",
+            "coverage": "MCD64A1 v061 tiles are produced only for v02-v14 (observed in the 2015-2024 "
+                        "listing): no coverage above ~70 degN (Greenland, Arctic islands, e.g. "
+                        "Haughton/Devon Island is null) and only two v14 tiles in the far south; "
+                        "untiled land is null with outside-mcd64a1-tiles, never zero",
             "proxyNote": "burned share is a hazard-proxy trait (fire disturbance frequency), "
                          "not a site-similarity verdict; no scores or verdicts are computed here",
         },
@@ -631,6 +632,14 @@ def finalize(run: Run, urls: list[str], listing: dict) -> dict:
     meta["nullRate"] = {"burned_pct": round(tbl["burned_pct"].null_count / tbl.num_rows, 4),
                         "years_mapped": 0.0}
     META.write_text(json.dumps(meta, indent=2) + "\n")
+    manifest_append({"datasetId": DATASET, "sourceUrl": listing["sourceUrl"],
+                     "fetchedAt": meta["generatedAt"], "sha256": meta["inputs"]["ledger"]["sha256"],
+                     "bytes": meta["inputs"]["ledger"]["bytes"],
+                     "license": row["license"]["id"], "licenseVerified": row["license"]["verified"],
+                     "localPath": LEDGER_REL,
+                     "note": "gzip JSONL ledger of every 2015-2024 MCD64A1 granule fetched by "
+                             "p0ingest.burned (url, sha256, bytes, time, pixel tallies); hashed "
+                             "here and in burned-r4-monthly.meta.json"})
     return meta
 
 
@@ -664,26 +673,35 @@ SPOTS = {
 
 
 def spot_checks() -> int:
-    """Real observations from burned-r4-monthly.parquet at fire-prone and ice places."""
-    tbl = pq.read_table(OUT).to_pandas()
-    missing = 0
+    """Real observations from burned-r4-monthly.parquet at fire-prone and ice places.
+    Pure pyarrow (no pandas needed)."""
+    hexes, _ = l1_cells()
+    ix = {h: i for i, h in enumerate(hexes)}
+    tbl = pq.read_table(OUT)
+    months = tbl.column("month").to_pylist()
+    pct = tbl.column("burned_pct").to_pylist()
+    years = tbl.column("years_mapped").to_pylist()
+    reasons = tbl.column("missing_reason").to_pylist()
+    marks = 0
     for name, (la, lo) in SPOTS.items():
         cell = h3.latlng_to_cell(la, lo, RES)
-        rows = tbl[tbl.h3 == cell].sort_values("month")
-        if rows.empty:
-            print(f"    {name} ({la},{lo}) {cell}: no row (not in key set)")
+        i = ix.get(cell)
+        if i is None:
+            print(f"    {name} ({la},{lo}) {cell}: not a land cell in the key set")
             continue
-        vals = {int(r.month): None if r.burned_pct != r.burned_pct else round(r.burned_pct, 3)
-                for r in rows.itertuples()}
-        nz = {m: v for m, v in vals.items() if v}
+        base = i * 12
+        vals = {months[base + m - 1]: pct[base + m - 1] for m in range(1, 13)}
+        nz = {m: round(v, 3) for m, v in vals.items() if v is not None and v > 0}
+        nulls = {m: v for m, v in vals.items() if v is None}
         print(f"    {name} ({la},{lo}) {cell}")
         print(f"      months with burned_pct>0: {nz if nz else 'none'}")
-        print(f"      years_mapped: {[f'{int(r.month)}:{int(r.years_mapped)}' for r in rows.itertuples()]}")
-        reasons = {int(r.month): json.loads(r.missing_reason) for r in rows.itertuples()
-                   if r.missing_reason and r.missing_reason != "{}"}
-        print(f"      reasons: {reasons if reasons else 'none (all months have values)'}")
-        missing += bool(reasons)
-    return missing
+        print(f"      null months: {sorted(nulls) if nulls else 'none'}")
+        print(f"      years_mapped: {{m: y}} = "
+              f"{ {m: years[base + m - 1] for m in range(1, 13)} }")
+        r = json.loads(reasons[base])  # same reason for all null months of a cell
+        print(f"      reason (Jan row): {reasons[base]}")
+        marks += bool(nulls) and r == {}
+    return marks
 
 
 # --------------------------------------------------------------------------- cli
