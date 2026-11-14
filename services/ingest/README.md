@@ -1,5 +1,14 @@
 # services/ingest — W6 (#19): Earth P0 traits per H3 cell
 
+`python -m p0ingest.clean_audit` writes the #69 cleaning report. The assembler
+also runs it. It replays the current 2023 LST/land-cover thresholds against
+hashed raw inputs, counts output nulls separately and preserves unavailable
+historical input counts as unknown. The report exposes two current source
+quality gaps: MOD11C3 QC bits are not filtered, and the terrain reader does
+not apply a nodata mask. Metadata now describes those actual behaviours.
+No physical values are changed by this diagnostic; scientific review and
+source rebuilds remain separate work.
+
 Turns hashed NASA/ESA/Copernicus snapshots into one table: a row per H3 land
 cell (resolution 4, about 1,770 km² each, 91,800 cells), with the raw traits
 for terrain, thermal, illumination, surface material and water ice. Anything

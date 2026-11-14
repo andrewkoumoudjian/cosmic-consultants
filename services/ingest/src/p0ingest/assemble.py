@@ -366,10 +366,19 @@ class Build:
         self.write("campaign-sites", self.campaigns(sites))
         print("[trait-scales, data-coverage]", flush=True)
         OUT.mkdir(parents=True, exist_ok=True)
+        from .clean_audit import build as cleaning_audit
+        cleaning_result = cleaning_audit()
+        quality = {"scientificStatus": cleaning_result["scientificStatus"], "warnings": cleaning_result["warnings"],
+                   "completeInputFilterAccounting": cleaning_result["completeInputFilterAccounting"], "followupIssue": 76}
+        self.report["sourceQuality"] = quality
         for name, obj in (("trait-scales", self.scales(sites)), ("data-coverage", self.coverage(sites, monthly))):
+            if name == "data-coverage":
+                obj["sourceQuality"] = quality
             p = OUT / f"{name}.json"
             p.write_text(json.dumps(obj, indent=2, default=float) + "\n", encoding="utf-8")
             self.report["outputs"][name] = {"path": str(p.relative_to(REPO)), "sha256": sha256(p), "bytes": p.stat().st_size}
+        cleaning = OUT / "cleaning-report.json"
+        self.report["outputs"]["cleaning-report"] = {"path": str(cleaning.relative_to(REPO)), "sha256": sha256(cleaning), "bytes": cleaning.stat().st_size}
         self.report["runtime_s"] = round(time.time() - t0, 1)
         self.report["result"] = "ALL PASS" if self.fails == 0 else f"{self.fails} CHECK(S) FAILED"
         (OUT / "assembly-report.json").write_text(json.dumps(self.report, indent=2, default=float) + "\n", encoding="utf-8")

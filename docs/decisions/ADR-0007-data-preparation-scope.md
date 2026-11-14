@@ -58,3 +58,10 @@ https://github.com/andrewkoumoudjian/cosmic-consultants/issues/69#issuecomment-6
   years, duplicate keys and unknown cells fail checks.
 - Delivery is separate from generation. Done when: Drive checksums match
   accepted local artifacts; a running transfer is reported as pending.
+
+The cleaning audit reports actual input threshold counts separately from
+output nulls. Missing historical input accounting stays unknown. It found
+that the old DEM nodata-filter label was inaccurate and MOD11C3 QC-bit
+filtering is absent. Those source-quality limits appear in the cleaning and
+coverage reports; #76 owns their audit/rebuild. Merging assembly does not
+accept those source methods or close the full data-preparation work order.

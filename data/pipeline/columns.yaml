@@ -40,7 +40,7 @@ tables:
     columns:
       - {name: lat, from: cells-r4.lat, unit: deg, trait: null, steps: [2, 4], status: active, clean: [h3-centre]}
       - {name: lon, from: cells-r4.lon, unit: deg, trait: null, steps: [2, 4], status: active, clean: [h3-centre]}
-      - {name: land_pct_mean, from: cells-r4.land_pct_mean, unit: "%", trait: null, steps: [2], status: active, clean: [mcd12c1-land-share]}
+      - {name: land_pct_mean, from: cells-r4.land_pct_mean, unit: "%", trait: null, steps: [2], status: active, clean: [mod11c3-land-share]}
       - {name: lst_day_max_k, from: cells-r4.lst_day_max_k, unit: K, trait: thermal, steps: [2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
       - {name: lst_night_min_k, from: cells-r4.lst_night_min_k, unit: K, trait: thermal, steps: [2, 3, 5], status: active, clean: [lst-fill, lst-scale, lst-coverage-25pct]}
       - {name: lst_diurnal_range_mean_k, from: cells-r4.lst_diurnal_range_mean_k, unit: K, trait: thermal, steps: [2, 3], status: active, clean: [lst-fill, lst-scale]}
@@ -48,13 +48,13 @@ tables:
       - {name: snow_ice_pct, from: cells-r4.snow_ice_pct, unit: "%", trait: surfaceMaterial, steps: [2, 3], status: active, clean: [mcd12c1-shares]}
       - {name: water_pct, from: cells-r4.water_pct, unit: "%", trait: null, steps: [2], status: active, clean: [mcd12c1-shares]}
       - {name: permafrost_pct, from: cells-r4.permafrost_pct, unit: "%", trait: waterIce, steps: [2, 3], status: active, clean: [esa-cci-fill-255, outside-model-null]}
-      - {name: elev_mean_m, from: cells-r4.elev_mean_m, unit: m, trait: terrain, steps: [2, 4], status: active, clean: [dem-nodata]}
-      - {name: elev_min_m, from: cells-r4.elev_min_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-nodata]}
-      - {name: elev_max_m, from: cells-r4.elev_max_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-nodata]}
-      - {name: slope_mean_deg, from: cells-r4.slope_mean_deg, unit: deg, trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
-      - {name: slope_frac_lt5, from: cells-r4.slope_frac_lt5, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
-      - {name: slope_frac_lt15, from: cells-r4.slope_frac_lt15, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-nodata]}
-      - {name: slope_frac_gt30, from: cells-r4.slope_frac_gt30, unit: "1", trait: hazard, reasonKey: terrain, steps: [3, 5], status: active, clean: [dem-nodata]}
+      - {name: elev_mean_m, from: cells-r4.elev_mean_m, unit: m, trait: terrain, steps: [2, 4], status: active, clean: [dem-unmasked-source]}
+      - {name: elev_min_m, from: cells-r4.elev_min_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-unmasked-source]}
+      - {name: elev_max_m, from: cells-r4.elev_max_m, unit: m, trait: terrain, steps: [2], status: active, clean: [dem-unmasked-source]}
+      - {name: slope_mean_deg, from: cells-r4.slope_mean_deg, unit: deg, trait: terrain, steps: [2, 3], status: active, clean: [dem-unmasked-source]}
+      - {name: slope_frac_lt5, from: cells-r4.slope_frac_lt5, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-unmasked-source]}
+      - {name: slope_frac_lt15, from: cells-r4.slope_frac_lt15, unit: "1", trait: terrain, steps: [2, 3], status: active, clean: [dem-unmasked-source]}
+      - {name: slope_frac_gt30, from: cells-r4.slope_frac_gt30, unit: "1", trait: hazard, reasonKey: terrain, steps: [3, 5], status: active, clean: [dem-unmasked-source]}
       - {name: sun_noon_elev_max_deg, from: cells-r4.sun_noon_elev_max_deg, unit: deg, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
       - {name: sun_noon_elev_min_deg, from: cells-r4.sun_noon_elev_min_deg, unit: deg, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}
       - {name: polar_night, from: cells-r4.polar_night, unit: bool, trait: illumination, steps: [2, 3], status: active, clean: [computed-from-lat]}

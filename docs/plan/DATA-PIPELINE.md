@@ -9,6 +9,16 @@ The historical six-step IDs below identify data consumers only.
 Product plan: [MISSION-PLANNER.md](MISSION-PLANNER.md). Owner of this spec:
 Andrew (data pipeline scope).
 
+The #69 `cleaning-report.json` audits the rules actually used. It separates
+native input-value rejection counts from output-row null counts. Current
+raw replays cover the twelve 2023 MOD11C3 granules and three MCD12C1 share
+layers. Historical streaming pixel counts and source QA gaps stay explicit:
+MOD11C3 QC bits are not filtered; `terrain._read_tile` reads unmasked arrays.
+The old `dem-nodata` and `mcd12c1-land-share` rule labels were inaccurate;
+the registry now names unmasked terrain and MOD11C3 land-share provenance.
+This report does not accept those source methods or claim complete input
+filter accounting. Source corrections/rebuilds remain open data work.
+
 This is the single description of what data we hold, how it's built, where
 it's stored and who reads it. If code or another doc disagrees with this file,
 the Google Doc governs product requirements; align this file through a PR. If you find a contradiction, open an
