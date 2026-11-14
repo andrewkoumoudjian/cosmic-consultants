@@ -22,7 +22,15 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "Issue #41 rechecked the product's Astropedia page without establishing applicable reuse terms. Citation of Robbins 2019 JGR is not a dataset licence. Retained unresolved; see LICENCE-AUDIT-41.md."
+  note: >
+    Issue #41 rechecked the product's Astropedia page without establishing applicable
+    reuse terms. Citation of Robbins 2019 JGR is not a dataset licence. Retained
+    unresolved; see LICENCE-AUDIT-41.md. W39 (#98) re-probe 2026-11-14: the full PDS
+    bundle (96,227,201 B, snapshotted with licenseVerified=false) contains no licence,
+    rights or redistribution statement (README, archive description, PDS4 XML); the
+    Astropedia page has no 'Use Constraints' section; the advertised
+    pdsimage2 Individual_Investigations URL returned HTTP 404. Values not used;
+    see data/snapshots/_derived/planetary/robbins-moon-craters/gap-report.json.
 coverage:
   spatial: "global Moon"
   temporal: ""
