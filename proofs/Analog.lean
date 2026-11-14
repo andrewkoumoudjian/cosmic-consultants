@@ -35,3 +35,5 @@ import Analog.Readiness
 import Analog.ReadinessProofs
 import Analog.Funnel
 import Analog.Closeness
+import Analog.FunnelProofs
+import Analog.ClosenessProofs

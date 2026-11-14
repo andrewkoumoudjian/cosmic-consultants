@@ -33,6 +33,25 @@ import Analog
 #print axioms Analog.ReadinessProofs.s6g_not_rateable
 #print axioms Analog.ReadinessProofs.s6z_empty_required
 #print axioms Analog.ReadinessProofs.s6u_all_unknown
+-- W21 (#80): S7 funnel + S8 closeness split (statements in #84; accepted after owner freeze)
+#print axioms Analog.FunnelProofs.s7a_match_iff
+#print axioms Analog.FunnelProofs.s7b_unknown_not_match
+#print axioms Analog.FunnelProofs.s7c_tighten_band
+#print axioms Analog.FunnelProofs.s7d_add_must
+#print axioms Analog.FunnelProofs.s7e_window_matched
+#print axioms Analog.FunnelProofs.s7e_window_missed
+#print axioms Analog.FunnelProofs.s7f_class_allMatch_iff
+#print axioms Analog.FunnelProofs.s7g_nice_never_filters
+#print axioms Analog.FunnelProofs.s7h_more_months
+#print axioms Analog.FunnelProofs.s7i_unknown_limit_kept
+#print axioms Analog.FunnelProofs.s7z_empty_window
+#print axioms Analog.ClosenessProofs.s8a_nonneg
+#print axioms Analog.ClosenessProofs.s8b_zero_iff
+#print axioms Analog.ClosenessProofs.s8c_shapley_is_term
+#print axioms Analog.ClosenessProofs.s8d_shares_sum
+#print axioms Analog.ClosenessProofs.s8e_share_nonneg
+#print axioms Analog.ClosenessProofs.s8f_missing_unranked
+#print axioms Analog.ClosenessProofs.s8g_share_local
 -- Ported prior work (Analog.Prior.*), representative theorems per module:
 #print axioms PerpTheory.stdize_inv
 #print axioms PerpTheory.chebyshev_finite
