@@ -23,7 +23,7 @@ import pyarrow.parquet as pq
 from pyhdf.SD import SD, SDC
 
 from .grid import DERIVED, RES, cell_center, cmg_cell_map, group_index
-from .monthly import lst_monthly, write_monthly
+from .monthly import YEAR, lst_monthly, write_monthly
 from .snapshots import SNAP, load_manifest, sha256
 
 LST_SCALE = 0.02  # K per count, MOD11C3 V061; fill 0; valid 7500..65535
@@ -61,7 +61,8 @@ def thermal(order, starts):
     """One pass over the 12 MOD11C3 granules (monthly.lst_monthly).
     Returns per-cell L1 columns, the L1m monthly arrays, and the input files.
     Yearly extremes = max/min over the monthly medians (spec §5, one rule)."""
-    files = _manifest_files("modis-mod11c3")
+    # L1/L1m use 2023 only; other years are in the manifest for L1m-years (years.py).
+    files = [e for e in _manifest_files("modis-mod11c3") if f".A{YEAR}" in e["localPath"]]
     day_m, night_m, nboth, rsum, rn, thin_day, thin_night = lst_monthly(files, order, starts, _group_stat)
     rng = np.where(rn > 0, rsum / np.maximum(rn, 1), np.nan)
     with np.errstate(all="ignore"):
