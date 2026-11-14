@@ -5,6 +5,36 @@ from p0ingest.assemble import Build
 
 
 class AssemblyValidation(unittest.TestCase):
+    def test_updated_doc_categories_and_full_metric_menus_are_retained(self):
+        import yaml
+        from p0ingest.assemble import REPO
+        build = object.__new__(Build)
+        build.reg = yaml.safe_load((REPO / "data/pipeline/columns.yaml").read_text())
+        report = build.coverage(pl.DataFrame(), pl.DataFrame())
+        self.assertEqual(len(report["categories"]), 19)
+        self.assertEqual(report["testCatalog"]["selection"]["maxMetrics"], 8)
+        for category in ["robotic-mobility-navigation", "geological-exploration-sampling"]:
+            self.assertEqual(len(report["categories"][category]["detailedMetricMenuText"]), 12)
+            self.assertEqual(report["categories"][category]["dataSupportStatus"], "not-established")
+        self.assertEqual(report["planetaryAssemblyStatus"].split(":")[0], "not-built")
+
+    def test_campaign_quotes_and_context_period_survive_assembly(self):
+        import json
+        import yaml
+        from p0ingest.assemble import REPO
+        campaigns = [yaml.safe_load(p.read_text()) for p in sorted((REPO / "data/campaigns").glob("*.yaml"))]
+        sites = pl.DataFrame({"h3": sorted({c["site"]["h3r4"] for c in campaigns})}).with_columns(pl.lit("{}").alias("missing_reason"))
+        build = object.__new__(Build)
+        build.report = {"checks": []}
+        build.fails = 0
+        rows = {r["campaign_id"]: r for r in build.campaigns(sites).to_dicts()}
+        for campaign in campaigns:
+            row = rows[campaign["campaignId"]]
+            self.assertEqual(json.loads(row["source_records"]), campaign["sources"])
+            self.assertEqual(json.loads(row["constraint_evidence"]), campaign["publishedConstraints"])
+            self.assertEqual(json.loads(row["outcome_evidence"]), campaign["outcome"])
+            self.assertEqual(row["hex_feature_period"], "2023 reference context; not measured campaign conditions")
+
     def test_invalid_month_is_rejected_with_unchanged_row_count(self):
         import tempfile
         from pathlib import Path

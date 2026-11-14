@@ -233,6 +233,13 @@ class Build:
                          "outcomes": json.dumps([{"kind": o["kind"], "text": o["text"]} for o in d["outcome"]]),
                          "constraints": json.dumps([{k: o[k] for k in ("what", "value", "unit")} for o in d["publishedConstraints"]]),
                          "sources": json.dumps([s["url"] for s in d["sources"]]),
+                         "source_records": json.dumps(d["sources"], ensure_ascii=False),
+                         "objective_evidence": json.dumps(d["objectivesExercised"], ensure_ascii=False),
+                         "constraint_evidence": json.dumps(d["publishedConstraints"], ensure_ascii=False),
+                         "outcome_evidence": json.dumps(d["outcome"], ensure_ascii=False),
+                         "explicit_unknowns": json.dumps(d["nulls"], ensure_ascii=False),
+                         "hex_feature_period": "2023 reference context; not measured campaign conditions",
+                         "test_mapping_status": "not-mapped-to-structured-test-ids",
                          "file": str(Path(p).relative_to(REPO))})
         df = pl.DataFrame(rows)
         import h3
@@ -306,10 +313,15 @@ class Build:
                 rows.append({"trait": m["mismatch"], "earthColumn": None, "band": None, "columnNullRate": None,
                              "checkedBy": "earth-cannot", "bandStatus": "permanent breakdown", "why": m["why"]})
             objectives[d["objectiveId"]] = {"body": d["body"], "title": d["title"], "traits": rows}
+        test_path = REPO / "data/pipeline/test-categories.yaml"
+        test_catalog = yaml.safe_load(test_path.read_text(encoding="utf-8"))
+        test_rows = test_catalog["categories"]
+        if len(test_rows) != test_catalog["sourceCategoryCount"] or len({c["categoryId"] for c in test_rows}) != len(test_rows):
+            raise ValueError("test categories must preserve every source category exactly once")
         categories = {}
-        for k, c in self.reg["categories"].items():
-            categories[str(k)] = {"name": c["name"],
-                                  "traits": {t: {"checkedBy": kind(t), "columns": backing(t)} for t in c["traits"]}}
+        for c in test_rows:
+            categories[c["categoryId"]] = {**c,
+                "traits": {t: {"checkedBy": kind(t), "columns": backing(t)} for t in c["traits"]}}
         feature_path = REPO / "research/features/landing_site_features.csv"
         mapping_path = REPO / "data/pipeline/feature-preparation.yaml"
         with feature_path.open(encoding="utf-8", newline="") as stream:
@@ -323,7 +335,11 @@ class Build:
                 "featureInventory": {"path": str(feature_path.relative_to(REPO)), "sha256": sha256(feature_path),
                                      "mappingSha256": sha256(mapping_path), "count": len(full)},
                 "features": full, "workflowModules": preparation["workflowModules"],
-                "additionalEvidenceGaps": preparation["additionalEvidenceGaps"]}
+                "additionalEvidenceGaps": preparation["additionalEvidenceGaps"],
+                "testCatalog": {"source": test_catalog["source"], "selection": test_catalog["selection"],
+                                "sha256": sha256(test_path), "count": len(categories)},
+                "planetaryAssemblyStatus": "not-built: generic envelopes are not measured per-target feature tables",
+                "campaignTestAssemblyStatus": "partial: quoted records preserved; source extraction of historical test conditions remains #74"}
 
     # ---- run ----------------------------------------------------------------
     def run(self) -> int:

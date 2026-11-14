@@ -16,8 +16,11 @@ GitHub feature inventory as the current scope.
    internal column metadata are compatibility references, not UI authority.
 2. Preparation tracks every feature ID in
    `research/features/landing_site_features.csv` (55 in this revision),
-   plus workflow context and past-campaign data. The base yearly/monthly
-   tables and three objective rows are a starting subset.
+   plus workflow context and past-campaign data. The updated IDEA tab has
+   19 categories and a maximum of eight selected metrics; the maximum limits
+   a user selection, not the dataset or menu length. The 55 features are a
+   baseline, not a cap. The base yearly/monthly tables and three objective
+   rows are a starting subset.
 3. A related input does not complete a feature. Preserve the feature's
    quantity, units, spatial baseline, aggregation, time window, quality flags,
    source/version/hash and caveats. Monthly composites cannot become daily

@@ -108,9 +108,9 @@ derived:
       - {name: lst_years_with_value, of: lst_night_k, stat: count, unit: count}
     rule: "over 2014-2023, only years with a value; null if fewer than 5 years have one (reason too-few-years)"
 
-# The team doc's 8 test categories -> the traits they need (MISSION-PLANNER step 1).
-# data-coverage.json reports, per category and trait, which columns back it and how complete they are.
-categories:
+# Historical eight-category routing, retained for reference only.
+# The current 19 categories and source metric menus live in test-categories.yaml.
+legacyCategories:
   1: {name: "Robotic mobility and navigation", traits: [terrain, surfaceMaterial]}
   2: {name: "Geology and sampling", traits: [surfaceMaterial, terrain]}
   3: {name: "Resources / ISRU", traits: [waterIce, subsurface, surfaceMaterial]}

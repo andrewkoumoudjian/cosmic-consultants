@@ -18,7 +18,11 @@ issue, don't route around it.
 
 **Full feature scope.** Data preparation covers every feature in
 `research/features/landing_site_features.csv` (55 current IDs), plus context
-and campaign evidence for the eight test categories. The per-feature
+and campaign evidence for the **19 current test categories**. The user may
+select up to eight metrics, while all source menu choices remain available
+in the requirements inventory (`data/pipeline/test-categories.yaml`). This
+selection limit does not cap stored features or reduce the 12-item mobility
+and geology menus. The 55-feature list is a baseline, not a ceiling. The per-feature
 preparation mapping is `data/pipeline/feature-preparation.yaml`; the assembler
 includes all its entries in `data-coverage.json`. Related available columns
 are reported as inputs, never as completed exact features. Category-level
@@ -29,6 +33,16 @@ derivation, source hashes and limitations. Monthly MOD11C3 composites are
 not observed daily extremes; 240 m cell slopes do not implement all fine
 baselines; permafrost is not ice depth. Site-scale and regional evidence
 remain at their actual support instead of being presented as global coverage.
+
+**Target and campaign boundary.** Current assembly does not produce measured
+per-site Moon/Mars feature tables: the two envelope JSONs are generic
+reference requirements, not extracted target measurements. Campaign site
+joins attach 2023 Earth-cell context, explicitly labelled as such, rather
+than measurements of conditions during historical tests. Quotes, source
+records, constraints, outcomes and unknowns survive preparation unchanged.
+Instruments, procedures and dated test measurements need the source
+acquisition and evidence extraction work in issue #74. See
+[TEST-DATA-AUDIT.md](TEST-DATA-AUDIT.md).
 
 1. **Every number traces to a snapshot.** A snapshot is a source file or
    listing with its URL, fetch date, sha256 and licence in
