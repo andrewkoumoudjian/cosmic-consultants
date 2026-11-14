@@ -1,5 +1,9 @@
 Work order: closes #
 
+## Board (#6), required (AGENTS.md rule 2)
+- "Now working on" post: <link to the #6 comment>
+- Handoff post: <link to the #6 comment>
+
 ## What changed
 -
 
