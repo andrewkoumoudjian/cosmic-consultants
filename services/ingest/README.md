@@ -96,6 +96,14 @@ The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
 builders keep their own tables. The generic Drive sync script excludes
 `_derived/`; copy prepared outputs separately and verify their hashes.
 
+`data/pipeline/evidence.yaml` adds one descriptor (`kind`, `support`,
+`family`) per registry column so observations, reanalysis, models,
+catalogues, and geometry stay separated, `synthetic` values are rejected in
+assembled tables, `assemble` rejects `NaN`/infinite floats, and `source-gap`
+features carry a dated `absenceScope` stating the scope searched rather than a
+claim of absence. Counting `family` values is a discovery hint only;
+corroboration requires per-claim review.
+
 Run `python -m unittest discover -s tests -v` for the assembly regressions.
 
 ## Temperature history (W24, #64)
