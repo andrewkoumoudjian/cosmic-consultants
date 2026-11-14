@@ -9,7 +9,9 @@
 - We only took what the traits need: monthly composites for one year (2023), one annual land-cover file, one permafrost year, and the coarse DEM overview streamed without storing it.
 - Raw files are mirrored to the shared Drive folder: https://drive.google.com/drive/folders/1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_ (`scripts/drive_sync.sh`, copy only, never deletes). Mount it with `scripts/drive_mount.sh`.
 
-- **Cells file:** `data/snapshots/_derived/cells-r4.parquet`: 91,800 H3 res-4 land cells, sha256 `08eb63d67d4939ea…`, 9.7 MB, built in 53.1 s.
+- **Cells file:** `data/snapshots/_derived/cells-r4.parquet`: 91,800 H3 res-4 land cells, sha256 `2074c5a588ec2e5b…`, 9.7 MB, built in 77.5 s.
+
+- **Monthly cells file (L1m):** `data/snapshots/_derived/cells-r4-monthly.parquet`: 1,101,600 rows (cell × month of 2023), sha256 `63ceebabe7673077…`, 22.9 MB. a monthly median is kept only if >= 25% of the hexagon's CMG pixels have a value that month; otherwise null, reason too-few-lst-pixels.
 
 ## Datasets
 
@@ -68,8 +70,8 @@
 | `lon` | 0.00% |
 | `cmg_pixels` | 0.00% |
 | `land_pct_mean` | 0.00% |
-| `lst_day_max_k` | 0.84% |
-| `lst_night_min_k` | 0.83% |
+| `lst_day_max_k` | 0.86% |
+| `lst_night_min_k` | 0.85% |
 | `lst_diurnal_range_mean_k` | 0.90% |
 | `lst_months_with_range` | 0.90% |
 | `lst_valid_pixels` | 0.00% |
@@ -92,7 +94,7 @@
 | `dust_aod_mean` | 100.00% |
 | `missing_reason` | 0.00% |
 
-Why each null trait is null (also stored in every row as `missing_reason`):
+Why each null trait is null. Each row's `missing_reason` (JSON) names only the traits null in that row, with a short code; the long reasons are here:
 
 - **dustProcess:** MERRA-2 M2TMNXAER: GES DISC returns HTTP 403 (Earthdata app not approved yet, 2026-11-14)
 - **waterIce:** ESA CCI permafrost v5.0 2023 covers only 25-85 N and 60-85 S, and inside that it writes fill 255 where it did not model (ocean and warm land, e.g. Montreal). Fill is unknown, not 0%. PFR is MODIS-LST-driven, so it is not independent of the thermal columns
@@ -100,7 +102,7 @@ Why each null trait is null (also stored in every row as `missing_reason`):
 - **operations:** accessibility/WDPA not ingested yet (gate 5 deferred)
 - **terrain:** 515 cells (0.56%) have no GLO-30 sample: mostly coastal edge cells, small islands, the Caspian Sea area and cells beyond 84 deg, where no tile is listed or no tile pixel lands on the cell's land pixels
 
-Timing (s): `{"grid_s": 0.6, "thermal_s": 14.0, "landcover_s": 32.9, "permafrost_s": 5.1, "total_s": 53.1}`
+Timing (s): `{"grid_s": 0.6, "thermal_s": 37.6, "landcover_s": 33.0, "permafrost_s": 5.6, "total_s": 77.5, "monthly_s": 2.6}`
 
 ## Every stored file
 

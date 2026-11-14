@@ -1,7 +1,13 @@
-"""Build cells-r<res>.parquet: one row per H3 land cell, raw P0 traits, explicit nulls.
+"""Build cells-r<res>.parquet (L1, yearly) and cells-r<res>-monthly.parquet (L1m)
+in one pass: one row per H3 land cell, P0 traits, explicit nulls.
 
 Inputs are only files recorded in data/snapshots/MANIFEST.json. A trait we
-could not compute is null in its column AND named in `missing_reason`.
+could not compute is null in its column AND named in that row's
+`missing_reason` (JSON text: trait -> short code). Long dataset-level reasons
+are in the .meta.json `missing` block. Spec: docs/plan/DATA-PIPELINE.md §5.
+
+One temperature rule (spec §5 L1m): L1 lst_day_max_k / lst_night_min_k are the
+max / min over months of the L1m monthly medians, so the two tables agree.
 """
 from __future__ import annotations
 
@@ -17,6 +23,7 @@ import pyarrow.parquet as pq
 from pyhdf.SD import SD, SDC
 
 from .grid import DERIVED, RES, cell_center, cmg_cell_map, group_index
+from .monthly import lst_monthly, write_monthly
 from .snapshots import SNAP, load_manifest, sha256
 
 LST_SCALE = 0.02  # K per count, MOD11C3 V061; fill 0; valid 7500..65535
@@ -50,23 +57,45 @@ def _group_stat(values: np.ndarray, order, starts, how: str) -> tuple[np.ndarray
     return out, n
 
 
-def thermal():
+def thermal(order, starts):
+    """One pass over the 12 MOD11C3 granules (monthly.lst_monthly).
+    Returns per-cell L1 columns, the L1m monthly arrays, and the input files.
+    Yearly extremes = max/min over the monthly medians (spec §5, one rule)."""
     files = _manifest_files("modis-mod11c3")
-    dmax = nmin = None
-    rsum = np.zeros((3600, 7200)); rn = np.zeros((3600, 7200), dtype=np.int16)
-    for e in files:
-        sd = SD(str(SNAP.parent.parent / e["localPath"]), SDC.READ)
-        day = sd.select("LST_Day_CMG")[:].astype(np.float64)
-        night = sd.select("LST_Night_CMG")[:].astype(np.float64)
-        day[day < 7500] = np.nan; night[night < 7500] = np.nan
-        day *= LST_SCALE; night *= LST_SCALE
-        dmax = day if dmax is None else np.fmax(dmax, day)
-        nmin = night if nmin is None else np.fmin(nmin, night)
-        both = ~np.isnan(day) & ~np.isnan(night)
-        rsum[both] += (day - night)[both]; rn[both] += 1
+    day_m, night_m, nboth, rsum, rn, thin_day, thin_night = lst_monthly(files, order, starts, _group_stat)
     rng = np.where(rn > 0, rsum / np.maximum(rn, 1), np.nan)
-    return {"lst_day_max_k": dmax, "lst_night_min_k": nmin, "lst_diurnal_range_mean_k": rng,
-            "lst_months_with_range": np.where(rn > 0, rn, np.nan).astype(np.float64)}, files
+    with np.errstate(all="ignore"):
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)  # all-NaN cells stay NaN
+            day_max = np.nanmax(day_m, axis=1)
+            night_min = np.nanmin(night_m, axis=1)
+    cols = {"lst_day_max_k": day_max, "lst_night_min_k": night_min}
+    pix = {"lst_diurnal_range_mean_k": rng,
+           "lst_months_with_range": np.where(rn > 0, rn, np.nan).astype(np.float64)}
+    return cols, pix, (day_m, night_m, nboth, thin_day, thin_night), files
+
+
+def row_reasons(lat: np.ndarray, cols: dict[str, np.ndarray]) -> list[str]:
+    """Per-row missing_reason for L1: only the traits null in THAT row."""
+    lat = np.asarray(lat)
+    in_pf_model = ((lat >= 25) & (lat <= 85)) | ((lat >= -85) & (lat <= -60))
+    checks = [
+        ("thermal", np.isnan(cols["lst_day_max_k"]) | np.isnan(cols["lst_night_min_k"]), "no-lst-pixels"),
+        ("surfaceMaterial", np.isnan(cols["barren_pct"]), "no-landcover-pixels"),
+        ("terrain", np.isnan(cols["slope_mean_deg"]) if "slope_mean_deg" in cols else np.ones(len(lat), bool), "no-dem-tile"),
+    ]
+    pf_null = np.isnan(cols["permafrost_pct"])
+    out = []
+    for i in range(len(lat)):
+        r = {"dustProcess": "dust-blocked"}
+        for trait, mask, code in checks:
+            if mask[i]:
+                r[trait] = code
+        if pf_null[i]:
+            r["waterIce"] = "permafrost-not-modelled" if in_pf_model[i] else "outside-permafrost-model"
+        out.append(json.dumps(r, sort_keys=True))
+    return out
 
 
 def landcover():
@@ -135,10 +164,11 @@ def build(res: int = RES) -> dict:
     cols["land_pct_mean"], _ = _group_stat(landp.astype(np.float64), order, starts, "mean")
     used = {}
 
-    t = time.time(); th, f = thermal(); used["modis-mod11c3"] = f
-    for k, v in th.items():
+    t = time.time(); th_cols, th_pix, monthly_arrays, f = thermal(order, starts); used["modis-mod11c3"] = f
+    cols.update(th_cols)
+    for k, v in th_pix.items():
         cols[k], _ = _group_stat(v, order, starts, "median")
-    cols["lst_valid_pixels"] = _group_stat(th["lst_diurnal_range_mean_k"], order, starts, "mean")[1].astype(np.float64)
+    cols["lst_valid_pixels"] = _group_stat(th_pix["lst_diurnal_range_mean_k"], order, starts, "mean")[1].astype(np.float64)
     timing["thermal_s"] = round(time.time() - t, 1)
 
     t = time.time(); lc, f = landcover(); used["modis-mcd12c1"] = f
@@ -188,7 +218,7 @@ def build(res: int = RES) -> dict:
         for k in ("dem_pixels", "elev_mean_m", "elev_min_m", "elev_max_m", "slope_mean_deg",
                   "slope_frac_lt5", "slope_frac_lt15", "slope_frac_gt30"):
             table[k] = pa.nulls(n, pa.float64())
-    table["missing_reason"] = pa.array([json.dumps(missing, sort_keys=True)] * n)
+    table["missing_reason"] = pa.array(row_reasons(lat, cols))
     tbl = pa.table(table)
 
     out = DERIVED / f"cells-r{res}.parquet"
@@ -205,9 +235,16 @@ def build(res: int = RES) -> dict:
     meta.update(path=str(out.relative_to(SNAP.parent.parent)), sha256=sha256(out), bytes=out.stat().st_size, timing=timing)
     meta["nullRate"] = {c: round(tbl[c].null_count / n, 4) for c in tbl.column_names}
     (DERIVED / f"cells-r{res}.meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+
+    t = time.time()
+    meta["monthly"] = write_monthly(hexes, lat, *monthly_arrays, used["modis-mod11c3"], res, missing["dustProcess"])
+    meta["timing"]["monthly_s"] = round(time.time() - t, 1)
+    (DERIVED / f"cells-r{res}.meta.json").write_text(json.dumps(meta, indent=2) + "\n")
     return meta
 
 
 if __name__ == "__main__":
     m = build()
     print(json.dumps({k: m[k] for k in ("path", "cells", "sha256", "bytes", "timing", "nullRate")}, indent=1))
+    mm = m["monthly"]
+    print(json.dumps({k: mm[k] for k in ("path", "rows", "sha256", "bytes", "nullRate")}, indent=1))
