@@ -1,0 +1,31 @@
+siteId: moon-feature-leibnitz
+name: Leibnitz
+body: moon
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: -38.2367
+centreLon: 179.34900000000002
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Leibnitz
+extent:
+  kind: bounding-box
+  minLat: -42.1246
+  maxLat: -34.3488
+  minLon: 174.4916
+  maxLon: 184.2165
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake "Leibnitz Beta Plateau" was a 2022 candidate region, dropped in 2024
+usgsCrossCheck:
+  feature: Leibnitz
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Leibnitz;clean_name=Leibnitz;approvaldt=1970/01/01 00:00:00;diameter=236.667529999999999;center_lon=179.349000000000018;center_lat=-38.236699999999999;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

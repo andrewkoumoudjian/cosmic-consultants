@@ -1,0 +1,31 @@
+siteId: moon-feature-malapert
+name: Malapert
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -84.99980000000001
+centreLon: 11.4031
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Malapert
+extent:
+  kind: bounding-box
+  minLat: -85.9904
+  maxLat: -83.9708
+  minLon: 1.0895
+  maxLon: 23.7823
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 region "Malapert Massif"
+usgsCrossCheck:
+  feature: Malapert
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Malapert;clean_name=Malapert;approvaldt=1935/01/01 00:00:00;diameter=72.384569999999997;center_lon=11.403100000000000;center_lat=-84.999800000000008;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

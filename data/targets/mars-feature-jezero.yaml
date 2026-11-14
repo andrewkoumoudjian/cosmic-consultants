@@ -1,0 +1,31 @@
+siteId: mars-feature-jezero
+name: Jezero
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: 18.4082
+centreLon: 77.68730000000001
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Jezero
+extent:
+  kind: bounding-box
+  minLat: 18.0077
+  maxLat: 18.8094
+  minLon: 77.2663
+  maxLon: 78.1112
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: Perseverance landed inside Jezero (2021)
+usgsCrossCheck:
+  feature: Jezero
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Jezero;clean_name=Jezero;approvaldt=2007/07/25 00:00:00;diameter=47.521200000000000;center_lon=77.687300000000008;center_lat=18.408200000000001;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

@@ -1,0 +1,31 @@
+siteId: mars-feature-meridiani-planum
+name: Meridiani Planum
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: -0.04
+centreLon: 356.86
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Meridiani Planum
+extent:
+  kind: bounding-box
+  minLat: -3.9998
+  maxLat: 8.7808
+  minLon: -10.8178
+  maxLon: 7.038
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: Opportunity landed on Meridiani Planum (2004)
+usgsCrossCheck:
+  feature: Meridiani Planum
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Meridiani Planum;clean_name=Meridiani Planum;approvaldt=2003/01/01 00:00:00;diameter=1058.529999999999973;center_lon=356.860000000000014;center_lat=-0.040000000000000;type=Planum,
+    plana;code=PM;approval=Adopted by IAU

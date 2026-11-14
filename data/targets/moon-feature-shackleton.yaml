@@ -1,0 +1,32 @@
+siteId: moon-feature-shackleton
+name: Shackleton
+body: moon
+kind: feature
+status: proposed
+lonMode: east-positive-0-360
+centreLat: -89.67
+centreLon: 129.78
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Shackleton
+extent:
+  kind: bounding-box
+  minLat: -89.943
+  maxLat: -89.287
+  minLon: 35.538
+  maxLon: 206.565
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: south-polar landmark; namesake of the dropped 2022 region "Peak Near Shackleton";
+  crater rim touches the pole
+usgsCrossCheck:
+  feature: Shackleton
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Shackleton;clean_name=Shackleton;approvaldt=1994/01/01 00:00:00;diameter=20.924982000000000;center_lon=129.780000000000001;center_lat=-89.670000000000002;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

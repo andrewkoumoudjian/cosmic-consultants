@@ -1,0 +1,36 @@
+# Registry row (W49, issue #108). USGS Astrogeology Gazetteer of Planetary
+# Nomenclature: named-feature centre points (per-target zip exports, linked from
+# the Gazetteer GIS_Downloads page). Used as the cross-check for every named
+# feature in data/targets/ and as the cited coordinate source for named-feature
+# rows. Descriptive fields human-checked; probe fields follow the template.
+datasetId: usgs-planetary-nomenclature
+title: "USGS Astrogeology Gazetteer of Planetary Nomenclature centre-point exports (Moon, Mars)"
+status: candidate
+bodies: [moon, mars]
+dimensions: [] # visualization/context only; no atlas dimension served
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology Science Center"
+  endpoint: "https://planetarynames.wr.usgs.gov/GIS_Downloads"
+  probedAt: null
+  probeResult: "unverified: GIS_Downloads page fetched 2026-11-14 (HTTP 200); per-body zips on asc-planetarynames-data.s3.us-west-2.amazonaws.com"
+probe:
+  kind: http
+  url: "https://planetarynames.wr.usgs.gov/GIS_Downloads"
+  expect: ["nomenclature_center_pts"]
+license:
+  id: us-pd
+  textUrl: "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"
+  expect: ["public domain", "US Government"]
+  verified: false
+  note: "US Government work product; no dataset-specific licence text is served by the Gazetteer site. USGS general copyright policy page cited as licence evidence, verification pending a live probe."
+coverage:
+  spatial: "global, all APPROVED names with centre lat/lon (planetocentric east-positive)"
+  temporal: "current export (refetched at use time; export version changes without notice)"
+  resolution: "point records (one per named feature)"
+analysisReady: true
+independenceGroup: gazetteer
+plannedUse: "Cross-check of named target-site features in data/targets/ (W49, #108); coordinate source for named-feature rows"
+snapshotPolicy: "per-body centre-point zips + the GIS_Downloads index page, via p0ingest.snapshots.fetch"

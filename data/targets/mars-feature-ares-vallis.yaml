@@ -1,0 +1,31 @@
+siteId: mars-feature-ares-vallis
+name: Ares Vallis
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: 10.2924
+centreLon: 334.3917
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Ares Vallis
+extent:
+  kind: bounding-box
+  minLat: 0.3348
+  maxLat: 20.8196
+  minLon: 324.0036
+  maxLon: 342.7594
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: Pathfinder landed in the Ares Vallis outwash region (1997)
+usgsCrossCheck:
+  feature: Ares Vallis
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Ares Vallis;clean_name=Ares Vallis;approvaldt=1973/01/01 00:00:00;diameter=1757.665799999999990;center_lon=334.391700000000014;center_lat=10.292400000000001;type=Vallis,
+    valles;code=VA;approval=Adopted by IAU

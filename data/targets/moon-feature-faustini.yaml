@@ -1,0 +1,31 @@
+siteId: moon-feature-faustini
+name: Faustini
+body: moon
+kind: feature
+status: proposed
+lonMode: east-positive-0-360
+centreLat: -87.1832
+centreLon: 84.3099
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Faustini
+extent:
+  kind: bounding-box
+  minLat: -87.9031
+  maxLat: -86.502
+  minLon: 69.3768
+  maxLon: 98.3907
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: south-polar crater; namesake "Faustini Rim A" was dropped in 2024
+usgsCrossCheck:
+  feature: Faustini
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Faustini;clean_name=Faustini;approvaldt=1994/01/01 00:00:00;diameter=42.484639999999999;center_lon=84.309899999999999;center_lat=-87.183199999999999;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

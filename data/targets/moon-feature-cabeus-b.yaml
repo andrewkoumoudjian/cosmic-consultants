@@ -1,0 +1,31 @@
+siteId: moon-feature-cabeus-b
+name: Cabeus B
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -82.2587
+centreLon: 305.41540000000003
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Cabeus B
+extent:
+  kind: bounding-box
+  minLat: -83.2438
+  maxLat: -81.2778
+  minLon: 297.9308
+  maxLon: 312.5692
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 region "Peak near Cabeus B"
+usgsCrossCheck:
+  feature: Cabeus B
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Cabeus B;clean_name=Cabeus B;approvaldt=2006/01/01 00:00:00;diameter=59.617268000000003;center_lon=305.415400000000034;center_lat=-82.258700000000005;type=Satellite
+    Feature;code=SF;approval=Adopted by IAU

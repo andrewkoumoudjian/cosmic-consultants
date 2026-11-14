@@ -1,0 +1,33 @@
+siteId: mars-feature-utopia-planitia
+name: Utopia Planitia
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: 46.7363
+centreLon: 117.5168
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Utopia Planitia
+extent:
+  kind: bounding-box
+  minLat: 12.9159
+  maxLat: 73.1699
+  minLon: 71.8562
+  maxLon: 164.8869
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: hosts the Viking 2 (1976) and Zhurong (2021) touchdown areas; this albedo-feature
+  centre is the nearest IAU gazetteer reference for Zhurong, whose touchdown coordinates
+  are not carried by any snapshotted official source
+usgsCrossCheck:
+  feature: Utopia Planitia
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Utopia Planitia;clean_name=Utopia Planitia;approvaldt=1973/01/01 00:00:00;diameter=3560.447999999999865;center_lon=117.516800000000003;center_lat=46.736300000000000;type=Planitia,
+    planitiae;code=PL;approval=Adopted by IAU
