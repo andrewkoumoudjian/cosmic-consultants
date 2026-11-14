@@ -31,7 +31,7 @@ OBLIQUITY = 23.44
 
 
 def _manifest_files(dataset_id: str) -> list[dict]:
-    rows = [e for e in load_manifest()["entries"] if e["datasetId"] == dataset_id]
+    rows = [e for e in load_manifest()["entries"] if e.get("datasetId") == dataset_id]
     return sorted(rows, key=lambda e: e["localPath"])
 
 
