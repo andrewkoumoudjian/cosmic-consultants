@@ -1,5 +1,9 @@
 # Pitch plan
 
+> **Product changed on 2026-11-14:** ARL is replaced by the mission planning
+> workflow ([ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md),
+> [plan](../plan/MISSION-PLANNER.md)). The pitch lane (W13, #24) rewrites this file.
+
 Working title: **Proving Grounds — Analog Readiness Levels for NASA's Moon-to-Mars objectives**
 (name is a placeholder; owner picks). No NASA logos or mission insignia
 anywhere (doc 07 §1.1). Planning document; the deck and video are built in

@@ -1,5 +1,9 @@
 # ADR-0002 — Analog Readiness Levels (ARL): per-objective, evidence-staged readiness
 
+> **Superseded by [ADR-0005](ADR-0005-mission-planning-workflow.md) (owner, 2026-11-14, #56).** The
+> product is now the mission planning workflow. Kept as a record; the proved S6
+> files stay in `proofs/` but the product no longer uses ARL.
+
 Date: 2026-11-12. Status: **accepted by merge #26 (`5da36ce`)**, as its original
 merge-acceptance clause specified (issue #14). Status annotation corrected in
 work order #43; substantive decision below preserved. [ADR-0004](ADR-0004-evidence-backed-comparison.md), which would have replaced

@@ -3,22 +3,25 @@
 Monorepo for the NASA Space Apps Challenge 2026 — **Identify Earth Locations
 that Analog the Permanent Moon Base Locations and Mars**.
 
-**What we're building ([ADR-0002](docs/decisions/ADR-0002-analog-readiness-levels.md), accepted):**
-an atlas organized around **Analog Readiness Levels** (ARL). ARL is a 0–6 ladder,
-like NASA's technology readiness levels but for test sites. It rates how ready
-each Earth site is to rehearse a specific NASA Moon-to-Mars objective. Every
-level shows its per-trait vector, the trait that limits it, and what Earth
-cannot rehearse (gravity, vacuum or thin air, radiation). Never a single score.
+**What we're building ([ADR-0005](docs/decisions/ADR-0005-mission-planning-workflow.md), owner's call 2026-11-14):**
+a **mission planning workflow**. A scientist picks a NASA Moon-to-Mars
+objective and the months of the trip, and we take them step by step to a field
+plan on Earth: (1) objectives, (2) site finder and compare, (3) gaps and what
+Earth can't test, (4) logistics, (5) risks, (6) past analog missions. Per-trait
+verdicts (match, miss with the gap, unknown), never a single site score. It
+replaces the earlier ARL ladder ([ADR-0002](docs/decisions/ADR-0002-analog-readiness-levels.md), superseded).
+Plan: [docs/plan/MISSION-PLANNER.md](docs/plan/MISSION-PLANNER.md). Data
+pipeline: [docs/plan/DATA-PIPELINE.md](docs/plan/DATA-PIPELINE.md).
 Scope for the 48 hours: [ADR-0003](docs/decisions/ADR-0003-hackathon-delivery-scope.md).
 [ADR-0004](docs/decisions/ADR-0004-evidence-backed-comparison.md), a proposed
 redesign, was deferred by the owner on 2026-11-14 (#46).
 
-What exists: research, dataset discovery/probe tools, proposed feature mappings,
-legacy JSON schemas and selected Lean proofs. The ingest, engine, API and map
-directories contain placeholders. There is no executed atlas comparison, ARL
-implementation or end-to-end certified runtime. A proof about supplied losses
-does not establish scientific accuracy. The generic optimization bound is not a
-bound on a site's measurement or analogy error.
+What exists (main at `343969b`): research, dataset registry and probes, JSON
+contracts, Lean proofs (S1, S2, S4, S5, S6), the Earth trait table for 91,800
+hexagons (`services/ingest`, #54) and the atlas map on mock data (`apps/atlas`,
+#53). Not built yet: the monthly and context tables, the past-campaign table,
+the planner engine and the workflow UI (see the plan's work orders). A proof
+about supplied losses does not establish scientific accuracy.
 
 Deferred ADR-0004 material, kept for reference: [status](docs/STATUS.md),
 [coherence review](docs/design/coherence-review.md), [evidence design](docs/design/evidence-comparison.md),
@@ -42,7 +45,9 @@ questions, ideas, findings and challenges between agents.
 - [Original proposal](docs/proposals/04-monorepo-multiagent-lean-proposal.md) · [ADR-0001](docs/decisions/ADR-0001-scope-collaboration-lean-first.md) — historical rationale, with successor notices
 - [Guarantee ledger](proofs/STATEMENTS.md) — exact mathematical scope and missing runtime/scientific links
 - [Prep runbook 2026-11-13](docs/PREP-2026-11-13.md) — historical runbook
-- [Hackathon plan](docs/PLAN-hackathon.md) — **current plan**: ARL product, schedule, backlog W5–W15 (#15–#25), submission checklist
+- [Mission planner plan](docs/plan/MISSION-PLANNER.md) — **current plan**: 6-step workflow, engine, UI, work orders
+- [Data pipeline spec](docs/plan/DATA-PIPELINE.md) — every table, column, source and where it's stored
+- [Hackathon plan](docs/PLAN-hackathon.md) — schedule and submission checklist (its ARL product section is superseded)
 - [Space Apps rules + NASA Moon-to-Mars objectives](docs/research/07-spaceapps-rules-and-m2m-objectives.md) (doc 07)
 
 ## Verify the proofs
