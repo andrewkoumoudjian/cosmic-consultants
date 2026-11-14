@@ -67,29 +67,54 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None) -> dict:
     rank = rank.reshape(cellmap.shape)
 
     n = len(cells)
-    cnt = np.zeros(n); zs = np.zeros(n); zmin = np.full(n, np.inf); zmax = np.full(n, -np.inf)
-    ssum = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
-    tiles = tile_list()[:limit]
-    ledger_path = DERIVED / f"terrain-r{res}-ledger.jsonl.gz"
+    tiles = sorted(tile_list())[:limit]
+    parts = DERIVED / f"terrain-r{res}-parts"
+    parts.mkdir(parents=True, exist_ok=True)
+    CHUNK = 1000
     fails = []
     t0 = time.time()
-    with gzip.open(ledger_path, "wt") as led, ThreadPoolExecutor(workers) as ex:
-        futs = {ex.submit(_read_tile, t, rank): t for t in tiles}
-        for i, f in enumerate(as_completed(futs), 1):
-            tile = futs[f]
-            try:
-                rec, idx, z, s = f.result()
-            except Exception as exc:  # noqa: BLE001 - recorded, cells stay partial
-                fails.append(tile)
-                led.write(json.dumps({"tile": tile, "error": str(exc)[:300]}) + "\n")
-                continue
-            led.write(json.dumps(rec) + "\n")
-            np.add.at(cnt, idx, 1); np.add.at(zs, idx, z); np.add.at(ssum, idx, s)
-            np.minimum.at(zmin, idx, z); np.maximum.at(zmax, idx, z)
-            b = np.clip(np.searchsorted(BINS, s, side="right") - 1, 0, len(BINS) - 2)
-            np.add.at(hist, (idx, b), 1)
-            if i % 1000 == 0:
-                print(f"{i}/{len(tiles)} tiles, {len(fails)} failed, {round(time.time()-t0)} s", flush=True)
+    # Resumable: each chunk of 1,000 tiles is saved as its own part file, so a
+    # killed run picks up at the first missing chunk.
+    for ci in range(0, len(tiles), CHUNK):
+        part = parts / f"part-{ci // CHUNK:03d}.npz"
+        if part.exists():
+            continue
+        chunk = tiles[ci:ci + CHUNK]
+        cnt = np.zeros(n); zs = np.zeros(n); zmin = np.full(n, np.inf); zmax = np.full(n, -np.inf)
+        ssum = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
+        ledger = []
+        with ThreadPoolExecutor(workers) as ex:
+            futs = {ex.submit(_read_tile, t, rank): t for t in chunk}
+            for f in as_completed(futs):
+                tile = futs[f]
+                try:
+                    rec, idx, z, s = f.result()
+                except Exception as exc:  # noqa: BLE001 - recorded, cells stay partial
+                    ledger.append({"tile": tile, "error": str(exc)[:300]})
+                    continue
+                ledger.append(rec)
+                np.add.at(cnt, idx, 1); np.add.at(zs, idx, z); np.add.at(ssum, idx, s)
+                np.minimum.at(zmin, idx, z); np.maximum.at(zmax, idx, z)
+                b = np.clip(np.searchsorted(BINS, s, side="right") - 1, 0, len(BINS) - 2)
+                np.add.at(hist, (idx, b), 1)
+        tmp = part.with_suffix(".tmp.npz")
+        np.savez_compressed(tmp, cnt=cnt, zs=zs, zmin=zmin, zmax=zmax, ssum=ssum, hist=hist,
+                            ledger=np.array([json.dumps(r) for r in sorted(ledger, key=lambda r: r["tile"])]))
+        tmp.replace(part)
+        print(f"{min(ci + CHUNK, len(tiles))}/{len(tiles)} tiles, chunk {ci // CHUNK} saved, {round(time.time()-t0)} s", flush=True)
+
+    cnt = np.zeros(n); zs = np.zeros(n); zmin = np.full(n, np.inf); zmax = np.full(n, -np.inf)
+    ssum = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
+    ledger_path = DERIVED / f"terrain-r{res}-ledger.jsonl.gz"
+    with gzip.open(ledger_path, "wt") as led:
+        for ci in range(0, len(tiles), CHUNK):
+            p = np.load(parts / f"part-{ci // CHUNK:03d}.npz")
+            cnt += p["cnt"]; zs += p["zs"]; ssum += p["ssum"]; hist += p["hist"]
+            zmin = np.minimum(zmin, p["zmin"]); zmax = np.maximum(zmax, p["zmax"])
+            for line in p["ledger"]:
+                led.write(str(line) + "\n")
+                if "error" in line:
+                    fails.append(json.loads(str(line))["tile"])
     has = cnt > 0
     nan = lambda a: np.where(has, a, np.nan)  # noqa: E731
     out = {
@@ -103,8 +128,9 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None) -> dict:
     }
     np.savez_compressed(DERIVED / f"terrain-r{res}.npz", **out)
     summary = {"generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "tiles": len(tiles),
+               "chunks": (len(tiles) + CHUNK - 1) // CHUNK,
                "failed": fails, "overviewLevel": OVERVIEW_LEVEL, "approxResolutionM": 240,
-               "cellsWithTerrain": int(has.sum()), "seconds": round(time.time() - t0, 1),
+               "cellsWithTerrain": int(has.sum()), "secondsThisRun": round(time.time() - t0, 1),
                "ledger": str(ledger_path.relative_to(SNAP.parent.parent))}
     (DERIVED / f"terrain-r{res}.meta.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary

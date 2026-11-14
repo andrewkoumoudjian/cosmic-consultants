@@ -9,7 +9,7 @@
 - We only took what the traits need: monthly composites for one year (2023), one annual land-cover file, one permafrost year, and the coarse DEM overview streamed without storing it.
 - Raw files are mirrored to the shared Drive folder: https://drive.google.com/drive/folders/1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_ (`scripts/drive_sync.sh`, copy only, never deletes). Mount it with `scripts/drive_mount.sh`.
 
-- **Cells file:** `data/snapshots/_derived/cells-r4.parquet`: 91,800 H3 res-4 land cells, sha256 `7e42353f85b9632c…`, 5.3 MB, built in 88.5 s.
+- **Cells file:** `data/snapshots/_derived/cells-r4.parquet`: 91,800 H3 res-4 land cells, sha256 `08eb63d67d4939ea…`, 9.7 MB, built in 53.1 s.
 
 ## Datasets
 
@@ -56,7 +56,7 @@
 
 ### Terrain pass
 
-- 64 tiles, 0 failed, 520 cells with terrain, 4.4 s. Ledger: `data/snapshots/_derived/terrain-r4-ledger.jsonl.gz`.
+- 26,450 tiles, 0 failed, 91,285 cells with terrain, 1038.5 s (last run). Ledger: `data/snapshots/_derived/terrain-r4-ledger.jsonl.gz`.
 
 ## Null rate per column (share of cells with no value)
 
@@ -78,13 +78,13 @@
 | `water_pct` | 0.00% |
 | `permafrost_pct` | 77.74% |
 | `dem_pixels` | 0.00% |
-| `elev_mean_m` | 99.43% |
-| `elev_min_m` | 99.43% |
-| `elev_max_m` | 99.43% |
-| `slope_mean_deg` | 99.43% |
-| `slope_frac_lt5` | 99.43% |
-| `slope_frac_lt15` | 99.43% |
-| `slope_frac_gt30` | 99.43% |
+| `elev_mean_m` | 0.56% |
+| `elev_min_m` | 0.56% |
+| `elev_max_m` | 0.56% |
+| `slope_mean_deg` | 0.56% |
+| `slope_frac_lt5` | 0.56% |
+| `slope_frac_lt15` | 0.56% |
+| `slope_frac_gt30` | 0.56% |
 | `sun_noon_elev_max_deg` | 0.00% |
 | `sun_noon_elev_min_deg` | 0.00% |
 | `polar_night` | 0.00% |
@@ -95,11 +95,12 @@
 Why each null trait is null (also stored in every row as `missing_reason`):
 
 - **dustProcess:** MERRA-2 M2TMNXAER: GES DISC returns HTTP 403 (Earthdata app not approved yet, 2026-11-14)
-- **waterIce:** ESA CCI permafrost covers only 25-85 N and 60-85 S; null outside (unknown, not zero)
+- **waterIce:** ESA CCI permafrost v5.0 2023 covers only 25-85 N and 60-85 S, and inside that it writes fill 255 where it did not model (ocean and warm land, e.g. Montreal). Fill is unknown, not 0%. PFR is MODIS-LST-driven, so it is not independent of the thermal columns
 - **subsurface:** no global Earth subsurface dataset in P0
 - **operations:** accessibility/WDPA not ingested yet (gate 5 deferred)
+- **terrain:** 515 cells (0.56%) have no GLO-30 sample: mostly coastal edge cells, small islands, the Caspian Sea area and cells beyond 84 deg, where no tile is listed or no tile pixel lands on the cell's land pixels
 
-Timing (s): `{"grid_s": 0.8, "thermal_s": 21.8, "landcover_s": 38.2, "permafrost_s": 26.9, "total_s": 88.5}`
+Timing (s): `{"grid_s": 0.6, "thermal_s": 14.0, "landcover_s": 32.9, "permafrost_s": 5.1, "total_s": 53.1}`
 
 ## Every stored file
 

@@ -95,7 +95,7 @@ def build() -> str:
     if tm:
         L += ["### Terrain pass", "",
               f"- {tm['tiles']:,} tiles, {len(tm['failed'])} failed, {tm['cellsWithTerrain']:,} cells with terrain,"
-              f" {tm['seconds']} s. Ledger: `{tm['ledger']}`.", ""]
+              f" {tm.get('secondsThisRun', tm.get('seconds'))} s (last run). Ledger: `{tm['ledger']}`.", ""]
     if cm:
         L += ["## Null rate per column (share of cells with no value)", "",
               "| Column | Null rate |", "|---|---|"]

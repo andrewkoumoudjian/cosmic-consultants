@@ -178,6 +178,11 @@ def build(res: int = RES) -> dict:
     for k, v in ill.items():
         table[k] = pa.array(v)
     table["dust_aod_mean"] = pa.nulls(n, pa.float64())
+    if terr is not None:
+        nt = int(np.isnan(cols["slope_mean_deg"]).sum())
+        missing["terrain"] = (f"{nt} cells ({nt / n:.2%}) have no GLO-30 sample: mostly coastal edge cells, small "
+                              "islands, the Caspian Sea area and cells beyond 84 deg, where no tile is listed or no "
+                              "tile pixel lands on the cell's land pixels")
     if terr is None:
         missing["terrain"] = "Copernicus GLO-30 overview pass not run yet"
         for k in ("dem_pixels", "elev_mean_m", "elev_min_m", "elev_max_m", "slope_mean_deg",
