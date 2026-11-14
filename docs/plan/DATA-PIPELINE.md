@@ -56,12 +56,12 @@ mirrored to Drive (§7). Their `.meta.json` lists every input sha256.
 
 | Step | Needs | Layer | Have it today? |
 |---|---|---|---|
-| 1 Objectives | objective rows, envelopes, trait map, presets from past campaigns | L3 | objectives + envelopes yes; trait map in this PR; campaigns no |
-| 2 Site finder | traits per hexagon (yearly + chosen months) | L1, L1m | L1 yes; L1m no (built from files we already have) |
-| 3 Gaps | same as step 2 + "Earth can't test" lists | L1, L1m, L3 | yes except L1m |
-| 4 Logistics | travel time, protected share, nearest airport, field-season months | L2, L1m | no |
-| 5 Risks | recorded hazard events, burned area by month, temperature extremes, steep ground | L2, L1m, L1 | L1 yes; rest no |
-| 6 Past missions | cited campaign table with site location and traits | L3 + L1 at the campaign's hexagon | no |
+| 1 Objectives | objective rows, envelopes, trait map, presets from past campaigns | L3 | objectives + envelopes yes; trait map in this PR; campaigns in #63 (6 cited) |
+| 2 Site finder | traits per hexagon (yearly + chosen months) | L1, L1m | L1 yes; L1m in #61 |
+| 3 Gaps | same as step 2 + "Earth can't test" lists | L1, L1m, L3 | yes (L1m in #61) |
+| 4 Logistics | travel time, protected share, nearest airport, field-season months | L2, L1m | travel time + airports in #62; protected share withheld (licence) |
+| 5 Risks | recorded hazard events, burned area by month, temperature extremes, steep ground | L2, L1m, L1 | EONET events in #62; L1m in #61; burned area no (P1) |
+| 6 Past missions | cited campaign table with site location and traits | L3 + L1 at the campaign's hexagon | #63: 6 campaigns, each quote checked against a stored source |
 
 ## 4. Sources (L0)
 
@@ -77,12 +77,12 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 | Sun position (computed) | noon sun height, day length, polar day/night | L1, L1m `sun_*`, `daylight_h`, `polar_*` | 2023 | have (no file needed) |
 | MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | blocked (GES DISC app approval) |
 | MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (risk scenarios, optimizer) | 2014–2023 | fetch (P2 only) |
-| NASA EONET v3 (`eonet-v3-events`) | notable natural events with dates and points | L2 `eonet_*` | 2015–2024 | probe: API answers (§4.1); no licence statement on the API |
-| Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | probe: download link found (§4.1), licence not yet found |
+| NASA EONET v3 (`eonet-v3-events`) | notable natural events with dates and points | L2 `eonet_*` + `_derived/eonet-events-r4.parquet` | 2015–2024 | have (#62); used under NASA's open data policy + EONET disclaimer, owner decision ADR-0006 |
+| Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | have (#62); CC BY 3.0 |
 | MODIS burned area MCD64A1 (new catalog row) | burned area per month, 500 m | L2 `burned_pct_<month>` | 2015–2024 | probe (P1; better wildfire-by-month source than EONET) |
 | WDPA (`wdpa-protected-areas`) | protected-area polygons | L2 `protected_pct` | latest release | probe (licence is `restricted`: may not ship) |
-| Airports (new catalog row, e.g. OurAirports) | airport points | L2 `airport_km` | snapshot date | probe (new row needed) |
-| Campaign source documents (papers, NASA pages) | where and when past campaigns ran | L3 `data/campaigns/` | per campaign | to collect |
+| Airports (new catalog row, e.g. OurAirports) | airport points | L2 `airport_km` | snapshot date | have (#62, `ourairports`, public domain; paved runways only) |
+| Campaign source documents (papers, NASA pages) | where and when past campaigns ran | L3 `data/campaigns/` | per campaign | have for 6 campaigns (#63) |
 
 If WDPA's licence doesn't allow publishing derived numbers, `protected_pct`
 stays in L2 for our own checks and L4 ships `null` with reason
@@ -189,7 +189,9 @@ EONET categories kept: `wildfires`, `volcanoes`, `severeStorms`, `floods`,
   never a rate, a probability or "safe";
 - a zero means "none recorded in EONET";
 - cold and heat extremes come from L1m temperatures, not EONET;
-- wildfire by month comes from MCD64A1 burned area once it's in (P1).
+- wildfire by month comes from MCD64A1 burned area once it's in (P1);
+- the UI shows EONET's disclaimer next to the events (ADR-0006), and each
+  event links to its source (`_derived/eonet-events-r4.parquet`).
 
 ### L3 curated reference tables (data lane, edited by PR, each row cited)
 
@@ -298,6 +300,6 @@ Checks every build must print (rule 2: paste them in the PR):
 | 8 | Permafrost is built from MODIS temperatures, so it can't confirm temperature | Never used as a second source for temperature |
 | 9 | ESA permafrost fill could read as 0% | Outside the model area it's null with a reason |
 | 10 | WDPA licence is restricted | Ship null + `licence-restricted` unless the licence allows derived numbers |
-| 11 | EONET zero events could read as "safe"; EONET counts could read as rates | EONET shown as named events only, never a rate (§4.1, L2) |
+| 11 | EONET zero events could read as "safe"; EONET counts could read as rates; EONET has no licence of its own | EONET shown as named events only, never a rate (§4.1, L2); use approved by the owner under NASA's open data policy with the disclaimer shown (ADR-0006) |
 | 12 | Team doc asks for "top X" sites; rule 4 bans a site score | Pareto layers + one user-chosen trait as tie-break (MISSION-PLANNER step 1) |
 | 13 | Team doc's 8 test categories need data we don't have (caves, biology, wind) | Category table in MISSION-PLANNER step 1 marks each one ready / partial / no; missing traits stay unknown |
