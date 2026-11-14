@@ -11,15 +11,18 @@ The challenge author's video is transcribed in
 | Field | Value |
 |---|---|
 | URL | https://www.spaceappschallenge.org/2026/challenges/permanent-moon-base-locations-and-mars/ |
-| Fetched | 2026-11-12T21:10:42Z, HTTP 200, 79,220 bytes |
-| sha256 of fetched HTML | `0a17b0c77a144b4a951eeb468ee806de8813ae3c0609f017ec250698564fbb73` |
-| Extraction | The page is JS-rendered. Text was taken from the embedded Next.js payload (`ChallengePage` object, field `detailsContent`, 9,658 chars of HTML) and converted to Markdown: headings, bold, italics and lists were kept, and no words were changed. |
+| Fetched (latest) | 2026-11-14T14:15:30Z, HTTP 200, 85,777 bytes (A0, issue #1) |
+| sha256 of fetched HTML (latest) | `38ae19ad5f8a4ac0c4a8df05e5798112b93a1369d895fc3e852dad06064d057b` |
+| Fetched (first) | 2026-11-12T21:10:42Z, HTTP 200, 79,220 bytes, sha256 `0a17b0c77a144b4a951eeb468ee806de8813ae3c0609f017ec250698564fbb73` |
+| Extraction | The page is JS-rendered. Text was taken from the embedded Next.js payload (`ChallengePage` object) and converted to Markdown: headings, bold, italics, lists and links were kept, and no words were changed. `detailsContent` is 9,658 chars of HTML. |
+| Main text changed since first fetch? | No. A word-by-word diff of the 2026-11-14 `detailsContent` against the text below found no changes. |
 | `firstPublishedAt` | 2026-09-17T14:21:29.086000Z |
-| `lastPublishedAt` | 2026-10-29T19:56:20.753650Z. Re-fetch before relying on this text; the page may still change. |
+| `lastPublishedAt` | 2026-11-13T03:52:04.820266Z (was 2026-10-29T19:56:20.753650Z). This is when the Resources tab went live. |
 | Categories | Advanced · Intermediate · Beginner/Youth |
 | Skills | Earth Science · Planets & Moons · Software · Space Exploration |
-| Resources tab (`resourcesTabContent`) | "*Resources will be available on Friday, November 13.*" (still a placeholder at fetch time; tracked by A0, issue #1) |
+| Resources tab (`resourcesTabContent`) | Live. 5,240 chars of HTML, sha256 `80ed3e90333dd11f1e0cff79d5498f71575cd734a41520f08b5467b1f0f11038`. Copied [below](#resources-tab). |
 | Teams tab | empty |
+| TLS note | The site's certificate chains to the old Comodo "AAA Certificate Services" root, which many trust stores no longer include, so `curl` and some crawlers fail. We did **not** turn off certificate checks. The issuer cert from the site's own AIA link (`http://cert.ssl.com/SSL.com-TLS-I-RSA-R1.cer`) is signed by the trusted "SSL.com TLS RSA Root CA 2022" (`openssl verify` → OK). We added that cert to the CA bundle for the fetch. |
 
 ---
 
@@ -70,6 +73,44 @@ Be creative in how you search for, analyze, and communicate your analog. You cou
 
 ## Resources tab
 
-*Resources will be available on Friday, November 13.*
+Verbatim from `resourcesTabContent`, fetched 2026-11-14T14:15:30Z. Link URLs are
+copied exactly, including the organizers' `utm_source` tags.
 
-(Placeholder at fetch time. When it goes live, A0 (#1) re-fetches the page and updates this file in a dated PR.)
+*NASA does not endorse any non-U.S. Government entity and is not responsible for information contained on non-U.S. Government websites. For non-U.S. Government websites, participants must comply with any data use parameters of that specific website.*
+
+### **NASA Data & Resources**
+
+**Earth**
+
+- [**NASA Earthdata Search**](https://search.earthdata.nasa.gov/?utm_source=%27chatgpt.com%27)**:** NASA's primary portal for discovering and accessing Earth science observations.
+- [**NASA Worldview**](https://worldview.earthdata.nasa.gov/index.html?utm_source=%27chatgpt.com%27)**:** An easy-to-use interactive environment for visually exploring NASA satellite imagery and environmental observations.
+
+**Moon and Mars**
+
+- [**NASA Planetary Data System (PDS)**](https://pds.nasa.gov/?utm_source=%27chatgpt.com%27)**:** NASA's long-term archive for planetary science data from NASA orbital, lander, and rover missions. It provides access to lunar and Martian mission observations spanning imagery, geoscience, atmospheres, plasma environments, cartography, and other measurements.
+- [**NASA Lunar Reconnaissance Orbiter (LRO)**](https://pds-geosciences.wustl.edu/missions/lro/?utm_source=%27chatgpt.com%27)**:** LRO provides extensive observations of the lunar surface through instruments including LROC, LOLA, Diviner, LEND, Mini-RF and others.
+- [**NASA LRO Diviner Lunar Data**](https://pds-geosciences.wustl.edu/missions/lro/diviner.htm?utm_source=%27chatgpt.com%27)**:** Diviner maps lunar surface temperatures and provides especially useful products for studying the lunar poles. Its polar and resource products could be compared with extreme cold, ice-bearing, or other terrestrial environments.
+
+### **Space Agency Partner Resources**
+
+**CSA (Canadian Space Agency)**
+
+- [**RADARSAT Constellation Mission (RCM) - Data**](https://donnees-data.asc-csa.gc.ca/en/dataset/rcm)**:** RCM is Canada's new generation of Earth observation satellites. The RCM includes a trio of Earth observation satellites, capable of scanning Earth day or night and in any weather conditions. The RCM is designed to provide effective solutions in three main areas: Maritime surveillance (ice, surface wind, oil pollution and ship monitoring); Disaster management (mitigation, warning, response and recovery); and Ecosystem monitoring (agriculture, wetlands, forestry and coastal change monitoring).
+- [**RADARSAT 1 - Data**](https://donnees-data.asc-csa.gc.ca/en/dataset/radarsat1)**:** Launched in November 1995, RADARSAT-1 provided Canada and the world with an operational radar satellite system capable of timely delivery of large amounts of data. Equipped with a powerful synthetic aperture radar (SAR) instrument, it acquired images of the Earth day or night, in all weather and through cloud cover, smoke and haze. All data products in the Canadian RADARSAT-1 archive have been released under an open license.
+- [**Synthetic Aperture Radar (SAR) Python Tutorial**](https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial)**:** This tutorial demonstrates how to work with SAR imagery using Python and QGIS. It includes easy and practical steps for accessing and visualizing data.
+
+**ESA (European Space Agency)**
+
+- [**Copernicus Data Space Ecosystem**](https://dataspace.copernicus.eu/?utm_source=%27chatgpt.com%27)**:** Provides free and open access to Sentinel Earth-observation data covering land, oceans, and atmosphere, with tools for visualization and processing.
+- [**ESA Open Science Catalog**](https://opensciencedata.esa.int/?utm_source=%27chatgpt.com%27)**:** A catalog of publicly available geoscience datasets, products, experiments, and workflows.
+
+**JAXA (Japan Aerospace Exploration Agency)**
+
+- [**JAXA G-Portal**](https://gportal.jaxa.jp/gpr/index/index?utm_source=%27chatgpt.com%27)**:** Provides Earth-observation products from JAXA missions, searchable by variables such as precipitation, snow, vegetation, etc.
+
+### What this means for us (our notes, not page text)
+
+- The Global Awards rule needs at least one NASA dataset from this tab. **LRO Diviner and LOLA** (both listed under LRO) cover our Moon thermal and terrain dimensions, so we already meet that rule if the engine uses them.
+- Our Earth sources (MODIS, NASADEM, MERRA-2) come through **Earthdata Search**, which is listed. Each one still needs to be a single named product with a registry row.
+- Nothing here forces a scope change, so no new ADR is needed.
+- New option: **RADARSAT-1** (open licence) for radar roughness on Earth. It could pair with LRO Mini-RF on the Moon. Not planned yet; flagged for the W6 owner.
