@@ -12,6 +12,16 @@
       "localPath": "data/snapshots/copernicus-dem-glo30/tileList.txt"
     },
     {
+      "datasetId": "eonet-v3-events",
+      "sourceUrl": "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&start=2015-01-01&end=2024-12-31&limit=100000",
+      "fetchedAt": "2026-11-14T18:22:27Z",
+      "sha256": "19c6767b4b3c9e26670f6531c44c1a022eead0666667811cfcd7eff4ac43bd5b",
+      "bytes": 10443929,
+      "license": "nasa-esds-open-data-eonet-disclaimer",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/eonet-v3-events/events-2015-2024.json"
+    },
+    {
       "datasetId": "esa-cci-permafrost-extent-antarctica",
       "sourceUrl": "https://dap.ceda.ac.uk/neodc/esacci/permafrost/data/permafrost_extent/L4/area4/pp/v05.0/Antarctica/2023/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA27_PP-2023-fv05.0.nc",
       "fetchedAt": "2026-11-14T15:27:54Z",

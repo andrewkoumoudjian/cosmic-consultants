@@ -1,0 +1,50 @@
+{
+ "generatedAt": "2026-11-14T18:22:07Z",
+ "tool": "scripts/registry_probe.py",
+ "entries": [
+  {
+   "datasetId": "eonet-v3-events",
+   "file": "data/catalog/eonet-v3-events.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "finalUrl": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "fetchedAt": "2026-11-14T18:22:07Z",
+      "status": 200,
+      "bytes": 4469,
+      "sha256": "a3e9c492a3137de7df0463583cb2b9f5e6c83c8d09b740c3c3df2d09609c0f2c",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "dustHaze": "er.\", \"layers\": \"https://eonet.gsfc.nasa.gov/api/v3/layers/drought\" }, { \"id\": \"dustHaze\", \"title\": \"Dust and Haze\", \"link\": \"https://eonet.gsfc.nasa.gov/api/v3/categories/dustHaze\", \"description\": \"Related t"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 4469 B, sha256 a3e9c492a313\u2026",
+   "license": {
+    "id": "nasa-esds-open-data-eonet-disclaimer",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://eonet.gsfc.nasa.gov/what-is-eonet",
+      "finalUrl": "https://eonet.gsfc.nasa.gov/what-is-eonet",
+      "fetchedAt": "2026-11-14T18:22:07Z",
+      "status": 200,
+      "bytes": 24043,
+      "sha256": "6fe4dc1fd79b13530dfc6b3286fb84bdba5ff1a8de60385a7e7d560fdeb11965",
+      "headers": {}
+     },
+     "matches": {
+      "visualization and general information purposes only": "f EONET. Disclaimer All EONET metadata and services are intended to be used for visualization and general information purposes only and should not be construed as \u201cofficial\u201d with regards to spatial or temporal extent. Spatial and temporal extents of n",
+      "Earth Science Data Systems": "out Development of EONET began in 2015 and has been supported by the following: Earth Science Data Systems Program (ESDS) NASA Earth Observatory Staff Andi Thomas (Science Systems and Applications, Inc.), Project Manager Paul "
+     }
+    }
+   }
+  }
+ ]
+}

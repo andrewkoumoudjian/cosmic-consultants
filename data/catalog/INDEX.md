@@ -12,7 +12,7 @@ Status values: `candidate` (probed, not yet adopted by a work order) · `restric
 | [copernicus-dem-glo30](copernicus-dem-glo30.yaml) | earth | terrain | ESA Copernicus via AWS Registry of Open Data | candidate | copernicus-dem-licence | yes | HTTP 200, 10002 B, sha256 04b2d63198ac… |
 | [earth-impact-database](earth-impact-database.yaml) | earth | terrain | PASSC (unresolved) | unresolved | unresolved | no | HTTP 200, 114 B, sha256 6dc9c7fc93bb… — PROBE FAILED (expectation not met) |
 | [emit-l2b-min-v002](emit-l2b-min-v002.yaml) | earth | surfaceMaterial | Earthdata (LP DAAC, LPCLOUD) | candidate | cc0 | yes | CMR C4079846859-LPCLOUD: HTTP 200, EMITL2BMIN v002, DOI 10.5067/EMIT/EMITL2BMIN.002, granules 124877 |
-| [eonet-v3-events](eonet-v3-events.yaml) | earth | dustProcess | NASA EONET | candidate | unresolved | no | HTTP 200, 4469 B, sha256 a3e9c492a313… |
+| [eonet-v3-events](eonet-v3-events.yaml) | earth | dustProcess | NASA EONET | adopted | nasa-esds-open-data-eonet-disclaimer | yes | HTTP 200, 4469 B, sha256 a3e9c492a313… |
 | [esa-cci-permafrost-extent-antarctica](esa-cci-permafrost-extent-antarctica.yaml) | earth | waterIce, thermal | CEDA (ESA CCI) | candidate | esa-cci-permafrost-terms | yes | HTTP 200, 60652 B, sha256 abc77a7a6abe… |
 | [esa-cci-permafrost-extent-nh](esa-cci-permafrost-extent-nh.yaml) | earth | waterIce, thermal | CEDA (ESA CCI) | candidate | esa-cci-permafrost-terms | yes | HTTP 200, 60852 B, sha256 12868e41675e… |
 | [gibs-wmts](gibs-wmts.yaml) | earth | — | Earthdata GIBS | candidate | cc0 | yes | HTTP 200, 5319261 B, sha256 4c0c1ecfef51…, layers 1330 |
