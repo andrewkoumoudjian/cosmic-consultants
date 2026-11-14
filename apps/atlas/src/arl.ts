@@ -42,7 +42,7 @@ export const GATE_PLAIN: Record<GateName, string> = {
 };
 
 export const ARL_NAME: Record<number, string> = {
-  0: "Unknown",
+  0: "Not yet observed",
   1: "Characterizable",
   2: "Envelope match",
   3: "Corroborated",
