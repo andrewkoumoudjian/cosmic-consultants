@@ -71,6 +71,25 @@ noon sun height, day length and polar day/night on the 15th. Spec:
 
 ## Known gaps (also in INVENTORY.md)
 
+## Temperature history (W24, #64)
+
+`uv run python -m p0ingest.years fetch|build|check` prepares the 2014–2023
+monthly temperature panel. It uses the same monthly medians and 25% pixel
+coverage rule as the 2023 table. The output is
+`_derived/cells-r4-monthly-years.parquet`, keyed by `(h3, year, month)`.
+
+The check verifies the 120 input hashes and output hash, requires exactly
+one row for every land cell and calendar month, compares 2023 to L1m exactly,
+and checks per-row missing reasons. Run the key-validation regression tests
+with `python -m unittest discover -s tests -v`.
+
+These are monthly composites, not observed daily temperature extremes.
+They do not complete the separate `tsurf_max`, `tsurf_min` or `tsurf_range`
+features in the 55-feature inventory. Additional years are for historical
+conditions; this table does not predict future weather or mission losses.
+
+## Known gaps (also in INVENTORY.md)
+
 - **dustProcess:** MERRA-2 is blocked. GES DISC returns HTTP 403 until the
   Earthdata account approves the "NASA GESDISC DATA ARCHIVE" app.
 - **waterIce:** ESA CCI only models 25–85°N and 60–85°S. Its fill is unknown,

@@ -146,14 +146,49 @@ def cmd_build() -> int:
     return 0
 
 
+def validate_keys(table: pa.Table, expected_cells: list[str], years: list[int]) -> list[str]:
+    """Require exactly one row for every expected cell, year and month."""
+    import pyarrow.compute as pc
+
+    if any(table[k].null_count for k in ("h3", "year", "month")):
+        return ["null key"]
+    if not all(pa.types.is_integer(table[k].type) for k in ("year", "month")):
+        return ["year and month must be integers"]
+    encoded = pc.dictionary_encode(table["h3"].combine_chunks())
+    if set(encoded.dictionary.to_pylist()) != set(expected_cells):
+        return ["cell domain differs from L1"]
+    y = pc.index_in(table["year"], value_set=pa.array(years, type=table["year"].type))
+    m = table["month"].to_numpy()
+    if y.null_count or np.any((m < 1) | (m > 12)):
+        return ["year or month outside the declared domain"]
+    codes = encoded.indices.to_numpy().astype(np.int64)
+    slots = codes * (len(years) * 12) + y.to_numpy().astype(np.int64) * 12 + m.astype(np.int64) - 1
+    counts = np.bincount(slots, minlength=len(expected_cells) * len(years) * 12)
+    bad = int(np.count_nonzero(counts != 1))
+    return [f"{bad} missing or repeated cell/year/month keys"] if bad else []
+
+
 def cmd_check() -> int:
     import pyarrow.compute as pc
     fails = 0
+    meta = json.loads((DERIVED / f"{OUT}.meta.json").read_text())
+    inputs = meta["inputs"]["modis-mod11c3"]
+    hash_bad = [e["localPath"] for e in inputs if not (SNAP.parent.parent / e["localPath"]).is_file()
+                or sha256(SNAP.parent.parent / e["localPath"]) != e["sha256"]]
+    hash_ok = len(inputs) == 120 and not hash_bad and sha256(DERIVED / f"{OUT}.parquet") == meta["sha256"]
+    print(f"[0] input/output hashes: {len(inputs)} inputs; {len(hash_bad)} missing/mismatched; {'PASS' if hash_ok else 'FAIL'}")
+    if not hash_ok:
+        return 1
     t = pq.read_table(DERIVED / f"{OUT}.parquet")
     lm = pq.read_table(DERIVED / f"cells-r{RES}-monthly.parquet", columns=["h3", "month", "lst_day_k", "lst_night_k"])
     ncell = len(pc.unique(t["h3"]))
     ok = t.num_rows == 91_800 * 120 and ncell == 91_800
     print(f"[1] rows {t.num_rows:,} (want 11,016,000), cells {ncell:,}: {'PASS' if ok else 'FAIL'}"); fails += not ok
+    master = pq.read_table(DERIVED / f"cells-r{RES}.parquet", columns=["h3"])["h3"].to_pylist()
+    key_errors = validate_keys(t, master, YEARS)
+    print(f"[1b] exact cell/year/month key domain: {'FAIL ' + '; '.join(key_errors) if key_errors else 'PASS'}")
+    if key_errors:
+        return 1
 
     y23 = t.filter(pc.equal(t["year"], 2023))
     a = {(h, m): (d, n) for h, m, d, n in zip(y23["h3"].to_pylist(), y23["month"].to_pylist(),
