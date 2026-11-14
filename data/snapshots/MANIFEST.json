@@ -301,6 +301,46 @@
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
     },
     {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.img",
+      "fetchedAt": "2026-11-14T21:34:27Z",
+      "sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
+      "bytes": 2073600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.lbl",
+      "fetchedAt": "2026-11-14T21:34:22Z",
+      "sha256": "5a3fe60256afa1c35fea5d551fe0ab0a9198fb2bcd2c2e161d078aa69627ebac",
+      "bytes": 4796,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.img",
+      "fetchedAt": "2026-11-14T21:34:38Z",
+      "sha256": "d18d9b9ab8c5516d02e157dd2cde0f1d0d160c21940e953ba22391269a545e7b",
+      "bytes": 33177600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.lbl",
+      "fetchedAt": "2026-11-14T21:34:28Z",
+      "sha256": "0f2bd919dddb86d83489a008d3007bd915507c892a0f22ce49ad5dd5d2fc7d8a",
+      "bytes": 4813,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.lbl"
+    },
+    {
       "datasetId": "ourairports",
       "sourceUrl": "https://davidmegginson.github.io/ourairports-data/airports.csv",
       "fetchedAt": "2026-11-14T17:51:36Z",
@@ -439,6 +479,26 @@
       "license": "cc-by-3.0",
       "licenseVerified": true,
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:43Z",
+      "sha256": "753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910",
+      "bytes": 5421247,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MARS_nomenclature_center_pts.zip"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:41Z",
+      "sha256": "bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b",
+      "bytes": 23845070,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MOON_nomenclature_center_pts.zip"
     }
   ]
 }
