@@ -1,7 +1,191 @@
 {
- "generatedAt": "2026-11-14T22:20:26Z",
+ "generatedAt": "2026-11-14T19:01:42Z",
  "tool": "scripts/registry_probe.py",
  "entries": [
+  {
+   "datasetId": "eonet-v3-events",
+   "file": "data/catalog/eonet-v3-events.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "finalUrl": "https://eonet.gsfc.nasa.gov/api/v3/categories",
+      "fetchedAt": "2026-11-14T18:22:07Z",
+      "status": 200,
+      "bytes": 4469,
+      "sha256": "a3e9c492a3137de7df0463583cb2b9f5e6c83c8d09b740c3c3df2d09609c0f2c",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "title": null,
+     "expect": {
+      "dustHaze": "er.\", \"layers\": \"https://eonet.gsfc.nasa.gov/api/v3/layers/drought\" }, { \"id\": \"dustHaze\", \"title\": \"Dust and Haze\", \"link\": \"https://eonet.gsfc.nasa.gov/api/v3/categories/dustHaze\", \"description\": \"Related t"
+     }
+    },
+    "ok": true
+   },
+   "summary": "HTTP 200, 4469 B, sha256 a3e9c492a313\u2026",
+   "license": {
+    "id": "nasa-esds-open-data-eonet-disclaimer",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://eonet.gsfc.nasa.gov/what-is-eonet",
+      "finalUrl": "https://eonet.gsfc.nasa.gov/what-is-eonet",
+      "fetchedAt": "2026-11-14T18:22:07Z",
+      "status": 200,
+      "bytes": 24043,
+      "sha256": "6fe4dc1fd79b13530dfc6b3286fb84bdba5ff1a8de60385a7e7d560fdeb11965",
+      "headers": {}
+     },
+     "matches": {
+      "visualization and general information purposes only": "f EONET. Disclaimer All EONET metadata and services are intended to be used for visualization and general information purposes only and should not be construed as \u201cofficial\u201d with regards to spatial or temporal extent. Spatial and temporal extents of n",
+      "Earth Science Data Systems": "out Development of EONET began in 2015 and has been supported by the following: Earth Science Data Systems Program (ESDS) NASA Earth Observatory Staff Andi Thomas (Science Systems and Applications, Inc.), Project Manager Paul "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "ornl-global-soil-regolith-sediment",
+   "file": "data/catalog/ornl-global-soil-regolith-sediment.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=100",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json",
+      "fetchedAt": "2026-11-14T19:46:13Z",
+      "status": 200,
+      "bytes": 21476,
+      "sha256": "1b01c16633f5b420ce446d25cb9ee1bcc51ed5b24480b6be4e5988b3a4cc6f3f",
+      "headers": {
+       "cmr-hits": "6"
+      }
+     },
+     {
+      "url": "https://daac.ornl.gov/SOILS/guides/Global_Soil_Regolith_Sediment.html",
+      "finalUrl": "https://d3o6w55j8uz1ro.cloudfront.net/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
+      "fetchedAt": "2026-11-14T19:47:11Z",
+      "status": 200,
+      "bytes": 736258,
+      "sha256": "0f9a45f104589283104746210179bf515153162ec125409a76ea17c3f7920d4d",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "granules": "6 GeoTIFFs (upland regolith, upland soil, hill-slope/valley-bottom fraction, sedimentary deposit, land-cover mask, weighted average) + bundle zip; data at data.ornldaac.earthdata.nasa.gov protected/... (Earthdata login) with public .sha256 sidecars",
+     "protectedProbe": "bearer-token GET of the protected regolith tif returned HTTP 200 image/tiff 85,980,757 B (Earthdata auth path exercised end to end)",
+     "sidecarCheck": "all 6 downloaded GeoTIFFs match their publisher .sha256 sidecars (6/6)",
+     "fileFactsVerified": "30-arcsec (ds.res 0.008333333), 43200x18000, EPSG:4326, bounds 90 N..60 S; regolith/sediment/average int8 NoData -1 values 0..50; soil float32 NoData -1, values 0..4.2; observed int8 max 50 equals the guide's cap; mask uint8 classes 0-4; regolith valid on mask=1 only, sediment valid on mask=1 and 2, per window cross-tabulation",
+     "license": "guide PDF (old HTML guide redirects to it) re-read: 'openly shared, without restriction, in accordance with the EOSDIS Data Use and Citation Guidance'; cite Pelletier et al. 2016 doi:10.3334/ORNLDAAC/1304"
+    },
+    "ok": true
+   },
+   "summary": "ORNL 1304 Pelletier 2016 re-probed live at adoption (W26 #66): CMR granule list HTTP 200 (6 files); user guide PDF fetched and stored; protected-path Earthdata auth verified end to end; all six GeoTIFF downloads match the publisher's public sha256 sidecars; native fill/ranges/cap 50 m verified from the files."
+  },
+  {
+   "datasetId": "modis-mcd43c3-albedo",
+   "file": "data/catalog/modis-mcd43c3-albedo.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2532068039-LPCLOUD&temporal=2023-01-01T00:00:00Z,2023-12-31T23:59:59Z&page_size=2000&sort_key=start_date",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json",
+      "fetchedAt": "2026-11-14T19:46:13Z",
+      "status": 200,
+      "bytes": 1425234,
+      "sha256": "8c279761568a92190204998c94c06a1bdac702e07650584c0e49b5bb5f40f349",
+      "headers": {}
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2532068039-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-14T19:46:43Z",
+      "status": 200,
+      "bytes": 17957,
+      "sha256": "be4b9363ea69b09fc663f3aae63f9803ac6d9f7475763e6a019fa0e6380b58d5",
+      "headers": {}
+     },
+     {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-14T19:48:04Z",
+      "status": 200,
+      "bytes": 141648,
+      "sha256": "ad3eee8780ab7db36398e461393a9db3d728f79b3ec4ac28827ca607ee49d715",
+      "headers": {}
+     }
+    ],
+    "meta": {
+     "expect": "Creative Commons Zero",
+     "granules2023": "380 granules overlap 2023 temporally (daily product incl. 2022-12-25..31 and 2024-01-01..08 windows)",
+     "selection": "12 granules dated the 15th of each 2023 month (A2023015 A2023046 A2023074 A2023105 A2023135 A2023166 A2023196 A2023227 A2023258 A2023288 A2023319 A2023349), one per month, verified unique",
+     "windowEvidence": "CMR time spans confirm each granule is a 16-day window [date-8, date+7]; HDF CoreMetadata RANGE BEGIN/END of A2023015 read live and equals 2023-01-07..2023-01-22",
+     "sdsVerified": "Albedo_WSA_shortwave/Albedo_BSA_shortwave int16 valid_range [0,32766] _FillValue 32767 scale_factor 0.001; Albedo_Quality uint8 valid [0,254] fill 255 with 0='best quality, 100% with full inversions'"
+    },
+    "ok": true
+   },
+   "summary": "MCD43C3 v061 re-probed live at adoption (W26 #66): CMR UMM HTTP 200; 2023 temporal overlap = 380 daily granules; 12 dated samples selected, one per month (15th); SDS names/scale/fill and BRDF QA flags verified from a real downloaded granule; CC0 license expectation re-found live on the ESDIS data-use-guidance page."
+  },
+  {
+   "datasetId": "modis-mcd64a1",
+   "file": "data/catalog/modis-mcd64a1.yaml",
+   "probe": {
+    "kind": "use-time re-probe + versioned-semantics check (source builder for #65, Mistral Vibe helper)",
+    "hitRecheck": {
+     "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=0",
+     "fetchedAt": "2026-11-14T19:46:58Z",
+     "status": 200,
+     "cmrHits": 32160,
+     "note": "replaces the stale 'granules 83336' whole-record count for the 2015-2024 window; 32160 = 268 tiles x 120 months, page-through returned the same number with zero duplicate (year, month, tile) granules"
+    },
+    "listingSnapshot": {
+     "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt",
+     "bytes": 5209920,
+     "sha256": "689f752c96fb7461e31c0b48fef5683c3a65a954d89f5c3cda51dcedf151c887",
+     "note": "regenerated by page-through (17 pages x 2000); bytes and sha256 are identical to the MANIFEST entry left by the interrupted 2026-11-14 19:03Z attempt, validating that recorded listing"
+    },
+    "versionedSemantics": {
+     "userGuide": {
+      "url": "https://lpdaac.usgs.gov/documents/1006/MCD64_User_Guide_V61.pdf",
+      "fetchedAt": "2026-11-14T19:47:00Z",
+      "status": 200,
+      "bytes": 1007034,
+      "sha256": "9fff6bd6dcd2d56327d3c0ecb7c0c4ba76bb3858ee5f4c1cc890e447e1ffc36f",
+      "quote": "Burn Date: Ordinal day of burn (1-366) for each 500-m grid cell, with 0 = unburned land, -1 = unmapped due to insufficient data, and -2 = water."
+     },
+     "granuleAttributes": {
+      "granule": "MCD64A1.A2015001.h17v12.061.2021320073831.hdf",
+      "sha256": "adb2adad7520be4713380e97a7c9381d58d62a8abc0deeeb79c45af0c2398ab0",
+      "observed": {
+       "Burn Date.valid_range": [
+        0,
+        366
+       ],
+       "_FillValue": -1,
+       "water": -2,
+       "dtype": "int16",
+       "shape": [
+        2400,
+        2400
+       ],
+       "qaLegendBits": "bit0 land/water, bit1 valid data flag, bit2 shortened mapping period, bit3 relabeled; classes observed consistent with Burn Date values"
+      }
+     },
+     "burnDateWithinMonth": {
+      "granule": "MCD64A1.A2019244.h31v10.061.2021309105323.hdf (Sep 2019, northern Australia)",
+      "sha256": "70af6b971597fd6868f9a05b6343a8f4a8fc34e79399ccd8f28a2455962a2bc1",
+      "observed": "burned DOY values span exactly [244, 273] == the granule's own month; no cross-month bleed",
+      "burnedPixels": 47287,
+      "unburnedLandPixels": 2945739,
+      "unmappedPixels": 105,
+      "waterPixels": 2770284
+     }
+    }
+   },
+   "summary": "MCD64A1 v061 use-time probe at 2026-11-14T19:46:58Z: CMR hits for 2015-2024 = 32160 (268 tiles x 120 months), listing hashed, Burn Date/-1/-2 semantics confirmed in the v6.1 user guide and in real granule attributes",
+   "probedAt": "2026-11-14T19:47:00Z"
+  },
   {
    "datasetId": "merra2-m2tmnxflx",
    "file": "data/catalog/merra2-m2tmnxflx.yaml",
