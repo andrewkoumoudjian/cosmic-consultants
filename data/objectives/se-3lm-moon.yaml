@@ -11,8 +11,8 @@ mapping:
     - docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1
     - docs/research/08-landing-site-feature-set.md (SE-3LM - PSR, cold-trap temperature, ice stability, neutron H)
 toleranceSource:
-  envelopeId: null
-  note: No Moon south-pole envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown.
+  envelopeId: moon-south-pole-v0
+  note: "Moon south-pole envelope v0 (data/envelopes/moon-south-pole-v0.json). It covers waterIce (distance to nearest PSR, 0-2 km) and illumination (surface sunlit for the whole stay window, 100 percent). thermal and subsurface have no traceable bound yet, so gate 2 (withinTolerance) is unknown for those two dimensions only. Citations and the reasons for the two gaps are in data/envelopes/README.md."
 notTestableOnEarth:
   - mismatch: pressureRegime
     why: In lunar vacuum, ice sublimates in ways Earth's air pressure can't reproduce.

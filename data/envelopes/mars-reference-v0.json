@@ -1,0 +1,28 @@
+{
+  "envelopeId": "mars-reference-v0",
+  "body": "mars",
+  "targetName": "Mars reference landing zone (MSL-class surface-mobility zone)",
+  "dimensions": [
+    {
+      "dimension": "terrain",
+      "lo": 0,
+      "hi": 5,
+      "unit": "deg (mean slope along planned traverse corridors)",
+      "sourceDataset": "mola-hrsc-blended-dem"
+    },
+    {
+      "dimension": "surfaceMaterial",
+      "lo": 0,
+      "hi": 0.25,
+      "unit": "Lambert/bolometric albedo (0-1)",
+      "sourceDataset": "tes-mgs"
+    }
+  ],
+  "weightFamily": {
+    "kind": "box",
+    "parameters": {
+      "basis": "Analog.Atlas.BoxFamily (proofs/Analog/Atlas.lean): per-dimension weight ranges, no cross-dimension aggregation",
+      "status": "v0 declaration only. No screening certificate exists for this envelope yet (ADR-0001 experiment gate)."
+    }
+  }
+}

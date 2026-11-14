@@ -11,8 +11,8 @@ mapping:
     - docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1
     - docs/research/08-landing-site-feature-set.md (LI-5L - slope_100m, sun_elev_min, illum_frac_avg, earth_vis_frac)
 toleranceSource:
-  envelopeId: null
-  note: No Moon south-pole envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown.
+  envelopeId: moon-south-pole-v0
+  note: "Moon south-pole envelope v0 (data/envelopes/moon-south-pole-v0.json). It covers both required dimensions: terrain (max slope over a 100 m baseline, 0-10 deg) and illumination (surface sunlit for the whole stay window, 100 percent). Citations are in data/envelopes/README.md."
 notTestableOnEarth:
   - mismatch: gravity
     why: Descent and touchdown dynamics depend on lunar gravity (about 0.17 g).

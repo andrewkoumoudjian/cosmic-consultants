@@ -11,8 +11,8 @@ mapping:
     - docs/research/07-spaceapps-rules-and-m2m-objectives.md §2.1
     - docs/research/08-landing-site-feature-set.md (OP-5LM - slopes, rocks, TI/albedo, dust)
 toleranceSource:
-  envelopeId: null
-  note: No Mars envelope yet; W5 (#18) builds it. Until then gate 2 (withinTolerance) can only be unknown.
+  envelopeId: mars-reference-v0
+  note: "Mars reference envelope v0 (data/envelopes/mars-reference-v0.json). It covers terrain (mean slope along traverse corridors, 0-5 deg) and surfaceMaterial (albedo 0-0.25). thermal and dustProcess have no traceable range yet, so gate 2 (withinTolerance) is unknown for those two dimensions only. Citations and the reasons for the gaps are in data/envelopes/README.md."
 notTestableOnEarth:
   - mismatch: gravity
     why: Suit and vehicle dynamics change at Mars gravity (about 0.38 g).
