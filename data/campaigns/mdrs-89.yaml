@@ -1,0 +1,63 @@
+campaignId: mdrs-89
+name: Mars Desert Research Station Crew 89
+agency:
+  - The Mars Society
+years:
+  first: 2010
+  last: 2010
+site:
+  name: Mars Desert Research Station, Utah
+  lat: 38.4
+  lon: -110.78333333333333
+  h3r4: 8429927ffffffff
+  quote: >-
+    at 38°24’ N, 110°47’W.
+  sourceRef: nasa-geophysical-2010
+objectivesExercised:
+  - objectiveId: null
+    text: Simulated EVA operations and an active seismic survey
+    quote: >-
+      With living and working arrangements much like FMARS, we carried out a number of experiments on simulated EVAs, including an active seismic survey.
+    sourceRef: nasa-geophysical-2010
+publishedConstraints:
+  - what: Mission duration
+    value: 2
+    unit: weeks
+    quote: >-
+      From 23 January through 6 February 2010, the 89th crew inhabited the MDRS for a two-week mission.
+    sourceRef: nasa-geophysical-2010
+outcome:
+  - kind: lesson
+    text: The paper recommends simple, readable instrument controls for EVA work.
+    quote: >-
+      buttons should be large and easily depressed, and screens should be easily readable
+    sourceRef: nasa-geophysical-2010
+sources:
+  - ref: nasa-geophysical-2010
+    url: https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1
+    localPath: data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf
+    licenceNote: NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The source describes EVA and geophysical work but does not state a specific M2M objective ID.
+evidence:
+  - field: site.name
+    quote: >-
+      MDRS: The Mars Desert Research Station
+    sourceRef: nasa-geophysical-2010
+  - field: campaignId
+    quote: From 23 January through 6 February 2010, the 89th crew inhabited the MDRS for a two-week mission.
+    sourceRef: nasa-geophysical-2010
+  - field: name
+    quote: >-
+      MDRS: The Mars Desert Research Station
+    sourceRef: nasa-geophysical-2010
+  - field: agency
+    quote: >-
+      built by The Mars Society in 2002
+    sourceRef: nasa-geophysical-2010
+  - field: years
+    quote: From 23 January through 6 February 2010, the 89th crew inhabited the MDRS for a two-week mission.
+    sourceRef: nasa-geophysical-2010

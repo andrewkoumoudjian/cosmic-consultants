@@ -1,0 +1,61 @@
+campaignId: hmp-2015
+name: HMP-2015 field campaign
+agency:
+  - NASA
+years:
+  first: 2015
+  last: 2015
+site:
+  name: HMP Research Station (HMPRS), Devon Island
+  lat: 75.43333333333334
+  lon: -89.86666666666666
+  h3r4: 8402543ffffffff
+  quote: >-
+    Habitat Site Coordinates: 75o 26’ N, 89o 52’ W
+  sourceRef: hmp-workshop-2015
+objectivesExercised:
+  - objectiveId: null
+    text: Astrobiology and planetary protection investigations
+    quote: >-
+      Astrobiology and planetary protection investigations are also conducted at the site.
+    sourceRef: hmp-workshop-2015
+publishedConstraints:
+  - what: Radial range containing most investigations
+    value: 20
+    unit: km radius
+    quote: >-
+      In this time, approximately 97% of science and exploration investigations at HMP has taken place within a radial range of 20 km from the HMPRS “LS”.
+    sourceRef: hmp-workshop-2015
+outcome:
+  - kind: lesson
+    text: The paper says HMP field work informed planning for future Mars exploration.
+    quote: >-
+      valuable lessons are learned at HMP that can inform the planning and optimization of future human science and exploration activities on Mars.
+    sourceRef: hmp-workshop-2015
+sources:
+  - ref: hmp-workshop-2015
+    url: https://www.nasa.gov/wp-content/uploads/2015/06/mars-c-abstracts_in_order_of_presentation10242015_0.pdf?emrc=bafbbc
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 299573328f4901da6ae5becd3d02eb16005ccac99898dc36f631b586c1dc3494
+    localPath: data/snapshots/campaign-sources/hmp-haughton/hmp-workshop.pdf
+    licenceNote: NASA workshop PDF; stored locally as a source snapshot for quote checks.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The source names broad astrobiology and planetary-protection investigations but does not make one of this repository's objective IDs an obvious match.
+evidence:
+  - field: site.name
+    quote: >-
+      HMP Research Station (HMPRS)
+    sourceRef: hmp-workshop-2015
+  - field: campaignId
+    quote: HMP-2015 marked the 19th summer field campaign of the project.
+    sourceRef: hmp-workshop-2015
+  - field: name
+    quote: HMP-2015 marked the 19th summer field campaign of the project.
+    sourceRef: hmp-workshop-2015
+  - field: agency
+    quote: The project began in 1997, and has been hosting NASA-supported research each year since.
+    sourceRef: hmp-workshop-2015
+  - field: years
+    quote: HMP-2015 marked the 19th summer field campaign of the project.
+    sourceRef: hmp-workshop-2015

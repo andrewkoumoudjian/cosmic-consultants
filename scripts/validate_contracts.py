@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate contracts (W10, #15) and target envelopes (W5, #18).
+"""Validate contracts (W10, #15), envelopes (W5, #18), and campaigns (W19, #60).
 
 1. Schema check: every data/objectives/*.yaml against contracts/objective.schema.json,
    every site fixture with a readiness block against contracts/site.schema.json, and
@@ -12,19 +12,25 @@
    in JSON Schema), every sourceDataset is a registry datasetId in data/catalog/,
    the named dataset covers the envelope's body and lists that dimension, and every
    objective's toleranceSource.envelopeId resolves to a file in data/envelopes/.
-4. --self-test: broken copies of the example must be rejected.
+4. Campaign check: validate data/campaigns/*.yaml, source refs, source quote text,
+   local snapshot hashes, and H3 resolution-4 cells.
+5. --self-test: broken copies of the examples must be rejected.
 
 Exit code 0 only if everything passes. Usage: python3 scripts/validate_contracts.py [--self-test]
 """
 from __future__ import annotations
 
 import copy
+import hashlib
 import glob
 import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
 import yaml
+import h3
 from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -177,6 +183,99 @@ def load_envelopes(ev, registry) -> tuple[dict[str, dict], list[str]]:
     return envelopes, errs
 
 
+def normalize_quote(text: str) -> str:
+    """Ignore layout whitespace introduced by PDF extraction, not wording."""
+    text = re.sub(r"(?<=\w)\u00ad\s+(?=\w)", "", text).replace("\u00ad", "")
+    text = re.sub(r"(?<=\w)-\s+(?=\w)", "", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def source_text(path: Path) -> str:
+    if path.suffix.lower() == ".pdf":
+        extracts = []
+        for mode in ("-raw", "-layout"):
+            result = subprocess.run(["pdftotext", mode, str(path), "-"], capture_output=True, text=True)
+            if result.returncode:
+                raise RuntimeError(result.stderr.strip() or f"pdftotext exited {result.returncode}")
+            extracts.append(result.stdout)
+        return "\n".join(extracts)
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def campaign_quote_rows(doc: dict):
+    yield "site.quote", doc["site"]["quote"], doc["site"]["sourceRef"]
+    for key in ("objectivesExercised", "publishedConstraints", "outcome"):
+        for i, row in enumerate(doc.get(key, [])):
+            yield f"{key}[{i}].quote", row["quote"], row["sourceRef"]
+    for i, row in enumerate(doc.get("evidence", [])):
+        yield f"evidence[{i}].quote", row["quote"], row["sourceRef"]
+
+
+def check_campaign(cv, doc: dict, label: str, manifest_by_source: dict) -> list[str]:
+    errs = [f"{label}: {m}" for m in schema_errors(cv, doc)]
+    if errs:
+        return errs
+    site = doc["site"]
+    cell = h3.latlng_to_cell(site["lat"], site["lon"], 4)
+    if site["h3r4"] != cell:
+        errs.append(f"{label}: h3r4 {site['h3r4']} != computed {cell}")
+    refs = {row["ref"]: row for row in doc["sources"]}
+    if len(refs) != len(doc["sources"]):
+        errs.append(f"{label}: duplicate source ref")
+    for _, _, ref in campaign_quote_rows(doc):
+        if ref not in refs:
+            errs.append(f"{label}: quote points to missing sourceRef {ref!r}")
+    texts: dict[str, str] = {}
+    for ref, source in refs.items():
+        local = source["localPath"]
+        key = (source["url"], source["sha256"], local)
+        if key not in manifest_by_source:
+            errs.append(f"{label}: source {ref} is absent from snapshots/MANIFEST.json")
+        if local is None:
+            continue
+        path = ROOT / local
+        if not path.is_file():
+            print(f"     SKIP campaign {doc['campaignId']} source payload absent: {local}")
+            continue
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != source["sha256"]:
+            errs.append(f"{label}: {local} SHA-256 {digest} != declared {source['sha256']}")
+        try:
+            texts[ref] = normalize_quote(source_text(path))
+        except (OSError, RuntimeError) as exc:
+            errs.append(f"{label}: cannot read quote source {local}: {exc}")
+    for field, quote, ref in campaign_quote_rows(doc):
+        text = texts.get(ref)
+        if text is not None and normalize_quote(quote) not in text:
+            errs.append(f"{label}: {field} quote is not verbatim in stored source {refs[ref]['localPath']}")
+    return errs
+
+
+def load_campaigns(cv) -> tuple[list[dict], list[str]]:
+    errs: list[str] = []
+    manifest_path = ROOT / "data/snapshots/MANIFEST.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_by_source = {
+        (row.get("sourceUrl"), row.get("sha256"), row.get("localPath")): row
+        for row in manifest.get("entries", [])
+    }
+    campaigns = []
+    seen_ids = set()
+    for path_str in sorted(glob.glob(str(ROOT / "data/campaigns/*.yaml"))):
+        path = Path(path_str)
+        rel = path.relative_to(ROOT)
+        doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+        e = check_campaign(cv, doc, str(rel), manifest_by_source)
+        errs += e
+        campaign_id = doc.get("campaignId") if isinstance(doc, dict) else None
+        if campaign_id in seen_ids:
+            errs.append(f"{rel}: duplicate campaignId {campaign_id}")
+        seen_ids.add(campaign_id)
+        campaigns.append(doc)
+        print(f"{'OK  ' if not e else 'FAIL'} campaign {rel} ({campaign_id})")
+    return campaigns, errs
+
+
 def check_objective_envelopes(objectives, envelopes) -> list[str]:
     """Every toleranceSource.envelopeId must resolve; report which required
     dimensions the envelope does not bound (those stay unknown, not failed)."""
@@ -238,14 +337,53 @@ def self_test_envelopes(ev, registry) -> list[str]:
     return errs
 
 
+def self_test_campaigns(cv) -> list[str]:
+    """Broken copies of a campaign must be rejected. The quote case uses a
+    temporary source file, so it runs in CI where snapshots are absent."""
+    import tempfile
+    base = yaml.safe_load((ROOT / "data/campaigns/hmp-2015.yaml").read_text(encoding="utf-8"))
+    src = base["sources"][0]
+    with tempfile.TemporaryDirectory() as tmp:
+        text = Path(tmp) / "source.txt"
+        text.write_text("Habitat Site Coordinates: 75o 26' N, 89o 52' W. Nothing else here.", encoding="utf-8")
+        fake = {"url": src["url"], "sha256": hashlib.sha256(text.read_bytes()).hexdigest(), "localPath": str(text)}
+        manifest = {(fake["url"], fake["sha256"], fake["localPath"]): {}}
+        def with_fake(doc):
+            doc["sources"][0].update(fake)
+            doc["site"]["quote"] = "Habitat Site Coordinates: 75o 26' N, 89o 52' W"
+            return doc
+        def relevant(found):
+            # The tiny fake source cannot contain the other quotes; only the site quote counts.
+            return [f for f in found if "quote is not verbatim" not in f or "site.quote" in f]
+        control = relevant(check_campaign(cv, with_fake(copy.deepcopy(base)), "control", manifest))
+        print(f"{'OK  ' if not control else 'FAIL'} self-test control: unbroken campaign passes" + (f"  [{control[0]}]" if control else ""))
+        errs = [f"self-test: control campaign rejected: {control[0]}"] if control else []
+        cases = []
+        c = with_fake(copy.deepcopy(base)); c["site"]["h3r4"] = "8402545ffffffff"; cases.append(("h3r4 is not the cell of lat/lon", c))
+        c = with_fake(copy.deepcopy(base)); c["outcome"][0]["sourceRef"] = "no-such-ref"; cases.append(("quote points to a missing sourceRef", c))
+        c = with_fake(copy.deepcopy(base)); c["sources"][0]["sha256"] = "0" * 64; cases.append(("source hash not in the manifest / file", c))
+        c = with_fake(copy.deepcopy(base)); c["site"]["quote"] = "Habitat Site Coordinates: 76o 26' N"; cases.append(("site quote not verbatim in the source", c))
+        c = with_fake(copy.deepcopy(base)); c["outcome"][0]["kind"] = "success"; cases.append(("bad outcome kind", c))
+        c = with_fake(copy.deepcopy(base)); c["evidence"] = c["evidence"][:2]; cases.append(("fewer than 3 evidence quotes", c))
+        for name, doc in cases:
+            found = relevant(check_campaign(cv, doc, name, manifest))
+            print(f"{'OK  ' if found else 'FAIL'} self-test rejects: {name}" + (f"  [{found[0]}]" if found else ""))
+            if not found:
+                errs.append(f"self-test: broken campaign was accepted: {name}")
+    return errs
+
+
 def main() -> int:
     ov, sv = load_schema("objective.schema.json"), load_schema("site.schema.json")
+    cv = load_schema("campaign.schema.json")
     ev = load_schema("envelope.schema.json")
     objectives, errs = load_objectives(ov)
     registry = load_registry()
     envelopes, env_errs = load_envelopes(ev, registry)
     errs += env_errs
     errs += check_objective_envelopes(objectives, envelopes)
+    _, campaign_errs = load_campaigns(cv)
+    errs += campaign_errs
     for rel in SITE_FIXTURES:
         site = json.loads((ROOT / rel).read_text(encoding="utf-8"))
         e = check_site(sv, objectives, site, rel)
@@ -255,6 +393,7 @@ def main() -> int:
     if "--self-test" in sys.argv:
         errs += self_test(sv, objectives)
         errs += self_test_envelopes(ev, registry)
+        errs += self_test_campaigns(cv)
     for m in errs:
         print("ERROR", m)
     print("all contracts valid" if not errs else f"{len(errs)} error(s)")

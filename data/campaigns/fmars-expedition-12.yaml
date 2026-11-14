@@ -1,0 +1,63 @@
+campaignId: fmars-expedition-12
+name: Flashline Mars Arctic Research Station Expedition 12
+agency:
+  - The Mars Society
+years:
+  first: 2009
+  last: 2009
+site:
+  name: Flashline Mars Arctic Research Station, Devon Island
+  lat: 75.430959
+  lon: -89.833022
+  h3r4: 8402543ffffffff
+  quote: >-
+    (B5 Coordinates: 75.430959°N, 89.833022°W, 234 m)
+  sourceRef: nasa-geophysical-2010
+objectivesExercised:
+  - objectiveId: null
+    text: Time-domain electromagnetic survey during a simulated Mars expedition
+    quote: >-
+      time domain electromagnetic survey
+    sourceRef: nasa-geophysical-2010
+publishedConstraints:
+  - what: Number of EVAs used for the electromagnetic survey
+    value: 4
+    unit: EVAs
+    quote: >-
+      We deployed three 40 × 40 meter square loops over the course of four EVAs to complete the experiment.
+    sourceRef: nasa-geophysical-2010
+outcome:
+  - kind: lesson
+    text: The researchers recommended simpler instrument controls for work in spacesuits.
+    quote: >-
+      buttons should be large and easily depressed, and screens should be easily readable
+    sourceRef: nasa-geophysical-2010
+sources:
+  - ref: nasa-geophysical-2010
+    url: https://ntrs.nasa.gov/api/citations/20100011346/downloads/20100011346.pdf
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 07dfe95132e7d532b8f519673827ef0207db49269193130b196e5254820b9fe1
+    localPath: data/snapshots/campaign-sources/fmars-expedition-12/nasa-2010-report.pdf
+    licenceNote: NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The source describes geophysical experiments but does not state a specific M2M objective ID.
+evidence:
+  - field: site.name
+    quote: >-
+      FMARS: The Flashline Mars Arctic Research Station
+    sourceRef: nasa-geophysical-2010
+  - field: campaignId
+    quote: FMARS Expedition 12
+    sourceRef: nasa-geophysical-2010
+  - field: name
+    quote: >-
+      FMARS: The Flashline Mars Arctic Research
+    sourceRef: nasa-geophysical-2010
+  - field: agency
+    quote: >-
+      built by The Mars Society in 2000
+    sourceRef: nasa-geophysical-2010
+  - field: years
+    quote: In July 2009, the twelfth crew inhabited the remote outpost for a month-long simulated Mars expedition.
+    sourceRef: nasa-geophysical-2010

@@ -1,0 +1,68 @@
+campaignId: atacama-arads-2019
+name: Atacama Rover Astrobiology Drilling Studies (ARADS)
+agency:
+  - NASA
+years:
+  first: 2019
+  last: 2019
+site:
+  name: Atacama ARADS Area 1, northern Chile
+  lat: -24.102089
+  lon: -70.138063
+  h3r4: 84b2205ffffffff
+  quote: >-
+    On Sol 1 of the test, the rover arrived at Area 1 (−24.102089° latitude, −70.138063° longitude).
+  sourceRef: arads-2019-article
+objectivesExercised:
+  - objectiveId: null
+    text: Robotic drilling, sample handling, and life-search protocols in a Mars analog environment
+    quote: >-
+      The goals of this field experiment were both scientific and operational with the desire to demonstrate the performance of the drilling, sample handling, and the life search protocols, including the analysis of samples with flight prototype onboard instruments.
+    sourceRef: arads-2019-article
+publishedConstraints:
+  - what: Command cycles to drill and deliver the deepest sample
+    value: 55
+    unit: command cycles to 80 cm depth
+    quote: >-
+      The deepest sample that was acquired with fully remote operations required 55 command cycles to drill to 80 cm depth with sample collection and delivery to 3 instruments.
+    sourceRef: arads-2019-article
+outcome:
+  - kind: worked
+    text: The field demonstration detected biomolecules in the deep basin samples.
+    quote: >-
+      Sample analysis from the SOLID instrument detected the presence of various biomolecules in the deep basin samples, with the strongest signatures coming from the 10- to 20-cm-depth sample.
+    sourceRef: arads-2019-article
+  - kind: lesson
+    text: The paper reports that technical problems may have prevented analysis of shallower-basin samples.
+    quote: >-
+      No signatures were detected in samples from the shallower basin although technical problems occurred that may have prevented successful analysis of those samples.
+    sourceRef: arads-2019-article
+sources:
+  - ref: arads-2019-article
+    url: https://journals.sagepub.com/doi/10.1089/ast.2022.0055
+    fetchedAt: '2026-11-14T17:59:08Z'
+    sha256: 9c614d86b0ec7f71bdacd03f9f161ef884470201469d1af2b8f5288408776dbe
+    localPath: data/snapshots/campaign-sources/atacama-arads-2019/article.md
+    licenceNote: Full article text stored from the publisher page under CC BY 4.0; attribution is retained in the source URL.
+nulls:
+  - field: objectivesExercised[0].objectiveId
+    reason: The source describes a life-search field demonstration but does not map it to one of the objective IDs currently present in data/objectives/.
+evidence:
+  - field: site.name
+    quote: >-
+      On Sol 1 of the test, the rover arrived at Area 1
+    sourceRef: arads-2019-article
+  - field: campaignId
+    quote: >-
+      The ARADS 2019 experiment in the Atacama Desert, Chile, was an end-to-end demonstration of a remotely directed robotic drilling mission to search for biomolecular evidence of life
+    sourceRef: arads-2019-article
+  - field: name
+    quote: Atacama Rover Astrobiology Drilling Studies (ARADS)
+    sourceRef: arads-2019-article
+  - field: agency
+    quote: ARADS was a NASA PSTAR project with science, engineering, and operational objectives.
+    sourceRef: arads-2019-article
+  - field: years
+    quote: >-
+      Our field work was performed in September 2019 in the hyperarid core of the Atacama Desert in northern Chile
+    sourceRef: arads-2019-article
