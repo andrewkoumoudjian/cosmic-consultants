@@ -252,7 +252,9 @@ silently. The UI lets the user edit any band; a user edit sets
 | Source of truth for file identity | `data/snapshots/MANIFEST.json` (git) |
 | Raw + derived files | gitignored locally; mirrored to Drive folder `1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_` with the same layout as `data/snapshots/` |
 | Drive tooling | rclone remote `ccdrive`; `scripts/drive_sync.sh` copies, never deletes; `restore` re-checks every sha256 |
-| Builds | any machine with `uv sync` in `services/ingest`. The Oracle instance is the always-on builder and uploader once it's linked to T3 (pending). |
+| Heavy builds (L0 fetch, L1, L1m, terrain) | Andrew's laptop (`drew`), or any machine with ≥ 5 GB free disk and `uv sync` in `services/ingest`. Raw files are about 2 GB. |
+| Light always-on jobs (EONET and airport pulls, L2 context, Drive upload of `_derived/`) | Oracle instance `instance-20261019-1530` (T3-linked 2026-11-14): aarch64, 2 cores, ~4 GB RAM free, **1.8 GB disk free**, so it never holds raw MODIS or DEM files. It reads our Drive folder with its own remote: `rclone ... gdrive: --drive-root-folder-id 1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_` (checked 2026-11-14: 26 objects, 2.002 GiB, rc=0). Jobs run as systemd user services (linger is on). |
+| Drive mirror state (2026-11-14 17:35Z) | complete: 26 objects, 2.002 GiB, same on both remotes. Both remotes use rclone's shared Google client id, which rclone says is being retired in 2026; make our own client id if uploads start failing. |
 | Looking at the data | JSheets team workbook (DuckDB reads the Parquet files directly), in `research/`, never shipped. See MISSION-PLANNER "Team workbook". |
 | Run times (measured 2026-11-14) | L1 53.1 s (`cells-r4.meta.json` `timing.total_s`); terrain 1,038.5 s for the last resumed run (`terrain-r4.meta.json` `secondsThisRun`; the full pass spanned restarts). L1m and L2 targets: under 10 min each. |
 
