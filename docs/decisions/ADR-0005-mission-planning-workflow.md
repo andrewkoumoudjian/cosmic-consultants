@@ -67,11 +67,20 @@ them.
 
 **D5. Two numbers that combine traits are allowed, always with their parts.**
 
-- *Past-mission closeness (step 6).* The distance between a site and a past
-  campaign site, over the traits both have. It is always shown split per trait
-  with Shapley values (each trait's share of the difference). For our squared
-  distance the Shapley value of a trait is exactly its own term, so the split
-  is exact, not an estimate.
+- *Past-mission closeness (step 6).* The squared distance between a site and
+  a past campaign site, Σ ((x_t − y_t) / s_t)², always shown split per trait
+  with Shapley values (each trait's fair share of the difference). Because the
+  sum is additive, trait t's Shapley value is exactly its own term
+  ((x_t − y_t) / s_t)², and the shares add up to the total. Rules that keep
+  this honest:
+  - `s_t` is the interquartile range of trait t over all L1 land hexagons
+    with a value, computed once per build and stored in `build-manifest.json`.
+    Traits with `s_t = 0`, and yes/no traits (e.g. `polar_night`), are left
+    out of the sum and shown beside the bar as "same" or "different".
+  - The trait set is fixed **per comparison**: the objective's required
+    traits that the chosen site has. Campaigns missing any of them aren't
+    ranked against the others. They are listed apart, as "can't compare on
+    <trait>". So every ranked number covers the same traits.
 - *Campaign optimizer (plan only, P2).* The cost and risk of a multi-site field
   plan, solved with QUARCC `fastopt`. It plans field days. It never rates how
   Moon-like or Mars-like a place is.
@@ -84,10 +93,16 @@ to a NASA objective, precedent at a similar site, permits, a season window,
 cost band). Each item is yes / no / unknown with a source. We have no data to
 calibrate a probability of approval, so we don't show one.
 
-**D7. Lean.** The new concepts get one new statement, S7 (funnel): verdicts per
-trait, `unknown` never counts as `match`, and tightening or adding a
-requirement never adds sites to the shortlist. S7 is frozen before engine code
-computes verdicts (AGENTS.md rule 1). The proved S6 (ARL) files stay in
+**D7. Lean.** Two new statements, each frozen before the engine code that
+uses it (AGENTS.md rule 1):
+- **S7 (funnel):** verdicts per trait; `unknown` never counts as `match`;
+  tightening a band or adding a must-requirement never adds a site to the
+  **surviving set**. (The Pareto shortlist itself can change either way:
+  removing a site can promote one it used to beat. The plan doesn't promise
+  more than that.)
+- **S8 (closeness split):** for an additive sum of per-trait terms, each
+  trait's Shapley value equals its own term, and the values add up to the
+  total. Frozen before step 6 code. The proved S6 (ARL) files stay in
 `proofs/` as finished work (rule 6), but the product no longer uses them.
 
 **D8. Contracts.** New schemas: `plan-request`, `trait-map`, `campaign`,

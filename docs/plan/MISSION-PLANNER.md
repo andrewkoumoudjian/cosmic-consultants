@@ -27,7 +27,8 @@ Most teams will show a "looks like Mars" map. Ours starts from the
   between its causes, here between traits.)
 - It ends with a plan, not a map: a one-page brief you could attach to a
   proposal, with an approval-readiness checklist.
-- Every number links back to its source file (NASA, ESA or Copernicus) and its hash.
+- Every number links back to its stored source file and its hash (NASA, ESA,
+  Copernicus data, or the documents behind a past campaign).
 
 ## The workflow
 
@@ -161,11 +162,12 @@ traits together.
   agency, years, what they tested, what worked and failed (quoted), and a
   **Shapley breakdown** of closeness: which traits make the two sites alike or
   different.
-- **Engine:** `precedents(site, objective)`. Closeness is the squared distance
-  over traits both sites have, each trait scaled by its spread across all land
-  hexagons (interquartile range). Because the squared distance is a sum of
-  per-trait terms, each trait's Shapley value is exactly its own term. Traits
-  missing on either side are left out and listed.
+- **Engine:** `precedents(site, objective)`. Closeness and its Shapley split
+  follow ADR-0005 D5 exactly: squared distance over a fixed trait set (the
+  objective's required traits the site has), each trait scaled by its
+  interquartile range over L1; zero-spread and yes/no traits are shown as
+  same/different instead; campaigns missing a trait are listed apart, not
+  ranked. The S8 statement is frozen first.
 - **Data:** L3 campaigns, L1 at each campaign's hexagon.
 - **UI:** precedent list. Each item has a bar split by trait, using the
   Shapley values.
@@ -206,16 +208,26 @@ checklist reviewers care about. Each item is yes / no / unknown, with a source:
 For a campaign that tests several objectives across several sites, choose how
 to split field days across (site, month) pairs:
 
-- Variables: share of field days per (site, month), at least 0, adding to 1.
-- Coverage constraints: for each required trait, the share of days at
-  (site, month) pairs where it matches is at least a minimum. These are
-  fastopt group constraints (`groups`, `group_lower`).
-- Caps: max share per site or month (team capacity), as box bounds.
-- Cost: a linear term from travel time (stated proxy).
-- Risk: days lost to bad conditions in each past year (2014–2023, from L1m
-  years and burned area; not EONET, whose coverage changes by year) as scenarios. Minimise the worst 10% (CVaR), which fastopt
-  solves directly (`Portfolio(...).optimization(rm="CVaR", obj="MinRisk")`).
+- Variables: share of field days `w` per (site, month) pair, at least 0,
+  adding to 1 (`budget=1`).
+- Scenarios: for each past year (2014–2023, from L1m years and burned area;
+  not EONET, whose coverage changes by year), the share of days lost at each
+  pair. fastopt works with **returns**, so we pass `returns = −loss` (rows =
+  years, columns = pairs).
+- Risk: minimise the average of the worst 10% of years (CVaR):
+  `Portfolio(returns=-loss, alpha=0.10, ...).optimization(rm="CVaR", obj="MinRisk")`.
+  The default `alpha` is 0.05, so we set it.
+- Coverage: for each required trait, the share of days at pairs where it
+  matches is at least `c`. `Portfolio` has no `groups`; we write `G w ≥ c` as
+  `ainequality = −G`, `binequality = −c` (it solves `A w ≤ B`).
+- Caps: max share per pair via `upperlng` (and `lowerlng` = 0).
+- Cost: `MinRisk` has no linear cost term, so cost is a **constraint**, not
+  part of the objective: total travel-time proxy `cost · w ≤ budget_cost`, one
+  more row in `ainequality`. (`PortfolioProblem` has `groups` and
+  `linear_cost` but not CVaR, so it isn't the right model here.)
 - Output: a table of (site, month, share of days) with each trait's coverage.
+- API checked against the local `quant-fund/fastopt/src/fastopt/models.py`
+  (`Portfolio.__init__` at line 296, `optimization` at 345) on 2026-11-14.
 
 This is a plan for field time, not a rating of how alike two places are, so it
 fits ADR-0005 D5. Needs L1m for several years. Not built in the hackathon
@@ -256,9 +268,10 @@ not in the product:
 - **Lean first:** S7 (funnel) is frozen before the verdict code is written:
   - verdict is `match` only if the value is known and inside the band;
   - `unknown` never counts as `match`;
-  - tightening a band or adding a requirement never adds a site to the
-    surviving set or to the shortlist's candidates.
-  The Pareto shortlist reuses the proved S2 statements.
+  - tightening a band or adding a must-requirement never adds a site to the
+    surviving set (the Pareto shortlist itself may change either way).
+  The Pareto shortlist reuses the proved S2 statements. S8 (closeness split)
+  is frozen before step 6 code.
 
 ## UI
 
@@ -321,7 +334,7 @@ config line. The mock banner stays up until then.
 | W18 | L2 context: EONET hazards, travel time, airports, WDPA (licence first) | ingest | W16 |
 | W19 | Past campaigns table (cited) + `campaign.schema.json` | data + contracts | W16 |
 | W20 | New contracts: `plan-request`, `trait-map`, `site-plan` | contracts | W16 |
-| W21 | S7 funnel statement (frozen) then proof | proofs | W20 |
+| W21 | S7 funnel + S8 closeness-split statements (frozen), then proofs | proofs | W20 |
 | W7 (#20) | Planner engine: requirements, verdicts, shortlist, gaps, season, risks, precedents, publish | engine | W17, W18, W20, W21 statement |
 | W11b | Atlas stepper (steps 1–6) on mock L4, then real; hexagon layer; README fix | atlas | W20 |
 | W15 (#23) | Calibration against past campaigns: does each campaign's own site match its objective? | data | W7, W19 |

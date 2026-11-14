@@ -233,7 +233,9 @@ rule:
 - objectiveId: LI-5L
   dimension: terrain
   earthColumn: slope_mean_deg      # L1 column
-  band: {lo: 0, hi: 10}            # Earth units
+  band: {lo: 0, hi: 10}            # Earth units, both ends included
+  hiStrict: true                    # optional: value < hi (source says "< 10")
+  priority: must                    # must (filters) | nice (shown only)
   unit: deg
   origin: target                    # target | precedent | team | user
   basis: "moon-south-pole-v0 terrain: max slope over 100 m <= 10 deg"

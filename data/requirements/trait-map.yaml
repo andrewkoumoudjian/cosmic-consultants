@@ -12,6 +12,8 @@
 #   user      - set in the app (never stored here)
 # band: null means "no band yet": the trait is UNKNOWN for this objective, never skipped.
 # table: L1 (yearly, cells-r4) or L1m (per month, cells-r4-monthly). Booleans are 0/1.
+# band: lo <= value <= hi, both ends included, unless hiStrict: true (then value < hi).
+# priority: must (filters sites out) or nice (shown, never filters). Default must.
 
 version: 0
 rules:
@@ -24,7 +26,8 @@ rules:
     unit: deg
     origin: target
     basis: "mars-reference-v0 terrain: mean slope along traverse corridors 0-5 deg (MSL design-reference terrain)."
-    scaleCaveat: "Earth value is the mean over a whole hexagon on a 240 m grid, not along a traverse."
+    scaleCaveat: "The source calls 5 deg a design-reference terrain, NOT a limit (data/envelopes/README.md), so this is nice-to-have, not a filter. Also, the Earth value is the mean over a whole hexagon on a 240 m grid, not along a traverse."
+    priority: nice
     status: proposed
 
   - objectiveId: OP-5LM
@@ -106,6 +109,7 @@ rules:
     table: L1
     earthColumn: slope_mean_deg
     band: {lo: 0, hi: 10}
+    hiStrict: true                  # source says "< 10 deg over 100 m"
     unit: deg
     origin: target
     basis: "moon-south-pole-v0 terrain: max slope over a 100 m baseline <= 10 deg (Artemis III)."
