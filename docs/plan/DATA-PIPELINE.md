@@ -1,15 +1,58 @@
 # Data pipeline spec (mission planner)
 
-Status: **proposed** (work order #56). Decision: [ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md).
+Status: **implementation in progress** (work order #69). Current scope:
+[ADR-0007](../decisions/ADR-0007-data-preparation-scope.md).
+The team's Google Doc, **IDEA table**, takes precedence over repository
+product docs. Its core modules are objectives, site analysis/comparison and
+gaps; combined operations and mission presets are should-have modules.
+The historical six-step IDs below identify data consumers only.
 Product plan: [MISSION-PLANNER.md](MISSION-PLANNER.md). Owner of this spec:
 Andrew (data pipeline scope).
 
+The #69 `cleaning-report.json` audits the rules actually used. It separates
+native input-value rejection counts from output-row null counts. Current
+raw replays cover the twelve 2023 MOD11C3 granules and three MCD12C1 share
+layers. Historical streaming pixel counts and source QA gaps stay explicit:
+MOD11C3 QC bits are not filtered; `terrain._read_tile` reads unmasked arrays.
+The old `dem-nodata` and `mcd12c1-land-share` rule labels were inaccurate;
+the registry now names unmasked terrain and MOD11C3 land-share provenance.
+This report does not accept those source methods or claim complete input
+filter accounting. Source corrections/rebuilds remain open data work.
+
 This is the single description of what data we hold, how it's built, where
 it's stored and who reads it. If code or another doc disagrees with this file,
-this file wins until a PR changes it. If you find a contradiction, open an
+the Google Doc governs product requirements; align this file through a PR. If you find a contradiction, open an
 issue, don't route around it.
 
 ## 1. The rules (apply to every layer)
+
+**Full feature scope.** Data preparation covers every feature in
+`research/features/landing_site_features.csv` (55 current IDs), plus context
+and campaign evidence for the **19 current test categories**. The user may
+select up to eight metrics, while all source menu choices remain available
+in the requirements inventory (`data/pipeline/test-categories.yaml`). This
+selection limit does not cap stored features or reduce the 12-item mobility
+and geology menus. The 55-feature list is a baseline, not a ceiling. The per-feature
+preparation mapping is `data/pipeline/feature-preparation.yaml`; the assembler
+includes all its entries in `data-coverage.json`. Related available columns
+are reported as inputs, never as completed exact features. Category-level
+trait coverage does not establish support for every selectable test.
+
+Each feature retains its quantity, unit, spatial/time support, masks,
+derivation, source hashes and limitations. Monthly MOD11C3 composites are
+not observed daily extremes; 240 m cell slopes do not implement all fine
+baselines; permafrost is not ice depth. Site-scale and regional evidence
+remain at their actual support instead of being presented as global coverage.
+
+**Target and campaign boundary.** Current assembly does not produce measured
+per-site Moon/Mars feature tables: the two envelope JSONs are generic
+reference requirements, not extracted target measurements. Campaign site
+joins attach 2023 Earth-cell context, explicitly labelled as such, rather
+than measurements of conditions during historical tests. Quotes, source
+records, constraints, outcomes and unknowns survive preparation unchanged.
+Instruments, procedures and dated test measurements need the source
+acquisition and evidence extraction work in issue #74. See
+[TEST-DATA-AUDIT.md](TEST-DATA-AUDIT.md).
 
 1. **Every number traces to a snapshot.** A snapshot is a source file or
    listing with its URL, fetch date, sha256 and licence in
@@ -28,12 +71,16 @@ issue, don't route around it.
    or computed by a stated method (slope from elevation, sun height from
    latitude, permafrost probability from ESA's model). Each derivation is named
    in the table's `.meta.json`. No verdicts, gaps or scores. Comparing a value
-   to a requirement is engine work (L4).
-4. **One grid.** Every gridded table uses H3 resolution 4 (about 1,770 km² per
-   hexagon, 91,800 land hexagons). The key column is always `h3`.
-5. **One time base.** Monthly values use calendar months 1 to 12 of a named
-   year. The base year is **2023** for every source unless its row in §4 says
-   otherwise.
+   to a requirement is engine work (L4). Assembly (§5B) may add only the
+   summaries it lists (year-to-year spread, trait scales, data coverage).
+4. **Earth grid.** Earth hexagon tables use H3 resolution 4 (about 1,770 km²
+   per hexagon, 91,800 land hexagons), keyed by `h3`. Planetary source products
+   retain their native geometry, frame and grid under ADR-0008; Earth H3
+   does not apply to Moon/Mars records.
+5. **Explicit time support.** Earth monthly tables use calendar months 1 to
+   12 of a named year. Their reference year is **2023** unless §4 says
+   otherwise. Historical campaigns and planetary products retain their
+   actual observation/model periods, including explicit unknown dates.
 6. **Licence first.** A source is used only after its licence is checked live
    at fetch time and recorded in its catalog row. `restricted` or `unresolved`
    sources stay out of published artifacts.
@@ -43,16 +90,21 @@ issue, don't route around it.
 | Layer | What | Where (repo path) | Built by | Read by |
 |---|---|---|---|---|
 | L0 | Raw snapshots, hashed | `data/snapshots/<datasetId>/` + `MANIFEST.json` | `services/ingest` fetchers | L1, L2 builders |
-| L1 | Earth traits per hexagon, yearly | `data/snapshots/_derived/cells-r4.parquet` | `p0ingest.process` | engine |
-| L1m | Earth traits per hexagon, per month | `data/snapshots/_derived/cells-r4-monthly.parquet` | `p0ingest.monthly` (new) | engine |
-| L2 | Context per hexagon: access, protected land, hazards | `data/snapshots/_derived/context-r4.parquet` | `p0ingest.context` (new) | engine |
-| L3 | Curated reference tables (objectives, envelopes, trait map, past campaigns) | `data/objectives/`, `data/envelopes/`, `data/requirements/`, `data/campaigns/` | data lane, by PR | engine, UI |
-| L4 | Published artifacts for the app | `apps/atlas/public/data/v<N>/` + `build-manifest.json` | `services/engine` `publish` | UI |
+| L1 | Earth traits per hexagon, yearly | `data/snapshots/_derived/cells-r4.parquet` | `p0ingest.process` | assembler |
+| L1m | Earth traits per hexagon, per month | `data/snapshots/_derived/cells-r4-monthly.parquet` | `p0ingest.process` + `monthly` | assembler |
+| L2 | Context per hexagon: access, protected land, hazards | `data/snapshots/_derived/context-r4.parquet` | `p0ingest.context` | assembler |
+| L1+ | Other per-source tables (other years, burned area, albedo, regolith, dust), each cleaned by its own builder (§5A) | `data/snapshots/_derived/<family>-r4*.parquet` | one module per family | assembler |
+| L3 | Curated reference tables (objectives, envelopes, trait map, past campaigns) | `data/objectives/`, `data/envelopes/`, `data/requirements/`, `data/campaigns/` | data lane, by PR | assembler, engine |
+| A | **Workflow tables**: per-source tables + L3 joined into what each step reads (§5B) | `data/snapshots/_derived/assembled/` | `p0ingest.assemble`, driven by `data/pipeline/columns.yaml` | engine, L4 publish |
+| L4 | Published artifacts for the app | `apps/atlas/public/data/v<N>/` + `build-manifest.json` | `services/engine` `publish` (reads A only) | UI |
 
 `_derived/` files are rebuilt from L0, never edited. They're gitignored and
 mirrored to Drive (§7). Their `.meta.json` lists every input sha256.
 
 ## 3. Which workflow step needs which data
+
+The workflow reads only the assembled tables (§5B). This table says where
+their columns come from.
 
 | Step | Needs | Layer | Have it today? |
 |---|---|---|---|
@@ -75,14 +127,16 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 | Copernicus DEM GLO-30 (`copernicus-dem-glo30`) | elevation, read at 240 m | L1 `elev_*`, `slope_*` | static | have (streamed; tile ledger hashed) |
 | ESA CCI permafrost (`esa-cci-permafrost-extent-nh`, `-antarctica`) | permafrost probability | L1 `permafrost_pct` | 2023 | have |
 | Sun position (computed) | noon sun height, day length, polar day/night | L1, L1m `sun_*`, `daylight_h`, `polar_*` | 2023 | have (no file needed) |
-| MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | blocked (GES DISC app approval) |
-| MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (risk scenarios, optimizer) | 2014–2023 | fetch (P2 only) |
+| MERRA-2 M2TMNXAER (`merra2-m2tmnxaer`) | dust optical depth, monthly | L1 `dust_aod_mean`, L1m `dust_aod` | 2023 | access unblocked (issue #68, HTTP 200 at 2026-11-14T19:01Z); source table still pending |
+| MODIS MOD11C3, 2014–2022 | same as above, extra years | L1m-years (historical spread; future optimizer inputs) | 2014–2023 | built and checked in #64; Drive delivery and integration tracked in PR #72 |
 | NASA EONET v3 (`eonet-v3-events`) | notable natural events with dates and points | L2 `eonet_*` + `_derived/eonet-events-r4.parquet` | 2015–2024 | have (#62); used under NASA's open data policy + EONET disclaimer, owner decision ADR-0006 |
 | Travel time to cities 2015 (`travel-time-to-cities-2015`) | minutes to the nearest city | L2 `access_min_*` | 2015 | have (#62); CC BY 3.0 |
 | MODIS burned area MCD64A1 (new catalog row) | burned area per month, 500 m | L2 `burned_pct_<month>` | 2015–2024 | probe (P1; better wildfire-by-month source than EONET) |
 | WDPA (`wdpa-protected-areas`) | protected-area polygons | L2 `protected_pct` | latest release | probe (licence is `restricted`: may not ship) |
 | Airports (new catalog row, e.g. OurAirports) | airport points | L2 `airport_km` | snapshot date | have (#62, `ourairports`, public domain; paved runways only) |
 | Campaign source documents (papers, NASA pages) | where and when past campaigns ran | L3 `data/campaigns/` | per campaign | have for 6 campaigns (#63) |
+| Diviner south PRP (`diviner-l4`) | model annual average at 2 cm subsurface, surface maximum, calculated ice stability | native triangle records in `_derived/planetary/` | source model statistics; start/stop inapplicable | prepared and delivered in #75; not a per-target profile |
+| TES thermal-inertia maps (`tes-mgs`) | model-derived apparent thermal inertia, day/night; raw interpolation flags retained | native pixel records in `_derived/planetary/` | observations February 1999–April 2004 | prepared and delivered in #75; geographic extraction pending projection review |
 
 If WDPA's licence doesn't allow publishing derived numbers, `protected_pct`
 stays in L2 for our own checks and L4 ships `null` with reason
@@ -135,7 +189,7 @@ a short code (`no-lst-pixels`, `outside-permafrost-model`,
 | `dem_pixels`, `elev_mean_m`, `elev_min_m`, `elev_max_m` | 240 m DEM pixels, elevation [m] |
 | `slope_mean_deg`, `slope_frac_lt5`, `slope_frac_lt15`, `slope_frac_gt30` | mean slope [deg], shares of ground flatter than 5°/15°, steeper than 30° [0–1] |
 | `sun_noon_elev_max_deg`, `sun_noon_elev_min_deg`, `polar_night`, `polar_day` | yearly noon sun height range [deg], flags |
-| `dust_aod_mean` | yearly mean dust optical depth [unitless]; null until MERRA-2 is unblocked |
+| `dust_aod_mean` | yearly mean dust optical depth [unitless]; null until #68 builds a verified source table |
 
 ### L1m `cells-r4-monthly.parquet` (new, one row per hexagon and month: 1,101,600 rows)
 
@@ -148,7 +202,7 @@ a short code (`no-lst-pixels`, `outside-permafrost-model`,
 | `sun_noon_elev_deg` | noon sun height on the 15th of the month [deg] | computed |
 | `daylight_h` | day length on the 15th [hours] | computed |
 | `polar_day`, `polar_night` | sun never sets / never rises on the 15th | computed |
-| `dust_aod` | monthly dust optical depth; null until unblocked | MERRA-2 |
+| `dust_aod` | monthly dust optical depth; null until the #68 source table is built | MERRA-2 |
 
 **Coverage rule (team choice, found while building #58).** A monthly median
 counts only if at least **25%** of the hexagon's pixels have a value that
@@ -224,13 +278,124 @@ tests, Antarctic Dry Valleys, Svalbard AMASE, Rio Tinto. NEEMO is listed as
 
 | File | Content |
 |---|---|
-| `cells.bin` + `cells.json` | L1 + L2 columns the UI uses, as column arrays (Float32, NaN = null), plus column names, units, null reasons |
-| `monthly/<column>.bin` | one L1m column for all hexagons × 12 months, loaded only when a step needs it |
-| `objectives.json`, `trait-map.json`, `campaigns.json` | L3 tables as JSON |
+| `cells.bin` + `cells.json` | `assembled/sites-r4` columns the UI uses, as column arrays (Float32, NaN = null), plus column names, units, null reasons |
+| `monthly/<column>.bin` | one `assembled/sites-r4-monthly` (or `-spread`) column for all hexagons × 12 months, loaded only when a step needs it |
+| `objectives.json`, `trait-map.json`, `campaigns.json` | L3 tables + `assembled/campaign-sites` as JSON |
+| `trait-scales.json`, `data-coverage.json`, `hazard-events.json` | copied from `assembled/` |
 | `build-manifest.json` | for every file: sha256, and the sha256 of every L0 snapshot it came from |
 
 Budget: `cells.bin` ≈ 91,800 × 30 columns × 4 bytes ≈ 11 MB raw (~4 MB
 gzipped). Each monthly column ≈ 4.4 MB raw.
+
+## 5A. Per-source tables and cleaning (stage C)
+
+**One source family, one builder, one table.** Each source family has its
+own module in `services/ingest/src/p0ingest/` and writes its own table to
+`_derived/`. Builders never write into another builder's table; the assembler
+(§5B) joins them. That way two people can add sources at the same time without
+editing the same file.
+
+| Family | Module | Table(s) in `_derived/` | Status |
+|---|---|---|---|
+| core (temperature, land cover, terrain, permafrost, sun) | `process.py`, `monthly.py`, `terrain.py` | `cells-r4`, `cells-r4-monthly` (= L1, L1m) | on main |
+| temperature, other years | `years.py` | `cells-r4-monthly-years` (L1m-years) | #64 |
+| context (access, airports, EONET) | `context.py` | `context-r4` (= L2), `eonet-events-r4` | on main |
+| burned area | `burned.py` | `burned-r4-monthly` (+ wide `burned_pct_<mm>` in L2) | #65 |
+| albedo | `albedo.py` | `albedo-r4`, `albedo-r4-monthly` | #66 |
+| regolith thickness | `regolith.py` | `regolith-r4` | #66 |
+| dust | `dust.py` | `dust-r4`, `dust-r4-monthly` | #68 |
+
+The old placeholder columns `dust_aod_mean` (L1) and `dust_aod` (L1m) stay
+null. Dust lives in `dust-r4*`, and the assembler takes it from there. They're
+removed from L1/L1m in a later cleanup PR.
+
+**Every per-source table follows the same contract:**
+
+- one row per H3 r4 land hexagon (the 91,800 of `cells-r4`, same order), or
+  per hexagon and month (1,101,600), or per hexagon, year and month; key `h3`
+  (+ `month`, `year`);
+- physical units only, named in the meta;
+- a per-row `missing_reason` (JSON text, trait → short code) for every null;
+- a `<table>.meta.json` with: `inputs` (path + sha256 of every input),
+  `computed` (one line per column: method and unit), **`cleanRules`** (below),
+  `nullRate` per column, and the output's sha256 and size;
+- a `check` command that prints row counts, null rates, top codes, sha256s and
+  the 5 spot checks, and exits non-zero if anything fails.
+
+**Cleaning happens inside each builder, as written rules, each counted.**
+"Cleaning" means turning raw source values into trustworthy physical values,
+never changing what was measured. Every rule a builder applies is listed in
+`cleanRules` with how many pixels or rows it removed or changed, so a reviewer
+can see its effect.
+
+| Rule kind | What it means | Examples (source → rule) |
+|---|---|---|
+| fill / nodata | drop the source's "no value" markers | MOD11C3 counts < 7500; ESA permafrost 255; travel-time nodata; MCD64A1 −1 (unmapped), −2 (water) |
+| scale and offset | raw counts → physical units, as the file says | MOD11C3 × 0.02 K; MCD43C3 scale factor from the file attributes |
+| quality flag | drop pixels the producer marks as poor | MCD43C3 BRDF quality layer (#66) |
+| valid range | drop values outside the producer's valid range; **never clip** | MOD11C3 valid 7500–65535 |
+| coverage | a hexagon value counts only if enough pixels have one | ≥ 25% of the hexagon's pixels (L1m, L1m-years, albedo) |
+| dedupe | one record per real thing | EONET: one count per event per hexagon even if several points fall near it; campaigns: one file per campaign id |
+| coordinates | one convention everywhere | longitude −180..180, dateline cells split and shifted (context.py), H3 from lat/lon only |
+| time | one time base | calendar months 1–12; base year 2023; multi-year tables say their years; EONET start month = first geometry date (UTC) |
+| join keys | every table joins on `h3` (+ `month`/`year`) | the 91,800-cell list in `cells-r4` is the master list |
+
+**What cleaning never does:** fill gaps, interpolate, clip outliers, smooth,
+or replace a missing value with a default. A value we can't trust becomes
+null with a reason. If a strange value is real (e.g. a negative diurnal
+range), it stays, and the meta explains it.
+
+## 5B. Assembly (stage A): the tables the workflow reads
+
+`uv run python -m p0ingest.assemble` (#69) joins the per-source tables and the
+L3 files into **workflow tables** in `_derived/assembled/`. Assembly only
+joins, renames to the registry names, and computes the documented summaries
+below. It adds **no verdicts, gaps or scores**: comparing a value to a
+requirement stays engine work. It's driven by the **column registry**
+`data/pipeline/columns.yaml`: one entry per column (name, unit, source table
+and column, cleaning rules, which workflow steps and test categories use it).
+A column that isn't in the registry isn't assembled, and a registry column
+missing from its source table fails the build.
+
+| Workflow table | One row per | What's in it | Steps |
+|---|---|---|---|
+| `sites-r4.parquet` | hexagon | every yearly trait from L1, L2, albedo, regolith, dust; `missing_reason` merged across sources | 1 (funnel counts), 2, 3, 4, 5 |
+| `sites-r4-monthly.parquet` | hexagon × month | L1m temperatures, sun, plus monthly albedo, dust, burned area | 1 (month window), 2, 3, 5 |
+| `sites-r4-monthly-spread.parquet` | hexagon × month | from L1m-years: p10, median, p90 of `lst_day_k` / `lst_night_k` over 2014–2023 (years with a value only; null with `too-few-years` if fewer than 5), and how many years had a value | 4 (field season), 5 (how much a month swings) |
+| `hazard-events.parquet` | hexagon × event | EONET named events (title, date, category, source link) | 5 |
+| `campaign-sites.parquet` | past campaign | campaign id, name, agency, years, site, its hexagon, and that hexagon's values from `sites-r4` + `sites-r4-monthly` (the campaign's field months, where the source gives them) | 1 (presets), 6 |
+| `trait-scales.json` | trait | median, IQR (`s_t` in ADR-0005 D5), min, max and count over all hexagons with a value; yes/no traits marked | 2 (compare), 6 (closeness + Shapley) |
+| `data-coverage.json` | objective × trait, and test category × trait | which Earth column backs each trait, its null rate, and `data` / `field` / `earth-cannot` / `none-yet` | 1 (requirement matrix), 3 (gaps) |
+| `assembly-report.json` | build | row counts, null rate per column, sha256 of every input and output, join checks | review |
+
+**The 8 test categories (team doc) are joined to data here, not in the UI.**
+`data-coverage.json` lists, per category, the traits it needs (MISSION-PLANNER
+step 1 table), which columns back them and how complete each is. A category
+with a trait we have no column for says `none-yet` for that trait. It's never
+hidden.
+
+**Past-mission database (team doc step 6 fields).** `campaign-sites` carries
+what the campaign files hold today (name, agency, location, years,
+objectives, published constraints, outcomes, sources) plus the site's
+environmental conditions from our own tables. The team doc also asks for
+instruments tested, field procedures and scientific limitations. Those need
+new quoted fields in `contracts/campaign.schema.json` (a later work order),
+and stay empty until a source is quoted.
+
+**Join checks the assembler must pass** (printed in `assembly-report.json`):
+
+- every per-source table has exactly the 91,800 `cells-r4` hexagons (and 12
+  months, or 10 years × 12 months), with no duplicates;
+- every registry column exists in its source and keeps its unit;
+- a value never changes in assembly: for each column, assembled = source,
+  exactly (checked on all rows);
+- `missing_reason` in the assembled row = the union of the source rows'
+  reasons, and lists exactly the null columns;
+- the 2023 rows of L1m-years equal L1m;
+- each campaign's hexagon is the H3 cell of its quoted coordinates.
+
+**L4 publish** reads only `_derived/assembled/`, never the per-source tables,
+and converts the workflow tables to the app formats (§5 L4).
 
 ## 6. The trait map: Moon/Mars bands to Earth test requirements
 
@@ -272,14 +437,20 @@ silently. The UI lets the user edit any band; a user edit sets
 ## 8. Build order and checks
 
 ```text
-L0 fetch  ->  L1 / L1m (process, monthly)  ->  L2 (context)  ->  validate  ->  mirror to Drive
+L0 fetch (each family)  ->  clean + grid (each family's builder, §5A)  ->  per-source tables
+                                                                   (cells-r4*, context-r4, burned, albedo, regolith, dust, years)
 L3 (PRs, validated by scripts/validate_contracts.py)
-L1 + L1m + L2 + L3  ->  engine publish  ->  L4  ->  atlas
+per-source tables + L3  ->  assemble (§5B, column registry)  ->  assembled/ workflow tables  ->  mirror to Drive
+assembled/  ->  engine publish  ->  L4  ->  atlas
 ```
+
+Each stage only reads the stage before it. The engine and the UI never read
+a per-source table directly.
 
 Checks every build must print (rule 2: paste them in the PR):
 
-- row counts (91,800; 1,101,600 for L1m),
+- row counts (91,800; 1,101,600 for monthly tables; 11,016,000 for L1m-years),
+- each cleaning rule and how many values it removed (`cleanRules`),
 - null rate per column, with the top `missing_reason` codes,
 - sha256 of every input and output,
 - L1/L1m agreement (§5),
@@ -303,3 +474,6 @@ Checks every build must print (rule 2: paste them in the PR):
 | 11 | EONET zero events could read as "safe"; EONET counts could read as rates; EONET has no licence of its own | EONET shown as named events only, never a rate (§4.1, L2); use approved by the owner under NASA's open data policy with the disclaimer shown (ADR-0006) |
 | 12 | Team doc asks for "top X" sites; rule 4 bans a site score | Pareto layers + one user-chosen trait as tie-break (MISSION-PLANNER step 1) |
 | 13 | Team doc's 8 test categories need data we don't have (caves, biology, wind) | Category table in MISSION-PLANNER step 1 marks each one ready / partial / no; missing traits stay unknown |
+| 14 | Several people add sources at once, but L1/L1m have one builder (process.py) | One builder and one table per source family; the assembler joins them (§5A, §5B) |
+| 15 | L1/L1m have empty `dust_aod*` columns, while dust now comes from `dust-r4*` | The assembler takes dust from `dust-r4*`; the empty columns are dropped from L1/L1m in a cleanup PR |
+| 16 | The team doc's past-mission database asks for instruments, procedures and limitations; the campaign schema doesn't have them | `campaign-sites` carries what's quoted today; new quoted fields come with a schema change (later work order) |

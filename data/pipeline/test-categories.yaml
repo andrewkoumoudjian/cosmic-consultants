@@ -1,0 +1,348 @@
+version: 1
+source:
+  url: https://docs.google.com/document/d/1up_LJPlljDuY-xak0Licddnoj8MakBiD1pv_Vywj8yQ
+  tabId: t.191x2ca9c4uw
+  revisionId: AHj4eMRvaKOdmEzx4A_PQY0rF4A7eiMroJGDdGdm4TWbuzKG9QhqlxNpsIRrL6ry6Ul4eQET0GU55XrQDYJnzUGaemPFNskiMtQPETDu0EM
+  connectorResponseSha256: ee1a819447cb7bfc907e3b315e0fb5666b9f4c4b2bdd89c8a7b3fb29bcc34759
+  capturedAt: '2026-11-14T19:52:38.163604+00:00'
+sourceCategoryCount: 19
+selection:
+  maxMetrics: 8
+  note: Limits the user selection, not the stored feature inventory or menu length.
+categories:
+- categoryId: robotic-mobility-navigation
+  documentOrdinal: 1
+  name: Robotic mobility & navigation
+  group: Mobility & landing
+  primaryInputsText: Slope, roughness/boulders, soil firmness, grain size, dust depth
+  secondaryInputsText: Temperature, elevation
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - terrain
+  - surfaceMaterial
+  - illumination
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText:
+  - 1. Terrain elevation and local relief
+  - 2. Slope distribution, including steep sections
+  - 3. Surface roughness at the equipment’s operating scale
+  - 4. Obstacle size distribution
+  - 5. Obstacle density and spacing
+  - '6. Surface material class: sand, gravel, bedrock, etc.'
+  - 7. Soil particle-size distribution
+  - 8. Loose surface-layer depth
+  - 9. Soil bearing strength
+  - 10. Soil shear strength and friction
+  - 11. Solar elevation and shadow coverage
+  - 12. Visual texture and landmark density
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: landing-descent
+  documentOrdinal: 2
+  name: Landing & descent
+  group: Mobility & landing
+  primaryInputsText: Landing slope, roughness, elevation, latitude, wind
+  secondaryInputsText: Soil type, temperature
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - terrain
+  - operations
+  - thermal
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: aerial-flight-systems
+  documentOrdinal: 3
+  name: Aerial / flight systems
+  group: Mobility & landing
+  primaryInputsText: Air density (elevation), wind, terrain relief, temperature
+  secondaryInputsText: Dust, latitude
+  documentSupportLabel: Limited
+  dataSupportStatus: not-established
+  traits:
+  - operations
+  - terrain
+  - thermal
+  - dustProcess
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: geological-exploration-sampling
+  documentOrdinal: 4
+  name: Geological exploration & sampling
+  group: Science
+  primaryInputsText: Rock and mineral diversity, outcrop exposure, soil/regolith type,
+    hardness
+  secondaryInputsText: Slope, access
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - surfaceMaterial
+  - terrain
+  - subsurface
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText:
+  - 1. Rock types and their distribution
+  - 2. Mineral assemblages and abundance
+  - 3. Elemental composition
+  - 4. Stratigraphic sequence and layer thickness
+  - '5. Geological landforms: crater, volcanic flow, delta, etc.'
+  - 6. Outcrop exposure and accessible extent
+  - 7. Fracture density and orientation
+  - 8. Weathering and alteration characteristics
+  - 9. Sediment grain size and sorting
+  - 10. Rock hardness and compressive strength
+  - 11. Depth to bedrock or target sampling layer
+  - 12. Rock porosity and permeability
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: astrobiology-habitability
+  documentOrdinal: 5
+  name: Astrobiology & habitability
+  group: Science
+  primaryInputsText: Water history (evaporites, past lakes), mineralogy, extremophile
+    potential, biosignature preservation
+  secondaryInputsText: Temperature, isolation
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - waterIce
+  - surfaceMaterial
+  - thermal
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: geophysics-seismology
+  documentOrdinal: 6
+  name: Geophysics & seismology
+  group: Science
+  primaryInputsText: Subsurface structure, rock type, seismic noise, tectonic setting
+  secondaryInputsText: Access, temperature
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - subsurface
+  - surfaceMaterial
+  - operations
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: cryosphere-ice-dynamics
+  documentOrdinal: 7
+  name: Cryosphere & ice dynamics
+  group: Science
+  primaryInputsText: Ice type, glacier or permafrost extent, temperature, ice thickness
+  secondaryInputsText: Slope, access
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - waterIce
+  - thermal
+  - terrain
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: volcanic-tectonic-processes
+  documentOrdinal: 8
+  name: Volcanic & tectonic processes
+  group: Science
+  primaryInputsText: Volcanic type, lava composition, fault features, eruption age
+  secondaryInputsText: Slope, vegetation
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - surfaceMaterial
+  - terrain
+  - operations
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: resource-prospecting-isru
+  documentOrdinal: 9
+  name: Resource prospecting / ISRU
+  group: Resources & construction
+  primaryInputsText: Ice type, depth to ice, permafrost, soil type, mineral targets
+  secondaryInputsText: Slope, roughness
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - waterIce
+  - subsurface
+  - surfaceMaterial
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: subsurface-exploration
+  documentOrdinal: 10
+  name: Subsurface exploration
+  group: Resources & construction
+  primaryInputsText: Cave or lava tube type, cavity size, entrance access, thermal
+    stability
+  secondaryInputsText: Soil, dust
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - subsurface
+  - thermal
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: construction-excavation
+  documentOrdinal: 11
+  name: Construction & excavation
+  group: Resources & construction
+  primaryInputsText: Bearing strength, regolith type, grain size, flat area
+  secondaryInputsText: Temperature, ice
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - terrain
+  - surfaceMaterial
+  - subsurface
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: power-energy
+  documentOrdinal: 12
+  name: Power & energy
+  group: Resources & construction
+  primaryInputsText: Sunlight fraction, latitude, dust level, temperature range
+  secondaryInputsText: Soil, slope
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - illumination
+  - thermal
+  - dustProcess
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: human-habitation-operations
+  documentOrdinal: 13
+  name: Human habitation & operations
+  group: Operations
+  primaryInputsText: Thermal swing, sunlight, flat area, radiation shielding (cave
+    or rock cover), water access
+  secondaryInputsText: Mineralogy
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - thermal
+  - illumination
+  - terrain
+  - waterIce
+  - subsurface
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: crew-training-human-factors
+  documentOrdinal: 14
+  name: Crew training & human factors
+  group: Operations
+  primaryInputsText: Access, remoteness, isolation, climate window, comms
+  secondaryInputsText: Mineralogy
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - operations
+  - thermal
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: communications-positioning
+  documentOrdinal: 15
+  name: Communications & positioning
+  group: Operations
+  primaryInputsText: Terrain obstruction, elevation, latitude, sky view
+  secondaryInputsText: Soil, ice
+  documentSupportLabel: Limited
+  dataSupportStatus: not-established
+  traits:
+  - operations
+  - terrain
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: thermal-management
+  documentOrdinal: 16
+  name: Thermal management
+  group: Operations
+  primaryInputsText: Temperature range, daily swing, wind, shade
+  secondaryInputsText: Soil, slope
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - thermal
+  - operations
+  - illumination
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: instrument-sensor-testing
+  documentOrdinal: 17
+  name: Instrument & sensor testing
+  group: Testing & hardware
+  primaryInputsText: Target material (minerals, ice, soil), surface exposure, temperature,
+    dust
+  secondaryInputsText: Slope, access
+  documentSupportLabel: Medium
+  dataSupportStatus: not-established
+  traits:
+  - surfaceMaterial
+  - waterIce
+  - subsurface
+  - thermal
+  - dustProcess
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: dust-aeolian-processes
+  documentOrdinal: 18
+  name: Dust & aeolian processes
+  group: Testing & hardware
+  primaryInputsText: Dust level, wind speed, grain size, dune activity
+  secondaryInputsText: Temperature, slope
+  documentSupportLabel: High
+  dataSupportStatus: not-established
+  traits:
+  - dustProcess
+  - operations
+  - surfaceMaterial
+  - thermal
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+- categoryId: planetary-protection
+  documentOrdinal: 19
+  name: Planetary protection
+  group: Testing & hardware
+  primaryInputsText: Microbial activity, isolation, surface exposure
+  secondaryInputsText: Temperature, access
+  documentSupportLabel: Limited
+  dataSupportStatus: not-established
+  traits:
+  - operations
+  - surfaceMaterial
+  traitMappingStatus: preparation routing only, not proof of test support
+  detailedMetricMenuText: []
+  metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
+    support and test-condition evidence need source review
+status: requirements inventory, not observed feature coverage

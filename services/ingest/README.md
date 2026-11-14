@@ -1,5 +1,14 @@
 # services/ingest — W6 (#19): Earth P0 traits per H3 cell
 
+`python -m p0ingest.clean_audit` writes the #69 cleaning report. The assembler
+also runs it. It replays the current 2023 LST/land-cover thresholds against
+hashed raw inputs, counts output nulls separately and preserves unavailable
+historical input counts as unknown. The report exposes two current source
+quality gaps: MOD11C3 QC bits are not filtered, and the terrain reader does
+not apply a nodata mask. Metadata now describes those actual behaviours.
+No physical values are changed by this diagnostic; scientific review and
+source rebuilds remain separate work.
+
 Turns hashed NASA/ESA/Copernicus snapshots into one table: a row per H3 land
 cell (resolution 4, about 1,770 km² each, 91,800 cells), with the raw traits
 for terrain, thermal, illumination, surface material and water ice. Anything
@@ -68,6 +77,26 @@ noon sun height, day length and polar day/night on the 15th. Spec:
   tropics).
 - **`missing_reason`** in both files is JSON per row and names only that row's
   null traits.
+
+## Clean and assemble (W29, #69)
+
+Run `uv run python -m p0ingest.assemble` after source builders. It uses
+Polars and `data/pipeline/columns.yaml` to join yearly/monthly traits,
+historical monthly spread, named hazard events and campaign sites into
+`data/snapshots/_derived/assembled/`. The report records input/output hashes,
+key checks, unchanged-value checks, missingness and skipped planned sources.
+
+`data-coverage.json` includes every feature in the 55-feature inventory,
+using `data/pipeline/feature-preparation.yaml`. A related column is never
+reported as an implemented exact feature. Category availability is partial;
+field evidence, instrument-specific quantities and missing sources remain
+explicit. Historical spread describes 2014–2023; it is not a weather forecast.
+
+The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
+builders keep their own tables. The generic Drive sync script excludes
+`_derived/`; copy prepared outputs separately and verify their hashes.
+
+Run `python -m unittest discover -s tests -v` for the assembly regressions.
 
 ## Temperature history (W24, #64)
 
