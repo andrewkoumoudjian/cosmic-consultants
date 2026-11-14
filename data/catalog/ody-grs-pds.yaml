@@ -1,7 +1,7 @@
 # Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
 # source.probeResult and license.verified are written by scripts/registry_probe.py.
 datasetId: ody-grs-pds
-title: "Mars Odyssey Gamma Ray Spectrometer data (PDS Geosciences)"
+title: "Mars Odyssey GRS Element Concentrations, legacy PDS3 V1.0"
 status: candidate
 bodies: [mars]
 dimensions: [surfaceMaterial, waterIce]
@@ -10,24 +10,24 @@ discovery:
   doi: null
 source:
   archive: "PDS Geosciences Node"
-  endpoint: "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html"
-  probedAt: 2026-11-13T00:21:54Z
-  probeResult: "HTTP 200, 29231 B, sha256 81a37882aa26…"
+  endpoint: "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html"
+  probedAt: 2026-11-13T04:03:29Z
+  probeResult: "HTTP 200, 27993 B, sha256 47474e2866ad…"
 probe:
   kind: http
-  url: "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html"
-  expect: ["Odyssey GRS"]
+  url: "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html"
+  expect: ["GRS Element Concentrations", "potassium", "thorium"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PDS node pages probed 2026-11-12 state no explicit license; NASA public-archive data, but the license basis has to be cited before adoption."
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0"
+  expect: ['"name":\s*"ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0"', '"license_id":\s*"us-pd"', 'ODY-M-GRS-5-ELEMENTS-V1.0']
+  verified: true
+  note: "NASA catalogue record declares us-pd for ODY-M-GRS-5-ELEMENTS-V1.0 (legacy PDS3 element maps) and links usa.gov/publicdomain/label/1.0/. Scope narrowed to that exact product; not blanket clearance for other GRS products or the PDS4 conversion announced 2026-10-01. Other harvest copies have unspecified/other-license labels; see LICENCE-AUDIT-41.md and the run-specific evidence. Ingest must pin the matching release."
 coverage:
-  spatial: "global Mars (mid/low latitudes for elements)"
-  temporal: "2002-"
-  resolution: "unverified: ~5 deg bins"
+  spatial: "Mars; non-radioactive species mask polar regions (not wall-to-wall valid coverage)"
+  temporal: "2002-06-04/2005-04-03"
+  resolution: "unsmoothed 2x2, 5x5, 10x10 degree bins; smoothed 5x5 degree bins"
 analysisReady: false
 independenceGroup: gamma-neutron
-plannedUse: "grs_th_k (Mars) and water-equivalent hydrogen"
+plannedUse: "legacy element maps for grs_th_k (Mars) and water-equivalent hydrogen; masks, selected grid and release must be preserved"
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

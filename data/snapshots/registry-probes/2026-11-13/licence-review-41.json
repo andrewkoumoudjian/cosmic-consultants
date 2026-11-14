@@ -1,0 +1,941 @@
+{
+  "generatedAt": "2026-11-13T04:04:12+00:00",
+  "workOrder": 41,
+  "baselineCommit": "7ba4941",
+  "purpose": "registry rights/provenance review only; no scientific data processing",
+  "priorProbeLogSha256": "2fa7a1451a49f0fd2a409efba78a19e077b6b1012e35279f6d24825581f0c7c2",
+  "reviewedSources": [
+    {
+      "key": "ody-selected-catalogue",
+      "url": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0%22+OR+name%3A%22ody-mars-gamma-ray-spectrometer-5-and-v2-0%22&rows=10&fl=name%2Ctitle%2Clicense_id%2Cidentifier%2ClandingPage",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0%22+OR+name%3A%22ody-mars-gamma-ray-spectrometer-5-and-v2-0%22&rows=10&fl=name%2Ctitle%2Clicense_id%2Cidentifier%2ClandingPage",
+      "fetchedAt": "2026-11-13T03:57:40Z",
+      "status": 200,
+      "bytes": 2579,
+      "sha256": "aa9882d31775b4ef070e0a255a82c4237f5cb799d4878226ca90312916974143",
+      "headers": {},
+      "recordCount": 36518,
+      "records": [
+        {
+          "name": "voyager-2-pws-hr-avgd-and-peak-plasma-wave-data-56521",
+          "title": "Voyager 2 PWS hr-avgd and peak plasma wave data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "voyager-2-uranus-planetary-radio-astronomy-pra-calibrated-low-frequency-receiver-band-vers-c954f",
+          "title": "Voyager 2 Uranus Planetary Radio Astronomy (PRA) Calibrated Low-Frequency Receiver Band, Version 1.0, 6 s High Resolution Data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "ulysses-heliosphere-instrument-for-spectral-composition-and-anisotropy-at-low-energies-his-2ec98",
+          "title": "Ulysses Heliosphere Instrument for Spectral, Composition, and Anisotropy at Low Energies (HISCALE) LEFS150 Count Rates, Daily Averages",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "ucla-mhd-and-ipic3d-model-agyrotropy-results",
+          "title": "UCLA MHD and iPic3D model Agyrotropy results",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "themis-a-level-1-probe-state-data-1048e",
+          "title": "THEMIS-A Level 1 Probe State Data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "stereo-b-swaves-new-one-minute-averages-of-the-low-lfr-frequency-receiver-data-3930a",
+          "title": "STEREO-B SWAVES new one minute averages of the low (lfr) frequency receiver data.",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "stereo-a-secchi-hi-2-fits-data",
+          "title": "STEREO-A/SECCHI/HI-2 FITS data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "mars-ephemeris-heliocentric-trajectories-heliographic-heliographic-inertial-and-solar-ecli-8cdc2",
+          "title": "Mars Ephemeris, Heliocentric Trajectories, Heliographic, Heliographic Inertial, and Solar Ecliptic Coordinates, HelioWeb, Hourly Data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "psp-integrated-science-investigation-of-the-sun-energetic-particle-instrument-hi-isois-epi-0ccbb",
+          "title": "PSP Integrated Science Investigation of the Sun, Energetic Particle Instrument-Hi (ISOIS EPI-Hi) Low Energy Telescope 1 (LET1) Rates, Level 2 (L2), 1 min Data",
+          "license_id": "other-license-specified"
+        },
+        {
+          "name": "mms-2-electric-double-probe-edp-axial-double-probe-spin-plane-double-probe-adp-sdp-three-d",
+          "title": "MMS 2 Electric Double Probe (EDP) Axial Double Probe, Spin Plane Double Probe (ADP-SDP) Three-Dimensional HMFE Electric Field, Level 2 (L2), Burst Mode, 0.01525878906 ms Data",
+          "license_id": "other-license-specified"
+        }
+      ],
+      "acceptedForLicence": false,
+      "rejectionReason": "Expected two named Odyssey products but received an unfiltered catalogue page; HTTP 200 is not successful product identification. No rights conclusion uses this response."
+    },
+    {
+      "key": "ody-archive",
+      "url": "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/odyssey/grs.html",
+      "fetchedAt": "2026-11-13T03:57:40Z",
+      "status": 200,
+      "bytes": 29231,
+      "sha256": "81a37882aa2622195c8d7f88ccb010acf5ef1e9daa5a1c1489de6720ebd69210",
+      "headers": {},
+      "metadata": {
+        "title": "PDS Geosciences Node Data and Services: Odyssey GRS",
+        "rightsTermsFound": {
+          "public domain": null,
+          "Creative Commons": null,
+          "use constraints": null
+        }
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "m3-archive",
+      "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+      "finalUrl": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+      "fetchedAt": "2026-11-13T03:57:40Z",
+      "status": 200,
+      "bytes": 6960,
+      "sha256": "2543dca3defa19fe9e114eb9b43fc97cb8eba16bf71db927021b5f3a5833944b",
+      "headers": {},
+      "metadata": {
+        "title": "Moon Mineralogy Mapper Online Data Volumes",
+        "rightsTermsFound": {
+          "public domain": null,
+          "Creative Commons": null,
+          "use constraints": null
+        }
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "mars-map-metadata",
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.xml",
+      "finalUrl": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.xml",
+      "fetchedAt": "2026-11-13T03:57:40Z",
+      "status": 200,
+      "bytes": 14721,
+      "sha256": "38806845cae2354e4ab65c55f57819d3e001b3865aceb5a24426efd5412683f8",
+      "headers": {},
+      "metadata": {
+        "title": [
+          "Geologic Map of Mars, 20M (SIM 3292)",
+          "The Thermal Emission Imaging System (THEMIS) for the Mars 2001 Odyssey mission"
+        ],
+        "origin": [
+          "Kenneth L. Tanaka, U.S. Geological Survey, Geologist"
+        ],
+        "useconst": [
+          "please cite authors."
+        ],
+        "accconst": [
+          "None"
+        ],
+        "distliab": [
+          "None"
+        ]
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "mars-map-doi",
+      "url": "https://api.datacite.org/dois/10.5066/P9PBKSGE",
+      "finalUrl": "https://api.datacite.org/dois/10.5066/P9PBKSGE",
+      "fetchedAt": "2026-11-13T03:57:40Z",
+      "status": 200,
+      "bytes": 8193,
+      "sha256": "9b9595a639484adc2b0c6c46700a8c3fa23a9f95092e3ecb8e78ac297473534c",
+      "headers": {},
+      "metadata": {
+        "titles": [
+          {
+            "title": "Interactive Map: USGS SIM 3292 Geologic Map of Mars"
+          }
+        ],
+        "publisher": "U.S. Geological Survey",
+        "rightsList": [],
+        "url": "https://usgs.maps.arcgis.com/apps/webappviewer/index.html?id=fc004c3d21b64c398ed5458580ab7c58"
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "mars-craters-collection",
+      "url": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+      "finalUrl": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+      "fetchedAt": "2026-11-13T03:57:41Z",
+      "status": 200,
+      "bytes": 2950,
+      "sha256": "1e89ec9cc43e0a2b05e6f5f48a1525f833861e7109e8a1673ce85e160233a6a4",
+      "headers": {},
+      "metadata": {
+        "id": "mars/robbinsv1",
+        "title": "Robbins V1 Crater Database",
+        "license": null,
+        "rights": null,
+        "canonicalLinks": [
+          {
+            "type": "application/html",
+            "rel": "canonical",
+            "title": "USGS Overview Landing page",
+            "href": "https://www.usgs.gov/media/images/geologic-map-mars",
+            "hreflang": "en-US"
+          }
+        ]
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "moon-craters-archive",
+      "url": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+      "fetchedAt": "2026-11-13T03:57:41Z",
+      "status": 200,
+      "bytes": 30423,
+      "sha256": "2d5f599ed2b50c5c48cb83dc10d7180a2d375748072cf11449a08220db3da4ad",
+      "headers": {},
+      "metadata": {
+        "title": "Astropedia - Moon Crater Database v1 Robbins",
+        "rightsTermsFound": {
+          "public domain": null,
+          "Creative Commons": null,
+          "use constraints": null
+        }
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "moon-boulders-archive",
+      "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+      "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+      "fetchedAt": "2026-11-13T03:57:41Z",
+      "status": 200,
+      "bytes": 18873,
+      "sha256": "1cdd6dc1f9632d4bc391855759002639c0ad967a3b42094a7b2536bb2f46444d",
+      "headers": {},
+      "metadata": {
+        "title": "Astropedia - Moon LRO LROC NAC Boulder Database v1 Watkins",
+        "rightsTermsFound": {
+          "public domain": null,
+          "Creative Commons": null,
+          "use constraints": null
+        }
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "nsidc-metadata",
+      "url": "https://nsidc.org/api/dataset/metadata/v2/oai?verb=GetRecord&metadataPrefix=dif&identifier=GGD318.002",
+      "finalUrl": "https://nsidc.org/api/dataset/metadata/v2/oai?verb=GetRecord&metadataPrefix=dif&identifier=GGD318.002",
+      "fetchedAt": "2026-11-13T03:57:41Z",
+      "status": 200,
+      "bytes": 18388,
+      "sha256": "da6f3d2f26f10cd645b59b8c77d5c918b4dec1db4368f2b7abb1afd30846cfdf",
+      "headers": {},
+      "metadata": {
+        "Use_Constraints": [],
+        "Access_Constraints": [],
+        "Data_Set_Citation": [
+          "Brown, J., Ferrians, O., Heginbottom, J. A. & Melnikov, E. Circum-Arctic Map of Permafrost and Ground-Ice Conditions 2002-02-01 Boulder, Colorado USA NSIDC: National Snow and Ice Data Center 2 false 10.7265/skbg-kf16 http://nsidc.org/data/docs/fgdc/ggd318_map_circumarctic/index.html GGD318"
+        ]
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "nsidc-doi",
+      "url": "https://api.datacite.org/dois/10.7265/skbg-kf16",
+      "finalUrl": "https://api.datacite.org/dois/10.7265/skbg-kf16",
+      "fetchedAt": "2026-11-13T03:57:41Z",
+      "status": 200,
+      "bytes": 6948,
+      "sha256": "3cca7bdc0f1ecaa20a21f9bf61b82666259c45292c0bc77902203dae5f5fac61",
+      "headers": {},
+      "metadata": {
+        "titles": [
+          {
+            "lang": null,
+            "title": "Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2",
+            "titleType": null
+          }
+        ],
+        "publisher": "NSIDC",
+        "rightsList": [],
+        "url": "https://nsidc.org/data/GGD318/versions/2"
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "ody-elements-archive",
+      "url": "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html",
+      "finalUrl": "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html",
+      "fetchedAt": "2026-11-13T03:59:30Z",
+      "status": 200,
+      "bytes": 27993,
+      "sha256": "47474e2866ad224851c6a36da15d882857c0e83912c19ce2bc41ba229296c75d",
+      "headers": {},
+      "metadata": {
+        "title": "PDS Geosciences Node Data and Services: Odyssey GRS Element \r\nConcentrations",
+        "identityMatches": {
+          "ODY-M-GRS-5-ELEMENTS": null,
+          "hydrogen": null,
+          "thorium": " for various elements, including chlorine, iron, water, potassium, silicon, and thorium. These data products were originally released by the GRS Science Team to the public in March 2006. They contain data th",
+          "potassium": "maps and underlying data for various elements, including chlorine, iron, water, potassium, silicon, and thorium. These data products were originally released by the GRS Science Team to the public in March 2006"
+        }
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "ody-elements-record",
+      "url": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0",
+      "fetchedAt": "2026-11-13T04:00:13Z",
+      "status": 200,
+      "bytes": 5931,
+      "sha256": "52c568f39ba0bccbe749de81c071690c6fcbcfcb35333ba6b4e99e7949426e2b",
+      "headers": {},
+      "metadata": {
+        "name": "ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0",
+        "title": "ODY MARS GAMMA RAY SPECTROMETER 5 ELEMENT CONCENTRATION V1.0",
+        "license_id": "us-pd",
+        "license_title": "us-pd",
+        "notes": "The ODY MARS GAMMA RAY SPECTROMETER 5 ELEMENTS data set consists of a set of maps and underlying data products originally released to the public in March 2006. They contain data that was collected by the 2001 Mars Odyssey Gamma-ray Spectrometer between June 4, 2002 and April 3, 2005. These data are highly processed, and represent the fully corrected, CO2 frost free elemental concentrations. Data for all non-radioactive species have been masked to exclude polar regions where we currently cannot adequately deal with dilution by the large amounts of water ice.",
+        "extras": [
+          {
+            "key": "accessLevel",
+            "value": "public"
+          },
+          {
+            "key": "accrualPeriodicity",
+            "value": "irregular"
+          },
+          {
+            "key": "bureauCode",
+            "value": "{026:00}"
+          },
+          {
+            "key": "catalog_@context",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld"
+          },
+          {
+            "key": "catalog_@id",
+            "value": "https://data.nasa.gov/data.json"
+          },
+          {
+            "key": "catalog_conformsTo",
+            "value": "https://project-open-data.cio.gov/v1.1/schema"
+          },
+          {
+            "key": "catalog_describedBy",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.json"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "41acad81-03d6-496e-b92f-fb069470033d"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "61638e72-b36c-4866-9d28-551a3062f158"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "DNG Legacy Data"
+          },
+          {
+            "key": "identifier",
+            "value": "urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-elements-v1.0_3u6i-bxzy"
+          },
+          {
+            "key": "issued",
+            "value": "2021-05-21"
+          },
+          {
+            "key": "landingPage",
+            "value": "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=ODY-M-GRS-5-ELEMENTS-V1.0"
+          },
+          {
+            "key": "license",
+            "value": "http://www.usa.gov/publicdomain/label/1.0/"
+          },
+          {
+            "key": "modified",
+            "value": "2023-01-26"
+          },
+          {
+            "key": "programCode",
+            "value": "{026:005}"
+          },
+          {
+            "key": "publisher",
+            "value": "National Aeronautics and Space Administration"
+          },
+          {
+            "key": "references",
+            "value": "{https://pds.nasa.gov}"
+          },
+          {
+            "key": "resource-type",
+            "value": "Dataset"
+          },
+          {
+            "key": "source_datajson_identifier",
+            "value": "true"
+          },
+          {
+            "key": "source_hash",
+            "value": "dbc6c360342a6c2b35a8f71703d4e0375d6d96bd596540e241ebd7366031761f"
+          },
+          {
+            "key": "source_schema_version",
+            "value": "1.1"
+          },
+          {
+            "key": "theme",
+            "value": "{\"Earth Science\"}"
+          }
+        ]
+      },
+      "acceptedForLicence": true
+    },
+    {
+      "key": "ody-and-record",
+      "url": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-and-v2-0",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-and-v2-0",
+      "fetchedAt": "2026-11-13T04:00:55Z",
+      "status": 200,
+      "bytes": 5436,
+      "sha256": "9db72f25290ce4f80f623300dffd0622dce715ef77f479c9d85c4c7c19b0696d",
+      "headers": {},
+      "metadata": {
+        "name": "ody-mars-gamma-ray-spectrometer-5-and-v2-0",
+        "title": "ODY MARS GAMMA RAY\n                                   SPECTROMETER 5 AND V2.0",
+        "license_id": "us-pd",
+        "license_title": "us-pd",
+        "notes": "Averaged neutron data from the Neutron Spectrometer in the Odyssey GRS Instrument suite.",
+        "extras": [
+          {
+            "key": "accessLevel",
+            "value": "public"
+          },
+          {
+            "key": "accrualPeriodicity",
+            "value": "irregular"
+          },
+          {
+            "key": "bureauCode",
+            "value": "{026:00}"
+          },
+          {
+            "key": "catalog_@context",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld"
+          },
+          {
+            "key": "catalog_@id",
+            "value": "https://data.nasa.gov/data.json"
+          },
+          {
+            "key": "catalog_conformsTo",
+            "value": "https://project-open-data.cio.gov/v1.1/schema"
+          },
+          {
+            "key": "catalog_describedBy",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.json"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "8999cb02-9c10-4bf9-a76e-230218235567"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "61638e72-b36c-4866-9d28-551a3062f158"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "DNG Legacy Data"
+          },
+          {
+            "key": "identifier",
+            "value": "urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-and-v2.0"
+          },
+          {
+            "key": "issued",
+            "value": "2021-05-21"
+          },
+          {
+            "key": "landingPage",
+            "value": "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=ODY-M-GRS-5-AND-V2.0"
+          },
+          {
+            "key": "license",
+            "value": "http://www.usa.gov/publicdomain/label/1.0/"
+          },
+          {
+            "key": "modified",
+            "value": "2021-05-21"
+          },
+          {
+            "key": "programCode",
+            "value": "{026:005}"
+          },
+          {
+            "key": "publisher",
+            "value": "National Aeronautics and Space Administration"
+          },
+          {
+            "key": "references",
+            "value": "{https://pds.nasa.gov}"
+          },
+          {
+            "key": "resource-type",
+            "value": "Dataset"
+          },
+          {
+            "key": "source_datajson_identifier",
+            "value": "true"
+          },
+          {
+            "key": "source_hash",
+            "value": "5083fc2eea2c764ef958eb5d58b1a8ed051697f19c783cc09bbce0c4f2b1e277"
+          },
+          {
+            "key": "source_schema_version",
+            "value": "1.1"
+          },
+          {
+            "key": "theme",
+            "value": "{\"Earth Science\"}"
+          }
+        ]
+      },
+      "acceptedForLicence": false,
+      "evidenceRole": "identity, scope or unresolved-rights context; not a reuse grant for an updated row"
+    },
+    {
+      "key": "ody-elements-duplicate-e34f4",
+      "url": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-e34f4",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-e34f4",
+      "fetchedAt": "2026-11-13T04:05:43Z",
+      "status": 200,
+      "bytes": 5328,
+      "sha256": "b07ec58610859191bd4118f73881a15d9b8546d01f26b4c00bbd00eb32390dfb",
+      "headers": {},
+      "acceptedForLicence": false,
+      "evidenceRole": "conflicting/unspecified harvest labels retained; not substituted for the selected exact legacy record",
+      "metadata": {
+        "name": "ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-e34f4",
+        "title": "ODY MARS GAMMA RAY SPECTROMETER 5 ELEMENT CONCENTRATION V1.0",
+        "license_id": "other-license-specified",
+        "extras": [
+          {
+            "key": "accessLevel",
+            "value": "public"
+          },
+          {
+            "key": "bureauCode",
+            "value": "{026:00}"
+          },
+          {
+            "key": "catalog_conformsTo",
+            "value": "https://project-open-data.cio.gov/v1.1/schema"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "93a3edb8-864b-45d3-acf2-f1da339714bf"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "b99e41c6-fe79-4c19-bbc3-9b6c8111bfac"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "Science Discovery Engine"
+          },
+          {
+            "key": "identifier",
+            "value": "urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-elements-v1.0;urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-elements-v1.0::1.0"
+          },
+          {
+            "key": "license",
+            "value": "https://www.usa.gov/government-works"
+          },
+          {
+            "key": "modified",
+            "value": "2026-11-02T22:16:01Z"
+          },
+          {
+            "key": "programCode",
+            "value": "{026:000}"
+          },
+          {
+            "key": "publisher",
+            "value": "Geosciences"
+          },
+          {
+            "key": "resource-type",
+            "value": "Dataset"
+          },
+          {
+            "key": "source_datajson_identifier",
+            "value": "true"
+          },
+          {
+            "key": "source_hash",
+            "value": "d2a952d38a1ac7ab55ec2a8fe45c2b67a6347ea060154b668baafbde2d6e6716"
+          },
+          {
+            "key": "source_schema_version",
+            "value": "1.1"
+          },
+          {
+            "key": "theme",
+            "value": "{\"Planetary Science\"}"
+          }
+        ]
+      }
+    },
+    {
+      "key": "ody-elements-duplicate-7c131",
+      "url": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-7c131",
+      "finalUrl": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-7c131",
+      "fetchedAt": "2026-11-13T04:05:44Z",
+      "status": 200,
+      "bytes": 5885,
+      "sha256": "d9815e60135ae7d87f8bfc90fd086f45f0dc67ad09f670888661b227fcc2618e",
+      "headers": {},
+      "acceptedForLicence": false,
+      "evidenceRole": "conflicting/unspecified harvest labels retained; not substituted for the selected exact legacy record",
+      "metadata": {
+        "name": "ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0-7c131",
+        "title": "ODY MARS GAMMA RAY SPECTROMETER 5 ELEMENT CONCENTRATION V1.0",
+        "license_id": "notspecified",
+        "extras": [
+          {
+            "key": "accessLevel",
+            "value": "public"
+          },
+          {
+            "key": "accrualPeriodicity",
+            "value": "irregular"
+          },
+          {
+            "key": "bureauCode",
+            "value": "{026:00}"
+          },
+          {
+            "key": "catalog_@context",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld"
+          },
+          {
+            "key": "catalog_@id",
+            "value": "https://data.nasa.gov/data.json"
+          },
+          {
+            "key": "catalog_conformsTo",
+            "value": "https://project-open-data.cio.gov/v1.1/schema"
+          },
+          {
+            "key": "catalog_describedBy",
+            "value": "https://project-open-data.cio.gov/v1.1/schema/catalog.json"
+          },
+          {
+            "key": "harvest_object_id",
+            "value": "f0e5ceb2-0372-4a2f-834a-2414886ba5c9"
+          },
+          {
+            "key": "harvest_source_id",
+            "value": "61638e72-b36c-4866-9d28-551a3062f158"
+          },
+          {
+            "key": "harvest_source_title",
+            "value": "DNG Legacy Data"
+          },
+          {
+            "key": "identifier",
+            "value": "urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-elements-v1.0_t97i-c5pw"
+          },
+          {
+            "key": "issued",
+            "value": "2018-06-26"
+          },
+          {
+            "key": "landingPage",
+            "value": "https://pds.nasa.gov/ds-view/pds/viewDataset.jsp?dsid=ODY-M-GRS-5-ELEMENTS-V1.0"
+          },
+          {
+            "key": "modified",
+            "value": "2023-01-26"
+          },
+          {
+            "key": "programCode",
+            "value": "{026:005}"
+          },
+          {
+            "key": "publisher",
+            "value": "National Aeronautics and Space Administration"
+          },
+          {
+            "key": "references",
+            "value": "{https://pds.nasa.gov}"
+          },
+          {
+            "key": "resource-type",
+            "value": "Dataset"
+          },
+          {
+            "key": "source_datajson_identifier",
+            "value": "true"
+          },
+          {
+            "key": "source_hash",
+            "value": "7c2a182cde9423e0b88ae2f89bb21170bf49c901489a3221f13b9fcaeb9eaa4b"
+          },
+          {
+            "key": "source_schema_version",
+            "value": "1.1"
+          },
+          {
+            "key": "theme",
+            "value": "{\"Earth Science\"}"
+          }
+        ]
+      }
+    }
+  ],
+  "entries": [
+    {
+      "datasetId": "ody-grs-pds",
+      "file": "data/catalog/ody-grs-pds.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html",
+            "finalUrl": "https://pds-geosciences.wustl.edu/missions/odyssey/grs_elements.html",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 27993,
+            "sha256": "47474e2866ad224851c6a36da15d882857c0e83912c19ce2bc41ba229296c75d",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "PDS Geosciences Node Data and Services: Odyssey GRS Element \r\nConcentrations",
+          "expect": {
+            "GRS Element Concentrations": "\ufeff PDS Geosciences Node Data and Services: Odyssey GRS Element Concentrations + NASA Homepage + NASA en Espa\u00f1ol + Contact NASA HOME DATA AND SERVICES TOOLS ABOUT US CONTACT US SITE MAP Services Ana",
+            "potassium": "maps and underlying data for various elements, including chlorine, iron, water, potassium, silicon, and thorium. These data products were originally released by the GRS Science Team to the public in March 2006",
+            "thorium": " for various elements, including chlorine, iron, water, potassium, silicon, and thorium. These data products were originally released by the GRS Science Team to the public in March 2006. They contain data th"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 27993 B, sha256 47474e2866ad\u2026",
+      "license": {
+        "id": "us-pd",
+        "verified": true,
+        "evidence": {
+          "fetch": {
+            "url": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0",
+            "finalUrl": "https://data.nasa.gov/api/3/action/package_show?id=ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0",
+            "fetchedAt": "2026-11-13T04:04:12Z",
+            "status": 200,
+            "bytes": 5931,
+            "sha256": "52c568f39ba0bccbe749de81c071690c6fcbcfcb35333ba6b4e99e7949426e2b",
+            "headers": {}
+          },
+          "matches": {
+            "\"name\":\\s*\"ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0\"": "2025-03-31T13:11:21.006242\", \"metadata_modified\": \"2025-07-17T14:08:28.084687\", \"name\": \"ody-mars-gamma-ray-spectrometer-5-element-concentration-v1-0\", \"notes\": \"The ODY MARS GAMMA RAY SPECTROMETER 5 ELEMENTS data set consists of a set of maps and underlying data produc",
+            "\"license_id\":\\s*\"us-pd\"": "9-d2216440cb97\", \"id\": \"2ed86ed6-e37f-4eae-bc7d-ef941f2d6bba\", \"isopen\": false, \"license_id\": \"us-pd\", \"license_title\": \"us-pd\", \"maintainer\": \"Thomas Morgan\", \"maintainer_email\": \"thomas.h.morgan@nasa.gov\", \"metadata_cre",
+            "ODY-M-GRS-5-ELEMENTS-V1.0": "\"}, {\"key\": \"identifier\", \"value\": \"urn:nasa:pds:context_pds3:data_set:data_set.ody-m-grs-5-elements-v1.0_3u6i-bxzy\"}, {\"key\": \"issued\", \"value\": \"2021-05-21\"}, {\"key\": \"landingPage\", \"value\": \"https://pds.nasa.gov/ds-view/pd"
+          }
+        }
+      }
+    },
+    {
+      "datasetId": "m3-pds",
+      "file": "data/catalog/m3-pds.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+            "finalUrl": "https://pds-imaging.jpl.nasa.gov/volumes/m3.html",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 6960,
+            "sha256": "2543dca3defa19fe9e114eb9b43fc97cb8eba16bf71db927021b5f3a5833944b",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "Moon Mineralogy Mapper Online Data Volumes",
+          "expect": {
+            "Moon Mineralogy Mapper": " Moon Mineralogy Mapper Online Data Volumes Moon Mineralogy Mapper (M 3 ) Online Data Volumes Online data volumes may be found at one or more s"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 6960 B, sha256 2543dca3defa\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    },
+    {
+      "datasetId": "mars-geologic-map-sim3292",
+      "file": "data/catalog/mars-geologic-map-sim3292.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://pubs.usgs.gov/publication/sim3292",
+            "finalUrl": "https://pubs.usgs.gov/publication/sim3292",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 83871,
+            "sha256": "f02d847cfa48440587d326e7d83dffd02fe25ec3106dd0a3043b4d9dead5d5c4",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "Geologic map of Mars",
+          "expect": {
+            "Scientific Investigations Map 3292": " Geological Survey Report Series Contact Disclaimer Search Geologic map of Mars Scientific Investigations Map 3292 Prepared for the National Aeronautics and Space Administration By: Kenneth L. Tanaka ,\u00a0 James A. Skinner ,\u00a0 James M. Do"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 83871 B, sha256 f02d847cfa48\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    },
+    {
+      "datasetId": "robbins-mars-craters",
+      "file": "data/catalog/robbins-mars-craters.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+            "finalUrl": "https://astrogeology.usgs.gov/pygeoapi/collections/mars/robbinsv1?f=json",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 2950,
+            "sha256": "1e89ec9cc43e0a2b05e6f5f48a1525f833861e7109e8a1673ce85e160233a6a4",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": null,
+          "expect": {
+            "robbins": "{ \"id\": \"mars/robbinsv1\", \"title\": \"Robbins V1 Crater Database\", \"description\": \"TBD\", \"keywords\": [ \"crater\", \"Mars\" ], \"links\": [ { \"type\":"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 2950 B, sha256 1e89ec9cc43e\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    },
+    {
+      "datasetId": "robbins-moon-craters",
+      "file": "data/catalog/robbins-moon-craters.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+            "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 30423,
+            "sha256": "b6ff6d48038ccc22c37e8152e55670e6ca4a31b04a937337a6383ed08d80f1ee",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "Astropedia - Moon Crater Database v1 Robbins",
+          "expect": {
+            "Moon Crater Database v1 Robbins": " Astropedia - Moon Crater Database v1 Robbins Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Download (91.77 MB) ope"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 30423 B, sha256 b6ff6d48038c\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    },
+    {
+      "datasetId": "lroc-nac-boulders-watkins",
+      "file": "data/catalog/lroc-nac-boulders-watkins.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+            "finalUrl": "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins",
+            "fetchedAt": "2026-11-13T04:03:29Z",
+            "status": 200,
+            "bytes": 18873,
+            "sha256": "2e31feaf3b47303e854c9e01a34728294bad6389ff84b82967afe99b8d1b3974",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "Astropedia - Moon LRO LROC NAC Boulder Database v1 Watkins",
+          "expect": {
+            "Boulder Database": " Astropedia - Moon LRO LROC NAC Boulder Database v1 Watkins Lunar and Planetary Cartographic Catalog Return to search Download --> Sample (jpg) 1024px wide Download (17"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 18873 B, sha256 2e31feaf3b47\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    },
+    {
+      "datasetId": "nsidc-ggd318-permafrost",
+      "file": "data/catalog/nsidc-ggd318-permafrost.yaml",
+      "probe": {
+        "fetches": [
+          {
+            "url": "https://nsidc.org/data/ggd318/versions/2",
+            "finalUrl": "https://nsidc.org/data/ggd318/versions/2",
+            "fetchedAt": "2026-11-13T04:03:30Z",
+            "status": 200,
+            "bytes": 111118,
+            "sha256": "019cfc89158e0047827bfd75659affb40d2d30e0603f9a237dce6831ddfe369b",
+            "headers": {}
+          }
+        ],
+        "meta": {
+          "title": "Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 | National Snow and Ice Data Center",
+          "expect": {
+            "Circum-Arctic Map of Permafrost": " Circum-Arctic Map of Permafrost and Ground-Ice Conditions, Version 2 | National Snow and Ice Data Center Menu National Snow and Ice Data Center NSIDC a"
+          }
+        },
+        "ok": true
+      },
+      "summary": "HTTP 200, 111118 B, sha256 019cfc89158e\u2026",
+      "license": {
+        "id": "unresolved",
+        "verified": false,
+        "evidence": {}
+      }
+    }
+  ]
+}

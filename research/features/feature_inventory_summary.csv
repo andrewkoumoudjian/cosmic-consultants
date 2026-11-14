@@ -33,7 +33,7 @@ earth_vis_frac,weak,lola-south-pole-ldem-2023(derived),0,,0,copernicus-dem-glo30
 psr_frac_2km,proxy,lola-south-pole-ldem-2023,1,,0,arcticdem;copernicus-dem-glo30;rema,
 psr_dist_km,proxy,lola-south-pole-ldem-2023,1,,0,arcticdem;copernicus-dem-glo30;rema,
 ice_stab_depth,weak,diviner-l4;swim-mars-ice,2,esa-cci-permafrost-extent-antarctica;esa-cci-permafrost-extent-nh;nsidc-ggd318-permafrost,2,,nsidc-ggd318-permafrost;swim-mars-ice
-h_wt_neutron,weak,lend;lp-grs-pds;ody-grs-pds,2,nsidc-ggd318-permafrost;smap-spl3smp-e,2,,nsidc-ggd318-permafrost;ody-grs-pds
+h_wt_neutron,weak,lend;lp-grs-pds;ody-grs-pds,2,nsidc-ggd318-permafrost;smap-spl3smp-e,2,,nsidc-ggd318-permafrost
 lya_offon,gap,lamp,1,,0,,
 ice_consistency_swim,proxy,swim-mars-ice,1,esa-cci-permafrost-extent-nh;nsidc-ggd318-permafrost,2,,nsidc-ggd318-permafrost;swim-mars-ice
 feo_wt,proxy,kaguya-mi-59mpp;lp-grs-pds,2,aster-ged-ag100;glim-0p5deg,2,,
@@ -47,7 +47,7 @@ crism_fe_mg_smectite,proxy,crism-mro,1,emit-l2b-min-v002,1,,
 crism_al_oh,proxy,crism-mro,1,emit-l2b-min-v002,1,,
 crism_sulfate,proxy,crism-mro,1,emit-l2b-min-v002,1,,
 crism_carbonate,proxy,crism-mro,1,emit-l2b-min-v002,1,,
-grs_th_k,gap,lp-grs-pds;ody-grs-pds,1,,0,,ody-grs-pds
+grs_th_k,gap,lp-grs-pds;ody-grs-pds,1,,0,,
 geo_unit,proxy,mars-geologic-map-sim3292;unified-geologic-map-moon,1,glim-0p5deg,1,,mars-geologic-map-sim3292
 crater_density,weak,robbins-mars-craters;robbins-moon-craters,1,earth-impact-database,1,,earth-impact-database;robbins-mars-craters;robbins-moon-craters
 pit_cave_presence,gap,lroc-pits-atlas;mgc3-mars-caves,1,,0,,lroc-pits-atlas

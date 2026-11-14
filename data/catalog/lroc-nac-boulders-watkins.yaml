@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "USGS Astrogeology (Astropedia)"
   endpoint: "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins"
-  probedAt: 2026-11-13T00:20:21Z
-  probeResult: "HTTP 200, 18873 B, sha256 cf68d0d4f08c…"
+  probedAt: 2026-11-13T04:03:29Z
+  probeResult: "HTTP 200, 18873 B, sha256 2e31feaf3b47…"
 probe:
   kind: http
   url: "https://astrogeology.usgs.gov/search/map/moon_lro_lroc_nac_boulder_database_v1_watkins"
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "no licence text on the Astropedia page"
+  note: "Issue #41 rechecked the product's Astropedia page without establishing applicable reuse terms. Publication or preview-image rights are not assumed to cover the database. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "unverified: selected sites"
   temporal: ""

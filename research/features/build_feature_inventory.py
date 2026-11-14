@@ -123,7 +123,7 @@ COLS = ["feature_id", "family", "dimension", "earth_match", "side", "dataset_id"
 
 
 def main() -> int:
-    feats = list(csv.DictReader((HERE / "landing_site_features.csv").open()))
+    feats = list(csv.DictReader((HERE / "landing_site_features.csv").open(encoding="utf-8", newline="")))
     fids = [f["feature_id"] for f in feats]
     missing = sorted(set(fids) - set(MAP)); extra = sorted(set(MAP) - set(fids))
     assert not missing and not extra, f"MAP out of sync: missing={missing} extra={extra}"
@@ -131,7 +131,7 @@ def main() -> int:
     for p in sorted(CATALOG.glob("*.yaml")):
         if p.name == "dataset.template.yaml":
             continue
-        reg[p.stem] = yaml.safe_load(p.read_text())
+        reg[p.stem] = yaml.safe_load(p.read_text(encoding="utf-8"))
     rows = []
     for f in feats:
         ents = MAP[f["feature_id"]]
@@ -150,7 +150,7 @@ def main() -> int:
                          "registry_status": r.get("status"), "coverage_spatial": cov.get("spatial"),
                          "resolution": cov.get("resolution"), "note": note})
     out = HERE / "feature_dataset_inventory.csv"
-    with out.open("w", newline="") as fh:
+    with out.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=COLS, restval=""); w.writeheader(); w.writerows(rows)
     # per-feature summary -> feature_inventory_summary.csv (doc 08 §6 quotes the counts).
     # Independence groups count measured roles only (primary/secondary): derived inputs
@@ -167,7 +167,7 @@ def main() -> int:
                       "earth_derived_inputs": ";".join(ed),
                       "unverified_licences": ";".join(sorted({d for d, *_ in ents if not (reg[d].get("license") or {}).get("verified")}))})
     sout = HERE / "feature_inventory_summary.csv"
-    with sout.open("w", newline="") as fh:
+    with sout.open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(srows[0])); w.writeheader(); w.writerows(srows)
     scored = [r for r in srows if r["earth_match"] != "mismatch"]
     def bucket(r):

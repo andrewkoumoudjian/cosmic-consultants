@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "USGS Astrogeology (Astropedia)"
   endpoint: "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins"
-  probedAt: 2026-11-13T00:21:54Z
-  probeResult: "HTTP 200, 30423 B, sha256 1bbc71617adc…"
+  probedAt: 2026-11-13T04:03:29Z
+  probeResult: "HTTP 200, 30423 B, sha256 b6ff6d48038c…"
 probe:
   kind: http
   url: "https://astrogeology.usgs.gov/search/map/moon_crater_database_v1_robbins"
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "no licence text on the Astropedia page; cite Robbins 2019 JGR"
+  note: "Issue #41 rechecked the product's Astropedia page without establishing applicable reuse terms. Citation of Robbins 2019 JGR is not a dataset licence. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "global Moon"
   temporal: ""

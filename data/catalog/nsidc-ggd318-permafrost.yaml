@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "NSIDC"
   endpoint: "https://nsidc.org/data/ggd318/versions/2"
-  probedAt: 2026-11-13T00:21:53Z
-  probeResult: "HTTP 200, 111118 B, sha256 9485d55339c9…"
+  probedAt: 2026-11-13T04:03:30Z
+  probeResult: "HTTP 200, 111118 B, sha256 019cfc89158e…"
 probe:
   kind: http
   url: "https://nsidc.org/data/ggd318/versions/2"
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "NSIDC citation policy probed; no explicit data license found for this record"
+  note: "Issue #41 checked the linked GGD318.002 OAI/DIF record (no Use_Constraints/Access_Constraints fields) and DOI 10.7265/skbg-kf16 (empty rightsList). Citation and free access do not establish applicable reuse terms. Retained unresolved; see LICENCE-AUDIT-41.md."
 coverage:
   spatial: "northern hemisphere 28N-90N"
   temporal: "static map"
