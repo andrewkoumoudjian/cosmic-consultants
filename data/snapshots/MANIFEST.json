@@ -1769,6 +1769,16 @@
       "license": "cc-by-3.0",
       "licenseVerified": true,
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=2000",
+      "fetchedAt": "2026-11-14T19:03:05Z",
+      "sha256": "689f752c96fb7461e31c0b48fef5683c3a65a954d89f5c3cda51dcedf151c887",
+      "bytes": 5209920,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt"
     }
   ]
 }
