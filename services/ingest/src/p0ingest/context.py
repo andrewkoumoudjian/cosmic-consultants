@@ -264,7 +264,7 @@ def build() -> dict:
         "computed": {
             "access_min_median": "median of valid 2015 travel-time raster pixel values whose pixel centres fall inside each H3 r4 polygon; units minutes",
             "access_min_p10": "10th percentile of the same valid raster pixels; units minutes",
-            "airport_km": "great-circle distance from H3 cell centre to nearest small/medium/large OurAirports airport having at least one non-closed runway with asphalt, concrete or bituminous surface code; Earth radius 6371.0088 km",
+            "airport_km": "great-circle distance from H3 cell centre to nearest small/medium/large OurAirports airport having at least one non-closed runway with asphalt, concrete or bituminous surface code; Earth radius 6371.0088 km. Ice, snow and gravel runways are excluded, so Antarctic cells read far (McMurdo ~3490 km)",
             "protected_pct": "withheld because Protected Planet terms restrict redistribution of derived material",
             "eonet": "withheld because official EONET pages expose no reuse licence for mixed-source metadata",
         },
