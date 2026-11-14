@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/trait-map.schema.json",
+  "title": "TraitMap",
+  "description": "How each Moon/Mars target band becomes a test requirement on ONE Earth column, in Earth units (ADR-0005 D2, DATA-PIPELINE.md section 6). One rule per (objective, trait). The engine compares Earth numbers with these bands only. A trait with no rule, or a rule whose band is null, is UNKNOWN for that objective, never skipped and never counted as a match. Cross-file checks (objectiveId exists, earthColumn is a real column of its table, lo <= hi, one rule per pair) live in scripts/validate_contracts.py.",
+  "type": "object",
+  "required": ["version", "rules"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "minimum": 0 },
+    "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "string",
+      "enum": ["terrain", "thermal", "illumination", "dustProcess", "waterIce", "surfaceMaterial", "subsurface", "operations"],
+      "description": "Same enum as objective.schema.json requiredDimensions."
+    },
+    "band": {
+      "description": "Earth-unit band. Both ends included (lo <= value <= hi) unless hiStrict, then value < hi. null = no band yet: the trait is unknown for this objective.",
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["lo", "hi"],
+          "additionalProperties": false,
+          "properties": {
+            "lo": { "type": "number" },
+            "hi": { "type": "number" }
+          }
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "description": "Where a band's number comes from, when it is quoted from a stored file (e.g. #67 filling a null band). The quote must be verbatim in the snapshot.",
+      "required": ["url", "sha256", "fetchedAt", "quote"],
+      "additionalProperties": false,
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "fetchedAt": { "type": "string", "format": "date-time" },
+        "quote": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "description": "Page, table or section in the source." },
+        "snapshotPath": { "type": "string", "description": "Path under data/snapshots/ of the stored copy." }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "required": ["objectiveId", "dimension", "table", "earthColumn", "band", "unit", "origin", "basis", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "objectiveId": { "type": "string", "pattern": "^[A-Z]{2,3}-[0-9]+(L|M|LM)?$" },
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "table": {
+          "type": ["string", "null"],
+          "enum": ["L1", "L1m", "L2", null],
+          "description": "L1 yearly (cells-r4), L1m per month (cells-r4-monthly), L2 context (context-r4). A new table needs a contract PR. null only when there is no Earth column at all."
+        },
+        "earthColumn": { "type": ["string", "null"], "pattern": "^[a-z][a-z0-9_]*$", "description": "Column of `table`, as named in DATA-PIPELINE.md section 5. Booleans are 0/1." },
+        "band": { "$ref": "#/$defs/band" },
+        "hiStrict": { "type": "boolean", "description": "true: value < hi (the source says '< hi'). Default false." },
+        "unit": { "type": ["string", "null"] },
+        "priority": { "type": "string", "enum": ["must", "nice"], "description": "must filters sites out; nice is shown and never filters. Default must." },
+        "origin": {
+          "type": "string",
+          "enum": ["target", "precedent", "team"],
+          "description": "target = from a cited envelope in data/envelopes/; precedent = from a cited past campaign; team = our stated choice. 'user' exists only in the app (plan-request bandEdits), never in this file."
+        },
+        "campaignId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "description": "Required when origin is precedent: the data/campaigns/ row the number came from." },
+        "basis": { "type": "string", "minLength": 10, "description": "Plain-English reason for the band and where its number came from." },
+        "scaleCaveat": { "type": "string", "description": "How the Earth statistic differs from the target one (grid, statistic, proxy)." },
+        "source": { "$ref": "#/$defs/source" },
+        "status": { "type": "string", "enum": ["proposed", "accepted"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "earthColumn": { "type": "null" } } },
+          "then": { "properties": { "band": { "type": "null" }, "table": { "type": "null" } } }
+        },
+        {
+          "if": { "properties": { "band": { "type": "object" } }, "required": ["band"] },
+          "then": { "properties": { "earthColumn": { "type": "string" }, "table": { "type": "string" } } }
+        },
+        {
+          "if": { "properties": { "origin": { "const": "precedent" } }, "required": ["origin"] },
+          "then": { "required": ["campaignId"] }
+        }
+      ]
+    }
+  }
+}
