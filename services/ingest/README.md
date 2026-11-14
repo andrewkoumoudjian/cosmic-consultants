@@ -78,3 +78,35 @@ noon sun height, day length and polar day/night on the 15th. Spec:
   thermal.
 - **subsurface / operations:** not in P0 yet.
 - **illumination:** computed from latitude only (no terrain shadowing).
+
+## Dust per hexagon: `_derived/dust-r4[-monthly].parquet` (W28, #68)
+
+MERRA-2 `M2TMNXAER` v5.12.4 (GES DISC, CC0), variable `DUEXTTAU`
+("Dust Extinction AOT [550 nm]", dimensionless) for all 12 months of 2023.
+Access was re-probed independently before fetching: HTTP 206 with token on
+2026-11-14T19:46Z (evidence in
+`data/snapshots/registry-probes/2026-11-14/dust-68-gesdisc-access.json`);
+the earlier 403 EULA block from 18:47Z is gone.
+
+- `uv run python -m p0ingest.dust fetch|build|check` — 12 granules,
+  `_derived/dust-r4-monthly.parquet` (h3, month, dust_aod, missing_reason;
+  1,101,600 rows) and `_derived/dust-r4.parquet` (h3, dust_aod_mean,
+  dust_aod_max, dust_aod_max_month, months_used, missing_reason; 91,800
+  rows), each with `.meta.json` (inputs + sha256, native grid, QA counts,
+  model limits).
+- **Mapping:** each hexagon's center goes to the nearest native 0.5 x 0.625
+  deg grid center (per-axis; lat clipped at the exact +/-90 rows; lon wraps
+  modulo 576). That's a nearest-center sample, NOT an area-weighted hexagon
+  mean and NOT a finer measurement. Up to 4 hexagons share one native cell.
+- **Annual rule:** mean/max use only documented valid monthly observations;
+  `dust_aod_max_month` is the earliest month hitting the max (ties -> earliest);
+  `months_used` stays in the table so partial-year support is visible. In this
+  2023 build every land cell has all 12 months (the granules contain zero
+  fill cells), so there are no nulls; the fill code paths still run and are
+  covered by `tests/test_dust_keys.py`.
+- **Limits, stated in the output metadata too:** MERRA-2 is a reanalysis, not
+  a direct measurement. DUEXTTAU is a column-integrated atmospheric dust
+  optical depth at 550 nm — a dustiness proxy for the air column, not surface
+  dust coverage, not a hazard rate, and NOT equivalent to a Mars opacity tau.
+- Parent note: the "dustProcess" line under Known gaps above is stale for
+  source preparation; integration into `cells-r4*` is the parent's (#69).
