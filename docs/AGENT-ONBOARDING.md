@@ -1,55 +1,79 @@
-# Agent onboarding — current review boundary
+# Agent onboarding — kickoff prompts
 
-Read AGENTS.md and docs/STATUS.md before interpreting an old proposal or issue.
-ADR-0001/0002/0003 are accepted history; ADR-0004 is a proposed successor whose
-local diff has controlling-human approval for draft-PR feedback. Repository
-adoption and implementation remain pending review. This file describes the target.
+Paste one of these into a fresh agent session (any harness) to land it
+correctly in this repo. The long form is for an agent about to do real work;
+the short form is for a read-only / opinion task in the commons.
 
-## Working-agent kickoff
-
-```text
-You are joining cosmic-consultants, a NASA Space Apps 2026 repository.
-
-1. Read the live coordination board #6 first, and commons #7; inspect open PRs
-   and status:in-progress work. Record local HEAD and tree status. Do not pull,
-   overwrite work, sign another agent's name or take an overlapping task.
-2. Post your own check-in on #6 in the AGENTS.md template. Identify the actual
-   controlling human, harness, provider and model separately; if an exact model
-   ID is unavailable, say so rather than inventing it. Read AGENTS.md, STATUS,
-   applicable accepted ADRs, the proposed successor and the work-order issue.
-3. Claim one authorized issue and announce paths/stop point before edits. Use
-   an isolated branch/worktree. Cross-lane interfaces go through a contract
-   design/change first. Record plan changes and answer mentions on the boards.
-4. Respect the task's review boundary. For #43: approved design/docs, fixture
-   metadata and CI maintenance may be published in a draft PR for team feedback.
-   No merge, new runtime/Lean/schema or science output. Existing #40/#42 are
-   separate unmerged work. Do not adopt their results
-   by copying them or change their ownership.
-5. After ADR-0004 adoption, exploratory research may inform a model with provenance
-   and explicit exploratory labeling. Freeze release requirements/rules/inputs and
-   numeric policy before the release run. Until adoption, the existing accepted
-   gates govern dependent implementation. Event/build-window rules still apply.
-6. Distinguish scientific review, runtime tests, formal proof and conformance.
-   An imported theorem does not verify an application. Never mutate a frozen
-   Lean statement to fit runtime code. Use the pinned toolchain and capture the
-   Lean process return code directly before claiming any proof pass.
-7. Preserve missingness, per-feature results and permanent breakdowns. No ARL v0,
-   overall similarity score or global Pareto deletion under the proposed redesign.
-   Known analogs may be dominated. Corroboration is claim/pair-specific review.
-8. Report executed checks with real output and limits. Hand off on #6 and the
-   issue; release assignment/in-progress status when stopping. Open a PR only
-   when explicitly authorized by the task; for local review give file/diff links.
-```
-
-## Read-only kickoff
+## Long form (working agent)
 
 ```text
-Read AGENTS.md, STATUS.md and the boards. Check in as yourself with the actual
-controlling human. State that you are read-only. Claim no implementation work.
-For commons posts use its topic/tag/signature/Ask format. Distinguish historical
-intent from code and execution evidence; qualify access and verification limits.
+You are joining github.com/andrewkoumoudjian/cosmic-consultants — a NASA
+Space Apps 2026 monorepo ("Identify Earth Locations that Analog the
+Permanent Moon Base Locations and Mars"), Lean-first, multi-agent.
+
+Do these in order. Do not edit anything until step 4 is done.
+
+1. Sync: clone the repo (or `git pull` your checkout). Confirm `git status`
+   and note the HEAD commit.
+2. Read, in order: AGENTS.md, docs/decisions/ADR-0001*, README.md, and your
+   work-order issue. AGENTS.md is binding, especially: Lean statement -> proof
+   -> experiment gates, no sorry in accepted proofs, pinned Lean toolchain,
+   one issue = one branch = one PR, package lanes, provenance for every
+   number, no scalar "similarity score" anywhere.
+3. Read the boards: issue #6 (presence) and issue #7 (commons). Note who is
+   checked in, what is in flight, and read your topic threads in #7.
+4. CHECK IN on issue #6 (this is mandatory before any claim or edit):
+   gh issue comment 6 --repo andrewkoumoudjian/cosmic-consultants --body "
+   ## Check-in
+   - Identity: <your agent identity/product>
+   - Model: <your exact model>
+   - Harness: <T3 Code / OpenCode / Mistral Vibe / Muse / ...>
+   - Controlling human: Andrew Koumoudjian (@andrewkoumoudjian)
+   - Session: <your session/thread id or link>
+   - Lane + work order: <lane>, issue #<the ONE issue below>
+   - State I found: <HEAD commit, clean/dirty, in-flight work you saw>
+   - Intended action: <one or two lines>
+   - Blockers: <or none>"
+   Copy the shape of the existing exemplar comments on #6. Harness, provider
+   and model are three separate fields. Never sign another agent's name.
+5. Claim EXACTLY ONE work order: comment your claim (identity/model/harness)
+   on that issue, set label status:in-progress, branch from up-to-date main
+   as <lane>/<issue>-<slug>, prefer an isolated worktree if your harness
+   supports it. Stay inside your package lane (see AGENTS.md/CODEOWNERS);
+   cross-lane needs go through a contracts/ change first.
+6. Work to the issue's acceptance evidence. Quote real command output in your
+   PR (the PR template has the checklist). For Lean: `lake build` return code
+   from lake itself, `lake env lean Analog/Audit.lean` (from proofs/), zero
+   sorry/admit. Failed or partial work is preserved and reported, not hidden.
+7. Hand off three times with the same facts: PR description, closing comment
+   on the work-order issue, handoff comment on #6. Discussion, questions,
+   half-ideas and challenges go to the commons (#7) with its tags — end every
+   commons post with an "Ask:" line and your signature.
+8. Never push to main, never merge your own PR, never run data statistics
+   against unfrozen/unproved statements (ADR-0001). If something here
+   contradicts a newer board post by the owner, the owner wins; flag it.
+
+Your work order for this session: <PASTE ISSUE NUMBER + ONE-LINE OBJECTIVE>
+Your lane: <proofs|contracts|ingest|engine|api|atlas|data|research|docs>
 ```
 
-If GitHub is unavailable, do not pretend a check-in was posted. Obtain the
-required on-behalf check-in before claims/edits, or stay read-only. Direct human
-instructions and documented adoption boundaries must be reported explicitly.
+## Short form (read-only / commons participant)
+
+```text
+Read github.com/andrewkoumoudjian/cosmic-consultants AGENTS.md and issues #6
+(presence board) and #7 (commons). Check in briefly on #6 (identity / model /
+harness / controlling human Andrew Koumoudjian) stating you are read-only.
+Then in #7 answer or extend: <TOPIC SLUG OR QUESTION>. Follow the commons
+format ([Q]/[IDEA]/[FINDING]/[CHALLENGE]/[HELP], topic slug, quote what you
+answer, end with "Ask:" + your signature). Evidence links over opinions; mark
+speculation. Claim no work and edit no files.
+```
+
+## Maintainer notes
+
+- Update this file whenever AGENTS.md rules change in ways a newcomer would
+  trip on; keep the two prompts paste-ready (no repo-relative jargon that
+  isn't defined inline).
+- If an agent cannot use `gh` (no auth, read-only harness), the human pastes
+  its check-in/handoff verbatim and marks it "posted on behalf of …". The
+  board is still the record.

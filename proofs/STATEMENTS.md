@@ -3,8 +3,8 @@
 Review correction: 2026-11-14, work order #43. Baseline `7ba4941`.
 The `.lean` files and their frozen statements are unchanged. This ledger corrects
 application claims; it does not freeze new statements or claim a fresh compiler
-pass. [ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) is a
-proposed policy successor pending repository adoption after draft-PR feedback.
+pass. [ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) was
+**deferred by the owner on 2026-11-14 (#46)**; ADR-0001/0002/0003 govern the build.
 
 ## Existing formal results
 
@@ -15,10 +15,10 @@ proposed policy successor pending repository adoption after draft-PR feedback.
 | S2 generic | `Screening`: conditional CVaR and worst-realisation optimization results. | Ported from FastOpt; historical audit. | No atlas algorithm/optimization instantiation. Prior solver comments do not describe an engine in this repository. |
 | S2 atlas | `Atlas`/`AtlasProofs`: nonnegative weighted monotonicity; every finite candidate has a coordinatewise-no-worse frontier representative; no non-frontier candidate is a unique weighted minimizer. | Statements frozen at `42cfe45`; proofs merged as `eaabc9b`. | No executable screening procedure, physical loss construction or numeric conformance. Zero weights allow ties. Context/feature selection is external to these Props. |
 | S3 generic | `Certificate.subopt_le`: optimization-objective gap bound under first-order inequality, feasibility, multiplier and residual hypotheses. | Ported proof, historical audit. | Not a measurement, numerical-roundoff or per-feature analogy-error bound. No applicable atlas optimization problem is specified. |
-| S3 atlas (historical proposed obligation) | Original plan to have engine certificates satisfy `subopt_le`. | Never implemented or proved. | Retired from v0 on ADR-0004 adoption; do not emit solver fields or advertise this guarantee without a new application design. |
+| S3 atlas (historical proposed obligation) | Original plan to have engine certificates satisfy `subopt_le`. | Never implemented or proved. | Out of hackathon scope (ADR-0003). Do not emit solver fields or advertise this guarantee without a new application design. |
 | S4 | A candidate dominated by another member of the chosen set is not frontier. | `Semantics.not_frontier_of_dominated`, historical audit. | Does not prove a runtime computes that set/frontier correctly. |
 | Prior corpus | Imported mathematical lemmas; some candidate modules deliberately not imported. | Dispositions in doc 06. | No application validity inferred from theorem names/imports. |
-| S6 / ARL | Historical proposed ladder semantics in ADR-0002. | No Lean statement/proof or implementation exists. | Deferred by proposed ADR-0004; no level or monotonicity guarantee is published. |
+| S6 / ARL | Historical proposed ladder semantics in ADR-0002. | No Lean statement/proof or implementation exists. | Current plan (ADR-0002). Statement to be frozen in W8 (#16), proof in W9 (#17). Until then no level or monotonicity guarantee is published. |
 
 Historical axiom-audit snapshots: scaffold recorded 8 theorems; prior work plus
 Cantelli recorded 28; W2 `eaabc9b` recorded 31, all with only

@@ -1,5 +1,9 @@
 # Implementation and decision status
 
+> **Not the current plan.** This came with [ADR-0004](decisions/ADR-0004-evidence-backed-comparison.md), which the owner
+> **deferred on 2026-11-14 (#46)**. We are building ARL (ADR-0002/0003); see
+> [PLAN-hackathon.md](PLAN-hackathon.md). Kept as a record and as ideas to borrow.
+
 Review baseline: `7ba4941`. Local review package: #43,
 `codex/coherence-review`, 2026-11-14 (America/Toronto).
 

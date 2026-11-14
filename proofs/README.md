@@ -3,8 +3,8 @@
 Selected comparison definitions and proofs exist here. Their presence does not
 verify a runtime engine, measurement transformation, dataset or scientific claim.
 [STATEMENTS.md](STATEMENTS.md) records exact scope and missing runtime links.
-[ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) proposes a
-narrower product/assurance policy; repository adoption remains pending team review.
+[ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) was
+**deferred by the owner on 2026-11-14 (#46)**; ARL (ADR-0002) is the current plan and still needs its S6 statement (W8, #16).
 
 Pinned: `leanprover/lean4:v4.36.0-rc2`; Mathlib
 `5f44e8099aaff86b8804252d5189966a5b3b8f78` in `lake-manifest.json`.
