@@ -125,6 +125,16 @@ def integration_keys(res: int = 4) -> None:
         check("keys: regolith missing (build not run)", False)
 
 
+def reason_mismatches(table, columns):
+    bad = 0
+    for batch in table.select([*columns, "missing_reason"]).to_batches(max_chunksize=10000):
+        for row in batch.to_pylist():
+            reasons = json.loads(row["missing_reason"])
+            expected = {column for column in columns if row[column] is None}
+            bad += set(reasons) != expected
+    return bad
+
+
 def integration_consistency(res: int = 4) -> None:
     import pyarrow.parquet as pq
     from .snapshots import SNAP
@@ -165,23 +175,18 @@ def integration_consistency(res: int = 4) -> None:
     check("consistency: albedo_ws_sw in [0, 1]", ws_all == [] or (min(ws_all) >= 0 and max(ws_all) <= 1),
           f"min={min(ws_all) if ws_all else None}, max={max(ws_all) if ws_all else None}")
     for tbl, name in ((am, "albedo monthly"), (ay, "albedo yearly")):
-        bad = 0
-        for r in tbl["missing_reason"].to_pylist():
-            if r:
-                json.loads(r)
-                bad += 0
-        check(f"consistency: {name} missing_reason JSON parses", True)
+        columns = ["albedo_ws_sw", "albedo_bs_sw"] if name == "albedo monthly" else ["albedo_ws_sw_mean", "albedo_bs_sw_mean"]
+        bad = reason_mismatches(tbl, columns)
+        check(f"consistency: {name} reasons cover exactly null value fields", bad == 0, f"{bad} mismatches")
     try:
         rg = pq.read_table(der / f"regolith-r{res}.parquet")
         rt = [x for x in rg["regolith_thick_m"].to_pylist() if x is not None]
-        check("consistency: regolith_thick_m in [0, 50] (native cap)", rt == [] or (min(rt) >= 0 and max(rt) <= 50),
+        check("consistency: regolith_thick_m in published [0, 50] range", rt == [] or (min(rt) >= 0 and max(rt) <= 50),
               f"min={min(rt) if rt else None}, max={max(rt) if rt else None}")
         st = [x for x in rg["soil_thick_m"].to_pylist() if x is not None]
         check("consistency: soil_thick_m in [0, 4.2]", st == [] or (min(st) >= 0 and max(st) <= 4.2))
-        for r in rg["missing_reason"].to_pylist():
-            if r:
-                json.loads(r)
-        check("consistency: regolith missing_reason JSON parses", True)
+        bad = reason_mismatches(rg, ["regolith_thick_m", "soil_thick_m", "sediment_thick_m", "avg_soil_sed_thick_m", "hillslope_frac_mean"])
+        check("consistency: regolith reasons cover exactly null value fields", bad == 0, f"{bad} mismatches")
     except FileNotFoundError:
         check("consistency: regolith table missing (build not run)", False)
 

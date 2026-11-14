@@ -31,7 +31,7 @@ kept only if >= 25% of its CMG land pixels have a valid, best-quality
 retrieval that day; otherwise null with reason codes. The denominator is the
 hexagon's CMG land-pixel count (cmg_pixels, same as the thermal tables).
 
-Model/proxy limits (explicit): white-sky albedo is the hemispherical-directional
+Model/proxy limits (explicit): white-sky albedo is the bihemispherical
 reflectance in the shortwave band under isotropic (fully diffuse) illumination.
 Black-sky is directional-hemispherical under a direct beam at local solar noon.
 Neither is a lunar bolometric albedo measurement, neither is a thermal/emissivity
@@ -169,18 +169,29 @@ def _read_granule(local_path: str) -> dict:
         if vm and name.startswith("RANGE"):
             dates[name] = vm.group(1).strip()
     sd.end()
-    infer_fill = (w == FILL)
-    best = (q == QA_BEST) & ~infer_fill & ~(b == FILL)
-    w[~best] = np.nan
-    b[~best] = np.nan
-    w[w == FILL] = np.nan
-    b[b == FILL] = np.nan
-    # pixels the QA rule dropped even though both albedos were non-fill
-    n_nonfill = int(((~infer_fill) & (~(b == FILL))).sum())
-    n_best = int(best.sum())
+    w_present, b_present = (w != FILL), (b != FILL)
+    n_nonfill = int((w_present & b_present).sum())
+    w_best, b_best = (q == QA_BEST) & w_present, (q == QA_BEST) & b_present
+    n_best = int((w_best & b_best).sum())
+    w[~w_best] = np.nan
+    b[~b_best] = np.nan
     return {"wsa": w * SCALE, "bsa": b * SCALE,
             "qa_counts": qa_counts, "n_best_px": n_best, "n_nonfill_px": n_nonfill,
+            "n_best_wsa_px": int(w_best.sum()), "n_best_bsa_px": int(b_best.sum()),
             "window": dates}
+
+
+def monthly_reasons(ws, bs, nws, nbs, required):
+    reasons = []
+    for w, b, nw, nb, need in zip(ws, bs, nws, nbs, required):
+        row = {}
+        for name, value, count in [("albedo_ws_sw", w, nw), ("albedo_bs_sw", b, nb)]:
+            if np.isnan(value):
+                if count == 0: row[name] = "no-best-quality-retrieval"
+                elif count < need: row[name] = "too-few-albedo-pixels"
+                else: raise ValueError(f"{name}: null despite sufficient source support")
+        reasons.append(json.dumps(row, sort_keys=True))
+    return reasons
 
 
 def master_keys(res: int = RES) -> np.ndarray:
@@ -222,6 +233,9 @@ def build(res: int = RES) -> dict:
     thin_ws = np.zeros((ncell, 12), dtype=bool)
     inputs, qa_block = [], []
     for e in files:
+        raw_path = SNAP.parent.parent / e["localPath"]
+        if raw_path.stat().st_size != e["bytes"] or sha256(raw_path) != e["sha256"]:
+            raise RuntimeError(f"source input hash/size mismatch: {e['localPath']}")
         mo = month_of(e["localPath"])
         g = _read_granule(e["localPath"])
         exp = window_dates(e["localPath"])
@@ -231,9 +245,6 @@ def build(res: int = RES) -> dict:
                                f"match the CMR-derived window {exp} -- abort")
         wmed, nw = _group_stat(g["wsa"], order, starts, "median")
         bmed, nb = _group_stat(g["bsa"], order, starts, "median")
-        if not (nw == nb).all():
-            raise RuntimeError(f"month {mo}: ws/bs valid-pixel counts differ -- "
-                               "the shared best-mask should make them equal")
         ws_m[:, mo - 1] = np.where(nw >= need, wmed, np.nan)
         bs_m[:, mo - 1] = np.where(nb >= need, bmed, np.nan)
         nws[:, mo - 1] = nw
@@ -241,6 +252,8 @@ def build(res: int = RES) -> dict:
         thin_ws[:, mo - 1] = (nw > 0) & (nw < need)
         qa_block.append({"month": mo, "granule": e["localPath"].rsplit("/", 1)[-1],
                          "n_best_px": g["n_best_px"], "n_nonfill_px": g["n_nonfill_px"],
+                         "pairedCountGrain": "native pixels where both fields are non-fill; best count also requires QA=0",
+                         "n_best_wsa_px": g["n_best_wsa_px"], "n_best_bsa_px": g["n_best_bsa_px"],
                          "qa_counts": g["qa_counts"], "window": g["window"]})
         inputs.append({"localPath": e["localPath"], "sha256": e["sha256"], "month": mo,
                        "nominalDate": window_dates(e["localPath"])["nominal"],
@@ -253,13 +266,7 @@ def build(res: int = RES) -> dict:
     bs_f = bs_m.reshape(-1)
     nws_f = nws.reshape(-1)
     thin_f = thin_ws.reshape(-1)
-    reasons = []
-    for ws_null, nw, th in zip(np.isnan(ws_f), nws_f, thin_f):
-        r = {}
-        if ws_null:
-            # bs nulls are identical (asserted equal valid-pixel counts above)
-            r["albedo_ws_sw"] = "too-few-albedo-pixels" if th else "no-best-quality-retrieval"
-        reasons.append(json.dumps(r, sort_keys=True))
+    reasons = monthly_reasons(ws_f, bs_f, nws.reshape(-1), nbs.reshape(-1), np.repeat(need, 12))
 
     tbl = pa.table({
         "h3": pa.array(np.repeat(hexes, 12)),
@@ -286,7 +293,7 @@ def build(res: int = RES) -> dict:
             "retrieval from a 16-day observation window. This table keeps 12 dated "
             "samples, the granule dated the 15th of each 2023 month (filename A<2023><doy>), "
             "each one 16-day retrieval window (not an independent daily observation, "
-            "not a calendar-month integrated mean; windows of adjacent samples overlap). "
+            "not a calendar-month integrated mean; the selected windows leave calendar gaps). "
             "Per-sample window dates are read from each file's CoreMetadata "
             "(RANGEBEGINNINGDATE..RANGEENDINGDATE)."
         ),
@@ -303,7 +310,7 @@ def build(res: int = RES) -> dict:
             "(per-field valid-pixel counts are recorded separately)."
         ),
         "modelLimits": (
-            "White-sky = hemispherical-directional reflectance (fully diffuse sky); "
+            "White-sky = bihemispherical reflectance (fully diffuse sky); "
             "black-sky = directional-hemispherical reflectance (direct beam at local "
             "solar noon). These are Earth shortwave reflectance quantities, NOT a "
             "calibrated lunar bolometric measurement and NOT thermal emissivity; the "

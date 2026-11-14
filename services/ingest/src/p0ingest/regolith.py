@@ -16,8 +16,8 @@ What this source really is (kept honest, no product semantics invented):
 - Six 30-arcsecond (43,200 x 18,000) GeoTIFF layers, 90 N to 60 S (clipped;
   no Antarctica). Native NoData -1. Valid ranges from the guide (verified
   live against the files): regolith 0-50 m, soil 0-4.2 m, sedimentary deposit
-  0-50 m, area+TWI-weighted average 0-50 m. The 50 m cap is the product's
-  own Byte-storage cap, not our choice; values at the cap are quantized.
+  0-50 m, area+TWI-weighted average 0-50 m. The 50 m maximum is the published
+  upper valid bound. Clipping/censoring is not established by that range table.
 
 Outputs (data/snapshots/_derived/): regolith-r4.parquet, 91,800 rows, exactly
 the master key set of cells-r4.parquet. Columns:
@@ -60,7 +60,7 @@ import pyarrow.parquet as pq
 import rasterio
 from rasterio.windows import Window
 
-from .snapshots import SNAP, load_manifest, sha256
+from .snapshots import SNAP, load_manifest, sha256, fetch
 
 DATASET = "ornl-global-soil-regolith-sediment"
 _PROTECTED = ("https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/"
@@ -198,6 +198,10 @@ def build(res: int = 4) -> dict:
     import rasterio
     from .grid import DERIVED, RES
     t0 = time.time()
+    for entry in _manifest_block():
+        path = SNAP.parent.parent / entry["localPath"]
+        if path.stat().st_size != entry["bytes"] or sha256(path) != entry["sha256"]:
+            raise RuntimeError(f"source input hash/size mismatch: {entry['localPath']}")
     master = master_keys(res)
     n = len(master)
     master_int = np.array([int(h, 16) for h in master.tolist()], dtype=np.uint64)
@@ -223,6 +227,8 @@ def build(res: int = 4) -> dict:
          rasterio.open(_layer_path("upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif")) as dds, \
          rasterio.open(_layer_path("hill-slope_valley-bottom.tif")) as fds, \
          rasterio.open(_layer_path("average_soil_and_sedimentary-deposit_thickness.tif")) as ads:
+        for ds in (mds, rds, sds, dds, fds, ads):
+            _verify_georef(ds)
         for r0 in range(0, NROW, ROWS_PER_BLOCK):
             w = Window(0, r0, NCOL, min(ROWS_PER_BLOCK, NROW - r0))
             mask = mds.read(1, window=w)
@@ -357,9 +363,10 @@ def build(res: int = 4) -> dict:
             f"native fill {FILL} kept as null (never 0); valid ranges verified live "
             "against the files: regolith 0-50 m (int8), soil 0-4.2 m (float32, checked "
             "on a 0.01 m grid during the pass), sedimentary deposit 0-50 m (int8), "
-            "weighted average 0-50 m (int8). The 50 m cap is the product's own "
-            "Byte-storage cap (explicitly not assumed from the hackathon folklore; "
-            "verified from the guide's value table and the observed int8 values)."
+            "weighted average 0-50 m (int8). The guide's value table declares an "
+            "upper valid bound of 50 m. Values at that bound are counted over "
+            "mapped master-cell pixels; the table does not establish clipping "
+            "or censoring, and these are not global native-raster totals."
         ),
         "modelLimits": (
             "Model output, not a measurement: calibrated on US/European soil-thickness "
@@ -372,7 +379,7 @@ def build(res: int = 4) -> dict:
         "inputs": _manifest_block(),
         "computed": {
             "median": "exact per-hex histogram median (0.01 m bins for soil, 1 m bins int8 for byte layers)",
-            "capCounts": {
+            "valuesAtPublishedMaximum": {
                 "regolith_at_50m_px": int(hist_r[:, 51].sum()),
                 "sediment_at_50m_px": int(hist_d[:, 51].sum()),
                 "avg_at_50m_px": int(hist_a[:, 51].sum()),

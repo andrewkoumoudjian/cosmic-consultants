@@ -101,7 +101,7 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   per-hex exact histogram medians of upland regolith thickness
   (`regolith_thick_m`), upland soil, sedimentary deposit and the product's
   weighted average, with support fractions, per-class pixel counts, the
-  native fill kept as null, the product's 50 m cap verified (not assumed),
+  native fill kept as null, the published 50 m upper valid bound retained,
   and per-row `missing_reason` (e.g. `outside-product-coverage` south of
   60 S). Model output, not a measurement; lunar regolith is NOT claimed
   equivalent.
