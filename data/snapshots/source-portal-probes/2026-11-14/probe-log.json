@@ -1,0 +1,127 @@
+{
+  "inventorySha256": "e85f7538a322c3ea00a8a9760782369b95e384305006581eabfdc15eebc8a568",
+  "results": [
+    {
+      "id": "earthdata-search",
+      "url": "https://search.earthdata.nasa.gov/",
+      "probedAt": "2026-11-14T20:12:12.981730+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://search.earthdata.nasa.gov/",
+      "bytes": 14874,
+      "sha256": "7de8b4d463ef95c1a6e36acee1b5adfd279f078a508fa3a55c0f5989eaf84bf9",
+      "contentType": "text/html",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "worldview",
+      "url": "https://worldview.earthdata.nasa.gov/",
+      "probedAt": "2026-11-14T20:12:12.982226+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://worldview.earthdata.nasa.gov/",
+      "bytes": 4315,
+      "sha256": "cb2d20917791e84f680004926944677e08289fa228d60fc734d427c0718596ff",
+      "contentType": "text/html",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "pds",
+      "url": "https://pds.nasa.gov/",
+      "probedAt": "2026-11-14T20:12:12.982538+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://pds.nasa.gov/",
+      "bytes": 61709,
+      "sha256": "4884b4bb15904c6e7efcfa95cf2aea994b8850106898ccb5ef06606a5365bf68",
+      "contentType": "text/html; charset=UTF-8",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "lro",
+      "url": "https://science.nasa.gov/mission/lro/",
+      "probedAt": "2026-11-14T20:12:12.982961+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://science.nasa.gov/mission/lro/",
+      "bytes": 302196,
+      "sha256": "2b2b3afe82720615b2f67e83950334919caf93338186991ecd584e56283e05db",
+      "contentType": "text/html; charset=UTF-8",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "diviner",
+      "url": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+      "probedAt": "2026-11-14T20:12:13.760465+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm",
+      "bytes": 39498,
+      "sha256": "89f3c4412e549df606f682da98c62fea94f1dd17a4543e5a0f661c354d883cb6",
+      "contentType": "text/html",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "radarsat-constellation",
+      "url": "https://www.asc-csa.gc.ca/eng/satellites/radarsat/access-to-data/about.asp",
+      "probedAt": "2026-11-14T20:12:14.515919+00:00",
+      "runtimeStatus": "probe-error",
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "id": "radarsat-1",
+      "url": "https://www.csa-asc.gc.ca/eng/satellites/radarsat1/data-access.asp",
+      "probedAt": "2026-11-14T20:12:14.908133+00:00",
+      "runtimeStatus": "probe-error",
+      "error": "HTTPSConnectionPool(host='www.csa-asc.gc.ca', port=443): Max retries exceeded with url: /eng/satellites/radarsat1/data-access.asp (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'www.csa-asc.gc.ca'. (_ssl.c:1010)\")))"
+    },
+    {
+      "id": "csa-sar-tutorial",
+      "url": "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial",
+      "probedAt": "2026-11-14T20:12:14.987429+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://github.com/asc-csa/Synthetic_Aperture_Radar_Tutorial",
+      "bytes": 264016,
+      "sha256": "5f5f94d99da7f90f9d52435734dfc1f0815780d735185fc7cf652c3e00e5bff1",
+      "contentType": "text/html; charset=utf-8",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "copernicus-data-space",
+      "url": "https://dataspace.copernicus.eu/",
+      "probedAt": "2026-11-14T20:12:15.216687+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://dataspace.copernicus.eu/",
+      "bytes": 111397,
+      "sha256": "0fe0bea838ee7ec3f72675378593675602bfc8ad101b7a8b3d84ec5b819f4ca8",
+      "contentType": "text/html; charset=UTF-8",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "esa-open-science",
+      "url": "https://opensciencedata.esa.int/",
+      "probedAt": "2026-11-14T20:12:15.399290+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://opensciencedata.esa.int/",
+      "bytes": 975,
+      "sha256": "8f0dc479402ace97b39960469618309b93014eb18dee63dda29447acdfd1249c",
+      "contentType": "text/html",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    },
+    {
+      "id": "jaxa-g-portal",
+      "url": "https://www.gportal.jaxa.jp/?lang=en",
+      "probedAt": "2026-11-14T20:12:15.613751+00:00",
+      "httpStatus": 200,
+      "resolvedUrl": "https://www.gportal.jaxa.jp/?lang=en",
+      "bytes": 1067892,
+      "sha256": "adec0b0ce02c8eeb193366aa19bfb1077d419a9cce2f3564d9001a2f3e18479d",
+      "contentType": "text/html; charset=utf-8",
+      "runtimeStatus": "reachable",
+      "meaning": "HTTP reachability only; no product or licence acceptance"
+    }
+  ]
+}
