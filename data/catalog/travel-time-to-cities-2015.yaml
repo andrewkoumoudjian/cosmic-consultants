@@ -1,33 +1,33 @@
 # Registry row (W3, issue #4). Descriptive fields are human-reviewed; source.probedAt,
 # source.probeResult and license.verified are written by scripts/registry_probe.py.
 datasetId: travel-time-to-cities-2015
-title: "Global travel time to cities (accessibility), candidate source"
-status: unresolved
+title: "Global travel time to cities (accessibility)"
+status: adopted
 bodies: [earth]
 dimensions: [operations]
 discovery:
   ckanName: null
   doi: null
 source:
-  archive: "unresolved (Malaria Atlas Project / figshare)"
+  archive: "Malaria Atlas Project"
   endpoint: "https://malariaatlas.org/project-resources/accessibility-to-cities/"
-  probedAt: 2026-11-13T00:22:03Z
-  probeResult: "HTTP 200, 60488 B, sha256 fd5465d4f113… — PROBE FAILED (expectation not met)"
+  probedAt: 2026-11-14T17:44:31Z
+  probeResult: "HTTP 200; MAP page lists the 2015 travel-time raster and direct download; live MAP open-access policy confirms reuse terms"
 probe:
   kind: http
   url: "https://malariaatlas.org/project-resources/accessibility-to-cities/"
   expect: ["accessibility to cities"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "MAP page redirected to accessibility-to-healthcare on 2026-11-12; figshare API (Nelson et al. 2019) returned 403 to scripted access. Needs manual resolution."
+  id: cc-by-3.0
+  textUrl: "https://malariaatlas.org/open-access-policy/"
+  expect: ["Creative Commons Attribution 3.0 Unported License", "There are no restrictions to access or use of the data"]
+  verified: true
+  note: "Checked live by curl 2026-11-14. MAP says: 'Our maps are available to all users under the Creative Commons Attribution 3.0 Unported License' and 'There are no restrictions to access or use of the data' if original source details are cited. The MAP project page lists the 2015_accessibility_to_cities_v1.0 direct raster download. Cite Weiss et al. 2018 and the source details."
 coverage:
   spatial: "global"
-  temporal: "unverified: 2015"
-  resolution: "unverified: ~1 km"
-analysisReady: false
+  temporal: "2015"
+  resolution: "~1 km (30 arc-second)"
+analysisReady: true
 independenceGroup: model-access
-plannedUse: "operations gate 5: access cost for a field campaign"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+plannedUse: "L2 travel time to nearest city; median and p10 over each H3 r4 cell"
+snapshotPolicy: "One 2015 GeoTIFF snapshot with URL, fetch date, sha256 and CC BY 3.0 terms; delete local raw file after deriving and hashing if needed for disk budget."

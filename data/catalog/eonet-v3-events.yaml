@@ -2,7 +2,7 @@
 # source.probeResult and license.verified are written by scripts/registry_probe.py.
 datasetId: eonet-v3-events
 title: "EONET v3 natural events (dust/haze, volcanoes, sea and lake ice)"
-status: candidate
+status: unresolved
 bodies: [earth]
 dimensions: [dustProcess]
 discovery:
@@ -19,15 +19,15 @@ probe:
   expect: ["dustHaze"]
 license:
   id: unresolved
-  textUrl: null
+  textUrl: "https://eonet.gsfc.nasa.gov/what-is-eonet#disclaimer"
   expect: []
   verified: false
-  note: "no license statement on the API; NASA GSFC service"
+  note: "Checked live 2026-11-14. No reuse licence found on the API, home page, or v3 docs. Official disclaimer says: 'All EONET metadata and services are intended to be used for visualization and general information purposes only' and event extents are 'based on multiple sources' and 'often ... approximations at best.' Source-specific rights remain unclear, so context output omits EONET values."
 coverage:
   spatial: "global, event points"
   temporal: "unverified: curated events, recent years"
   resolution: "event-level"
-analysisReady: true
+analysisReady: false
 independenceGroup: event-catalog
-plannedUse: "dustProcess gate 3: independent event record of dust storms (non-raster, curated)"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+plannedUse: "Potential L2 named-event counts and months; withheld until reuse rights for mixed-source metadata are confirmed"
+snapshotPolicy: "No snapshot until reuse rights for the mixed-source event metadata are confirmed."
