@@ -73,11 +73,14 @@ acquisition and evidence extraction work in issue #74. See
    in the table's `.meta.json`. No verdicts, gaps or scores. Comparing a value
    to a requirement is engine work (L4). Assembly (§5B) may add only the
    summaries it lists (year-to-year spread, trait scales, data coverage).
-4. **One grid.** Every gridded table uses H3 resolution 4 (about 1,770 km² per
-   hexagon, 91,800 land hexagons). The key column is always `h3`.
-5. **One time base.** Monthly values use calendar months 1 to 12 of a named
-   year. The base year is **2023** for every source unless its row in §4 says
-   otherwise.
+4. **Earth grid.** Earth hexagon tables use H3 resolution 4 (about 1,770 km²
+   per hexagon, 91,800 land hexagons), keyed by `h3`. Planetary source products
+   retain their native geometry, frame and grid under ADR-0008; Earth H3
+   does not apply to Moon/Mars records.
+5. **Explicit time support.** Earth monthly tables use calendar months 1 to
+   12 of a named year. Their reference year is **2023** unless §4 says
+   otherwise. Historical campaigns and planetary products retain their
+   actual observation/model periods, including explicit unknown dates.
 6. **Licence first.** A source is used only after its licence is checked live
    at fetch time and recorded in its catalog row. `restricted` or `unresolved`
    sources stay out of published artifacts.
@@ -132,6 +135,8 @@ downloaded), **probe** (licence or endpoint still to check live), **blocked**.
 | WDPA (`wdpa-protected-areas`) | protected-area polygons | L2 `protected_pct` | latest release | probe (licence is `restricted`: may not ship) |
 | Airports (new catalog row, e.g. OurAirports) | airport points | L2 `airport_km` | snapshot date | have (#62, `ourairports`, public domain; paved runways only) |
 | Campaign source documents (papers, NASA pages) | where and when past campaigns ran | L3 `data/campaigns/` | per campaign | have for 6 campaigns (#63) |
+| Diviner south PRP (`diviner-l4`) | model annual average at 2 cm subsurface, surface maximum, calculated ice stability | native triangle records in `_derived/planetary/` | source model statistics; start/stop inapplicable | prepared and delivered in #75; not a per-target profile |
+| TES thermal-inertia maps (`tes-mgs`) | model-derived apparent thermal inertia, day/night; raw interpolation flags retained | native pixel records in `_derived/planetary/` | observations February 1999–April 2004 | prepared and delivered in #75; geographic extraction pending projection review |
 
 If WDPA's licence doesn't allow publishing derived numbers, `protected_pct`
 stays in L2 for our own checks and L4 ships `null` with reason
