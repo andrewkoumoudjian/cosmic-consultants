@@ -133,3 +133,34 @@ branch; reconcile committed entries when integrating source work.
   thermal.
 - **subsurface / operations:** not in P0 yet.
 - **illumination:** computed from latitude only (no terrain shadowing).
+
+## W26 (#66) source tables: albedo + regolith (my own section)
+
+Two additional source families, built by their own modules. The parent
+assembler joins them; these tables do not edit L1/L1m/L2.
+
+- `python -m p0ingest.albedo --fetch` downloads 12 MCD43C3 v061 daily CMG
+  granules, dated the 15th of each 2023 month (a dated 16-day BRDF retrieval
+  window each, NOT a calendar-month mean). `python -m p0ingest.albedo` builds
+  `_derived/albedo-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12,
+  `albedo_ws_sw`, `albedo_bs_sw`, per-field valid-pixel counts, per-row
+  `missing_reason`) and `_derived/albedo-r4.parquet` (91,800 rows:
+  `albedo_ws_sw_mean`, `albedo_months_used`, same for black-sky). Only
+  `Albedo_Quality == 0` pixels count and a hexagon keeps a value only with
+  >= 25% valid-pixel support; each `.meta.json` carries the real QA counts,
+  per-sample window dates read from the files, units and model limits.
+- `python -m p0ingest.regolith --fetch` downloads the six Pelletier et al.
+  2016 (ORNL DAAC 1304) 30-arcsec GeoTIFFs + the user guide; downloads are
+  checked against the publisher's public sha256 sidecars. `python -m
+  p0ingest.regolith` builds `_derived/regolith-r4.parquet` (91,800 rows):
+  per-hex exact histogram medians of upland regolith thickness
+  (`regolith_thick_m`), upland soil, sedimentary deposit and the product's
+  weighted average, with support fractions, per-class pixel counts, the
+  native fill kept as null, the published 50 m upper valid bound retained,
+  and per-row `missing_reason` (e.g. `outside-product-coverage` south of
+  60 S). Model output, not a measurement; lunar regolith is NOT claimed
+  equivalent.
+- `python -m p0ingest.w26_check` (also with `-O`) runs the transformation
+  regression tests, the key-domain checks against the master cell set and
+  5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
+  against the raw sources; exit 0 only if all pass.
