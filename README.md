@@ -58,3 +58,14 @@ lake exe cache get
 lake build
 lake env lean Analog/Audit.lean   # standard axioms only
 ```
+
+## Verify the contracts
+
+```bash
+python -m pip install "jsonschema==4.23.0" "pyyaml==6.0.2" "h3==4.1.2"
+python scripts/validate_contracts.py --self-test
+```
+
+CI runs the same check (`.github/workflows/ci.yml`, `contract-validation` job).
+On Python 3.14, use `"pyyaml>=6.0.3"` instead: 6.0.2 has no 3.14 wheel and
+needs a C compiler.
