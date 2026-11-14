@@ -200,6 +200,81 @@
     "ok": true
    },
    "summary": "ORNL 1304 Pelletier 2016 re-probed live at adoption (W26 #66): CMR granule list HTTP 200 (6 files); user guide PDF fetched and stored; protected-path Earthdata auth verified end to end; all six GeoTIFF downloads match the publisher's public sha256 sidecars; native fill/ranges/cap 50 m verified from the files."
+  },
+  {
+   "datasetId": "modis-mcd64a1",
+   "file": "data/catalog/modis-mcd64a1.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2565786756-LPCLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2565786756-LPCLOUD.umm_json",
+      "fetchedAt": "2026-11-14T18:52:15Z",
+      "status": 200,
+      "bytes": 15427,
+      "sha256": "b3f7ad75c1fe2712ad6dbc1027e27d066bef15d5e47c6547127e819d23f97d40",
+      "headers": {
+       "cmr-request-id": "2ce35181-2d88-466d-883f-3edf01812076"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&page_size=0",
+      "fetchedAt": "2026-11-14T18:52:15Z",
+      "status": 200,
+      "bytes": 207,
+      "sha256": "24553cc34d9d06627d43a471895a858442330b57296fbee44209e1712689a437",
+      "headers": {
+       "cmr-request-id": "837f4fbc-5e33-4c29-8d06-9e087daa4143",
+       "cmr-hits": "83336",
+       "cmr-took": "33"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "MCD64A1",
+     "version": "061",
+     "entryTitle": "MODIS/Terra+Aqua Direct Broadcast Burned Area Monthly L3 Global 500m SIN Grid V061",
+     "doi": "10.5067/MODIS/MCD64A1.061",
+     "temporal": [
+      "2000-11-01T00:00:00.000Z",
+      null
+     ],
+     "resolution": {
+      "GenericResolutions": [
+       {
+        "XDimension": 500,
+        "YDimension": 500,
+        "Unit": "Meters"
+       }
+      ]
+     },
+     "useConstraints": null,
+     "archiveCenter": [
+      "LP DAAC"
+     ],
+     "granuleHits": "83336"
+    }
+   },
+   "summary": "CMR C2565786756-LPCLOUD: HTTP 200, MCD64A1 v061, DOI 10.5067/MODIS/MCD64A1.061, granules 83336",
+   "license": {
+    "id": "cc0",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "finalUrl": "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance",
+      "fetchedAt": "2026-11-14T18:52:15Z",
+      "status": 200,
+      "bytes": 141648,
+      "sha256": "9d729efa305091f4bbb95aa1ae2fc334a86ec547b0de4312dc1399d5b40b5303",
+      "headers": {}
+     },
+     "matches": {
+      "licensed as Creative Commons Zero": "ed with a use restriction or license, data provided from a NASA-led mission are licensed as Creative Commons Zero (CC0). While there are no restrictions on the use of these data, data users are very strongly urged to cite the data us"
+     }
+    }
+   }
   }
  ]
 }
