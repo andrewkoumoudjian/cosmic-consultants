@@ -1,10 +1,70 @@
 {
-  "description": "Validation fixtures (brief P4/P5). A correct screening run must RETAIN cells containing these coordinates for their named strong dimensions, and must flag their known breakdowns. They are calibration targets, never claimed discoveries. Coordinates are site centroids (WGS84), characterization pending registry datasets.",
+  "description": "Reference-site inventory for source review, not required frontier survivors or established task assessments. Existing names, coordinates and body associations are retained from the legacy fixture and require source verification before scientific use. Reference topics are unverified research prompts. Scientific expectations must be reviewed and frozen per task/model/input revision; a reference may legitimately be dominated. Synthetic algorithm tests and snapshot regression tests are separate.",
   "sites": [
-    { "siteId": "haughton-crater-ca", "name": "Haughton Impact Crater, Devon Island, Canada", "centroidLat": 75.3833, "centroidLon": -89.6667, "targetBody": "mars", "strongDimensions": ["terrain"], "expectedRetained": true },
-    { "siteId": "atacama-cl", "name": "Atacama Desert (core hyperarid zone), Chile", "centroidLat": -23.5, "centroidLon": -69.2, "targetBody": "mars", "strongDimensions": ["thermal", "dustProcess"], "expectedRetained": true },
-    { "siteId": "death-valley-us", "name": "Death Valley, California, USA", "centroidLat": 36.24, "centroidLon": -116.82, "targetBody": "mars", "strongDimensions": ["dustProcess", "surfaceMaterial"], "expectedRetained": true },
-    { "siteId": "mistastin-lake-ca", "name": "Mistastin Lake Impact Structure, Labrador, Canada", "centroidLat": 55.8833, "centroidLon": -63.3, "targetBody": "moon", "strongDimensions": ["terrain", "surfaceMaterial"], "expectedRetained": true },
-    { "siteId": "mcmurdo-dry-valleys-aq", "name": "McMurdo Dry Valleys, Antarctica", "centroidLat": -77.47, "centroidLon": 162.52, "targetBody": "mars", "strongDimensions": ["thermal", "waterIce"], "expectedRetained": true }
-  ]
+    {
+      "siteId": "haughton-crater-ca",
+      "name": "Haughton Impact Crater, Devon Island, Canada",
+      "centroidLat": 75.3833,
+      "centroidLon": -89.6667,
+      "targetBody": "mars",
+      "referenceDimensions": [
+        "terrain"
+      ],
+      "referenceStatus": "characterization-pending",
+      "evidenceRefs": []
+    },
+    {
+      "siteId": "atacama-cl",
+      "name": "Atacama Desert (core hyperarid zone), Chile",
+      "centroidLat": -23.5,
+      "centroidLon": -69.2,
+      "targetBody": "mars",
+      "referenceDimensions": [
+        "thermal",
+        "dustProcess"
+      ],
+      "referenceStatus": "characterization-pending",
+      "evidenceRefs": []
+    },
+    {
+      "siteId": "death-valley-us",
+      "name": "Death Valley, California, USA",
+      "centroidLat": 36.24,
+      "centroidLon": -116.82,
+      "targetBody": "mars",
+      "referenceDimensions": [
+        "dustProcess",
+        "surfaceMaterial"
+      ],
+      "referenceStatus": "characterization-pending",
+      "evidenceRefs": []
+    },
+    {
+      "siteId": "mistastin-lake-ca",
+      "name": "Mistastin Lake Impact Structure, Labrador, Canada",
+      "centroidLat": 55.8833,
+      "centroidLon": -63.3,
+      "targetBody": "moon",
+      "referenceDimensions": [
+        "terrain",
+        "surfaceMaterial"
+      ],
+      "referenceStatus": "characterization-pending",
+      "evidenceRefs": []
+    },
+    {
+      "siteId": "mcmurdo-dry-valleys-aq",
+      "name": "McMurdo Dry Valleys, Antarctica",
+      "centroidLat": -77.47,
+      "centroidLon": 162.52,
+      "targetBody": "mars",
+      "referenceDimensions": [
+        "thermal",
+        "waterIce"
+      ],
+      "referenceStatus": "characterization-pending",
+      "evidenceRefs": []
+    }
+  ],
+  "fixtureVersion": "reference-sites/2"
 }

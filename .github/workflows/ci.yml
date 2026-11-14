@@ -26,14 +26,26 @@ jobs:
           lake build
       - name: Axiom audit (standard axioms only)
         working-directory: proofs
+        shell: bash
         run: |
-          lake env lean Analog/Audit.lean | tee /tmp/audit.txt
-          if grep -Ev 'depends on axioms: \[(propext, |Classical\.choice, |Quot\.sound|, )*\]|does not depend on any axioms' /tmp/audit.txt | grep -q .; then
-            echo '::error::non-standard axiom in audit output'; cat /tmp/audit.txt; exit 1
+          set +e
+          lake env lean Analog/Audit.lean > /tmp/audit.txt 2>&1
+          audit_rc=$?
+          set -e
+          cat /tmp/audit.txt
+          if [ "$audit_rc" -ne 0 ]; then
+            echo "::error::Lean audit failed with exit code $audit_rc"
+            exit "$audit_rc"
+          fi
+          if ! grep -Eq 'depends on axioms:|does not depend on any axioms' /tmp/audit.txt; then
+            echo '::error::Lean audit emitted no theorem audit results'; exit 1
+          fi
+          if grep -Ev "^'[^']+' (depends on axioms: \[((propext|Classical\.choice|Quot\.sound)(, (propext|Classical\.choice|Quot\.sound))*)?\]|does not depend on any axioms)$" /tmp/audit.txt; then
+            echo '::error::unexpected or non-standard axiom audit output'; exit 1
           fi
 
   contracts:
-    name: Contract schemas parse
+    name: Legacy contract/fixture JSON syntax (not schema validation)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
