@@ -1,0 +1,128 @@
+# Trait map v0 (work order #56, ADR-0005 D2). Status: proposed.
+#
+# One rule per (objective, required trait). Each rule turns a Moon/Mars target
+# band, a past campaign's constraint, or a stated team choice into a band on ONE
+# Earth column, in Earth units. The engine compares Earth numbers with these
+# bands only. Spec: docs/plan/DATA-PIPELINE.md §6.
+#
+# origin:
+#   target    - number taken from a cited envelope in data/envelopes/ (basis names it)
+#   precedent - number a cited past campaign reported (data/campaigns/, none yet)
+#   team      - our choice, with the reason in `basis`; the user can change it
+#   user      - set in the app (never stored here)
+# band: null means "no band yet": the trait is UNKNOWN for this objective, never skipped.
+# table: L1 (yearly, cells-r4) or L1m (per month, cells-r4-monthly). Booleans are 0/1.
+# band: lo <= value <= hi, both ends included, unless hiStrict: true (then value < hi).
+# priority: must (filters sites out) or nice (shown, never filters). Default must.
+
+version: 0
+rules:
+  # ---------- OP-5LM (Mars): surface mobility / EVA ----------
+  - objectiveId: OP-5LM
+    dimension: terrain
+    table: L1
+    earthColumn: slope_mean_deg
+    band: {lo: 0, hi: 5}
+    unit: deg
+    origin: target
+    basis: "mars-reference-v0 terrain: mean slope along traverse corridors 0-5 deg (MSL design-reference terrain)."
+    scaleCaveat: "The source calls 5 deg a design-reference terrain, NOT a limit (data/envelopes/README.md), so this is nice-to-have, not a filter. Also, the Earth value is the mean over a whole hexagon on a 240 m grid, not along a traverse."
+    priority: nice
+    status: proposed
+
+  - objectiveId: OP-5LM
+    dimension: surfaceMaterial
+    table: L1
+    earthColumn: barren_pct
+    band: {lo: 50, hi: 100}
+    unit: "%"
+    origin: team
+    basis: "The objective needs unvegetated ground (earthTestableComponent). The Mars band is albedo <= 0.25, but we have no Earth albedo column yet, so we use 'mostly barren' (at least half the hexagon) as a stand-in."
+    scaleCaveat: "Land-cover share, not albedo. Closes when modis-mcd43c3-albedo is ingested."
+    status: proposed
+
+  - objectiveId: OP-5LM
+    dimension: dustProcess
+    table: L1m
+    earthColumn: dust_aod
+    band: null
+    unit: unitless
+    origin: target
+    basis: "No Mars dust band has a traceable source yet (data/envelopes/README.md), and MERRA-2 is blocked."
+    status: proposed
+
+  - objectiveId: OP-5LM
+    dimension: thermal
+    table: L1m
+    earthColumn: lst_night_k
+    band: null
+    unit: K
+    origin: target
+    basis: "Mars thermal band dropped in #55 (single air reading, no snapshot). Unknown until a TES/THEMIS range is snapshotted."
+    status: proposed
+
+  # ---------- SE-3LM (Moon): coring frozen volatiles ----------
+  - objectiveId: SE-3LM
+    dimension: waterIce
+    table: L1
+    earthColumn: permafrost_pct
+    band: {lo: 50, hi: 100}
+    unit: "%"
+    origin: team
+    basis: "The Moon band is 'a permanently shadowed region within 2 km', a different quantity. On Earth the drillable stand-in is frozen ground; we ask for permafrost to be more likely than not (>= 50% ESA probability)."
+    scaleCaveat: "Probability of permafrost, not ice content. Null outside the ESA model area."
+    status: proposed
+
+  - objectiveId: SE-3LM
+    dimension: thermal
+    table: L1m
+    earthColumn: lst_night_k
+    band: null
+    unit: K
+    origin: target
+    basis: "Moon cold-trap temperature criterion not pinned from a primary source (data/envelopes/README.md)."
+    status: proposed
+
+  - objectiveId: SE-3LM
+    dimension: subsurface
+    table: null
+    earthColumn: null
+    band: null
+    unit: null
+    origin: target
+    basis: "No global Earth subsurface dataset in v0, and no lunar band."
+    status: proposed
+
+  - objectiveId: SE-3LM
+    dimension: illumination
+    table: L1m
+    earthColumn: polar_night
+    band: {lo: 1, hi: 1}
+    unit: flag
+    origin: team
+    basis: "Coring in a permanently shadowed region happens in the dark. The closest Earth condition is polar night, so this only matches in polar-night months."
+    status: proposed
+
+  # ---------- LI-5L (Moon): precision landing at low sun ----------
+  - objectiveId: LI-5L
+    dimension: terrain
+    table: L1
+    earthColumn: slope_mean_deg
+    band: {lo: 0, hi: 10}
+    hiStrict: true                  # source says "< 10 deg over 100 m"
+    unit: deg
+    origin: target
+    basis: "moon-south-pole-v0 terrain: max slope over a 100 m baseline <= 10 deg (Artemis III)."
+    scaleCaveat: "Same number, different statistic: Earth is a mean over a 240 m grid, the Moon band is a max over 100 m. A mean under 10 deg does not guarantee every 100 m patch is under 10 deg."
+    status: proposed
+
+  - objectiveId: LI-5L
+    dimension: illumination
+    table: L1m
+    earthColumn: sun_noon_elev_deg
+    band: {lo: 0, hi: 10}
+    unit: deg
+    origin: team
+    basis: "Landing tests need a low sun and long shadows like the lunar south pole. We use a noon sun above the horizon and at or below 10 deg as the stand-in (polar night fails: no light to land by); it only happens at high latitudes in winter months."
+    scaleCaveat: "Computed from latitude only; no terrain shadows."
+    status: proposed

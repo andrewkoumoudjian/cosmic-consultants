@@ -1,8 +1,13 @@
 # Hackathon plan — Analog Readiness Levels (2026-11-14 → 11-15)
 
+> **Not the current plan any more.** On 2026-11-14 the owner replaced ARL with the
+> mission planning workflow: [ADR-0005](decisions/ADR-0005-mission-planning-workflow.md),
+> [plan](plan/MISSION-PLANNER.md), [data pipeline](plan/DATA-PIPELINE.md). The
+> schedule and submission checklist below still apply.
+
 Written 2026-11-12 (issue #14). Decisions: [ADR-0002](decisions/ADR-0002-analog-readiness-levels.md)
 (ARL), [ADR-0003](decisions/ADR-0003-hackathon-delivery-scope.md) (48-h scope) —
-both **accepted** (merge #26). **This is the current plan.** On 2026-11-14 the
+both **accepted** (merge #26). This was the plan until ADR-0005 (later on 2026-11-14). Earlier that day the
 owner chose to keep ARL and deferred [ADR-0004](decisions/ADR-0004-evidence-backed-comparison.md) (#46).
 The Resources tab is now live: see [challenge page](challenge/challenge-page.md#resources-tab). Rules and sources:
 [doc 07](research/07-spaceapps-rules-and-m2m-objectives.md). Pitch:

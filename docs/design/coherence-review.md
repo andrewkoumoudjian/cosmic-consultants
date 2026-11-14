@@ -1,8 +1,8 @@
 # Ten-point coherence review: change traceability
 
 > **Not the current plan.** This came with [ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md), which the owner
-> **deferred on 2026-11-14 (#46)**. We are building ARL (ADR-0002/0003); see
-> [PLAN-hackathon.md](../PLAN-hackathon.md). Kept as a record and as ideas to borrow.
+> **deferred on 2026-11-14 (#46)**. We are building the mission planner
+> ([ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md), [plan](../plan/MISSION-PLANNER.md)), which replaced ARL. Kept as a record and as ideas to borrow.
 
 Date: 2026-11-14 (America/Toronto). Work order: #43.
 Status: controlling human approved the local changes; draft PR for team feedback.

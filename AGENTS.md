@@ -131,12 +131,12 @@ ADR, summarized fairly including disagreement.
    no fabricated fills for missing records — missing stays explicit.
 4. **Partial analogy always (brief R4/P3).** `gravity`, `pressureRegime`,
    `radiation` are permanent breakdowns. No single scalar similarity score
-   anywhere in code or copy; analogy is the per-dimension vector. Sole
-   exception (ADR-0002): the per-objective **Analog Readiness Level**, an
-   ordinal evidence level set by gates on the weakest required dimension —
-   never averaged, never aggregated across objectives, and never shown without
-   its per-dimension vector, limiting dimension/gate and the objective's
-   not-testable-on-Earth list.
+   anywhere in code or copy; analogy is the per-dimension vector (per trait:
+   match, miss with its gap, or unknown). No site gets a single score; the
+   shortlist is Pareto. Two bounded exceptions (ADR-0005 D5, which replaces
+   the ARL exception of ADR-0002): past-mission closeness, always shown split
+   per trait by Shapley values; and the campaign optimizer's cost/risk of a
+   field plan, which never rates how alike two places are.
 5. **One issue = one branch = one PR.** Claim by assignment + `status:in-progress`
    before coding. Stay inside your package lane (`CODEOWNERS`); cross-lane needs
    go through a `contracts/` change first. Never push to `main` directly after
