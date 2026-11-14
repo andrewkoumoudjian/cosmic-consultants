@@ -2,11 +2,9 @@
 
 > Historical proposal; retained for rationale, not current execution instructions.
 > ADR-0001 resolved its original questions; ADR-0002/0003 were accepted by #26.
-> The proposed [ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md)
-> replaces global-first screening, mandatory readiness levels, assumed Rust/WASM,
-> and the unsupported per-score error-certificate promise. See
-> [status](../STATUS.md) for the pending adoption boundary and
-> [contract design](../design/evidence-comparison.md) for the proposed data model.
+> [ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md), which would have
+> replaced global screening and readiness levels, was **deferred by the owner on 2026-11-14 (#46)**.
+> The current plan is [PLAN-hackathon.md](../PLAN-hackathon.md).
 > Generic optimization proofs do not bound physical measurement/analogy error.
 
 Date: 2026-11-12. Status: **proposal for approval — nothing here is built.**

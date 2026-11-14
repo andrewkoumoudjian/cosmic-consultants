@@ -1,5 +1,9 @@
 # Evidence-backed comparison: contract design
 
+> **Not the current plan.** This came with [ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md), which the owner
+> **deferred on 2026-11-14 (#46)**. We are building ARL (ADR-0002/0003); see
+> [PLAN-hackathon.md](../PLAN-hackathon.md). Kept as a record and as ideas to borrow.
+
 Date: 2026-11-14 (America/Toronto). Work order: #43.
 Status: **proposed for local review**, governed on adoption by
 [ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md).

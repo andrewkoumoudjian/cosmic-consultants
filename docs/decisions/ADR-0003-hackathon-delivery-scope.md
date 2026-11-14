@@ -2,8 +2,8 @@
 
 Date: 2026-11-12. Status: **accepted by merge #26 (`5da36ce`)**, under its original
 merge-acceptance clause. Status annotation corrected in #43; substantive decision
-below preserved. Proposed [ADR-0004](ADR-0004-evidence-backed-comparison.md)
-would replace the global P0 and unproved-S6 fallback; it is pending review.
+below preserved. [ADR-0004](ADR-0004-evidence-backed-comparison.md), which would have replaced
+this scope, was **deferred by the owner on 2026-11-14 (#46)**; this scope stands.
 This historical decision partially **narrows** ADR-0001 for the hackathon window
 only (2026-11-14 09:00 → 2026-11-15 23:59 local); ADR-0001 itself is unchanged.
 

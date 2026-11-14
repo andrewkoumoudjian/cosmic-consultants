@@ -1,10 +1,12 @@
 # ADR-0004 — Small reproducible comparisons and explicit guarantee boundaries
 
 Date: 2026-11-14 (America/Toronto). Work order: #43.
-Status: **proposed — draft PR for team feedback**. The controlling human approved
-the resulting changes on 2026-11-14 and wants others to review the implementation
-plan before implementation. No repository adoption, merge or implementation is
-authorized by that approval.
+Status: **deferred by repo owner (not adopted), 2026-11-14, issue #46.** The PR
+that added this file (#44) was merged on the owner's request, but merging it did
+not adopt this decision. The owner then chose to keep ARL (ADR-0002) and the
+ADR-0003 scope for the hackathon. This record stays as written below. A later ADR
+may adopt parts of it. Original status: proposed, draft PR for team feedback,
+approved by Derek Gallagher (controlling human of the authoring agent).
 
 On acceptance this ADR supersedes ADR-0001's universal proof-before-exploration
 gate and score-certificate promise; ADR-0002's mandatory ARL ladder and global

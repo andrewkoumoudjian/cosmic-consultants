@@ -2,9 +2,8 @@
 
 Date: 2026-11-12 (v0 #29; v1 #33), interpretation corrected 2026-11-14 (#43).
 Status: **research — proposed**, not measured site results. This inventory sets
-no task tolerance, readiness level or adopted comparison rule. Proposed
-[ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md) defers ARL and
-uses [feature-level evidence dossiers](../design/evidence-comparison.md).
+no task tolerance, readiness level or adopted comparison rule. ARL (ADR-0002) is the current plan;
+[ADR-0004](../decisions/ADR-0004-evidence-backed-comparison.md) was **deferred by the owner on 2026-11-14 (#46)**.
 Existing generated CSVs retain their historical metadata; their labels/counts
 are discovery aids, not approved fit or corroboration assessments.
 
@@ -168,8 +167,8 @@ is not automatically an Earth-analog tolerance or a loss-space bound.
    temperature criteria. Those values were removed here because only search-engine
    summaries carried them.
 3. Historical P0 mappings below are feasibility candidates, not adopted task
-   requirements. On ADR-0004 adoption, choose one narrow component using actual
-   accessible/comparable evidence before revising W10 (#15):
+   requirements. W10 (#15) picks the P0 objective rows from these, using
+   accessible/comparable evidence:
    - `OP-5LM`: slopes, rocks, TI/albedo, dust;
    - `SE-3LM`: PSR, cold-trap temperature, ice stability, neutron H;
    - `LI-5L`: `slope_100m`, `sun_elev_min`, `illum_frac_avg`, `earth_vis_frac`.
