@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cosmic-consultants.dev/contracts/site.schema.json",
   "title": "AnalogSite",
-  "description": "One candidate Earth cell/site with its per-dimension analogy vector. Mirrors Analog.Semantics.AnalogyVector: loss orientation (0 = perfect match, larger = worse); no scalar total is representable.",
+  "description": "One candidate Earth cell/site with its per-dimension analogy vector. Mirrors Analog.Semantics.AnalogyVector: loss orientation (0 = perfect match, larger = worse); no scalar total is representable. Optional readiness[] mirrors Analog.Readiness: per-objective ARL with every gate outcome; no cross-objective aggregate.",
   "type": "object",
   "required": ["siteId", "geometry", "analogy", "permanentMismatches", "provenance"],
   "additionalProperties": false,
@@ -45,6 +45,148 @@
       "description": "Per Analog.Semantics.PermanentMismatch; all applicable entries are mandatory in dossiers (validated in review, not by schema)."
     },
     "explorationUse": { "type": "array", "items": { "type": "string" } },
+    "readiness": {
+      "type": "array",
+      "description": "Optional. One entry per rated objective (Analog.Readiness, ADR-0002 D2). ARL is an ordinal evidence level for ONE objective. There is deliberately no field that totals or averages across objectives. Validators recompute arl from the gates.",
+      "items": {
+        "type": "object",
+        "required": [
+          "objectiveId",
+          "body",
+          "arl",
+          "gates",
+          "limitingGate",
+          "limitingDimension"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "objectiveId": {
+            "type": "string",
+            "pattern": "^[A-Z]{2,3}-[0-9]+(L|M|LM)?$"
+          },
+          "body": {
+            "type": "string",
+            "enum": [
+              "moon",
+              "mars"
+            ]
+          },
+          "arl": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6,
+            "description": "Largest k <= 6 with gates 1..k all passing."
+          },
+          "gates": {
+            "type": "object",
+            "required": [
+              "perDimension",
+              "site"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "perDimension": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "dimension",
+                    "observed",
+                    "withinTolerance",
+                    "corroborated",
+                    "fieldCharacterized"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "dimension": {
+                      "type": "string",
+                      "enum": [
+                        "terrain",
+                        "thermal",
+                        "illumination",
+                        "dustProcess",
+                        "waterIce",
+                        "surfaceMaterial",
+                        "subsurface",
+                        "operations"
+                      ]
+                    },
+                    "observed": {
+                      "$ref": "#/$defs/gateOutcome"
+                    },
+                    "withinTolerance": {
+                      "$ref": "#/$defs/gateOutcome"
+                    },
+                    "corroborated": {
+                      "$ref": "#/$defs/gateOutcome"
+                    },
+                    "fieldCharacterized": {
+                      "$ref": "#/$defs/gateOutcome"
+                    }
+                  }
+                },
+                "description": "Gates 1-4, one row per required dimension of the objective."
+              },
+              "site": {
+                "type": "object",
+                "required": [
+                  "operable",
+                  "campaignProven"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "operable": {
+                    "$ref": "#/$defs/gateOutcome"
+                  },
+                  "campaignProven": {
+                    "$ref": "#/$defs/gateOutcome"
+                  }
+                },
+                "description": "Gates 5-6, once per site."
+              }
+            }
+          },
+          "limitingGate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "observed",
+              "withinTolerance",
+              "corroborated",
+              "fieldCharacterized",
+              "operable",
+              "campaignProven",
+              null
+            ],
+            "description": "The first gate that doesn't pass (gate arl+1). null only when arl = 6."
+          },
+          "limitingDimension": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "terrain",
+              "thermal",
+              "illumination",
+              "dustProcess",
+              "waterIce",
+              "surfaceMaterial",
+              "subsurface",
+              "operations",
+              null
+            ],
+            "description": "A required dimension that doesn't pass the limiting gate. null when the limiting gate is a site gate or arl = 6."
+          },
+          "statementLedger": {
+            "type": "string",
+            "description": "Commit of proofs/Analog/Readiness.lean these levels conform to."
+          }
+        }
+      }
+    },
     "provenance": {
       "type": "object",
       "required": ["statementLedger", "snapshots"],
@@ -65,6 +207,37 @@
               "license": { "type": "string" }
             }
           }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "gateOutcome": {
+      "type": "object",
+      "required": [
+        "outcome",
+        "evidenceRefs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "unknown"
+          ],
+          "description": "Only pass counts. Missing data is unknown, never fail."
+        },
+        "evidenceRefs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Snapshot, catalog or literature ids backing this outcome."
+        },
+        "note": {
+          "type": "string"
         }
       }
     }

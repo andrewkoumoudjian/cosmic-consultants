@@ -1,0 +1,42 @@
+{
+  "siteId": "synthetic-example-cell",
+  "name": "SYNTHETIC EXAMPLE for contract tests. Not a real place or a real assessment.",
+  "geometry": { "centroidLat": 0, "centroidLon": 0, "cellSizeKm": 10 },
+  "analogy": [
+    { "dimension": "terrain", "loss": 0.2, "breakdown": false, "datasetRefs": [] },
+    { "dimension": "illumination", "loss": 0.9, "breakdown": true, "breakdownReason": "synthetic", "datasetRefs": [] }
+  ],
+  "permanentMismatches": ["gravity", "pressureRegime"],
+  "provenance": { "statementLedger": "synthetic-test-fixture", "snapshots": [] },
+  "readiness": [
+    {
+      "objectiveId": "LI-5L",
+      "body": "moon",
+      "arl": 1,
+      "gates": {
+        "perDimension": [
+          {
+            "dimension": "terrain",
+            "observed": { "outcome": "pass", "evidenceRefs": ["synthetic"] },
+            "withinTolerance": { "outcome": "pass", "evidenceRefs": ["synthetic"] },
+            "corroborated": { "outcome": "unknown", "evidenceRefs": [], "note": "lineage not resolved (doc 09)" },
+            "fieldCharacterized": { "outcome": "unknown", "evidenceRefs": [] }
+          },
+          {
+            "dimension": "illumination",
+            "observed": { "outcome": "pass", "evidenceRefs": ["synthetic"] },
+            "withinTolerance": { "outcome": "fail", "evidenceRefs": ["synthetic"] },
+            "corroborated": { "outcome": "unknown", "evidenceRefs": [] },
+            "fieldCharacterized": { "outcome": "unknown", "evidenceRefs": [] }
+          }
+        ],
+        "site": {
+          "operable": { "outcome": "pass", "evidenceRefs": ["synthetic"] },
+          "campaignProven": { "outcome": "unknown", "evidenceRefs": [] }
+        }
+      },
+      "limitingGate": "withinTolerance",
+      "limitingDimension": "illumination"
+    }
+  ]
+}
