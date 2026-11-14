@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
-"""Validate contracts (W10, #15).
+"""Validate contracts (W10, #15) and target envelopes (W5, #18).
 
 1. Schema check: every data/objectives/*.yaml against contracts/objective.schema.json,
-   and every site fixture with a readiness block against contracts/site.schema.json.
+   every site fixture with a readiness block against contracts/site.schema.json, and
+   every data/envelopes/*.json against contracts/envelope.schema.json.
 2. ARL check: recompute each readiness entry's level from its gate outcomes with the
    rule frozen in proofs/Analog/Readiness.lean (largest k <= 6 with gates 1..k passing;
    gates 1-4 must pass for every required dimension, and there must be at least one),
    and check limitingGate / limitingDimension and the per-dimension rows.
-3. --self-test: broken copies of the example must be rejected.
+3. Envelope check (W5, #18): lo <= hi per dimension (Envelope.valid, not expressible
+   in JSON Schema), every sourceDataset is a registry datasetId in data/catalog/,
+   the named dataset covers the envelope's body and lists that dimension, and every
+   objective's toleranceSource.envelopeId resolves to a file in data/envelopes/.
+4. --self-test: broken copies of the example must be rejected.
 
 Exit code 0 only if everything passes. Usage: python3 scripts/validate_contracts.py [--self-test]
 """
@@ -116,6 +121,85 @@ def check_site(sv, objectives, site, label) -> list[str]:
     return [f"{label}: {m}" for m in e]
 
 
+def load_registry() -> dict[str, dict]:
+    """datasetId -> catalog row, for every adopted/candidate registry row.
+
+    The template file is skipped: its datasetId is a placeholder, not a real row.
+    """
+    registry: dict[str, dict] = {}
+    for path in sorted(glob.glob(str(ROOT / "data/catalog/*.yaml"))):
+        if Path(path).name == "dataset.template.yaml":
+            continue
+        row = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+        if isinstance(row, dict) and row.get("datasetId"):
+            registry[row["datasetId"]] = row
+    return registry
+
+
+def check_envelope(ev, doc, registry, label) -> list[str]:
+    """Schema check plus the semantic rules JSON Schema cannot express."""
+    errs = [f"{label}: {m}" for m in schema_errors(ev, doc)]
+    if errs:
+        return errs
+    body = doc["body"]
+    for i, dim in enumerate(doc["dimensions"]):
+        where = f"{label}: dimensions[{i}] ({dim['dimension']})"
+        if dim["lo"] > dim["hi"]:
+            errs.append(f"{where}: lo {dim['lo']} > hi {dim['hi']} (Envelope.valid needs lo <= hi)")
+        row = registry.get(dim["sourceDataset"])
+        if row is None:
+            errs.append(f"{where}: sourceDataset {dim['sourceDataset']!r} is not a datasetId in data/catalog/")
+            continue
+        bodies = row.get("bodies") or []
+        if body not in bodies:
+            errs.append(f"{where}: dataset {dim['sourceDataset']} covers bodies {bodies}, not {body!r}")
+        dims = row.get("dimensions") or []
+        if dim["dimension"] not in dims:
+            errs.append(f"{where}: dataset {dim['sourceDataset']} lists dimensions {dims}, not {dim['dimension']!r}")
+    return errs
+
+
+def load_envelopes(ev, registry) -> tuple[dict[str, dict], list[str]]:
+    """envelopeId -> envelope document."""
+    envelopes: dict[str, dict] = {}
+    errs: list[str] = []
+    for path in sorted(glob.glob(str(ROOT / "data/envelopes/*.json"))):
+        rel = Path(path).relative_to(ROOT)
+        doc = json.loads(Path(path).read_text(encoding="utf-8"))
+        e = check_envelope(ev, doc, registry, str(rel))
+        errs += e
+        bands = ", ".join(f"{d['dimension']} [{d['lo']}, {d['hi']}]" for d in doc.get("dimensions", []))
+        print(f"{'OK  ' if not e else 'FAIL'} envelope {rel} ({doc.get('envelopeId')}: {bands})")
+        if not e:
+            if doc["envelopeId"] in envelopes:
+                errs.append(f"{rel}: duplicate envelopeId {doc['envelopeId']}")
+            envelopes[doc["envelopeId"]] = doc
+    return envelopes, errs
+
+
+def check_objective_envelopes(objectives, envelopes) -> list[str]:
+    """Every toleranceSource.envelopeId must resolve; report which required
+    dimensions the envelope does not bound (those stay unknown, not failed)."""
+    errs: list[str] = []
+    for (objective_id, body), obj in sorted(objectives.items()):
+        env_id = (obj.get("toleranceSource") or {}).get("envelopeId")
+        if env_id is None:
+            print(f"     objective {objective_id} ({body}): no envelopeId; gate 2 is unknown for every required dimension")
+            continue
+        env = envelopes.get(env_id)
+        if env is None:
+            errs.append(f"objective {objective_id} ({body}): toleranceSource.envelopeId {env_id!r} is not an envelope in data/envelopes/")
+            continue
+        if env["body"] != body:
+            errs.append(f"objective {objective_id} ({body}): envelope {env_id} is for body {env['body']!r}")
+        bounded = {d["dimension"] for d in env["dimensions"]}
+        required = obj.get("requiredDimensions", [])
+        missing = [d for d in required if d not in bounded]
+        covered = [d for d in required if d in bounded]
+        print(f"     objective {objective_id} ({body}): envelope {env_id} bounds {covered or 'none'}; unknown for {missing or 'none'}")
+    return errs
+
+
 def self_test(sv, objectives) -> list[str]:
     base = json.loads((ROOT / SITE_FIXTURES[0]).read_text(encoding="utf-8"))
     cases = []
@@ -136,9 +220,32 @@ def self_test(sv, objectives) -> list[str]:
     return errs
 
 
+def self_test_envelopes(ev, registry) -> list[str]:
+    base = json.loads((ROOT / "data/envelopes/mars-reference-v0.json").read_text(encoding="utf-8"))
+    cases = []
+    c = copy.deepcopy(base); c["dimensions"][0]["lo"] = 99; cases.append(("lo above hi", c))
+    c = copy.deepcopy(base); c["dimensions"][0]["sourceDataset"] = "no-such-dataset"; cases.append(("sourceDataset not in the registry", c))
+    c = copy.deepcopy(base); c["dimensions"][0]["dimension"] = "notADimension"; cases.append(("unknown dimension name", c))
+    c = copy.deepcopy(base); c["body"] = "earth"; cases.append(("body with no registry dataset", c))
+    c = copy.deepcopy(base); c["dimensions"][0]["sourceDataset"] = "lola-south-pole-ldem-2023"; cases.append(("moon dataset in a mars envelope", c))
+    c = copy.deepcopy(base); c.pop("weightFamily"); cases.append(("missing weightFamily", c))
+    errs = []
+    for name, doc in cases:
+        found = check_envelope(ev, doc, registry, name)
+        print(f"{'OK  ' if found else 'FAIL'} self-test rejects: {name}" + (f"  [{found[0]}]" if found else ""))
+        if not found:
+            errs.append(f"self-test: broken envelope was accepted: {name}")
+    return errs
+
+
 def main() -> int:
     ov, sv = load_schema("objective.schema.json"), load_schema("site.schema.json")
+    ev = load_schema("envelope.schema.json")
     objectives, errs = load_objectives(ov)
+    registry = load_registry()
+    envelopes, env_errs = load_envelopes(ev, registry)
+    errs += env_errs
+    errs += check_objective_envelopes(objectives, envelopes)
     for rel in SITE_FIXTURES:
         site = json.loads((ROOT / rel).read_text(encoding="utf-8"))
         e = check_site(sv, objectives, site, rel)
@@ -147,6 +254,7 @@ def main() -> int:
         print(f"{'OK  ' if not e else 'FAIL'} site {rel} ({levels})")
     if "--self-test" in sys.argv:
         errs += self_test(sv, objectives)
+        errs += self_test_envelopes(ev, registry)
     for m in errs:
         print("ERROR", m)
     print("all contracts valid" if not errs else f"{len(errs)} error(s)")

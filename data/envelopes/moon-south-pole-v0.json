@@ -1,0 +1,35 @@
+{
+  "envelopeId": "moon-south-pole-v0",
+  "body": "moon",
+  "targetName": "Artemis III south-polar candidate region (lunar south pole)",
+  "dimensions": [
+    {
+      "dimension": "terrain",
+      "lo": 0,
+      "hi": 10,
+      "unit": "deg (max slope over a 100 m baseline)",
+      "sourceDataset": "lola-south-pole-ldem-2023"
+    },
+    {
+      "dimension": "illumination",
+      "lo": 100,
+      "hi": 100,
+      "unit": "% of the stay window with the surface sunlit",
+      "sourceDataset": "lola-polar-illumination"
+    },
+    {
+      "dimension": "waterIce",
+      "lo": 0,
+      "hi": 2,
+      "unit": "km (distance from the site to the nearest permanently shadowed region)",
+      "sourceDataset": "lola-south-pole-ldem-2023"
+    }
+  ],
+  "weightFamily": {
+    "kind": "box",
+    "parameters": {
+      "basis": "Analog.Atlas.BoxFamily (proofs/Analog/Atlas.lean): per-dimension weight ranges, no cross-dimension aggregation",
+      "status": "v0 declaration only. No screening certificate exists for this envelope yet (ADR-0001 experiment gate)."
+    }
+  }
+}

@@ -50,10 +50,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: JSON validity
-        run: python3 -c "import json,glob; [json.load(open(f)) for f in glob.glob('contracts/*.json') + glob.glob('data/fixtures/*.json')]; print('all contract/fixture JSON parses')"
+        run: python3 -c "import json,glob; [json.load(open(f)) for f in glob.glob('contracts/*.json') + glob.glob('data/fixtures/*.json') + glob.glob('data/envelopes/*.json')]; print('all contract/fixture/envelope JSON parses')"
 
   contract-validation:
-    name: Contract schema validation + ARL recompute (W10)
+    name: Contract schema validation + envelope bounds + ARL recompute (W10, W5)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,5 +62,5 @@ jobs:
           python-version: "3.12"
       - name: Install pinned validators
         run: python -m pip install jsonschema==4.23.0 pyyaml==6.0.2
-      - name: Validate objectives, site fixtures, ARL rule (with self-test)
+      - name: Validate objectives, site fixtures, envelopes, ARL rule (with self-test)
         run: python scripts/validate_contracts.py --self-test
