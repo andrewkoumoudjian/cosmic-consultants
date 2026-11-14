@@ -215,6 +215,10 @@ def check_campaign(cv, doc: dict, label: str, manifest_by_source: dict) -> list[
     errs = [f"{label}: {m}" for m in schema_errors(cv, doc)]
     if errs:
         return errs
+    site = doc["site"]
+    cell = h3.latlng_to_cell(site["lat"], site["lon"], 4)
+    if site["h3r4"] != cell:
+        errs.append(f"{label}: h3r4 {site['h3r4']} != computed {cell}")
     refs = {row["ref"]: row for row in doc["sources"]}
     if len(refs) != len(doc["sources"]):
         errs.append(f"{label}: duplicate source ref")
@@ -269,12 +273,6 @@ def load_campaigns(cv) -> tuple[list[dict], list[str]]:
         seen_ids.add(campaign_id)
         campaigns.append(doc)
         print(f"{'OK  ' if not e else 'FAIL'} campaign {rel} ({campaign_id})")
-    if campaigns:
-        for campaign in campaigns:
-            site = campaign["site"]
-            cell = h3.latlng_to_cell(site["lat"], site["lon"], 4)
-            if site["h3r4"] != cell:
-                errs.append(f"campaign {campaign['campaignId']}: h3r4 {site['h3r4']} != computed {cell}")
     return campaigns, errs
 
 
@@ -339,6 +337,42 @@ def self_test_envelopes(ev, registry) -> list[str]:
     return errs
 
 
+def self_test_campaigns(cv) -> list[str]:
+    """Broken copies of a campaign must be rejected. The quote case uses a
+    temporary source file, so it runs in CI where snapshots are absent."""
+    import tempfile
+    base = yaml.safe_load((ROOT / "data/campaigns/hmp-2015.yaml").read_text(encoding="utf-8"))
+    src = base["sources"][0]
+    with tempfile.TemporaryDirectory() as tmp:
+        text = Path(tmp) / "source.txt"
+        text.write_text("Habitat Site Coordinates: 75o 26' N, 89o 52' W. Nothing else here.", encoding="utf-8")
+        fake = {"url": src["url"], "sha256": hashlib.sha256(text.read_bytes()).hexdigest(), "localPath": str(text)}
+        manifest = {(fake["url"], fake["sha256"], fake["localPath"]): {}}
+        def with_fake(doc):
+            doc["sources"][0].update(fake)
+            doc["site"]["quote"] = "Habitat Site Coordinates: 75o 26' N, 89o 52' W"
+            return doc
+        def relevant(found):
+            # The tiny fake source cannot contain the other quotes; only the site quote counts.
+            return [f for f in found if "quote is not verbatim" not in f or "site.quote" in f]
+        control = relevant(check_campaign(cv, with_fake(copy.deepcopy(base)), "control", manifest))
+        print(f"{'OK  ' if not control else 'FAIL'} self-test control: unbroken campaign passes" + (f"  [{control[0]}]" if control else ""))
+        errs = [f"self-test: control campaign rejected: {control[0]}"] if control else []
+        cases = []
+        c = with_fake(copy.deepcopy(base)); c["site"]["h3r4"] = "8402545ffffffff"; cases.append(("h3r4 is not the cell of lat/lon", c))
+        c = with_fake(copy.deepcopy(base)); c["outcome"][0]["sourceRef"] = "no-such-ref"; cases.append(("quote points to a missing sourceRef", c))
+        c = with_fake(copy.deepcopy(base)); c["sources"][0]["sha256"] = "0" * 64; cases.append(("source hash not in the manifest / file", c))
+        c = with_fake(copy.deepcopy(base)); c["site"]["quote"] = "Habitat Site Coordinates: 76o 26' N"; cases.append(("site quote not verbatim in the source", c))
+        c = with_fake(copy.deepcopy(base)); c["outcome"][0]["kind"] = "success"; cases.append(("bad outcome kind", c))
+        c = with_fake(copy.deepcopy(base)); c["evidence"] = c["evidence"][:2]; cases.append(("fewer than 3 evidence quotes", c))
+        for name, doc in cases:
+            found = relevant(check_campaign(cv, doc, name, manifest))
+            print(f"{'OK  ' if found else 'FAIL'} self-test rejects: {name}" + (f"  [{found[0]}]" if found else ""))
+            if not found:
+                errs.append(f"self-test: broken campaign was accepted: {name}")
+    return errs
+
+
 def main() -> int:
     ov, sv = load_schema("objective.schema.json"), load_schema("site.schema.json")
     cv = load_schema("campaign.schema.json")
@@ -359,6 +393,7 @@ def main() -> int:
     if "--self-test" in sys.argv:
         errs += self_test(sv, objectives)
         errs += self_test_envelopes(ev, registry)
+        errs += self_test_campaigns(cv)
     for m in errs:
         print("ERROR", m)
     print("all contracts valid" if not errs else f"{len(errs)} error(s)")
