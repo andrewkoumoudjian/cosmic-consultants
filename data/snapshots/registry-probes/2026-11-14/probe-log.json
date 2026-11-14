@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-14T18:22:07Z",
+ "generatedAt": "2026-11-14T19:01:42Z",
  "tool": "scripts/registry_probe.py",
  "entries": [
   {
@@ -42,6 +42,80 @@
      "matches": {
       "visualization and general information purposes only": "f EONET. Disclaimer All EONET metadata and services are intended to be used for visualization and general information purposes only and should not be construed as \u201cofficial\u201d with regards to spatial or temporal extent. Spatial and temporal extents of n",
       "Earth Science Data Systems": "out Development of EONET began in 2015 and has been supported by the following: Earth Science Data Systems Program (ESDS) NASA Earth Observatory Staff Andi Thomas (Science Systems and Applications, Inc.), Project Manager Paul "
+     }
+    }
+   }
+  },
+  {
+   "datasetId": "ornl-global-soil-regolith-sediment",
+   "file": "data/catalog/ornl-global-soil-regolith-sediment.yaml",
+   "probe": {
+    "fetches": [
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/concepts/C2216864025-ORNL_CLOUD.umm_json",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/concepts/C2216864025-ORNL_CLOUD.umm_json",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 5346,
+      "sha256": "68d98eaea642082916c52119f82c33abc6b4c1dd8292a0c9f7aeb48c54421f88",
+      "headers": {
+       "cmr-request-id": "20a1aebe-27c4-4934-8d50-f50949d8940d"
+      }
+     },
+     {
+      "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=0",
+      "finalUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2216864025-ORNL_CLOUD&page_size=0",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 210,
+      "sha256": "1473b68683ec91f64c42e1cc6120ad85ca30cda2470c7523d19e9a9d5701f626",
+      "headers": {
+       "cmr-request-id": "9279265f-eb48-4e4b-bf4a-6847e6a401ae",
+       "cmr-hits": "6",
+       "cmr-took": "26"
+      }
+     }
+    ],
+    "meta": {
+     "shortName": "Global_Soil_Regolith_Sediment_1304",
+     "version": "1",
+     "entryTitle": "Global 1-km Gridded Thickness of Soil, Regolith, and Sedimentary Deposit Layers",
+     "doi": "10.3334/ORNLDAAC/1304",
+     "temporal": [
+      "1900-01-01T00:00:00.000Z",
+      "2015-12-31T23:59:59.999Z"
+     ],
+     "resolution": null,
+     "useConstraints": {
+      "LicenseURL": {
+       "Linkage": "https://science.nasa.gov/earth-science/earth-science-data/data-information-policy",
+       "Name": "Data Use Policy",
+       "Description": "License URL for data use policy",
+       "MimeType": "text/html"
+      }
+     },
+     "archiveCenter": [
+      "ORNL_DAAC"
+     ],
+     "granuleHits": "6"
+    }
+   },
+   "summary": "CMR C2216864025-ORNL_CLOUD: HTTP 200, Global_Soil_Regolith_Sediment_1304 v1, DOI 10.3334/ORNLDAAC/1304, granules 6",
+   "license": {
+    "id": "ornl-daac-open-no-restriction",
+    "verified": true,
+    "evidence": {
+     "fetch": {
+      "url": "https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1304",
+      "finalUrl": "https://www.earthdata.nasa.gov/data/catalog/ornl-cloud-global-soil-regolith-sediment-1304-1",
+      "fetchedAt": "2026-11-14T19:01:40Z",
+      "status": 200,
+      "bytes": 265622,
+      "sha256": "6461cb1dd52d1e74a14e33984cc8af539233b5d42855107628696bd92f780405",
+      "headers": {}
+     },
+     "matches": {
+      "openly shared, without restriction": "s critically important for dataset documentation and discovery. This dataset is openly shared, without restriction, in accordance with the EOSDIS Data Use and Citation Guidance . Copy Citation Select a Citation Style: APA BibTeX Chica"
      }
     }
    }
