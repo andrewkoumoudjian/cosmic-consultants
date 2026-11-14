@@ -18,12 +18,13 @@ pass. [ADR-0004](../docs/decisions/ADR-0004-evidence-backed-comparison.md) was
 | S3 atlas (historical proposed obligation) | Original plan to have engine certificates satisfy `subopt_le`. | Never implemented or proved. | Out of hackathon scope (ADR-0003). Do not emit solver fields or advertise this guarantee without a new application design. |
 | S4 | A candidate dominated by another member of the chosen set is not frontier. | `Semantics.not_frontier_of_dominated`, historical audit. | Does not prove a runtime computes that set/frontier correctly. |
 | Prior corpus | Imported mathematical lemmas; some candidate modules deliberately not imported. | Dispositions in doc 06. | No application validity inferred from theorem names/imports. |
-| S6 / ARL | `Readiness`: gate outcomes `pass/fail/unknown`; ARL = largest `k ≤ 6` with gates 1..k passing (gates 1–4 per required dimension, 5–6 per site); 15 Props S6a–S6u (weakest link, monotone, no compensation, site can't lift, unknown ≠ fail, cumulative + maximal, mismatch/irrelevant dims ignored, not rateable → no level, empty/all-unknown → 0). | **proposed** statement (W8, #16), awaiting owner freeze. Not proved in the repo yet (W9, #17). | No engine computes it yet. Lean checks the ladder logic only, never whether a gate outcome is right about the real world. `limitingDimension`/`limitingGate` are not stated. |
+| S6 / ARL | `Readiness`: gate outcomes `pass/fail/unknown`; ARL = largest `k ≤ 6` with gates 1..k passing (gates 1–4 per required dimension, 5–6 per site); 15 Props S6a–S6u (weakest link, monotone, no compensation, site can't lift, unknown ≠ fail, cumulative + maximal, mismatch/irrelevant dims ignored, not rateable → no level, empty/all-unknown → 0). | Statement **frozen** at `28b166a` (#48). All 15 proved in `ReadinessProofs` (W9, #17): **Lean-clean** on the agent's local run (build exit 0; audit exit 0, only standard axioms). Owner re-run pending (AGENTS.md rule 1). | No engine computes it yet. Lean checks the ladder logic only, never whether a gate outcome is right about the real world. `limitingDimension`/`limitingGate` are not stated. |
 
 Historical axiom-audit snapshots: scaffold recorded 8 theorems; prior work plus
 Cantelli recorded 28; W2 `eaabc9b` recorded 31, all with only
 `propext`, `Classical.choice`, `Quot.sound`, return code zero. These are prior
-reports in Git history, not new runs by #43. Audit.lean still has 31 directives.
+reports in Git history, not new runs by #43. W9 (#17) adds 15 S6 directives: Audit.lean now has 46, all
+`propext`, `Classical.choice`, `Quot.sound`, return code zero (2026-11-14, local run).
 No accepted proof may use `sorry`, `admit`, custom axioms or an unapproved escape.
 Use the pinned toolchain and record the process return code itself.
 
