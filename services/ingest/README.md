@@ -69,8 +69,6 @@ noon sun height, day length and polar day/night on the 15th. Spec:
 - **`missing_reason`** in both files is JSON per row and names only that row's
   null traits.
 
-## Known gaps (also in INVENTORY.md)
-
 ## Temperature history (W24, #64)
 
 `uv run python -m p0ingest.years fetch|build|check` prepares the 2014–2023
