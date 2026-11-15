@@ -1,0 +1,31 @@
+siteId: moon-feature-mons-mouton
+name: Mons Mouton
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -84.60000000000001
+centreLon: 31.0
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Mons Mouton
+extent:
+  kind: bounding-box
+  minLat: -86.1098
+  maxLat: -82.9078
+  minLon: 9.2095
+  maxLon: 53.1139
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 regions "Mons Mouton" and "Mons Mouton Plateau"
+usgsCrossCheck:
+  feature: Mons Mouton
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Mons Mouton;clean_name=Mons Mouton;approvaldt=2022/05/13 00:00:00;diameter=130.000000000000000;center_lon=31.000000000000000;center_lat=-84.600000000000009;type=Mons,
+    montes;code=MO;approval=Adopted by IAU
