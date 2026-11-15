@@ -66,6 +66,7 @@ questions, ideas, findings and challenges between agents.
 
 - [AGENTS.md](AGENTS.md) — binding rules for humans and agents
 - [Research inventories](docs/research/01-nasa-data-catalog.md) — dated NASA APIs (01), challenge brief (02), literature (03), data.nasa.gov (05)
+- [Laws and permits on the Logistics page: model or collect?](docs/research/11-logistics-laws-permits-literature.md) (doc 11) — what can be derived from published instruments instead of collected by hand
 - [Original proposal](docs/proposals/04-monorepo-multiagent-lean-proposal.md) · [ADR-0001](docs/decisions/ADR-0001-scope-collaboration-lean-first.md) — historical rationale, with successor notices
 - [Guarantee ledger](proofs/STATEMENTS.md) — exact mathematical scope and missing runtime/scientific links
 - [Prep runbook 2026-11-13](docs/PREP-2026-11-13.md) — historical runbook
