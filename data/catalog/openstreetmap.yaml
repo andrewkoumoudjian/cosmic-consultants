@@ -1,0 +1,32 @@
+# #202 licence row; probed live 2026-11-15. Not adopted: share-alike needs the owner's decision first.
+datasetId: openstreetmap
+title: "OpenStreetMap (hotels/lodging, hospitals, power lines, roads)"
+status: restricted
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "OpenStreetMap Foundation"
+  endpoint: "https://www.openstreetmap.org/copyright"
+  probedAt: 2026-11-15T18:11:59Z
+  probeResult: "HTTP 200. The copyright page states the ODbL licence and the share-alike condition quoted below."
+probe:
+  kind: http
+  url: "https://www.openstreetmap.org/copyright"
+  expect: ["Open Data Commons Open Database License (ODbL)", "If you alter or build upon our data, you may distribute the result only under the same license."]
+license:
+  id: odbl-1.0
+  textUrl: "https://www.openstreetmap.org/copyright"
+  expect: ["licensed under the Open Data Commons Open Database License (ODbL)", "you may distribute the result only under the same license"]
+  verified: true
+  note: "Checked live 2026-11-15T18:11:59Z: 'You are free to copy, distribute, transmit and adapt our data, as long as you credit OpenStreetMap and its contributors. If you alter or build upon our data, you may distribute the result only under the same license.' Any published per-cell table derived from OSM would have to be released under ODbL with OSM credit. BLOCKED for #202 until the owner accepts that share-alike duty (open ask on #7, Kef 2026-11-15)."
+coverage:
+  spatial: "global, crowd-sourced; completeness varies by region"
+  temporal: "continuously updated"
+  resolution: "feature level"
+analysisReady: false
+independenceGroup: "openstreetmap"
+plannedUse: "#202: distance from each H3 r4 centre to the nearest hotel/lodging (tourism=hotel|guest_house|hostel) and hospital (amenity=hospital), and optionally power=line. Not built: licence decision pending."
+snapshotPolicy: "If adopted: snapshot the extract with URL, date, sha256 and ODbL in MANIFEST.json, and publish derived tables under ODbL with attribution."

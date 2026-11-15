@@ -60,6 +60,10 @@ columns:
   place_admin1:             {kind: catalogue, support: "Natural Earth admin-1 polygon containing the H3 cell centre", family: natural-earth}
   place_nearest:            {kind: catalogue, support: "Nearest Natural Earth populated place within 50 km of the cell centre; not every settlement is listed", family: natural-earth}
   place_nearest_km:         {kind: computed, support: "Great-circle distance cell centre to place_nearest, R = 6371.0088 km", family: natural-earth}
+  # #202 logistics context (Natural Earth 1:10m, public domain)
+  town_nearest:             {kind: catalogue, support: "Nearest Natural Earth populated place to the cell centre, any distance; only settlements above the map's size threshold", family: natural-earth}
+  town_nearest_km:          {kind: catalogue, support: "Great-circle distance cell centre to town_nearest, R = 6371.0088 km", family: natural-earth}
+  road_nearest_km:          {kind: catalogue, support: "Distance cell centre to the nearest Natural Earth 1:10m road segment (major-road network, ferries and tracks excluded); absence of a mapped road is not absence of a road", family: natural-earth}
   protected_pct:            {kind: catalogue, support: "protected-area polygons, hexagon share (see context-r4 meta licences)", family: protected-areas}
   eonet_wildfires_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
   eonet_volcanoes_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
