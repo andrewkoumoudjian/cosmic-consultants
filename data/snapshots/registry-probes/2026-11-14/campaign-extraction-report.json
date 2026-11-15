@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-11-14T20:10:49.671219+00:00",
+  "rows": 3,
+  "input": {
+    "ref": "arads-2019-article",
+    "url": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
+    "fetchedAt": "2026-11-14T17:59:08Z",
+    "sha256": "9c614d86b0ec7f71bdacd03f9f161ef884470201469d1af2b8f5288408776dbe",
+    "localPath": "data/snapshots/campaign-sources/atacama-arads-2019/article.md",
+    "licenceNote": "Full article text stored from the publisher page under CC BY 4.0; attribution is retained in the source URL."
+  },
+  "campaign_metadata_sha256": "6a9462a8535da857b02a7b9cff1b048be002218e35720b9fe93a93c731443597",
+  "output": {
+    "path": "data/snapshots/_derived/campaign-measurements/arads-2019-results.parquet",
+    "sha256": "52881ebfa81052992ff14c8410063e585a8804da5e209a8ead28ee2b76906e61",
+    "bytes": 12172
+  },
+  "checks": {
+    "source_hash": true,
+    "unique_result_passage": true,
+    "unique_month_year_passage": true,
+    "all_exact_quote_spans": true
+  },
+  "limitations": "One reported Earth analog test result; not in-situ lunar/Martian measurements, universal limits, complete campaign conditions or independent validation."
+}

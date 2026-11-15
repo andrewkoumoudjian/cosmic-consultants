@@ -1,0 +1,24 @@
+siteId: moon-artemis3-2022-connecting-ridge
+name: Connecting Ridge
+body: moon
+kind: region
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: null
+centreLon: null
+extentRadiusKm: 7.5
+extentReason: '"Each region is approximately 9.3 by 9.3 miles (15 by 15 kilometers)"
+  (2022 release); 7.5 km half-width recorded as an approximate radius'
+missingReason: no numeric centre published as text in NASA's 2022 release (graphic
+  only); this region was dropped from the candidate list in the 2024-10-28 refinement
+note: 2022 announced Artemis III candidate region, absent from the refined 2024 list
+source:
+  datasetId: artemis-iii-candidate-regions
+  file: release-2022-08-19-thirteen-regions.json
+  url: https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-identifies-candidate-regions-for-landing-next-americans-on-moon
+  fetchedAt: '2026-11-14T23:29:34Z'
+  sourceSha256: ff2466c4e7afa5adaeb3850c23a5e6616325ee1173abafec8d804cbfde57d7c7
+  quote: 'NASA identified the following candidate regions for an Artemis III lunar
+    landing: Faustini Rim A Peak Near Shackleton Connecting Ridge Connecting Ridge
+    Extension de Gerlache Rim 1 de Gerlache Rim 2 de Gerlache-Kocher Massif Haworth
+    Malapert Massif Leibnitz Beta Plateau Nobile Rim 1 Nobile Rim 2 Amundsen Rim'
