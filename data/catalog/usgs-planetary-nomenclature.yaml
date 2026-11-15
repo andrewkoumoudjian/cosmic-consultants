@@ -1,0 +1,30 @@
+# Registry row (#74 projection check). Descriptive fields human-reviewed 2026-11-14.
+datasetId: usgs-planetary-nomenclature
+title: "Gazetteer of Planetary Nomenclature: feature centre points (Moon, Mars)"
+status: candidate
+bodies: [moon, mars]
+dimensions: [placement-reference]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "USGS Astrogeology / IAU WGPSN"
+  endpoint: "https://planetarynames.wr.usgs.gov/GIS_Downloads"
+  probedAt: 2026-11-14T21:35:00Z
+  probeResult: "HTTP 200 via redirect to asc-planetarynames-data.s3.us-west-2.amazonaws.com; MOON zip 23,845,070 B, MARS zip 5,421,247 B"
+probe:
+  kind: http
+  url: "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip"
+license:
+  id: us-pd
+  textUrl: "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip"
+  verified: true
+  note: "FGDC metadata inside each zip (metadata_nomenclature_points_<BODY>.xml) states useconst 'Public domain.'; origin IAU and USGS. Read 2026-11-14."
+coverage:
+  spatial: "all IAU-named features, Moon and Mars"
+  temporal: "gazetteer snapshot as fetched"
+  resolution: "point per named feature (centre lat/lon, diameter, feature type)"
+analysisReady: true
+independenceGroup: nomenclature
+plannedUse: "independent position reference for checking map placement of planetary products; never a physical measurement"
+snapshotPolicy: "bytes snapshotted with sha256 + fetch date by p0ingest.projection_check fetch"

@@ -34,11 +34,47 @@ from .grid import DERIVED
 from .snapshots import REPO, sha256
 
 REGISTRY = REPO / "data" / "pipeline" / "columns.yaml"
+EVIDENCE = REPO / "data" / "pipeline" / "evidence.yaml"
 OUT = DERIVED / "assembled"
 MIN_YEARS = 5  # spread needs at least this many years with a value (spec §5B)
 
 
-def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.DataFrame]) -> list[dict]:
+def load_evidence() -> dict:
+    return yaml.safe_load(EVIDENCE.read_text(encoding="utf-8"))
+
+
+def evidence_problems(reg: dict, evidence: dict) -> list[str]:
+    """Evidence descriptors (issue #111, from deferred ADR-0004): every registry column
+    needs exactly one valid entry; entries naming no column are rejected."""
+    kinds = set(evidence.get("kinds", []))
+    entries = evidence.get("columns", {})
+    names = [c["name"] for t in reg["tables"].values() for c in t["columns"]]
+    problems = [f"{n}: no evidence descriptor" for n in dict.fromkeys(names) if n not in entries]
+    problems += [f"{n}: descriptor names no registry column" for n in entries if n not in set(names)]
+    if "synthetic" in kinds:
+        problems.append("kind 'synthetic' is not allowed in assembled scientific tables")
+    for n, e in entries.items():
+        if e.get("kind") not in kinds:
+            problems.append(f"{n}: kind {e.get('kind')!r} not in {sorted(kinds)}")
+        for field in ("support", "family"):
+            if not str(e.get(field) or "").strip():
+                problems.append(f"{n}: empty {field}")
+    return problems
+
+
+def nonfinite_counts(df: pl.DataFrame) -> dict[str, int]:
+    """NaN and +-inf are not nulls and are not values: count them per float column."""
+    out = {}
+    for c, dt in df.schema.items():
+        if dt in (pl.Float32, pl.Float64):
+            n = df.filter(pl.col(c).is_nan() | pl.col(c).is_infinite()).height
+            if n:
+                out[c] = n
+    return out
+
+
+def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.DataFrame],
+                     absence_scope: dict | None = None) -> list[dict]:
     """Track every inventory feature without promoting related data to an exact output."""
     ids = [f["feature_id"] for f in features]
     if len(set(ids)) != len(ids) or set(ids) != set(mappings):
@@ -56,7 +92,10 @@ def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.
         relation = feature["earth_match"]
         state = "limitation" if relation == "mismatch" else "source-gap" if relation == "gap" else (
             "partial-inputs" if any(x["present"] for x in backing) else "not-built")
+        if state == "source-gap" and not absence_scope:
+            raise ValueError(f"{feature['feature_id']}: source-gap features need a dated absenceScope")
         result.append({**feature, "preparationState": state, "implemented": False,
+                       **({"absenceScope": absence_scope} if state == "source-gap" else {}),
                        "relatedColumns": backing, "notes": mapping["notes"],
                        "scientificStatus": "proposed" if relation != "mismatch" else "limitation",
                        "meaning": "Related columns and candidate source names do not establish this feature's quantity, scale or validity."})
@@ -124,6 +163,9 @@ class Build:
         OUT.mkdir(parents=True, exist_ok=True)
         p = OUT / f"{name}.parquet"
         df.write_parquet(p, compression="zstd")
+        bad = nonfinite_counts(df)
+        self.check(f"{name}: no NaN or infinite values (nulls carry reasons)", not bad,
+                   ", ".join(f"{c}:{n}" for c, n in bad.items()) or "all float columns finite")
         self.report["outputs"][name] = {"path": str(p.relative_to(REPO)), "sha256": sha256(p),
                                         "bytes": p.stat().st_size, "rows": df.height, "columns": df.width}
         self.report["nullRate"][name] = {c: round(df[c].null_count() / max(df.height, 1), 6) for c in df.columns}
@@ -276,6 +318,7 @@ class Build:
 
     def coverage(self, sites: pl.DataFrame, monthly: pl.DataFrame) -> dict:
         cols = [c | {"table": t} for t in self.reg["tables"] for c in self.reg["tables"][t]["columns"]]
+        evidence = load_evidence()
         def backing(trait: str) -> list[dict]:
             out = []
             for c in cols:
@@ -284,8 +327,9 @@ class Build:
                 df = sites if c["table"] == "sites-r4" else monthly
                 present = c["name"] in df.columns
                 nr = round(df[c["name"]].null_count() / df.height, 6) if present else None
+                ev = evidence["columns"].get(c["name"], {})
                 out.append({"column": c["name"], "table": c["table"], "status": c["status"] if present else "planned",
-                            "nullRate": nr})
+                            "nullRate": nr, "kind": ev.get("kind"), "family": ev.get("family")})
             return out
         def kind(trait: str) -> str:
             if trait in self.reg["earthCannot"]:
@@ -327,11 +371,15 @@ class Build:
         with feature_path.open(encoding="utf-8", newline="") as stream:
             features = list(csv.DictReader(stream))
         preparation = yaml.safe_load(mapping_path.read_text(encoding="utf-8"))
-        full = feature_coverage(features, preparation["features"], {"sites-r4": sites, "sites-r4-monthly": monthly})
+        full = feature_coverage(features, preparation["features"], {"sites-r4": sites, "sites-r4-monthly": monthly},
+                                preparation.get("absenceScope"))
         for category in categories.values():
             category["featureCompleteness"] = "not-established"
             category["note"] = "Trait-column availability is not evidence that all tests in this category can be performed."
         return {"objectives": objectives, "categories": categories, "earthCannot": self.reg["earthCannot"],
+                "columnEvidence": evidence["columns"],
+                "evidenceNote": "kind/support/family describe each stored column. Shared family means not independent. "
+                                "Family counts are discovery hints only; corroboration needs a per-claim review.",
                 "featureInventory": {"path": str(feature_path.relative_to(REPO)), "sha256": sha256(feature_path),
                                      "mappingSha256": sha256(mapping_path), "count": len(full)},
                 "features": full, "workflowModules": preparation["workflowModules"],
@@ -344,6 +392,9 @@ class Build:
     # ---- run ----------------------------------------------------------------
     def run(self) -> int:
         t0 = time.time()
+        problems = evidence_problems(self.reg, load_evidence())
+        self.check("evidence descriptors: every column has a valid kind/support/family", not problems,
+                   "; ".join(problems[:5]) or f"{len(load_evidence()['columns'])} columns")
         print("[sites-r4]", flush=True)
         sites = self.table("sites-r4")
         self.write("sites-r4", sites)
