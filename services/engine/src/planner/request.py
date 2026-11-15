@@ -37,6 +37,12 @@ def _fmt(value: int | float) -> str:
     return str(value) if isinstance(value, int) and not isinstance(value, bool) else repr(float(value))
 
 
+def _fmt_int(value: int | float) -> str:
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or float(value) != int(value):
+        raise ValueError(f"expected integer value, got {value!r}")
+    return str(int(value))
+
+
 def to_query(r: dict) -> str:
     """Request dict -> query string (no leading '?')."""
     if r.get("version") != 1:
@@ -47,16 +53,16 @@ def to_query(r: dict) -> str:
         "body": r["body"],
         "obj": r["objectiveId"],
         "type": r["missionType"],
-        "months": f"{r['months']['start']}-{r['months']['end']}",
+        "months": f"{_fmt_int(r['months']['start'])}-{_fmt_int(r['months']['end'])}",
     }
     if "category" in r:
         out["cat"] = r["category"]
     if "presetCampaignId" in r:
         out["preset"] = r["presetCampaignId"]
     if "durationDays" in r:
-        out["days"] = _fmt(r["durationDays"])
+        out["days"] = _fmt_int(r["durationDays"])
     if "teamSize" in r:
-        out["team"] = _fmt(r["teamSize"])
+        out["team"] = _fmt_int(r["teamSize"])
     if "limits" in r:
         out["lim"] = ",".join(f"{k}:{_fmt(r['limits'][k])}" for k in LIMIT_KEYS if k in r["limits"])
     for key in ("must", "nice"):
@@ -70,7 +76,7 @@ def to_query(r: dict) -> str:
     if "sortBy" in r:
         out["sort"] = r["sortBy"]
     if "top" in r:
-        out["top"] = "all" if r["top"] is None else _fmt(r["top"])
+        out["top"] = "all" if r["top"] is None else _fmt_int(r["top"])
     if "pins" in r:
         out["pins"] = ",".join(r["pins"])
     return urlencode([(k, out[k]) for k in ORDER if k in out], safe=SAFE, quote_via=quote)

@@ -271,6 +271,8 @@ def check_site_plan(v, vreq, doc, objectives: dict, trait_map: dict, campaigns: 
             band, hi_strict, origin = None, False, r["origin"]
         if rule is not None and (r["table"], r["earthColumn"]) != (rule["table"], rule["earthColumn"]):
             errs.append(f"{at}: column {r['table']}.{r['earthColumn']} differs from the trait map's {rule['table']}.{rule['earthColumn']}")
+        if rule is not None and r.get("unit") != rule.get("unit"):
+            errs.append(f"{at}: unit {r.get('unit')!r} differs from the trait map's {rule.get('unit')!r}")
         got_band = None if r["band"] is None else {"lo": r["band"]["lo"], "hi": r["band"]["hi"]}
         if got_band != band or bool((r["band"] or {}).get("hiStrict")) != (hi_strict and band is not None):
             errs.append(f"{at}: band {r['band']} differs from the trait map / request band {band} (hiStrict {hi_strict})")
@@ -301,14 +303,21 @@ def check_site_plan(v, vreq, doc, objectives: dict, trait_map: dict, campaigns: 
     if doc["funnelClass"] != cls:
         errs.append(f"funnelClass {doc['funnelClass']} but the must rows give {cls}")
 
+    req_limits = req.get("limits", {})
+    seen_limits: set[str] = set()
     for lim in doc.get("limits", []):
+        name = lim["limit"]
+        if name in seen_limits:
+            errs.append(f"limits/{name}: appears twice")
+        seen_limits.add(name)
+        if name in req_limits and lim["max"] != req_limits[name]:
+            errs.append(f"limits/{name}: max {lim['max']} differs from request limit {req_limits[name]}")
         want = "unknown" if lim["value"] is None else "pass" if lim["value"] <= lim["max"] else "fail"
         if lim["outcome"] != want:
-            errs.append(f"limits/{lim['limit']}: outcome {lim['outcome']} but value {lim['value']} vs max {lim['max']} gives {want}")
-    asked = set(req.get("limits", {}))
-    given = {lim["limit"] for lim in doc.get("limits", [])}
-    if asked != given:
-        errs.append(f"limits: request asks for {sorted(asked)}, plan reports {sorted(given)}")
+            errs.append(f"limits/{name}: outcome {lim['outcome']} but value {lim['value']} vs max {lim['max']} gives {want}")
+    asked = set(req_limits)
+    if asked != seen_limits:
+        errs.append(f"limits: request asks for {sorted(asked)}, plan reports {sorted(seen_limits)}")
     if doc.get("paretoLayer") is not None and (cls == "someMiss" or any(l["outcome"] == "fail" for l in doc.get("limits", []))):
         errs.append("paretoLayer set for a site a must miss or a failed limit filters out")
 
@@ -324,6 +333,27 @@ def check_site_plan(v, vreq, doc, objectives: dict, trait_map: dict, campaigns: 
         want = sorted(m["month"] for m in season["months"] if m["mustTraitsMatch"] is True and m["reachable"] is True)
         if sorted(season["fieldSeasonMonths"]) != want:
             errs.append(f"season.fieldSeasonMonths {season['fieldSeasonMonths']} but the strip gives {want}")
+        static_must = [r for r in must if r["table"] != "L1m"]
+        static_miss = any(r["verdict"] == "miss" for r in static_must)
+        static_unknown = any(r["verdict"] == "unknown" for r in static_must)
+        window_set = set(window)
+        for m in season["months"]:
+            mo = m["month"]
+            got_mtm = m["mustTraitsMatch"]
+            if mo in window_set:
+                m_verdicts = [
+                    r["verdict"] if r["table"] != "L1m"
+                    else next((pm["verdict"] for pm in r["perMonth"] if pm["month"] == mo), "unknown")
+                    for r in must
+                ]
+                want_mtm = False if "miss" in m_verdicts else None if "unknown" in m_verdicts else True
+                if got_mtm is not want_mtm:
+                    errs.append(f"season.months/{mo}: mustTraitsMatch is {got_mtm} but must verdicts give {want_mtm}")
+            else:
+                if static_miss and got_mtm is not False:
+                    errs.append(f"season.months/{mo}: mustTraitsMatch is {got_mtm} but a static must trait misses")
+                elif static_unknown and got_mtm is True:
+                    errs.append(f"season.months/{mo}: mustTraitsMatch is True but a static must trait is unknown")
 
     split = (doc.get("logistics") or {}).get("testSplit")
     if split:
@@ -450,6 +480,9 @@ def self_test(objectives: dict) -> list[str]:
     spc("test split disagrees with verdicts", lambda c: c["logistics"]["testSplit"].update(matchesHere=["terrain", "surfaceMaterial"]))
     spc("limit outcome disagrees with its value", lambda c: c["limits"][0].update(outcome="fail"))
     spc("site lat/lon outside its hexagon", lambda c: c["site"].update(lat=10.0))
+    spc("verdict unit differs from the trait map", lambda c: row(c, "terrain").update(unit="m"))
+    spc("limit max differs from the request", lambda c: c["limits"][0].update(max=100))
+    spc("season mustTraitsMatch ignores a must miss", lambda c: c["season"]["months"][0].update(mustTraitsMatch=True, reachable=False))
 
     errs = []
     for name, run_case in cases:

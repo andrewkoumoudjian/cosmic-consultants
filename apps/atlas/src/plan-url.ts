@@ -213,7 +213,7 @@ export function decodePlan(query: string | URLSearchParams): DecodeResult {
     }
   }
   const sort = raw.get("sort"); if (sort !== undefined) out.sortBy = sort as Dimension;
-  const top = raw.get("top"); if (top !== undefined) out.top = int("top", top);
+  const top = raw.get("top"); if (top !== undefined) out.top = top === "all" ? null : int("top", top);
   const pins = raw.get("pins"); if (pins !== undefined) out.pins = list(pins);
 
   // Report every problem once: skip rule errors for a field that already failed to parse.
