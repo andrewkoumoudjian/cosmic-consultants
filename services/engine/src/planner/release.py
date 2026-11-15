@@ -13,10 +13,16 @@ from .tables import sha256_file, reasons_of
 
 
 def release(assembled,out,repo):
+    from jsonschema import Draft202012Validator
+    scenario_path=repo/'data/pipeline/release-scenarios.yaml'
+    schema_path=repo/'contracts/release-scenarios.schema.json'
+    scenarios=yaml.safe_load(scenario_path.read_text())
+    Draft202012Validator(json.loads(schema_path.read_text())).validate(scenarios)
     tables=from_assembled(assembled,repo/'data/pipeline/columns.yaml')
     l3=load_l3(repo)
     config_files=[*sorted((repo/'data/objectives').glob('*.yaml')),*sorted((repo/'data/campaigns').glob('*.yaml')),
                   repo/'data/requirements/trait-map.yaml',repo/'data/pipeline/test-categories.yaml',repo/'data/pipeline/evidence.yaml',repo/'data/pipeline/columns.yaml']
+    config_files.extend([scenario_path,schema_path])
     configs=[{'path':str(p.relative_to(repo)),'sha256':sha256_file(p)} for p in config_files]
     manifest=publish(tables,l3,out,configs)
     report=json.loads((assembled/'assembly-report.json').read_text())
@@ -32,7 +38,7 @@ def release(assembled,out,repo):
              'qualityWarnings':['Scientific acceptance is partial. Requirements and comparisons are conditional on the stated sources, scales and bands.',*report.get('sourceQuality',{}).get('warnings',[])],
              'yearlyReasons':yearly_reasons,'reasonSets':reason_sets,
              'monthlyReasons':monthly_reasons,
-             'events':tables.events,'categories':yaml.safe_load(config_files[-3].read_text())['categories'],
+             'events':tables.events,'categories':yaml.safe_load((repo/'data/pipeline/test-categories.yaml').read_text())['categories'],
              'campaigns':l3['campaigns'],'sourceManifest':'source-manifest.json'}
     supplements={'planner-runtime.json':_json(runtime),'source-manifest.json':(repo/'data/snapshots/MANIFEST.json').read_bytes(),
                  'column-evidence.json':_json(yaml.safe_load((repo/'data/pipeline/evidence.yaml').read_text())),
@@ -57,6 +63,7 @@ def release(assembled,out,repo):
 
     # Expose #168 planetary/earth-feature metadata and #172 S9/S10 Pareto + CVaR outputs when present.
     extra_inputs=[]
+    campaign_errors=[]
     for copy_name in ('data-coverage.json','earth-feature-scales.json','planetary-targets.meta.json'):
         p=assembled/copy_name
         if p.exists():
@@ -79,44 +86,47 @@ def release(assembled,out,repo):
             {'path':'data/snapshots/_derived/assembled/earth-features-r4.parquet','sha256':sha256_file(ef_pq)},
         ])
         years_pq=assembled.parent/'cells-r4-monthly-years.parquet'
-        target_specs=[
-            ('mars-landing-perseverance',{'slope':15.0,'access':600.0},7,(245.0,305.0),[('barren_pct',50.0,0.3,'>=')]),
-            ('mars-landing-curiosity',{'slope':15.0,'access':600.0},7,(245.0,305.0),[('barren_pct',50.0,0.3,'>=')]),
-            ('moon-feature-shackleton',{'slope':20.0},1,(230.0,275.0),None),
-            ('moon-feature-nobile',{'slope':20.0},1,(230.0,275.0),None),
-        ]
         avail_ids={t['target_id'] for t in raw_targets}
-        pareto_bundle={'version':1,'minLandPct':50.0,'targets':{}}
-        for tid,lim,mo,band,cov_rules in target_specs:
+        pareto_bundle={'version':1,'scientificStatus':'partial','scenarioStatus':scenarios['status'],'targets':{}}
+        for scenario in scenarios['scenarios']:
+            tid=scenario['targetId']
+            params={k:v['value'] for k,v in scenario['parameters'].items()}
             if tid not in avail_ids:
                 continue
-            ranked=rank_earth_for_target(assembled,tid,limits=lim,min_land_pct=50.0,max_layers=2,
+            ranked=rank_earth_for_target(assembled,tid,limits=params['limits'],min_land_pct=params['minLandPct'],max_layers=params['maxLayers'],
                                          passthrough_columns=('access_min_median','land_pct_mean','barren_pct','slope_mean_deg'))
-            cands=select_diverse_frontier_candidates(ranked,max_candidates=20)
+            cands=select_diverse_frontier_candidates(ranked,max_candidates=params['maxCandidates'])
             entry={
                 'targetId':tid,'body':ranked['body'],'axes':ranked['axes'],
+                'scenarioStatus':scenarios['status'],'parameters':scenario['parameters'],
+                'excludedLimits':ranked['excludedLimits'],
                 'notTestableOnEarth':ranked['notTestableOnEarth'],'counts':ranked['counts'],
                 'frontierSample':[{k:c[k] for k in ('h3','lat','lon','paretoLayer','gaps','observations') if k in c} for c in cands],
             }
             if years_pq.exists() and cands:
                 try:
                     prob,excl=build_campaign_problem_from_years(
-                        cands,years_pq,month=mo,thermal_band_k=band,expected_years=range(2014,2024),
-                        alpha=0.2,max_weight_per_site=0.5,coverage_rules=cov_rules,
+                        cands,years_pq,month=params['month'],thermal_band_k=tuple(params['thermalBandK']),expected_years=params['years'],
+                        alpha=params['alpha'],max_weight_per_site=params['maxWeightPerSite'],coverage_rules=params['coverageRules'],
                     )
                     sol=solve_cvar_campaign(prob,use_screening=True)
                     entry['campaignPlan']={
-                        'month':mo,'thermalBandK':list(band),'alpha':0.2,
+                        'month':params['month'],'thermalBandK':params['thermalBandK'],'alpha':params['alpha'],
+                        'status':'solved',
                         'cvar':sol.cvar,'varT':sol.var_t,'expectedCost':sol.expected_cost,
                         'weights':{k:v for k,v in sol.weights.items() if v>1e-9},
                         'screeningExact':sol.screening_exact,
                         'certified':sol.certificate.certified,
                         'certificationStatus':sol.certificate.certification_status,
-                        'suboptLe':sol.certificate.certified_subopt_le if sol.certificate.certified else sol.certificate.numerical_subopt_estimate,
+                        'certifiedSuboptLe':sol.certificate.certified_subopt_le if sol.certificate.certified else None,
+                        'numericalSuboptEstimate':sol.certificate.numerical_subopt_estimate,
                         'excludedCandidates':excl,
                     }
                 except Exception as exc:  # noqa: BLE001 - record infeasibility cleanly without failing release
-                    entry['campaignPlan']={'error':str(exc)}
+                    entry['campaignPlan']={'status':'error','error':str(exc)}
+                    campaign_errors.append({'targetId':tid,'error':str(exc)})
+            else:
+                entry['campaignPlan']={'status':'not-run','missing_reason':'historical-years-unavailable' if not years_pq.exists() else 'no-frontier-candidates'}
             pareto_bundle['targets'][tid]=entry
         supplements['pareto-targets.json']=_json(_clean(pareto_bundle))
         if years_pq.exists():
@@ -132,7 +142,7 @@ def release(assembled,out,repo):
     manifest['inputs'].extend({'path':str(p.relative_to(repo)),'sha256':sha256_file(p)} for p in [repo/'data/snapshots/MANIFEST.json',repo/'proofs/Analog/Funnel.lean',repo/'proofs/Analog/FunnelProofs.lean',repo/'proofs/Analog/ParetoLayers.lean',repo/'proofs/Analog/CampaignOpt.lean',repo/'services/engine/src/planner/workflow.py',repo/'services/engine/src/planner/pareto_model.py',repo/'services/engine/src/planner/optimizer.py',repo/'services/engine/src/planner/assembled.py',repo/'services/engine/src/planner/release.py',repo/'apps/atlas/src/planner/engine.ts',repo/'contracts/site-plan.schema.json',repo/'contracts/planner-runtime.schema.json'])
     manifest['inputs']=sorted({i['path']:i for i in manifest['inputs']}.values(),key=lambda i:i['path'])
     (out/'build-manifest.json').write_bytes(_json(manifest))
-    return {'cells':len(order),'goldenCases':len(cases),'files':len(manifest['files']),'manifestSha256':sha256_file(out/'build-manifest.json')}
+    return {'cells':len(order),'goldenCases':len(cases),'files':len(manifest['files']),'campaignErrorCount':len(campaign_errors),'campaignErrors':campaign_errors,'manifestSha256':sha256_file(out/'build-manifest.json')}
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('assembled',type=Path);p.add_argument('out',type=Path)

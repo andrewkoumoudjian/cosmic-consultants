@@ -340,5 +340,6 @@
         }
       }
     }
-  }
+  },
+  "$id": "https://cosmic-consultants.dev/contracts/release-scenarios.schema.json"
 }

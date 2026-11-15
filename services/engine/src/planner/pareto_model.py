@@ -653,7 +653,7 @@ def rank_earth_for_target(
     target_id: str,
     *,
     limits: dict[str, float] | None = None,
-    min_land_pct: float | None = 50.0,
+    min_land_pct: float | None = None,
     include_stability: bool = True,
     include_barren: bool = True,
     include_permafrost_when_psr: bool = True,

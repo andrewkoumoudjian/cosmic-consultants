@@ -195,10 +195,11 @@ class PublishTests(unittest.TestCase):
             m1 = publish(synthetic(), l3, Path(d1), synthetic=True)
             m2 = publish(synthetic(), l3, Path(d2), synthetic=True)
             self.assertEqual(m1, m2)
-            from planner.publish import MONTHLY_COLUMNS
+            from planner.publish import MONTHLY_COLUMNS, CELL_COLUMNS, STARTUP_COLUMNS
             self.assertEqual(sorted(m1["files"]), sorted(["cells.bin", "cells.json", "campaigns.json", "objectives.json",
-                                                         "trait-map.json", "monthly/monthly.json"]
-                                                        + [f"monthly/{c}.bin" for c in MONTHLY_COLUMNS]))
+                                                         "trait-map.json", "monthly/monthly.json", "yearly/yearly.json"]
+                                                        + [f"monthly/{c}.bin" for c in MONTHLY_COLUMNS]
+                                                        + [f"yearly/{c}.bin" for c in CELL_COLUMNS if c not in STARTUP_COLUMNS]))
             meta = json.loads((Path(d1) / "cells.json").read_text(encoding="utf-8"))
             self.assertEqual(meta["h3"], sorted([A, B]))
             slope = dict(zip(meta["h3"], read_column(Path(d1), "slope_mean_deg")))

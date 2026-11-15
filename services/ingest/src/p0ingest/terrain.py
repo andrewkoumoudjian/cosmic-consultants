@@ -92,7 +92,7 @@ def mask_tile_arrays(
     return z_out, counts
 
 
-def _read_tile(tile: str, rank: np.ndarray, mask_water: bool = True):
+def _read_tile(tile: str, rank: np.ndarray, mask_water: bool = False):
     url = f"{BASE}/{tile}/{tile}.tif"
     stem = tile[:-4] if tile.endswith("_DEM") else tile
     wbm_url = f"{BASE}/{tile}/AUXFILES/{stem}_WBM.tif"
@@ -112,8 +112,8 @@ def _read_tile(tile: str, rank: np.ndarray, mask_water: bool = True):
                 with rasterio.open("/vsicurl/" + edm_url, OVERVIEW_LEVEL=OVERVIEW_LEVEL) as eds:
                     edm = eds.read(1)
                 wbm_available = True
-            except Exception:  # noqa: BLE001 - recorded per tile in ledger
-                wbm = edm = None
+            except Exception as exc:
+                raise RuntimeError(f"Requested WBM/EDM masking unavailable for {tile}") from exc
     digest = hashlib.sha256(z.astype("<f4").tobytes()).hexdigest()
     z_clean, mcounts = mask_tile_arrays(z, wbm=wbm if mask_water else None, edm=edm if mask_water else None, nodata=nodata)
     h, w = z_clean.shape
@@ -125,20 +125,26 @@ def _read_tile(tile: str, rank: np.ndarray, mask_water: bool = True):
     r = np.clip(((90.0 - lat) / CMG_STEP).astype(int), 0, 3599)
     c = np.clip(((lon + 180.0) / CMG_STEP).astype(int), 0, 7199)
     idx = rank[r[:, None], c[None, :]]
-    keep = (idx >= 0) & np.isfinite(z_clean) & np.isfinite(slope)
+    keep = (idx >= 0) & np.isfinite(z_clean)
     rec = {
         "tile": tile,
         "url": url,
         "shape": [h, w],
         "arraySha256": digest,
         "wbmAvailable": wbm_available,
+        "maskPolicy": "wbm-land-edm-nonvoid-v1" if mask_water else "legacy-no-water-mask",
+        "wbmUrl": wbm_url if wbm is not None else None,
+        "edmUrl": edm_url if edm is not None else None,
+        "wbmSha256": hashlib.sha256(wbm.tobytes()).hexdigest() if wbm is not None else None,
+        "edmSha256": hashlib.sha256(edm.tobytes()).hexdigest() if edm is not None else None,
+        "pixelsWithSlope": int(np.count_nonzero(keep & np.isfinite(slope))),
         **mcounts,
         "secs": round(time.time() - t, 2),
     }
     return rec, idx[keep], z_clean[keep], slope[keep]
 
 
-def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water: bool = True) -> dict:
+def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water: bool = False) -> dict:
     cellmap, _ = cmg_cell_map(res)
     order, cells, starts = group_index(cellmap)
     rank = np.full(cellmap.size, -1, dtype=np.int32)
@@ -148,7 +154,12 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water:
 
     n = len(cells)
     tiles = sorted(tile_list())[:limit]
-    parts = DERIVED / f"terrain-r{res}-parts"
+    # Separate cached parts by mask policy, grid, and tile universe. Old parts do
+    # not have slope counts or mask provenance and must never be reused here.
+    policy = {"version":2, "maskWater":mask_water, "overview":OVERVIEW_LEVEL,
+              "tiles":tiles, "rankSha256":hashlib.sha256(rank.tobytes()).hexdigest()}
+    policy_hash = hashlib.sha256(json.dumps(policy,sort_keys=True).encode()).hexdigest()[:16]
+    parts = DERIVED / f"terrain-r{res}-parts-{policy_hash}"
     parts.mkdir(parents=True, exist_ok=True)
     CHUNK = 1000
     fails = []
@@ -161,7 +172,7 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water:
             continue
         chunk = tiles[ci:ci + CHUNK]
         cnt = np.zeros(n); zs = np.zeros(n); zmin = np.full(n, np.inf); zmax = np.full(n, -np.inf)
-        ssum = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
+        ssum = np.zeros(n); scnt = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
         ledger = []
         with ThreadPoolExecutor(workers) as ex:
             futs = {ex.submit(_read_tile, t, rank, mask_water): t for t in chunk}
@@ -173,24 +184,26 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water:
                     ledger.append({"tile": tile, "error": str(exc)[:300]})
                     continue
                 ledger.append(rec)
-                np.add.at(cnt, idx, 1); np.add.at(zs, idx, z); np.add.at(ssum, idx, s)
+                np.add.at(cnt, idx, 1); np.add.at(zs, idx, z)
+                slope_ok = np.isfinite(s)
+                np.add.at(scnt, idx[slope_ok], 1); np.add.at(ssum, idx[slope_ok], s[slope_ok])
                 np.minimum.at(zmin, idx, z); np.maximum.at(zmax, idx, z)
-                b = np.clip(np.searchsorted(BINS, s, side="right") - 1, 0, len(BINS) - 2)
-                np.add.at(hist, (idx, b), 1)
+                b = np.clip(np.searchsorted(BINS, s[slope_ok], side="right") - 1, 0, len(BINS) - 2)
+                np.add.at(hist, (idx[slope_ok], b), 1)
         tmp = part.with_suffix(".tmp.npz")
-        np.savez_compressed(tmp, cnt=cnt, zs=zs, zmin=zmin, zmax=zmax, ssum=ssum, hist=hist,
+        np.savez_compressed(tmp, cnt=cnt, zs=zs, zmin=zmin, zmax=zmax, ssum=ssum, scnt=scnt, hist=hist,
                             ledger=np.array([json.dumps(r) for r in sorted(ledger, key=lambda r: r["tile"])]))
         tmp.replace(part)
         print(f"{min(ci + CHUNK, len(tiles))}/{len(tiles)} tiles, chunk {ci // CHUNK} saved, {round(time.time()-t0)} s", flush=True)
 
     cnt = np.zeros(n); zs = np.zeros(n); zmin = np.full(n, np.inf); zmax = np.full(n, -np.inf)
-    ssum = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
+    ssum = np.zeros(n); scnt = np.zeros(n); hist = np.zeros((n, len(BINS) - 1))
     water_masked_px = void_masked_px = retained_land_px = 0
     ledger_path = DERIVED / f"terrain-r{res}-ledger.jsonl.gz"
     with gzip.open(ledger_path, "wt") as led:
         for ci in range(0, len(tiles), CHUNK):
             p = np.load(parts / f"part-{ci // CHUNK:03d}.npz")
-            cnt += p["cnt"]; zs += p["zs"]; ssum += p["ssum"]; hist += p["hist"]
+            cnt += p["cnt"]; zs += p["zs"]; ssum += p["ssum"]; scnt += p["scnt"]; hist += p["hist"]
             zmin = np.minimum(zmin, p["zmin"]); zmax = np.maximum(zmax, p["zmax"])
             for line in p["ledger"]:
                 s_line = str(line)
@@ -204,20 +217,21 @@ def run(res: int = RES, workers: int = 32, limit: int | None = None, mask_water:
                     retained_land_px += int(obj.get("retainedLandPixels", 0))
     has = cnt > 0
     nan = lambda a: np.where(has, a, np.nan)  # noqa: E731
+    slope_nan = lambda a: np.where(scnt > 0, a, np.nan)
     out = {
         "h3": np.array([format(int(c), "x") for c in cells]),
         "dem_pixels": cnt,
         "elev_mean_m": nan(zs / np.maximum(cnt, 1)), "elev_min_m": nan(zmin), "elev_max_m": nan(zmax),
-        "slope_mean_deg": nan(ssum / np.maximum(cnt, 1)),
-        "slope_frac_lt5": nan(hist[:, 0] / np.maximum(cnt, 1)),
-        "slope_frac_lt15": nan((hist[:, 0] + hist[:, 1]) / np.maximum(cnt, 1)),
-        "slope_frac_gt30": nan(hist[:, 3] / np.maximum(cnt, 1)),
+        "slope_mean_deg": slope_nan(ssum / np.maximum(scnt, 1)),
+        "slope_frac_lt5": slope_nan(hist[:, 0] / np.maximum(scnt, 1)),
+        "slope_frac_lt15": slope_nan((hist[:, 0] + hist[:, 1]) / np.maximum(scnt, 1)),
+        "slope_frac_gt30": slope_nan(hist[:, 3] / np.maximum(scnt, 1)),
     }
     np.savez_compressed(DERIVED / f"terrain-r{res}.npz", **out)
     summary = {"generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "tiles": len(tiles),
                "chunks": (len(tiles) + CHUNK - 1) // CHUNK,
                "failed": fails, "overviewLevel": OVERVIEW_LEVEL, "approxResolutionM": 240,
-               "waterMasked": mask_water,
+               "waterMasked": mask_water, "cachePolicy":policy, "cellsWithSlope":int((scnt > 0).sum()),
                "totalMaskedWaterPixels": water_masked_px,
                "totalMaskedVoidPixels": void_masked_px,
                "totalRetainedLandPixels": retained_land_px,
