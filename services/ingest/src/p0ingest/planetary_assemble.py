@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import json
 import math
-import struct
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +18,7 @@ from rasterio.crs import CRS
 from rasterio.warp import transform as warp_transform
 
 from .grid import DERIVED
+from .moon_geology import decode_wkb as _moon_decode_wkb
 from .snapshots import REPO
 
 R_MARS_KM = 3396.0
@@ -64,26 +64,6 @@ def great_circle_km(lat1: float, lon1: float, lat2: np.ndarray, lon2: np.ndarray
     return 2.0 * radius_km * np.arcsin(np.minimum(1.0, np.sqrt(a)))
 
 
-def _decode_wkb_rings(wkb: bytes) -> list[np.ndarray]:
-    """Decode a little-endian WKB Polygon (type 3) into a list of (N, 2) float64 rings."""
-    if len(wkb) < 9:
-        raise ValueError("truncated WKB polygon")
-    endian = "<" if wkb[0] == 1 else ">"
-    wkb_type, n_rings = struct.unpack(endian + "II", wkb[1:9])
-    if (wkb_type & 0xFF) != 3:
-        raise ValueError(f"unsupported WKB geometry type {wkb_type}")
-    offset = 9
-    rings: list[np.ndarray] = []
-    for _ in range(n_rings):
-        (n_pts,) = struct.unpack(endian + "I", wkb[offset:offset + 4])
-        offset += 4
-        n_bytes = n_pts * 16
-        arr = np.frombuffer(wkb, dtype=np.dtype(endian + "f8"), count=n_pts * 2, offset=offset).reshape(n_pts, 2)
-        rings.append(arr)
-        offset += n_bytes
-    return rings
-
-
 def _point_in_ring(lon: float, lat: float, ring: np.ndarray) -> bool:
     if ring.shape[0] < 3:
         return False
@@ -99,11 +79,32 @@ def _point_in_ring(lon: float, lat: float, ring: np.ndarray) -> bool:
 
 
 def point_in_wkb_polygon(lon: float, lat: float, wkb: bytes) -> bool:
-    """True when (lon, lat) falls inside the outer ring and outside any interior holes."""
-    rings = _decode_wkb_rings(wkb)
-    if not rings or not _point_in_ring(lon, lat, rings[0]):
-        return False
-    return not any(_point_in_ring(lon, lat, hole) for hole in rings[1:])
+    """True when (lon, lat) falls inside any Polygon/MultiPolygon part and outside its holes."""
+    _, polys = _moon_decode_wkb(wkb)
+    for rings in polys:
+        if rings and _point_in_ring(lon, lat, rings[0]) and not any(
+            _point_in_ring(lon, lat, hole) for hole in rings[1:]
+        ):
+            return True
+    return False
+
+
+def lookup_moon_geo_unit(moon_geo_polys: pl.DataFrame, lon180: float, lat: float) -> dict | None:
+    """Select the Moon geologic-map unit containing `(lon180, lat)` with smallest `area_geo`."""
+    cand_geo = moon_geo_polys.filter(
+        (pl.col("lon_min") <= lon180) & (lon180 <= pl.col("lon_max"))
+        & (pl.col("lat_min") <= lat) & (lat <= pl.col("lat_max"))
+    )
+    best: dict | None = None
+    best_area = float("inf")
+    for poly_row in cand_geo.iter_rows(named=True):
+        if point_in_wkb_polygon(lon180, lat, poly_row["geometry"]):
+            raw_area = poly_row.get("area_geo")
+            area = float(raw_area) if raw_area is not None and math.isfinite(float(raw_area)) else float("inf")
+            if best is None or area < best_area:
+                best = poly_row
+                best_area = area
+    return best
 
 
 def _moon_south_stereo_xy(lat_deg: float, lon_deg: float) -> tuple[float, float]:
@@ -785,21 +786,20 @@ def build_planetary_targets(pdir: Path | None = None, targets_dir: Path | None =
             row["moon_pits_within_100km"] = int(np.count_nonzero(pdist <= 100.0))
             row["moon_nearest_pit_km"] = _clean_float(np.min(pdist)) if pdist.size > 0 else None
 
-            # Unified Geologic Map of the Moon 1:5M WKB point-in-polygon
-            cand_geo = moon_geo_polys.filter(
-                (pl.col("lon_min") <= lon180) & (lon180 <= pl.col("lon_max"))
-                & (pl.col("lat_min") <= lat) & (lat <= pl.col("lat_max"))
-            )
-            for poly_row in cand_geo.iter_rows(named=True):
-                if point_in_wkb_polygon(lon180, lat, poly_row["geometry"]):
-                    row["moon_geo_unit_code"] = poly_row["unit_code"]
-                    row["moon_geo_unit_name"] = poly_row["unit_name"]
-                    row["moon_geo_unit_era"] = poly_row["unit_era"]
-                    row["moon_geo_unit_material"] = poly_row["unit_material"]
-                    break
+            # Unified Geologic Map of the Moon 1:5M WKB point-in-polygon (smallest area_geo rule)
+            geo_hit = lookup_moon_geo_unit(moon_geo_polys, lon180, lat)
+            if geo_hit is not None:
+                row["moon_geo_unit_code"] = geo_hit["unit_code"]
+                row["moon_geo_unit_name"] = geo_hit["unit_name"]
+                row["moon_geo_unit_era"] = geo_hit["unit_era"]
+                row["moon_geo_unit_material"] = geo_hit["unit_material"]
             for col in ("moon_geo_unit_code", "moon_geo_unit_name", "moon_geo_unit_era", "moon_geo_unit_material"):
                 if row[col] is None:
-                    reasons[col] = "outside-geologic-map-polygons"
+                    reasons[col] = (
+                        "outside-geologic-map-polygons"
+                        if geo_hit is None
+                        else f"no-DOMU-row-for-source-code-{geo_hit['unit_code']}"
+                    )
 
         # Verify every null column has an explicit reason
         for col in all_feature_cols:

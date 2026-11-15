@@ -45,7 +45,7 @@ FEATURE_SPECS: dict[str, dict] = {
     "elev_mean_m": {"kind": "observed", "trait": "terrain", "unit": "m"},
     "elev_min_m": {"kind": "observed", "trait": "terrain", "unit": "m"},
     "elev_max_m": {"kind": "observed", "trait": "terrain", "unit": "m"},
-    "relief_cell_m": {"kind": "observed", "trait": "terrain", "unit": "m"},
+    "relief_cell_m": {"kind": "computed", "trait": "terrain", "unit": "m"},
     "slope_mean_deg": {"kind": "observed", "trait": "terrain", "unit": "deg"},
     "slope_frac_lt5": {"kind": "observed", "trait": "terrain", "unit": "1"},
     "slope_frac_lt15": {"kind": "observed", "trait": "terrain", "unit": "1"},
@@ -77,13 +77,13 @@ FEATURE_SPECS: dict[str, dict] = {
     # Surface material, albedo, VCF, EMIT mineral proxies
     "albedo_ws_sw_mean": {"kind": "observed", "trait": "surfaceMaterial", "unit": "1"},
     "albedo_bs_sw_mean": {"kind": "observed", "trait": "surfaceMaterial", "unit": "1"},
-    "albedo_ws_bs_diff": {"kind": "observed", "trait": "surfaceMaterial", "unit": "1"},
+    "albedo_ws_bs_diff": {"kind": "computed", "trait": "surfaceMaterial", "unit": "1"},
     "barren_pct": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
     "snow_ice_pct": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
     "vcf_percent_tree_cover_pct_mean": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
     "vcf_percent_nontree_vegetation_pct_mean": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
     "vcf_percent_nonvegetated_pct_mean": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
-    "vcf_barren_mcd12_diff_pct": {"kind": "observed", "trait": "surfaceMaterial", "unit": "%"},
+    "vcf_barren_mcd12_diff_pct": {"kind": "computed", "trait": "surfaceMaterial", "unit": "%"},
     "emit_n_observed": {"kind": "diagnostic", "role": "diagnostic", "trait": None, "unit": "count"},
     "emit_has_observation": {"kind": "yes/no", "trait": "surfaceMaterial", "unit": "bool"},
     "emit_min_hydration_share": {"kind": "proxy", "trait": "surfaceMaterial", "unit": "1"},
@@ -269,7 +269,7 @@ def build_earth_features(
             pl.lit(None, dtype=pl.Float64).alias("lst_night_interannual_iqr_mean_k"),
             pl.lit(None, dtype=pl.Float64).alias("lst_day_2014_2023_p90_k"),
             pl.lit(None, dtype=pl.Float64).alias("lst_night_2014_2023_p10_k"),
-            pl.lit(0, dtype=pl.Int16).alias("lst_years_min_count"),
+            pl.lit(None, dtype=pl.Int16).alias("lst_years_min_count"),
         ])
 
     # 3. Regional PALSAR & ARADS campaign provenance
@@ -327,7 +327,10 @@ def build_earth_features(
         .then((1.0 - pl.col("albedo_bs_sw_mean")) / pl.col("aqua_lst_diurnal_mean_k"))
         .otherwise(None)
         .alias("ati_aqua_proxy"),
-        pl.sum_horizontal([pl.col(c).fill_null(0).cast(pl.Int64) for c in EONET_COLS]).alias("eonet_total_events"),
+        pl.when(pl.any_horizontal([pl.col(c).is_not_null() for c in EONET_COLS]))
+        .then(pl.sum_horizontal([pl.col(c).fill_null(0).cast(pl.Int64) for c in EONET_COLS]))
+        .otherwise(pl.lit(None, dtype=pl.Int64))
+        .alias("eonet_total_events"),
     ])
 
     ordered_cols = list(FEATURE_SPECS.keys())

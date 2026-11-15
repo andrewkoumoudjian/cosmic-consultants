@@ -8,7 +8,13 @@ import yaml
 
 from p0ingest.assemble import DERIVED, REPO, nonfinite_counts, normalize_frame
 from p0ingest.features import EONET_COLS, FEATURE_SPECS, build_earth_features, compute_feature_scales
-from p0ingest.planetary_assemble import great_circle_km, norm_lon_180, norm_lon_360, point_in_wkb_polygon
+from p0ingest.planetary_assemble import (
+    great_circle_km,
+    lookup_moon_geo_unit,
+    norm_lon_180,
+    norm_lon_360,
+    point_in_wkb_polygon,
+)
 
 
 def _make_wkb_polygon(rings: list[list[tuple[float, float]]]) -> bytes:
@@ -17,6 +23,13 @@ def _make_wkb_polygon(rings: list[list[tuple[float, float]]]) -> bytes:
         parts.append(struct.pack("<I", len(ring)))
         for x, y in ring:
             parts.append(struct.pack("<dd", x, y))
+    return b"".join(parts)
+
+
+def _make_wkb_multipolygon(polygons: list[list[list[tuple[float, float]]]]) -> bytes:
+    parts = [struct.pack("<BII", 1, 6, len(polygons))]
+    for rings in polygons:
+        parts.append(_make_wkb_polygon(rings))
     return b"".join(parts)
 
 
@@ -166,6 +179,10 @@ class EarthFeaturesUnitTests(unittest.TestCase):
         self.assertIsNone(ef["palsar_gamma0_hh_db"][1])
         self.assertEqual(ef["eonet_total_events"][3], 2 * len(EONET_COLS))
 
+        # Derived differences are marked computed
+        for diff_col in ("relief_cell_m", "albedo_ws_bs_diff", "vcf_barren_mcd12_diff_pct"):
+            self.assertEqual(FEATURE_SPECS[diff_col]["kind"], "computed")
+
         # Every null column equals its JSON missing_reason keys
         feat_cols = [c for c in ef.columns if c not in ("h3", "lat", "lon", "missing_reason")]
         for r in ef.iter_rows(named=True):
@@ -190,6 +207,16 @@ class EarthFeaturesUnitTests(unittest.TestCase):
                 else:
                     self.assertAlmostEqual(z_v * iqr + med, float(raw_v), places=9)
 
+    def test_missing_spread_and_all_null_eonet_stay_null(self):
+        sites, monthly, _, palsar = self._sample_inputs()
+        sites = sites.with_columns([pl.lit(None, dtype=pl.Int64).alias(c) for c in EONET_COLS])
+        ef, _ = build_earth_features(sites, monthly, spread=None, palsar=palsar)
+        self.assertEqual(ef["lst_years_min_count"].null_count(), ef.height)
+        self.assertEqual(ef["eonet_total_events"].null_count(), ef.height)
+        mr0 = json.loads(ef["missing_reason"][0])
+        self.assertEqual(mr0["lst_years_min_count"], "no-monthly-spread-rows")
+        self.assertEqual(mr0["eonet_total_events"], "eonet-unavailable")
+
 
 class PlanetaryGeometryUnitTests(unittest.TestCase):
     def test_wkb_polygon_with_hole_and_lon_wrapping(self):
@@ -205,6 +232,38 @@ class PlanetaryGeometryUnitTests(unittest.TestCase):
         self.assertAlmostEqual(norm_lon_360(-33.55), 326.45, places=6)
         d = great_circle_km(0.0, 0.0, np.array([0.0]), np.array([180.0]), 1737.4)[0]
         self.assertAlmostEqual(float(d), np.pi * 1737.4, places=4)
+
+    def test_wkb_multipolygon_and_smallest_area_geo_tie_break(self):
+        multi_wkb = _make_wkb_multipolygon([
+            [[(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)]],
+            [[(4.0, 4.0), (5.0, 4.0), (5.0, 5.0), (4.0, 5.0), (4.0, 4.0)]],
+        ])
+        self.assertTrue(point_in_wkb_polygon(0.5, 0.5, multi_wkb))
+        self.assertTrue(point_in_wkb_polygon(4.5, 4.5, multi_wkb))
+        self.assertFalse(point_in_wkb_polygon(2.5, 2.5, multi_wkb))
+
+        big_wkb = _make_wkb_polygon([[(0.0, 0.0), (10.0, 0.0), (10.0, 10.0), (0.0, 10.0), (0.0, 0.0)]])
+        small_wkb = _make_wkb_polygon([[(2.0, 2.0), (3.0, 2.0), (3.0, 3.0), (2.0, 3.0), (2.0, 2.0)]])
+        # Big outer polygon listed before small nested polygon; smallest area_geo must win
+        polys = pl.DataFrame({
+            "unit_code": ["BIG", "SMALL", "MULTI"],
+            "unit_name": ["Big Basin", "Small Crater", "Multi Unit"],
+            "unit_era": ["Imbrian", "Copernican", "Nectarian"],
+            "unit_material": ["plains", "crater", "highlands"],
+            "area_geo": [100.0, 1.0, 2.0],
+            "lon_min": [0.0, 2.0, 0.0],
+            "lon_max": [10.0, 3.0, 5.0],
+            "lat_min": [0.0, 2.0, 0.0],
+            "lat_max": [10.0, 3.0, 5.0],
+            "geometry": [big_wkb, small_wkb, multi_wkb],
+        })
+        hit_nested = lookup_moon_geo_unit(polys, 2.5, 2.5)
+        self.assertIsNotNone(hit_nested)
+        self.assertEqual(hit_nested["unit_code"], "SMALL")
+
+        hit_multi = lookup_moon_geo_unit(polys, 0.5, 0.5)
+        self.assertIsNotNone(hit_multi)
+        self.assertEqual(hit_multi["unit_code"], "MULTI")
 
 
 class AssembledParquetsContractTests(unittest.TestCase):
