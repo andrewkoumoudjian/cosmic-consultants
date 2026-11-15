@@ -127,8 +127,34 @@ export function search(data:Dataset,request:PlanRequest):SearchResult{
 export function brief(data:Dataset,request:PlanRequest,indices:number[],checklist:string):string{
  const objective=data.objectives.find(o=>o.objectiveId===request.objectiveId&&o.body===request.body)!;
  const lines=['# Mission plan brief',`${request.body.toUpperCase()} / ${objective.objectiveId} — ${objective.title}`,`Months: ${months(request).join(', ')}; team: ${request.teamSize??'not set'}; days: ${request.durationDays??'not set'}`,'','Scientific status: partial. These are conditional screening results, not field certification.',...data.runtime.qualityWarnings.map(w=>'- '+w),''];
- for(const i of indices){lines.push(`## ${data.h3[i]} (${data.yearly.lat?.[i]}, ${data.yearly.lon?.[i]})`,'','| Requirement | Priority | Band | Result | Gap / reason |','|---|---|---|---|---|');
-  for(const r of rows(data,request,i)){const rule=requirements(data,request).find(q=>q.dimension===r.dimension)!;lines.push(`| ${r.dimension} (${r.earthColumn??'unavailable'}) | ${r.priority} | ${r.band?`${r.band.lo} to ${r.band.hi}${r.band.hiStrict?' (upper excluded)':''}`:'unknown'} | ${r.verdict} | ${r.reason?.text??`${r.gap??''} ${r.unit??''}`} |`,`${rule.basis??''} ${rule.scaleCaveat??''}`);if(r.perMonth)for(const m of r.perMonth)lines.push(`- Month ${m.month}: ${m.value??'unknown'} ${r.unit??''}; ${m.verdict}${m.reason?': '+m.reason.text:''}`);}
+ const effectiveRules=requirements(data,request);
+ for(const i of indices){
+  const siteRows=rows(data,request,i);
+  lines.push(`## ${data.h3[i]} (${data.yearly.lat?.[i]}, ${data.yearly.lon?.[i]})`,'',
+   '| Requirement | Priority | Origin | Band | Result | Gap / reason |','|---|---|---|---|---|---|');
+  // Narrative and monthly lists follow the whole table, so every requirement
+  // remains a table row even when an earlier requirement has monthly evidence.
+  for(const r of siteRows){
+   const band=r.band?`${r.band.lo} to ${r.band.hi} ${r.unit??''}${r.band.hiStrict?' (upper excluded)':''}`:'unknown';
+   lines.push(`| ${r.dimension} (${r.earthColumn??'unavailable'}) | ${r.priority} | ${r.origin} | ${band} | ${r.verdict} | ${r.reason?.text??`${r.gap??''} ${r.unit??''}`} |`);
+  }
+  lines.push('');
+  for(const r of siteRows){
+   const rule=effectiveRules.find(q=>q.dimension===r.dimension)!;
+   lines.push(`### ${r.dimension}: evidence and limits`,'');
+   if(r.origin==='user'){
+    lines.push('Band origin: user (edited for this plan).',
+     `Original source basis (context only; does not justify edited bounds): ${rule.basis??'Not recorded.'}`);
+   }else{
+    lines.push(`Band origin: ${r.origin}.`,`Basis: ${rule.basis??'Not recorded.'}`);
+   }
+   if(rule.scaleCaveat)lines.push(`Scale caveat: ${rule.scaleCaveat}`);
+   if(r.perMonth){
+    lines.push('');
+    for(const m of r.perMonth)lines.push(`- Month ${m.month}: ${m.value??'unknown'} ${r.unit??''}; ${m.verdict}${m.reason?': '+m.reason.text:''}`);
+   }
+   lines.push('');
+  }
   lines.push('','Operational limits:',...limitRows(data,request,i).map(r=>`- ${r.limit}: ${r.value??'unknown'} / cap ${r.max}: ${r.outcome}`));
  }
  lines.push('','## Earth cannot reproduce','- gravity: reduced lunar or Martian gravity.','- pressureRegime: lunar vacuum or thin Martian atmosphere.','- radiation: lunar or Martian radiation environment.',...objective.notTestableOnEarth.map(m=>`- ${m.mismatch}: ${m.why}`),'','## Planning checklist (from the scientist)',checklist||'Not checked: equipment, permits, personnel, budget, communications and emergency access.','','Past-campaign closeness: not checked (S8 pending).','EONET is a curated event list. None recorded does not establish safety.','','## Sources',`Build manifest SHA256: ${data.manifestHash}`,...data.inputs.map(i=>`- ${i.path}: ${i.sha256}`));return lines.join('\n')+'\n';
