@@ -790,3 +790,48 @@ only.
   recomputes 5 cells' medians straight from the raw zips and compares. The
   pipeline is exercised offline by `tests/test_palsar.py` (synthetic RTC
   GeoTIFFs; 17 tests; full suite green in normal and `-O` mode).
+
+## W44 (#103) Mars topography + slopes: `mars_topo`
+
+Source-native Mars terrain from three families, prepared by
+`python -m p0ingest.mars_topo` (`src/p0ingest/mars_topo.py`); no resampling to
+H3, no scoring or comparison. All products are single-epoch elevation surfaces
+(time-resolution rule moot).
+
+- `mola-megdr`: MGS MOLA MEGDR median topography (PDS Geosciences, us-pd).
+  The 32 px/deg file (`megt90n000fb.img`, 5760x11520 int16, simple cylindrical,
+  planetocentric, lon 0-360 E) is prepared row-by-row into
+  `_derived/planetary/mars_topo/mars-topo-megdr32-elevation.parquet`: one row
+  per native pixel with `source_line`, `source_sample`, `latitude`,
+  `longitude`, `elevation_m` (metres relative to the GMM3 deg-50 areoid, as
+  published) and `slope_2_5km` — central finite difference between pixel
+  centres 2 px apart per direction (north-south baseline 3704.9 m; east-west
+  3704.9*cos(lat) m), kept only while BOTH baselines sit inside the 2-5 km
+  band (i.e. |lat| <= 57.3 deg); everything else stays null with a per-row
+  `missing_reason`. `mars-topo-site-stats-megdr32.parquet` carries
+  `relief_ellipse` (max-min elevation within `radius_m` = 10 km AROUND each
+  named site; the radius is a parameter, not a fixed value) and the max
+  in-band `slope_2_5km` within 10 km of each site. The 4/16 ppd MEGDR files
+  are snapshotted as provenance only.
+- `mola-hrsc-blended-dem`: USGS MOLA/HRSC blended DEM v2, 200 m/px (MOLA part
+  CC0, HRSC part CC BY-SA 3.0 IGO - derived redistribution must carry that
+  attribution). DateTime streams it in 256-line windows (RAM < 2 GB) and
+  writes `_derived/planetary/mars_topo/mars-topo-blended-3p2km-blocks.parquet`:
+  3.2 km blocks (32x32 native pixels) with `slope_200_500m_mean` (mean
+  central-difference slope at the 400 m baseline; `support_px` = native pixels
+  used) and `mars-topo-blended-site-pixels.parquet`: native 200 m pixels
+  within 200 m of each site with elevation + slope, never aggregated.
+- `ctx-dtms-usgs-stac` / `hirise-dtms-usgs-stac`: USGS Astrogeology STAC
+  controlled DTM collections (both CC0-1.0). Full walks produce
+  `mars-topo-dtm-footprints.parquet` (item id, centre lat/lon, bbox, GSD,
+  DTM asset URL, licence). Only tiles covering the six named sites (Jezero,
+  Gale, Elysium/InSight, Utopia/Zhurong, Meridiani, Gusev) are downloaded;
+  per-site stats tables hold `slope_20_40m` (CTX DTM, central difference at a
+  stated even span nearest the 30 m mid-band point), `slope_5m` (HiRISE DTM,
+  span nearest 3.5 m), `slope_trav_mean` (mean native-baseline slope inside
+  1000 m / 500 m of the site) and `relief_ellipse` from the DTM.
+- `check` re-reads the tables, verifies keys, physical ranges and that every
+  null's `missing_reason` JSON object has exactly the null value columns as
+  keys, and runs raw spot checks (raw MEGDR pixels at 30 site-offset
+  locations vs the parquet; < 0.5 m tolerance). `python -m unittest discover
+  -s tests` passes with plain python and `python -O`.
