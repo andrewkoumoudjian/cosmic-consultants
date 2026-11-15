@@ -375,3 +375,19 @@ touchdown numbers.
 - `tests/test_targets.py` covers the quote parsing, the DBF reader, the
   convention folding and the per-row checks with synthetic fixtures, plus an
   integration test that the real `data/targets/` rows all pass.
+
+## W42 (#101) Moon neutron and gamma-ray maps: moon_nuclear
+
+`uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares:
+
+1. **Lunar Prospector GRS (`lp-grs-pds`):** 2, 5 and 20 degree elemental
+   abundance maps (`lpgrs-high1-elem-abundance-{2,5,20}deg.parquet`), keeping
+   the upper-triangle error matrix plus label-declared 1-sigma columns.
+2. **LRO LEND ALD (`lend`):** all 6 `LEND_RDR_ALD` spatial relative neutron
+   count-rate maps (`ALDE` 1 deg global `-80..80`, `ALDN` 0.5 deg north polar
+   `80..90`, `ALDS` 0.5 deg south polar `-90..-80`; `20090915` Nominal Mission
+   and `20111211` Science Mission) under `data/snapshots/_derived/planetary/lend/`.
+   Zero-exposure cells (`exposure <= 0`, PDS `-1.0` sentinel) become explicit
+   `null` with JSON `missing_reason: "exposure-zero"`. Relative counting rates
+   are NOT converted into H/WEH wt% or epithermal suppression %; `h_wt_neutron`
+   remains recorded as a gap in `lend-pds-gap-report.json` alongside `LP-NS`.
