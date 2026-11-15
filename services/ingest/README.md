@@ -96,6 +96,15 @@ The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
 builders keep their own tables. The generic Drive sync script excludes
 `_derived/`; copy prepared outputs separately and verify their hashes.
 
+The merged dust tables are required inputs. Contributing-month counts, valid
+pixel counts, modeled-thickness support fractions, burned mapped-year counts
+and the month of the dust maximum have
+`role: diagnostic` in the registry (ADR-0010). They stay in native units in
+both raw and normalized frames, with exact value/type checks. These diagnostics
+do not become physical traits or enter a closeness sum. The coverage report
+also retains all eight detailed menus separately from the Doc's 19-category
+table; exact test support still needs source review.
+
 `data/pipeline/evidence.yaml` adds one descriptor (`kind`, `support`,
 `family`) per registry column so observations, reanalysis, models,
 catalogues, and geometry stay separated, `synthetic` values are rejected in

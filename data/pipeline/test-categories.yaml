@@ -2,9 +2,9 @@ version: 1
 source:
   url: https://docs.google.com/document/d/1up_LJPlljDuY-xak0Licddnoj8MakBiD1pv_Vywj8yQ
   tabId: t.191x2ca9c4uw
-  revisionId: AHj4eMRvaKOdmEzx4A_PQY0rF4A7eiMroJGDdGdm4TWbuzKG9QhqlxNpsIRrL6ry6Ul4eQET0GU55XrQDYJnzUGaemPFNskiMtQPETDu0EM
-  connectorResponseSha256: ee1a819447cb7bfc907e3b315e0fb5666b9f4c4b2bdd89c8a7b3fb29bcc34759
-  capturedAt: '2026-11-14T19:52:38.163604+00:00'
+  revisionId: AHj4eMTy2lOwiZwHFlpXdDjCX5tugtZea6Zw2Jnurh2yk-MeCMB7l3-S1bXJ_Ec6BMHtvKtryoWy3D-ufbk5n-ct9lJle1F7MN7kvVSpoy4
+  connectorResponseSha256: 3867c1cc89bd0659b615246a192cf29315cf58e13f3df9a33df06eae21b43335
+  capturedAt: '2026-11-15T01:59:25.964380+00:00'
 sourceCategoryCount: 19
 selection:
   maxMetrics: 8
@@ -23,21 +23,27 @@ categories:
   - surfaceMaterial
   - illumination
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText:
-  - 1. Terrain elevation and local relief
-  - 2. Slope distribution, including steep sections
-  - 3. Surface roughness at the equipment’s operating scale
-  - 4. Obstacle size distribution
-  - 5. Obstacle density and spacing
-  - '6. Surface material class: sand, gravel, bedrock, etc.'
-  - 7. Soil particle-size distribution
-  - 8. Loose surface-layer depth
-  - 9. Soil bearing strength
-  - 10. Soil shear strength and friction
-  - 11. Solar elevation and shadow coverage
-  - 12. Visual texture and landmark density
+  detailedMetricMenuText: &id001
+  - Regional slope over 2–5 km
+  - local slope over 200–500 m
+  - slope over 100 m
+  - fine-scale slope over 20–40 m where resolution permits
+  - slope over 5 m where high-resolution coverage exists
+  - EVA terrain slope over 2 km
+  - mean traverse slope
+  - terrain roughness at matched spatial scales
+  - local elevation relief
+  - surface albedo
+  - minimum solar elevation
+  - sunlit time fraction (proxy)
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Robotic mobility & navigation
+  detailedMetricMenuRawText: 'Regional slope over 2–5 km, local slope over 200–500
+    m, slope over 100 m, fine-scale slope over 20–40 m where resolution permits, slope
+    over 5 m where high-resolution coverage exists, EVA terrain slope over 2 km, mean
+    traverse slope, terrain roughness at matched spatial scales, local elevation relief,
+    surface albedo, minimum solar elevation, sunlit time fraction (proxy) '
 - categoryId: landing-descent
   documentOrdinal: 2
   name: Landing & descent
@@ -54,6 +60,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Landing & descent (new)
 - categoryId: aerial-flight-systems
   documentOrdinal: 3
   name: Aerial / flight systems
@@ -71,6 +78,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Aerial / flight systems (new)
 - categoryId: geological-exploration-sampling
   documentOrdinal: 4
   name: Geological exploration & sampling
@@ -85,21 +93,22 @@ categories:
   - terrain
   - subsurface
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText:
-  - 1. Rock types and their distribution
-  - 2. Mineral assemblages and abundance
-  - 3. Elemental composition
-  - 4. Stratigraphic sequence and layer thickness
-  - '5. Geological landforms: crater, volcanic flow, delta, etc.'
-  - 6. Outcrop exposure and accessible extent
-  - 7. Fracture density and orientation
-  - 8. Weathering and alteration characteristics
-  - 9. Sediment grain size and sorting
-  - 10. Rock hardness and compressive strength
-  - 11. Depth to bedrock or target sampling layer
-  - 12. Rock porosity and permeability
+  detailedMetricMenuText: &id002
+  - Lithology class (proxy)
+  - surface albedo
+  - thermal-infrared emissivity band shape (proxy)
+  - hydrated-mineral indicators (proxy)
+  - iron- and magnesium-bearing clay indicators (proxy)
+  - aluminum-hydroxyl mineral indicators (proxy)
+  - gypsum and sulfate indicators (proxy)
+  - carbonate indicators (proxy)
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Geological exploration & sampling
+  detailedMetricMenuRawText: 'Lithology class (proxy), surface albedo, thermal-infrared
+    emissivity band shape (proxy), hydrated-mineral indicators (proxy), iron- and
+    magnesium-bearing clay indicators (proxy), aluminum-hydroxyl mineral indicators
+    (proxy), gypsum and sulfate indicators (proxy), carbonate indicators (proxy) '
 - categoryId: astrobiology-habitability
   documentOrdinal: 5
   name: Astrobiology & habitability
@@ -114,9 +123,27 @@ categories:
   - surfaceMaterial
   - thermal
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText: []
+  detailedMetricMenuText: &id007
+  - Near-surface soil moisture (Earth context)
+  - permafrost probability (proxy)
+  - observed minimum surface temperature
+  - observed maximum surface temperature
+  - day–night surface-temperature difference
+  - hydrated-mineral indicators (proxy)
+  - iron- and magnesium-bearing clay indicators (proxy)
+  - aluminum-hydroxyl mineral indicators (proxy)
+  - gypsum and sulfate indicators (proxy)
+  - carbonate indicators (proxy)
+  - lithology class (proxy)
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Astrobiology & habitability
+  detailedMetricMenuRawText: 'Near-surface soil moisture (Earth context), permafrost
+    probability (proxy), observed minimum surface temperature, observed maximum surface
+    temperature, day–night surface-temperature difference, hydrated-mineral indicators
+    (proxy), iron- and magnesium-bearing clay indicators (proxy), aluminum-hydroxyl
+    mineral indicators (proxy), gypsum and sulfate indicators (proxy), carbonate indicators
+    (proxy), lithology class (proxy) '
 - categoryId: geophysics-seismology
   documentOrdinal: 6
   name: Geophysics & seismology
@@ -133,6 +160,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Geophysics & seismology (new)
 - categoryId: cryosphere-ice-dynamics
   documentOrdinal: 7
   name: Cryosphere & ice dynamics
@@ -149,6 +177,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Cryosphere & ice dynamics (new)
 - categoryId: volcanic-tectonic-processes
   documentOrdinal: 8
   name: Volcanic & tectonic processes
@@ -165,6 +194,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Volcanic & tectonic processes (new)
 - categoryId: resource-prospecting-isru
   documentOrdinal: 9
   name: Resource prospecting / ISRU
@@ -178,9 +208,24 @@ categories:
   - subsurface
   - surfaceMaterial
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText: []
+  detailedMetricMenuText: &id003
+  - Permafrost probability (proxy)
+  - mapped ground-ice content class (proxy; pending source clearance)
+  - near-surface soil moisture (Earth context)
+  - observed minimum surface temperature
+  - observed maximum surface temperature
+  - day–night surface-temperature difference
+  - topographic shadow fraction (proxy)
+  - distance to topographically shaded terrain (proxy)
+  - resource-relevant lithology class (proxy)
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Resource prospecting / ISRU
+  detailedMetricMenuRawText: 'Permafrost probability (proxy), mapped ground-ice content
+    class (proxy; pending source clearance), near-surface soil moisture (Earth context),
+    observed minimum surface temperature, observed maximum surface temperature, day–night
+    surface-temperature difference, topographic shadow fraction (proxy), distance
+    to topographically shaded terrain (proxy), resource-relevant lithology class (proxy) '
 - categoryId: subsurface-exploration
   documentOrdinal: 10
   name: Subsurface exploration
@@ -194,9 +239,11 @@ categories:
   - subsurface
   - thermal
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText: []
+  detailedMetricMenuText: &id006 []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Subsurface exploration
+  detailedMetricMenuRawText: N/A
 - categoryId: construction-excavation
   documentOrdinal: 11
   name: Construction & excavation
@@ -213,6 +260,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Construction & excavation (new)
 - categoryId: power-energy
   documentOrdinal: 12
   name: Power & energy
@@ -229,6 +277,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Power & energy (new)
 - categoryId: human-habitation-operations
   documentOrdinal: 13
   name: Human habitation & operations
@@ -245,9 +294,26 @@ categories:
   - waterIce
   - subsurface
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText: []
+  detailedMetricMenuText: &id004
+  - Slope over 100 m
+  - EVA terrain slope over 2 km
+  - mean traverse slope
+  - terrain roughness
+  - local elevation relief
+  - observed minimum surface temperature
+  - observed maximum surface temperature
+  - day–night surface-temperature difference
+  - sunlit time fraction (proxy)
+  - minimum solar elevation
+  - terrain horizon obstruction (proxy)
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Human habitation & operations
+  detailedMetricMenuRawText: 'Slope over 100 m, EVA terrain slope over 2 km, mean
+    traverse slope, terrain roughness, local elevation relief, observed minimum surface
+    temperature, observed maximum surface temperature, day–night surface-temperature
+    difference, sunlit time fraction (proxy), minimum solar elevation, terrain horizon
+    obstruction (proxy) '
 - categoryId: crew-training-human-factors
   documentOrdinal: 14
   name: Crew training & human factors
@@ -263,6 +329,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Crew training & human factors (new)
 - categoryId: communications-positioning
   documentOrdinal: 15
   name: Communications & positioning
@@ -278,6 +345,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Communications & positioning (new)
 - categoryId: thermal-management
   documentOrdinal: 16
   name: Thermal management
@@ -294,6 +362,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Thermal management (new)
 - categoryId: instrument-sensor-testing
   documentOrdinal: 17
   name: Instrument & sensor testing
@@ -310,9 +379,28 @@ categories:
   - thermal
   - dustProcess
   traitMappingStatus: preparation routing only, not proof of test support
-  detailedMetricMenuText: []
+  detailedMetricMenuText: &id005
+  - Surface albedo
+  - thermal-infrared emissivity band shape (proxy)
+  - selected-mineral spectral feature depths (proxy)
+  - hydrated-mineral indicators (proxy)
+  - clay-mineral indicators (proxy)
+  - gypsum and sulfate indicators (proxy)
+  - carbonate indicators (proxy)
+  - terrain roughness
+  - observed minimum surface temperature
+  - observed maximum surface temperature
+  - day–night surface-temperature difference
+  - minimum solar elevation
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Instrument & sensor testing
+  detailedMetricMenuRawText: 'Surface albedo, thermal-infrared emissivity band shape
+    (proxy), selected-mineral spectral feature depths (proxy), hydrated-mineral indicators
+    (proxy), clay-mineral indicators (proxy), gypsum and sulfate indicators (proxy),
+    carbonate indicators (proxy), terrain roughness, observed minimum surface temperature,
+    observed maximum surface temperature, day–night surface-temperature difference,
+    minimum solar elevation '
 - categoryId: dust-aeolian-processes
   documentOrdinal: 18
   name: Dust & aeolian processes
@@ -330,6 +418,7 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Dust & aeolian processes (new)
 - categoryId: planetary-protection
   documentOrdinal: 19
   name: Planetary protection
@@ -345,4 +434,80 @@ categories:
   detailedMetricMenuText: []
   metricDefinitionStatus: Source terms retained; exact units, statistic, spatial/time
     support and test-condition evidence need source review
+  documentNameText: Planetary protection (new)
 status: requirements inventory, not observed feature coverage
+detailedMenus:
+- name: Robotic mobility & navigation
+  testingText: Autonomous navigation, obstacle avoidance, wheel-soil traction, traversability,
+    robotic mapping, (other field with ai interaction)
+  metricMenuRawText: 'Regional slope over 2–5 km, local slope over 200–500 m, slope
+    over 100 m, fine-scale slope over 20–40 m where resolution permits, slope over
+    5 m where high-resolution coverage exists, EVA terrain slope over 2 km, mean traverse
+    slope, terrain roughness at matched spatial scales, local elevation relief, surface
+    albedo, minimum solar elevation, sunlit time fraction (proxy) '
+  metricMenuText: *id001
+- name: Geological exploration & sampling
+  testingText: Rock identification, drilling, coring, geological mapping, sample collection
+  metricMenuRawText: 'Lithology class (proxy), surface albedo, thermal-infrared emissivity
+    band shape (proxy), hydrated-mineral indicators (proxy), iron- and magnesium-bearing
+    clay indicators (proxy), aluminum-hydroxyl mineral indicators (proxy), gypsum
+    and sulfate indicators (proxy), carbonate indicators (proxy) '
+  metricMenuText: *id002
+- name: Resource prospecting / ISRU
+  testingText: Water-ice detection, regolith characterization, excavation, resource
+    extraction
+  metricMenuRawText: 'Permafrost probability (proxy), mapped ground-ice content class
+    (proxy; pending source clearance), near-surface soil moisture (Earth context),
+    observed minimum surface temperature, observed maximum surface temperature, day–night
+    surface-temperature difference, topographic shadow fraction (proxy), distance
+    to topographically shaded terrain (proxy), resource-relevant lithology class (proxy) '
+  metricMenuText: *id003
+- name: Human habitation & operations
+  testingText: EVA procedures, habitat construction, equipment deployment, crew traverses
+  metricMenuRawText: 'Slope over 100 m, EVA terrain slope over 2 km, mean traverse
+    slope, terrain roughness, local elevation relief, observed minimum surface temperature,
+    observed maximum surface temperature, day–night surface-temperature difference,
+    sunlit time fraction (proxy), minimum solar elevation, terrain horizon obstruction
+    (proxy) '
+  metricMenuText: *id004
+- name: Instrument & sensor testing
+  testingText: Spectroscopy, ground-penetrating radar, imaging, seismic instruments
+  metricMenuRawText: 'Surface albedo, thermal-infrared emissivity band shape (proxy),
+    selected-mineral spectral feature depths (proxy), hydrated-mineral indicators
+    (proxy), clay-mineral indicators (proxy), gypsum and sulfate indicators (proxy),
+    carbonate indicators (proxy), terrain roughness, observed minimum surface temperature,
+    observed maximum surface temperature, day–night surface-temperature difference,
+    minimum solar elevation '
+  metricMenuText: *id005
+- name: Environmental hazards & resilience
+  testingText: Dust exposure, thermal cycling, erosion, surface material behavior
+  metricMenuRawText: 'Observed minimum surface temperature, observed maximum surface
+    temperature, day–night surface-temperature difference, annual mean dust optical
+    depth, dust optical-depth exceedance frequency (proxy), bare-ground fraction as
+    a dust-source indicator (proxy), dust-source mineral indicators (proxy), horizontal
+    wind speed at available reference heights (Earth context), apparent thermal inertia
+    (proxy) '
+  metricMenuText:
+  - Observed minimum surface temperature
+  - observed maximum surface temperature
+  - day–night surface-temperature difference
+  - annual mean dust optical depth
+  - dust optical-depth exceedance frequency (proxy)
+  - bare-ground fraction as a dust-source indicator (proxy)
+  - dust-source mineral indicators (proxy)
+  - horizontal wind speed at available reference heights (Earth context)
+  - apparent thermal inertia (proxy)
+- name: Subsurface exploration
+  testingText: Cave mapping, lava-tube exploration, subsurface navigation, drilling
+  metricMenuRawText: N/A
+  metricMenuText: *id006
+- name: Astrobiology & habitability
+  testingText: Biosignature detection, extremophile studies, habitability assessment,
+    contamination control
+  metricMenuRawText: 'Near-surface soil moisture (Earth context), permafrost probability
+    (proxy), observed minimum surface temperature, observed maximum surface temperature,
+    day–night surface-temperature difference, hydrated-mineral indicators (proxy),
+    iron- and magnesium-bearing clay indicators (proxy), aluminum-hydroxyl mineral
+    indicators (proxy), gypsum and sulfate indicators (proxy), carbonate indicators
+    (proxy), lithology class (proxy) '
+  metricMenuText: *id007
