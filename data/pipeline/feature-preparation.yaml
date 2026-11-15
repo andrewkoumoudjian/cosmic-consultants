@@ -18,6 +18,12 @@ additionalEvidenceGaps:
 - Biological observations and contamination control
 - Local equipment, infrastructure and personnel
 - Permits, legal approvals and real field budgets
+absenceScope:
+  searchedOn: '2026-11-14'
+  searched: research/features/landing_site_features.csv Earth-counterpart inventory and the source
+    registry (data/catalog) as of this date; no external literature search has been performed.
+  statement: No Earth counterpart was identified within that scope. This is not evidence that none
+    exists. Fieldwork or a wider search can confirm or refute it. Missing values stay explicit.
 features:
   slope_2_5km:
     relatedColumns:
@@ -78,9 +84,12 @@ features:
     notes: No global Earth counterpart identified in inventory; investigate literature/local
       sources; missing stays explicit.
   ti:
-    relatedColumns: []
-    notes: ATI derivation not built; LST/albedo prerequisites and physical interpretation
-      need review.
+    relatedColumns:
+    - sites-r4-monthly.lst_diurnal_k
+    - sites-r4-monthly.aqua_lst_diurnal_k
+    - sites-r4.albedo_ws_sw_mean
+    - sites-r4.albedo_bs_sw_mean
+    notes: ATI derivation not built; Terra/Aqua monthly LST diurnal range (~10:30/~22:30 and ~13:30/~01:30) and albedo prerequisites exist, physical TI derivation needs review.
   albedo:
     relatedColumns:
     - sites-r4.albedo_ws_sw_mean
@@ -115,15 +124,18 @@ features:
       proxy, not a measurement (ADR-0009); 50 m is the published upper bound, not proof of
       clipping.'
   wind_h_edl:
-    relatedColumns: []
-    notes: Wind source acquisition/build absent; 10m Earth wind differs from EDL wind.
+    relatedColumns:
+    - sites-r4.wind_speed_mean
+    - sites-r4-monthly.wind_speed
+    - sites-r4-monthly.wind_speed_max
+    notes: '#89 merged (PR #109): MERRA-2 M2TMNXFLX/SLV 2023 monthly 10 m surface wind per H3 hexagon (annual mean + 12 months); 10 m Earth surface wind differs from Mars EDL upper-km wind (dynamic pressure is a pressureRegime mismatch).'
   wind_v_edl:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.
   cdod_ann:
     relatedColumns:
     - sites-r4.dust_aod_mean
-    notes: '#68 dust helper failed at startup; no accepted dust source table.'
+    notes: '#68 merged (PR #120): 2023 monthly MERRA-2 DUEXTTAU at 550 nm and its valid-month annual mean are related Earth reanalysis inputs. Column AOD is not surface dust cover or Mars optical depth; nearest native-grid mapping adds no resolution. Contributing months remain explicit.'
   cdod_storm_freq:
     relatedColumns:
     - sites-r4-monthly.dust_aod
@@ -132,18 +144,18 @@ features:
   tsurf_max:
     relatedColumns:
     - sites-r4.lst_day_max_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_day_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~10:30 and ~13:30 day overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_min:
     relatedColumns:
     - sites-r4.lst_night_min_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_night_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~22:30 and ~01:30 night overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_range:
     relatedColumns:
     - sites-r4-monthly.lst_diurnal_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_diurnal_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist; named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_ann_max_psr:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.

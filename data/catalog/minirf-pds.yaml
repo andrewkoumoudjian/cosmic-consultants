@@ -29,5 +29,5 @@ coverage:
   resolution: "unverified: ~30 m"
 analysisReady: false
 independenceGroup: s-band-sar
-plannedUse: "cpr_minirf; radar roughness"
+plannedUse: "cpr_minirf prepared (#102): global_cpr_32ppd_simp_0c (LRO-L-MRFLRO-5-GLOBAL-MOSAIC-V1.0), 32 ppd S-band CPR mosaic"
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

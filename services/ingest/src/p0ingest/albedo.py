@@ -63,6 +63,15 @@ FILL = 32767            # verified _FillValue of the albedo SDS
 QA_FILL = 255
 QA_BEST = 0             # "best quality, 100% with full inversions" (SDS description)
 
+# Must match _read_granule: each field is masked on its own (#76).
+QUALITY_RULE = (
+    f"only Albedo_Quality == {QA_BEST} pixels count ('best quality, 100% with full "
+    "inversions', SDS description); pixels with QA 1-5 or fill are dropped. "
+    "White-sky and black-sky are filtered independently: a best-quality pixel counts "
+    "for a field when that field is non-fill, even if the other field is fill "
+    "(albedo_valid_px and albedo_bs_valid_px record each field's own count)."
+)
+
 _DOY_RE = re.compile(r"\.A(\d{4})(\d{3})\.")
 _RE_BLOCK = re.compile(r"OBJECT\s*=\s*(\w+)(.*?)END_OBJECT", re.S)
 _RE_VALUE = re.compile(r"VALUE\s*=\s*\"?([\w\-:.T ]+)\"?")
@@ -303,12 +312,7 @@ def build(res: int = RES) -> dict:
             f"pixels ({MIN_PIXEL_SHARE:.0%}, share of cmg_pixels) have a valid "
             "retrieval, else null with reason too-few-albedo-pixels"
         ),
-        "qualityRule": (
-            f"only Albedo_Quality == {QA_BEST} pixels count ('best quality, 100% with full "
-            "inversions', SDS description); pixels with QA 1-5 or fill are dropped. "
-            "Both white-sky and black-sky must be non-fill for the pixel to count "
-            "(per-field valid-pixel counts are recorded separately)."
-        ),
+        "qualityRule": QUALITY_RULE,
         "modelLimits": (
             "White-sky = bihemispherical reflectance (fully diffuse sky); "
             "black-sky = directional-hemispherical reflectance (direct beam at local "
