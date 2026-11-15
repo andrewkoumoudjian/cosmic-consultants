@@ -119,7 +119,7 @@ export function SiteMeasurements({ data, i, engine }: { data: Dataset; i: number
     if (!key) return;
     let live = true;
     setError('');
-    ensureYearly(data, key.split(',')).then(() => { if (live) setLoaded(key); }, (e: Error) => { if (live) setError(e.message); });
+    Promise.all(key.split(',').map(column => ensureYearly(data, [column]))).then(() => { if (live) setLoaded(key); }, (e: Error) => { if (live) setError(e.message); });
     return () => { live = false; };
   }, [data, key]);
   if (engine.state !== 'ready') return null;
