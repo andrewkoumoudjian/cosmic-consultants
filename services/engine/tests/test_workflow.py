@@ -65,6 +65,17 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(pareto_layers([(0,2),(1,1),(2,0),(2,2),(0,2)]), [1,1,1,2,1])
         self.assertEqual(pareto_layers([(),(),()]), [1,1,1])
 
+    def test_pareto_layers_ignore_unbanded_nice_rules(self):
+        from planner.workflow import search
+        tables = synthetic()
+        # Under OP-5LM, thermal/dustProcess have band=None; terrain has band=[0,5].
+        # Site A has slope 6.2 (terrain miss, gap 1.2) and barren 71 (must match);
+        # Site B has slope None (missing banded nice rule -> unranked) and barren 40.5 (miss).
+        req = {**self.request, "must": ["surfaceMaterial"], "nice": ["terrain", "thermal", "dustProcess"]}
+        res = search(tables, self.l3, req)
+        self.assertEqual(res["counts"]["matches"], 1)
+        self.assertEqual(res["sites"][0]["paretoLayer"], 1)
+
     def test_schema_and_export_for_synthetic_plan(self):
         from planner.workflow import site_plan, brief
         from referencing import Registry, Resource

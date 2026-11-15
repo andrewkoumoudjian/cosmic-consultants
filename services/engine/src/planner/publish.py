@@ -22,25 +22,44 @@ from pathlib import Path
 
 from .tables import Tables, reasons_of
 
-# L1 + L2 columns the six steps read (MISSION-PLANNER steps 1-5). Units from DATA-PIPELINE section 5.
+# L1 + L2 columns published to L4 (DATA-PIPELINE section 5 + #168 columns.yaml active columns).
 CELL_COLUMNS = {
-    "lat": "deg", "lon": "deg",
+    "lat": "deg", "lon": "deg", "land_pct_mean": "%",
     "lst_day_max_k": "K", "lst_night_min_k": "K", "lst_diurnal_range_mean_k": "K",
     "barren_pct": "%", "snow_ice_pct": "%", "water_pct": "%", "permafrost_pct": "%",
     "elev_mean_m": "m", "elev_min_m": "m", "elev_max_m": "m",
     "slope_mean_deg": "deg", "slope_frac_lt5": "0-1", "slope_frac_lt15": "0-1", "slope_frac_gt30": "0-1",
     "sun_noon_elev_max_deg": "deg", "sun_noon_elev_min_deg": "deg", "polar_night": "0/1", "polar_day": "0/1",
-    "dust_aod_mean": "unitless",
+    "dust_aod_mean": "unitless", "dust_aod_max": "unitless",
+    "albedo_ws_sw_mean": "0-1", "albedo_bs_sw_mean": "0-1",
+    "regolith_thick_m": "m", "soil_thick_m": "m", "sediment_thick_m": "m",
+    "avg_soil_sed_thick_m": "m", "hillslope_frac_mean": "0-1",
+    "wind_speed_mean": "m/s",
+    "emit_n_observed": "count",
+    "emit_min_hydration_share": "0-1", "emit_min_hydration_bd_med": "0-1",
+    "emit_min_fe_mg_smectite_share": "0-1", "emit_min_fe_mg_smectite_bd_med": "0-1",
+    "emit_min_al_oh_share": "0-1", "emit_min_al_oh_bd_med": "0-1",
+    "emit_min_sulfate_share": "0-1", "emit_min_sulfate_bd_med": "0-1",
+    "emit_min_carbonate_share": "0-1", "emit_min_carbonate_bd_med": "0-1",
+    "emit_min_mafic_bd_1um_share": "0-1", "emit_min_mafic_bd_1um_bd_med": "0-1",
+    "emit_min_dust_proxy_share": "0-1", "emit_min_dust_proxy_bd_med": "0-1",
+    "vcf_percent_tree_cover_pct_median": "%", "vcf_percent_nontree_vegetation_pct_median": "%",
+    "vcf_percent_nonvegetated_pct_median": "%",
+    "vcf_percent_tree_cover_pct_mean": "%", "vcf_percent_nontree_vegetation_pct_mean": "%",
+    "vcf_percent_nonvegetated_pct_mean": "%",
 }
 CONTEXT_COLUMNS = {
     "access_min_median": "min", "access_min_p10": "min", "airport_km": "km", "protected_pct": "%",
 }
 MONTHLY_COLUMNS = {
     "lst_day_k": "K", "lst_night_k": "K", "lst_diurnal_k": "K",
-    "sun_noon_elev_deg": "deg", "daylight_h": "h", "polar_day": "0/1", "polar_night": "0/1", "dust_aod": "unitless",
-    "burned_pct": "%",
+    "aqua_lst_day_k": "K", "aqua_lst_night_k": "K", "aqua_lst_diurnal_k": "K",
+    "sun_noon_elev_deg": "deg", "daylight_h": "h", "polar_day": "0/1", "polar_night": "0/1",
+    "dust_aod": "unitless", "burned_pct": "%",
+    "albedo_ws_sw": "0-1", "albedo_bs_sw": "0-1",
+    "wind_speed": "m/s", "wind_speed_max": "m/s", "u10m_mean": "m/s", "v10m_mean": "m/s",
 }
-ENGINE = "planner 0.1.0"
+ENGINE = "planner 0.2.0"
 
 
 def _f32(values: list) -> bytes:
