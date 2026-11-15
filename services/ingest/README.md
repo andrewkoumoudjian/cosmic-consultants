@@ -423,6 +423,49 @@ the earlier 403 EULA block from 18:47Z is gone.
 - Parent note: the "dustProcess" line under Known gaps above is stale for
   source preparation; integration into `cells-r4*` is the parent's (#69).
 
+## Moon geology context products (#98)
+
+`p0ingest.moon_geology` prepares two source-native Moon context tables plus
+two licence-blocked gap reports. Fetch, build and check via
+`uv run python -m p0ingest.moon_geology <fetch|build|check>`. No resampling
+to H3: these are lunar, not Earth, datasets.
+
+- `unified-geologic-map-moon` (USGS/Astropedia 1:5M unified geologic map,
+  CC0-verified). `_derived/planetary/unified-geologic-map-moon/
+  geo-units-polygons.parquet` keeps all 12,247 polygon records with WKB
+  geometry (little-endian Polygon/MultiPolygon), source-native units table
+  `map-units-domu.parquet` (49 DOMU rows) and per-record metadata. Source CRS
+  is Moon2000_EquidistantCylindrical_clon0 on the GCS_Moon_2000 sphere
+  (r=1,737,400 m); the `.prj` file content is verified against the declared
+  projection before building. Output is the exact linear inverse
+  (lon_deg = rad2deg(x/R), lat_deg = rad2deg(y/R)), so longitudes land in
+  [-180, 180). Ring nesting uses the immediate-smallest-container rule with
+  even depth = outer, odd depth = hole (3,159 holes attached; shapefile
+  winding is normalised on WKB write, vertices untouched). Point lookups
+  should use smallest-containing-polygon. 592 polygons carry source code
+  `Iohs`, which has no DOMU row (DOMU lists `Ios`); those rows get a null
+  `unit_name` with `missing_reason`, recorded not fixed.
+- `lroc-pits-atlas` (Catalog of Lunar Pits v1, March 2021; licence
+  established as US public domain via the LROC data-terms page). The 146 MB
+  catalog PDF is parsed with pypdf (no pdftotext on the build machine):
+  278 pits, one row each, with `lat_deg`, `lon_deg_east` (0-360 east-positive
+  exactly as printed), the verbatim coordinate strings, the six measured
+  value columns (inner/funnel max/min diameters, depth, long-axis azimuth)
+  each paired with its verbatim source string (including `>` / `<` prefixes),
+  and a `missing_reason` whose keys are exactly the null value columns.
+- `robbins-moon-craters` and `lroc-nac-boulders-watkins`: BLOCKED - neither
+  source publishes a licence statement (checked product pages, PDS bundle
+  documents and the PDS Imaging node; evidence with URLs and dates in the
+  gap reports). Per the missing-stays-missing rule their values are NOT used;
+  each writes `_derived/planetary/<datasetId>/gap-report.json`.
+- `check` verifies key uniqueness, physical ranges and reason/null matching
+  for pits, plus raw spot checks: 5 pit pages re-read from the PDF, and the
+  geologic table re-read from the shapefile (polygon roundtrip at records
+  0/999/2500/6000/12246) with 5 named site lookups (Apollo 11, Apollo 15,
+  Tycho, Aristarchus, Mare Imbrium). Tests: `uv run python -m unittest
+  discover -s tests` (plain and `-O`), including
+  `tests/test_moon_geology.py`.
+
 ## Mars THEMIS IR controlled mosaics, six landing-site ROIs (W45, #104, my own section)
 
 - `python -m p0ingest.mars_themis fetch` downloads, through

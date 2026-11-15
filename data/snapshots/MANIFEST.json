@@ -471,6 +471,26 @@
       "localPath": "data/snapshots/lp-grs-pds/index.tab"
     },
     {
+      "datasetId": "lroc-nac-boulders-watkins",
+      "sourceUrl": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Research/Regolith/lunar_boulder_data_bundle",
+      "fetchedAt": "2026-11-14T22:33:42Z",
+      "sha256": "8bc74ea80d839b74a2b5073faf56db354f8a047fbd00d58b85118b8489356c31",
+      "bytes": 185154475,
+      "license": "unresolved",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/lroc-nac-boulders-watkins/lunar_boulder_data_bundle"
+    },
+    {
+      "datasetId": "lroc-pits-atlas",
+      "sourceUrl": "https://www.lroc.im-ldi.com/atlases/pits/lroc_pits_atlas.pdf",
+      "fetchedAt": "2026-11-14T23:23:26Z",
+      "sha256": "85ea85ce6972ad412f5c54709ef6be97a28908b03a402e2399036b6b9f739bd6",
+      "bytes": 146195230,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lroc-pits-atlas/lroc_pits_atlas.pdf"
+    },
+    {
       "datasetId": "mars-lander-sites",
       "sourceUrl": "https://web.archive.org/web/20181101155636id_/https://www.jpl.nasa.gov/news/press_kits/insight/landing/download/mars_insight_landing_presskit.pdf",
       "fetchedAt": "2026-11-14T23:30:37Z",
@@ -2610,6 +2630,16 @@
       "localPath": "data/snapshots/ourairports/runways.csv"
     },
     {
+      "datasetId": "robbins-moon-craters",
+      "sourceUrl": "https://astrogeology.usgs.gov/ckan/dataset/f89f5478-b69a-486c-b9b5-30d7b0c5ad2b/resource/c4f25cc2-4f8a-4207-a845-5e176da3ac5a/download/lunar_crater_database_robbins_2018",
+      "fetchedAt": "2026-11-14T22:33:06Z",
+      "sha256": "694137e141138892555d0f976446875331d3317ea506ddf055d91b917ca307ab",
+      "bytes": 96227201,
+      "license": "unresolved",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/robbins-moon-craters/lunar_crater_database_robbins_2018"
+    },
+    {
       "datasetId": "tes-mgs",
       "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt",
       "fetchedAt": "2026-11-14T20:02:14Z",
@@ -3418,6 +3448,16 @@
       "license": "cc-by-3.0",
       "licenseVerified": true,
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
+    },
+    {
+      "datasetId": "unified-geologic-map-moon",
+      "sourceUrl": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip",
+      "fetchedAt": "2026-11-14T22:31:41Z",
+      "sha256": "f3ec29803c1ad3b8c41a7fff3e9339bd66f9fbb8f63e30f13c52561b8d5559a1",
+      "bytes": 224413040,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/unified-geologic-map-moon/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip"
     },
     {
       "datasetId": "usgs-planetary-nomenclature",
