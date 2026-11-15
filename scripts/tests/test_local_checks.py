@@ -110,6 +110,34 @@ class LocalChecksTests(unittest.TestCase):
             self.assertEqual(json.loads(child.stdout)[0]["name"], "json-syntax")
             self.assertFalse(output.exists())
 
+    def test_engine_cli_runs_both_modes_from_engine_directory(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            workflows = root / ".github/workflows"
+            workflows.mkdir(parents=True)
+            (workflows / "ci.yml").write_text("name: fixture")
+            engine_workflow = workflows / "engine.yml"
+            engine_workflow.write_text("name: engine fixture")
+            tests = root / "services/engine/tests"
+            tests.mkdir(parents=True)
+            (tests / "test_probe.py").write_text(
+                "import sys, unittest\nfrom pathlib import Path\n"
+                "class Probe(unittest.TestCase):\n"
+                " def test_context(self):\n"
+                "  print('optimization='+str(sys.flags.optimize))\n"
+                "  self.assertEqual(Path.cwd().name, 'engine')\n"
+            )
+            output = root / "evidence"
+            child = subprocess.run([sys.executable, str(SCRIPT), "--repo", str(root), "--group", "engine",
+                                    "--output", str(output)], cwd=root.parent, capture_output=True, text=True)
+            self.assertEqual(child.returncode, 0, child.stderr + child.stdout)
+            receipt = json.loads((output / "receipt.json").read_text())
+            self.assertEqual([r["status"] for r in receipt["results"]], ["pass", "pass"])
+            self.assertEqual(receipt["workflows"]["engine.yml"],
+                             checks.hashlib.sha256(engine_workflow.read_bytes()).hexdigest())
+            self.assertIn("optimization=0", (output / "engine.log").read_text())
+            self.assertIn("optimization=1", (output / "engine-optimized.log").read_text())
+
 
 if __name__ == "__main__":
     unittest.main()
