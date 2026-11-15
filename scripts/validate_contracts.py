@@ -14,7 +14,10 @@
    objective's toleranceSource.envelopeId resolves to a file in data/envelopes/.
 4. Campaign check: validate data/campaigns/*.yaml, source refs, source quote text,
    local snapshot hashes, and H3 resolution-4 cells.
-5. --self-test: broken copies of the examples must be rejected.
+5. Planner contracts (W20, #78): data/requirements/trait-map.yaml and the example
+   plan-request / site-plan fixtures, with their cross-file rules
+   (scripts/planner_contracts.py).
+6. --self-test: broken copies of the examples must be rejected.
 
 Exit code 0 only if everything passes. Usage: python3 scripts/validate_contracts.py [--self-test]
 """
@@ -32,6 +35,8 @@ from pathlib import Path
 import yaml
 import h3
 from jsonschema import Draft202012Validator, FormatChecker
+
+import planner_contracts
 
 ROOT = Path(__file__).resolve().parent.parent
 DIM_GATES = ["observed", "withinTolerance", "corroborated", "fieldCharacterized"]
@@ -384,6 +389,7 @@ def main() -> int:
     errs += check_objective_envelopes(objectives, envelopes)
     _, campaign_errs = load_campaigns(cv)
     errs += campaign_errs
+    errs += planner_contracts.run(objectives)
     for rel in SITE_FIXTURES:
         site = json.loads((ROOT / rel).read_text(encoding="utf-8"))
         e = check_site(sv, objectives, site, rel)
@@ -394,6 +400,7 @@ def main() -> int:
         errs += self_test(sv, objectives)
         errs += self_test_envelopes(ev, registry)
         errs += self_test_campaigns(cv)
+        errs += planner_contracts.self_test(objectives)
     for m in errs:
         print("ERROR", m)
     print("all contracts valid" if not errs else f"{len(errs)} error(s)")
