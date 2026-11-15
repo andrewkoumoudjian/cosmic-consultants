@@ -55,6 +55,14 @@ Delivery plan: [docs/PLAN-hackathon.md](docs/PLAN-hackathon.md) · pitch:
 [docs/pitch/PITCH.md](docs/pitch/PITCH.md) · AI disclosure: [AI-USAGE.md](AI-USAGE.md) ·
 license: [LICENSE](LICENSE).
 
+**Data licences.** The MIT licence covers this repository's own code and text.
+Third-party data keeps its own licence: each source's terms and required
+attribution are in its `data/catalog/<id>.yaml` row and in
+`data/snapshots/MANIFEST.json`. Examples: travel time to cities (Weiss et al.
+2018) is CC BY 3.0 and needs attribution. The MOLA–HRSC blended DEM is CC BY-SA
+3.0 IGO. Copernicus DEM follows the Copernicus DEM licence. WDPA protected-area
+data is licence-restricted and is not redistributed here.
+
 ## Agents: check in first
 
 Post your identity check-in on the
