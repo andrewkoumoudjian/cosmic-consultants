@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/planner-runtime.schema.json",
+  "title": "Planner runtime support for L4",
+  "description": "Release supplement for per-site null reasons, category context, hazards and scientific limits. Physical numeric arrays retain the existing L4 layout. Decisions consume float32-le observations and finite user bands without epsilon.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "numericPolicy",
+    "qualityWarnings",
+    "yearlyReasons",
+    "monthlyReasons",
+    "events",
+    "categories",
+    "campaigns",
+    "sourceManifest",
+    "reasonSets"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "numericPolicy": {
+      "const": "published-float32-no-epsilon"
+    },
+    "qualityWarnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "yearlyReasons": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "monthlyReasons": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "events": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "categoryId",
+          "name",
+          "traits"
+        ]
+      }
+    },
+    "campaigns": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "sourceManifest": {
+      "type": "string"
+    },
+    "reasonSets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

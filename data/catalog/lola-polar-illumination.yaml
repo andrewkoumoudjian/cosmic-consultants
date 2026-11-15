@@ -9,20 +9,20 @@ discovery:
   ckanName: null
   doi: null
 source:
-  archive: "NASA GSFC PGDA (products also on PDS)"
-  endpoint: "https://pgda.gsfc.nasa.gov/products/69"
-  probedAt: 2026-11-13T00:20:20Z
-  probeResult: "HTTP 200, 27981 B, sha256 aca046555f29…"
+  archive: "PDS Geosciences Node (same files as NASA GSFC PGDA product 69)"
+  endpoint: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/"
+  probedAt: 2026-11-14T22:34:28Z
+  probeResult: "HTTP 200, 7085 B, sha256 2a761915417d…"
 probe:
   kind: http
-  url: "https://pgda.gsfc.nasa.gov/products/69"
-  expect: ["Illumination"]
+  url: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/"
+  expect: ["AVGVISIB", "LPSR"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "PGDA page; check data usage section before adoption"
+  id: us-pd
+  textUrl: "https://data.nasa.gov/api/3/action/package_search?fq=name%3A%22lro-moon-laser-altimeter-4-gdr-v1-0-17e02%22&rows=1&fl=name%2Ctitle%2Clicense_id"
+  expect: ["\"license_id\": ?\"us-pd\"", "lro-moon-laser-altimeter-4-gdr-v1-0-17e02"]
+  verified: true
+  note: "Resolved 2026-11-14 (W40, #99): the AVGVISIB/LPSR IMG labels declare DATA_SET_ID LRO-L-LOLA-4-GDR-V1.0, so licence evidence is the data.nasa.gov record lro-moon-laser-altimeter-4-gdr-v1-0 declaring us-pd (usa.gov/publicdomain), as for lola-gdr. The portal also holds duplicate harvests labelled other-license-specified (usa.gov/government-works) and notspecified; conflict noted. PDS-hosted copies used, not the PGDA product-69 page whose own usage terms are unstated."
 coverage:
   spatial: "lunar polar regions"
   temporal: "multi-year simulation, hourly step"

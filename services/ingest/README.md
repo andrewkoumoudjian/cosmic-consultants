@@ -835,3 +835,106 @@ H3, no scoring or comparison. All products are single-epoch elevation surfaces
   keys, and runs raw spot checks (raw MEGDR pixels at 30 site-offset
   locations vs the parquet; < 0.5 m tolerance). `python -m unittest discover
   -s tests` passes with plain python and `python -O`.
+
+## W35 (#94) EMIT L2B mineral identification per hexagon (my own section)
+
+`python -m p0ingest.emit_minerals` builds `emit-min-r4.parquet`: EMIT L2B
+Estimated Mineral Identification (`emit-l2b-min-v002`, LP DAAC, CC0) per H3
+res-4 hexagon as a STATIC composite. Acquisition time is ignored (minerals do
+not change with season); the realised acquisition span 2022-08-10 to
+2026-11-09 is recorded in the meta. Keys are exactly the 91,800 land hexagons
+of `cells-r4.parquet`.
+
+- The full CMR collection is 135,534 granules / ~14.5 TB and cannot be
+  streamed on our budget, so a deterministic pseudo-random sample (order =
+  sha256 of the granule id; spreads over time and space) was streamed
+  download -> aggregate -> sha256+bytes ledger line -> delete. 197 granules /
+  8.73 GB made it into this build. Hexagons inside EMIT coverage that no
+  processed granule reached are null with reason `granule-not-processed`
+  (63,299 rows); never covered -> `outside-emit-coverage` (26,603); covered
+  and processed but 0 geologic identifications -> `no-identified-pixels`
+  (260). Two rows detected inconsistent after the run (`samples-lost-`
+  `processing-error`, see limits in the meta) are fully null, never invented.
+- Per hexagon and mineral family: share of geologic-identified pixel
+  observations, median band depth (0.001-wide histogram medians, max error
+  0.0005), and the pixel-observation count. Families are regex rules on the
+  granule's own library names: hydration (phyllosilicates + hydrated
+  evaporites), fe_mg_smectite (montmorillonite/chlorite/vermiculite + sibs),
+  al_oh (kaolin + illite), sulfate (gypsum), carbonate (calcite/dolomite),
+  mafic_bd_1um (fe2+ silicates + olivine), dust_proxy (fe3+ iron-oxide
+  coatings). THE crism_* FEATURE SLOTS ARE EARTH PROXIES ONLY: these are EMIT
+  mineral IDs at Earth wavelengths from the EMIT spectral library, NOT CRISM
+  indices and not numerically interchangeable with them; dust_proxy is also
+  NOT the Ruff TES dust-cover index. Pixel centre -> `h3.latlng_to_cell(_, 4)`.
+- Commands: `list` (paged CMR listing -> `granules.jsonl.gz`), `stream`
+  (resumable per-granule checkpoints + gzipped ledger; stream lock; max 4
+  downloads in flight), `build` (`emit-min-r4.parquet` + `emit-min-r4.meta.json`
+  under `data/snapshots/_derived/emit-min/`), `check` (exact keys, no dupes,
+  physical ranges, share==px/base, missing_reason keys exactly the null value
+  columns, and 5 raw spot granules re-aggregated and compared to the table).
+  All 39 module tests pass with plain python and `python -O`. Derived
+  products and the ledger are on ccdrive (`snapshots/_derived/emit-min/`);
+  the 5 spot raws are kept for `check` (`snapshots/emit-l2b-min-v002/`).
+
+## W40 (#99) Moon LOLA polar products (my own section)
+
+`python -m p0ingest.moon_lola` acquires and prepares the source-native south-polar
+LOLA products (Barker et al. 2023 PGDA rasters, the 2016 PDS illumination maps and
+the coarse LOLA GDR), with no resampling to Earth grids and no scoring. All outputs
+go to `data/snapshots/_derived/planetary/<datasetId>/` as Parquet with per-row
+`missing_reason` (JSON object keyed exactly by the null columns of that row).
+
+- `--fetch` pulls every file through `snapshots.fetch` (MANIFEST: url, sha256,
+  bytes, time, licence). Datasets: `lola-south-pole-ldem-2023`
+  (LDEM_80S_20MPP_ADJ, LDEC_80S_20MPP_ADJ, LPSR_80S_20MPP_ADJ,
+  LDRM_80S_50MPP_ADJ_SLP_100M / _RMSD_100M, LDEM_60S_240MPP_ADJ),
+  `lola-polar-illumination` (avgvisib_85s_060m / 75s_120m, sun + _earth pairs),
+  `lola-gdr` (ldem_4 4 px/deg) and `usgs-planetary-nomenclature` (gazetteer
+  shapefile, used only to name spot-check features). Licences verified: NASA
+  PDS public domain / us-pd.
+- Elevation, 20 m/px polar stereographic (30400x30400), `ldem-80s-20mpp.parquet`:
+  one row per source pixel (`source_line`, `source_sample` keys), `elevation_m`
+  = the float32 LDEM_80S_20MPP_ADJ pixel value (already calibrated to metres
+  above the 1737400 m radius datum by the product; no rescaling applied),
+  `lola_spot_count` from LDEC, `psr_2023` from LPSR. Source nodata -> null +
+  `source-nodata`.
+- Slope/roughness, 50 m/px, `ldrm-80s-50mpp.parquet`: `slope_100m_deg` and
+  `rough_rms_100m_m` straight from the published LDRM layers (baseline is the
+  product's own 100 m; not recomputed).
+- 2 km slope, `ldem-60s-240mpp.parquet`: `elevation_m` from the 240 m/px LDEM and
+  `slope_2km_eva_deg` computed by fitting a plane to each ~2 km (101 px) window
+  (least squares on x/y/z with NaN-aware sums); windows touching the canvas edge
+  or missing elevation are null with `incomplete-window`. This is OUR derived
+  slope at an EVA-relevant 2 km baseline, clearly stated as such.
+- PSR aggregation, `psr-2km-1kmgrid.parquet`: 1 km cell grid in the LPSR map
+  metres; `psr_frac_2km` = nan-aware fraction of native 20 m shadow pixels in a
+  +-1 km square window; `psr_dist_km` = exact EDT distance to the nearest
+  PSR-positive cell (cell-grid quantised). Edge cells whose window would leave
+  the canvas are null with `psr-window-truncated`.
+- Illumination, `avgvisib-85s-060m.parquet` and `avgvisib-75s-120m.parquet`:
+  PDS3 int16 labels (LSB, scaling 4e-5, 0-based pixel registration) give
+  `illum_frac_pct` and `earth_vis_pct` = DN*scaling*100; the sample/line
+  convention is validated in-check by a >=0.9 never-sunlit vs 2023 LPSR mask
+  agreement (mirrored conventions score <=0.79).
+- GDR, `ldem-gdr-4ppd.parquet`: 720x1440 lat/lon grid (4 px/deg, LSB int16,
+  scale 0.5, offset 1737400 m), `elevation_m`; the -32768 null constant (if it
+  ever appears) -> null + `source-no-data-constant`.
+- `python -m p0ingest.moon_lola build` writes a preparation report next to the
+  tables; `check` verifies every table's exact key domains, duplicate keys,
+  physical ranges, missing-reason contract and runs 8 raw spot checks at
+  gazetteer features (Shackleton floor below rim and PSR, Malapert illumination
+  and slope table==raw, Tycho on the GDR grid, plus mask-agreement and
+  aggregation recomputations from raw pixels). Build is idempotent: existing
+  table parquets are reused and re-verified rather than rebuilt.
+- Known gap (partial, documented, not filled): `LDEC_80S_20MPP_ADJ.TIF` (the
+  LOLA per-pixel shot-count raster) was NOT fetched - the local PGDA download
+  was deferred by an orchestrator priority call (engine/workflow over
+  coverage) after repeated slow transfers, so `lola_spot_count` is null for
+  every row of `ldem-80s-20mpp.parquet` with `missing_reason`
+  `{"lola_spot_count":"source-not-fetched"}`. No value is invented; the
+  preparation report lists the gap. When LDEC lands on the shared drive,
+  refetching and rerunning `build check` fills the column - the code already
+  handles both cases. Also: `sun_elev_min` is not published as a numeric layer
+  in these products (the PDS maps are mean illumination fractions only) and no
+  Earth-visibility horizon product passed licence/provenance verification, so
+  those requested fields are recorded as gaps in the report, not invented.

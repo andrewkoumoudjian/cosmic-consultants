@@ -1,0 +1,28 @@
+import { test, expect } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+test('real Moon/Mars workflow: load, compare, gaps, export and unknowns',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/planner.html');
+ await expect(page.locator('#status')).toContainText('Real source data',{timeout:60000});
+ await expect(page.locator('#counter')).toContainText('7,599');
+ await page.getByRole('button',{name:'Compare',exact:true}).first().click();
+ await page.getByRole('button',{name:'Compare',exact:true}).first().click();
+ await expect(page.getByText('Side-by-side comparison')).toBeVisible();
+ await expect(page.locator('#details')).toContainText('What Earth cannot test');
+ const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Export brief'}).click()]);
+ const text=readFileSync((await download.path())!,'utf8');
+ expect(text).toContain('LI-5L');expect(text).toContain('pressureRegime');expect(text).toContain('Build manifest SHA256');
+ expect(page.url()).toContain('pins=');
+ await page.reload();await expect(page.getByText('Side-by-side comparison')).toBeVisible({timeout:60000});
+ await page.getByLabel('Target body').selectOption('mars');
+ await expect(page.locator('#counter')).toContainText('10,703',{timeout:60000});
+ const thermal=page.locator('.metric').filter({hasText:'thermal · lst_night_k'});
+ await thermal.getByLabel('Priority').selectOption('must');
+ await expect(page.getByText('No sites match every required trait.')).toBeVisible();
+ await page.getByRole('combobox',{name:'Show',exact:true}).selectOption('unknown');
+ await expect(page.getByRole('button',{name:'Open',exact:true}).first()).toBeVisible();
+ await page.getByRole('button',{name:'Open',exact:true}).first().click();
+ await expect(page.locator('#details')).toContainText('UNKNOWN');
+ expect(errors).toEqual([]);
+ await page.screenshot({path:'/tmp/cc132-planner-preview.png',fullPage:true});
+});

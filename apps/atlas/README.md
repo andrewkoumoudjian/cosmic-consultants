@@ -79,7 +79,16 @@ and a tile was fetched on 2026-11-14 to confirm it returns a real image.
 
 ## What lands next
 
-The ingest lane (#19) and the engine lane (#20) produce the real cells. The
-engine emits per-objective readiness artifacts; the atlas then reads those
-artifacts instead of `mock/sites/`, and the mock banner goes away. The map code
-does not change: it only reads whatever site files it is given.
+The map code **does change**. The ARL ladder above is superseded
+([ADR-0005](../../docs/decisions/ADR-0005-mission-planning-workflow.md)), and
+W11b turns this page into the six-step mission planner
+([docs/plan/MISSION-PLANNER.md](../../docs/plan/MISSION-PLANNER.md), § UI):
+an H3 hexagon layer instead of site points, six step cards instead of the
+dossier, and no ARL legend. It builds against a mock L4 until the engine (#20)
+publishes the real one; switching is one config line, and the mock banner
+stays up until then.
+
+W11b slice 1 (#121) is in: `src/plan-url.ts` turns a plan request into the
+URL query and back, following `contracts/plan-request.schema.json` (#79), so
+a plan is a shareable link. `npm test` checks that it round-trips exactly and
+rejects bad links with a clear message. The UI doesn't use it yet.
