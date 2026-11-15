@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { verdict, windowVerdict, paretoLayers } from '../src/planner/engine.ts';
+import { verdict, windowVerdict, paretoLayers, brief, type Dataset, type Rule } from '../src/planner/engine.ts';
+import type { PlanRequest } from '../src/plan-url.ts';
 
 test('strict boundary is a zero-gap miss; missing and empty windows stay unknown',()=>{
  assert.deepEqual(verdict(10,{lo:0,hi:10,hiStrict:true}),{verdict:'miss',gap:0,side:'above'});
@@ -21,4 +22,44 @@ test('optimized layering agrees with independent exhaustive reference',()=>{
   for(const i of front){levels[i]=layer;pending.delete(i);}layer++;
  }
  assert.deepEqual(paretoLayers(vectors),levels);
+});
+
+function exportFixture(): { data: Dataset; request: PlanRequest } {
+ const rules: (Rule & { objectiveId: string })[] = [
+  {objectiveId:'OP-5LM',dimension:'terrain',table:'L1',earthColumn:'slope_mean_deg',unit:'deg',band:{lo:0,hi:5},origin:'target',priority:'must',basis:'SYNTHETIC target slope band: 0 to 5 deg.',scaleCaveat:'SYNTHETIC cell-scale support.'},
+  {objectiveId:'OP-5LM',dimension:'thermal',table:'L1m',earthColumn:'lst_night_k',unit:'K',band:{lo:270,hi:300},origin:'team',priority:'must',basis:'SYNTHETIC thermal rationale.'},
+  {objectiveId:'OP-5LM',dimension:'surfaceMaterial',table:'L1',earthColumn:'barren_pct',unit:'%',band:{lo:50,hi:100},origin:'team',priority:'must',basis:'SYNTHETIC barren-share rationale.'},
+ ];
+ const data: Dataset = {
+  h3:['842a107ffffffff'],
+  yearly:{lat:new Float32Array([10]),lon:new Float32Array([20]),slope_mean_deg:new Float32Array([3]),barren_pct:new Float32Array([80])},
+  monthly:{lst_night_k:new Float32Array(12).fill(285)},
+  objectives:[{objectiveId:'OP-5LM',body:'mars',title:'SYNTHETIC export example',requiredDimensions:['terrain','thermal','surfaceMaterial'],earthTestableComponent:'Synthetic fixture',notTestableOnEarth:[]}],
+  rules,
+  runtime:{numericPolicy:'published-float32-no-epsilon',qualityWarnings:[],reasonSets:[{}],yearlyReasons:[0],monthlyReasons:new Array(12).fill(0),categories:[],campaigns:[],events:{}},
+  manifestHash:'0'.repeat(64),inputs:[],
+ };
+ return {data,request:{version:1,body:'mars',objectiveId:'OP-5LM',missionType:'robotic',months:{start:1,end:1}}};
+}
+
+test('brief keeps all requirement rows together before monthly evidence',()=>{
+ const {data,request}=exportFixture(),text=brief(data,request,[0],'');
+ const lines=text.slice(text.indexOf('| Requirement |')).split('\n');
+ const table=[];
+ for(const line of lines){if(!line.startsWith('|'))break;table.push(line);}
+ assert.equal(table.length,5,'header, delimiter and exactly three requirement rows');
+ assert.match(table[2]!,/^\| terrain /);
+ assert.match(table[3]!,/^\| thermal /);
+ assert.match(table[4]!,/^\| surfaceMaterial /);
+ assert.ok(text.indexOf('- Month 1:')>text.indexOf('| surfaceMaterial '));
+ assert.ok(text.indexOf('SYNTHETIC target slope band:')>text.indexOf('| surfaceMaterial '));
+});
+
+test('brief distinguishes a user-edited band from its original source basis',()=>{
+ const {data,request}=exportFixture();request.bandEdits=[{dimension:'terrain',lo:0,hi:20}];
+ const text=brief(data,request,[0],'');
+ assert.match(text,/\| terrain .*\| user \| 0 to 20 deg \|/);
+ assert.match(text,/Band origin: user \(edited for this plan\)\./);
+ assert.match(text,/Original source basis \(context only; does not justify edited bounds\): SYNTHETIC target slope band: 0 to 5 deg\./);
+ assert.match(text,/Scale caveat: SYNTHETIC cell-scale support\./);
 });
