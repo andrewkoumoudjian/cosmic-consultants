@@ -33,3 +33,5 @@ import Analog.Atlas
 import Analog.AtlasProofs
 import Analog.Readiness
 import Analog.ReadinessProofs
+import Analog.Funnel
+import Analog.Closeness
