@@ -228,6 +228,61 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
 
+## W43 (#102) Moon spectral and radar maps (my own section)
+
+`python -m p0ingest.moon_spectral fetch|build|check` — static, source-native
+lunar maps, each dataset in `data/snapshots/_derived/planetary/<datasetId>/`
+with its own `preparation-report.json`. No resampling to H3 anywhere.
+
+- `kaguya-mi-59mpp` — `kaguya-mi-feo-4ppd.parquet` (576,000 rows): FeO weight
+  percent from the Lemelin et al. 2016 Kaguya MI Mineral Map (May 2016,
+  JAXA / Univ. of Hawaii), fetched as the USGS 4 ppd reduction (50N-50S,
+  0.25 deg simple cylindrical, md5-verified against the archive .md5). One
+  native map sample per row. Gaps recorded in the report: no Kaguya MI TiO2
+  map is published on that host, and the MI reflectance bands exist only at
+  512 ppd (~21-24 GB per band, over the shared 20 GB raw cap).
+- `minirf-pds` — `minirf-cpr-32ppd.parquet` (66,355,200 rows): Mini-RF global
+  circular polarization ratio mosaic (`global_cpr_32ppd_simp_0c`), 32 ppd
+  global simple cylindrical, S-band 2380 MHz (12.6 cm), CPR = same-sense /
+  opposite-sense circular polarization, read little-endian (PDS3 `PC_REAL`).
+  The 64-bit label missing constant (-1.7976931e308) is not representable in
+  the stored 32-bit real, so every sample with |v| >= 1e38 is null with
+  `missing_reason` = `source-missing-constant` (24,159,572 pixels); other
+  non-finite samples are `source-not-finite`. Producer ratio artifacts
+  (32,082 negatives, min -23,777; 1,137 samples > 20, max 217,650) are kept
+  as stored — declared QA only, never clipped — and documented in the report
+  `outlierNote`; 99.9% of valid samples lie below 1.92. Static mosaic of
+  2009-2010 observations.
+- `lroc-wac-global` — `lroc-wac-albedo-3ppd.parquet` (583,200 rows): the
+  USGS 303 ppd reduction of the ASU LRO WAC global morphology mosaic
+  (shipped 109,164 x 54,582 uint8 GeoTIFF, nodata not declared), aggregated
+  by an integer 101x101 boxcar mean with the trailing 42 rows / 84 samples
+  (< 0.28 deg at the -90 / +180 edges) cropped, never resampled, to a
+  540 x 1080 grid (~0.333 deg, ~10 km/px) with `native_sample_count`
+  support per cell (all cells 10,201). Values are mean 8-bit grayscale DN —
+  relative reflectance, explicitly NOT physical Lambert/bolometric albedo;
+  recorded as `albedo_wac_dn` and a gap in the report. No nodata is
+  declared, so the honest rule is all-valid: the table has no missing rows.
+- `lamp` — `lamp-gdr-ratio-albedo-80n.parquet` + `-80s.parquet` (6,255,001
+  rows each): the published LAMP GDR v1.0 H2O absorption feature depth
+  maps (off-band 155.57-189.57 nm / on-band 129.57-155.57 nm albedo ratio),
+  cumulative (static; GDR has no monthly ratio maps), polar stereographic
+  2501x2501, 240 m/pixel, coverage pole-ward of 80 deg. Served as
+  `lya_offon` (feature-registry key name kept) but stated in-band: it is
+  off/on, not Lyman-alpha. `lya_offon` is no longer a pure registry gap.
+- `m3-pds` — NOT fetched. Licence unresolved since audit #41 (a PDS host is
+  not a blanket grant) and no PDS-published global derived band-depth map
+  was found (only per-strip L1B/L2, out of scope per the work order).
+  Evidence in `_derived/planetary/moon-spectral-gaps.json` and the m3-pds
+  preparation report; artifacts under `m3-pds/`.
+
+`check` verifies manifest hashes + licences for all 14 fetched inputs, exact
+column sets, exact row counts, physical ranges (fail-loudly), the
+null<->`missing_reason` contract, per-table key uniqueness and 25 raw spot
+checks (5 per table; the WAC cells are recomputed from the raw mosaic, the
+PDS maps are compared sample-by-sample; the Kaguya map is md5 + value
+checked against the GeoTIFF). Run with plain python and `python -O`.
+
 ## Map placement check (#74)
 
 `uv run python -m p0ingest.projection_check fetch|run` checks where the native
@@ -685,3 +740,53 @@ sources the work order asked for that cannot be fetched by this repo yet.
   MANIFEST hashes and sizes, output sha256/rows, exact key domains, physical
   ranges and 7 raw spot checks; exit 0 only if all pass. Both unit tests
   (`tests/test_moon_diviner.py`, 32 cases) pass under plain python and `-O`.
+
+## W37 (#96) PALSAR L-band radar backscatter, campaign-site regional table (my own section)
+
+`alos-palsar-rtc-high` (ASF Hi-Res RTC, 12.5 m, gamma0; licence "© NASA [Year],
+Includes Material © JAXA, METI [Year]", verified in the registry row). The global
+family is ~506k single-date scenes, so this is REGIONAL by the declared subset
+rule: for each of the six campaign files in `data/campaigns/`, the site hexagon
+plus its H3 ring-1 neighbours (7 cells per site; FMARS and HMP-2015 share a
+parent) -> exactly 35 keys. Per key: median HH and HV gamma0 in dB over a
+deterministic stride-30 subgrid (every 30th row and column of the 12.5 m raster
+= 1/900 of pixels, pooled across the scenes of the union cover), valid-subpixel
+counts, scene URs and acquisition dates (ALOS-1 scenes, 2006-2011). Pixel
+centres go through `h3.latlng_to_cell(lat, lon, 4)` after a per-window
+CRS->WGS84 projection — stated in both the docstring and the `.meta.json`.
+
+**Proxy limits (important):** PALSAR is L-band (1.26 GHz) LINEAR polarization.
+The engineering targets `radar_ka_backscatter` (Mars, Ka band) and `cpr_minirf`
+(Moon, circular polarization ratio) are a different band and polarization
+basis. No conversion was made and none is claimed — weak Earth-side analogue
+only.
+
+- `python -m p0ingest.palsar --query` — live CMR probe per cluster, greedy
+  fewest-scenes cover (a cell counts covered when its centre + 6 vertices lie
+  inside the UNION of chosen footprints; scenes are rotated strips), writes the
+  selection file and prints the size plan (real run 2026-11-14: 43 scenes,
+  14.74 GB, 0 uncovered cells).
+- `--fetch` would download the chosen scenes via `p0ingest.snapshots.fetch` (the ASF
+  host is added to the Earthdata-host tuple at call time; MANIFEST provenance).
+  **Still blocked 2026-11-15, post-EULA**: the Earthdata account HAS now approved
+  ASF's application/EULA (client_id BO_n7nTIlMljdvU6kRRB3g) but a PAT alone still
+  cannot drive datapool downloads — datapool/data.asf redirect to URS
+  `oauth/authorize` (app_type=401), which rejects EDL tokens in every form
+  (401 "HTTP Basic: Access denied" with bearer, basic and query-token variants);
+  `cumulus.asf.alaska.edu/s3credentials` DOES issue STS creds but its
+  DownloadRoleInRegion role denies `s3:GetObject` on `asf-cumulus-prod-protected`
+  for every RTC_HI_RES key layout probed; TEA `/locate` has no route for these
+  buckets; CMR publishes no `s3://` URLs for C1206487504-ASF. Full evidence on
+  issue #96. A working path needs an interactive Earthdata browser login (or a
+  username/password .netrc), not a PAT.
+- `--build` writes `_derived/palsar-r4-sites.parquet` + `.meta.json`; with the
+  fetch blocked the table carries 35 rows of explicit nulls with
+  `missing_reason` `asf-download-auth-unreachable` (missing stays missing on
+  purpose). A cell's median needs >= 50 valid subgrid pixels, else
+  `not-enough-valid-pixels`.
+- `--check` validates columns, keys (exactly the 35 subset cells), no
+  duplicates, the dB physical guard, and that `missing_reason` keys match the
+  null value columns of each row exactly; with raw scenes present it
+  recomputes 5 cells' medians straight from the raw zips and compares. The
+  pipeline is exercised offline by `tests/test_palsar.py` (synthetic RTC
+  GeoTIFFs; 17 tests; full suite green in normal and `-O` mode).
