@@ -135,7 +135,7 @@ features:
   cdod_ann:
     relatedColumns:
     - sites-r4.dust_aod_mean
-    notes: '#68 dust helper failed at startup; no accepted dust source table.'
+    notes: '#68 merged (PR #120): 2023 monthly MERRA-2 DUEXTTAU at 550 nm and its valid-month annual mean are related Earth reanalysis inputs. Column AOD is not surface dust cover or Mars optical depth; nearest native-grid mapping adds no resolution. Contributing months remain explicit.'
   cdod_storm_freq:
     relatedColumns:
     - sites-r4-monthly.dust_aod

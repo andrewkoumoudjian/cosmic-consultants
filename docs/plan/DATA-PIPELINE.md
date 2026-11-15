@@ -31,8 +31,8 @@ issue, don't route around it.
 and campaign evidence for the **19 current test categories**. The user may
 select up to eight metrics, while all source menu choices remain available
 in the requirements inventory (`data/pipeline/test-categories.yaml`). This
-selection limit does not cap stored features or reduce the 12-item mobility
-and geology menus. The 55-feature list is a baseline, not a ceiling. The per-feature
+selection limit does not cap stored features: the current mobility menu has
+twelve entries and the geology menu has eight. The 55-feature list is a baseline, not a ceiling. The per-feature
 preparation mapping is `data/pipeline/feature-preparation.yaml`; the assembler
 includes all its entries in `data-coverage.json`. Related available columns
 are reported as inputs, never as completed exact features. Category-level
@@ -368,11 +368,19 @@ missing from its source table fails the build.
 | `data-coverage.json` | objective × trait, and test category × trait | which Earth column backs each trait, its null rate, and `data` / `field` / `earth-cannot` / `none-yet` | 1 (requirement matrix), 3 (gaps) |
 | `assembly-report.json` | build | row counts, null rate per column, sha256 of every input and output, join checks | review |
 
-**The 8 test categories (team doc) are joined to data here, not in the UI.**
-`data-coverage.json` lists, per category, the traits it needs (MISSION-PLANNER
-step 1 table), which columns back them and how complete each is. A category
-with a trait we have no column for says `none-yet` for that trait. It's never
-hidden.
+**The current Doc has 19 categories and a separate table of eight detailed
+menus.** `data/pipeline/test-categories.yaml` preserves both layouts and the
+captured revision/hash. `data-coverage.json` keeps the source terms alongside
+preparation routing and column availability. The maximum of eight selected
+metrics limits a user selection, not the number of source features. A related
+column does not establish exact test support (ADR-0007).
+
+Raw and normalized frames retain source support/calendar diagnostics in native
+units: contributing months, valid pixels, mapped years and maximum month.
+Registry `role: diagnostic` fields have no physical trait assignment and stay
+outside the existing physical-trait scaling; the build checks unchanged values,
+types and nulls (ADR-0010). Dust is now a required, delivered input. Burned
+fraction retains the number of years mapped for each cell-month.
 
 **Past-mission database (team doc step 6 fields).** `campaign-sites` carries
 what the campaign files hold today (name, agency, location, years,

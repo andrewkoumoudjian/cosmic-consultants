@@ -68,17 +68,17 @@ columns:
   # albedo (MCD43C3 v061)
   albedo_ws_sw_mean:        {kind: observed, support: "MCD43C3 white-sky shortwave, mean of dated samples, 0.05 deg, hexagon aggregate", family: modis-mcd43}
   albedo_bs_sw_mean:        {kind: observed, support: "MCD43C3 black-sky shortwave, mean of dated samples, 0.05 deg, hexagon aggregate", family: modis-mcd43}
-  albedo_months_used:       {kind: observed, support: "count of months contributing, white-sky", family: modis-mcd43}
-  albedo_bs_months_used:    {kind: observed, support: "count of months contributing, black-sky", family: modis-mcd43}
+  albedo_months_used:       {kind: computed, role: diagnostic, support: "count of months contributing, white-sky", family: modis-mcd43}
+  albedo_bs_months_used:    {kind: computed, role: diagnostic, support: "count of months contributing, black-sky", family: modis-mcd43}
   albedo_ws_sw:             {kind: observed, support: "MCD43C3 white-sky shortwave, one dated sample per month, hexagon aggregate", family: modis-mcd43}
   albedo_bs_sw:             {kind: observed, support: "MCD43C3 black-sky shortwave, one dated sample per month, hexagon aggregate", family: modis-mcd43}
-  albedo_valid_px:          {kind: observed, support: "valid best-QA pixel count, white-sky", family: modis-mcd43}
-  albedo_bs_valid_px:       {kind: observed, support: "valid best-QA pixel count, black-sky", family: modis-mcd43}
+  albedo_valid_px:          {kind: computed, role: diagnostic, support: "valid best-QA pixel count, white-sky", family: modis-mcd43}
+  albedo_bs_valid_px:       {kind: computed, role: diagnostic, support: "valid best-QA pixel count, black-sky", family: modis-mcd43}
   # regolith (ORNL Pelletier 2016, ADR-0009)
   regolith_thick_m:         {kind: modeled, support: "ORNL Pelletier 2016 modeled upland thickness, hexagon median of 30 arcsec, 90N-60S", family: ornl-pelletier}
-  regolith_support_frac:    {kind: modeled, support: "share of 30 arcsec pixels with a value, regolith", family: ornl-pelletier}
+  regolith_support_frac:    {kind: computed, role: diagnostic, support: "share of 30 arcsec pixels with a value, regolith", family: ornl-pelletier}
   soil_thick_m:             {kind: modeled, support: "ORNL Pelletier 2016 modeled soil thickness, hexagon median of 30 arcsec", family: ornl-pelletier}
-  soil_support_frac:        {kind: modeled, support: "share of 30 arcsec pixels with a value, soil", family: ornl-pelletier}
+  soil_support_frac:        {kind: computed, role: diagnostic, support: "share of 30 arcsec pixels with a value, soil", family: ornl-pelletier}
   sediment_thick_m:         {kind: modeled, support: "ORNL Pelletier 2016 modeled sediment thickness, hexagon median of 30 arcsec", family: ornl-pelletier}
   avg_soil_sed_thick_m:     {kind: modeled, support: "ORNL Pelletier 2016 average soil+sediment thickness, hexagon median", family: ornl-pelletier}
   hillslope_frac_mean:      {kind: modeled, support: "ORNL Pelletier 2016 hillslope fraction, hexagon mean", family: ornl-pelletier}
@@ -89,7 +89,7 @@ columns:
   burned_pct:               {kind: observed, support: "MCD64A1 monthly burned share, hexagon aggregate, mapped years only", family: modis-mcd64}
   # wind (MERRA-2 M2TMNXFLX/M2TMNXSLV, #89)
   wind_speed_mean:          {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, mean of 2023 months", family: merra2}
-  wind_months_used:         {kind: reanalysis, support: "count of 2023 months contributing to wind_speed_mean", family: merra2}
+  wind_months_used:         {kind: computed, role: diagnostic, support: "count of 2023 months contributing to wind_speed_mean", family: merra2}
   wind_speed:               {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
   wind_speed_max:           {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly max 10 m wind SPEEDMAX, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
   u10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m U10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
@@ -98,4 +98,9 @@ columns:
   aqua_lst_day_k:           {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~13:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
   aqua_lst_night_k:         {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
   aqua_lst_diurnal_k:       {kind: observed, support: "MYD11C3 monthly day minus night (~13:30/~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
-  aqua_lst_valid_pixels:    {kind: observed, support: "MYD11C3 CMG pixels in hexagon with both valid day and night LST in that month", family: modis-myd11}
+  aqua_lst_valid_pixels:    {kind: computed, role: diagnostic, support: "MYD11C3 CMG pixels in hexagon with both valid day and night LST in that month", family: modis-myd11}
+
+  # Source support/calendar diagnostics; not independent physical traits.
+  dust_months_used: {kind: computed, role: diagnostic, support: "count of valid 2023 monthly DUEXTTAU values contributing to each source annual summary", family: merra2}
+  dust_aod_max_month: {kind: computed, role: diagnostic, support: "1-based month of maximum valid 2023 monthly DUEXTTAU; earliest tie; calendar diagnostic", family: merra2}
+  burned_years_mapped: {kind: computed, role: diagnostic, support: "count of mapped source years contributing to each cell/calendar-month summary, 2015-2024", family: modis-mcd64}

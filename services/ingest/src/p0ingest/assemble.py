@@ -304,6 +304,11 @@ class Build:
             if name not in df.columns or name in ("lat", "lon"):
                 continue
             s = df[name]
+            if c.get("role") == "diagnostic":
+                res[name] = {"kind": "diagnostic", "trait": c["trait"], "unit": c["unit"],
+                             "n": s.len() - s.null_count(), "inSum": False, "scaled": False,
+                             "unscaledReason": "source-diagnostic", "note": "Source support or calendar diagnostic; retained in native units."}
+                continue
             if s.dtype == pl.Boolean:
                 res[name] = {
                     "kind": "yes/no", "trait": c["trait"], "unit": c["unit"], "n": s.len() - s.null_count(),
@@ -354,6 +359,12 @@ class Build:
         self.check(f"{tname}-normalized: null masks and missing_reason match raw",
                    not null_mismatches and mr_ok,
                    f"mismatched columns={null_mismatches}, missing_reason_ok={mr_ok}")
+        diagnostic_bad = [
+            col for col, sc in tbl_scales.items() if sc.get("kind") == "diagnostic"
+            and (norm_df[col].dtype != df[col].dtype or not norm_df[col].equals(df[col]))
+        ]
+        self.check(f"{tname}-normalized: diagnostics keep source values and types",
+                   not diagnostic_bad, f"mismatched columns={diagnostic_bad}")
         rt_bad: list[str] = []
         stat_bad: list[str] = []
         for col in info["scaledColumns"]:
@@ -443,6 +454,7 @@ class Build:
                 "features": full, "workflowModules": preparation["workflowModules"],
                 "additionalEvidenceGaps": preparation["additionalEvidenceGaps"],
                 "testCatalog": {"source": test_catalog["source"], "selection": test_catalog["selection"],
+                                "detailedMenus": test_catalog.get("detailedMenus", []),
                                 "sha256": sha256(test_path), "count": len(categories)},
                 "planetaryAssemblyStatus": "not-built: generic envelopes are not measured per-target feature tables",
                 "campaignTestAssemblyStatus": "partial: quoted records preserved; source extraction of historical test conditions remains #74"}
@@ -473,7 +485,7 @@ class Build:
                 })
         return {
             "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "normalizationMethod": "ADR-0005 D5 robust IQR: (x - median) / IQR; booleans, coordinates, and IQR=0 unscaled; nulls preserved",
+            "normalizationMethod": "ADR-0005 D5 robust IQR: (x - median) / IQR; diagnostics (ADR-0010), booleans, coordinates, and IQR=0 unscaled; nulls preserved",
             "earthAssembled": {k: v for k, v in self.report["outputs"].items() if k in (
                 "sites-r4", "sites-r4-normalized", "sites-r4-monthly", "sites-r4-monthly-normalized",
                 "sites-r4-monthly-spread", "hazard-events", "campaign-sites")},
@@ -536,6 +548,7 @@ class Build:
                 "spec": "ADR-0005 D5",
                 "zeroIqrRule": "left unscaled when iqr == 0",
                 "booleanRule": "left unscaled (yes/no)",
+                "diagnosticRule": "source support and calendar diagnostics stay in native units (ADR-0010)",
                 "nullRule": "preserved as null; never filled",
             },
             "_tables": {
@@ -584,6 +597,9 @@ def normalize_frame(
         sc = tbl_scales.get(col)
         if sc is None:
             unscaled_cols[col] = "no-scale-entry"
+            continue
+        if sc.get("kind") == "diagnostic":
+            unscaled_cols[col] = "source-diagnostic"
             continue
         if sc.get("kind") == "yes/no":
             unscaled_cols[col] = "boolean"
