@@ -8,12 +8,13 @@
  * The stills are the fallback when WebGL is unavailable.
  *
  * The surfaces are procedural and illustrative, not maps of either body.
+ * Colours (issue #205): the Moon is grey, Mars is red.
  */
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import marsStill from '../assets/mars-illustration.png';
 import moonStill from '../assets/moon-illustration.png';
-import type { World } from '../data/catalog.ts';
+type World = 'moon' | 'mars';
 
 const NOISE = /* glsl */ `
 vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
@@ -176,8 +177,8 @@ void main(){
 `;
 
 const LOOKS: Record<World, { light: THREE.Vector3; tilt: number; speed: number; deep: string; mid: string; high: string }> = {
-  moon: { light: new THREE.Vector3(0.7, -0.3, 0.65).normalize(), tilt: 0.12, speed: 0.045, deep: '#3134a6', mid: '#a3a6d6', high: '#e4e4ec' },
-  mars: { light: new THREE.Vector3(0.45, 0.65, 0.62).normalize(), tilt: 0.3, speed: 0.035, deep: '#3134a6', mid: '#9a9ed8', high: '#ececf2' },
+  moon: { light: new THREE.Vector3(0.7, -0.3, 0.65).normalize(), tilt: 0.12, speed: 0.045, deep: '#3a3e47', mid: '#a9aeb8', high: '#f0f2f5' },
+  mars: { light: new THREE.Vector3(0.45, 0.65, 0.62).normalize(), tilt: 0.3, speed: 0.035, deep: '#5c1a12', mid: '#d0573e', high: '#f6c6ab' },
 };
 
 function webglAvailable(): boolean {
@@ -330,7 +331,7 @@ export function Planet({ world, hovered, label }: { world: World; hovered: boole
 
   return (
     <div className="planet" ref={host} role="img" aria-label={label}>
-      {fallback && <img className="planet__still" src={world === 'moon' ? moonStill : marsStill} alt="" />}
+      {fallback && <img className="planet__still" data-world={world} src={world === 'moon' ? moonStill : marsStill} alt="" />}
     </div>
   );
 }

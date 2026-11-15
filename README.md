@@ -8,7 +8,8 @@ that Analog the Permanent Moon Base Locations and Mars**.
 ### Video and presentation
 [Placeholder]
 
-website : https://86cda8c4.cosmic-mission-ui.pages.dev/
+**Live app: [Analog Atlas](https://cosmic-mission-ui.pages.dev/)**, built from `apps/mission-ui` on the real
+`planner-v1` release (Cloudflare Pages). Scientific status: partial.
 
 ---
 

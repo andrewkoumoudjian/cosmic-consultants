@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Mission definition flow built from the team Figma file (CosmicConsultants): React + Motion + three.js. Values the pipeline doesn't publish yet are named placeholders (see src/data/pending.ts).",
+  "description": "Analog Atlas: the mission-planning UI (React + Motion + globe.gl/three.js) over the shared planner engine and the planner-v1 release. No sample values.",
   "engines": {
     "node": ">=22.12"
   },
@@ -11,12 +11,13 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "pending": "node scripts/list-pending.mjs",
-    "shots": "node scripts/screenshots.mjs"
+    "smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
-    "@fontsource/geist-mono": "5.3.0",
-    "@fontsource/source-serif-4": "5.3.1",
+    "@base-ui/react": "1.9.0",
+    "@noble/hashes": "2.4.0",
+    "globe.gl": "2.46.2",
+    "h3-js": "4.1.0",
     "motion": "14.9.0",
     "react": "19.3.1",
     "react-dom": "19.3.1",

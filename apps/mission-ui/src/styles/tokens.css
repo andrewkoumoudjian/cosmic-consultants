@@ -1,45 +1,97 @@
 /*
- * Design tokens, copied 1:1 from the Figma variables in
- * CosmicConsultants (file iXj7QQ2xY8MlOfth7eQKrC), collections "Mission",
- * "chart" and "status". Keep names identical so a Figma value can be traced.
+ * Analog Atlas design tokens (issue #205, owner round 1).
+ * Type: Geist Serif for titles, Geist Sans for everything else, Geist Mono for numbers and ids.
+ * Colour: one dark cockpit; Mars is red, the Moon is grey; verdicts always pair a glyph and a word
+ * with their colour, so nothing is told by colour alone.
  */
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('../fonts/GeistSansVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Serif';
+  src: url('../fonts/GeistSerifVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('../fonts/GeistMonoVF.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
-  --mission-canvas: #111217;
-  --mission-surface: #191b22;
-  --mission-selected: #232538;
-  --mission-border: #2e313a;
-  --mission-text: #ecedf0;
-  --mission-muted: #9a9fab;
-  --mission-disabled: #50535c;
-  --mission-accent: #9aa0e6;
-  --mission-radius-control: 3px;
-
-  --chart-series-1: #3987e5;
-  --chart-series-2: #d95926;
-  --chart-series-3: #199e70;
-  --chart-series-4: #c98500;
-  --chart-series-5: #d55181;
-
-  --status-good: #0ca30c;
-  --status-warning: #fab219;
-  --status-serious: #ec835a;
-  --status-critical: #d03b3b;
-
-  /* Placeholder marker. Not a Figma token: it marks values the data pipeline
-     doesn't publish yet (see src/data/pending.ts). */
-  --pending: #c9a64a;
-
+  --font-sans: 'Geist Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Geist Serif', Georgia, serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 
-  /* Mission/* text styles */
-  --type-brand: 400 18px/21px var(--font-mono);
-  --type-body: 400 13px/20px var(--font-mono);
-  --type-control: 500 13px/20px var(--font-mono);
-  --type-small: 400 11px/17px var(--font-mono);
-  --type-title: 400 44px/52px var(--font-serif);
-  --type-section: 400 27px/34px var(--font-serif);
-  --type-category: 600 22px/28px var(--font-serif);
+  /* Every colour is solid. No transparency, gradients, blur or shadows (owner, 2026-11-15). */
+  --canvas: #0c0d10;
+  --surface: #131519;
+  --surface-2: #191b20;
+  --surface-3: #22252c;
+  --border: #272a31;
+  --border-strong: #3a3e47;
+
+  --text: #eceef2;
+  --text-2: #c2c7d0;
+  --muted: #939aa8;
+  --faint: #5f6573;
+
+  --accent: #a5b4fc;
+  --accent-bg: #1d2030;
+  --accent-line: #4b5281;
+
+  --mars: #e0654f;
+  --mars-bg: #2a1713;
+  --mars-line: #7c3527;
+  --moon: #c4c9d2;
+  --moon-bg: #1f2125;
+  --moon-line: #5d626c;
+
+  --match: #34d399;
+  --match-bg: #10261d;
+  --match-line: #1d5e45;
+  --miss: #fb923c;
+  --miss-bg: #2b1c10;
+  --miss-line: #7a4a22;
+  --unknown: #94a3b8;
+  --unknown-bg: #1b1f26;
+  --unknown-line: #4a5260;
+
+  --site-a: #38bdf8;
+  --site-b: #f472b6;
+  --site-c: #facc15;
+
+  --sev-low: #5eead4;
+  --sev-mod: #fbbf24;
+  --sev-high: #f87171;
+  /* risk matrix levels: solid, colour-coded green / amber / red */
+  --risk-low: #4ade80;
+  --risk-low-bg: #10291b;
+  --risk-low-line: #1f5a36;
+  --risk-med: #fbbf24;
+  --risk-med-bg: #2e2510;
+  --risk-med-line: #75591a;
+  --risk-high: #f87171;
+  --risk-high-bg: #351616;
+  --risk-high-line: #7f2a2a;
+
+  --radius: 6px;
+  --radius-sm: 4px;
+  --pill: 999px;
+  --gap: 20px;
+  --pad: 20px;
+
+  --t-page: 400 40px/46px var(--font-serif);
+  --t-section: 400 24px/30px var(--font-serif);
+  --t-card: 600 15px/21px var(--font-sans);
+  --t-body: 400 15px/23px var(--font-sans);
+  --t-small: 400 13px/19px var(--font-sans);
+  --t-label: 500 12px/16px var(--font-sans);
 
   color-scheme: dark;
 }

@@ -1,4 +1,9 @@
-# Mission UI: the team Figma file, built
+# Mission UI: Analog Atlas
+
+**Live: https://cosmic-mission-ui.pages.dev/** (deploy with `npm run build`, then
+`wrangler pages deploy <copy of dist> --project-name cosmic-mission-ui --branch main`).
+Eight steps over the shared planner engine and the real `planner-v1` release; no sample values.
+The notes below describe the first Figma build and are kept for history.
 
 This builds the **CosmicConsultants** Figma file
 (`iXj7QQ2xY8MlOfth7eQKrC`) in React, with Motion for animation and three.js
