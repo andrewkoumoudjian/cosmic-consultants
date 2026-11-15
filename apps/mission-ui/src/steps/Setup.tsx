@@ -9,6 +9,7 @@ import { Toggle } from '@base-ui/react/toggle';
 import { COLUMN_LABEL, DIMENSION_LABEL, MONTHS, objectiveTitle, objectivesFor, pickObjective, unitLabel, updateBandEdit, withDefaultPriorities, type Body, type Category } from '../model.ts';
 import { Button, Card, NavFoot, NumInput, Seg, Select, StepHead } from '../ui.tsx';
 import { Planet } from '../three/Planet.tsx';
+import { CategoryCoverage } from '../engine-results-ui.tsx';
 
 const WORLD = {
   moon: { name: 'Moon', gravity: '0.17 g', air: 'No air (vacuum)', note: 'Polar terrain, low sun, cold traps and sharp regolith.' },
@@ -136,6 +137,7 @@ export function Requirements({ data, category, request, onRequest, onBlocked, on
         <span className="bubble">{category.name}</span>
       </>} />
 
+      <CategoryCoverage data={data} category={category} request={request} />
       <div className="req-grid">
         <Card title="Traits" aside={
           <Select label="Objective" value={request.objectiveId} onChange={id => onRequest(withDefaultPriorities(data, { ...request, objectiveId: id }))}

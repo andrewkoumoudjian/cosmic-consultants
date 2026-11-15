@@ -15,6 +15,7 @@ import { months, type Dataset } from '../../../atlas/src/planner/engine.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
 import { MONTHS, elevRange, fmt, seasonStrip } from '../model.ts';
 import { NavFoot, NeedSites, SiteTabs, SiteTag, StepHead } from '../ui.tsx';
+import { CampaignAllocation, type EngineProps } from '../engine-results-ui.tsx';
 
 type Go = 'go' | 'caution' | 'gap' | 'nogo';
 const GO_TEXT: Record<Go, string> = { go: 'Go', caution: 'Caution', gap: 'Data gap', nogo: 'No-go' };
@@ -54,7 +55,7 @@ function Flash({ label, value, caption, lines }: { label: string; value: string 
   );
 }
 
-export function Logistics({ data, request, sites, onSites, onBack, onNext }: {
+export function Logistics({ data, request, sites, onSites, onBack, onNext, engine, targetId, onTarget }: EngineProps & {
   data: Dataset; request: PlanRequest; sites: number[]; onSites: () => void; onBack: () => void; onNext: () => void;
 }) {
   const [k, setK] = useState(0);
@@ -96,6 +97,7 @@ export function Logistics({ data, request, sites, onSites, onBack, onNext }: {
           </>}
         </section>
       </>}
+      <CampaignAllocation data={data} request={request} engine={engine} targetId={targetId} onTarget={onTarget} />
       <NavFoot onBack={onBack} onNext={onNext} nextLabel="Risk assessment" />
     </div>
   );

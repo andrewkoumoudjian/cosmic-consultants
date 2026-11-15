@@ -11,7 +11,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "test:engine": "node --experimental-strip-types --test scripts/engine-results.test.ts"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",
