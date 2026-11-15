@@ -31,6 +31,16 @@ class W26Readers(unittest.TestCase):
         np.testing.assert_allclose(result["wsa"], [[0.1, 0.2, np.nan, np.nan]], equal_nan=True)
         np.testing.assert_allclose(result["bsa"], [[0.1, np.nan, 0.3, np.nan]], equal_nan=True)
 
+    def test_quality_rule_text_matches_independent_masking(self):
+        # #76: pixel 1 has white-sky only, pixel 2 black-sky only; both are kept.
+        with patch.object(albedo, "SD", return_value=File()):
+            result = albedo._read_granule("synthetic.hdf")
+        self.assertEqual(result["n_best_wsa_px"], 2)
+        self.assertEqual(result["n_best_bsa_px"], 2)
+        self.assertEqual(result["n_best_px"], 1)
+        self.assertIn("filtered independently", albedo.QUALITY_RULE)
+        self.assertNotIn("must be non-fill", albedo.QUALITY_RULE)
+
     def test_fetch_entrypoint_calls_registered_snapshot_helper(self):
         import contextlib, io
         with patch.object(regolith, "fetch") as fetch, contextlib.redirect_stdout(io.StringIO()):

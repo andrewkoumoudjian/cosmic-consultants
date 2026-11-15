@@ -32,6 +32,7 @@ import html
 import json
 import pathlib
 import re
+import subprocess
 import threading
 import sys
 import urllib.error
@@ -42,6 +43,32 @@ import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data" / "catalog"
+DRIVE_LINKS = CATALOG / "drive-links.json"
+DRIVE_ROOT_ID = "1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_"
+DATASET_DERIVED = {
+    "modis-mod11c3": ["cells-r4.parquet", "cells-r4-monthly.parquet", "cells-r4-monthly-years.parquet"],
+    "modis-mcd12c1": ["cells-r4.parquet"],
+    "esa-cci-permafrost-extent-nh": ["cells-r4.parquet"],
+    "esa-cci-permafrost-extent-antarctica": ["cells-r4.parquet"],
+    "copernicus-dem-glo30": ["cells-r4.parquet", "terrain-r4.meta.json"],
+    "ourairports": ["context-r4.parquet"],
+    "travel-time-to-cities-2015": ["context-r4.parquet"],
+    "eonet-v3-events": ["context-r4.parquet", "eonet-events-r4.parquet"],
+    "modis-mcd43c3-albedo": ["albedo-r4.parquet", "albedo-r4-monthly.parquet"],
+    "ornl-global-soil-regolith-sediment": ["regolith-r4.parquet"],
+    "modis-mcd64a1": ["burned-r4-monthly.parquet"],
+    "modis-myd11c3": ["aqua-lst-r4-monthly.parquet"],
+    "merra2-m2tmnxaer": ["dust-r4.parquet", "dust-r4-monthly.parquet"],
+    "merra2-m2tmnxflx": ["wind-r4.parquet", "wind-r4-monthly.parquet"],
+    "merra2-m2tmnxslv": ["wind-r4-monthly.parquet"],
+    "alos-palsar-rtc-high": ["palsar-r4-sites.parquet"],
+    "diviner-l4": ["planetary/diviner-south-prp.parquet"],
+    "tes-mgs": ["planetary/tes-thermal-inertia-day.parquet", "planetary/tes-thermal-inertia-night.parquet"],
+    "lend": ["planetary/lend"],
+    "lp-grs-pds": ["planetary/lp-grs-pds"],
+    "ody-grs-pds": ["planetary/ody-grs-pds"],
+    "themis-ir-controlled-mosaics": ["planetary/themis-ir-controlled-mosaics"],
+}
 UA = {"User-Agent": "cosmic-consultants-registry-probe/1.0 (+github.com/andrewkoumoudjian/cosmic-consultants)"}
 CMR = "https://cmr.earthdata.nasa.gov/search"
 CKAN = "https://data.nasa.gov/api/3/action/package_search"
@@ -232,32 +259,156 @@ def ckan_queues() -> dict:
     return out
 
 
-def index_md(entries: list[dict], rows: dict[str, dict], day: str) -> str:
+def _drive_url(item_id: str, is_dir: bool) -> str:
+    if is_dir:
+        return f"https://drive.google.com/drive/folders/{item_id}"
+    return f"https://drive.google.com/file/d/{item_id}/view"
+
+
+def refresh_drive_links(remote: str = "ccdrive", dest: pathlib.Path = DRIVE_LINKS) -> dict:
+    """Query Google Drive folder/file IDs via rclone lsjson and save drive-links.json."""
+    def lsjson(subpath: str) -> list[dict]:
+        target = f"{remote}:{subpath}" if subpath else f"{remote}:"
+        out = subprocess.check_output(["rclone", "lsjson", target], text=True)
+        return json.loads(out)
+
+    root_items = lsjson("snapshots")
+    folders: dict[str, dict] = {
+        "snapshots": {"id": DRIVE_ROOT_ID, "url": _drive_url(DRIVE_ROOT_ID, True)},
+    }
+    raw_folders: dict[str, dict] = {}
+    special = {"_derived", "campaign-sources", "registry-probes"}
+    for x in sorted(root_items, key=lambda i: i["Name"]):
+        if not x.get("IsDir"):
+            continue
+        name = x["Name"]
+        if name.startswith("_") and name != "_derived":
+            continue
+        entry = {"id": x["ID"], "url": _drive_url(x["ID"], True)}
+        if name in special:
+            key = "_derived" if name == "_derived" else name
+            folders[key] = entry
+        else:
+            raw_folders[name] = entry
+
+    derived_items: dict[str, dict] = {}
+    for prefix, subpath in (("", "snapshots/_derived"), ("assembled/", "snapshots/_derived/assembled"), ("planetary/", "snapshots/_derived/planetary")):
+        try:
+            items = lsjson(subpath)
+        except subprocess.CalledProcessError:
+            continue
+        for x in sorted(items, key=lambda i: i["Name"]):
+            rel = f"{prefix}{x['Name']}"
+            is_dir = bool(x.get("IsDir"))
+            if rel in ("assembled", "planetary", "campaign-measurements") and is_dir:
+                folders[f"_derived/{rel}"] = {"id": x["ID"], "url": _drive_url(x["ID"], True)}
+            else:
+                derived_items[rel] = {"id": x["ID"], "isDir": is_dir, "url": _drive_url(x["ID"], is_dir)}
+
+    doc = {
+        "generatedAt": now(),
+        "remote": remote,
+        "rootFolderId": DRIVE_ROOT_ID,
+        "folders": folders,
+        "rawFolders": raw_folders,
+        "derivedItems": derived_items,
+        "datasetDerived": DATASET_DERIVED,
+    }
+    dest.write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+    return doc
+
+
+def load_drive_links(path: pathlib.Path = DRIVE_LINKS) -> dict:
+    if not path.exists():
+        return {"folders": {}, "rawFolders": {}, "derivedItems": {}, "datasetDerived": DATASET_DERIVED}
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def drive_cell(dataset_id: str, drive_links: dict) -> str:
+    parts: list[str] = []
+    raw_entry = (drive_links.get("rawFolders") or {}).get(dataset_id)
+    if raw_entry and raw_entry.get("url"):
+        parts.append(f"[raw]({raw_entry['url']})")
+    derived_map = drive_links.get("datasetDerived") or DATASET_DERIVED
+    derived_items = drive_links.get("derivedItems") or {}
+    for rel in derived_map.get(dataset_id, []):
+        item = derived_items.get(rel)
+        if item and item.get("url"):
+            label = pathlib.Path(rel).name + ("/" if item.get("isDir") else "")
+            parts.append(f"[{label}]({item['url']})")
+    return ", ".join(parts) if parts else "—"
+
+
+def index_md(entries: list[dict], rows: dict[str, dict], day: str, drive_links: dict | None = None) -> str:
+    dl = drive_links if drive_links is not None else load_drive_links()
+    folders = dl.get("folders") or {}
+    mirror_links = [
+        f"[{label}]({folders[key]['url']})"
+        for label, key in (
+            ("snapshots/", "snapshots"),
+            ("_derived/", "_derived"),
+            ("assembled/", "_derived/assembled"),
+            ("planetary/", "_derived/planetary"),
+            ("campaign-sources/", "campaign-sources"),
+            ("registry-probes/", "registry-probes"),
+        )
+        if key in folders and folders[key].get("url")
+    ]
     lines = [f"# Dataset registry index (generated {day} by `scripts/registry_probe.py`; do not hand-edit)", "",
              "Status values: `candidate` (probed, not yet adopted by a work order) · `restricted` (license limits use) · "
              "`unresolved` (endpoint or license not confirmed live). A license counts as verified only when its "
-             "expected text was found live (see probe log).", "",
-             "| datasetId | body | dimensions | archive | status | license | lic. verified | probe |",
-             "|---|---|---|---|---|---|---|---|"]
+             "expected text was found live (see probe log).", ""]
+    if mirror_links:
+        lines.extend([f"Google Drive mirror: {' · '.join(mirror_links)}", ""])
+    lines.extend([
+        "| datasetId | body | dimensions | archive | status | license | lic. verified | drive | probe |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ])
     for e in sorted(entries, key=lambda e: (rows[e["datasetId"]]["bodies"][0], e["datasetId"])):
         r = rows[e["datasetId"]]
         lines.append(f"| [{e['datasetId']}]({e['datasetId']}.yaml) | {', '.join(r['bodies'])} | "
                      f"{', '.join(r['dimensions']) or '—'} | {r['source']['archive']} | {r.get('status')} | "
-                     f"{r['license']['id']} | {'yes' if e['license']['verified'] else 'no'} | {e['summary']} |")
+                     f"{r['license']['id']} | {'yes' if e['license']['verified'] else 'no'} | "
+                     f"{drive_cell(e['datasetId'], dl)} | {e['summary']} |")
     return "\n".join(lines) + "\n"
+
+
+def entries_from_rows(paths: list[pathlib.Path]) -> tuple[list[dict], dict[str, dict]]:
+    rows = {}
+    entries = []
+    for p in paths:
+        r = yaml.safe_load(p.read_text(encoding="utf-8"))
+        did = r["datasetId"]
+        rows[did] = r
+        entries.append({
+            "datasetId": did,
+            "summary": (r.get("source") or {}).get("probeResult") or "—",
+            "license": {"verified": bool((r.get("license") or {}).get("verified"))},
+        })
+    return entries, rows
 
 
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-ckan", action="store_true")
     ap.add_argument("--only", nargs="*")
+    ap.add_argument("--index-only", action="store_true", help="Regenerate INDEX.md from catalog YAMLs and drive-links.json without probing endpoints")
+    ap.add_argument("--refresh-drive", action="store_true", help="Refresh data/catalog/drive-links.json via rclone lsjson")
+    ap.add_argument("--drive-remote", default="ccdrive", help="rclone remote name (default: ccdrive)")
     a = ap.parse_args()
+    if a.refresh_drive:
+        refresh_drive_links(a.drive_remote)
     paths = sorted(p for p in CATALOG.glob("*.yaml") if p.name != "dataset.template.yaml")
+    day = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
+    if a.index_only:
+        entries, rows = entries_from_rows(paths)
+        (CATALOG / "INDEX.md").write_text(index_md(entries, rows, day), encoding="utf-8")
+        print(f"wrote {CATALOG.relative_to(ROOT) / 'INDEX.md'} ({len(entries)} datasets)")
+        return 0
     if a.only:
         paths = [p for p in paths if p.stem in a.only]
     with cf.ThreadPoolExecutor(max_workers=8) as ex:
         entries = list(ex.map(probe_row, paths))
-    day = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
     out = ROOT / "data" / "snapshots" / "registry-probes" / day
     out.mkdir(parents=True, exist_ok=True)
     log = {"generatedAt": now(), "tool": "scripts/registry_probe.py", "entries": entries}

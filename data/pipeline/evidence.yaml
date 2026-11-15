@@ -1,0 +1,106 @@
+# Evidence descriptors (issue #111). Sidecar to columns.yaml, adopted from the
+# deferred ADR-0004 (docs/design/coherence-review.md findings 7, 8, 9). Data scope only:
+# no thresholds, ranking, scoring, Pareto, shortlist or ARL.
+#
+# Every column in columns.yaml (active AND planned) needs exactly one entry here.
+# The assembler (p0ingest.assemble) fails if a column has none, an entry names no
+# column, or a field is missing/invalid.
+#
+#   kind    what sort of quantity this is. Never "synthetic": synthetic examples
+#           stay in data/fixtures and never enter assembled scientific tables.
+#             observed    satellite/in-situ retrieval or gridded observation
+#             reanalysis  model-assimilated reanalysis (e.g. MERRA-2)
+#             modeled     published statistical/physical model output, not a measurement
+#             computed    deterministic geometry (latitude, calendar), no source data
+#             catalogue   reported records/catalogues; absence of a record is not absence of the thing
+#             proxy       stand-in for a differently-defined target quantity (never exact)
+#             target-native  measured on the target body itself
+#   support spatial/temporal support of the value actually stored (aggregation, grid, period)
+#   family  independence group. Columns sharing a family are NOT independent evidence.
+#           Counting families is a discovery hint only; corroboration is reviewed per
+#           claim (feature, pair, support, dependencies), never inferred from counts.
+version: 1
+kinds: [observed, reanalysis, modeled, computed, catalogue, proxy, target-native]
+
+columns:
+  # cells-r4 / cells-r4-monthly: MOD11C3 (LST, land share), MCD12C1, DEM, geometry
+  lat:                      {kind: computed, support: "H3 res-4 cell centre", family: h3-grid}
+  lon:                      {kind: computed, support: "H3 res-4 cell centre", family: h3-grid}
+  land_pct_mean:            {kind: observed, support: "MOD11C3 0.05 deg land share, hexagon aggregate, 2023 monthly mean", family: modis-mod11}
+  lst_day_max_k:            {kind: observed, support: "MOD11C3 monthly composite (not a daily extreme), hexagon aggregate, 2023", family: modis-mod11}
+  lst_night_min_k:          {kind: observed, support: "MOD11C3 monthly composite (not a daily extreme), hexagon aggregate, 2023", family: modis-mod11}
+  lst_diurnal_range_mean_k: {kind: observed, support: "MOD11C3 monthly composites, hexagon aggregate, 2023", family: modis-mod11}
+  lst_day_k:                {kind: observed, support: "MOD11C3 0.05 deg monthly composite, hexagon aggregate", family: modis-mod11}
+  lst_night_k:              {kind: observed, support: "MOD11C3 0.05 deg monthly composite, hexagon aggregate", family: modis-mod11}
+  lst_diurnal_k:            {kind: observed, support: "MOD11C3 monthly day minus night, hexagon aggregate", family: modis-mod11}
+  barren_pct:               {kind: observed, support: "MCD12C1 0.05 deg annual class share, hexagon aggregate", family: modis-mcd12}
+  snow_ice_pct:             {kind: observed, support: "MCD12C1 0.05 deg annual class share, hexagon aggregate", family: modis-mcd12}
+  water_pct:                {kind: observed, support: "MCD12C1 0.05 deg annual class share, hexagon aggregate", family: modis-mcd12}
+  permafrost_pct:           {kind: modeled, support: "ESA CCI permafrost extent probability, hexagon aggregate", family: esa-cci-permafrost}
+  elev_mean_m:              {kind: observed, support: "Copernicus GLO-30 DEM at 240 m, hexagon summary", family: copernicus-dem}
+  elev_min_m:               {kind: observed, support: "Copernicus GLO-30 DEM at 240 m, hexagon summary", family: copernicus-dem}
+  elev_max_m:               {kind: observed, support: "Copernicus GLO-30 DEM at 240 m, hexagon summary", family: copernicus-dem}
+  slope_mean_deg:           {kind: observed, support: "slope from 240 m DEM, hexagon mean; not a named-baseline slope", family: copernicus-dem}
+  slope_frac_lt5:           {kind: observed, support: "share of 240 m DEM cells, hexagon", family: copernicus-dem}
+  slope_frac_lt15:          {kind: observed, support: "share of 240 m DEM cells, hexagon", family: copernicus-dem}
+  slope_frac_gt30:          {kind: observed, support: "share of 240 m DEM cells, hexagon", family: copernicus-dem}
+  sun_noon_elev_max_deg:    {kind: computed, support: "solar geometry at H3 centre latitude, calendar year", family: astronomy}
+  sun_noon_elev_min_deg:    {kind: computed, support: "solar geometry at H3 centre latitude, calendar year", family: astronomy}
+  sun_noon_elev_deg:        {kind: computed, support: "solar noon elevation at H3 centre latitude, 15th of month", family: astronomy}
+  daylight_h:               {kind: computed, support: "day length at H3 centre latitude, 15th of month", family: astronomy}
+  polar_night:              {kind: computed, support: "latitude-only flag, not terrain-aware", family: astronomy}
+  polar_day:                {kind: computed, support: "latitude-only flag, not terrain-aware", family: astronomy}
+  # context-r4
+  access_min_median:        {kind: modeled, support: "Weiss et al. 2015 travel time to cities, hexagon median", family: weiss-travel-time}
+  access_min_p10:           {kind: modeled, support: "Weiss et al. 2015 travel time to cities, hexagon 10th percentile", family: weiss-travel-time}
+  airport_km:               {kind: catalogue, support: "OurAirports catalogue; completeness not guaranteed", family: ourairports}
+  protected_pct:            {kind: catalogue, support: "protected-area polygons, hexagon share (see context-r4 meta licences)", family: protected-areas}
+  eonet_wildfires_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_volcanoes_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_severeStorms_events:  {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_floods_events:        {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_landslides_events:    {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_dustHaze_events:      {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_earthquakes_events:   {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_snow_events:          {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_tempExtremes_events:  {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  eonet_drought_events:       {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
+  # albedo (MCD43C3 v061)
+  albedo_ws_sw_mean:        {kind: observed, support: "MCD43C3 white-sky shortwave, mean of dated samples, 0.05 deg, hexagon aggregate", family: modis-mcd43}
+  albedo_bs_sw_mean:        {kind: observed, support: "MCD43C3 black-sky shortwave, mean of dated samples, 0.05 deg, hexagon aggregate", family: modis-mcd43}
+  albedo_months_used:       {kind: computed, role: diagnostic, support: "count of months contributing, white-sky", family: modis-mcd43}
+  albedo_bs_months_used:    {kind: computed, role: diagnostic, support: "count of months contributing, black-sky", family: modis-mcd43}
+  albedo_ws_sw:             {kind: observed, support: "MCD43C3 white-sky shortwave, one dated sample per month, hexagon aggregate", family: modis-mcd43}
+  albedo_bs_sw:             {kind: observed, support: "MCD43C3 black-sky shortwave, one dated sample per month, hexagon aggregate", family: modis-mcd43}
+  albedo_valid_px:          {kind: computed, role: diagnostic, support: "valid best-QA pixel count, white-sky", family: modis-mcd43}
+  albedo_bs_valid_px:       {kind: computed, role: diagnostic, support: "valid best-QA pixel count, black-sky", family: modis-mcd43}
+  # regolith (ORNL Pelletier 2016, ADR-0009)
+  regolith_thick_m:         {kind: modeled, support: "ORNL Pelletier 2016 modeled upland thickness, hexagon median of 30 arcsec, 90N-60S", family: ornl-pelletier}
+  regolith_support_frac:    {kind: computed, role: diagnostic, support: "share of 30 arcsec pixels with a value, regolith", family: ornl-pelletier}
+  soil_thick_m:             {kind: modeled, support: "ORNL Pelletier 2016 modeled soil thickness, hexagon median of 30 arcsec", family: ornl-pelletier}
+  soil_support_frac:        {kind: computed, role: diagnostic, support: "share of 30 arcsec pixels with a value, soil", family: ornl-pelletier}
+  sediment_thick_m:         {kind: modeled, support: "ORNL Pelletier 2016 modeled sediment thickness, hexagon median of 30 arcsec", family: ornl-pelletier}
+  avg_soil_sed_thick_m:     {kind: modeled, support: "ORNL Pelletier 2016 average soil+sediment thickness, hexagon median", family: ornl-pelletier}
+  hillslope_frac_mean:      {kind: modeled, support: "ORNL Pelletier 2016 hillslope fraction, hexagon mean", family: ornl-pelletier}
+  # planned
+  dust_aod_mean:            {kind: reanalysis, support: "MERRA-2 M2TMNXAER monthly, nearest grid box, mean of months", family: merra2}
+  dust_aod_max:             {kind: reanalysis, support: "MERRA-2 M2TMNXAER monthly, nearest grid box, max of months", family: merra2}
+  dust_aod:                 {kind: reanalysis, support: "MERRA-2 M2TMNXAER monthly, nearest grid box", family: merra2}
+  burned_pct:               {kind: observed, support: "MCD64A1 monthly burned share, hexagon aggregate, mapped years only", family: modis-mcd64}
+  # wind (MERRA-2 M2TMNXFLX/M2TMNXSLV, #89)
+  wind_speed_mean:          {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, mean of 2023 months", family: merra2}
+  wind_months_used:         {kind: computed, role: diagnostic, support: "count of 2023 months contributing to wind_speed_mean", family: merra2}
+  wind_speed:               {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  wind_speed_max:           {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly max 10 m wind SPEEDMAX, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  u10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m U10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  v10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m V10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  # aqua lst (MYD11C3 v061, #93; same MODIS TIR sensor lineage as modis-mod11, afternoon/night ~13:30/~01:30 overpass)
+  aqua_lst_day_k:           {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~13:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_night_k:         {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_diurnal_k:       {kind: observed, support: "MYD11C3 monthly day minus night (~13:30/~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_valid_pixels:    {kind: computed, role: diagnostic, support: "MYD11C3 CMG pixels in hexagon with both valid day and night LST in that month", family: modis-myd11}
+
+  # Source support/calendar diagnostics; not independent physical traits.
+  dust_months_used: {kind: computed, role: diagnostic, support: "count of valid 2023 monthly DUEXTTAU values contributing to each source annual summary", family: merra2}
+  dust_aod_max_month: {kind: computed, role: diagnostic, support: "1-based month of maximum valid 2023 monthly DUEXTTAU; earliest tie; calendar diagnostic", family: merra2}
+  burned_years_mapped: {kind: computed, role: diagnostic, support: "count of mapped source years contributing to each cell/calendar-month summary, 2015-2024", family: modis-mcd64}

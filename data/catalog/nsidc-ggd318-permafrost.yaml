@@ -11,18 +11,18 @@ discovery:
 source:
   archive: "NSIDC"
   endpoint: "https://nsidc.org/data/ggd318/versions/2"
-  probedAt: 2026-11-13T04:03:30Z
-  probeResult: "HTTP 200, 111118 B, sha256 019cfc89158e…"
+  probedAt: 2026-11-14T23:30:44Z
+  probeResult: "landing HTTP 200 (111117 B); data host daacdata.apps.nsidc.org redirects to interactive URS OAuth login (no bearer access); legacy ECS host n5eil01u.ecs.nsidc.org TCP-refused — ACCESS BLOCKED, no values used (W38 #97)"
 probe:
   kind: http
   url: "https://nsidc.org/data/ggd318/versions/2"
   expect: ["Circum-Arctic Map of Permafrost"]
 license:
-  id: unresolved
-  textUrl: null
+  id: nsidc-citation-condition
+  textUrl: "https://nsidc.org/about/data-use-and-copyright"
   expect: []
-  verified: false
-  note: "Issue #41 checked the linked GGD318.002 OAI/DIF record (no Use_Constraints/Access_Constraints fields) and DOI 10.7265/skbg-kf16 (empty rightsList). Citation and free access do not establish applicable reuse terms. Retained unresolved; see LICENCE-AUDIT-41.md."
+  verified: true
+  note: "2026-11-14 (W38 #97): licence resolved via the official GGD318 v2 user guide (https://nsidc.org/sites/default/files/ggd318-v002-userguide.pdf, HTTP 200): 'As a condition of using these data, you must include a citation' (Brown et al. 2002, DOI 10.7265/skbg-kf16); NSIDC Data Use and Copyright page HTTP 2026-11-14 200 confirms citation policy. Issue #41's unresolved verdict was about reuse TERMS, which the user guide supplies. The data hosts remain access-blocked (interactive URS login), so NO VALUES were used and no table shipped; see services/ingest/src/p0ingest/earth_static.py probe_ggd318() and _derived/earth-static-probes.json."
 coverage:
   spatial: "northern hemisphere 28N-90N"
   temporal: "static map"

@@ -1,0 +1,32 @@
+siteId: moon-feature-de-gerlache
+name: de Gerlache
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -88.48490000000001
+centreLon: 271.6553
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: de Gerlache
+extent:
+  kind: bounding-box
+  minLat: -89.0242
+  maxLat: -87.9456
+  minLon: 250.9004
+  maxLon: 292.407
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 region "de Gerlache Rim 2"; "de Gerlache Rim 1" was dropped
+  in 2024
+usgsCrossCheck:
+  feature: de Gerlache
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=de Gerlache;clean_name=de Gerlache;approvaldt=2000/01/01 00:00:00;diameter=32.705418000000002;center_lon=271.655300000000011;center_lat=-88.484900000000010;type=Crater,
+    craters;code=AA;approval=Adopted by IAU
