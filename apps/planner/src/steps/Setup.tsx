@@ -4,7 +4,7 @@ import { RadioGroup } from '@base-ui/react/radio-group';
 import { Radio } from '@base-ui/react/radio';
 import { requirements, type Dataset } from '../../../atlas/src/planner/engine.ts';
 import { LIMITS, MISSION_TYPES, validatePlan, type Dimension, type LimitKey, type MissionType, type PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { COLUMN_LABEL, DIMENSION_LABEL, MONTHS, objectivesFor, pickObjective, withDefaultPriorities, type Body, type Category } from '../model.ts';
+import { COLUMN_LABEL, DIMENSION_LABEL, MONTHS, objectiveTitle, objectivesFor, pickObjective, unitLabel, withDefaultPriorities, type Body, type Category } from '../model.ts';
 import { Page, RadioDot, Select } from '../ui.tsx';
 import moonArt from '../assets/moon-illustration.png';
 import marsArt from '../assets/mars-illustration.png';
@@ -41,10 +41,12 @@ export function CategoryStep({ data, body, categoryId, onCategory, onBack, onNex
               {cats.filter(c => (c.group ?? 'Other') === g).map(c => {
                 const { supported } = pickObjective(data, body, c);
                 return (
-                  <Radio.Root key={c.categoryId} value={c.categoryId} className="cat" nativeButton data-unsupported={supported.length ? undefined : ''}>
+                  <Radio.Root key={c.categoryId} value={c.categoryId} className="cat" nativeButton disabled={!supported.length}
+                    data-unsupported={supported.length ? undefined : ''} title={supported.length ? undefined : 'None of its traits has Earth data in this release'}>
                     <RadioDot checked={c.categoryId === categoryId} />
                     <span className="cat-name">{c.name}</span>
-                    <span className="traits">{supported.map(d => <span key={d} className="tag">{DIMENSION_LABEL[d]}</span>)}</span>
+                    <span className="traits">{supported.length ? supported.map(d => <span key={d} className="tag">{DIMENSION_LABEL[d]}</span>)
+                      : <span className="no-data">no Earth data</span>}</span>
                   </Radio.Root>
                 );
               })}
@@ -59,7 +61,7 @@ export function CategoryStep({ data, body, categoryId, onCategory, onBack, onNex
 const PRIORITY = [{ value: 'must', label: 'Required' }, { value: 'nice', label: 'Preferred' }] as const;
 const MONTH_OPTIONS = MONTHS.map((m, i) => ({ value: String(i + 1), label: m }));
 const TYPE_LABEL: Record<MissionType, string> = { robotic: 'Robotic', crewed: 'Crewed', instrument: 'Instrument' };
-const LIMIT_LABEL: Record<LimitKey, string> = { access: 'Travel time, min', protected: 'Protected land, %', airport: 'Airport, km', slope: 'Mean slope, °' };
+const LIMIT_LABEL: Record<LimitKey, string> = { access: 'Travel to a city, min', protected: 'Protected land, %', airport: 'Airport, km', slope: 'Mean slope, °' };
 
 type Draft = { lo: string; hi: string };
 const badDraft = (d: Draft) => d.lo.trim() === '' || d.hi.trim() === '' || !Number.isFinite(Number(d.lo)) || !Number.isFinite(Number(d.hi)) || Number(d.lo) > Number(d.hi);
@@ -105,11 +107,11 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
   return (
     <Page title="Requirements" back={onBack} next={onNext} nextLabel="Find sites" nextDisabled={errors.length > 0 || blocked}
       aside={<Select label="Objective" width={300} value={request.objectiveId}
-        options={objectivesFor(data, request.body).map(o => ({ value: o.objectiveId, label: `${o.objectiveId} · ${o.title}` }))}
+        options={objectivesFor(data, request.body).map(o => ({ value: o.objectiveId, label: `${o.objectiveId} · ${objectiveTitle(o)}` }))}
         onChange={id => onRequest(withDefaultPriorities(data, { ...request, objectiveId: id }))} />}>
       <div className="sheet">
         <table>
-          <thead><tr><th>Trait</th><th>Measured on Earth as</th><th className="num">Band</th><th>Priority</th></tr></thead>
+          <thead><tr><th>Trait</th><th>Measured on Earth as</th><th>Accepted band</th><th>Priority</th></tr></thead>
           <tbody>
             {rules.map(r => {
               const draft = drafts[r.dimension];
@@ -120,14 +122,14 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
                 <tr key={r.dimension} className={r.priority === 'must' ? 'must' : undefined}>
                   <td>{DIMENSION_LABEL[r.dimension] ?? r.dimension}</td>
                   <td className={r.earthColumn ? undefined : 'muted'}>{r.earthColumn ? `${COLUMN_LABEL[r.earthColumn] ?? r.earthColumn}${r.table === 'L1m' ? ', monthly' : ''}` : 'No Earth data'}</td>
-                  <td className="num">
+                  <td>
                     {r.earthColumn ? (
-                      <div className="band" style={{ justifyContent: 'flex-end' }}>
+                      <div className="band">
                         {(edited || draft) && <button className="icon-btn small" onClick={() => resetBand(r.dimension)} title="Back to the frozen band">reset</button>}
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} low`} value={lo} placeholder="low" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, e.target.value, hi)} />
-                        <span className="muted">–</span>
+                        <span className="op" title={r.band?.hiStrict ? 'The upper value itself is excluded' : undefined}>≤ x {r.band?.hiStrict ? '<' : '≤'}</span>
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} high`} value={hi} placeholder="high" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, lo, e.target.value)} />
-                        <span className="muted" style={{ width: 40, textAlign: 'left' }}>{r.unit ?? ''}</span>
+                        <span className="muted unit">{unitLabel(r.unit).trim()}</span>
                       </div>
                     ) : <span className="muted">—</span>}
                   </td>
@@ -146,17 +148,23 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
             onChange={m => onRequest({ ...request, months: { ...request.months, start: Number(m) } })} /></label>
           <label className="control">To<Select label="Last month" value={String(request.months.end)} options={MONTH_OPTIONS} width={104}
             onChange={m => onRequest({ ...request, months: { ...request.months, end: Number(m) } })} /></label>
-          <label className="control">Mission<Select label="Mission type" value={request.missionType} width={140}
-            options={MISSION_TYPES.map(t => ({ value: t, label: TYPE_LABEL[t] }))} onChange={t => onRequest({ ...request, missionType: t })} /></label>
-          <label className="control">Days<input className="field" type="number" min={1} value={request.durationDays ?? ''} onChange={e => onRequest({ ...request, durationDays: int(e.target.value) })} /></label>
-          <label className="control">Team<input className="field" type="number" min={1} value={request.teamSize ?? ''} onChange={e => onRequest({ ...request, teamSize: int(e.target.value) })} /></label>
           <label className="control">Show<Select label="Sites shown" value={String(request.top ?? 50)} width={90}
             options={['25', '50', '100'].map(v => ({ value: v, label: v }))} onChange={v => onRequest({ ...request, top: Number(v) })} /></label>
         </div>
       </section>
 
       <section>
-        <h2 className="h2">Limits</h2>
+        <h2 className="h2">For the brief only <span className="h2-note">these don't change which sites match</span></h2>
+        <div className="row">
+          <label className="control">Mission<Select label="Mission type" value={request.missionType} width={140}
+            options={MISSION_TYPES.map(t => ({ value: t, label: TYPE_LABEL[t] }))} onChange={t => onRequest({ ...request, missionType: t })} /></label>
+          <label className="control">Days<input className="field" type="number" min={1} value={request.durationDays ?? ''} onChange={e => onRequest({ ...request, durationDays: int(e.target.value) })} /></label>
+          <label className="control">Team<input className="field" type="number" min={1} value={request.teamSize ?? ''} onChange={e => onRequest({ ...request, teamSize: int(e.target.value) })} /></label>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="h2">Hard limits <span className="h2-note">cells past a limit are left out</span></h2>
         <div className="row">
           {(Object.keys(LIMITS) as LimitKey[]).map(k => (
             <label key={k} className="control">{LIMIT_LABEL[k]}

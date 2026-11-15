@@ -26,10 +26,81 @@ export const COLUMN_LABEL: Record<string, string> = {
   dust_aod: 'Dust aerosol optical depth',
 };
 export const BREAKDOWNS = [
-  { mismatch: 'gravity', why: 'Earth has 1 g. The Moon has 0.17 g and Mars 0.38 g.' },
-  { mismatch: 'pressureRegime', why: 'Earth has 1 atm of air. The Moon has vacuum; Mars has thin CO2.' },
-  { mismatch: 'radiation', why: "Earth's magnetic field and air block radiation the Moon and Mars receive." },
+  { mismatch: 'gravity', label: 'Gravity', why: 'Earth has 1 g. The Moon has 0.17 g and Mars 0.38 g.' },
+  { mismatch: 'pressureRegime', label: 'Air pressure', why: 'Earth has 1 atm of air. The Moon has vacuum; Mars has thin CO2.' },
+  { mismatch: 'radiation', label: 'Radiation', why: "Earth's magnetic field and air block radiation the Moon and Mars receive." },
 ];
+
+/** Plain names and units for the hard limits (engine LIMIT_COLUMNS keys). */
+export const LIMIT_TEXT = {
+  access: { label: 'Travel to a city', unit: 'min' }, protected: { label: 'Protected land', unit: '%' },
+  airport: { label: 'Airport distance', unit: 'km' }, slope: { label: 'Mean slope', unit: 'deg' },
+} as const;
+
+/** H3 resolution 4, the release's cell size (h3-js getHexagonAreaAvg(4) = 1,770 km², edge 22.6 km). */
+export const CELL_AREA = '≈1,770 km² cell';
+
+/** Objective titles carry an editor's note ("— shortened by us"); show the title alone. */
+export function objectiveTitle(o: { title: string }): string {
+  return o.title.replace(/\s+—\s+shortened by us$/, '');
+}
+
+/** Rule notes start with an internal envelope tag ("moon-south-pole-v0 terrain: …") and say "deg". Show plain text. */
+export function cleanNote(text: string | null | undefined): string {
+  if (!text || text === 'None') return '';
+  const t = text.replace(/^[a-z0-9-]+-v\d+\s+\w+:\s*/, '').replace(/(\d)\s?deg\b/g, '$1°');
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+// ---- numbers at the precision a 1,770 km² cell can carry; missing stays null (rule 3) ----------
+const finiteNum = (v: number | null | undefined): v is number => v !== null && v !== undefined && Number.isFinite(v);
+const noNegZero = (v: number) => (Object.is(v, -0) ? 0 : v);
+const fixed = (v: number, d: number) => noNegZero(Number(v.toFixed(d))).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+/** Unit shown to people: ° not "deg", nothing for unitless. */
+export function unitLabel(unit: string | null | undefined): string {
+  return unit === 'deg' ? '°' : unit === 'unitless' || unit === 'flag' || unit === '0/1' || !unit ? '' : ` ${unit === '0-1' ? '%' : unit}`;
+}
+export function fmt(v: number | null | undefined, unit: string | null | undefined): string | null {
+  if (!finiteNum(v)) return null;
+  switch (unit) {
+    case 'deg': return `${fixed(v, Math.abs(v) < 10 ? 1 : 0)}°`;
+    case '%': return `${fixed(v, 0)} %`;
+    case '0-1': return `${fixed(v * 100, 0)} %`;
+    case 'K': return `${fixed(v - 273.15, 0)} °C`;
+    case 'm': return `${noNegZero(Math.round(v / 10) * 10).toLocaleString('en-US')} m`;
+    case 'km': return `${fixed(v, 0)} km`;
+    case 'min': return v < 60 ? `${fixed(v, 0)} min` : `${fixed(v / 60, v < 600 ? 1 : 0)} h`;
+    case 'flag': case '0/1': return v >= 0.5 ? 'yes' : 'no';
+    case 'unitless': return fixed(v, 2);
+    default: return Number(v.toPrecision(3)).toLocaleString('en-US');
+  }
+}
+
+/** A few measured facts for one cell, for the globe's cell card. */
+export function siteFacts(data: Dataset, i: number): { label: string; value: string | null }[] {
+  const y = (c: string) => data.yearly[c]?.[i];
+  const lo = fmt(y('elev_min_m'), 'm'), hi = fmt(y('elev_max_m'), 'm');
+  return [
+    { label: 'Elevation', value: lo && hi ? `${lo.replace(' m', '')}–${hi}` : null },
+    { label: 'To a city', value: fmt(y('access_min_median'), 'min') },
+    { label: 'To an airport', value: fmt(y('airport_km'), 'km') },
+  ];
+}
+
+/** Sort cells by one release column. Missing values go last; ties keep the engine's order. */
+export function sortByColumn(data: Dataset, indices: number[], column: string, dir: 1 | -1): number[] {
+  const v = data.yearly[column];
+  const key = (i: number) => { const x = v?.[i]; return x === undefined || !Number.isFinite(x) ? null : x; };
+  return indices.map((i, k) => ({ i, k, x: key(i) })).sort((a, b) =>
+    a.x === null ? (b.x === null ? a.k - b.k : 1) : b.x === null ? -1 : (a.x - b.x) * dir || a.k - b.k).map(e => e.i);
+}
+
+/** Great-circle km between two points (mean Earth radius 6,371 km). */
+export function kmBetween(a: { lat: number; lon: number }, b: { lat: number; lon: number }): number {
+  const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLon = (b.lon - a.lon) * r;
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2;
+  return 2 * 6371 * Math.asin(Math.min(1, Math.sqrt(h)));
+}
 
 export function objectivesFor(data: Dataset, body: Body) {
   return data.objectives.filter(o => o.body === body);
@@ -76,7 +147,8 @@ export function latLon(data: Dataset, i: number): { lat: number; lon: number } {
 
 export function coordLabel(data: Dataset, i: number): string {
   const { lat, lon } = latLon(data, i);
-  return `${Math.abs(lat).toFixed(2)}°${lat >= 0 ? 'N' : 'S'} ${Math.abs(lon).toFixed(2)}°${lon >= 0 ? 'E' : 'W'}`;
+  // one decimal (≈11 km): finer would claim a precision a 22 km cell doesn't have
+  return `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? 'N' : 'S'} ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? 'E' : 'W'}`;
 }
 
 export function num(v: number | null | undefined, digits = 3): string {
@@ -86,21 +158,26 @@ export function num(v: number | null | undefined, digits = 3): string {
 
 export function bandLabel(r: Pick<Row, 'band' | 'unit'>): string {
   if (!r.band) return 'No accepted band';
-  return `${num(r.band.lo, 6)} – ${num(r.band.hi, 6)}${r.band.hiStrict ? ' (upper excluded)' : ''}${r.unit ? ' ' + r.unit : ''}`;
+  return `${num(r.band.lo, 6)} ≤ x ${r.band.hiStrict ? '<' : '≤'} ${num(r.band.hi, 6)}${unitLabel(r.unit)}`;
 }
 
-export type TraitCell = { dimension: Dimension; priority: 'must' | 'nice'; verdict: Row['verdict']; glyph: string; detail: string; value: number | null };
+/** `detail` is the full sentence for the cell card; `short` fits a site-list row. */
+export type TraitCell = { dimension: Dimension; priority: 'must' | 'nice'; verdict: Row['verdict']; glyph: string; detail: string; short: string; value: number | null; unit: string | null };
 
 /** One site's per-trait results, straight from engine rows(). */
 export function traitCells(data: Dataset, request: PlanRequest, i: number): TraitCell[] {
   return rows(data, request, i).map(r => {
     const shown = r.perMonth ? worstMonthValue(r) : r.value;
     const known = (r.perMonth ?? []).map(m => m.value).filter((v): v is number => v !== null);
-    const detail = r.verdict === 'miss' ? `gap ${num(r.gap)} ${r.unit ?? ''} ${r.side}`.trim()
+    const detail = r.verdict === 'miss' ? `${fmt(r.gap, r.unit) ?? num(r.gap)} ${r.side === 'above' ? 'above' : 'below'} the band`
       : r.verdict === 'unknown' ? r.reason?.text ?? 'unknown'
-      : known.length > 1 ? `${num(Math.min(...known))} – ${num(Math.max(...known))} ${r.unit ?? ''}`.trim() // every month, not one picked
-      : `${num(shown)} ${r.unit ?? ''}`.trim();
-    return { dimension: r.dimension, priority: r.priority!, verdict: r.verdict, glyph: GLYPH[r.verdict], detail, value: shown };
+      : known.length > 1 ? `${fmt(Math.min(...known), r.unit)} – ${fmt(Math.max(...known), r.unit)} over the window` // every month, not one picked
+      : fmt(shown, r.unit) ?? num(shown);
+    const lo = known.length ? fmt(Math.min(...known), r.unit) : null, hi = known.length ? fmt(Math.max(...known), r.unit) : null;
+    const short = r.verdict === 'miss' ? `${fmt(r.gap, r.unit) ?? num(r.gap)} ${r.side === 'above' ? 'over' : 'under'}`
+      : r.verdict === 'unknown' ? 'no data'
+      : known.length > 1 && lo !== hi ? `${lo} – ${hi}` : fmt(shown, r.unit) ?? num(shown);
+    return { dimension: r.dimension, priority: r.priority!, verdict: r.verdict, glyph: GLYPH[r.verdict], detail, short, value: shown, unit: r.unit ?? null };
   });
 }
 
@@ -149,12 +226,13 @@ export function monthWindowLabel(request: PlanRequest): string {
 
 export function logisticsFacts(data: Dataset, i: number) {
   const y = (c: string) => data.yearly[c]?.[i];
+  const lo = fmt(y('elev_min_m'), 'm'), hi = fmt(y('elev_max_m'), 'm');
   return [
-    { label: 'Travel time to nearest city (median)', value: num(y('access_min_median')), unit: 'min' },
-    { label: 'Travel time, fastest 10%', value: num(y('access_min_p10')), unit: 'min' },
-    { label: 'Nearest paved-runway airport', value: num(y('airport_km')), unit: 'km' },
-    { label: 'Protected land in the cell', value: num(y('protected_pct')), unit: '%' },
-    { label: 'Mean elevation', value: num(y('elev_mean_m'), 4), unit: 'm' },
+    { label: 'Travel to the nearest city, median', value: fmt(y('access_min_median'), 'min') },
+    { label: 'Travel, fastest 10 % of the cell', value: fmt(y('access_min_p10'), 'min') },
+    { label: 'Nearest paved-runway airport', value: fmt(y('airport_km'), 'km') },
+    { label: 'Protected land in the cell', value: fmt(y('protected_pct'), '%') },
+    { label: 'Elevation, lowest to highest', value: lo && hi ? `${lo.replace(' m', '')}–${hi}` : null },
   ];
 }
 

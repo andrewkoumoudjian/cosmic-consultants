@@ -1,13 +1,13 @@
 /**
  * Steps 5 Limitations, 6 Logistics, 7 Risks. Only real release data is shown.
- * Anything we hold no data for says "not checked" (AGENTS.md rule 3).
+ * A missing value says "no data"; things the release doesn't cover are named once, under the table (AGENTS.md rule 3).
  */
 import { useEffect, useState } from 'react';
 import { Tabs } from '@base-ui/react/tabs';
 import { brief, limitRows, months, requirements, rows, type Dataset, type Objective } from '../../../atlas/src/planner/engine.ts';
 import { ensureMonthly } from '../../../atlas/src/planner/data.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { BREAKDOWNS, CLASS_TEXT, DIMENSION_LABEL, MONTHS, SERIES, bandLabel, burnedInWindow, coordLabel, download, hazardFacts, logisticsFacts, num, seasonStrip, sheetCsv, siteClass, traitCells } from '../model.ts';
+import { BREAKDOWNS, CLASS_TEXT, DIMENSION_LABEL, LIMIT_TEXT, MONTHS, SERIES, bandLabel, burnedInWindow, cleanNote, coordLabel, download, fmt, hazardFacts, kmBetween, latLon, logisticsFacts, seasonStrip, sheetCsv, traitCells } from '../model.ts';
 import { Page, Verdict } from '../ui.tsx';
 
 function SiteHead({ data, sites }: { data: Dataset; sites: number[] }) {
@@ -21,27 +21,35 @@ function SheetButton({ data, request, sites }: { data: Dataset; request: PlanReq
   );
 }
 
-const NoSites = () => <p className="warn">No sites compared. Pin up to three in Sites.</p>;
+const NoSites = () => <p className="warn">No sites compared. Pick up to three in Sites.</p>;
+
+/** A formatted value with its unit set muted, the way the sheets have always shown it. */
+function Val({ text }: { text: string | null }) {
+  if (text === null) return <span className="v-unknown">no data</span>;
+  const cut = text.lastIndexOf(' ');
+  return cut < 0 ? <>{text}</> : <>{text.slice(0, cut)} <span className="muted">{text.slice(cut + 1)}</span></>;
+}
 
 export function Limits({ data, request, sites, objective, onBack, onNext }: {
   data: Dataset; request: PlanRequest; sites: number[]; objective: Objective; onBack: () => void; onNext: () => void;
 }) {
   const rules = requirements(data, request);
   const cells = sites.map(i => traitCells(data, request, i));
-  const cannot = [...BREAKDOWNS, ...objective.notTestableOnEarth.filter(m => !BREAKDOWNS.some(b => b.mismatch === m.mismatch))];
+  const cannot = [...BREAKDOWNS, ...objective.notTestableOnEarth.filter(m => !BREAKDOWNS.some(b => b.mismatch === m.mismatch))
+    .map(m => ({ ...m, label: m.mismatch.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, ch => ch.toUpperCase()) }))];
   const unknowns = sites.flatMap((i, k) => cells[k]!.filter(c => c.verdict === 'unknown').map(c => ({ i, k, c })));
-  const caveats = rules.filter(r => r.basis || r.scaleCaveat);
+  const caveats = rules.map(r => ({ r, text: [cleanNote(r.basis), cleanNote(r.scaleCaveat)].filter(Boolean).join(' ') })).filter(c => c.text);
   return (
     <Page title="Limitations" back={onBack} next={onNext} aside={<SheetButton data={data} request={request} sites={sites} />}>
       {!sites.length ? <NoSites /> : <>
         <div className="sheet">
           <table>
-            <thead><tr><th>Trait</th><th className="num">Band</th><SiteHead data={data} sites={sites} /></tr></thead>
+            <thead><tr><th>Trait</th><th>Accepted band</th><SiteHead data={data} sites={sites} /></tr></thead>
             <tbody>
               {rules.map(r => (
                 <tr key={r.dimension} className={r.priority === 'must' ? 'must' : undefined}>
                   <td>{DIMENSION_LABEL[r.dimension]}{r.priority === 'nice' && <span className="muted"> · preferred</span>}</td>
-                  <td className="num muted">{bandLabel(r)}</td>
+                  <td className="muted mono small">{bandLabel(r)}</td>
                   {cells.map((cs, k) => {
                     const c = cs.find(x => x.dimension === r.dimension)!;
                     return <td key={k}><Verdict verdict={c.verdict}><span className="muted mono small">{c.detail}</span></Verdict></td>;
@@ -49,14 +57,13 @@ export function Limits({ data, request, sites, objective, onBack, onNext }: {
                 </tr>
               ))}
             </tbody>
-            <tfoot><tr><td colSpan={2}>Required traits</td>{sites.map(i => <td key={i}>{CLASS_TEXT[siteClass(data, request, i)]}</td>)}</tr></tfoot>
           </table>
         </div>
 
         <div className="cols">
           <section>
             <h2 className="h2">Earth can't reproduce</h2>
-            <ul className="list">{cannot.map(m => <li key={m.mismatch}><span>{m.mismatch}</span><span className="muted small">{m.why}</span></li>)}</ul>
+            <ul className="list">{cannot.map(m => <li key={m.mismatch}><span>{m.label}</span><span className="muted small">{m.why}</span></li>)}</ul>
           </section>
           <section>
             <h2 className="h2">Unknown</h2>
@@ -68,15 +75,17 @@ export function Limits({ data, request, sites, objective, onBack, onNext }: {
                 </li>
               ))}</ul>
             )}
-            {(caveats.length > 0 || data.runtime.qualityWarnings.length > 0) && (
-              <details>
-                <summary>Data notes</summary>
-                <ul className="list">
-                  {caveats.map(r => <li key={r.dimension}><span>{DIMENSION_LABEL[r.dimension]}</span><span className="muted small">{[r.basis, r.scaleCaveat].filter(Boolean).join(' ')}</span></li>)}
-                  {data.runtime.qualityWarnings.map(w => <li key={w}><span className="muted small">{w}</span></li>)}
-                </ul>
-              </details>
-            )}
+          </section>
+        </div>
+
+        <div className="cols">
+          {caveats.length > 0 && <section>
+            <h2 className="h2">Where the bands come from</h2>
+            <ul className="list">{caveats.map(({ r, text }) => <li key={r.dimension}><span>{DIMENSION_LABEL[r.dimension]}</span><span className="muted small">{text}</span></li>)}</ul>
+          </section>}
+          <section>
+            <h2 className="h2">Data caveats</h2>
+            <ul className="list">{data.runtime.qualityWarnings.map(w => <li key={w}><span className="small">{w}</span></li>)}</ul>
           </section>
         </div>
       </>}
@@ -93,24 +102,27 @@ export function Logistics({ data, request, sites, checklist, onChecklist, onBack
   return (
     <Page title="Logistics" back={onBack} next={onNext} aside={<SheetButton data={data} request={request} sites={sites} />}>
       {!sites.length ? <NoSites /> : <>
+        <div className="stack">
         <div className="sheet">
           <table>
             <thead><tr><th>Measure</th><SiteHead data={data} sites={sites} /></tr></thead>
             <tbody>
               {facts[0]!.map((f, r) => (
                 <tr key={f.label}><td>{f.label}</td>{facts.map((fs, k) => (
-                  <td key={k} className="num">{fs[r]!.value === 'unknown' ? <span className="v-unknown">unknown</span> : <>{fs[r]!.value} <span className="muted">{fs[r]!.unit}</span></>}</td>
+                  <td key={k} className="num"><Val text={fs[r]!.value} /></td>
                 ))}</tr>
               ))}
               {limitRows(data, request, sites[0]!).map((l, r) => (
-                <tr key={l.limit}><td>Limit · {l.limit} ≤ {l.max}</td>{sites.map(i => {
+                <tr key={l.limit}><td>{LIMIT_TEXT[l.limit].label} <span className="muted">limit ≤ {fmt(l.max, LIMIT_TEXT[l.limit].unit)}</span></td>{sites.map(i => {
                   const row = limitRows(data, request, i)[r]!;
-                  return <td key={i} className={`num ${row.outcome === 'fail' ? 'v-miss' : row.outcome === 'unknown' ? 'v-unknown' : 'v-match'}`}>{row.outcome}</td>;
+                  return <td key={i} className={`num ${row.outcome === 'fail' ? 'v-miss' : row.outcome === 'unknown' ? 'v-unknown' : ''}`}>
+                    {row.outcome === 'unknown' ? 'no data' : <>{row.outcome === 'pass' ? 'within' : 'over'} <span className="muted">limit</span></>}</td>;
                 })}</tr>
               ))}
-              <tr><td>Cost, permits, vehicles, comms</td>{sites.map(i => <td key={i} className="num muted">not checked</td>)}</tr>
             </tbody>
           </table>
+        </div>
+        <p className="muted small">Not in this data: cost, permits, vehicles, comms. Use the checklist.</p>
         </div>
 
         <section>
@@ -133,7 +145,7 @@ export function Logistics({ data, request, sites, checklist, onChecklist, onBack
   );
 }
 
-type Campaign = { campaignId: string; name: string; agency?: string[]; years?: { first: number; last: number }; site?: { name?: string; h3r4?: string } };
+type Campaign = { campaignId: string; name: string; agency?: string[]; years?: { first: number; last: number }; site?: { name?: string; h3r4?: string; lat?: number; lon?: number } };
 
 export function Risks({ data, request, sites, checklist, onBack }: {
   data: Dataset; request: PlanRequest; sites: number[]; checklist: string; onBack: () => void;
@@ -144,7 +156,6 @@ export function Risks({ data, request, sites, checklist, onBack }: {
     ensureMonthly(data, ['burned_pct']).then(() => { if (live) setBurned(data.monthly.burned_pct ? 'ready' : 'missing'); }, () => { if (live) setBurned('missing'); });
     return () => { live = false; };
   }, [data]);
-  const pinned = sites.map(i => data.h3[i]!);
   const campaigns = data.runtime.campaigns as Campaign[];
 
   return (
@@ -167,14 +178,16 @@ export function Risks({ data, request, sites, checklist, onBack }: {
           <h2 className="h2">Past campaigns</h2>
           <div className="sheet">
             <table>
-              <thead><tr><th>Campaign</th><th>Where</th><th className="num">Years</th><th>Agency</th><th>In a compared cell</th></tr></thead>
+              <thead><tr><th>Campaign</th><th>Where</th><th className="num">Years</th><th>Agency</th>{sites.map((i, k) => <th key={i} className="num"><span className="swatch" style={{ background: SERIES[k] }} />distance</th>)}</tr></thead>
               <tbody>
                 {campaigns.map(c => (
                   <tr key={c.campaignId}>
-                    <td>{c.name}</td><td className="muted">{c.site?.name ?? 'unknown'}</td>
-                    <td className="num">{c.years ? (c.years.first === c.years.last ? c.years.first : `${c.years.first}–${c.years.last}`) : 'unknown'}</td>
-                    <td>{c.agency?.join(', ') ?? 'unknown'}</td>
-                    <td>{c.site?.h3r4 && pinned.includes(c.site.h3r4) ? <span className="v-match">yes</span> : <span className="muted">no</span>}</td>
+                    <td>{c.name}</td><td className="muted">{c.site?.name ?? 'no data'}</td>
+                    <td className="num">{c.years ? (c.years.first === c.years.last ? c.years.first : `${c.years.first}–${c.years.last}`) : 'no data'}</td>
+                    <td>{c.agency?.join(', ') ?? 'no data'}</td>
+                    {sites.map(i => <td key={i} className="num">{c.site?.h3r4 === data.h3[i] ? <span className="v-match">same cell</span>
+                      : typeof c.site?.lat === 'number' && typeof c.site?.lon === 'number' ? <Val text={fmt(kmBetween(latLon(data, i), { lat: c.site.lat, lon: c.site.lon }), 'km')} />
+                      : <span className="v-unknown">no data</span>}</td>)}
                   </tr>
                 ))}
               </tbody>
@@ -186,7 +199,7 @@ export function Risks({ data, request, sites, checklist, onBack }: {
   );
 }
 
-const unknown = <span className="v-unknown">unknown</span>;
+const unknown = <span className="v-unknown">no data</span>;
 const finite = (v: number | undefined | null): v is number => v !== undefined && v !== null && Number.isFinite(v);
 
 function SiteRisks({ data, request, i, burned }: { data: Dataset; request: PlanRequest; i: number; burned: 'loading' | 'ready' | 'missing' }) {
@@ -198,13 +211,13 @@ function SiteRisks({ data, request, i, burned }: { data: Dataset; request: PlanR
     <div className="cols">
       <section>
         <h2 className="h2">Conditions</h2>
-        <div className="kv"><span className="muted">Ground over 30°</span><span className="mono">{finite(steep) ? `${num(steep * 100)} %` : unknown}</span></div>
-        <div className="kv"><span className="muted">Hottest day surface</span><span className="mono">{finite(hot) ? `${num(hot - 273.15)} °C` : unknown}</span></div>
-        <div className="kv"><span className="muted">Coldest night surface</span><span className="mono">{finite(cold) ? `${num(cold - 273.15)} °C` : unknown}</span></div>
+        <div className="kv"><span className="muted">Ground over 30°</span><span className="mono">{finite(steep) ? fmt(steep, '0-1') : unknown}</span></div>
+        <div className="kv"><span className="muted">Hottest day surface</span><span className="mono">{finite(hot) ? fmt(hot, 'K') : unknown}</span></div>
+        <div className="kv"><span className="muted">Coldest night surface</span><span className="mono">{finite(cold) ? fmt(cold, 'K') : unknown}</span></div>
         <div className="kv"><span className="muted">Most burned in window</span><span className="mono">{burned === 'loading' ? '…' : !fire || fire.max === null ? unknown
-          : <>{num(fire.max)} %{fire.missing.length > 0 && <span className="v-unknown small"> · no data for {fire.missing.join(', ')}</span>}</>}</span></div>
+          : <>{fmt(fire.max, '%')}{fire.missing.length > 0 && <span className="v-unknown small"> · no data for {fire.missing.join(', ')}</span>}</>}</span></div>
         <div className="kv"><span className="muted">Traits unknown</span><span className={`mono${unknownTraits ? ' v-unknown' : ''}`}>{unknownTraits}</span></div>
-        <div className="kv"><span className="muted">Rescue, weather on the day</span><span className="muted">not checked</span></div>
+        <p className="muted small" style={{ marginTop: 12 }}>Not in this data: rescue cover, weather on the day.</p>
       </section>
       <section>
         <h2 className="h2">Events on record <span className="muted small">NASA EONET</span></h2>

@@ -2,22 +2,40 @@
 import { lazy, Suspense, useMemo, useState } from 'react';
 import { requirements, type Dataset, type SearchResult } from '../../../atlas/src/planner/engine.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { DIMENSION_LABEL, MAX_COMPARE, SERIES, coordLabel, num, traitCells } from '../model.ts';
-import { Mark, Page, Verdict } from '../ui.tsx';
+import { CELL_AREA, DIMENSION_LABEL, MAX_COMPARE, SERIES, coordLabel, fmt, siteFacts, sortByColumn, traitCells } from '../model.ts';
+import { Mark, Page, Select, Verdict } from '../ui.tsx';
 
 const Globe = lazy(() => import('../Globe.tsx'));
 
-export function Finder({ data, request, result, removed, onRemoved, onPins, eligible, onBack, onNext }: {
+/** List orders. "engine" is the engine's own order; the rest sort by one measured column. */
+const ORDERS = [
+  { value: 'engine', label: 'Pareto order', unit: '', note: '' },
+  { value: 'slope_mean_deg', label: 'Flattest first', unit: 'deg', note: 'mean slope' },
+  { value: 'access_min_median', label: 'Closest to a city', unit: 'min', note: 'to a city' },
+  { value: 'airport_km', label: 'Closest airport', unit: 'km', note: 'to an airport' },
+  { value: 'elev_mean_m', label: 'Lowest first', unit: 'm', note: 'mean elevation' },
+] as const;
+type Order = (typeof ORDERS)[number]['value'];
+
+export function Finder({ data, request, result, removed, onRemoved, onPins, eligible, dropped, onBack, onNext }: {
   data: Dataset; request: PlanRequest; result: SearchResult; removed: string[];
   onRemoved: (r: string[]) => void; onPins: (p: string[]) => void;
   /** Still in play: the engine's class 0 and not removed. Only these can be compared. */
-  eligible: (h3: string) => boolean; onBack: () => void; onNext: () => void;
+  eligible: (h3: string) => boolean;
+  /** Compared sites that left the comparison after an edit, as coordinates. */
+  dropped: string[];
+  onBack: () => void; onNext: () => void;
 }) {
   const pins = request.pins ?? [];
-  const inPlay = useMemo(() => result.indices.filter(i => !removed.includes(data.h3[i]!)).slice(0, request.top ?? 50), [result, removed, request.top, data]);
+  const [order, setOrder] = useState<Order>('engine');
+  const matched = useMemo(() => result.indices.filter(i => !removed.includes(data.h3[i]!)), [result, removed, data]);
+  const inPlay = useMemo(() => (order === 'engine' ? matched : sortByColumn(data, matched, order, 1)).slice(0, request.top ?? 50),
+    [matched, order, request.top, data]);
   const pinIdx = pins.map(h => data.h3.indexOf(h)).filter(i => i >= 0);
-  const [active, setActive] = useState<number | null>(() => pinIdx[0] ?? inPlay[0] ?? null);
+  const [active, setActive] = useState<number | null>(() => pinIdx[0] ?? null);
   const c = result.counts;
+  // When every match sits on the same Pareto layer with the same gap, the engine order is just release order.
+  const allTie = useMemo(() => new Set(matched.map(i => result.layers.get(i))).size <= 1, [matched, result]);
 
   const togglePin = (i: number) => {
     const h = data.h3[i]!;
@@ -38,34 +56,50 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
         <span><Mark verdict="miss" />{c.misses.toLocaleString('en-US')} miss</span>
         <span><Mark verdict="unknown" />{c.unknown.toLocaleString('en-US')} unknown</span>
         {c.land > c.withinLimits && <span>{(c.land - c.withinLimits).toLocaleString('en-US')} past limits</span>}
+        <span>one site = one {CELL_AREA}</span>
       </div>}>
       {c.matches === 0 && <p className="warn">No site meets every required trait. Make one Preferred, widen a band, or change months.</p>}
+      {dropped.length > 0 && <p className="note small">Left the comparison because they no longer match: <span className="mono">{dropped.join(', ')}</span></p>}
       <div className="finder">
-        <div className="sites" role="list" aria-label="Sites">
-          {inPlay.map((i, rank) => {
-            const h = data.h3[i]!, at = pins.indexOf(h);
-            return (
-              <div key={h} role="listitem" className="site" data-active={active === i ? '' : undefined} onClick={() => setActive(i)} title={h}>
-                <span className="rank">{rank + 1}</span>
-                <button className="pin" aria-pressed={at >= 0} aria-label={at >= 0 ? 'Stop comparing' : 'Compare'}
-                  disabled={at < 0 && pins.length >= MAX_COMPARE} style={at >= 0 ? { background: SERIES[at] } : undefined}
-                  onClick={e => { e.stopPropagation(); togglePin(i); }} />
-                <span>
-                  <span className="mono">{coordLabel(data, i)}</span>
-                  <span className="glyphs small">
-                    {traitCells(data, request, i).map(t => <Verdict key={t.dimension} verdict={t.verdict}><span className="muted">{DIMENSION_LABEL[t.dimension]}</span></Verdict>)}
+        <div>
+          <div className="list-head">
+            <Select label="Order" value={order} options={ORDERS.map(o => ({ value: o.value, label: o.label }))} onChange={setOrder} width={190} />
+            <span className="muted small">{pins.length}/{MAX_COMPARE} picked</span>
+          </div>
+          {order === 'engine' && allTie && matched.length > 1 &&
+            <p className="muted small tie">All {matched.length.toLocaleString('en-US')} tie on the required traits, so this order is arbitrary. Sort by a measure, or pick on the globe.</p>}
+          <div className="sites" role="list" aria-label="Sites">
+            {inPlay.map(i => {
+              const h = data.h3[i]!, at = pins.indexOf(h);
+              const sortedBy = ORDERS.find(o => o.value === order)!;
+              const sortVal = order === 'engine' ? null : fmt(data.yearly[order]?.[i], sortedBy.unit);
+              return (
+                <div key={h} role="listitem" className="site" data-active={active === i ? '' : undefined} onClick={() => setActive(i)}>
+                  <button className="pin" aria-pressed={at >= 0} aria-label={at >= 0 ? 'Stop comparing' : 'Compare'}
+                    disabled={at < 0 && pins.length >= MAX_COMPARE} style={at >= 0 ? { background: SERIES[at] } : undefined}
+                    onClick={e => { e.stopPropagation(); togglePin(i); }} />
+                  <span className="site-body">
+                    <span className="site-line">
+                      <span className="mono">{coordLabel(data, i)}</span>
+                      {order !== 'engine' && <span className="sort-val">{sortVal ?? 'no data'} <span className="faint">{sortedBy.note}</span></span>}
+                    </span>
+                    <span className="site-traits small">
+                      {traitCells(data, request, i).map(t => (
+                        <Verdict key={t.dimension} verdict={t.verdict}>{DIMENSION_LABEL[t.dimension]}<span className="tv">{t.short}</span></Verdict>
+                      ))}
+                    </span>
                   </span>
-                </span>
-                <button className="icon-btn" aria-label={`Remove ${h}`} onClick={e => { e.stopPropagation(); remove(i); }}>×</button>
+                  <button className="icon-btn" aria-label={`Remove ${coordLabel(data, i)}`} onClick={e => { e.stopPropagation(); remove(i); }}>×</button>
+                </div>
+              );
+            })}
+            {removed.map(h => data.h3.indexOf(h)).filter(i => i >= 0).map(i => (
+              <div key={data.h3[i]} className="removed small">
+                <s className="mono">{coordLabel(data, i)}</s>
+                <button className="icon-btn small" onClick={() => onRemoved(removed.filter(h => h !== data.h3[i]))}>restore</button>
               </div>
-            );
-          })}
-          {removed.map(h => data.h3.indexOf(h)).filter(i => i >= 0).map(i => (
-            <div key={data.h3[i]} className="removed small">
-              <s className="mono">{coordLabel(data, i)}</s>
-              <button className="icon-btn small" onClick={() => onRemoved(removed.filter(h => h !== data.h3[i]))}>restore</button>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="content" style={{ gap: 48 }}>
@@ -74,13 +108,15 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
               <Globe data={data} classes={result.classes} inPlay={inPlay} pins={pinIdx} active={active} onPick={setActive} />
             </Suspense>
             <div className="globe-legend">
-              <span><Mark verdict="match" />match</span><span><Mark verdict="unknown" />unknown</span>
+              <span><Mark verdict="match" />match</span><span><Mark verdict="unknown" />unknown</span><span><Mark verdict="miss" />miss</span>
             </div>
             {active !== null && <CellCard data={data} request={request} i={active} pinned={pins.includes(data.h3[active]!)}
               canPin={pins.length < MAX_COMPARE && eligible(data.h3[active]!)}
               why={removed.includes(data.h3[active]!) ? 'Removed' : CLASS_WHY[result.classes[active]!]} onPin={() => togglePin(active)} />}
           </div>
-          {pinIdx.length > 0 && <Compare data={data} request={request} sites={pinIdx} />}
+          {pinIdx.length > 0
+            ? <Compare data={data} request={request} sites={pinIdx} />
+            : <p className="muted small">Pick up to three sites from the list or the globe to compare them.</p>}
         </div>
       </div>
     </Page>
@@ -95,9 +131,12 @@ function CellCard({ data, request, i, pinned, canPin, why, onPin }: { data: Data
     <div className="cell-card">
       <span className="mono">{coordLabel(data, i)}</span>
       {traitCells(data, request, i).map(t => (
-        <span key={t.dimension} className="small" style={{ display: 'flex', justifyContent: 'space-between', gap: 16 }}>
+        <span key={t.dimension} className="small card-row">
           <Verdict verdict={t.verdict}>{DIMENSION_LABEL[t.dimension]}</Verdict><span className="muted mono">{t.detail}</span>
         </span>
+      ))}
+      {siteFacts(data, i).map(f => (
+        <span key={f.label} className="small card-row"><span className="muted">{f.label}</span><span className="muted mono">{f.value ?? 'no data'}</span></span>
       ))}
       {(pinned || canPin) ? <button className="btn btn-line small" onClick={onPin}>{pinned ? 'Stop comparing' : 'Compare'}</button>
         : why && <span className="muted small">{why}</span>}
@@ -105,7 +144,7 @@ function CellCard({ data, request, i, pinned, canPin, why, onPin }: { data: Data
   );
 }
 
-/** One strip per banded trait: the accepted band and each compared site's value. */
+/** One strip per banded trait: the accepted band, then one lane per compared site with its value. */
 function Compare({ data, request, sites }: { data: Dataset; request: PlanRequest; sites: number[] }) {
   const cells = sites.map(i => traitCells(data, request, i));
   return (
@@ -116,24 +155,37 @@ function Compare({ data, request, sites }: { data: Dataset; request: PlanRequest
       <div className="fit">
         {requirements(data, request).map(r => {
           const vals = cells.map(cs => cs.find(x => x.dimension === r.dimension)!);
-          const label = <span>{DIMENSION_LABEL[r.dimension]} <span className="muted small">{r.unit}</span></span>;
-          if (!r.band) return [<span key={`l${r.dimension}`}>{label}</span>, <span key={`s${r.dimension}`} className="v-unknown small">no band</span>];
+          const label = <span>{DIMENSION_LABEL[r.dimension]}</span>;
+          if (!r.band) return [<span key={`l${r.dimension}`}>{label}</span>, <span key={`s${r.dimension}`} className="v-unknown small">no accepted band</span>];
           const known = vals.map(v => v.value).filter((v): v is number => v !== null);
           let lo = Math.min(r.band.lo, ...known), hi = Math.max(r.band.hi, ...known);
           if (lo === hi) { lo -= 1; hi += 1; }
-          const pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
-          const at = (v: number) => `${((v - lo) / (hi - lo)) * 100}%`;
+          const pad = (hi - lo) * 0.06;
+          // a scale of slopes or shares shouldn't run below zero
+          const floor = r.band.lo >= 0 && known.every(v => v >= 0) ? 0 : -Infinity;
+          lo = Math.max(floor, lo - pad); hi += pad;
+          const pos = (v: number) => ((v - lo) / (hi - lo)) * 100;
+          const f = (v: number) => fmt(v, r.unit) ?? String(v);
+          // band edges and scale ends are set numbers, so 10 reads "10°", not "10.0°"
+          const fe = (v: number) => (Number.isInteger(v) && r.unit === 'deg' ? `${v}°` : f(v));
           return [
             <span key={`l${r.dimension}`}>{label}</span>,
             <div key={`s${r.dimension}`}>
-              <div className="strip" style={{ height: 8 + vals.length * 8 }}>
-                <span className="b" style={{ left: at(r.band.lo), width: `calc(${at(r.band.hi)} - ${at(r.band.lo)})` }} />
-                {vals.map((v, k) => v.value === null
-                  ? <span key={k} className="q v-unknown small" style={{ left: 0, top: k * 8 - 2 }}>?</span>
-                  : <span key={k} className="m" title={`${num(v.value)} ${r.unit ?? ''}`}
-                      style={{ left: at(v.value), top: 3 + k * 8, background: SERIES[k], clipPath: v.verdict === 'miss' ? 'polygon(50% 0,100% 50%,50% 100%,0 50%)' : undefined }} />)}
+              <div className="strip" style={{ height: vals.length * 18 + 4 }}>
+                <span className="b" style={{ left: `${pos(r.band.lo)}%`, width: `${pos(r.band.hi) - pos(r.band.lo)}%` }} />
+                {vals.map((v, k) => {
+                  const top = 2 + k * 18;
+                  if (v.value === null) return <span key={k} className="lane-val v-unknown" style={{ left: 0, top }}>no data</span>;
+                  const x = pos(v.value), right = x > 75;
+                  return [
+                    <span key={`m${k}`} className="m" style={{ left: `${x}%`, top: top + 4, background: SERIES[k], clipPath: v.verdict === 'miss' ? 'polygon(50% 0,100% 50%,50% 100%,0 50%)' : undefined }} />,
+                    <span key={`t${k}`} className="lane-val" style={right ? { right: `${100 - x}%`, top, marginRight: 9 } : { left: `${x}%`, top, marginLeft: 9 }}>
+                      {f(v.value)}{v.verdict === 'miss' ? ' · miss' : ''}
+                    </span>,
+                  ];
+                })}
               </div>
-              <div className="scale"><span>{num(lo)}</span><span>{num(r.band.lo)} – {num(r.band.hi)}</span><span>{num(hi)}</span></div>
+              <div className="scale"><span>{fe(Math.round(lo * 10) / 10)}</span><span>band {fe(r.band.lo)} – {fe(r.band.hi)}</span><span>{fe(Math.round(hi * 10) / 10)}</span></div>
             </div>,
           ];
         })}

@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Dataset, Objective, Rule, Runtime } from '../../atlas/src/planner/engine.ts';
-import { burnedInWindow, pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
+import { burnedInWindow, cleanNote, fmt, pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
 
 const base = resolve(import.meta.dirname, process.env.PLANNER_RELEASE ?? '../../atlas/public/data/planner-v1');
 const json = (name: string) => JSON.parse(readFileSync(resolve(base, name), 'utf8'));
@@ -117,4 +117,26 @@ test('every CSV row with an empty value says why (re-check of #182, finding 3)',
   const limit = body.find(r => r[col('kind')] === 'limit' && r[col('name')] === 'protected')!;
   assert.deepEqual([limit[col('verdict')], limit[col('value')], limit[col('reason')], limit[col('earth_column')]], ['unknown', '', 'missing in release', 'protected_pct']);
   for (const r of body) if (r[col('value')] === '') assert.notEqual(r[col('reason')], '', `${r[col('kind')]} ${r[col('name')]} has no value and no reason`);
+});
+
+test('numbers show at a sensible precision, never as -0, and missing stays missing (owner review of #182)', () => {
+  assert.equal(fmt(-0.0001, 'deg'), '0.0°');
+  assert.equal(fmt(-0.2, '%'), '0 %');
+  assert.equal(fmt(0.0188, 'deg'), '0.0°');
+  assert.equal(fmt(12.46, 'deg'), '12°');
+  assert.equal(fmt(273.15, 'K'), '0 °C');
+  assert.equal(fmt(0.1236, 'm'), '0 m');
+  assert.equal(fmt(1234, 'm'), '1,230 m');
+  assert.equal(fmt(1400, 'min'), '23 h');
+  assert.equal(fmt(90, 'min'), '1.5 h');
+  assert.equal(fmt(3.4, 'min'), '3 min');
+  assert.equal(fmt(0.25, '0-1'), '25 %');
+  assert.equal(fmt(null, 'km'), null);
+  assert.equal(fmt(Number.NaN, 'km'), null);
+});
+
+test('rule notes lose the internal envelope tag and say ° instead of deg', () => {
+  assert.equal(cleanNote('moon-south-pole-v0 terrain: max slope over a 100 m baseline <= 10 deg (Artemis III).'),
+    'Max slope over a 100 m baseline <= 10° (Artemis III).');
+  assert.equal(cleanNote(null), '');
 });

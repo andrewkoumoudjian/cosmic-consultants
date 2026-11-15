@@ -7,7 +7,7 @@
 import { useEffect, useRef } from 'react';
 import GlobeGL, { type GlobeInstance } from 'globe.gl';
 import { CanvasTexture, MeshBasicMaterial, SRGBColorSpace } from 'three';
-import { latLngToCell } from 'h3-js';
+import { cellToBoundary, latLngToCell } from 'h3-js';
 import type { Dataset } from '../../atlas/src/planner/engine.ts';
 import { SERIES, coordLabel, latLon } from './model.ts';
 
@@ -43,6 +43,13 @@ function paintTexture(data: Dataset, classes: Uint8Array): HTMLCanvasElement {
 }
 
 type Point = { i: number; lat: number; lng: number; color: string; r: number; alt: number };
+type Hex = { i: number; color: string; geometry: { type: 'Polygon'; coordinates: number[][][] } };
+
+/** The cell's real footprint (H3 res 4, about 1,770 km²), so a pin doesn't look like a point site. */
+function hex(data: Dataset, i: number, color: string): Hex {
+  const ring = cellToBoundary(data.h3[i]!, true);
+  return { i, color, geometry: { type: 'Polygon', coordinates: [[...ring, ring[0]!]] } };
+}
 
 export default function Globe({ data, classes, inPlay, pins, active, onPick }: {
   data: Dataset; classes: Uint8Array; inPlay: number[]; pins: number[]; active: number | null; onPick: (i: number) => void;
@@ -68,6 +75,9 @@ export default function Globe({ data, classes, inPlay, pins, active, onPick }: {
         const i = byH3.current.get(latLngToCell(lat, lng, 4));
         if (i !== undefined) pick.current(i);
       })
+      .polygonGeoJsonGeometry('geometry').polygonCapColor(() => 'rgba(0,0,0,0)').polygonSideColor(() => 'rgba(0,0,0,0)')
+      .polygonStrokeColor('color').polygonAltitude(0.004).polygonsTransitionDuration(0)
+      .polygonLabel((p: object) => coordLabel(data, (p as Hex).i))
       .ringLat('lat').ringLng('lng').ringColor(() => (t: number) => `rgba(255,255,255,${0.9 * (1 - t)})`)
       .ringMaxRadius(3).ringPropagationSpeed(2).ringRepeatPeriod(1400);
     g.controls().autoRotate = false;
@@ -97,6 +107,9 @@ export default function Globe({ data, classes, inPlay, pins, active, onPick }: {
     for (const [i, k] of pinSet) points.push({ i, ...ll(data, i), color: SERIES[k]!, r: 0.7, alt: 0.03 });
     g.pointsData(points);
     g.ringsData(active === null ? [] : [{ ...ll(data, active) }]);
+    const hexes = [...pinSet].map(([i, k]) => hex(data, i, SERIES[k]!));
+    if (active !== null && !pinSet.has(active)) hexes.push(hex(data, active, '#ffffff'));
+    g.polygonsData(hexes);
   }, [data, inPlay, pins, active]);
 
   useEffect(() => {

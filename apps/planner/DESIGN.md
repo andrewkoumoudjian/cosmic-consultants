@@ -24,6 +24,25 @@ not the source of truth. This file replaces that direction.
 | Motion | Steps fade in and rise 6px (Motion). Reduced motion turns it off. |
 | Imagery | Derek's Moon and Mars engravings from the team Figma file, used as they are. |
 
+## Content rules (owner and reviewer pass, 2026-11-15)
+
+The look above stays. These fix what the screens say, not how they look.
+
+- Numbers carry the precision a ≈1,770 km² cell can hold: coordinates to 0.1°,
+  slopes to 0.1° under 10°, temperatures in whole °C, elevations to 10 m,
+  travel in minutes under an hour and hours above. Never "-0", never "deg".
+- No ranks. On LI-5L all 7,599 matches tie, so the list says the order is
+  arbitrary and offers real sorts (flattest, closest to a city, closest
+  airport, lowest). Nothing is pre-picked for comparison.
+- Each site row shows its per-trait verdict with the measured value. The cell
+  card on the globe adds elevation range, travel and airport distance.
+- Compared cells get their true hexagon outline on the globe.
+- Things the release doesn't cover are named once in a short note, not as rows
+  of "not checked". Missing values say "no data".
+- Rule notes lose internal tags (`moon-south-pole-v0 terrain:`). The release's
+  data caveats are shown in full on Limitations.
+- The field-notes checklist travels in the link (`#notes=`).
+
 ## JSheets
 
 JSheets (matsonj/jsheets-releases) is a native desktop app with DuckDB inside,
