@@ -16,12 +16,36 @@ Scope for the 48 hours: [ADR-0003](docs/decisions/ADR-0003-hackathon-delivery-sc
 [ADR-0004](docs/decisions/ADR-0004-evidence-backed-comparison.md), a proposed
 redesign, was deferred by the owner on 2026-11-14 (#46).
 
-What exists (main at `343969b`): research, dataset registry and probes, JSON
-contracts, Lean proofs (S1, S2, S4, S5, S6), the Earth trait table for 91,800
-hexagons (`services/ingest`, #54) and the atlas map on mock data (`apps/atlas`,
-#53). Not built yet: the monthly and context tables, the past-campaign table,
-the planner engine and the workflow UI (see the plan's work orders). A proof
-about supplied losses does not establish scientific accuracy.
+## What works today
+
+You can open the planner, pick a Moon or Mars objective and months, and get every
+Earth hexagon's result per trait: **match**, **miss** (with the gap) or
+**unknown** (with the reason). Then compare up to three sites, see what Earth
+can't test, logistics and risks, and export a brief.
+
+| Piece | Where | Landed in |
+|---|---|---|
+| Six-step planner in the browser, on real data | `apps/atlas/planner.html` | #132 (PR #149) |
+| Planner engine (verdicts, funnel, shortlist, logistics, risks, brief) | `services/engine/src/planner/` | #132 (PR #149), on #85 |
+| Release step that publishes hashed data for the browser, plus 459 golden cases checked in both Python and the browser | `planner.release`, `npm run check:planner` | #132 (PR #149) |
+| Assembled Earth tables: 91,800 land hexagons, yearly and monthly traits, EONET hazards | `services/ingest` (`p0ingest.assemble`) | #69 (PR #73), refreshed in #127 |
+| Six cited past analog campaigns | `data/campaigns/` | #60 (PR #63) |
+| Calibration: do past campaign sites pass their own objective? | [docs/qa/CALIBRATION.md](docs/qa/CALIBRATION.md) | #23 (PR #178) |
+| Lean proofs S1, S2, S4, S5, S6 and S7 (the funnel rules the engine follows) | `proofs/Analog/` | see [STATEMENTS.md](proofs/STATEMENTS.md) |
+| Shared JSON contracts between engine and app | `contracts/` | #78 (PR #79) and earlier |
+
+**What it doesn't do yet**, so nobody over-reads it:
+- **No single site score.** That's on purpose (AGENTS.md rule 4).
+- **Science is partial.** Source quality checks are still open (#76). Some
+  traits have no accepted band yet, so they show as unknown. For Mars OP-5LM
+  that means no site gets a Pareto layer (see the calibration write-up).
+- **Not in main yet:** S8 proofs (past-mission closeness, PR #140), the campaign
+  optimizer (PR #172) and the new feature tables (PR #168).
+- **Hosted CI is down** (#139, a billing issue), so checks are run locally with
+  saved receipts ([docs/qa/LOCAL-CHECKS.md](docs/qa/LOCAL-CHECKS.md)).
+
+A Lean proof covers the rules on the values it's given. It doesn't show that
+the source data or the bands are scientifically right.
 
 Deferred ADR-0004 material, kept for reference: [status](docs/STATUS.md),
 [coherence review](docs/design/coherence-review.md), [evidence design](docs/design/evidence-comparison.md),
@@ -59,6 +83,39 @@ lake build
 lake env lean Analog/Audit.lean   # standard axioms only
 ```
 
+## Run the planner on real data
+
+You need the assembled tables in `data/snapshots/_derived/assembled/`. Build
+them with `python -m p0ingest.assemble` (`services/ingest`), or copy that folder
+from the Drive mirror (`data/catalog/drive-links.json`). The engine checks
+every file hash before use and stops on a mismatch.
+
+```bash
+# 1. Publish hashed data for the browser (needs pyarrow==18.1.0, pyyaml==6.0.2;
+#    use Python 3.12 or 3.13, since pyarrow 18.1.0 has no 3.14 wheel)
+cd services/engine
+PYTHONPATH=src python -m planner.release ../../data/snapshots/_derived/assembled ../../apps/atlas/public/data/planner-v1
+
+# 2. Build and check the app (Node 22.12 or newer)
+cd ../../apps/atlas
+npm ci
+npm run build
+npm test                # share-link codec + workflow tests
+npm run check:planner   # 459 golden cases: Python and browser agree; hashes match
+
+# 3. Serve it on your machine, then open http://127.0.0.1:4184/planner.html
+cd ../..
+python scripts/serve_planner.py apps/atlas/dist
+```
+
+Engine tests and the calibration:
+
+```bash
+cd services/engine
+PYTHONPATH=src python -m unittest discover -s tests
+PYTHONPATH=src python -m planner.calibrate ../../data/snapshots/_derived/assembled --out <dir>
+```
+
 ## Verify the contracts
 
 ```bash
@@ -76,8 +133,11 @@ needs a C compiler.
 cd apps/atlas
 npm ci
 npm run build        # type-check + static build
-npm run check:mock   # mock sites, ARL rule, no-single-score rule
+npm test             # share-link codec + workflow tests
+npm run check:mock   # the older map's mock sites and no-single-score rule
 ```
 
-CI runs the same two checks (`.github/workflows/atlas.yml`). Needs Node 22.12
-or newer. The sites in `apps/atlas/mock/` are synthetic, and the app says so.
+Needs Node 22.12 or newer. The sites in `apps/atlas/mock/` are synthetic, and
+the older map page (`index.html`) says so. That page's ARL ladder is superseded
+by the planner (ADR-0005). To run every check with saved logs while CI is down:
+`python scripts/local_checks.py --group contracts --group atlas --keep-going`.
