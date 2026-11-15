@@ -156,7 +156,9 @@ def l1_cells() -> tuple[list[str], np.ndarray]:
     """H3 ids of the 91,800 land cells (master key set) in L1 order, and as uint64."""
     path = DERIVED / "cells-r4.parquet"
     if not path.is_file():
-        path = Path("/home/drew/cosmic-consultants/data/snapshots/_derived/cells-r4.parquet")
+        raise FileNotFoundError(
+            f"{path} not found locally; build L1 or restore it from the Drive mirror first"
+        )
     hexes = pq.read_table(path, columns=["h3"]).column("h3").to_pylist()
     if len(hexes) != 91800:
         raise RuntimeError(f"expected 91,800 L1 land cells, got {len(hexes)}")

@@ -19,7 +19,7 @@ this is a harvested catalog and counts move.
 project — the place to *find* dataset identifiers, DOIs and license fields. It is
 not where analysis-ready Earth/Moon/Mars bytes live; those remain Earthdata/PDS/
 USGS/Trek as inventoried in
-[`01-nasa-data-catalog.md`](/home/drew/cosmic-consultants/docs/research/01-nasa-data-catalog.md) §4.
+[`01-nasa-data-catalog.md`](01-nasa-data-catalog.md) §4.
 Every record we adopt must be resolved to its source archive and probed there.
 
 ## 2. Composition (facets from the live portal, 2026-11-12)

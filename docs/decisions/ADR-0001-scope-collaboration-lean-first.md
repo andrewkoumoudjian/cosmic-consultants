@@ -5,7 +5,7 @@
 > parts of it, was **deferred by the owner on 2026-11-14 (#46)**.
 
 Date: 2026-11-12. Status: **accepted by repo owner** (answers to proposal
-[`04`](/home/drew/cosmic-consultants/docs/proposals/04-monorepo-multiagent-lean-proposal.md) §7).
+[`04`](../proposals/04-monorepo-multiagent-lean-proposal.md) §7).
 Immutable once accepted; supersede by a new ADR, never edit in place.
 
 ## Decisions
