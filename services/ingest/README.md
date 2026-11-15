@@ -304,3 +304,50 @@ it. No other module was touched.
   plausible ranges, the Jensen speed-field sanity check and 5 raw-granule
   spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa) - all raw
   vs parquet values MATCH; exit 0 only if all pass (`ALL PASS`).
+
+## Aqua LST monthly table (W34, #93, my own section)
+
+`python -m p0ingest.lst_aqua fetch` pulls the 12 monthly MYD11C3 V061
+(MODIS/Aqua LST/Emissivity, 0.05 deg CMG) granules of 2023 through
+`snapshots.fetch` (URL + fetch time + sha256 + bytes + licence in
+`data/snapshots/MANIFEST.json`, ~855 MB raw total, licence cc0, NASA ESDIS
+default, row already verified in `data/catalog/modis-myd11c3.yaml`).
+`python -m p0ingest.lst_aqua build` writes `_derived/aqua-lst-r4-monthly.parquet`
+(1,101,600 rows = 91,800 cells x 12 months) + `.meta.json`, the aqua twin of the
+Terra L1m table: monthly medians of day/night LST per hexagon. It imports
+`monthly.py` and `grid.py` read-only (never edits them): same 0.05 deg
+pixel-to-hexagon rule (pixel centre inside the H3 res-4 cell via
+`h3.latlng_to_cell`, land share > 0, support counts kept in
+`lst_valid_pixels`), same fill rule (raw counts < 7500 = fill, x0.02 K), same
+25%-pixel coverage rule (below it the month is null with reason
+`too-few-lst-pixels`), medians, sun geometry on the 15th from the cells table
+latitudes. `missing_reason` is per-row JSON whose keys are exactly that row's
+null value columns (`lst_day_k` / `lst_night_k` / `lst_diurnal_k`);
+`lst_diurnal_k` is null exactly when day or night is null. 2023 result:
+10,994 day nulls, 22,822 night nulls (1.0% / 2.1%).
+
+Why it matters: Aqua's composites come from ~13:30 (day) / ~01:30 (night) local
+solar time overpasses; Terra's table from ~10:30 / ~22:30. Together the two
+tables give four times of day per month for the tsurf_max / tsurf_min /
+tsurf_range proxies (monthly composites, NOT daily extremes) and for
+thermal-inertia ingredients. Sanity read against the Terra table: Aqua day is
++2.3 to +3.6 K warmer per month (afternoon vs mid-morning overpass), Aqua night
+~1.6 K cooler (01:30 vs 22:30) — physically consistent.
+
+`python -m p0ingest.lst_aqua check` (also with `-O`) verifies: exact key set
+(91,800 cells-r4 hexagons x 12 months, no duplicates, no extra/missing cells),
+physical ranges (lst 150-360 K, diurnal -80-80 K, support counts sane), per-row
+`missing_reason` keys equal to that row's null value columns, and 8 raw spot
+checks (need >= 5) that recomputed cell/month medians straight from the .hdf
+granules with an INDEPENDENT pixel lookup (re-derived per check run via
+`h3.latlng_to_cell`, not the cached map) match the table exactly.
+
+MOD21C3 probe (recorded, not built): `modis-mod21c3` (Terra TES algorithm,
+monthly 0.05 deg CMG, C2565791050-LPCLOUD, cc0 verified) is USABLE in
+principle — same CMG grid, monthly day/night LST (`LST_Day` / `LST_Night`,
+uint16, scale 0.02, valid 7500-65535) plus band-29/31/32 emissivity. One
+granule (A2023182, 128 MB) fetched and inspected 2026-11-14. NOT built here:
+it duplicates day/night LST from the same sensor family (registry note:
+algorithmic cross-check only, NOT independent) and the W34 monthly-only scope
+does not need it; building it later is a small job (same reader shape, 12 x
+128 MB). Filed as a possible follow-up with the parent assembler wiring.
