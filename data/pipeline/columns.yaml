@@ -33,6 +33,8 @@ sources:
   regolith-r4:           {path: regolith-r4.parquet,           key: [h3],                 issue: 66}
   dust-r4:               {path: dust-r4.parquet,               key: [h3],                 issue: 68}
   dust-r4-monthly:       {path: dust-r4-monthly.parquet,       key: [h3, month],          issue: 68}
+  wind-r4:               {path: wind-r4.parquet,               key: [h3],                 issue: 89}
+  wind-r4-monthly:       {path: wind-r4-monthly.parquet,       key: [h3, month],          issue: 89}
 
 tables:
   sites-r4:
@@ -87,6 +89,9 @@ tables:
       - {name: hillslope_frac_mean, from: regolith-r4.hillslope_frac_mean, unit: "1", trait: subsurface, steps: [2, 3], status: active, clean: [ornl-nodata, hex-median-30arcsec]}
       - {name: dust_aod_mean, from: dust-r4.dust_aod_mean, unit: "1", trait: dustProcess, steps: [2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
       - {name: dust_aod_max, from: dust-r4.dust_aod_max, unit: "1", trait: dustProcess, steps: [5], status: planned, clean: [merra2-fill, nearest-grid-box]}
+      # W31 (#89, PR #109): MERRA-2 10 m wind (M2TMNXFLX SPEED/SPEEDMAX, M2TMNXSLV U10M/V10M)
+      - {name: wind_speed_mean, from: wind-r4.wind_speed_mean, unit: "m/s", trait: operations, steps: [2, 3, 4, 5], status: active, clean: [merra2-fill, nearest-grid-box, monthly-speed-mean]}
+      - {name: wind_months_used, from: wind-r4.months_used, unit: count, trait: operations, steps: [3], status: active, clean: [merra2-fill, nearest-grid-box]}
 
   sites-r4-monthly:
     key: [h3, month]
@@ -104,6 +109,10 @@ tables:
       - {name: albedo_bs_valid_px, from: albedo-r4-monthly.albedo_bs_valid_px, unit: count, trait: surfaceMaterial, steps: [3], status: active, clean: [mcd43-qa-best]}
       - {name: dust_aod, from: dust-r4-monthly.dust_aod, unit: "1", trait: dustProcess, steps: [1, 2, 3, 5], status: planned, clean: [merra2-fill, nearest-grid-box]}
       - {name: burned_pct, from: burned-r4-monthly.burned_pct, unit: "%", trait: hazard, steps: [5], status: active, reasonKey: burnedArea, clean: [mcd64-unmapped, mcd64-water, mapped-years-only]}
+      - {name: wind_speed, from: wind-r4-monthly.wind_speed, unit: "m/s", trait: operations, steps: [1, 2, 3, 4, 5], status: active, clean: [merra2-fill, nearest-grid-box]}
+      - {name: wind_speed_max, from: wind-r4-monthly.wind_speed_max, unit: "m/s", trait: hazard, steps: [2, 3, 5], status: active, clean: [merra2-fill, nearest-grid-box]}
+      - {name: u10m_mean, from: wind-r4-monthly.u10m_mean, unit: "m/s", trait: operations, steps: [2, 3], status: active, clean: [merra2-fill, nearest-grid-box, vector-component-only]}
+      - {name: v10m_mean, from: wind-r4-monthly.v10m_mean, unit: "m/s", trait: operations, steps: [2, 3], status: active, clean: [merra2-fill, nearest-grid-box, vector-component-only]}
 
 # Computed in assembly (the only summaries allowed, spec §5B).
 derived:
