@@ -1,0 +1,45 @@
+/*
+ * Design tokens, copied 1:1 from the Figma variables in
+ * CosmicConsultants (file iXj7QQ2xY8MlOfth7eQKrC), collections "Mission",
+ * "chart" and "status". Keep names identical so a Figma value can be traced.
+ */
+:root {
+  --mission-canvas: #111217;
+  --mission-surface: #191b22;
+  --mission-selected: #232538;
+  --mission-border: #2e313a;
+  --mission-text: #ecedf0;
+  --mission-muted: #9a9fab;
+  --mission-disabled: #50535c;
+  --mission-accent: #9aa0e6;
+  --mission-radius-control: 3px;
+
+  --chart-series-1: #3987e5;
+  --chart-series-2: #d95926;
+  --chart-series-3: #199e70;
+  --chart-series-4: #c98500;
+  --chart-series-5: #d55181;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  /* Placeholder marker. Not a Figma token: it marks values the data pipeline
+     doesn't publish yet (see src/data/pending.ts). */
+  --pending: #c9a64a;
+
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+
+  /* Mission/* text styles */
+  --type-brand: 400 18px/21px var(--font-mono);
+  --type-body: 400 13px/20px var(--font-mono);
+  --type-control: 500 13px/20px var(--font-mono);
+  --type-small: 400 11px/17px var(--font-mono);
+  --type-title: 400 44px/52px var(--font-serif);
+  --type-section: 400 27px/34px var(--font-serif);
+  --type-category: 600 22px/28px var(--font-serif);
+
+  color-scheme: dark;
+}
