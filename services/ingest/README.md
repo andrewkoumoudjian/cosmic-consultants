@@ -210,3 +210,58 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## W43 (#102) Moon spectral and radar maps (my own section)
+
+`python -m p0ingest.moon_spectral fetch|build|check` — static, source-native
+lunar maps, each dataset in `data/snapshots/_derived/planetary/<datasetId>/`
+with its own `preparation-report.json`. No resampling to H3 anywhere.
+
+- `kaguya-mi-59mpp` — `kaguya-mi-feo-4ppd.parquet` (576,000 rows): FeO weight
+  percent from the Lemelin et al. 2016 Kaguya MI Mineral Map (May 2016,
+  JAXA / Univ. of Hawaii), fetched as the USGS 4 ppd reduction (50N-50S,
+  0.25 deg simple cylindrical, md5-verified against the archive .md5). One
+  native map sample per row. Gaps recorded in the report: no Kaguya MI TiO2
+  map is published on that host, and the MI reflectance bands exist only at
+  512 ppd (~21-24 GB per band, over the shared 20 GB raw cap).
+- `minirf-pds` — `minirf-cpr-32ppd.parquet` (66,355,200 rows): Mini-RF global
+  circular polarization ratio mosaic (`global_cpr_32ppd_simp_0c`), 32 ppd
+  global simple cylindrical, S-band 2380 MHz (12.6 cm), CPR = same-sense /
+  opposite-sense circular polarization, read little-endian (PDS3 `PC_REAL`).
+  The 64-bit label missing constant (-1.7976931e308) is not representable in
+  the stored 32-bit real, so every sample with |v| >= 1e38 is null with
+  `missing_reason` = `source-missing-constant` (24,159,572 pixels); other
+  non-finite samples are `source-not-finite`. Producer ratio artifacts
+  (32,082 negatives, min -23,777; 1,137 samples > 20, max 217,650) are kept
+  as stored — declared QA only, never clipped — and documented in the report
+  `outlierNote`; 99.9% of valid samples lie below 1.92. Static mosaic of
+  2009-2010 observations.
+- `lroc-wac-global` — `lroc-wac-albedo-3ppd.parquet` (583,200 rows): the
+  USGS 303 ppd reduction of the ASU LRO WAC global morphology mosaic
+  (shipped 109,164 x 54,582 uint8 GeoTIFF, nodata not declared), aggregated
+  by an integer 101x101 boxcar mean with the trailing 42 rows / 84 samples
+  (< 0.28 deg at the -90 / +180 edges) cropped, never resampled, to a
+  540 x 1080 grid (~0.333 deg, ~10 km/px) with `native_sample_count`
+  support per cell (all cells 10,201). Values are mean 8-bit grayscale DN —
+  relative reflectance, explicitly NOT physical Lambert/bolometric albedo;
+  recorded as `albedo_wac_dn` and a gap in the report. No nodata is
+  declared, so the honest rule is all-valid: the table has no missing rows.
+- `lamp` — `lamp-gdr-ratio-albedo-80n.parquet` + `-80s.parquet` (6,255,001
+  rows each): the published LAMP GDR v1.0 H2O absorption feature depth
+  maps (off-band 155.57-189.57 nm / on-band 129.57-155.57 nm albedo ratio),
+  cumulative (static; GDR has no monthly ratio maps), polar stereographic
+  2501x2501, 240 m/pixel, coverage pole-ward of 80 deg. Served as
+  `lya_offon` (feature-registry key name kept) but stated in-band: it is
+  off/on, not Lyman-alpha. `lya_offon` is no longer a pure registry gap.
+- `m3-pds` — NOT fetched. Licence unresolved since audit #41 (a PDS host is
+  not a blanket grant) and no PDS-published global derived band-depth map
+  was found (only per-strip L1B/L2, out of scope per the work order).
+  Evidence in `_derived/planetary/moon-spectral-gaps.json` and the m3-pds
+  preparation report; artifacts under `m3-pds/`.
+
+`check` verifies manifest hashes + licences for all 14 fetched inputs, exact
+column sets, exact row counts, physical ranges (fail-loudly), the
+null<->`missing_reason` contract, per-table key uniqueness and 25 raw spot
+checks (5 per table; the WAC cells are recomputed from the raw mosaic, the
+PDS maps are compared sample-by-sample; the Kaguya map is md5 + value
+checked against the GeoTIFF). Run with plain python and `python -O`.

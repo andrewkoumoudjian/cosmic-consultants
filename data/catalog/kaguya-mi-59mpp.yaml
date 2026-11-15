@@ -29,5 +29,5 @@ coverage:
   resolution: "59 m/pixel (resampled from 15 m)"
 analysisReady: true
 independenceGroup: vnir-multiband
-plannedUse: "feo_wt (and mineral maps); TiO2 product availability on this page to confirm"
+plannedUse: "feo_wt prepared (#102): USGS 4 ppd reduction of the Lemelin et al. 2016 May 2016 FeO weight percent map. TiO2 is a gap: no Kaguya MI TiO2 map published on this host (full mosaic/Lunar_ prefix listed 2026-11-14); MI reflectance bands only exist at 512 ppd (~21-24 GB per band, over the shared raw cap)."
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

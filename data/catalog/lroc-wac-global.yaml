@@ -29,5 +29,5 @@ coverage:
   resolution: "unverified: 100 m/pixel class"
 analysisReady: true
 independenceGroup: visualization
-plannedUse: "context imagery for dossiers; not a scoring input"
+plannedUse: "context imagery for dossiers; not a scoring input. #102: the USGS 303 ppd reduction of the ASU global morphology mosaic is prepared as albedo_wac_dn - relative-reflectance 8-bit DN, explicitly NOT physical Lambert/bolometric albedo"
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

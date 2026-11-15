@@ -29,5 +29,5 @@ coverage:
   resolution: "unverified: product-dependent"
 analysisReady: false
 independenceGroup: uv-spectrometer
-plannedUse: "Moon waterIce gate 3 (target side): surface frost in PSRs, independent of LEND"
+plannedUse: "Moon waterIce gate 3 (target side): surface frost in PSRs, independent of LEND. #102: GDR v1.0 publishes the H2O absorption feature depth maps (off-band 155.57-189.57 nm / on-band 129.57-155.57 nm albedo ratio, cumulative, polar 80N/80S 240 m/px) - prepared as lya_offon; it is not a Lyman-alpha-band quantity (registered name kept)"
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

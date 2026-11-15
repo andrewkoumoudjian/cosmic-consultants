@@ -171,6 +171,146 @@
       "localPath": "data/snapshots/esa-cci-permafrost-extent-nh/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc"
     },
     {
+      "datasetId": "kaguya-mi-59mpp",
+      "sourceUrl": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_MI_mineral_maps/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.lbl",
+      "fetchedAt": "2026-11-14T23:02:12Z",
+      "sha256": "3bb5fec7f7c8b31e3c0a9e7421c5895928193343fee359545a5b06e1f0e21fc4",
+      "bytes": 1762,
+      "license": "jaxa-conditions",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/kaguya-mi-59mpp/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.lbl"
+    },
+    {
+      "datasetId": "kaguya-mi-59mpp",
+      "sourceUrl": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_MI_mineral_maps/4ppd/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.tif",
+      "fetchedAt": "2026-11-14T23:02:10Z",
+      "sha256": "6cd9aac8812caf7e1bf560fa3d05da31c6426b59297edae120ac94c801539b7d",
+      "bytes": 2308635,
+      "license": "jaxa-conditions",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/kaguya-mi-59mpp/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.tif"
+    },
+    {
+      "datasetId": "kaguya-mi-59mpp",
+      "sourceUrl": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/Lunar_MI_mineral_maps/4ppd/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.tif.md5",
+      "fetchedAt": "2026-11-14T23:02:11Z",
+      "sha256": "b84c5acc3c5fb4faadd4f6e92fa5aa7c1d425c7039c6dcd55b95b042513b0f58",
+      "bytes": 95,
+      "license": "jaxa-conditions",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/kaguya-mi-59mpp/Lunar_Kaguya_MIMap_MineralDeconv_FeOWeightPercent_50N50S.tif.md5"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/CATALOG/DSMAP_POLAR.CAT",
+      "fetchedAt": "2026-11-15T01:09:53Z",
+      "sha256": "4e32d68073a56f99653eecfc89c2d8f30c03ae95592190f85a5c283ac91bc84d",
+      "bytes": 3425,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/DSMAP_POLAR.CAT"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/DATA/RATIO/LAMP_80n_240mpp_ratio_albed_01.img",
+      "fetchedAt": "2026-11-15T01:09:34Z",
+      "sha256": "f168ac3efcd9c075123fa418c188ea6f73dcd650a926ec5b259455280eef52b6",
+      "bytes": 25020004,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/LAMP_80n_240mpp_ratio_albed_01.img"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/DATA/RATIO/LAMP_80n_240mpp_ratio_albed_01.lbl",
+      "fetchedAt": "2026-11-15T01:09:34Z",
+      "sha256": "9b09ad246c3f7b8a366cc5fd0a3370387f0c44b74577b2c222cceb6ab647b6da",
+      "bytes": 4203,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/LAMP_80n_240mpp_ratio_albed_01.lbl"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/DATA/RATIO/LAMP_80s_240mpp_ratio_albed_01.img",
+      "fetchedAt": "2026-11-15T01:09:51Z",
+      "sha256": "e5d73b08505fd51d5d996d29bb8adcff138772e895b41d132201d6b388877c82",
+      "bytes": 25020004,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/LAMP_80s_240mpp_ratio_albed_01.img"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/DATA/RATIO/LAMP_80s_240mpp_ratio_albed_01.lbl",
+      "fetchedAt": "2026-11-15T01:09:52Z",
+      "sha256": "7c3a60374c822f8c51928d34ba154a43326a0273ca5a86aea48766564cc04e8f",
+      "bytes": 4206,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/LAMP_80s_240mpp_ratio_albed_01.lbl"
+    },
+    {
+      "datasetId": "lamp",
+      "sourceUrl": "https://planetarydata.jpl.nasa.gov/img/data/lro/lamp/gdr/LROLAM_2001/CATALOG/LAMP_GDR_DS.CAT",
+      "fetchedAt": "2026-11-15T01:09:55Z",
+      "sha256": "7b97774a96d91f251de99ae10c00c49d61b737686d29b71e90b9748071d9fd96",
+      "bytes": 12856,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lamp/LAMP_GDR_DS.CAT"
+    },
+    {
+      "datasetId": "lroc-wac-global",
+      "sourceUrl": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/LRO_WAC_Mosaic_Global_303ppd.tif",
+      "fetchedAt": "2026-11-15T01:09:08Z",
+      "sha256": "84bfe198f9e182b5afef3c7d499a9b5bb361cd8b1ea3ea42ae5f25e4842e8b52",
+      "bytes": 5959263407,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lroc-wac-global/LRO_WAC_Mosaic_Global_303ppd.tif"
+    },
+    {
+      "datasetId": "lroc-wac-global",
+      "sourceUrl": "https://asc-pds-services.s3.us-west-2.amazonaws.com/mosaic/LRO_WAC_Mosaic_Global_303ppd.tif.xml",
+      "fetchedAt": "2026-11-15T01:09:16Z",
+      "sha256": "9894b8c088f7076cb1426f187f1d3b68fd3465e06cc53854412df217a2248ec8",
+      "bytes": 11584,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lroc-wac-global/LRO_WAC_Mosaic_Global_303ppd.tif.xml"
+    },
+    {
+      "datasetId": "minirf-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/32ppd/global_cpr_32ppd_simp_0c.img",
+      "fetchedAt": "2026-11-14T23:08:11Z",
+      "sha256": "4a1980452f522b2e25a66172ab2ab842527b79cbda7f6f25436bd454ff869395",
+      "bytes": 265420800,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/minirf-pds/global_cpr_32ppd_simp_0c.img"
+    },
+    {
+      "datasetId": "minirf-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/32ppd/global_cpr_32ppd_simp_0c.lbl",
+      "fetchedAt": "2026-11-14T23:08:13Z",
+      "sha256": "2107d39f46a928525f477f7d1aa92a17f13bceab7c566a0254d80bc1f693e151",
+      "bytes": 3866,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/minirf-pds/global_cpr_32ppd_simp_0c.lbl"
+    },
+    {
+      "datasetId": "minirf-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-mrflro-5-global-mosaic-v1/lromrf_1001/data/32ppd/global_cpr_32ppd_simp_0c.xml",
+      "fetchedAt": "2026-11-14T23:08:14Z",
+      "sha256": "42c088f45f7561416188303464dacf55fdbec6615bba1e28fd5ba0409067ca00",
+      "bytes": 11992,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/minirf-pds/global_cpr_32ppd_simp_0c.xml"
+    },
+    {
       "datasetId": "modis-mcd12c1",
       "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD12C1.061/MCD12C1.A2023001.061.2024251212901/MCD12C1.A2023001.061.2024251212901.hdf",
       "fetchedAt": "2026-11-14T15:10:54Z",
