@@ -83,6 +83,13 @@ class RequestTests(unittest.TestCase):
         self.assertEqual(months_in_window({"start": 11, "end": 2}), [11, 12, 1, 2])
         self.assertEqual(months_in_window({"start": 5, "end": 5}), [5])
 
+    def test_integral_floats_in_integer_fields_round_trip(self):
+        r = {**EXAMPLE, "months": {"start": 6.0, "end": 8.0}, "durationDays": 14.0, "teamSize": 6.0, "top": 20.0}
+        q = to_query(r)
+        self.assertIn("months=6-8&days=14&team=6", q)
+        self.assertIn("&top=20&", q)
+        self.assertEqual(parse_query(q), EXAMPLE)
+
 
 class LogisticsTests(unittest.TestCase):
     def test_limits_unknown_is_never_fail(self):

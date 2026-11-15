@@ -165,3 +165,8 @@ test("encodePlan refuses an invalid request instead of writing a bad link", () =
   const bad = { version: 1, body: "mars", objectiveId: "OP-5LM", missionType: "robotic", months: { start: 6, end: 8 }, pins: [PIN_A, PIN_A] } as PlanRequest;
   assert.throws(() => encodePlan(bad), /pinned twice/);
 });
+
+test("decodePlan accepts Python's top=all token as top: null (#148)", () => {
+  const plan = decodeOk("body=mars&obj=OP-5LM&type=robotic&months=6-8&top=all");
+  assert.equal(plan.top, null);
+});
