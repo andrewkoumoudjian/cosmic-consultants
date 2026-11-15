@@ -79,8 +79,10 @@ const NUM = /^-?(?:[0-9]+(?:\.[0-9]+)?|\.[0-9]+)(?:e[+-]?[0-9]+)?$/i;
 
 const isOneOf = <T extends string>(list: readonly T[], v: unknown): v is T =>
   typeof v === "string" && (list as readonly string[]).includes(v);
+// Safe integers only: String() writes those as plain digits (it switches to
+// exponent form from 1e21), so encodePlan never writes a link decodePlan rejects.
 const isInt = (v: unknown, min: number, max = Infinity): v is number =>
-  typeof v === "number" && Number.isInteger(v) && v >= min && v <= max;
+  typeof v === "number" && Number.isSafeInteger(v) && v >= min && v <= max;
 
 /** Checks a request against the plan-request rules. Empty list = valid. */
 export function validatePlan(p: PlanRequest): string[] {

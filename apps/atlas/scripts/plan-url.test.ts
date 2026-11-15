@@ -151,6 +151,16 @@ test("a URL with several problems reports each one once", () => {
   assert.deepEqual(errors, ["body is missing", 'days "x" is not a whole number', 'pins: "nope" is not an H3 resolution-4 id']);
 });
 
+test("huge whole numbers are rejected up front, so encode never writes a link decode refuses (review on #122)", () => {
+  const base: PlanRequest = { version: 1, body: "mars", objectiveId: "OP-5LM", missionType: "robotic", months: { start: 6, end: 8 } };
+  for (const key of ["durationDays", "teamSize", "top"] as const) {
+    assert.ok(validatePlan({ ...base, [key]: 1e21 }).length > 0, `${key}: 1e21 must be invalid`);
+    assert.throws(() => encodePlan({ ...base, [key]: 1e21 }), /whole number/);
+    const big = { ...base, [key]: Number.MAX_SAFE_INTEGER };
+    assert.deepEqual(decodeOk(encodePlan(big)), big, `${key}: largest safe integer round-trips`);
+  }
+});
+
 test("encodePlan refuses an invalid request instead of writing a bad link", () => {
   const bad = { version: 1, body: "mars", objectiveId: "OP-5LM", missionType: "robotic", months: { start: 6, end: 8 }, pins: [PIN_A, PIN_A] } as PlanRequest;
   assert.throws(() => encodePlan(bad), /pinned twice/);
