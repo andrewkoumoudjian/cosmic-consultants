@@ -1,0 +1,306 @@
+{
+  "version": 1,
+  "status": "illustrative-team-assumptions",
+  "scenarios": [
+    {
+      "targetId": "mars-landing-perseverance",
+      "parameters": {
+        "limits": {
+          "value": {
+            "slope": 15,
+            "access": 600
+          },
+          "origin": "team",
+          "basis": "Illustrative field-plan caps in degrees and minutes; not target-derived safety limits."
+        },
+        "month": {
+          "value": 7,
+          "origin": "team",
+          "basis": "Illustrative Earth campaign month; not a mission requirement."
+        },
+        "thermalBandK": {
+          "value": [
+            245,
+            305
+          ],
+          "origin": "team",
+          "basis": "Illustrative Earth equipment operating window in K, not a measured planetary surface-temperature band."
+        },
+        "coverageRules": {
+          "value": [
+            [
+              "barren_pct",
+              50,
+              0.3,
+              ">="
+            ]
+          ],
+          "origin": "team",
+          "basis": "Illustrative minimum allocation share (0.3) to candidates with barren cover at least 50 percent; not an accepted analogy threshold. Empty means no coverage constraint."
+        },
+        "alpha": {
+          "value": 0.2,
+          "origin": "team",
+          "basis": "Illustrative worst 20 percent tail for campaign temperature cost, not site similarity."
+        },
+        "maxWeightPerSite": {
+          "value": 0.5,
+          "origin": "team",
+          "basis": "Illustrative diversification cap: at most half the field days at one site."
+        },
+        "minLandPct": {
+          "value": 50,
+          "origin": "team",
+          "basis": "Illustrative majority-land screen to reduce known coastal DEM contamination; does not repair source pixels or certify remaining terrain."
+        },
+        "maxLayers": {
+          "value": 2,
+          "origin": "team",
+          "basis": "Computational example scope: retain the first two target-gap Pareto layers."
+        },
+        "maxCandidates": {
+          "value": 20,
+          "origin": "team",
+          "basis": "Computational example cap before campaign allocation; selection is not the full frontier."
+        },
+        "years": {
+          "value": [
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023
+          ],
+          "origin": "team",
+          "basis": "Requested historical source years, 2014 through 2023 inclusive; missing candidate-years remain exclusions."
+        }
+      }
+    },
+    {
+      "targetId": "mars-landing-curiosity",
+      "parameters": {
+        "limits": {
+          "value": {
+            "slope": 15,
+            "access": 600
+          },
+          "origin": "team",
+          "basis": "Illustrative field-plan caps in degrees and minutes; not target-derived safety limits."
+        },
+        "month": {
+          "value": 7,
+          "origin": "team",
+          "basis": "Illustrative Earth campaign month; not a mission requirement."
+        },
+        "thermalBandK": {
+          "value": [
+            245,
+            305
+          ],
+          "origin": "team",
+          "basis": "Illustrative Earth equipment operating window in K, not a measured planetary surface-temperature band."
+        },
+        "coverageRules": {
+          "value": [
+            [
+              "barren_pct",
+              50,
+              0.3,
+              ">="
+            ]
+          ],
+          "origin": "team",
+          "basis": "Illustrative minimum allocation share (0.3) to candidates with barren cover at least 50 percent; not an accepted analogy threshold. Empty means no coverage constraint."
+        },
+        "alpha": {
+          "value": 0.2,
+          "origin": "team",
+          "basis": "Illustrative worst 20 percent tail for campaign temperature cost, not site similarity."
+        },
+        "maxWeightPerSite": {
+          "value": 0.5,
+          "origin": "team",
+          "basis": "Illustrative diversification cap: at most half the field days at one site."
+        },
+        "minLandPct": {
+          "value": 50,
+          "origin": "team",
+          "basis": "Illustrative majority-land screen to reduce known coastal DEM contamination; does not repair source pixels or certify remaining terrain."
+        },
+        "maxLayers": {
+          "value": 2,
+          "origin": "team",
+          "basis": "Computational example scope: retain the first two target-gap Pareto layers."
+        },
+        "maxCandidates": {
+          "value": 20,
+          "origin": "team",
+          "basis": "Computational example cap before campaign allocation; selection is not the full frontier."
+        },
+        "years": {
+          "value": [
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023
+          ],
+          "origin": "team",
+          "basis": "Requested historical source years, 2014 through 2023 inclusive; missing candidate-years remain exclusions."
+        }
+      }
+    },
+    {
+      "targetId": "moon-feature-shackleton",
+      "parameters": {
+        "limits": {
+          "value": {
+            "slope": 20
+          },
+          "origin": "team",
+          "basis": "Illustrative field-plan caps in degrees and minutes; not target-derived safety limits."
+        },
+        "month": {
+          "value": 1,
+          "origin": "team",
+          "basis": "Illustrative Earth campaign month; not a mission requirement."
+        },
+        "thermalBandK": {
+          "value": [
+            230,
+            275
+          ],
+          "origin": "team",
+          "basis": "Illustrative Earth equipment operating window in K, not a measured planetary surface-temperature band."
+        },
+        "coverageRules": {
+          "value": [],
+          "origin": "team",
+          "basis": "Illustrative minimum allocation share (0.3) to candidates with barren cover at least 50 percent; not an accepted analogy threshold. Empty means no coverage constraint."
+        },
+        "alpha": {
+          "value": 0.2,
+          "origin": "team",
+          "basis": "Illustrative worst 20 percent tail for campaign temperature cost, not site similarity."
+        },
+        "maxWeightPerSite": {
+          "value": 0.5,
+          "origin": "team",
+          "basis": "Illustrative diversification cap: at most half the field days at one site."
+        },
+        "minLandPct": {
+          "value": 50,
+          "origin": "team",
+          "basis": "Illustrative majority-land screen to reduce known coastal DEM contamination; does not repair source pixels or certify remaining terrain."
+        },
+        "maxLayers": {
+          "value": 2,
+          "origin": "team",
+          "basis": "Computational example scope: retain the first two target-gap Pareto layers."
+        },
+        "maxCandidates": {
+          "value": 20,
+          "origin": "team",
+          "basis": "Computational example cap before campaign allocation; selection is not the full frontier."
+        },
+        "years": {
+          "value": [
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023
+          ],
+          "origin": "team",
+          "basis": "Requested historical source years, 2014 through 2023 inclusive; missing candidate-years remain exclusions."
+        }
+      }
+    },
+    {
+      "targetId": "moon-feature-nobile",
+      "parameters": {
+        "limits": {
+          "value": {
+            "slope": 20
+          },
+          "origin": "team",
+          "basis": "Illustrative field-plan caps in degrees and minutes; not target-derived safety limits."
+        },
+        "month": {
+          "value": 1,
+          "origin": "team",
+          "basis": "Illustrative Earth campaign month; not a mission requirement."
+        },
+        "thermalBandK": {
+          "value": [
+            230,
+            275
+          ],
+          "origin": "team",
+          "basis": "Illustrative Earth equipment operating window in K, not a measured planetary surface-temperature band."
+        },
+        "coverageRules": {
+          "value": [],
+          "origin": "team",
+          "basis": "Illustrative minimum allocation share (0.3) to candidates with barren cover at least 50 percent; not an accepted analogy threshold. Empty means no coverage constraint."
+        },
+        "alpha": {
+          "value": 0.2,
+          "origin": "team",
+          "basis": "Illustrative worst 20 percent tail for campaign temperature cost, not site similarity."
+        },
+        "maxWeightPerSite": {
+          "value": 0.5,
+          "origin": "team",
+          "basis": "Illustrative diversification cap: at most half the field days at one site."
+        },
+        "minLandPct": {
+          "value": 50,
+          "origin": "team",
+          "basis": "Illustrative majority-land screen to reduce known coastal DEM contamination; does not repair source pixels or certify remaining terrain."
+        },
+        "maxLayers": {
+          "value": 2,
+          "origin": "team",
+          "basis": "Computational example scope: retain the first two target-gap Pareto layers."
+        },
+        "maxCandidates": {
+          "value": 20,
+          "origin": "team",
+          "basis": "Computational example cap before campaign allocation; selection is not the full frontier."
+        },
+        "years": {
+          "value": [
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021,
+            2022,
+            2023
+          ],
+          "origin": "team",
+          "basis": "Requested historical source years, 2014 through 2023 inclusive; missing candidate-years remain exclusions."
+        }
+      }
+    }
+  ]
+}

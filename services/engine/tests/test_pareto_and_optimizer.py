@@ -130,6 +130,19 @@ class ParetoModelS9Tests(unittest.TestCase):
         self.assertEqual([a.name for a in axes], ["slope_gap_deg"])
         self.assertEqual(len(mismatches), 3)
 
+    def test_min_land_pct_guard_excludes_water_dominated_cells_under_s7i(self) -> None:
+        axes = [AxisSpec("slope_gap_deg", "slope_mean_deg", "deg", mode="target_abs", target_value=0.0)]
+        rows = [
+            {"h3": "840000000000001", "lat": 0.0, "lon": 0.0, "slope_mean_deg": 0.0, "land_pct_mean": 5.0},
+            {"h3": "840000000000002", "lat": 0.0, "lon": 1.0, "slope_mean_deg": 2.0, "land_pct_mean": 90.0},
+            {"h3": "840000000000003", "lat": 0.0, "lon": 2.0, "slope_mean_deg": 3.0},  # unknown land_pct -> kept (S7i)
+        ]
+        res = evaluate_sites(rows, axes, min_land_pct=50.0)
+        self.assertEqual([c["h3"] for c in res["comparable"]], ["840000000000002", "840000000000003"])
+        self.assertEqual(len(res["excludedLimits"]), 1)
+        self.assertEqual(res["excludedLimits"][0]["h3"], "840000000000001")
+        self.assertEqual(res["excludedLimits"][0]["limits"][0]["reason"], "water-dominated-cell")
+
 
 class CampaignOptimizerS10Tests(unittest.TestCase):
     def test_known_analytical_cvar_lp_and_dual_certificate_s10a_to_s10e(self) -> None:

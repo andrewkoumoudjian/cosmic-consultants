@@ -138,10 +138,11 @@ def search(tables,l3,request,manifest_hash=None,synthetic=True):
         if any(r['verdict']=='miss' for r in must):counts['misses']+=1;continue
         if any(r['verdict']=='unknown' for r in must):counts['unknown']+=1;continue
         counts['matches']+=1
-        vector=tuple(r.get('gap',0) for r in rs)
+        banded=[r for r in rs if r['band'] is not None]
+        vector=tuple(r.get('gap',0) for r in banded)
         sort_gap=next((r.get('gap',0) if r['verdict']!='unknown' else math.inf for r in rs if r['dimension']==request.get('sortBy')),0)
         matches.append((h,sort_gap))
-        if all(r['verdict']!='unknown' for r in rs):comparable.append(h);vectors.append(vector)
+        if all(r['verdict']!='unknown' for r in banded):comparable.append(h);vectors.append(vector)
     layers=dict(zip(comparable,pareto_layers(vectors)))
     matches.sort(key=lambda item:(layers.get(item[0],math.inf),item[1],item[0]))
     top=request.get('top');chosen=matches if top is None else matches[:top]

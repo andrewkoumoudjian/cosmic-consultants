@@ -408,14 +408,18 @@ def pareto_layers(vectors: Iterable[Iterable[float]]) -> list[int]:
     return [levels[v] for v in raw]
 
 
-def _check_limits(row: dict, limits: dict[str, float] | None) -> tuple[bool, list[dict]]:
+def _check_limits(
+    row: dict,
+    limits: dict[str, float] | None,
+    min_land_pct: float | None = None,
+) -> tuple[bool, list[dict]]:
     """Evaluate hard limits following S7i (unknown limit value never excludes a site)."""
-    if not limits:
+    if not limits and min_land_pct is None:
         return True, []
     details: list[dict] = []
     passed = True
     for key in ("access", "protected", "airport", "slope"):
-        if key not in limits:
+        if not limits or key not in limits:
             continue
         _, col, unit = LIMIT_COLUMNS[key]
         cap = float(limits[key])
@@ -430,6 +434,28 @@ def _check_limits(row: dict, limits: dict[str, float] | None) -> tuple[bool, lis
             details.append(
                 {"limit": key, "max": cap, "value": val, "unit": unit, "outcome": "pass" if ok else "fail"}
             )
+    if min_land_pct is not None:
+        land_val = _finite_opt(row.get("land_pct_mean"))
+        if land_val is None:
+            water_val = _finite_opt(row.get("water_pct"))
+            if water_val is not None:
+                land_val = max(0.0, 100.0 - water_val)
+        if land_val is None:
+            details.append({"limit": "min_land_pct", "min": float(min_land_pct), "value": None, "unit": "%", "outcome": "unknown"})
+        else:
+            ok = land_val >= float(min_land_pct)
+            if not ok:
+                passed = False
+            entry = {
+                "limit": "min_land_pct",
+                "min": float(min_land_pct),
+                "value": land_val,
+                "unit": "%",
+                "outcome": "pass" if ok else "fail",
+            }
+            if not ok:
+                entry["reason"] = "water-dominated-cell"
+            details.append(entry)
     return passed, details
 
 
@@ -438,6 +464,7 @@ def evaluate_sites(
     axes: list[AxisSpec],
     *,
     limits: dict[str, float] | None = None,
+    min_land_pct: float | None = None,
     target: dict | None = None,
     spread_by_key: dict[tuple[str, int], dict] | None = None,
     month: int | None = None,
@@ -469,7 +496,7 @@ def evaluate_sites(
 
     for row in rows_list:
         h3 = str(row["h3"])
-        ok, lim_details = _check_limits(row, limits)
+        ok, lim_details = _check_limits(row, limits, min_land_pct=min_land_pct)
         if not ok:
             excluded_limits.append({"h3": h3, "limits": lim_details})
             continue
@@ -626,6 +653,7 @@ def rank_earth_for_target(
     target_id: str,
     *,
     limits: dict[str, float] | None = None,
+    min_land_pct: float | None = None,
     include_stability: bool = True,
     include_barren: bool = True,
     include_permafrost_when_psr: bool = True,
@@ -634,6 +662,8 @@ def rank_earth_for_target(
     passthrough_columns: Iterable[str] = ("access_min_median",),
 ) -> dict:
     """Run exact S9 Pareto layer ranking over real assembled Earth + planetary tables."""
+    import pyarrow.parquet as pq
+
     targets = load_assembled_targets(assembled_dir)
     target = next((t for t in targets if t.get("target_id") == target_id), None)
     if target is None:
@@ -648,6 +678,12 @@ def rank_earth_for_target(
     )
     passthrough = tuple(passthrough_columns)
     needed_cols = ["h3", "lat", "lon", "missing_reason", *(ax.column for ax in axes), *passthrough]
+    if min_land_pct is not None:
+        schema_names = set(pq.read_schema(Path(assembled_dir) / "earth-features-r4.parquet").names)
+        if "land_pct_mean" in schema_names:
+            needed_cols.append("land_pct_mean")
+        elif "water_pct" in schema_names:
+            needed_cols.append("water_pct")
     if limits:
         for key in limits:
             if key in LIMIT_COLUMNS:
@@ -657,6 +693,7 @@ def rank_earth_for_target(
         rows,
         axes,
         limits=limits,
+        min_land_pct=min_land_pct,
         target=target,
         max_layers=max_layers,
         passthrough_columns=passthrough,

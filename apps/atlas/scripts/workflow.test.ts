@@ -63,3 +63,35 @@ test('brief distinguishes a user-edited band from its original source basis',()=
  assert.match(text,/Original source basis \(context only; does not justify edited bounds\): SYNTHETIC target slope band: 0 to 5 deg\./);
  assert.match(text,/Scale caveat: SYNTHETIC cell-scale support\./);
 });
+
+test('Pareto layers ignore unbanded nice rules while leaving sites missing banded observations unranked', async () => {
+ const { search } = await import('../src/planner/engine.ts');
+ const d: Dataset = {
+  h3: ['842a107ffffffff', '842a103ffffffff', '842a101ffffffff'],
+  yearly: {
+   lat: new Float32Array([10, 11, 12]),
+   lon: new Float32Array([20, 21, 22]),
+   barren_pct: new Float32Array([80, 90, 85]),
+   slope_mean_deg: new Float32Array([3, 6, NaN]),
+  },
+  monthly: {},
+  objectives: [{
+   objectiveId: 'OP-5LM', body: 'mars', title: 'SYNTHETIC',
+   requiredDimensions: ['terrain', 'surfaceMaterial', 'thermal'],
+   earthTestableComponent: 'Synthetic', notTestableOnEarth: [],
+  }],
+  rules: [
+   { objectiveId: 'OP-5LM', dimension: 'surfaceMaterial', table: 'L1', earthColumn: 'barren_pct', unit: '%', band: { lo: 50, hi: 100 }, origin: 'team', priority: 'must' } as Rule & { objectiveId: string },
+   { objectiveId: 'OP-5LM', dimension: 'terrain', table: 'L1', earthColumn: 'slope_mean_deg', unit: 'deg', band: { lo: 0, hi: 5 }, origin: 'target', priority: 'nice' } as Rule & { objectiveId: string },
+   { objectiveId: 'OP-5LM', dimension: 'thermal', table: 'L1m', earthColumn: 'lst_night_k', unit: 'K', band: null, origin: 'target', priority: 'nice' } as Rule & { objectiveId: string },
+  ],
+  runtime: { numericPolicy: 'published-float32-no-epsilon', qualityWarnings: [], reasonSets: [{}], yearlyReasons: [0, 0, 0], monthlyReasons: new Array(36).fill(0), categories: [], campaigns: [], events: {} },
+  manifestHash: '0'.repeat(64), inputs: [],
+ };
+ const req: PlanRequest = { version: 1, body: 'mars', objectiveId: 'OP-5LM', missionType: 'robotic', months: { start: 1, end: 1 }, must: ['surfaceMaterial'], nice: ['terrain', 'thermal'] };
+ const res = search(d, req);
+ assert.equal(res.counts.matches, 3);
+ assert.equal(res.layers.get(0), 1, 'terrain match beats terrain miss');
+ assert.equal(res.layers.get(1), 2, 'terrain miss gets layer 2 instead of undefined');
+ assert.equal(res.layers.has(2), false, 'missing observation on banded nice rule stays unranked');
+});

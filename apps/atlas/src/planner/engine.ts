@@ -116,7 +116,7 @@ export function search(data:Dataset,request:PlanRequest):SearchResult{
     const g=v<r.band.lo?r.band.lo-v:v>r.band.hi?v-r.band.hi:0;
     if(g>0||(r.band.hiStrict&&v===r.band.hi)){miss=true;gap=Math.max(gap,g);}}
    const cls=miss?1:unknown?2:0;if(r.priority==='must'){mustMiss ||=cls===1;mustUnknown ||=cls===2;}
-   if(cls===2)complete=false;gaps.push(gap);
+   if(r.band!==null){if(cls===2)complete=false;gaps.push(gap);}
   }
   if(mustMiss){classes[i]=1;counts.misses++;}else if(mustUnknown){classes[i]=2;counts.unknown++;}else{
    counts.matches++;matched.push(i);if(complete){ranked.push(i);vectors.push(gaps);}else unranked.push(i);

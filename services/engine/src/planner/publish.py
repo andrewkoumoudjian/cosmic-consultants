@@ -22,25 +22,47 @@ from pathlib import Path
 
 from .tables import Tables, reasons_of
 
-# L1 + L2 columns the six steps read (MISSION-PLANNER steps 1-5). Units from DATA-PIPELINE section 5.
+# L1 + L2 columns published to L4 (DATA-PIPELINE section 5 + #168 columns.yaml active columns).
 CELL_COLUMNS = {
-    "lat": "deg", "lon": "deg",
+    "lat": "deg", "lon": "deg", "land_pct_mean": "%",
     "lst_day_max_k": "K", "lst_night_min_k": "K", "lst_diurnal_range_mean_k": "K",
     "barren_pct": "%", "snow_ice_pct": "%", "water_pct": "%", "permafrost_pct": "%",
     "elev_mean_m": "m", "elev_min_m": "m", "elev_max_m": "m",
     "slope_mean_deg": "deg", "slope_frac_lt5": "0-1", "slope_frac_lt15": "0-1", "slope_frac_gt30": "0-1",
     "sun_noon_elev_max_deg": "deg", "sun_noon_elev_min_deg": "deg", "polar_night": "0/1", "polar_day": "0/1",
-    "dust_aod_mean": "unitless",
+    "dust_aod_mean": "unitless", "dust_aod_max": "unitless",
+    "albedo_ws_sw_mean": "0-1", "albedo_bs_sw_mean": "0-1",
+    "regolith_thick_m": "m", "soil_thick_m": "m", "sediment_thick_m": "m",
+    "avg_soil_sed_thick_m": "m", "hillslope_frac_mean": "0-1",
+    "wind_speed_mean": "m/s",
+    "emit_n_observed": "count",
+    "emit_min_hydration_share": "0-1", "emit_min_hydration_bd_med": "0-1",
+    "emit_min_fe_mg_smectite_share": "0-1", "emit_min_fe_mg_smectite_bd_med": "0-1",
+    "emit_min_al_oh_share": "0-1", "emit_min_al_oh_bd_med": "0-1",
+    "emit_min_sulfate_share": "0-1", "emit_min_sulfate_bd_med": "0-1",
+    "emit_min_carbonate_share": "0-1", "emit_min_carbonate_bd_med": "0-1",
+    "emit_min_mafic_bd_1um_share": "0-1", "emit_min_mafic_bd_1um_bd_med": "0-1",
+    "emit_min_dust_proxy_share": "0-1", "emit_min_dust_proxy_bd_med": "0-1",
+    "vcf_percent_tree_cover_pct_median": "%", "vcf_percent_nontree_vegetation_pct_median": "%",
+    "vcf_percent_nonvegetated_pct_median": "%",
+    "vcf_percent_tree_cover_pct_mean": "%", "vcf_percent_nontree_vegetation_pct_mean": "%",
+    "vcf_percent_nonvegetated_pct_mean": "%",
 }
+# Startup retains the existing planner fields plus land share. Extended measurements
+# are individually hashed, on-demand arrays; do not double every initial download.
+STARTUP_COLUMNS = set("lat lon land_pct_mean lst_day_max_k lst_night_min_k lst_diurnal_range_mean_k barren_pct snow_ice_pct water_pct permafrost_pct elev_mean_m elev_min_m elev_max_m slope_mean_deg slope_frac_lt5 slope_frac_lt15 slope_frac_gt30 sun_noon_elev_max_deg sun_noon_elev_min_deg polar_night polar_day dust_aod_mean".split())
 CONTEXT_COLUMNS = {
     "access_min_median": "min", "access_min_p10": "min", "airport_km": "km", "protected_pct": "%",
 }
 MONTHLY_COLUMNS = {
     "lst_day_k": "K", "lst_night_k": "K", "lst_diurnal_k": "K",
-    "sun_noon_elev_deg": "deg", "daylight_h": "h", "polar_day": "0/1", "polar_night": "0/1", "dust_aod": "unitless",
-    "burned_pct": "%",
+    "aqua_lst_day_k": "K", "aqua_lst_night_k": "K", "aqua_lst_diurnal_k": "K",
+    "sun_noon_elev_deg": "deg", "daylight_h": "h", "polar_day": "0/1", "polar_night": "0/1",
+    "dust_aod": "unitless", "burned_pct": "%",
+    "albedo_ws_sw": "0-1", "albedo_bs_sw": "0-1",
+    "wind_speed": "m/s", "wind_speed_max": "m/s", "u10m_mean": "m/s", "v10m_mean": "m/s",
 }
-ENGINE = "planner 0.1.0"
+ENGINE = "planner 0.2.0"
 
 
 def _f32(values: list) -> bytes:
@@ -97,6 +119,8 @@ def publish(tables: Tables, l3: dict, out: Path, l3_inputs: list[dict] | None = 
     columns, blobs, offset = [], [], 0
     for table, rows, spec in (("L1", cell_rows, CELL_COLUMNS), ("L2", ctx_rows, CONTEXT_COLUMNS)):
         for name, unit in spec.items():
+            if table == "L1" and name not in STARTUP_COLUMNS:
+                continue
             blob = _f32([None if r is None else r.get(name) for r in rows])
             columns.append({"name": name, "table": table, "unit": unit, "offset": offset, "length": len(order)})
             blobs.append(blob)
@@ -108,6 +132,12 @@ def publish(tables: Tables, l3: dict, out: Path, l3_inputs: list[dict] | None = 
         "synthetic": synthetic,
     }
     _write(out / "cells.json", _json(meta), written, out)
+
+    extra_columns = {name: unit for name, unit in CELL_COLUMNS.items() if name not in STARTUP_COLUMNS}
+    for name in extra_columns:
+        _write(out / "yearly" / f"{name}.bin", _f32([r.get(name) if r else None for r in cell_rows]), written, out)
+    _write(out / "yearly" / "yearly.json", _json({"dtype":"float32-le", "null":"NaN", "count":len(order),
+           "columns":extra_columns, "nullReasons":_null_reasons(cell_rows,list(extra_columns))}), written, out)
 
     for name in MONTHLY_COLUMNS:
         values = [(tables.monthly.get((h, m)) or {}).get(name) for h in order for m in range(1, 13)]
@@ -133,8 +163,13 @@ def publish(tables: Tables, l3: dict, out: Path, l3_inputs: list[dict] | None = 
 def read_column(out: Path, name: str) -> list[float | None]:
     """Read one cells.bin column back (tests and spot checks)."""
     meta = json.loads((out / "cells.json").read_text(encoding="utf-8"))
-    col = next(c for c in meta["columns"] if c["name"] == name)
-    raw = (out / "cells.bin").read_bytes()[col["offset"]: col["offset"] + 4 * col["length"]]
+    col = next((c for c in meta["columns"] if c["name"] == name), None)
+    if col is None:
+        extra = json.loads((out / "yearly/yearly.json").read_text())
+        if name not in extra['columns']:raise KeyError(name)
+        raw = (out / "yearly" / f"{name}.bin").read_bytes()
+    else:
+        raw = (out / "cells.bin").read_bytes()[col["offset"]: col["offset"] + 4 * col["length"]]
     a = array("f")
     a.frombytes(raw)
     if sys.byteorder != "little":
