@@ -3,12 +3,31 @@
 import argparse
 import functools
 import gzip
+import re
 import shutil
 import subprocess
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 EXTENSIONS = ('.html', '.json', '.bin', '.js', '.mjs', '.css')
+
+
+def encoding_qualities(value):
+    """Parse weights conservatively; a malformed or duplicate refusal stays refused."""
+    qualities = {}
+    for item in value.split(','):
+        parts = item.strip().lower().split(';')
+        name = parts[0].strip()
+        if not name:
+            continue
+        quality = 1.0
+        for parameter in parts[1:]:
+            key, _, weight = parameter.strip().partition('=')
+            if key.strip() == 'q':
+                weight = weight.strip()
+                quality = float(weight) if re.fullmatch(r'(?:0(?:\.\d{0,3})?|1(?:\.0{0,3})?)', weight) else 0.0
+        qualities[name] = min(qualities.get(name, quality), quality)
+    return qualities
 
 
 class Server(ThreadingHTTPServer):
@@ -30,38 +49,38 @@ class Handler(SimpleHTTPRequestHandler):
         path = Path(self.translate_path(self.path))
         if not path.is_file():
             return super().send_head()
-        st = path.stat()
-        etag = f'"{st.st_mtime_ns:x}-{st.st_size:x}"'
+        qualities = encoding_qualities(','.join(self.headers.get_all('Accept-Encoding', [])))
+        identity_quality = qualities.get('identity', 0.0 if qualities.get('*') == 0 else 1.0)
+        candidates = []
+        for encoding, suffix in (('br', '.br'), ('gzip', '.gz'), ('identity', '')):
+            candidate = path.with_name(path.name + suffix)
+            quality = identity_quality if encoding == 'identity' else qualities.get(encoding, qualities.get('*', 0.0))
+            if quality > 0 and candidate.is_file():
+                candidates.append((quality, encoding, candidate))
+        if not candidates:
+            self.send_response(406)
+            self.send_header('Vary', 'Accept-Encoding')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+            return None
+        # max keeps the first candidate on ties: Brotli, gzip, then identity.
+        _, encoding, selected = max(candidates, key=lambda candidate: candidate[0])
+        st = selected.stat()
+        etag = f'"{encoding}-{st.st_mtime_ns:x}-{st.st_size:x}"'
         cache_ctrl = 'no-cache' if path.suffix == '.html' else 'public, max-age=300'
-        if self.headers.get('If-None-Match') == etag:
+        tags = re.findall(r'(?:W/)?"[^"\r\n]*"|\*', ','.join(self.headers.get_all('If-None-Match', [])))
+        if any(tag == '*' or tag.removeprefix('W/') == etag for tag in tags):
             self.send_response(304)
+            self.send_header('Vary', 'Accept-Encoding')
             self.send_header('ETag', etag)
             self.send_header('Cache-Control', cache_ctrl)
             self.end_headers()
             return None
-        accept = self.headers.get('Accept-Encoding', '')
-        tokens = {t.strip().split(';')[0].lower() for t in accept.split(',') if t.strip()}
-        chosen = None
-        for enc, suffix in (('br', '.br'), ('gzip', '.gz')):
-            cand = path.with_name(path.name + suffix)
-            if enc in tokens and cand.is_file():
-                chosen = (enc, cand)
-                break
-        if chosen:
-            enc, cand = chosen
-            f = cand.open('rb')
-            self.send_response(200)
-            self.send_header('Content-Type', self.guess_type(str(path)))
-            self.send_header('Content-Encoding', enc)
-            self.send_header('Vary', 'Accept-Encoding')
-            self.send_header('ETag', etag)
-            self.send_header('Cache-Control', cache_ctrl)
-            self.send_header('Content-Length', str(cand.stat().st_size))
-            self.end_headers()
-            return f
-        f = path.open('rb')
+        f = selected.open('rb')
         self.send_response(200)
         self.send_header('Content-Type', self.guess_type(str(path)))
+        if encoding != 'identity':
+            self.send_header('Content-Encoding', encoding)
         self.send_header('Vary', 'Accept-Encoding')
         self.send_header('ETag', etag)
         self.send_header('Cache-Control', cache_ctrl)
