@@ -175,6 +175,10 @@ class CampaignProblem:
     def c(self) -> float:
         return 1.0 / (self.alpha * self.n_years)
 
+    @property
+    def c_exact(self) -> Fraction:
+        return Fraction(1) / (Fraction(self.alpha) * self.n_years)
+
 
 @dataclass(frozen=True)
 class DualCertificate:
@@ -183,14 +187,16 @@ class DualCertificate:
     `S10d` is instantiated over the nonnegativity-augmented inequality system
     `G_aug = [G_struct; -I]`, `h_aug = [h_struct; 0]` with multiplier vector
     `lam_full = lam_struct + lam_nn >= 0`, so `dual_residual_linf` bounds
-    `||g + G_aug^T lam_full + E^T y||_inf`.
+    `||g + G_aug^T lam_full + E^T y||_inf` against the exact CVaR weight
+    `c_exact = 1 / (alpha * T)`.
 
     `certified` is `True` ONLY when every `S10d` feasibility hypothesis holds with
-    zero violation at the returned float vector (`primal_max_ineq_violation == 0.0`,
+    zero violation in exact rational arithmetic (`primal_max_ineq_violation == 0.0`,
     `primal_max_eq_violation == 0.0`, and `dual_min_multiplier >= 0.0`). When
     floating-point rounding leaves positive tolerance residuals (`> 0.0`), `certified`
     is `False`, `certified_subopt_le` is `None`, and `numerical_subopt_estimate`
-    records the uncertified float diagnostic `comp_gap + M_dual * l1_bound`.
+    records the uncertified upper-bounded diagnostic
+    `objective_rounding_error + comp_gap + M_dual * l1_bound`.
     """
 
     objective_value: float
@@ -204,13 +210,18 @@ class DualCertificate:
     certified: bool = False
     certification_status: str = "uncertified-numerical-tolerance"
     numerical_subopt_estimate: float = 0.0
+    objective_rounding_error: float = 0.0
 
     def subopt_bound(self, z_minus_zs_l1: float) -> float:
-        """Evaluate upper-bounded `S10d` RHS for a given L1 deviation `||z - z*||_1`."""
+        """Evaluate upper-bounded `S10d` RHS on `objective_value - opt` for `||z - z*||_1`."""
         l1_dev = float(z_minus_zs_l1)
         if not math.isfinite(l1_dev) or l1_dev < 0.0:
             raise ValueError("z_minus_zs_l1 must be finite and >= 0")
-        rhs_q = Fraction(self.complementarity_gap) + Fraction(self.dual_residual_linf) * Fraction(l1_dev)
+        rhs_q = (
+            Fraction(self.objective_rounding_error)
+            + Fraction(self.complementarity_gap)
+            + Fraction(self.dual_residual_linf) * Fraction(l1_dev)
+        )
         return _fraction_to_float_upper(rhs_q)
 
 
@@ -479,7 +490,7 @@ def _evaluate_exact_certificate(
     L_min_q = min(x for row in L_q for x in row)
     L_max_q = max(x for row in L_q for x in row)
     spread_q = max(Fraction(0), L_max_q - L_min_q)
-    c_q = Fraction(problem.c)
+    c_q = problem.c_exact
 
     g_q = [Fraction(0)] * n_z
     g_q[idx_t] = Fraction(1)
@@ -554,10 +565,14 @@ def _evaluate_exact_certificate(
     lp_obj_q = _dot_q(g_q, z_q) + L_min_q
     obj_float = float(lp_obj_q) if reported_objective is None else float(reported_objective)
     obj_rounding_q = max(Fraction(0), Fraction(obj_float) - lp_obj_q)
+    obj_rounding_upper = _fraction_to_float_upper(obj_rounding_q)
     num_est_q = comp_gap_q + M_dual_q * l1_bound_q + obj_rounding_q
 
+    # Shifted LP domain t_tilde >= 0 is equivalent to unshifted t in R iff |S| * c_exact >= 1.
+    shifted_domain_equivalent = s_len * c_q >= Fraction(1)
     is_certified = (
-        max_ineq_viol_q == 0
+        shifted_domain_equivalent
+        and max_ineq_viol_q == 0
         and max_eq_viol_q == 0
         and dual_min_q >= 0
         and min_z_q >= 0
@@ -575,6 +590,7 @@ def _evaluate_exact_certificate(
         certified=is_certified,
         certification_status="exact" if is_certified else "uncertified-numerical-tolerance",
         numerical_subopt_estimate=bound_upper,
+        objective_rounding_error=obj_rounding_upper,
     )
 
 
@@ -663,7 +679,7 @@ def solve_cvar_campaign(
 
     When `use_screening=True` (`S10b_cvar_screening_exact`), begins with a tail
     subset `S` containing at least `ceil(alpha * T)` high-loss years (ensuring
-    `c * |S| >= 1`), solves the screened LP, checks omitted years `i not in S`,
+    `c_exact * |S| >= 1`), solves the screened LP, checks omitted years `i not in S`,
     and expands `S` until every omitted year satisfies `loss_i <= t* + screen_tol`
     (verified in exact rational arithmetic).
 
@@ -672,8 +688,8 @@ def solve_cvar_campaign(
     omitted scenario strictly satisfies `loss_i <= t*`; otherwise `screening_exact`
     is `False` and the returned `DualCertificate` is extended to the full `T`-year
     LP (`lam_omitted = 0`, `lam_nn_u = c`) and verified in exact rational arithmetic
-    so `certified_subopt_le` remains a sound `S10d` bound whenever exact primal
-    and dual feasibility hold (`certified=True`).
+    against `c_exact = 1 / (alpha * T)` so `certified_subopt_le` remains a sound
+    `S10d` bound whenever exact primal and dual feasibility hold (`certified=True`).
     """
     screen_tol_f = float(screen_tol)
     if not math.isfinite(screen_tol_f) or screen_tol_f < 0.0:
@@ -691,10 +707,11 @@ def solve_cvar_campaign(
     m = problem.n_candidates
     t_cnt = problem.n_years
     L_q = [[Fraction(x) for x in row] for row in problem.loss_matrix]
-    c_q = Fraction(problem.c)
+    c_q = problem.c_exact
     screen_tol_q = Fraction(screen_tol_f)
 
-    min_active = max(1, math.ceil(problem.alpha * t_cnt))
+    alpha_t_q = Fraction(problem.alpha) * t_cnt
+    min_active = max(1, (alpha_t_q.numerator + alpha_t_q.denominator - 1) // alpha_t_q.denominator)
     if not use_screening or t_cnt <= min_active:
         active = list(range(t_cnt))
     else:

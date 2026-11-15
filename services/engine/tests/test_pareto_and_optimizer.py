@@ -341,6 +341,41 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 solve_cvar_campaign(prob, screen_tol=bad_tol)
 
+    def test_exact_cvar_coefficient_and_subopt_bound_objective_rounding(self) -> None:
+        # 1) T=3, alpha=1 gives float(1/3) < 1/3; exact S10d residual must reflect |1/3 - float(1/3)|
+        #    against c_exact = 1/3 rather than returning dual_residual_linf=0 and certified_subopt_le=0.
+        prob_third = CampaignProblem(["a"], [1, 2, 3], [[0.0], [0.0], [0.0]], 1.0, [1.0], [], [], [0.0], 0.0)
+        sol_third = solve_cvar_campaign(prob_third, use_screening=False)
+        self.assertEqual(prob_third.c_exact, Fraction(1, 3))
+        self.assertGreater(sol_third.certificate.dual_residual_linf, 0.0)
+        self.assertGreaterEqual(
+            Fraction(sol_third.certificate.dual_residual_linf),
+            abs(Fraction(1, 3) - Fraction(prob_third.c)),
+        )
+        self.assertTrue(sol_third.certificate.certified)
+        self.assertIsNotNone(sol_third.certificate.certified_subopt_le)
+        self.assertGreater(sol_third.certificate.certified_subopt_le, 0.0)
+        self.assertGreaterEqual(
+            sol_third.certificate.subopt_bound(sol_third.certificate.l1_radius_bound),
+            sol_third.certificate.certified_subopt_le,
+        )
+
+        # 2) subopt_bound(0.0) must include reported-objective rounding error so it stays consistent
+        #    with certified_subopt_le when objective_value rounds upward from the exact LP optimum.
+        prob_round = CampaignProblem(
+            ["a"], [1, 2], [[2.3604808973743454], [1.031660342307158]], 1.0, [1.0], [], [], [0.0], 0.0
+        )
+        sol_round = solve_cvar_campaign(prob_round, use_screening=False)
+        exact_opt = (Fraction(2.3604808973743454) + Fraction(1.031660342307158)) / Fraction(2)
+        obj_err = Fraction(sol_round.certificate.objective_value) - exact_opt
+        self.assertGreater(obj_err, Fraction(0))
+        self.assertTrue(sol_round.certificate.certified)
+        self.assertGreaterEqual(Fraction(sol_round.certificate.subopt_bound(0.0)), obj_err)
+        self.assertGreaterEqual(
+            Fraction(sol_round.certificate.subopt_bound(sol_round.certificate.l1_radius_bound)),
+            Fraction(sol_round.certificate.certified_subopt_le),
+        )
+
     def test_synthetic_parquet_years_missingness_exclusion_and_strict_constraints(self) -> None:
         import pyarrow as pa
         import pyarrow.parquet as pq
