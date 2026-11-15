@@ -4,7 +4,8 @@
  */
 import { useEffect, useState } from 'react';
 import { Tabs } from '@base-ui/react/tabs';
-import { brief, limitRows, months, requirements, rows, type Dataset, type Objective } from '../../../atlas/src/planner/engine.ts';
+import { limitRows, months, requirements, rows, type Dataset, type Objective } from '../../../atlas/src/planner/engine.ts';
+import { plannerBrief, waterCoverWarning, WATER_COVER_GUIDANCE } from '../brief.ts';
 import { ensureMonthly } from '../../../atlas/src/planner/data.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
 import { BREAKDOWNS, CLASS_TEXT, DIMENSION_LABEL, LIMIT_TEXT, MONTHS, SERIES, bandLabel, burnedInWindow, cleanNote, coordLabel, download, fmt, hazardFacts, kmBetween, latLon, logisticsFacts, monthWindowLabel, riskAssessment, seasonStrip, sheetCsv, tempInWindow, traitCells, type RiskEvidence, type RiskSeverity } from '../model.ts';
@@ -44,7 +45,7 @@ export function Limits({ data, request, sites, objective, onBack, onNext }: {
   const editedDims = (request.bandEdits ?? []).map(e => DIMENSION_LABEL[e.dimension] ?? e.dimension);
   const wetSites = sites
     .map(i => ({ i, wp: data.yearly.water_pct?.[i] }))
-    .filter((x): x is { i: number; wp: number } => x.wp !== undefined && Number.isFinite(x.wp) && x.wp > 25);
+    .filter((x): x is { i: number; wp: number } => x.wp !== undefined && waterCoverWarning(x.wp) !== null);
 
   const manageable: { title: string; guidance: string }[] = [
     {
@@ -65,7 +66,7 @@ export function Limits({ data, request, sites, objective, onBack, onNext }: {
     }] : []),
     ...(wetSites.length > 0 ? [{
       title: `Surface water cover > 25 % (${wetSites.map(w => `${coordLabel(data, w.i)} ${fmt(w.wp, '%')}`).join(', ')})`,
-      guidance: 'Confirm dry-land staging coordinates outside lakes, wetlands, or coastal waters before deployment.',
+      guidance: WATER_COVER_GUIDANCE,
     }] : []),
   ];
 
@@ -228,7 +229,7 @@ export function Risks({ data, request, sites, checklist, onBack }: {
         <SheetButton data={data} request={request} sites={sites} />
         <button className="btn btn-line" onClick={() => window.print()}>Print</button>
         <button className="btn btn-primary" disabled={!sites.length}
-          onClick={() => download(`mission-brief-${request.objectiveId}.md`, brief(data, request, sites, checklist), 'text/markdown')}>Download brief</button>
+          onClick={() => download(`mission-brief-${request.objectiveId}.md`, plannerBrief(data, request, sites, checklist), 'text/markdown')}>Download brief</button>
       </div>}>
       {!sites.length ? <NoSites /> : <>
         <Tabs.Root defaultValue={String(sites[0])}>
