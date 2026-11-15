@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mission planner · Cosmic Consultants</title><meta name="description" content="Plan an Earth field test for Moon or Mars exploration. Compare sites, inspect evidence gaps and export a mission brief."></head><body>
+<header class="masthead"><a class="brand" href="./planner.html">COSMIC CONSULTANTS <span>MISSION PLANNER</span></a><p>From a mission objective to a field plan on Earth.</p><button id="export" disabled>Export brief ↓</button><button id="print" disabled>Print / PDF</button></header>
+<div id="status" role="status" aria-live="polite">Loading and verifying the published data…</div>
+<main class="workspace"><aside id="controls" aria-label="Mission requirements"></aside><section class="finder"><div id="counter" aria-live="polite"></div><div id="map" aria-label="Candidate site map"></div><div id="results"></div></section><aside id="details" aria-label="Site comparison and gap report"><h2>Your field plan</h2><p>Select a site from the map or results to inspect it. Pin up to three to compare.</p></aside></main>
+<footer>Earth cannot reproduce lunar or Martian gravity, pressure or radiation. Site results are conditional on the stated measurements and requirements.</footer>
+<script type="module" src="/src/planner/main.ts"></script></body></html>

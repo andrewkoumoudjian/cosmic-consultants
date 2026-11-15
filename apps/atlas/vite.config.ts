@@ -37,6 +37,7 @@ export default defineConfig({
   plugins: [maplibreWorker()],
   build: {
     outDir: "dist",
+    rollupOptions: { input: { main: "index.html", planner: "planner.html" } },
     sourcemap: true,
     target: "es2022",
   },
