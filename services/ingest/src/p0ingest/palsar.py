@@ -71,7 +71,7 @@ SELECTION_FILE = OUT_DIR / "palsar-r4-scene-selection.json"
 CAMPAIGNS_DIR = REPO / "data" / "campaigns"
 RAW_DIR = SNAP / DATASET
 VALUE_COLS = ("gamma0_hh_db", "gamma0_hv_db", "gamma0_hh_valid_pixels", "gamma0_hv_valid_pixels")
-MISSING_ASF_BLOCK = "asf-eula-not-approved"  # when raw scenes could not be fetched
+MISSING_ASF_BLOCK = "asf-download-auth-unreachable"  # raw scenes unfetchable (see meta.blocks)
 MISSING_NO_SCENE = "no-fbd-scene-covers"
 MISSING_THIN = "not-enough-valid-pixels"
 MISSING_NO_RAW = "scene-batch-unfetched"
@@ -246,12 +246,25 @@ def fetch_scenes(scenes: list[dict]) -> dict[str, Path]:
     ASF datapool is an Earthdata host but missing from snapshots.EARTHDATA_HOSTS;
     the tuple is extended at runtime (no edit of the shared module) so the bearer
     token rides the redirects exactly as for the other DAACs.
+
+    Auth reality (2026-11-15, EULA approved): URS oauth/authorize (app_type=401)
+    rejects EDL PATs in every form (bearer, basic, query), and the STS creds
+    from cumulus.asf.alaska.edu/s3credentials cannot GetObject the datapool
+    objects, so every scene fails with 401. Failures are reported per scene and
+    the run continues (missing stays missing); see meta.blocks evidence.
     """
     if "asf.alaska.edu" not in snapshots.EARTHDATA_HOSTS:
         snapshots.EARTHDATA_HOSTS = snapshots.EARTHDATA_HOSTS + ("asf.alaska.edu",)
     paths: dict[str, Path] = {}
+    failures: list[str] = []
     for scene in scenes:
-        paths[scene["ur"]] = fetch(DATASET, scene["url"])
+        try:
+            paths[scene["ur"]] = fetch(DATASET, scene["url"], retries=1)
+        except Exception as exc:  # noqa: BLE001 - report and continue, missing stays missing
+            failures.append(f"{scene['ur']}: {str(exc).splitlines()[0][:200]}")
+    if failures:
+        print(json.dumps({"fetched": len(paths), "failed": len(failures),
+                          "failures": failures[:3]}, indent=1))
     return paths
 
 
@@ -359,6 +372,23 @@ def process_scene(path: Path, cells: list[str]) -> dict:
 # --------------------------------------------------------------------- build
 
 
+def _auth_block_detail(prefix: str) -> str:
+    """Shared evidence text for the raw-fetch blocker recorded in meta.blocks."""
+    return (prefix + " ASF datapool downloads are not reachable with a PAT+EULA "
+            "login alone (EULA approved 2026-11-15, client_id "
+            "BO_n7nTIlMljdvU6kRRB3g): datapool and data.asf.alaska.edu redirect "
+            "to URS oauth/authorize (app_type=401) which rejects EDL tokens "
+            "(401 'HTTP Basic: Access denied' for bearer, basic and query-token "
+            "variants; URS wants username+password or a browser session); "
+            "cumulus.asf.alaska.edu/s3credentials DOES issue STS creds but its "
+            "DownloadRoleInRegion role denies s3:GetObject on "
+            "asf-cumulus-prod-protected for every RTC_HI_RES key layout probed "
+            "and s3:ListBucket outright; TEA /locate has no route for these "
+            "buckets; CMR publishes no s3:// URLs for C1206487504-ASF. Full "
+            "evidence on issue #96 (2026-11-15). No values filled; nothing "
+            "synthesized.")
+
+
 def median_stream(samples: list[float], min_valid: int = MIN_VALID_SAMPLES) -> tuple[float | None, int]:
     """(median or None, count). Below the support minimum the median stays missing."""
     if len(samples) < min_valid:
@@ -422,12 +452,8 @@ def build(out_parquet: Path = OUT_PARQUET, out_meta: Path = OUT_META,
     else:
         meta["blocks"].append({
             "code": MISSING_ASF_BLOCK,
-            "detail": "No scene-selection file -> raw scenes were never fetched. ASF datapool "
-                      "needs a one-time Earthdata app/EULA approval: "
-                      "https://urs.earthdata.nasa.gov/approve_app?client_id=BO_n7nTIlMljdvU6kRRB3g "
-                      "then cumulus.asf.alaska.edu/s3credentials returns 403 "
-                      "'EULA Acceptance Failure' without it. Evidence on issue #96 "
-                      "(2026-11-14). No values filled; nothing synthesized."})
+            "detail": _auth_block_detail("No scene-selection file -> raw scenes "
+                                         "were never fetched.")})
     if selection:
         for parent in clusters:  # zones without a selection entry stayed unfetched too
             if parent not in selection:
@@ -460,6 +486,14 @@ def build(out_parquet: Path = OUT_PARQUET, out_meta: Path = OUT_META,
                     missing_reason.pop(cell, None)
             for cell in sorted(uncovered):
                 missing_reason.setdefault(cell, MISSING_NO_SCENE)
+        if not any((Path(raw_dir) / s["zip"]).exists()
+                   for scenes in selection.values() for s in scenes):
+            meta["blocks"].append({
+                "code": MISSING_NO_RAW,
+                "detail": _auth_block_detail(
+                    "Scene selection exists (43 scenes, 14.7 GB) but no raw "
+                    "scene was fetched: every datapool download failed with "
+                    "401 via URS oauth/authorize.")})
     records = []
     for cell in sorted(rows):
         row = rows[cell]

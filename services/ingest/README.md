@@ -236,15 +236,23 @@ only.
   inside the UNION of chosen footprints; scenes are rotated strips), writes the
   selection file and prints the size plan (real run 2026-11-14: 43 scenes,
   14.74 GB, 0 uncovered cells).
-- `--fetch` downloads the chosen scenes via `p0ingest.snapshots.fetch` (the ASF
+- `--fetch` would download the chosen scenes via `p0ingest.snapshots.fetch` (the ASF
   host is added to the Earthdata-host tuple at call time; MANIFEST provenance).
-  **Blocked 2026-11-14**: the Earthdata account has not approved ASF's
-  application/EULA — `s3credentials` returns 403 "EULA Acceptance Failure",
-  evidence on issue #96. One browser approval by the owner unblocks it.
+  **Still blocked 2026-11-15, post-EULA**: the Earthdata account HAS now approved
+  ASF's application/EULA (client_id BO_n7nTIlMljdvU6kRRB3g) but a PAT alone still
+  cannot drive datapool downloads — datapool/data.asf redirect to URS
+  `oauth/authorize` (app_type=401), which rejects EDL tokens in every form
+  (401 "HTTP Basic: Access denied" with bearer, basic and query-token variants);
+  `cumulus.asf.alaska.edu/s3credentials` DOES issue STS creds but its
+  DownloadRoleInRegion role denies `s3:GetObject` on `asf-cumulus-prod-protected`
+  for every RTC_HI_RES key layout probed; TEA `/locate` has no route for these
+  buckets; CMR publishes no `s3://` URLs for C1206487504-ASF. Full evidence on
+  issue #96. A working path needs an interactive Earthdata browser login (or a
+  username/password .netrc), not a PAT.
 - `--build` writes `_derived/palsar-r4-sites.parquet` + `.meta.json`; with the
   fetch blocked the table carries 35 rows of explicit nulls with
-  `missing_reason` `asf-eula-not-approved` (missing stays missing on purpose).
-  A cell's median needs >= 50 valid subgrid pixels, else
+  `missing_reason` `asf-download-auth-unreachable` (missing stays missing on
+  purpose). A cell's median needs >= 50 valid subgrid pixels, else
   `not-enough-valid-pixels`.
 - `--check` validates columns, keys (exactly the 35 subset cells), no
   duplicates, the dB physical guard, and that `missing_reason` keys match the
