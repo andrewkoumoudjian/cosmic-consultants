@@ -3,6 +3,9 @@
 Monorepo for the NASA Space Apps Challenge 2026 — **Identify Earth Locations
 that Analog the Permanent Moon Base Locations and Mars**.
 
+**Live app: [Analog Atlas](https://cosmic-mission-ui.pages.dev/)**, built from `apps/mission-ui` on the real
+`planner-v1` release (Cloudflare Pages). Scientific status: partial.
+
 **What we're building ([ADR-0005](docs/decisions/ADR-0005-mission-planning-workflow.md), owner's call 2026-11-14):**
 a **mission planning workflow**. A scientist picks a NASA Moon-to-Mars
 objective and the months of the trip, and we take them step by step to a field
