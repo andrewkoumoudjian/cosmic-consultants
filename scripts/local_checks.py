@@ -15,8 +15,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-GROUPS = ("json", "contracts", "atlas", "ingest", "lean")
-WORKFLOWS = ("ci.yml", "atlas.yml", "ingest.yml")
+GROUPS = ("json", "contracts", "atlas", "ingest", "engine", "lean")
+WORKFLOWS = ("ci.yml", "atlas.yml", "ingest.yml", "engine.yml")
 AUDIT_LINE = re.compile(
     r"^'[^']+' (?:depends on axioms: \[(?:(?:propext|Classical\.choice|Quot\.sound)"
     r"(?:, (?:propext|Classical\.choice|Quot\.sound))*)?\]|does not depend on any axioms)$"
@@ -86,6 +86,10 @@ def plan(root, groups, python):
             for options, name in (([], "ingest"), (["-O"], "ingest-optimized")):
                 add(group, name, [python, *options, "-m", "unittest", "discover", "-s",
                                   "services/ingest/tests", "-p", "test_*.py"])
+        elif group == "engine":
+            for options, name in (([], "engine"), (["-O"], "engine-optimized")):
+                add(group, name, [python, *options, "-m", "unittest", "discover", "-s", "tests", "-v"],
+                    root / "services/engine")
         elif group == "lean":
             add(group, "lean-source-scan", [python, script, "--repo", str(root), "--internal", "lean-scan"])
             lake = shutil.which("lake") or "lake"

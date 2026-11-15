@@ -67,3 +67,17 @@ import Analog
 #print axioms Analog.FunnelProofs.s7h_more_months
 #print axioms Analog.FunnelProofs.s7i_unknown_limit_kept
 #print axioms Analog.FunnelProofs.s7z_empty_window
+
+-- W22 (#170): S9 Pareto layer peeling & S10 CVaR campaign optimization proofs
+#print axioms Analog.ParetoLayersProofs.s9a_layer_incomparable
+#print axioms Analog.ParetoLayersProofs.s9b_dominates_strictly_later
+#print axioms Analog.ParetoLayersProofs.s9c_equal_vectors_same_layer
+#print axioms Analog.ParetoLayersProofs.s9d_layer_partition
+#print axioms Analog.ParetoLayersProofs.s9e_unknown_excluded
+#print axioms Analog.ParetoLayersProofs.s9f_tradeoff_never_separated
+#print axioms Analog.ParetoLayersProofs.s9g_dp_recurrence
+#print axioms Analog.CampaignOptProofs.s10a_epigraph_tight
+#print axioms Analog.CampaignOptProofs.s10b_cvar_screening_exact
+#print axioms Analog.CampaignOptProofs.s10c_convex_feasible
+#print axioms Analog.CampaignOptProofs.s10d_dual_subopt_certificate
+#print axioms Analog.CampaignOptProofs.s10e_allocation_bounds
