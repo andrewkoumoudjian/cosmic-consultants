@@ -38,6 +38,7 @@ CONTEXT_COLUMNS = {
 MONTHLY_COLUMNS = {
     "lst_day_k": "K", "lst_night_k": "K", "lst_diurnal_k": "K",
     "sun_noon_elev_deg": "deg", "daylight_h": "h", "polar_day": "0/1", "polar_night": "0/1", "dust_aod": "unitless",
+    "burned_pct": "%",
 }
 ENGINE = "planner 0.1.0"
 
