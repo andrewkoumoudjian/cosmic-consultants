@@ -210,3 +210,44 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## Mars THEMIS IR controlled mosaics, six landing-site ROIs (W45, #104, my own section)
+
+- `python -m p0ingest.mars_themis fetch` downloads, through
+  `snapshots.fetch` (MANIFEST: URL, fetch time, sha256, bytes, licence), the
+  STAC item list of the USGS collection `mo_themis_controlled_mosaics`
+  (CC0-1.0), the ISIS3 mapping labels of all 28 quads x day/night, the
+  provenance.txt of the 10 used quads, and 10 quad GeoTIFFs (~4.3 GB raw:
+  Jezero -> mc13 Syrtis Major, Gale + Gusev -> mc23 Aeolis, Elysium/InSight ->
+  mc15, Utopia -> mc14 Amenthes, Meridiani -> mc19 Margaritifer Sinus). The
+  MCS (mcs-mro) EDR label and DATASET.CAT are fetched as probe evidence.
+  Three evidence-only URLs are best-effort (logged SKIP, never fatal): the
+  THEMIS global-TI FGDC docx 404s on every re-fetch of 2026-11-14, so its
+  licence evidence lives only as quoted text in
+  `data/catalog/themis-global-thermal-inertia.yaml`.
+- `python -m p0ingest.mars_themis build` writes
+  `data/snapshots/_derived/planetary/themis-ir-controlled-mosaics/themis-ir-{day,night}-rois.parquet`
+  (2,121,771 rows each = 6 sites x ~1 deg ROI on the NATIVE 100 m/pixel
+  IAU_2015:49910 simple-cylindrical grid; keys site/quad/source_line/
+  source_sample; pixel CENTRE -> lon/lat via the GeoTIFF affine, no H3 step
+  for Mars) plus `preparation-report.json` (S3 inputs, hashes, per-site
+  windows and clips, DN stats, gaps, cross-check).
+- `python -m p0ingest.mars_themis check` verifies MANIFEST licence flags,
+  input hashes, output hashes/sizes/row counts, unique keys, 8-bit physical
+  range, coordinates in physical range, missing_reason exactly matching null
+  DNs, and 24 raw spot checks (12 coordinates x day/night) reading the same
+  native pixel straight from the COG. Exit 0 in both plain and `-O` runs.
+- Features: `ir_brightness_dn` (8-bit DN). THE MOSAICS ARE QUALITATIVE: values
+  are NOT kelvin and NOT TIU, so `tsurf_max`/`tsurf_min`/`tsurf_range` and a
+  THEMIS `ti` are recorded as gaps. `ti` remains covered by the TES mosaic
+  (~3 km/px); the USGS 100 m quantitative THEMIS TI mosaic is blocked on an
+  unresolved licence (accconst=None/useconst=None, no explicit grant per the
+  LICENCE-AUDIT-41 precedent). MCS (mcs-mro) publishes only per-orbit
+  ~4-hour granules, i.e. finer than the at-most-monthly rule, so it is
+  probe-only; no monthly surface-temperature climatology could be used.
+- Diagnostic cross-check (nothing adjusted): THEMIS night DN vs TES thermal
+  inertia, Spearman rho per site (nominal 0.05 deg TES grid, both longitude
+  conventions): Gale ~0.42; Jezero 0.05-0.11; Elysium -0.03..0.08; Utopia
+  -0.00..0.03; Gusev 0.03..0.08; Meridiani -0.16. Weak overall, consistent
+  with per-quad DN stretching and the ~0.3-0.5 deg TES position uncertainty
+  (PR #87).

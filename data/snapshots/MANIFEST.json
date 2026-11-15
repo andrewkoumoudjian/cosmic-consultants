@@ -171,6 +171,26 @@
       "localPath": "data/snapshots/esa-cci-permafrost-extent-nh/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc"
     },
     {
+      "datasetId": "mcs-mro",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MROM_0006/CATALOG/DATASET.CAT",
+      "fetchedAt": "2026-11-14T23:18:58Z",
+      "sha256": "511ebc7a9feca161575fd709b59d881935fa77bcab1d5d1f19449d2e1f6e779f",
+      "bytes": 18994,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mcs-mro/DATASET.CAT"
+    },
+    {
+      "datasetId": "mcs-mro",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MROM_0006/LABEL/MCS_EDR.FMT",
+      "fetchedAt": "2026-11-14T23:18:56Z",
+      "sha256": "19dfacf5b306cf31bd32c15810a3ad9f7f754411e09ef50c7da33de84433c4c0",
+      "bytes": 84286,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mcs-mro/MCS_EDR.FMT"
+    },
+    {
       "datasetId": "modis-mcd12c1",
       "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD12C1.061/MCD12C1.A2023001.061.2024251212901/MCD12C1.A2023001.061.2024251212901.hdf",
       "fetchedAt": "2026-11-14T15:10:54Z",
@@ -1759,6 +1779,696 @@
       "license": "us-pd",
       "licenseVerified": true,
       "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=100",
+      "fetchedAt": "2026-11-14T23:16:41Z",
+      "sha256": "2960923c6728b7ea18154e0b1af254b9995f2c62230c0cb61e8024adf6983901",
+      "bytes": 340966,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/items"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc02_diacria_dir/mc02_diacria_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:54Z",
+      "sha256": "847f6a04bddee02f193bbfef5ca053886e8e0f89939da0836595389933b5f71c",
+      "bytes": 1278,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc02_diacria_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc02_diacria_nir/mc02_diacria_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:55Z",
+      "sha256": "b769c870bac7af7b975a6cc7d99fd14213ff8c3bd4fc51b0834b2986eb9d798f",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc02_diacria_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc03_arcadia_dir/mc03_arcadia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:56Z",
+      "sha256": "269ccfcb0fa3acc0e516ac36d697cb56fe1c5a6c42efad55045e9e4ca23f5464",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc03_arcadia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc03_arcadia_nir/mc03_arcadia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:57Z",
+      "sha256": "269ccfcb0fa3acc0e516ac36d697cb56fe1c5a6c42efad55045e9e4ca23f5464",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc03_arcadia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc04_mare_acidalium_dir/mc04_mare_acidalium_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:58Z",
+      "sha256": "727b111c6566a0da44d57545c96ac3a79e69cf3ed6d471f0a88340bdcf800aa3",
+      "bytes": 2472,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc04_mare_acidalium_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc04_mare_acidalium_nir/mc04_mare_acidalium_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:59Z",
+      "sha256": "1cd2169f16c669f9c6deff703f11d708bf22c71b24d1f2802ec88ede7374dffe",
+      "bytes": 1094,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc04_mare_acidalium_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc05_ismenius_lacus_dir/mc05_ismenius_lacus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:00Z",
+      "sha256": "364c60a71be7e2b1668a31d5e1b8497bf04a91adaa36ec2fa5dfd4f33e12d6a2",
+      "bytes": 1177,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc05_ismenius_lacus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc05_ismenius_lacus_nir/mc05_ismenius_lacus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:01Z",
+      "sha256": "364c60a71be7e2b1668a31d5e1b8497bf04a91adaa36ec2fa5dfd4f33e12d6a2",
+      "bytes": 1177,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc05_ismenius_lacus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc06_casius_dir/mc06_casius_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:03Z",
+      "sha256": "19418e15d31fd83c614cecf60bf0e4ec04972f8ed78021d76d864b2036909685",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc06_casius_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc06_casius_nir/mc06_casius_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:04Z",
+      "sha256": "19418e15d31fd83c614cecf60bf0e4ec04972f8ed78021d76d864b2036909685",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc06_casius_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc07_cebrenia_dir/mc07_cebrenia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:05Z",
+      "sha256": "ba267839963eedc9093666e8b3fa6e89518aa3da73a9f4276cde6d3104e57052",
+      "bytes": 1098,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc07_cebrenia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc07_cebrenia_nir/mc07_cebrenia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:06Z",
+      "sha256": "ba267839963eedc9093666e8b3fa6e89518aa3da73a9f4276cde6d3104e57052",
+      "bytes": 1098,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc07_cebrenia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc08_amazonis_dir/mc08_amazonis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:08Z",
+      "sha256": "deaae8260012fe3e4086215d96d1d5a84e73ae1b0dbeb3321f66c7db794ecfb9",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc08_amazonis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc08_amazonis_nir/mc08_amazonis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:09Z",
+      "sha256": "deaae8260012fe3e4086215d96d1d5a84e73ae1b0dbeb3321f66c7db794ecfb9",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc08_amazonis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc09_tharsis_dir/mc09_tharsis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:10Z",
+      "sha256": "ac090824f57505ded4202e342021af18aca841409ec840ca80cf54c7f89c7e49",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc09_tharsis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc09_tharsis_nir/mc09_tharsis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:12Z",
+      "sha256": "ac090824f57505ded4202e342021af18aca841409ec840ca80cf54c7f89c7e49",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc09_tharsis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc10_lunae_palus_dir/mc10_lunae_palus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:13Z",
+      "sha256": "44fe07542c63fbc325cdc6a6d7688d236c20c5de55357cd733d5e5ee811f8875",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc10_lunae_palus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc10_lunae_palus_nir/mc10_lunae_palus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:15Z",
+      "sha256": "44fe07542c63fbc325cdc6a6d7688d236c20c5de55357cd733d5e5ee811f8875",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc10_lunae_palus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc11_oxia_palus_dir/mc11_oxia_palus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:16Z",
+      "sha256": "ba19acb35ee4370f6fe5e08ae5dce339ff657c5f31d07617d8b0d9c1419ad91d",
+      "bytes": 1093,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc11_oxia_palus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc11_oxia_palus_nir/mc11_oxia_palus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:17Z",
+      "sha256": "cc55f35801136bee57c537ccc49d4070e6f64439e47178fb749d156faa2f60ea",
+      "bytes": 1187,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc11_oxia_palus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc12_arabia_dir/mc12_arabia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:18Z",
+      "sha256": "17a73d81422605543a726ff20195343ed34bab9952851778310fe3e9d5252580",
+      "bytes": 1176,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc12_arabia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc12_arabia_nir/mc12_arabia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:19Z",
+      "sha256": "c6e21839b4f17ef4c8a004dd93e86094f1a5359539755393d46dfe77864cf899",
+      "bytes": 1176,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc12_arabia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/mc13_syrtis_major_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:21Z",
+      "sha256": "45357be63119717f274efd47321c71d7c998b1b0ad6d5f38a77f4f200b678286",
+      "bytes": 1095,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/mc13_syrtis_major_dir.tif",
+      "fetchedAt": "2026-11-14T23:51:29Z",
+      "sha256": "8a906efc5820ec15dc6e5461f027220d00e1ac8e6f3629297b873af789511817",
+      "bytes": 435930009,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_nir/mc13_syrtis_major_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:22Z",
+      "sha256": "45357be63119717f274efd47321c71d7c998b1b0ad6d5f38a77f4f200b678286",
+      "bytes": 1095,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_nir/mc13_syrtis_major_nir.tif",
+      "fetchedAt": "2026-11-15T00:02:45Z",
+      "sha256": "b3593e1382fcda19d352b68799e6f20a7d5d4f9888b22c51ee90ce42095d00e4",
+      "bytes": 467698602,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_dir/mc14_amenthes_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:24Z",
+      "sha256": "4827a26466a8e6fd083adcfe9cb7b95f70d3b4f14f2ad2787b01b34050b583f2",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_dir/mc14_amenthes_dir.tif",
+      "fetchedAt": "2026-11-14T23:51:49Z",
+      "sha256": "2af52848a75e961635784860da96c5b0952c14ca54f8d499980219632730f860",
+      "bytes": 448922535,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_nir/mc14_amenthes_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:25Z",
+      "sha256": "4827a26466a8e6fd083adcfe9cb7b95f70d3b4f14f2ad2787b01b34050b583f2",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_nir/mc14_amenthes_nir.tif",
+      "fetchedAt": "2026-11-14T23:53:30Z",
+      "sha256": "fb31c010514e5e408a9469527c837af1722e9bed0212585d2e4f64161d9f142c",
+      "bytes": 461675695,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_dir/mc15_elysium_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:26Z",
+      "sha256": "622de0ce779ce4a8521ced7a6b3a43036f3492630cab2b5f552c497557ef0ed1",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_dir/mc15_elysium_dir.tif",
+      "fetchedAt": "2026-11-15T00:00:16Z",
+      "sha256": "2b426cc01f63ade479e164c30a784cc924d08c778536982d1afb7644f7fc54fd",
+      "bytes": 428617143,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_nir/mc15_elysium_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:27Z",
+      "sha256": "622de0ce779ce4a8521ced7a6b3a43036f3492630cab2b5f552c497557ef0ed1",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_nir/mc15_elysium_nir.tif",
+      "fetchedAt": "2026-11-15T00:00:32Z",
+      "sha256": "83a5f8bc8828fdd0be3b6cac17b76a2df72549be234d56809036c9e2af0484fe",
+      "bytes": 468369102,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc16_memnonia_dir/mc16_memnonia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:28Z",
+      "sha256": "0fd77157b99abca11ee72820537edaa6cd8ac7ec3199ba2253693a6a75fccbd8",
+      "bytes": 1173,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc16_memnonia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc16_memnonia_nir/mc16_memnonia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:29Z",
+      "sha256": "7d0ddb8fc526d13b274a2a0105121e7d810db5624b7c35850098c564847016b0",
+      "bytes": 1079,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc16_memnonia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc17_phoenicis_lacus_dir/mc17_phoenicis_lacus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:30Z",
+      "sha256": "b9bd83f1770b78de63101bb779d39f564c008ebf3fda9a926e5975a9c7f60590",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc17_phoenicis_lacus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc17_phoenicis_lacus_nir/mc17_phoenicis_lacus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:32Z",
+      "sha256": "b9bd83f1770b78de63101bb779d39f564c008ebf3fda9a926e5975a9c7f60590",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc17_phoenicis_lacus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc18_coprates_dir/mc18_coprates_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:33Z",
+      "sha256": "75f79b65f22716125c43ae55aec3db300c964b906a7393c3f78e3492b9d28e98",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc18_coprates_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc18_coprates_nir/mc18_coprates_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:34Z",
+      "sha256": "75f79b65f22716125c43ae55aec3db300c964b906a7393c3f78e3492b9d28e98",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc18_coprates_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_dir/mc19_margaritifer_sinus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:35Z",
+      "sha256": "5cfe5b8ad4239fbfaad005ae2d7d010a738786a94e4bcc167abeca7aa69e1415",
+      "bytes": 1179,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_dir/mc19_margaritifer_sinus_dir.tif",
+      "fetchedAt": "2026-11-15T00:01:06Z",
+      "sha256": "1c597f682e86bfaae7813ffdd28c74054488aa0646448fd94ed937b51ea34db5",
+      "bytes": 437866001,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_nir/mc19_margaritifer_sinus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:37Z",
+      "sha256": "5cfe5b8ad4239fbfaad005ae2d7d010a738786a94e4bcc167abeca7aa69e1415",
+      "bytes": 1179,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_nir/mc19_margaritifer_sinus_nir.tif",
+      "fetchedAt": "2026-11-15T00:06:23Z",
+      "sha256": "cb7762d0961175d8466cc3c48ce57b45358a3d767284d95320cbee2f93730e9e",
+      "bytes": 458431056,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc20_sinus_sabaeus_dir/mc20_sinus_sabaeus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:38Z",
+      "sha256": "0c750dabe39ca25ab0acee42df4876477dad148cc62c7ec389e02539deb9fde0",
+      "bytes": 1168,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc20_sinus_sabaeus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc20_sinus_sabaeus_nir/mc20_sinus_sabaeus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:39Z",
+      "sha256": "bd2bffe67d71513f5634e9c876fe04a0cf125fa290308ec74430c5882f6142be",
+      "bytes": 1074,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc20_sinus_sabaeus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc21_iapygia_dir/mc21_iapygia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:40Z",
+      "sha256": "c52150ed1927f524d4c2204f985070894807282e1c249a754425416b41f6847e",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc21_iapygia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc21_iapygia_nir/mc21_iapygia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:40Z",
+      "sha256": "e3e98922d2b18dbba0eb5f3c6e86baf80dd0f18a17ad6ab7c6ee9c2622b1e837",
+      "bytes": 1181,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc21_iapygia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc22_mare_tyrrhenum_dir/mc22_mare_tyrrhenum_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:41Z",
+      "sha256": "84ca1abaff4021aa9e7d30a05a057efa192878c0ef5c4a3d3f16cc8035c8a9ab",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc22_mare_tyrrhenum_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc22_mare_tyrrhenum_nir/mc22_mare_tyrrhenum_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:43Z",
+      "sha256": "84ca1abaff4021aa9e7d30a05a057efa192878c0ef5c4a3d3f16cc8035c8a9ab",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc22_mare_tyrrhenum_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_dir/mc23_aeolis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:44Z",
+      "sha256": "f3a5c8725522156a701057eb44c1ffb6bc810cfd7c7a70e5bbe0d26096a5cc33",
+      "bytes": 1183,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_dir/mc23_aeolis_dir.tif",
+      "fetchedAt": "2026-11-15T00:06:36Z",
+      "sha256": "83611b7462b9477676caebeef3d27e40bb7db9a076e6ee86ddf917576f8e3f62",
+      "bytes": 451722323,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_nir/mc23_aeolis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:45Z",
+      "sha256": "f3a5c8725522156a701057eb44c1ffb6bc810cfd7c7a70e5bbe0d26096a5cc33",
+      "bytes": 1183,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_nir/mc23_aeolis_nir.tif",
+      "fetchedAt": "2026-11-15T00:07:09Z",
+      "sha256": "02584772f3b20181bad2e4c670f58f769c48b9743d96ccb5e7c5eefa089cacd8",
+      "bytes": 459289666,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc24_phaethontis_dir/mc24_phaethontis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:46Z",
+      "sha256": "99b61495f031282e5cde8da490e5268de4bff5b0204323e55331eac8c0645fa5",
+      "bytes": 1185,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc24_phaethontis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc24_phaethontis_nir/mc24_phaethontis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:47Z",
+      "sha256": "99b61495f031282e5cde8da490e5268de4bff5b0204323e55331eac8c0645fa5",
+      "bytes": 1185,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc24_phaethontis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc25_thaumasia_dir/mc25_thaumasia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:48Z",
+      "sha256": "ca1c2e04069da98739c1cac18bf95134ea03084537fa421fe7f743c462cc615e",
+      "bytes": 1100,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc25_thaumasia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc25_thaumasia_nir/mc25_thaumasia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:49Z",
+      "sha256": "fbb9459b3d5fa3ee91945f38e817841b7c2e032fb8692c0ca877a6ad1af231a6",
+      "bytes": 1194,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc25_thaumasia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc26_argyre_dir/mc26_argyre_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:50Z",
+      "sha256": "287dd332cd357be36cd655ce1729b9c993da8ebb54cf59d493b0f079e4c82e35",
+      "bytes": 1191,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc26_argyre_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc26_argyre_nir/mc26_argyre_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:51Z",
+      "sha256": "21f102cc850c6f2afe6f3abb94b764028ad2c228afa738b421108858f42a9172",
+      "bytes": 1191,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc26_argyre_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc27_noachis_dir/mc27_noachis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:51Z",
+      "sha256": "e7bc4081bae139cb1e3612c2960c69d3dd7d85327ee17feea9408ff47af78ed7",
+      "bytes": 1086,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc27_noachis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc27_noachis_nir/mc27_noachis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:52Z",
+      "sha256": "e7bc4081bae139cb1e3612c2960c69d3dd7d85327ee17feea9408ff47af78ed7",
+      "bytes": 1086,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc27_noachis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc28_hellas_dir/mc28_hellas_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:53Z",
+      "sha256": "bb5f6546c4dd088264c36aa6d2cbe62fdc13a2c2f9c27e74120e5386ad2ef6c5",
+      "bytes": 1193,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc28_hellas_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc28_hellas_nir/mc28_hellas_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:54Z",
+      "sha256": "2823234502f355a4a2c9781544781d06690613bbb007f3881e21c0c5e7c19db9",
+      "bytes": 1099,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc28_hellas_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc29_eridania_dir/mc29_eridania_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:55Z",
+      "sha256": "48de842917f16ae987758a9687e8952d7fc8a358feff31017e6c7439625b65a6",
+      "bytes": 1195,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc29_eridania_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc29_eridania_nir/mc29_eridania_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:57Z",
+      "sha256": "48de842917f16ae987758a9687e8952d7fc8a358feff31017e6c7439625b65a6",
+      "bytes": 1195,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc29_eridania_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/provenance.txt",
+      "fetchedAt": "2026-11-14T23:40:57Z",
+      "sha256": "b2f9bf010a1e85bd486b5d7937898b9983f1e6aef8b25639cc1ae004cb52d515",
+      "bytes": 539,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/provenance.txt"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=100",
+      "fetchedAt": "2026-11-14T23:13:52Z",
+      "sha256": "2960923c6728b7ea18154e0b1af254b9995f2c62230c0cb61e8024adf6983901",
+      "bytes": 340966,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/stac-items.json"
     },
     {
       "datasetId": "travel-time-to-cities-2015",
