@@ -1,6 +1,6 @@
 # ADR-0013 — S9 / S10 statement freeze and co-commit gate exception (#170)
 
-Date: 2026-11-15. Status: **proposed by agent (`@andrewkoumoudjian`) for owner merge of PR #172**.
+Date: 2026-11-15. Status: **accepted by repo owner (`@andrewkoumoudjian`) on 2026-11-15 after review of PR #172**.
 
 ## Context
 
