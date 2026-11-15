@@ -1,0 +1,32 @@
+siteId: mars-feature-gale
+name: Gale
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: -5.3672
+centreLon: 137.811
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Gale
+extent:
+  kind: bounding-box
+  minLat: -6.6671
+  maxLat: -4.0675
+  minLon: 136.5078
+  maxLon: 139.1188
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: Curiosity landed inside Gale (2012); crater centre kept untouched as the host-feature
+  row
+usgsCrossCheck:
+  feature: Gale
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Gale;clean_name=Gale;approvaldt=1991/01/01 00:00:00;diameter=154.084000000000003;center_lon=137.811000000000007;center_lat=-5.367200000000000;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

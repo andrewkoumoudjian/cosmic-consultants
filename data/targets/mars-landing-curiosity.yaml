@@ -1,0 +1,24 @@
+siteId: mars-landing-curiosity
+name: Curiosity rover (Mars Science Laboratory), Gale Crater
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: -4.6
+centreLon: 137.4
+note: 'landed 2012-08-06; press-kit precision: whole-tenths of a degree (~5-6 km);
+  precise touchdown point NOT claimed here'
+source:
+  datasetId: mars-lander-sites
+  file: jpl-msl-landing-press-kit-2012.pdf
+  url: https://web.archive.org/web/20261022111725id_/https://www.jpl.nasa.gov/news/press_kits/MSLLanding.pdf
+  fetchedAt: '2026-11-14T23:30:01Z'
+  sourceSha256: 672093c03108c3c91b9b10e0121510dfe0c7eb66b74ade5839ff9b1be839b987
+  quote: 'Landing site: 4.6 degrees south latitude, 137.4 degrees east longitude,
+    near base of Mount Sharp inside Gale Crater'
+usgsCrossCheck:
+  feature: Gale
+  diffKm: 51.4
+  expectedMaxKm: 77
+  note: 'crater-scale: Gale is a 154 km crater; touchdown is 51 km from its gazetteer
+    centre near Mount Sharp; tolerance = half the crater diameter'

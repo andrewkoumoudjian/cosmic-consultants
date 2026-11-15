@@ -1,0 +1,24 @@
+siteId: mars-landing-opportunity
+name: Opportunity rover touchdown, Meridiani Planum
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-0-360
+centreLat: -1.946
+centreLon: 354.473
+note: landed 2004-01-25; the page notes IAU 2000 body-centred coordinates for the
+  touchdown point
+source:
+  datasetId: mars-lander-sites
+  file: nssdc-2003-032A-opportunity.xhtml
+  url: https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A
+  fetchedAt: '2026-11-14T23:29:44Z'
+  sourceSha256: a3070bfb48aa5d005a9f885c45a25df5f4a57e8a37b4b39a2ce059002f04692c
+  quote: The spacecraft came to rest in a 20 m diameter crater at 1.946° S and 354.473°
+    E
+usgsCrossCheck:
+  feature: Meridiani Planum
+  diffKm: 180.7
+  expectedMaxKm: 529
+  note: 'informational only: Meridiani Planum is a ~1059 km planum; tolerance = half
+    the feature diameter'
