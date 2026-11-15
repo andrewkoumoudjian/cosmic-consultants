@@ -28,235 +28,336 @@ features:
   slope_2_5km:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: 240 m DEM summaries available; exact 2-5 km baseline feature not built.
+    planetaryTargetColumns:
+    - mars_site_slope_2_5km_deg
+    - target_slope_2km_deg
+    notes: 240 m DEM summaries available on Earth and MEGDR32 2-5 km named-site stats on Mars; exact Earth 2-5 km baseline feature not built yet.
   slope_200_500m:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: 240 m slope summaries exist; named baseline statistic still needs explicit
-      implementation.
+    planetaryTargetColumns:
+    - mars_blended_slope_200_500m_deg
+    notes: Earth 240 m slope summaries exist; Mars blended 3.2 km block 200-500 m mean assembled; Earth named baseline statistic remains separate.
   slope_20_40m:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: 240 m overview cannot resolve a 20-40 m baseline; acquire suitable-resolution
-      data.
+    planetaryTargetColumns:
+    - mars_site_slope_20_40m_deg
+    notes: 240 m overview cannot resolve a 20-40 m baseline on Earth; Mars CTX named-site 20-40 m stats assembled.
   slope_5m:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: Requires local/polar fine DEM; coarse global terrain cannot substitute.
+    planetaryTargetColumns:
+    - mars_site_slope_5m_deg
+    notes: Requires local/polar fine DEM on Earth; Mars HiRISE named-site 5 m stats assembled.
   slope_100m:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: 240 m overview mean slope does not implement 100 m baseline slope.
+    planetaryTargetColumns:
+    - target_slope_local_deg
+    notes: Moon LDRM 80S 100 m-baseline slope assembled for polar targets; Earth 240 m overview mean slope is a coarser support.
   slope_2km_eva:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: Needs matched-baseline/traverse statistic; cell mean slope is insufficient.
+    planetaryTargetColumns:
+    - target_slope_2km_deg
+    notes: Moon LDEM 60S 2 km EVA slope assembled; Earth cell mean slope is 240 m native DEM support.
   slope_trav_mean:
     relatedColumns:
     - sites-r4.slope_mean_deg
-    notes: Needs a defined traverse corridor; cell mean slope is not the same support.
+    planetaryTargetColumns:
+    - mars_site_slope_trav_mean_deg
+    notes: Mars HiRISE/CTX named-site traverse slope assembled; Earth cell mean slope is not on a traverse corridor.
   rough_rms_lola:
     relatedColumns:
     - sites-r4.elev_mean_m
-    notes: Elevation and slopes exist; RMS roughness at matched baseline not built.
+    planetaryTargetColumns:
+    - target_rough_rms_m
+    notes: Moon LDRM 100 m RMS roughness assembled for polar targets; Earth matched-baseline RMS roughness not built.
   relief_ellipse:
     relatedColumns:
     - sites-r4.elev_min_m
     - sites-r4.elev_max_m
-    notes: Cell elevation min/max exist; selected-ellipse relief not built.
+    earthFeatureColumn: relief_cell_m
+    planetaryTargetColumns:
+    - mars_site_relief_hirise_m
+    - mars_site_relief_megdr_m
+    notes: Earth cell relief (elev_max_m - elev_min_m) assembled in earth-features-r4; Mars named-site HiRISE/MEGDR32 ellipse relief assembled in planetary-targets.
   elev_areoid:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.
   lat_abs:
     relatedColumns:
     - sites-r4.lat
-    notes: H3 centre latitude exists; absolute-latitude feature can be derived explicitly.
+    earthFeatureColumn: lat_abs_deg
+    planetaryTargetColumns:
+    - centre_lat_deg
+    notes: Earth H3 centre |lat| assembled cleanly as lat_abs_deg in earth-features-r4 (controls illumination analog geometry, not Mars EDL).
   rock_cfa:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    notes: No global Earth counterpart identified in inventory; investigate literature/local sources; missing stays explicit.
   rock_abund_div:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    planetaryTargetColumns:
+    - moon_rock_abund_div
+    notes: No global Earth counterpart identified in inventory; Moon Diviner rock abundance (60S-60N) assembled in planetary-targets; missing stays explicit.
   boulder_density_nac:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    notes: No global Earth counterpart identified in inventory; investigate literature/local sources; missing stays explicit.
   ti:
     relatedColumns:
     - sites-r4-monthly.lst_diurnal_k
     - sites-r4-monthly.aqua_lst_diurnal_k
     - sites-r4.albedo_ws_sw_mean
     - sites-r4.albedo_bs_sw_mean
-    notes: ATI derivation not built; Terra/Aqua monthly LST diurnal range (~10:30/~22:30 and ~13:30/~01:30) and albedo prerequisites exist, physical TI derivation needs review.
+    earthFeatureColumn: ati_terra_proxy
+    notes: Explicit Earth apparent thermal inertia proxies (ati_terra_proxy and ati_aqua_proxy = (1 - albedo_bs_sw_mean) / diurnal_range_k) built in earth-features-r4; TES Mars TI stays null pending projection review (ADR-0008).
   albedo:
     relatedColumns:
     - sites-r4.albedo_ws_sw_mean
     - sites-r4.albedo_bs_sw_mean
     - sites-r4-monthly.albedo_ws_sw
     - sites-r4-monthly.albedo_bs_sw
-    notes: '#66 merged (PR #77): MCD43C3 v061 white-sky and black-sky shortwave, one dated
-      16-day-window sample per month (not a monthly mean), QA=0 only. The CSV Earth field
-      albedo_bsa matches the black-sky column in quantity, not in time support. Target-side
-      albedo (TES/Diviner bolometric) is a different band definition; no cross-body
-      transform defined.'
+    earthFeatureColumn: albedo_bs_sw_mean
+    planetaryTargetColumns:
+    - moon_wac_albedo_dn
+    notes: '#66 merged (PR #77): MCD43C3 v061 white-sky and black-sky shortwave assembled in earth-features-r4; Moon WAC 8-bit grayscale DN assembled separately in native units.'
   dust_cover_index:
-    relatedColumns: []
-    notes: Needs source mineral/bare-ground data; barren land share alone is not a
-      TES dust index.
+    relatedColumns:
+    - sites-r4.emit_min_dust_proxy_share
+    - sites-r4.emit_min_dust_proxy_bd_med
+    - sites-r4.vcf_percent_nonvegetated_pct_mean
+    earthFeatureColumn: emit_min_dust_proxy_share
+    notes: Earth EMIT L2B dust-source mineral proxy (hematite/goethite/illite/muscovite/montmorillonite/kaolinite) and MOD44B non-vegetated cover fraction assembled as Earth proxies; not directly equivalent to TES spectral index.
   radar_ka_backscatter:
     relatedColumns: []
-    notes: Earth L-band SAR candidate only; differs from Ka-band target, preserve
-      proxy status.
+    notes: Earth L-band SAR candidate only; differs from Ka-band target; unfetched PALSAR backscatter preserved as explicit null with provenance count.
   cpr_minirf:
     relatedColumns: []
-    notes: Linear-polarization SAR does not directly implement Mini-RF circular polarization
-      ratio.
+    planetaryTargetColumns:
+    - moon_minirf_cpr
+    notes: Linear-polarization SAR does not directly implement Mini-RF circular polarization ratio; Moon Mini-RF 32 ppd S-band CPR assembled in planetary-targets.
   regolith_thick:
     relatedColumns:
     - sites-r4.regolith_thick_m
     - sites-r4.soil_thick_m
     - sites-r4.sediment_thick_m
     - sites-r4.avg_soil_sed_thick_m
-    notes: '#66 merged (PR #77): ORNL Pelletier et al. 2016 modeled upland regolith, soil
-      and sediment thickness, hexagon median of 30 arcsec pixels, 90N-60S only. Modeled
-      proxy, not a measurement (ADR-0009); 50 m is the published upper bound, not proof of
-      clipping.'
+    earthFeatureColumn: regolith_thick_m
+    notes: '#66 merged (PR #77): ORNL Pelletier et al. 2016 modeled upland regolith, soil and sediment thickness assembled in earth-features-r4 (modeled proxy, ADR-0009).'
   wind_h_edl:
     relatedColumns:
     - sites-r4.wind_speed_mean
     - sites-r4-monthly.wind_speed
     - sites-r4-monthly.wind_speed_max
-    notes: '#89 merged (PR #109): MERRA-2 M2TMNXFLX/SLV 2023 monthly 10 m surface wind per H3 hexagon (annual mean + 12 months); 10 m Earth surface wind differs from Mars EDL upper-km wind (dynamic pressure is a pressureRegime mismatch).'
+    earthFeatureColumn: wind_speed_mean
+    planetaryTargetColumns:
+    - mars_wind_edl_10m_mean_ms
+    - mars_wind_edl_8km_mean_ms
+    notes: MERRA-2 10 m surface wind (mean, annual max, seasonal amplitude) assembled in earth-features-r4 alongside Mars MCD v6.2 EDL winds in planetary-targets (pressureRegime dynamic pressure caveat preserved).
   wind_v_edl:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.
   cdod_ann:
     relatedColumns:
     - sites-r4.dust_aod_mean
-    notes: '#68 merged (PR #120): 2023 monthly MERRA-2 DUEXTTAU at 550 nm and its valid-month annual mean are related Earth reanalysis inputs. Column AOD is not surface dust cover or Mars optical depth; nearest native-grid mapping adds no resolution. Contributing months remain explicit.'
+    earthFeatureColumn: dust_aod_mean
+    planetaryTargetColumns:
+    - mars_cdod_ann
+    notes: MERRA-2 550 nm DUEXTTAU annual mean and seasonal amplitude assembled in earth-features-r4; LMD Mars annual CDOD assembled in planetary-targets.
   cdod_storm_freq:
     relatedColumns:
     - sites-r4-monthly.dust_aod
-    notes: EONET event records exist, but do not estimate storm frequency. Needs explicit
-      time-series exceedance definition.
+    earthFeatureColumn: dust_aod_seasonal_amp
+    planetaryTargetColumns:
+    - mars_cdod_storm_freq
+    notes: MERRA-2 seasonal amplitude and EONET dustHaze counts assembled in earth-features-r4 as Earth proxy indicators alongside LMD Mars storm exceedance frequency in planetary-targets.
   tsurf_max:
     relatedColumns:
     - sites-r4.lst_day_max_k
     - sites-r4-monthly.aqua_lst_day_k
-    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~10:30 and ~13:30 day overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
+    earthFeatureColumn: lst_day_max_k
+    planetaryTargetColumns:
+    - target_tsurf_max_k
+    - moon_prp_temp_max_k
+    notes: Terra/Aqua monthly day LST maxima + 2014-2023 p90 assembled in earth-features-r4 (monthly composite caveat preserved); Moon Diviner GCP tsurf_max & south PRP temp_max assembled in planetary-targets.
   tsurf_min:
     relatedColumns:
     - sites-r4.lst_night_min_k
     - sites-r4-monthly.aqua_lst_night_k
-    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~22:30 and ~01:30 night overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
+    earthFeatureColumn: lst_night_min_k
+    planetaryTargetColumns:
+    - target_tsurf_min_k
+    notes: Terra/Aqua monthly night LST minima + 2014-2023 p10 assembled in earth-features-r4; Moon Diviner GCP tsurf_min assembled in planetary-targets.
   tsurf_range:
     relatedColumns:
     - sites-r4-monthly.lst_diurnal_k
     - sites-r4-monthly.aqua_lst_diurnal_k
-    notes: Monthly MOD11C3/MYD11C3 summaries and history exist; named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
+    earthFeatureColumn: lst_diurnal_range_mean_k
+    planetaryTargetColumns:
+    - target_tsurf_range_k
+    notes: Terra/Aqua diurnal LST range means assembled in earth-features-r4; Moon Diviner GCP tsurf_range assembled in planetary-targets.
   tsurf_ann_max_psr:
     relatedColumns: []
-    notes: Keep explicit target-body limitation; do not invent an Earth match.
+    planetaryTargetColumns:
+    - moon_prp_temp_max_k
+    notes: Keep explicit target-body Earth limitation; Moon south PRP max temperature assembled on planetary side.
   illum_frac_avg:
     relatedColumns:
     - sites-r4-monthly.polar_day
-    notes: Latitude-only polar flags exist; horizon-aware sunlit fraction not built.
+    earthFeatureColumn: polar_day_frac
+    planetaryTargetColumns:
+    - moon_illum_frac_pct
+    notes: Earth annual polar-day fraction & daylight summaries assembled in earth-features-r4 (latitude-only geometry); Moon LOLA avgvisib 60m/120m illumination assembled in planetary-targets.
   sun_elev_min:
     relatedColumns:
     - sites-r4-monthly.sun_noon_elev_deg
-    notes: Noon/15th-of-month geometry exists; minimum over requested operations window
-      needs explicit computation.
+    earthFeatureColumn: sun_noon_elev_min_deg
+    notes: Earth minimum 15th-of-month solar noon elevation assembled in earth-features-r4.
   earth_vis_frac:
     relatedColumns: []
-    notes: Terrain-horizon masking not built; Earth direct-to-Earth comms has no literal
-      analogue.
+    planetaryTargetColumns:
+    - moon_earth_vis_pct
+    notes: Earth horizon obstruction not built (direct-to-Earth comms not an Earth limitation); Moon LOLA avgvisib Earth visibility assembled in planetary-targets.
   psr_frac_2km:
     relatedColumns:
     - sites-r4-monthly.polar_night
-    notes: Needs defined 2 km support plus terrain-shadow calculation; polar-night
-      flag is insufficient.
+    earthFeatureColumn: polar_night_frac
+    planetaryTargetColumns:
+    - moon_psr_frac_2km
+    notes: Earth polar-night fraction proxy in earth-features-r4 (topographic 2 km shadow fraction not built); Moon LOLA 2 km PSR fraction assembled in planetary-targets.
   psr_dist_km:
     relatedColumns:
     - sites-r4-monthly.polar_night
-    notes: Distance to terrain-shadow analogue not built; Earth shadow is not lunar
-      PSR.
+    planetaryTargetColumns:
+    - moon_psr_dist_km
+    notes: Earth terrain-shadow distance not built; Moon LOLA 2 km PSR distance assembled in planetary-targets.
   ice_stab_depth:
     relatedColumns:
     - sites-r4.permafrost_pct
-    notes: ESA permafrost probability exists; it is not ice-table depth.
+    earthFeatureColumn: permafrost_pct
+    planetaryTargetColumns:
+    - moon_prp_ice_depth_m
+    notes: Earth ESA CCI permafrost extent probability assembled as weak proxy in earth-features-r4; Moon south PRP ice-stability depth assembled in planetary-targets.
   h_wt_neutron:
     relatedColumns: []
-    notes: Ground-ice/soil-moisture sources not acquired; permafrost probability is
-      not hydrogen weight percent.
+    planetaryTargetColumns:
+    - mars_grs_weh_2deg_wt_pct
+    - mars_grs_weh_5deg_wt_pct
+    - moon_lend_setn_rate_rel
+    - moon_lend_csetn_rate_rel
+    - moon_lend_csetn_2009_rate_rel
+    notes: Earth soil-moisture/ground-ice source not acquired; Mars ODY GRS WEH and Moon LEND relative neutron rates assembled in planetary-targets.
   lya_offon:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    planetaryTargetColumns:
+    - moon_lamp_lya_offon
+    notes: No global Earth counterpart identified in inventory; Moon LAMP 240 m south-polar ratio assembled in planetary-targets.
   ice_consistency_swim:
     relatedColumns:
     - sites-r4.permafrost_pct
-    notes: Permafrost source exists; reviewed consistency mapping plus ground-ice
-      evidence still needed.
+    notes: Permafrost probability exists; SWIM multi-dataset ground-ice consistency index remains unbuilt on Earth.
   feo_wt:
-    relatedColumns: []
-    notes: ASTER emissivity/lithology candidate sources not acquired; neither directly
-      measures FeO weight percent.
+    relatedColumns:
+    - sites-r4.emit_min_mafic_bd_1um_share
+    planetaryTargetColumns:
+    - moon_kaguya_feo_wt
+    - moon_lpgrs_feo_wt
+    notes: Moon Kaguya MI 4 ppd FeO and LP-GRS 2 deg FeO assembled in planetary-targets; Earth ASTER TIR mafic proxy remains unacquired (EMIT mafic proxy is mineral share only).
   tio2_wt:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    planetaryTargetColumns:
+    - moon_lpgrs_tio2
+    notes: No global Earth counterpart identified in inventory; Moon LP-GRS 2 deg TiO2 assembled in planetary-targets.
   mafic_bd_1um:
-    relatedColumns: []
-    notes: EMIT candidate not acquired; selected-mineral feature depth differs from
-      CRISM indices.
+    relatedColumns:
+    - sites-r4.emit_min_mafic_bd_1um_share
+    - sites-r4.emit_min_mafic_bd_1um_bd_med
+    earthFeatureColumn: emit_min_mafic_bd_1um_bd_med
+    planetaryTargetColumns:
+    - mars_crism_olindex3_med
+    - mars_crism_lcpindex2_med
+    - mars_crism_hcpindex2_med
+    notes: Earth EMIT L2B mafic mineral family proxy (olivine/pyroxene/chromite) assembled cleanly in earth-features-r4 alongside Mars CRISM 1 um olivine/pyroxene indices in planetary-targets; best-fit EMIT mineral library vs fixed CRISM wavelength caveats preserved.
   oh_3um:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    notes: No global Earth counterpart identified in inventory; investigate literature/local sources; missing stays explicit.
   cf_position:
     relatedColumns: []
-    notes: ASTER candidate not acquired; five broad emissivity bands do not directly
-      yield Diviner feature position.
+    planetaryTargetColumns:
+    - moon_cf_position_um
+    notes: ASTER TIR candidate not acquired; Moon Diviner CF position (60S-60N) assembled in planetary-targets.
   tes_mineral_frac:
     relatedColumns: []
-    notes: ASTER candidate not acquired; mineral retrieval model/validation missing.
+    notes: ASTER candidate not acquired; Mars TES deconvolution not available in local snapshot.
   crism_hydration:
-    relatedColumns: []
-    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
-      identity, GLT/QA and proxy interpretation.
+    relatedColumns:
+    - sites-r4.emit_min_hydration_share
+    - sites-r4.emit_min_hydration_bd_med
+    earthFeatureColumn: emit_min_hydration_bd_med
+    planetaryTargetColumns:
+    - mars_crism_bd1900_med
+    notes: Earth EMIT L2B hydration mineral proxy assembled cleanly in earth-features-r4 alongside Mars CRISM BD1900_2 in planetary-targets; sensor/library difference caveat preserved.
   crism_fe_mg_smectite:
-    relatedColumns: []
-    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
-      identity, GLT/QA and proxy interpretation.
+    relatedColumns:
+    - sites-r4.emit_min_fe_mg_smectite_share
+    - sites-r4.emit_min_fe_mg_smectite_bd_med
+    earthFeatureColumn: emit_min_fe_mg_smectite_bd_med
+    planetaryTargetColumns:
+    - mars_crism_d2300_med
+    notes: Earth EMIT L2B Fe/Mg-smectite mineral proxy assembled cleanly in earth-features-r4 alongside Mars CRISM D2300 in planetary-targets; sensor/library difference caveat preserved.
   crism_al_oh:
-    relatedColumns: []
-    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
-      identity, GLT/QA and proxy interpretation.
+    relatedColumns:
+    - sites-r4.emit_min_al_oh_share
+    - sites-r4.emit_min_al_oh_bd_med
+    earthFeatureColumn: emit_min_al_oh_bd_med
+    planetaryTargetColumns:
+    - mars_crism_bd2210_med
+    notes: Earth EMIT L2B Al-OH mineral proxy assembled cleanly in earth-features-r4 alongside Mars CRISM BD2210_2 in planetary-targets; sensor/library difference caveat preserved.
   crism_sulfate:
-    relatedColumns: []
-    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
-      identity, GLT/QA and proxy interpretation.
+    relatedColumns:
+    - sites-r4.emit_min_sulfate_share
+    - sites-r4.emit_min_sulfate_bd_med
+    earthFeatureColumn: emit_min_sulfate_bd_med
+    planetaryTargetColumns:
+    - mars_crism_sindex2_med
+    notes: Earth EMIT L2B sulfate mineral proxy assembled cleanly in earth-features-r4 alongside Mars CRISM SINDEX2 in planetary-targets; sensor/library difference caveat preserved.
   crism_carbonate:
-    relatedColumns: []
-    notes: EMIT source/processing absent; preserve sensor-specific quantity, mineral
-      identity, GLT/QA and proxy interpretation.
+    relatedColumns:
+    - sites-r4.emit_min_carbonate_share
+    - sites-r4.emit_min_carbonate_bd_med
+    earthFeatureColumn: emit_min_carbonate_bd_med
+    planetaryTargetColumns:
+    - mars_crism_bd2500_med
+    notes: Earth EMIT L2B carbonate mineral proxy assembled cleanly in earth-features-r4 alongside Mars CRISM BD2500_2 in planetary-targets; sensor/library difference caveat preserved.
   grs_th_k:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    planetaryTargetColumns:
+    - mars_grs_th_ppm
+    - mars_grs_k_ppm
+    - mars_grs_kth_ratio
+    - moon_lpgrs_k
+    - moon_lpgrs_th
+    notes: No global Earth counterpart identified in inventory; Mars ODY GRS and Moon LP-GRS elemental abundances assembled in planetary-targets.
   geo_unit:
     relatedColumns: []
-    notes: GLiM acquisition and class-preserving spatial transformation not built.
+    planetaryTargetColumns:
+    - moon_geo_unit_code
+    - moon_geo_unit_name
+    - moon_geo_unit_era
+    - moon_geo_unit_material
+    notes: Earth GLiM acquisition not built; Moon 1:5M Unified Geologic Map unit lookup assembled in planetary-targets.
   crater_density:
     relatedColumns: []
-    notes: Earth impact catalog candidate/access unresolved; preserve point support
-      and weak analogy.
+    notes: Earth impact catalog candidate/access unresolved and planetary Robbins crater tables excluded on unresolved licence; preserve explicit gap.
   pit_cave_presence:
     relatedColumns: []
-    notes: No global Earth counterpart identified in inventory; investigate literature/local
-      sources; missing stays explicit.
+    planetaryTargetColumns:
+    - mars_caves_within_100km
+    - mars_nearest_cave_km
+    - moon_pits_within_100km
+    - moon_nearest_pit_km
+    notes: No global Earth counterpart identified in inventory; Mars MGC3 cave candidates and Moon LROC Pits Atlas counts/distances assembled in planetary-targets.
   gravity:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.
