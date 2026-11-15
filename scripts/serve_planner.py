@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Serve only a compiled planner site on loopback, with precompressed assets."""
+"""Serve only a compiled planner site on loopback, with precompressed assets.
+
+Sidecars are built at startup. At request time a sidecar is served only while
+it is not older than its identity file; stale sidecars are skipped, so clients
+fall back to another acceptable representation. Restart the server to rebuild.
+"""
 import argparse
 import functools
 import gzip
@@ -27,6 +32,8 @@ def encoding_qualities(value):
                 weight = weight.strip()
                 quality = float(weight) if re.fullmatch(r'(?:0(?:\.\d{0,3})?|1(?:\.0{0,3})?)', weight) else 0.0
         qualities[name] = min(qualities.get(name, quality), quality)
+    if 'x-gzip' in qualities:
+        qualities['gzip'] = min(qualities.get('gzip', qualities['x-gzip']), qualities['x-gzip'])
     return qualities
 
 
@@ -51,11 +58,14 @@ class Handler(SimpleHTTPRequestHandler):
             return super().send_head()
         qualities = encoding_qualities(','.join(self.headers.get_all('Accept-Encoding', [])))
         identity_quality = qualities.get('identity', 0.0 if qualities.get('*') == 0 else 1.0)
+        identity_mtime = path.stat().st_mtime_ns
         candidates = []
         for encoding, suffix in (('br', '.br'), ('gzip', '.gz'), ('identity', '')):
             candidate = path.with_name(path.name + suffix)
             quality = identity_quality if encoding == 'identity' else qualities.get(encoding, qualities.get('*', 0.0))
             if quality > 0 and candidate.is_file():
+                if suffix and candidate.stat().st_mtime_ns < identity_mtime:
+                    continue
                 candidates.append((quality, encoding, candidate))
         if not candidates:
             self.send_response(406)
