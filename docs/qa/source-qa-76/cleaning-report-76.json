@@ -1,0 +1,2602 @@
+{
+  "generatedAt": "2026-11-15T16:38:45.617893+00:00",
+  "registrySha256": "194dea666d2d20bb26cabfe253119a8d915a9fbbad60d56dc247b0f285f9a9d9",
+  "qaPolicy": {
+    "path": "data/pipeline/qa-policy.yaml",
+    "sha256": "987c773b9453773352dfa771beb47ae0ccec6c69dd8a4d3a52e0762b74f3342d",
+    "status": "proposed",
+    "followupIssue": 76
+  },
+  "licenses": {
+    "copernicus-dem-glo30": {
+      "licenseId": "copernicus-dem-licence",
+      "verified": true
+    },
+    "modis-mod11c3": {
+      "licenseId": "cc0",
+      "verified": true
+    },
+    "modis-myd11c3": {
+      "licenseId": "cc0",
+      "verified": true
+    },
+    "modis-mcd12c1": {
+      "licenseId": "cc0",
+      "verified": true
+    },
+    "esa-cci-permafrost-extent-nh": {
+      "licenseId": "esa-cci-permafrost-terms",
+      "verified": true
+    },
+    "esa-cci-permafrost-extent-antarctica": {
+      "licenseId": "esa-cci-permafrost-terms",
+      "verified": true
+    },
+    "travel-time-to-cities-2015": {
+      "licenseId": "cc-by-3.0",
+      "verified": true
+    }
+  },
+  "runtimeStatus": "executed",
+  "scientificStatus": "partial / executed-unreviewed",
+  "meaning": "Diagnostic counts only; source filters and scientific validity are not established by output null counts.",
+  "rules": {
+    "h3-centre": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "lat"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lon"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mod11c3-land-share": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "land_pct_mean"
+        }
+      ],
+      "maskedInputValues": 16989043,
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023001.061.2023033164320.hdf",
+      "sha256": "04f1f63e4f89f4bebfe0cf5d3bfdf6d52fd5919e4ba99a6684fc4f5ac38fb9c6",
+      "grain": "native CMG pixels for land-mask selection",
+      "inputValues": 25920000,
+      "retainedInputValues": 8930957
+    },
+    "lst-fill": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "lst_day_max_k"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lst_night_min_k"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lst_diurnal_range_mean_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_diurnal_k"
+        }
+      ],
+      "maskedInputValues": 410512400,
+      "qcAudit2023": {
+        "mandatoryQaAllPixels": {
+          "Day": [
+            29455692,
+            76691158,
+            1075273,
+            203817877
+          ],
+          "Night": [
+            30289631,
+            75131119,
+            1801372,
+            203817878
+          ]
+        },
+        "lstErrorOnValid": {
+          "Day": [
+            80527605,
+            25183564,
+            414993,
+            20688
+          ],
+          "Night": [
+            81171241,
+            23722703,
+            488464,
+            38342
+          ]
+        },
+        "rawVsMandQaAnomalies": 0
+      }
+    },
+    "lst-scale": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "lst_day_max_k"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lst_night_min_k"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lst_diurnal_range_mean_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_diurnal_k"
+        }
+      ],
+      "maskedInputValues": null,
+      "scaledInputValues": 211567600
+    },
+    "lst-coverage-25pct": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "lst_day_max_k"
+        },
+        {
+          "source": "cells-r4",
+          "column": "lst_night_min_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "lst_diurnal_k"
+        }
+      ],
+      "maskedInputValues": null,
+      "rejectedCellMonthsBySide": {
+        "day": 934,
+        "night": 5055
+      },
+      "grain": "cell-month-side; day/night counts can overlap"
+    },
+    "mcd12c1-shares": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "barren_pct"
+        },
+        {
+          "source": "cells-r4",
+          "column": "snow_ice_pct"
+        },
+        {
+          "source": "cells-r4",
+          "column": "water_pct"
+        }
+      ],
+      "maskedInputValues": 0
+    },
+    "esa-cci-fill-255": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "permafrost_pct"
+        }
+      ],
+      "maskedInputValues": 262261805,
+      "status": "replayed-from-pinned-netcdf",
+      "grain": "native 0.01 deg PFR pixels (NH + Antarctica)",
+      "retainedInputValues": 43738195,
+      "byProduct": {
+        "esa-cci-permafrost-extent-nh": {
+          "inputValues": 216000000,
+          "maskedInputValues": 172869206,
+          "sha256": "be024ac8fda10f124932122271d4c41ba2685a0bb1b3c4768866ad382dc50f36"
+        },
+        "esa-cci-permafrost-extent-antarctica": {
+          "inputValues": 90000000,
+          "maskedInputValues": 89392599,
+          "sha256": "7d482e56dd6ef4fba10f197bb15b6e72dea611099078098c85a3a76c6f89554b"
+        }
+      }
+    },
+    "outside-model-null": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "permafrost_pct"
+        }
+      ],
+      "maskedInputValues": null,
+      "outputRowsOutsideModel": 40693
+    },
+    "dem-unmasked-source": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "elev_mean_m"
+        },
+        {
+          "source": "cells-r4",
+          "column": "elev_min_m"
+        },
+        {
+          "source": "cells-r4",
+          "column": "elev_max_m"
+        },
+        {
+          "source": "cells-r4",
+          "column": "slope_mean_deg"
+        },
+        {
+          "source": "cells-r4",
+          "column": "slope_frac_lt5"
+        },
+        {
+          "source": "cells-r4",
+          "column": "slope_frac_lt15"
+        },
+        {
+          "source": "cells-r4",
+          "column": "slope_frac_gt30"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "quality-gap",
+      "reason": "terrain._read_tile reads unmasked arrays; historical ledger has 26,450 arraySha256 digests and 0 nodata/water rejections. Policy proposed in ADR-0015 prior to rebuild.",
+      "tileListSha256": "10604e3052c98a09e9216f1a8f0a555a04148419757575f783d4937fd44316dc",
+      "ledgerSha256": "53470ed0bc8385a78731c76fbe6560ca9252262e3ddb643a2c64b47019e9335b",
+      "expectedTiles": 26450,
+      "ledgerTiles": 26450,
+      "missingTiles": 0,
+      "extraTiles": 0,
+      "errorTiles": 0,
+      "tilesWithArraySha256": 26450,
+      "tilesWithMaskFields": 0,
+      "waterMasked": false,
+      "shapes": {
+        "450x450": 11861,
+        "450x300": 2459,
+        "450x225": 3582,
+        "450x150": 4552,
+        "450x90": 2196,
+        "450x45": 1800
+      },
+      "appliedNodataFilterCount": 0,
+      "invalidInputValues": null,
+      "maskedWaterPixels": null,
+      "maskedVoidPixels": null,
+      "retainedLandPixels": null,
+      "terrainNpzSha256": "fc79637f1f3600653ab9723a23cbd6a10cf0dd21f1409c4d452da01823865a1f",
+      "totalOutputDemPixels": 2923236898,
+      "cellsOverlap": {
+        "totalCells": 91800,
+        "cellsWithDemPixels": 91285,
+        "cellsNullSlope": 515,
+        "cellsWaterPctGt50WithSlope": 7619,
+        "cellsLandPctLt50WithSlope": 6400,
+        "cellsZeroSlopeZeroElev": 763
+      }
+    },
+    "computed-from-lat": {
+      "applications": [
+        {
+          "source": "cells-r4",
+          "column": "sun_noon_elev_max_deg"
+        },
+        {
+          "source": "cells-r4",
+          "column": "sun_noon_elev_min_deg"
+        },
+        {
+          "source": "cells-r4",
+          "column": "polar_night"
+        },
+        {
+          "source": "cells-r4",
+          "column": "polar_day"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "sun_noon_elev_deg"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "daylight_h"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "polar_day"
+        },
+        {
+          "source": "cells-r4-monthly",
+          "column": "polar_night"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "raster-nodata": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "access_min_median"
+        },
+        {
+          "source": "context-r4",
+          "column": "access_min_p10"
+        }
+      ],
+      "maskedInputValues": 530356617,
+      "status": "replayed-from-pinned-geotiff",
+      "grain": "native 30 arcsec travel-time raster pixels",
+      "inputValues": 751680000,
+      "retainedInputValues": 221323383,
+      "nodataValue": -9999.0
+    },
+    "pixel-centre-in-hexagon": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "access_min_median"
+        },
+        {
+          "source": "context-r4",
+          "column": "access_min_p10"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "output-counts-only; polygon rasterization pixel-assignment log not emitted by context.py"
+    },
+    "paved-open-runways-only": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "airport_km"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded source-build counts; no independent geographic validation in this audit",
+      "recordedAirportCountUsed": 12522
+    },
+    "licence-restricted-null": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "protected_pct"
+        }
+      ],
+      "maskedInputValues": null,
+      "withheldCellRows": 91800
+    },
+    "eonet-dedupe-per-event": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "eonet_wildfires_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_volcanoes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_severeStorms_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_floods_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_landslides_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_dustHaze_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_earthquakes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_snow_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_tempExtremes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_drought_events"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded source-build counts; no independent geographic validation in this audit",
+      "recordedCounts": {
+        "events": 10086,
+        "eventsKeptCategory": 9930,
+        "eventsNearLand": 9510,
+        "eventsNoGeometry": 0,
+        "path": "data/snapshots/_derived/eonet-events-r4.parquet",
+        "rows": 45464,
+        "sha256": "2e79d0b18c1ba05e5c237dd40f241847b190e64cce1fee7ec30129f6c59dada0"
+      }
+    },
+    "within-50km": {
+      "applications": [
+        {
+          "source": "context-r4",
+          "column": "eonet_wildfires_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_volcanoes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_severeStorms_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_floods_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_landslides_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_dustHaze_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_earthquakes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_snow_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_tempExtremes_events"
+        },
+        {
+          "source": "context-r4",
+          "column": "eonet_drought_events"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded source-build counts; no independent geographic validation in this audit",
+      "recordedCounts": {
+        "events": 10086,
+        "eventsKeptCategory": 9930,
+        "eventsNearLand": 9510,
+        "eventsNoGeometry": 0,
+        "path": "data/snapshots/_derived/eonet-events-r4.parquet",
+        "rows": 45464,
+        "sha256": "2e79d0b18c1ba05e5c237dd40f241847b190e64cce1fee7ec30129f6c59dada0"
+      }
+    },
+    "mcd43-fill": {
+      "applications": [
+        {
+          "source": "albedo-r4",
+          "column": "albedo_ws_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_sw_mean"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_ws_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_sw"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mcd43-scale": {
+      "applications": [
+        {
+          "source": "albedo-r4",
+          "column": "albedo_ws_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_sw_mean"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_ws_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_sw"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mcd43-qa-best": {
+      "applications": [
+        {
+          "source": "albedo-r4",
+          "column": "albedo_ws_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_months_used"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_months_used"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_ws_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_valid_px"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_valid_px"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "coverage-25pct": {
+      "applications": [
+        {
+          "source": "albedo-r4",
+          "column": "albedo_ws_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_months_used"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_months_used"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_ws_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_sw"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mean-of-dated-samples": {
+      "applications": [
+        {
+          "source": "albedo-r4",
+          "column": "albedo_ws_sw_mean"
+        },
+        {
+          "source": "albedo-r4",
+          "column": "albedo_bs_sw_mean"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "ornl-nodata": {
+      "applications": [
+        {
+          "source": "regolith-r4",
+          "column": "regolith_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "regolith_support_px"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "soil_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "soil_support_px"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "sediment_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "avg_soil_sed_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "hillslope_frac_mean"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "builder-diagnostics-only; raw input ZIPs absent locally",
+      "recordedDiagnostics": {
+        "median": "exact per-hex histogram median (0.01 m bins for soil, 1 m bins int8 for byte layers)",
+        "valuesAtPublishedMaximum": {
+          "regolith_at_50m_px": 8562511,
+          "sediment_at_50m_px": 98096639,
+          "avg_at_50m_px": 42619465,
+          "soil_at_4.2m_px": 0
+        },
+        "dropped_pixels_outside_master_hexes": 5886,
+        "soil_quantization_check_max_err_m": 1.1444091796875e-07
+      }
+    },
+    "published-range-0-50m": {
+      "applications": [
+        {
+          "source": "regolith-r4",
+          "column": "regolith_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "regolith_support_px"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "sediment_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "avg_soil_sed_thick_m"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "builder-diagnostics-only; raw input ZIPs absent locally",
+      "recordedDiagnostics": {
+        "median": "exact per-hex histogram median (0.01 m bins for soil, 1 m bins int8 for byte layers)",
+        "valuesAtPublishedMaximum": {
+          "regolith_at_50m_px": 8562511,
+          "sediment_at_50m_px": 98096639,
+          "avg_at_50m_px": 42619465,
+          "soil_at_4.2m_px": 0
+        },
+        "dropped_pixels_outside_master_hexes": 5886,
+        "soil_quantization_check_max_err_m": 1.1444091796875e-07
+      }
+    },
+    "hex-median-30arcsec": {
+      "applications": [
+        {
+          "source": "regolith-r4",
+          "column": "regolith_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "regolith_support_px"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "soil_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "soil_support_px"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "sediment_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "avg_soil_sed_thick_m"
+        },
+        {
+          "source": "regolith-r4",
+          "column": "hillslope_frac_mean"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "published-range-0-4.2m": {
+      "applications": [
+        {
+          "source": "regolith-r4",
+          "column": "soil_thick_m"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "builder-diagnostics-only; raw input ZIPs absent locally",
+      "recordedDiagnostics": {
+        "median": "exact per-hex histogram median (0.01 m bins for soil, 1 m bins int8 for byte layers)",
+        "valuesAtPublishedMaximum": {
+          "regolith_at_50m_px": 8562511,
+          "sediment_at_50m_px": 98096639,
+          "avg_at_50m_px": 42619465,
+          "soil_at_4.2m_px": 0
+        },
+        "dropped_pixels_outside_master_hexes": 5886,
+        "soil_quantization_check_max_err_m": 1.1444091796875e-07
+      }
+    },
+    "merra2-fill": {
+      "applications": [
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_mean"
+        },
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_max"
+        },
+        {
+          "source": "dust-r4",
+          "column": "months_used"
+        },
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_max_month"
+        },
+        {
+          "source": "wind-r4",
+          "column": "wind_speed_mean"
+        },
+        {
+          "source": "wind-r4",
+          "column": "months_used"
+        },
+        {
+          "source": "dust-r4-monthly",
+          "column": "dust_aod"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "wind_speed"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "wind_speed_max"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "u10m_mean"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "v10m_mean"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-native-fill-counts",
+      "recordedDustNativeFillCellsByMonth": {
+        "1": 0,
+        "10": 0,
+        "11": 0,
+        "12": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      },
+      "recordedWindNativeFillCellsByGranule": {
+        "merra2-m2tmnxflx:1": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:10": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:11": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:12": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:2": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:3": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:4": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:5": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:6": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:7": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:8": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxflx:9": {
+          "SPEED": 0,
+          "SPEEDMAX": 0
+        },
+        "merra2-m2tmnxslv:1": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:10": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:11": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:12": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:2": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:3": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:4": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:5": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:6": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:7": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:8": {
+          "U10M": 0,
+          "V10M": 0
+        },
+        "merra2-m2tmnxslv:9": {
+          "U10M": 0,
+          "V10M": 0
+        }
+      }
+    },
+    "nearest-grid-box": {
+      "applications": [
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_mean"
+        },
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_max"
+        },
+        {
+          "source": "wind-r4",
+          "column": "wind_speed_mean"
+        },
+        {
+          "source": "wind-r4",
+          "column": "months_used"
+        },
+        {
+          "source": "dust-r4-monthly",
+          "column": "dust_aod"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "wind_speed"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "wind_speed_max"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "u10m_mean"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "v10m_mean"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "valid-month-count": {
+      "applications": [
+        {
+          "source": "dust-r4",
+          "column": "months_used"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "earliest-month-on-tie": {
+      "applications": [
+        {
+          "source": "dust-r4",
+          "column": "dust_aod_max_month"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "monthly-speed-mean": {
+      "applications": [
+        {
+          "source": "wind-r4",
+          "column": "wind_speed_mean"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "emit-glt-mask": {
+      "applications": [
+        {
+          "source": "emit-min-r4",
+          "column": "n_observed"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_px"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-qa-sample-counts",
+      "recordedQa": {
+        "reasonRowCounts": {
+          "outside-emit-coverage": 26603,
+          "granule-not-processed": 63299,
+          "no-identified-pixels": 260,
+          "samples-lost-processing-error": 2
+        }
+      }
+    },
+    "emit-library-mineral-filter": {
+      "applications": [
+        {
+          "source": "emit-min-r4",
+          "column": "n_observed"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_px"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_px"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-qa-sample-counts",
+      "recordedQa": {
+        "reasonRowCounts": {
+          "outside-emit-coverage": 26603,
+          "granule-not-processed": 63299,
+          "no-identified-pixels": 260,
+          "samples-lost-processing-error": 2
+        }
+      }
+    },
+    "emit-family-share": {
+      "applications": [
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_share"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_share"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "emit-histogram-median": {
+      "applications": [
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_hydration_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_fe_mg_smectite_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_al_oh_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_sulfate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_carbonate_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_mafic_bd_1um_bd_med"
+        },
+        {
+          "source": "emit-min-r4",
+          "column": "emit_min_dust_proxy_bd_med"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mod44b-valid-0-100": {
+      "applications": [
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_tree_cover_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nontree_vegetation_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nonvegetated_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_tree_cover_pct_mean"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nontree_vegetation_pct_mean"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nonvegetated_pct_mean"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_tree_cover_valid_native_px"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nontree_vegetation_valid_native_px"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nonvegetated_valid_native_px"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-native-counts",
+      "retainedInputValues": 2439800703
+    },
+    "mod44b-exclude-water-200-fill-253": {
+      "applications": [
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_tree_cover_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nontree_vegetation_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nonvegetated_pct_median"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_tree_cover_pct_mean"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nontree_vegetation_pct_mean"
+        },
+        {
+          "source": "vcf-r4",
+          "column": "vcf_percent_nonvegetated_pct_mean"
+        }
+      ],
+      "maskedInputValues": 3863760378,
+      "status": "recorded-builder-native-counts",
+      "recordedBreakdown": {
+        "valid": 2439800703,
+        "water": 3846986235,
+        "fill": 16774143,
+        "other": 0,
+        "offglobe": 401078919
+      }
+    },
+    "mod44b-lattice-count": {
+      "applications": [
+        {
+          "source": "vcf-r4",
+          "column": "vcf_lattice_px"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "one-dated-sample-per-month": {
+      "applications": [
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_ws_sw"
+        },
+        {
+          "source": "albedo-r4-monthly",
+          "column": "albedo_bs_sw"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "mcd64-unmapped": {
+      "applications": [
+        {
+          "source": "burned-r4-monthly",
+          "column": "burned_pct"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-qa-and-reason-counts",
+      "recordedQa": {
+        "perGranuleChecks": {
+          "shape": "(2400, 2400) int16",
+          "valueRange": [
+            -2,
+            366
+          ],
+          "granulesChecked": 32160,
+          "violations": 0
+        },
+        "listingChecks": {
+          "uniqueGranuleKeys": true,
+          "hitsEqualsUrlCount": true,
+          "monthsPerGranule": "name parses to first-of-month, else fatal"
+        },
+        "reasonCounts": {
+          "burnedArea:outside-mcd64a1-tiles": 124524,
+          "burnedArea:no-mapped-land-in-period": 17096
+        },
+        "failureExamples": {},
+        "failureUrls": []
+      }
+    },
+    "mcd64-water": {
+      "applications": [
+        {
+          "source": "burned-r4-monthly",
+          "column": "burned_pct"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-qa-and-reason-counts",
+      "recordedQa": {
+        "perGranuleChecks": {
+          "shape": "(2400, 2400) int16",
+          "valueRange": [
+            -2,
+            366
+          ],
+          "granulesChecked": 32160,
+          "violations": 0
+        },
+        "listingChecks": {
+          "uniqueGranuleKeys": true,
+          "hitsEqualsUrlCount": true,
+          "monthsPerGranule": "name parses to first-of-month, else fatal"
+        },
+        "reasonCounts": {
+          "burnedArea:outside-mcd64a1-tiles": 124524,
+          "burnedArea:no-mapped-land-in-period": 17096
+        },
+        "failureExamples": {},
+        "failureUrls": []
+      }
+    },
+    "mapped-years-only": {
+      "applications": [
+        {
+          "source": "burned-r4-monthly",
+          "column": "burned_pct"
+        },
+        {
+          "source": "burned-r4-monthly",
+          "column": "years_mapped"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "recorded-builder-qa-and-reason-counts",
+      "recordedQa": {
+        "perGranuleChecks": {
+          "shape": "(2400, 2400) int16",
+          "valueRange": [
+            -2,
+            366
+          ],
+          "granulesChecked": 32160,
+          "violations": 0
+        },
+        "listingChecks": {
+          "uniqueGranuleKeys": true,
+          "hitsEqualsUrlCount": true,
+          "monthsPerGranule": "name parses to first-of-month, else fatal"
+        },
+        "reasonCounts": {
+          "burnedArea:outside-mcd64a1-tiles": 124524,
+          "burnedArea:no-mapped-land-in-period": 17096
+        },
+        "failureExamples": {},
+        "failureUrls": []
+      }
+    },
+    "vector-component-only": {
+      "applications": [
+        {
+          "source": "wind-r4-monthly",
+          "column": "u10m_mean"
+        },
+        {
+          "source": "wind-r4-monthly",
+          "column": "v10m_mean"
+        }
+      ],
+      "maskedInputValues": null
+    },
+    "myd11c3-fill": {
+      "applications": [
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_diurnal_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_valid_pixels"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "raw-snapshot-absent-locally; 12 MYD11C3 HDF4 granules in MANIFEST not present on disk"
+    },
+    "myd11c3-scale": {
+      "applications": [
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_diurnal_k"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "raw-snapshot-absent-locally; 12 MYD11C3 HDF4 granules in MANIFEST not present on disk"
+    },
+    "myd11c3-coverage-25pct": {
+      "applications": [
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_day_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_night_k"
+        },
+        {
+          "source": "aqua-lst-r4-monthly",
+          "column": "lst_diurnal_k"
+        }
+      ],
+      "maskedInputValues": null,
+      "status": "raw-snapshot-absent-locally; 12 MYD11C3 HDF4 granules in MANIFEST not present on disk"
+    }
+  },
+  "inputs": {
+    "cells-r4": {
+      "path": "data/snapshots/_derived/cells-r4.parquet",
+      "sha256": "f129020bd11c79c43d8d2f913bd03b34cd34462860bceb018c537e2dd75386f7",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "barren_pct": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "elev_max_m": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "elev_mean_m": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "elev_min_m": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "land_pct_mean": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "lat": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "lon": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "lst_day_max_k": {
+          "nullOutputRows": 793,
+          "nonNullOutputRows": 91007
+        },
+        "lst_diurnal_range_mean_k": {
+          "nullOutputRows": 830,
+          "nonNullOutputRows": 90970
+        },
+        "lst_night_min_k": {
+          "nullOutputRows": 780,
+          "nonNullOutputRows": 91020
+        },
+        "permafrost_pct": {
+          "nullOutputRows": 71362,
+          "nonNullOutputRows": 20438
+        },
+        "polar_day": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "polar_night": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "slope_frac_gt30": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "slope_frac_lt15": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "slope_frac_lt5": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "slope_mean_deg": {
+          "nullOutputRows": 515,
+          "nonNullOutputRows": 91285
+        },
+        "snow_ice_pct": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "sun_noon_elev_max_deg": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "sun_noon_elev_min_deg": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "water_pct": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        }
+      }
+    },
+    "context-r4": {
+      "path": "data/snapshots/_derived/context-r4.parquet",
+      "sha256": "77c4294fc772fa9da79c04c20b65aa58af3f56fd1ca6534f6031fe42e07e0624",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "access_min_median": {
+          "nullOutputRows": 9063,
+          "nonNullOutputRows": 82737
+        },
+        "access_min_p10": {
+          "nullOutputRows": 9063,
+          "nonNullOutputRows": 82737
+        },
+        "airport_km": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_drought_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_dustHaze_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_earthquakes_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_floods_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_landslides_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_severeStorms_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_snow_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_tempExtremes_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_volcanoes_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "eonet_wildfires_events": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "protected_pct": {
+          "nullOutputRows": 91800,
+          "nonNullOutputRows": 0
+        }
+      }
+    },
+    "albedo-r4": {
+      "path": "data/snapshots/_derived/albedo-r4.parquet",
+      "sha256": "912ff83373040ec1525fdd1d522273d0b4cc4655808ce2262c5035eec0c61fd3",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "albedo_bs_months_used": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "albedo_bs_sw_mean": {
+          "nullOutputRows": 18373,
+          "nonNullOutputRows": 73427
+        },
+        "albedo_months_used": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "albedo_ws_sw_mean": {
+          "nullOutputRows": 18373,
+          "nonNullOutputRows": 73427
+        }
+      }
+    },
+    "regolith-r4": {
+      "path": "data/snapshots/_derived/regolith-r4.parquet",
+      "sha256": "4501c3d8f394c062d22a58dc1210482d92bbaf31347a4500d5749bc0109de613",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "avg_soil_sed_thick_m": {
+          "nullOutputRows": 9952,
+          "nonNullOutputRows": 81848
+        },
+        "hillslope_frac_mean": {
+          "nullOutputRows": 9952,
+          "nonNullOutputRows": 81848
+        },
+        "regolith_support_px": {
+          "nullOutputRows": 24448,
+          "nonNullOutputRows": 67352
+        },
+        "regolith_thick_m": {
+          "nullOutputRows": 24448,
+          "nonNullOutputRows": 67352
+        },
+        "sediment_thick_m": {
+          "nullOutputRows": 9952,
+          "nonNullOutputRows": 81848
+        },
+        "soil_support_px": {
+          "nullOutputRows": 24448,
+          "nonNullOutputRows": 67352
+        },
+        "soil_thick_m": {
+          "nullOutputRows": 24448,
+          "nonNullOutputRows": 67352
+        }
+      }
+    },
+    "dust-r4": {
+      "path": "data/snapshots/_derived/dust-r4.parquet",
+      "sha256": "7e2292fa95a1777b698b50e3e0eaef326c2aa380bd8153b083578cb6548bce3d",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "dust_aod_max": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "dust_aod_max_month": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "dust_aod_mean": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "months_used": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        }
+      }
+    },
+    "wind-r4": {
+      "path": "data/snapshots/_derived/wind-r4.parquet",
+      "sha256": "0131a695212ac75250cb5cb7c417857a3573ba24ec11f60a7042da1e738886f0",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "months_used": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "wind_speed_mean": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        }
+      }
+    },
+    "emit-min-r4": {
+      "path": "data/snapshots/_derived/emit-min/emit-min-r4.parquet",
+      "sha256": "1599235667cc8d501eefb6d3215979ac843b4f5ece0afa30bc440cd01e700f08",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "emit_min_al_oh_bd_med": {
+          "nullOutputRows": 90499,
+          "nonNullOutputRows": 1301
+        },
+        "emit_min_al_oh_px": {
+          "nullOutputRows": 90499,
+          "nonNullOutputRows": 1301
+        },
+        "emit_min_al_oh_share": {
+          "nullOutputRows": 90499,
+          "nonNullOutputRows": 1301
+        },
+        "emit_min_carbonate_bd_med": {
+          "nullOutputRows": 90386,
+          "nonNullOutputRows": 1414
+        },
+        "emit_min_carbonate_px": {
+          "nullOutputRows": 90386,
+          "nonNullOutputRows": 1414
+        },
+        "emit_min_carbonate_share": {
+          "nullOutputRows": 90386,
+          "nonNullOutputRows": 1414
+        },
+        "emit_min_dust_proxy_bd_med": {
+          "nullOutputRows": 90230,
+          "nonNullOutputRows": 1570
+        },
+        "emit_min_dust_proxy_px": {
+          "nullOutputRows": 90230,
+          "nonNullOutputRows": 1570
+        },
+        "emit_min_dust_proxy_share": {
+          "nullOutputRows": 90230,
+          "nonNullOutputRows": 1570
+        },
+        "emit_min_fe_mg_smectite_bd_med": {
+          "nullOutputRows": 90402,
+          "nonNullOutputRows": 1398
+        },
+        "emit_min_fe_mg_smectite_px": {
+          "nullOutputRows": 90402,
+          "nonNullOutputRows": 1398
+        },
+        "emit_min_fe_mg_smectite_share": {
+          "nullOutputRows": 90402,
+          "nonNullOutputRows": 1398
+        },
+        "emit_min_hydration_bd_med": {
+          "nullOutputRows": 90201,
+          "nonNullOutputRows": 1599
+        },
+        "emit_min_hydration_px": {
+          "nullOutputRows": 90201,
+          "nonNullOutputRows": 1599
+        },
+        "emit_min_hydration_share": {
+          "nullOutputRows": 90201,
+          "nonNullOutputRows": 1599
+        },
+        "emit_min_mafic_bd_1um_bd_med": {
+          "nullOutputRows": 90578,
+          "nonNullOutputRows": 1222
+        },
+        "emit_min_mafic_bd_1um_px": {
+          "nullOutputRows": 90578,
+          "nonNullOutputRows": 1222
+        },
+        "emit_min_mafic_bd_1um_share": {
+          "nullOutputRows": 90578,
+          "nonNullOutputRows": 1222
+        },
+        "emit_min_sulfate_bd_med": {
+          "nullOutputRows": 91489,
+          "nonNullOutputRows": 311
+        },
+        "emit_min_sulfate_px": {
+          "nullOutputRows": 91489,
+          "nonNullOutputRows": 311
+        },
+        "emit_min_sulfate_share": {
+          "nullOutputRows": 91489,
+          "nonNullOutputRows": 311
+        },
+        "n_observed": {
+          "nullOutputRows": 90164,
+          "nonNullOutputRows": 1636
+        }
+      }
+    },
+    "vcf-r4": {
+      "path": "data/snapshots/_derived/vcf-r4.parquet",
+      "sha256": "f2f5ff6c035f4fa183e279cb3de3bef88b0f29200d8699683fdfcd85c2f109d3",
+      "outputRows": 91800,
+      "maskedInputValues": null,
+      "columns": {
+        "vcf_lattice_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "vcf_percent_nontree_vegetation_pct_mean": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_nontree_vegetation_pct_median": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_nontree_vegetation_valid_native_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "vcf_percent_nonvegetated_pct_mean": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_nonvegetated_pct_median": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_nonvegetated_valid_native_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        },
+        "vcf_percent_tree_cover_pct_mean": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_tree_cover_pct_median": {
+          "nullOutputRows": 9096,
+          "nonNullOutputRows": 82704
+        },
+        "vcf_percent_tree_cover_valid_native_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 91800
+        }
+      }
+    },
+    "cells-r4-monthly": {
+      "path": "data/snapshots/_derived/cells-r4-monthly.parquet",
+      "sha256": "63ceebabe76730775ac950a64aa1e4dc95e6a8da35ad8b6db37310e1e9deb784",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "daylight_h": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "lst_day_k": {
+          "nullOutputRows": 11713,
+          "nonNullOutputRows": 1089887
+        },
+        "lst_diurnal_k": {
+          "nullOutputRows": 22225,
+          "nonNullOutputRows": 1079375
+        },
+        "lst_night_k": {
+          "nullOutputRows": 20836,
+          "nonNullOutputRows": 1080764
+        },
+        "polar_day": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "polar_night": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "sun_noon_elev_deg": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        }
+      }
+    },
+    "albedo-r4-monthly": {
+      "path": "data/snapshots/_derived/albedo-r4-monthly.parquet",
+      "sha256": "d9cc893b7ddf73d087136825a917f85dbb6bc9d21341e9f35c4459bd76585378",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "albedo_bs_sw": {
+          "nullOutputRows": 621193,
+          "nonNullOutputRows": 480407
+        },
+        "albedo_bs_valid_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "albedo_valid_px": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "albedo_ws_sw": {
+          "nullOutputRows": 621193,
+          "nonNullOutputRows": 480407
+        }
+      }
+    },
+    "dust-r4-monthly": {
+      "path": "data/snapshots/_derived/dust-r4-monthly.parquet",
+      "sha256": "df4ef8e3411e6fa68f298d113e1f782526a7ffda61b2b43141fd727951bbbf59",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "dust_aod": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        }
+      }
+    },
+    "burned-r4-monthly": {
+      "path": "data/snapshots/_derived/burned-r4-monthly.parquet",
+      "sha256": "45ee31bdd88e8fe8b47c93c3555f9807e13921acafbb59785d85f187c2521294",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "burned_pct": {
+          "nullOutputRows": 141620,
+          "nonNullOutputRows": 959980
+        },
+        "years_mapped": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        }
+      }
+    },
+    "wind-r4-monthly": {
+      "path": "data/snapshots/_derived/wind-r4-monthly.parquet",
+      "sha256": "da33b2004dca5cc70c01f17a58c631aacc04e9b9fe62b2134968dac6efbbe7b4",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "u10m_mean": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "v10m_mean": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "wind_speed": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        },
+        "wind_speed_max": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        }
+      }
+    },
+    "aqua-lst-r4-monthly": {
+      "path": "data/snapshots/_derived/aqua-lst-r4-monthly.parquet",
+      "sha256": "6aa7e488a4a94c5f778833047ee6c224b606aae9ba6ecf1e7811b7f219b2bb93",
+      "outputRows": 1101600,
+      "maskedInputValues": null,
+      "columns": {
+        "lst_day_k": {
+          "nullOutputRows": 10994,
+          "nonNullOutputRows": 1090606
+        },
+        "lst_diurnal_k": {
+          "nullOutputRows": 23574,
+          "nonNullOutputRows": 1078026
+        },
+        "lst_night_k": {
+          "nullOutputRows": 22822,
+          "nonNullOutputRows": 1078778
+        },
+        "lst_valid_pixels": {
+          "nullOutputRows": 0,
+          "nonNullOutputRows": 1101600
+        }
+      }
+    },
+    "context-metadata": {
+      "path": "data/snapshots/_derived/context-r4.meta.json",
+      "sha256": "c5b1d06ff578da16ea65c812378fda7da3767a0e3cfb072a3596fe0c2f4d4831"
+    },
+    "vcf-metadata": {
+      "path": "data/snapshots/_derived/vcf-r4.meta.json",
+      "sha256": "99533b069166fe4bf68750e4cf74ea8e37591a18501f8e8da89b9debf3aceaa8"
+    },
+    "regolith-metadata": {
+      "path": "data/snapshots/_derived/regolith-r4.meta.json",
+      "sha256": "a6762bf904ed7e468b95ae6b609f4bdfcfefbebd50f800fc5aaca691bcadf384"
+    },
+    "dust-metadata": {
+      "path": "data/snapshots/_derived/dust-r4.meta.json",
+      "sha256": "449d579061f6880367928f1a0ee54cf3f26791584fbd2437efb474d41c1e23cf"
+    },
+    "wind-metadata": {
+      "path": "data/snapshots/_derived/wind-r4.meta.json",
+      "sha256": "0468b171f340df0be2db80a2d9446ac81b841381197e55e635b9587738246482"
+    },
+    "burned-metadata": {
+      "path": "data/snapshots/_derived/burned-r4-monthly.meta.json",
+      "sha256": "1568f89c09ffb596b2c2a0a122a1c30c84bf6851ba246ab59386fe392cad5929"
+    },
+    "emit-metadata": {
+      "path": "data/snapshots/_derived/emit-min/emit-min-r4.meta.json",
+      "sha256": "6fed3528ca0391bbf635b1888c806210448814ad8fa20ccdc2f7a97a97c3b386"
+    },
+    "aqua-lst-metadata": {
+      "path": "data/snapshots/_derived/aqua-lst-r4-monthly.meta.json",
+      "sha256": "66f347d1ef5d442fad9e4526ec12d2687c21e763e483cc82d047500714bc1f96"
+    }
+  },
+  "rawReplays": [
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023001.061.2023033164320.hdf",
+      "sha256": "04f1f63e4f89f4bebfe0cf5d3bfdf6d52fd5919e4ba99a6684fc4f5ac38fb9c6",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17073957,
+      "retainedInputValues": 8846043,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023001.061.2023033164320.hdf",
+      "sha256": "04f1f63e4f89f4bebfe0cf5d3bfdf6d52fd5919e4ba99a6684fc4f5ac38fb9c6",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17189647,
+      "retainedInputValues": 8730353,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023032.061.2023060110104.hdf",
+      "sha256": "507f994f566b838fc7948b03f93c6ab28e8697222853de7748db2df94a13b52e",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17081929,
+      "retainedInputValues": 8838071,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023032.061.2023060110104.hdf",
+      "sha256": "507f994f566b838fc7948b03f93c6ab28e8697222853de7748db2df94a13b52e",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17240599,
+      "retainedInputValues": 8679401,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023060.061.2023093150817.hdf",
+      "sha256": "7d1cdec5aff04f6ca426fbeedd88f753d305a6faea43e4edeb50d21a7711e8ed",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17065520,
+      "retainedInputValues": 8854480,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023060.061.2023093150817.hdf",
+      "sha256": "7d1cdec5aff04f6ca426fbeedd88f753d305a6faea43e4edeb50d21a7711e8ed",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17167712,
+      "retainedInputValues": 8752288,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023091.061.2023121144153.hdf",
+      "sha256": "8b3b1997e6fba471a9e7d2d100d0d122b2d03b2c7d57979ad27b59307762b0f5",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17065076,
+      "retainedInputValues": 8854924,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023091.061.2023121144153.hdf",
+      "sha256": "8b3b1997e6fba471a9e7d2d100d0d122b2d03b2c7d57979ad27b59307762b0f5",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17139638,
+      "retainedInputValues": 8780362,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023121.061.2023153212208.hdf",
+      "sha256": "86a009658de5b307fa93fc55bf445d2278ff2667313232b5c6dc526f2461562b",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17063595,
+      "retainedInputValues": 8856405,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023121.061.2023153212208.hdf",
+      "sha256": "86a009658de5b307fa93fc55bf445d2278ff2667313232b5c6dc526f2461562b",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17099989,
+      "retainedInputValues": 8820011,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023152.061.2023193054115.hdf",
+      "sha256": "92bbf04041e628d6f73b7669ede5b6e498e3b1483306dac7dc971c2d676e1c00",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17070071,
+      "retainedInputValues": 8849929,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023152.061.2023193054115.hdf",
+      "sha256": "92bbf04041e628d6f73b7669ede5b6e498e3b1483306dac7dc971c2d676e1c00",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17111904,
+      "retainedInputValues": 8808096,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023182.061.2023215224507.hdf",
+      "sha256": "ea65fd9d852aded4ed7b8c8f764f3a66b586b4ee6f574f60faec12b10f9804f9",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17095918,
+      "retainedInputValues": 8824082,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023182.061.2023215224507.hdf",
+      "sha256": "ea65fd9d852aded4ed7b8c8f764f3a66b586b4ee6f574f60faec12b10f9804f9",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17122486,
+      "retainedInputValues": 8797514,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023213.061.2023250152840.hdf",
+      "sha256": "b261fdfff0acf600f76f7b4ca3df20dbffd205f76ae2837bfdc4f557834bb4d1",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17097703,
+      "retainedInputValues": 8822297,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023213.061.2023250152840.hdf",
+      "sha256": "b261fdfff0acf600f76f7b4ca3df20dbffd205f76ae2837bfdc4f557834bb4d1",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17097653,
+      "retainedInputValues": 8822347,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023244.061.2023274102304.hdf",
+      "sha256": "f819fb4140afa5c3ffd08c5ba4762821b486b1f11607b6e37d4582d8736c969c",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17079859,
+      "retainedInputValues": 8840141,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023244.061.2023274102304.hdf",
+      "sha256": "f819fb4140afa5c3ffd08c5ba4762821b486b1f11607b6e37d4582d8736c969c",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17109403,
+      "retainedInputValues": 8810597,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023274.061.2023305093855.hdf",
+      "sha256": "bccf14748af869a610594b68085346ae27e90ff2391f7da9bac4fb5a3d034254",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17067319,
+      "retainedInputValues": 8852681,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023274.061.2023305093855.hdf",
+      "sha256": "bccf14748af869a610594b68085346ae27e90ff2391f7da9bac4fb5a3d034254",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17086954,
+      "retainedInputValues": 8833046,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023305.061.2023336214247.hdf",
+      "sha256": "883a7007764f1b924e731ed9e21f3669d78824e1acf299bb956345acb34b162b",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17065592,
+      "retainedInputValues": 8854408,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023305.061.2023336214247.hdf",
+      "sha256": "883a7007764f1b924e731ed9e21f3669d78824e1acf299bb956345acb34b162b",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17104396,
+      "retainedInputValues": 8815604,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf",
+      "sha256": "7aa238c23d52f3a9f1c9e7aec7b5ac0b3c718df745ac141d39d27ad175831ea5",
+      "band": "LST_Day_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17066611,
+      "retainedInputValues": 8853389,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "lst-fill",
+      "source": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf",
+      "sha256": "7aa238c23d52f3a9f1c9e7aec7b5ac0b3c718df745ac141d39d27ad175831ea5",
+      "band": "LST_Night_CMG",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw < 7500 masked; remaining values multiplied by 0.02 K",
+      "inputValues": 25920000,
+      "maskedInputValues": 17148869,
+      "retainedInputValues": 8771131,
+      "qcBitFiltering": "not applied by current builder; audited via QC_Day/QC_Night"
+    },
+    {
+      "rule": "mcd12c1-shares",
+      "source": "data/snapshots/modis-mcd12c1/MCD12C1.A2023001.061.2024251212901.hdf",
+      "sha256": "edee07ba3484ba5f309a5b6102e1ff604b89ee4c92da99862bdf8ece0f646ddb",
+      "band": "barren_pct",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw > 100 masked",
+      "inputValues": 25920000,
+      "maskedInputValues": 0,
+      "retainedInputValues": 25920000
+    },
+    {
+      "rule": "mcd12c1-shares",
+      "source": "data/snapshots/modis-mcd12c1/MCD12C1.A2023001.061.2024251212901.hdf",
+      "sha256": "edee07ba3484ba5f309a5b6102e1ff604b89ee4c92da99862bdf8ece0f646ddb",
+      "band": "snow_ice_pct",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw > 100 masked",
+      "inputValues": 25920000,
+      "maskedInputValues": 0,
+      "retainedInputValues": 25920000
+    },
+    {
+      "rule": "mcd12c1-shares",
+      "source": "data/snapshots/modis-mcd12c1/MCD12C1.A2023001.061.2024251212901.hdf",
+      "sha256": "edee07ba3484ba5f309a5b6102e1ff604b89ee4c92da99862bdf8ece0f646ddb",
+      "band": "water_pct",
+      "grain": "native global CMG pixel value",
+      "actualRule": "raw > 100 masked",
+      "inputValues": 25920000,
+      "maskedInputValues": 0,
+      "retainedInputValues": 25920000
+    },
+    {
+      "rule": "esa-cci-fill-255",
+      "datasetId": "esa-cci-permafrost-extent-nh",
+      "source": "data/snapshots/esa-cci-permafrost-extent-nh/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc",
+      "sha256": "be024ac8fda10f124932122271d4c41ba2685a0bb1b3c4768866ad382dc50f36",
+      "license": {
+        "licenseId": "esa-cci-permafrost-terms",
+        "verified": true
+      },
+      "shape": [
+        6000,
+        36000
+      ],
+      "actualRule": "raw > 100 (fill 255) masked prior to 5x5 block average to 0.05 deg CMG",
+      "inputValues": 216000000,
+      "maskedInputValues": 172869206,
+      "retainedInputValues": 43130794,
+      "maskedCodeCounts": {
+        "255": 172869206
+      }
+    },
+    {
+      "rule": "esa-cci-fill-255",
+      "datasetId": "esa-cci-permafrost-extent-antarctica",
+      "source": "data/snapshots/esa-cci-permafrost-extent-antarctica/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA27_PP-2023-fv05.0.nc",
+      "sha256": "7d482e56dd6ef4fba10f197bb15b6e72dea611099078098c85a3a76c6f89554b",
+      "license": {
+        "licenseId": "esa-cci-permafrost-terms",
+        "verified": true
+      },
+      "shape": [
+        2500,
+        36000
+      ],
+      "actualRule": "raw > 100 (fill 255) masked prior to 5x5 block average to 0.05 deg CMG",
+      "inputValues": 90000000,
+      "maskedInputValues": 89392599,
+      "retainedInputValues": 607401,
+      "maskedCodeCounts": {
+        "255": 89392599
+      }
+    },
+    {
+      "rule": "raster-nodata",
+      "datasetId": "travel-time-to-cities-2015",
+      "source": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip",
+      "sha256": "5dbdef51be0be7107ee5b6fef85f2f00813328248e1b2535c3188efc9d0fd4f9",
+      "license": {
+        "licenseId": "cc-by-3.0",
+        "verified": true
+      },
+      "tifEntry": "2015_accessibility_to_cities_v1.0.tif",
+      "shape": [
+        17400,
+        43200
+      ],
+      "nodataValue": -9999.0,
+      "actualRule": "nodata and non-finite pixels excluded inside H3 res-4 polygons",
+      "inputValues": 751680000,
+      "nodataPixels": 530356617,
+      "nonfinitePixels": 0,
+      "maskedInputValues": 530356617,
+      "retainedInputValues": 221323383
+    }
+  ],
+  "warnings": [
+    "DEM nodata/water filtering was claimed by old column metadata but is not applied by the current unmasked terrain builder; historical artifacts stay untouched until ADR-0015 is frozen.",
+    "MOD11C3 QC-bit filtering is not applied by the current builder; replay audits all 120 granules (2014-2023) without altering derived tables.",
+    "MYD11C3, MCD43C3, MERRA-2, ORNL, MOD44B, and EMIT full raw files are absent locally; no missing input counts are invented."
+  ],
+  "mod11c3FullReplay": {
+    "granuleCount": 120,
+    "granuleCount2023": 12,
+    "minPixelShare": 0.25,
+    "sides": {
+      "Day": {
+        "totalPixels": 3110400000,
+        "retainedRawGe7500": 1061238815,
+        "maskedRawLt7500": 2049161185,
+        "mandatoryQaAllPixels": [
+          573736325,
+          487502490,
+          11334617,
+          2037826568
+        ],
+        "lstErrorOnValid": [
+          800857331,
+          255818265,
+          4355702,
+          207517
+        ],
+        "dataQualityOnValid": [
+          436654822,
+          171622741,
+          350607719,
+          102353533
+        ],
+        "emisErrorOnValid": [
+          1037832008,
+          441651,
+          663186,
+          22301970
+        ],
+        "anomalies": {
+          "rawGe7500WithBadMandQa": 0,
+          "rawLt7500WithGoodMandQa": 0
+        },
+        "cellMonths2023Kept": {
+          "P0-baseline": 1089887,
+          "P1-err-le-3k": 1089878,
+          "P2-err-le-2k": 1089224,
+          "P3-mand-qa-00-only": 116912,
+          "P4-err-le-1k": 905351
+        },
+        "cellYearMonthsAllKept": {
+          "P0-baseline": 10899346,
+          "P1-err-le-3k": 10899265,
+          "P2-err-le-2k": 10892533,
+          "P3-mand-qa-00-only": 5746542,
+          "P4-err-le-1k": 9002126
+        }
+      },
+      "Night": {
+        "totalPixels": 3110400000,
+        "retainedRawGe7500": 1053817781,
+        "maskedRawLt7500": 2056582219,
+        "mandatoryQaAllPixels": [
+          523775555,
+          530042226,
+          18755697,
+          2037826522
+        ],
+        "lstErrorOnValid": [
+          812072707,
+          236206315,
+          5166161,
+          372598
+        ],
+        "dataQualityOnValid": [
+          276621485,
+          52924194,
+          437621935,
+          286650167
+        ],
+        "emisErrorOnValid": [
+          1040365199,
+          417655,
+          617038,
+          12417889
+        ],
+        "anomalies": {
+          "rawGe7500WithBadMandQa": 0,
+          "rawLt7500WithGoodMandQa": 0
+        },
+        "cellMonths2023Kept": {
+          "P0-baseline": 1080764,
+          "P1-err-le-3k": 1080699,
+          "P2-err-le-2k": 1079386,
+          "P3-mand-qa-00-only": 125940,
+          "P4-err-le-1k": 933568
+        },
+        "cellYearMonthsAllKept": {
+          "P0-baseline": 10802596,
+          "P1-err-le-3k": 10801846,
+          "P2-err-le-2k": 10788223,
+          "P3-mand-qa-00-only": 5083952,
+          "P4-err-le-1k": 9348987
+        }
+      }
+    },
+    "receiptSha256": "8499fd1e712e62e2ac01bdcde9b6046fb6b1d0878ff08b43b831bf443ca1d04c"
+  },
+  "completeInputFilterAccounting": false
+}
