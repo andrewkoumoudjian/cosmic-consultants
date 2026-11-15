@@ -2,17 +2,21 @@
 
 Spec: docs/plan/DATA-PIPELINE.md §5B. Driven only by data/pipeline/columns.yaml.
 Writes data/snapshots/_derived/assembled/:
-  sites-r4.parquet                 one row per hexagon (yearly traits)
-  sites-r4-monthly.parquet         one row per hexagon x month
-  sites-r4-monthly-spread.parquet  p10/median/p90 over 2014-2023 (if L1m-years exists)
-  hazard-events.parquet            EONET named events per hexagon
-  campaign-sites.parquet           past campaigns + their hexagon's values
-  trait-scales.json                median, IQR (s_t of ADR-0005 D5), min, max, n per trait
-  data-coverage.json               objective/test category x trait -> backing columns, null rates
-  assembly-report.json             counts, null rates, sha256 in/out, join checks
+  sites-r4.parquet                    one row per hexagon (yearly traits)
+  sites-r4-normalized.parquet         ADR-0005 D5 robust IQR scaled (x - median) / IQR
+  sites-r4-monthly.parquet            one row per hexagon x month
+  sites-r4-monthly-normalized.parquet ADR-0005 D5 robust IQR scaled (x - median) / IQR
+  sites-r4-monthly-spread.parquet     p10/median/p90 over 2014-2023 (if L1m-years exists)
+  hazard-events.parquet               EONET named events per hexagon
+  campaign-sites.parquet              past campaigns + their hexagon's values
+  trait-scales.json                   median, IQR (s_t of ADR-0005 D5), min, max, n per trait (yearly + monthly)
+  data-coverage.json                  objective/test category x trait -> backing columns, null rates
+  dataframe-inventory.json            consolidated catalog of prepared Earth/planetary/target frames
+  assembly-report.json                counts, null rates, sha256 in/out, join/normalization checks
 
-Assembly only joins, renames to registry names and computes the summaries the
-spec lists. It never changes a value, fills a gap or scores a site.
+Assembly only joins, renames to registry names, computes the documented summaries,
+and applies reversible ADR-0005 D5 robust scaling. It never fills a gap, clips,
+or scores a site.
 
 Run (from services/ingest): uv run python -m p0ingest.assemble
 Exit code 0 only if every join check passes.
@@ -292,29 +296,83 @@ class Build:
         self.check("campaigns: every site is a land hexagon", not not_land, f"not in the 91,800 cells: {not_land}")
         return out
 
-    def scales(self, sites: pl.DataFrame) -> dict:
+    def table_scales(self, table_name: str, df: pl.DataFrame) -> dict:
+        """Compute ADR-0005 D5 robust location/scale statistics for a workflow table."""
         res = {}
-        spec = {c["name"]: c for c in self.reg["tables"]["sites-r4"]["columns"]}
+        spec = {c["name"]: c for c in self.reg["tables"][table_name]["columns"]}
         for name, c in spec.items():
-            if name not in sites.columns or name in ("lat", "lon"):
+            if name not in df.columns or name in ("lat", "lon"):
                 continue
-            s = sites[name]
+            s = df[name]
             if s.dtype == pl.Boolean:
-                res[name] = {"kind": "yes/no", "trait": c["trait"], "unit": c["unit"], "n": s.len() - s.null_count(),
-                             "share_true": None if s.null_count() == s.len() else round(float(s.drop_nulls().mean()), 6),
-                             "note": "left out of the closeness sum; shown as same/different (ADR-0005 D5)"}
+                res[name] = {
+                    "kind": "yes/no", "trait": c["trait"], "unit": c["unit"], "n": s.len() - s.null_count(),
+                    "share_true": None if s.null_count() == s.len() else round(float(s.drop_nulls().mean()), 6),
+                    "scaled": False, "unscaledReason": "boolean",
+                    "note": "left out of the closeness sum; shown as same/different (ADR-0005 D5)",
+                }
                 continue
             v = s.drop_nulls().cast(pl.Float64)
             if v.len() == 0:
-                res[name] = {"kind": "number", "trait": c["trait"], "unit": c["unit"], "n": 0, "iqr": None,
-                             "note": "no values yet"}
+                res[name] = {
+                    "kind": "number", "trait": c["trait"], "unit": c["unit"], "n": 0, "iqr": None,
+                    "inSum": False, "scaled": False, "unscaledReason": "no-values", "note": "no values yet",
+                }
                 continue
-            q1, q3 = v.quantile(0.25, "linear"), v.quantile(0.75, "linear")
-            res[name] = {"kind": "number", "trait": c["trait"], "unit": c["unit"], "n": v.len(),
-                         "min": v.min(), "q1": q1, "median": v.median(), "q3": q3, "max": v.max(), "iqr": q3 - q1,
-                         "inSum": bool(q3 - q1 > 0),
-                         "note": "IQR over all land hexagons with a value; s_t in ADR-0005 D5" + ("" if q3 - q1 > 0 else "; IQR is 0, so shown as same/different")}
+            q1, q3 = float(v.quantile(0.25, "linear")), float(v.quantile(0.75, "linear"))
+            med = float(v.median())
+            iqr = q3 - q1
+            in_sum = bool(iqr > 0)
+            res[name] = {
+                "kind": "number", "trait": c["trait"], "unit": c["unit"], "n": v.len(),
+                "min": float(v.min()), "q1": q1, "median": med, "q3": q3, "max": float(v.max()), "iqr": iqr,
+                "inSum": in_sum, "scaled": in_sum,
+                **({} if in_sum else {"unscaledReason": "iqr-zero"}),
+                "note": "IQR over all rows with a value; s_t in ADR-0005 D5" + ("" if in_sum else "; IQR is 0, so shown as same/different"),
+            }
         return res
+
+    def scales(self, sites: pl.DataFrame) -> dict:
+        return self.table_scales("sites-r4", sites)
+
+    def normalize_and_check(self, tname: str, df: pl.DataFrame, tbl_scales: dict) -> tuple[pl.DataFrame, dict]:
+        """Build the ADR-0005 D5 robust IQR normalized DataFrame and verify reversibility + null parity."""
+        norm_df, info = normalize_frame(df, tbl_scales)
+        key_cols = [k for k in self.reg["tables"][tname]["key"] if k in df.columns]
+        same_rows = norm_df.height == df.height and norm_df.columns == df.columns
+        if same_rows and key_cols:
+            same_keys = bool(norm_df.select([pl.col(k).eq_missing(df[k]).all() for k in key_cols]).row(0) == tuple([True] * len(key_cols)))
+        else:
+            same_keys = False
+        self.check(f"{tname}-normalized: row count, schema order, and keys match raw", same_rows and same_keys,
+                   f"{norm_df.height:,} rows, {norm_df.width} cols, {len(info['scaledColumns'])} scaled")
+        null_mismatches = [
+            c for c in df.columns
+            if not norm_df[c].is_null().eq(df[c].is_null()).all()
+        ]
+        mr_ok = "missing_reason" not in df.columns or bool((norm_df["missing_reason"] == df["missing_reason"]).all())
+        self.check(f"{tname}-normalized: null masks and missing_reason match raw",
+                   not null_mismatches and mr_ok,
+                   f"mismatched columns={null_mismatches}, missing_reason_ok={mr_ok}")
+        rt_bad: list[str] = []
+        stat_bad: list[str] = []
+        for col in info["scaledColumns"]:
+            sc = tbl_scales[col]
+            med, iqr = float(sc["median"]), float(sc["iqr"])
+            raw_v = df[col].drop_nulls().cast(pl.Float64)
+            z_v = norm_df[col].drop_nulls().cast(pl.Float64)
+            tol = max(1e-9, 1e-10 * max(abs(float(raw_v.max())), abs(float(raw_v.min())), abs(med), iqr))
+            max_err = float((z_v * iqr + med - raw_v).abs().max())
+            if max_err > tol:
+                rt_bad.append(f"{col}:{max_err:.3e}>{tol:.3e}")
+            z_med = float(z_v.median())
+            z_iqr = float(z_v.quantile(0.75, "linear")) - float(z_v.quantile(0.25, "linear"))
+            if abs(z_med) > 1e-9 or abs(z_iqr - 1.0) > 1e-9:
+                stat_bad.append(f"{col}(med={z_med:.2e},iqr={z_iqr:.6f})")
+        self.check(f"{tname}-normalized: robust IQR round-trip & scale (median=0, IQR=1)",
+                   not rt_bad and not stat_bad,
+                   f"round_trip_err={rt_bad or 'none'}, stat_err={stat_bad or 'none'}")
+        return norm_df, info
 
     def coverage(self, sites: pl.DataFrame, monthly: pl.DataFrame) -> dict:
         cols = [c | {"table": t} for t in self.reg["tables"] for c in self.reg["tables"][t]["columns"]]
@@ -389,6 +447,48 @@ class Build:
                 "planetaryAssemblyStatus": "not-built: generic envelopes are not measured per-target feature tables",
                 "campaignTestAssemblyStatus": "partial: quoted records preserved; source extraction of historical test conditions remains #74"}
 
+    def dataframe_inventory(self, norm_summary: dict) -> dict:
+        """Inventory assembled Earth dataframes, source tables, planetary tables, and L3 reference data."""
+        per_source = {}
+        for sid, meta in self.reg["sources"].items():
+            p = DERIVED / meta["path"]
+            per_source[sid] = {
+                "path": str(p.relative_to(REPO)),
+                "present": p.exists(),
+                **({"bytes": p.stat().st_size, "sha256": sha256(p)} if p.exists() else {}),
+                "issue": meta.get("issue"),
+                "key": meta["key"],
+            }
+        planetary_dir = DERIVED / "planetary"
+        planetary = []
+        if planetary_dir.exists():
+            for p in sorted(planetary_dir.rglob("*.parquet")):
+                pf = pl.read_parquet_schema(p)
+                planetary.append({
+                    "path": str(p.relative_to(REPO)),
+                    "bytes": p.stat().st_size,
+                    "sha256": sha256(p),
+                    "columns": list(pf.keys()),
+                    "note": "native planetary coordinates preserved; no Earth H3 assignment (ADR-0008)",
+                })
+        return {
+            "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "normalizationMethod": "ADR-0005 D5 robust IQR: (x - median) / IQR; booleans, coordinates, and IQR=0 unscaled; nulls preserved",
+            "earthAssembled": {k: v for k, v in self.report["outputs"].items() if k in (
+                "sites-r4", "sites-r4-normalized", "sites-r4-monthly", "sites-r4-monthly-normalized",
+                "sites-r4-monthly-spread", "hazard-events", "campaign-sites")},
+            "normalization": norm_summary,
+            "earthPerSource": per_source,
+            "planetaryPreparedLocal": planetary,
+            "curatedReference": {
+                "catalogDatasets": len([p for p in (REPO / "data/catalog").glob("*.yaml") if p.name != "dataset.template.yaml"]),
+                "targets": len(list((REPO / "data/targets").glob("*.yaml"))),
+                "campaigns": len(list((REPO / "data/campaigns").glob("*.yaml"))),
+                "objectives": len(list((REPO / "data/objectives").glob("*.yaml"))),
+                "envelopes": len(list((REPO / "data/envelopes").glob("*.json"))),
+            },
+        }
+
     # ---- run ----------------------------------------------------------------
     def run(self) -> int:
         t0 = time.time()
@@ -415,21 +515,47 @@ class Build:
             self.write("hazard-events", ev)
         print("[campaign-sites]", flush=True)
         self.write("campaign-sites", self.campaigns(sites))
-        print("[trait-scales, data-coverage]", flush=True)
+        print("[normalize: sites-r4, sites-r4-monthly]", flush=True)
+        yearly_scales = self.table_scales("sites-r4", sites)
+        monthly_scales = self.table_scales("sites-r4-monthly", monthly)
+        sites_norm, sites_norm_info = self.normalize_and_check("sites-r4", sites, yearly_scales)
+        self.write("sites-r4-normalized", sites_norm)
+        monthly_norm, monthly_norm_info = self.normalize_and_check("sites-r4-monthly", monthly, monthly_scales)
+        self.write("sites-r4-monthly-normalized", monthly_norm)
+        print("[trait-scales, data-coverage, dataframe-inventory]", flush=True)
         OUT.mkdir(parents=True, exist_ok=True)
         from .clean_audit import build as cleaning_audit
         cleaning_result = cleaning_audit()
         quality = {"scientificStatus": cleaning_result["scientificStatus"], "warnings": cleaning_result["warnings"],
                    "completeInputFilterAccounting": cleaning_result["completeInputFilterAccounting"], "followupIssue": 76}
         self.report["sourceQuality"] = quality
-        for name, obj in (("trait-scales", self.scales(sites)), ("data-coverage", self.coverage(sites, monthly))):
-            if name == "data-coverage":
-                obj["sourceQuality"] = quality
+        scales_doc = {
+            **yearly_scales,
+            "_meta": {
+                "formula": "(x - median) / iqr",
+                "spec": "ADR-0005 D5",
+                "zeroIqrRule": "left unscaled when iqr == 0",
+                "booleanRule": "left unscaled (yes/no)",
+                "nullRule": "preserved as null; never filled",
+            },
+            "_tables": {
+                "sites-r4": yearly_scales,
+                "sites-r4-monthly": monthly_scales,
+            },
+        }
+        cov_doc = self.coverage(sites, monthly)
+        cov_doc["sourceQuality"] = quality
+        for name, obj in (("trait-scales", scales_doc), ("data-coverage", cov_doc)):
             p = OUT / f"{name}.json"
             p.write_text(json.dumps(obj, indent=2, default=float) + "\n", encoding="utf-8")
             self.report["outputs"][name] = {"path": str(p.relative_to(REPO)), "sha256": sha256(p), "bytes": p.stat().st_size}
         cleaning = OUT / "cleaning-report.json"
         self.report["outputs"]["cleaning-report"] = {"path": str(cleaning.relative_to(REPO)), "sha256": sha256(cleaning), "bytes": cleaning.stat().st_size}
+        inv_doc = self.dataframe_inventory({"sites-r4": sites_norm_info, "sites-r4-monthly": monthly_norm_info})
+        inv_path = OUT / "dataframe-inventory.json"
+        inv_path.write_text(json.dumps(inv_doc, indent=2, default=float) + "\n", encoding="utf-8")
+        self.report["outputs"]["dataframe-inventory"] = {"path": str(inv_path.relative_to(REPO)), "sha256": sha256(inv_path), "bytes": inv_path.stat().st_size}
+        self.report["normalization"] = {"sites-r4": sites_norm_info, "sites-r4-monthly": monthly_norm_info}
         self.report["runtime_s"] = round(time.time() - t0, 1)
         self.report["result"] = "ALL PASS" if self.fails == 0 else f"{self.fails} CHECK(S) FAILED"
         (OUT / "assembly-report.json").write_text(json.dumps(self.report, indent=2, default=float) + "\n", encoding="utf-8")
@@ -437,9 +563,44 @@ class Build:
         for s in self.report["skipped"]:
             print(f"  - {s.get('table')}.{s.get('column', '*')} from {s['source']}")
         for k, v in self.report["outputs"].items():
-            print(f"  {k:26s} {v.get('rows', ''):>10} rows  {v['sha256'][:16]}  {v['bytes']:,} B")
+            print(f"  {k:29s} {v.get('rows', ''):>10} rows  {v['sha256'][:16]}  {v['bytes']:,} B")
         print(self.report["result"], f"({self.report['runtime_s']} s)")
         return 0 if self.fails == 0 else 1
+
+
+def normalize_frame(
+    df: pl.DataFrame,
+    tbl_scales: dict,
+    key_cols: tuple[str, ...] = ("h3", "month", "lat", "lon", "missing_reason"),
+) -> tuple[pl.DataFrame, dict]:
+    """Apply ADR-0005 D5 robust IQR normalization (x - median) / iqr cleanly without filling nulls."""
+    exprs: list[pl.Expr] = []
+    scaled_cols: list[str] = []
+    unscaled_cols: dict[str, str] = {}
+    for col in df.columns:
+        if col in key_cols:
+            unscaled_cols[col] = "key-or-coord"
+            continue
+        sc = tbl_scales.get(col)
+        if sc is None:
+            unscaled_cols[col] = "no-scale-entry"
+            continue
+        if sc.get("kind") == "yes/no":
+            unscaled_cols[col] = "boolean"
+            continue
+        iqr = sc.get("iqr")
+        med = sc.get("median")
+        if iqr is None or med is None or sc.get("n", 0) == 0:
+            unscaled_cols[col] = "no-values"
+            continue
+        if float(iqr) <= 0.0:
+            unscaled_cols[col] = "iqr-zero"
+            continue
+        exprs.append(((pl.col(col).cast(pl.Float64) - float(med)) / float(iqr)).alias(col))
+        scaled_cols.append(col)
+    norm_df = df.with_columns(exprs) if exprs else df.clone()
+    return norm_df, {"method": "robust-iqr-adr0005-d5", "formula": "(x - median) / iqr",
+                     "scaledColumns": scaled_cols, "unscaledColumns": unscaled_cols}
 
 
 if __name__ == "__main__":

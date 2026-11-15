@@ -35,6 +35,7 @@ sources:
   dust-r4-monthly:       {path: dust-r4-monthly.parquet,       key: [h3, month],          issue: 68}
   wind-r4:               {path: wind-r4.parquet,               key: [h3],                 issue: 89}
   wind-r4-monthly:       {path: wind-r4-monthly.parquet,       key: [h3, month],          issue: 89}
+  aqua-lst-r4-monthly:   {path: aqua-lst-r4-monthly.parquet,   key: [h3, month],          issue: 93}
 
 tables:
   sites-r4:
@@ -113,6 +114,11 @@ tables:
       - {name: wind_speed_max, from: wind-r4-monthly.wind_speed_max, unit: "m/s", trait: hazard, steps: [2, 3, 5], status: active, clean: [merra2-fill, nearest-grid-box]}
       - {name: u10m_mean, from: wind-r4-monthly.u10m_mean, unit: "m/s", trait: operations, steps: [2, 3], status: active, clean: [merra2-fill, nearest-grid-box, vector-component-only]}
       - {name: v10m_mean, from: wind-r4-monthly.v10m_mean, unit: "m/s", trait: operations, steps: [2, 3], status: active, clean: [merra2-fill, nearest-grid-box, vector-component-only]}
+      # W34 (#93, PR #117): MODIS/Aqua MYD11C3 v061 (~13:30/~01:30 local solar)
+      - {name: aqua_lst_day_k, from: aqua-lst-r4-monthly.lst_day_k, unit: K, trait: thermal, steps: [1, 2, 3, 5], status: active, clean: [myd11c3-fill, myd11c3-scale, myd11c3-coverage-25pct]}
+      - {name: aqua_lst_night_k, from: aqua-lst-r4-monthly.lst_night_k, unit: K, trait: thermal, steps: [1, 2, 3, 5], status: active, clean: [myd11c3-fill, myd11c3-scale, myd11c3-coverage-25pct]}
+      - {name: aqua_lst_diurnal_k, from: aqua-lst-r4-monthly.lst_diurnal_k, unit: K, trait: thermal, steps: [2, 3], status: active, clean: [myd11c3-fill, myd11c3-scale, myd11c3-coverage-25pct]}
+      - {name: aqua_lst_valid_pixels, from: aqua-lst-r4-monthly.lst_valid_pixels, unit: count, trait: thermal, steps: [3], status: active, clean: [myd11c3-fill]}
 
 # Computed in assembly (the only summaries allowed, spec §5B).
 derived:

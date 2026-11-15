@@ -172,3 +172,73 @@ class EvidenceDescriptors(unittest.TestCase):
         self.assertEqual(report["columnEvidence"]["regolith_thick_m"]["kind"], "modeled")
         backed = [b for c in report["categories"].values() for t in c["traits"].values() for b in t["columns"]]
         self.assertTrue(all(b["kind"] and b["family"] for b in backed))
+
+
+class NormalizationAndWiring(unittest.TestCase):
+    def test_normalize_frame_scales_iqr_positive_and_preserves_nulls_booleans_and_zero_iqr(self):
+        from p0ingest.assemble import nonfinite_counts, normalize_frame
+        df = pl.DataFrame({
+            "h3": ["a", "b", "c", "d", "e"],
+            "lat": [10.0, 20.0, 30.0, 40.0, 50.0],
+            "lon": [1.0, 2.0, 3.0, 4.0, 5.0],
+            "polar_night": [False, False, True, None, False],
+            "const_zero": [0.0, 0.0, 0.0, 0.0, None],
+            "all_null": pl.Series([None, None, None, None, None], dtype=pl.Float64),
+            "temp_k": [200.0, 210.0, 220.0, 230.0, None],
+            "missing_reason": ['{"all_null":"x"}', '{"all_null":"x"}', '{"all_null":"x"}',
+                               '{"polar_night":"x","all_null":"x"}', '{"const_zero":"x","all_null":"x","temp_k":"x"}'],
+        })
+        scales = {
+            "polar_night": {"kind": "yes/no"},
+            "const_zero": {"kind": "number", "n": 4, "median": 0.0, "iqr": 0.0},
+            "all_null": {"kind": "number", "n": 0, "iqr": None},
+            "temp_k": {"kind": "number", "n": 4, "median": 215.0, "iqr": 15.0},
+        }
+        norm, info = normalize_frame(df, scales)
+        self.assertEqual(nonfinite_counts(norm), {})
+        self.assertEqual(info["scaledColumns"], ["temp_k"])
+        self.assertEqual(info["unscaledColumns"]["polar_night"], "boolean")
+        self.assertEqual(info["unscaledColumns"]["const_zero"], "iqr-zero")
+        self.assertEqual(info["unscaledColumns"]["all_null"], "no-values")
+        self.assertEqual(norm["h3"].to_list(), df["h3"].to_list())
+        self.assertEqual(norm["lat"].to_list(), df["lat"].to_list())
+        self.assertEqual(norm["polar_night"].to_list(), df["polar_night"].to_list())
+        self.assertEqual(norm["const_zero"].to_list(), df["const_zero"].to_list())
+        self.assertEqual(norm["temp_k"].is_null().to_list(), df["temp_k"].is_null().to_list())
+        for raw, z in zip(df["temp_k"].drop_nulls().to_list(), norm["temp_k"].drop_nulls().to_list()):
+            self.assertAlmostEqual(z * 15.0 + 215.0, raw, places=12)
+
+    def test_normalize_and_check_passes_and_records_checks(self):
+        from p0ingest.assemble import Build
+        build = object.__new__(Build)
+        build.report = {"checks": []}
+        build.fails = 0
+        build.reg = {"tables": {"sites-r4": {"key": ["h3"]}}}
+        df = pl.DataFrame({
+            "h3": ["h1", "h2", "h3", "h4", "h5"],
+            "lat": [1.0, 2.0, 3.0, 4.0, 5.0],
+            "lon": [1.0, 2.0, 3.0, 4.0, 5.0],
+            "x": [10.0, 20.0, 30.0, 40.0, None],
+            "missing_reason": ["{}", "{}", "{}", "{}", '{"x":"absent"}'],
+        })
+        v = df["x"].drop_nulls()
+        med = float(v.median())
+        iqr = float(v.quantile(0.75, "linear")) - float(v.quantile(0.25, "linear"))
+        scales = {"x": {"kind": "number", "n": 4, "median": med, "iqr": iqr}}
+        norm, info = build.normalize_and_check("sites-r4", df, scales)
+        self.assertEqual(build.fails, 0)
+        self.assertEqual(info["scaledColumns"], ["x"])
+        self.assertEqual(norm.height, 5)
+
+    def test_aqua_lst_columns_are_wired_in_registry_and_evidence(self):
+        import yaml
+        from p0ingest.assemble import REPO, load_evidence
+        reg = yaml.safe_load((REPO / "data/pipeline/columns.yaml").read_text())
+        self.assertIn("aqua-lst-r4-monthly", reg["sources"])
+        monthly_cols = {c["name"]: c for c in reg["tables"]["sites-r4-monthly"]["columns"]}
+        ev = load_evidence()["columns"]
+        for name in ("aqua_lst_day_k", "aqua_lst_night_k", "aqua_lst_diurnal_k", "aqua_lst_valid_pixels"):
+            self.assertIn(name, monthly_cols)
+            self.assertEqual(monthly_cols[name]["status"], "active")
+            self.assertEqual(ev[name]["family"], "modis-myd11")
+
