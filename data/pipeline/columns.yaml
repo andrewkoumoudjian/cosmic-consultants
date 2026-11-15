@@ -43,6 +43,7 @@ sources:
   emit-min-r4:           {path: emit-min/emit-min-r4.parquet,  key: [h3],                 issue: 97}
   vcf-r4:                {path: vcf-r4.parquet,                key: [h3],                 issue: null}
   place-names-r4:        {path: place-names-r4.parquet,        key: [h3],                 issue: 203}
+  logistics-facts-r4:    {path: logistics-facts-r4.parquet,    key: [h3],                 issue: 202}
 
 tables:
   sites-r4:
@@ -142,6 +143,10 @@ tables:
       - {name: place_admin1, from: place-names-r4.place_admin1, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-centre-in-polygon, ne-single-polygon-only]}
       - {name: place_nearest, from: place-names-r4.place_nearest, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-nearest-50km]}
       - {name: place_nearest_km, from: place-names-r4.place_nearest_km, unit: km, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-nearest-50km]}
+      # #202 (Natural Earth 1:10m, public domain): logistics context; hotels, hospitals, power lines and cell towers are blocked (share-alike / download), see issue #202
+      - {name: town_nearest, from: logistics-facts-r4.town_nearest, unit: text, trait: null, role: label, steps: [4], status: planned, clean: [ne-nearest-place-any-distance]}
+      - {name: town_nearest_km, from: logistics-facts-r4.town_nearest_km, unit: km, trait: operations, steps: [4], status: planned, clean: [ne-nearest-place-any-distance]}
+      - {name: road_nearest_km, from: logistics-facts-r4.road_nearest_km, unit: km, trait: operations, steps: [4], status: planned, clean: [ne-roads-major-network, local-equirectangular-segment-distance]}
 
   sites-r4-monthly:
     key: [h3, month]

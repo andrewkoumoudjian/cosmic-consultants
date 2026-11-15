@@ -1,0 +1,32 @@
+# #202 licence row; probed live 2026-11-15. Candidate only: the 724 MB download is not approved yet.
+datasetId: gridfinder
+title: "Gridfinder: predicted global distribution and transmission grid (Arderne et al. 2020)"
+status: candidate
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: "10.5281/zenodo.3628142"
+source:
+  archive: "Zenodo record 3628142 (University of Oxford / World Bank)"
+  endpoint: "https://zenodo.org/records/3628142"
+  probedAt: 2026-11-15T18:12:30Z
+  probeResult: "Zenodo API: licence cc-by-4.0; files grid.gpkg 724,566,016 B, lv.tif 251,153,160 B, targets.tif 28,981,506 B."
+probe:
+  kind: http
+  url: "https://zenodo.org/records/3628142"
+  expect: ["Creative Commons Attribution 4.0 International", "grid.gpkg"]
+license:
+  id: cc-by-4.0
+  textUrl: "https://zenodo.org/records/3628142"
+  expect: ["Creative Commons Attribution 4.0 International"]
+  verified: true
+  note: "Checked live 2026-11-15: the record is CC BY 4.0. Caveat from its own description: grid.gpkg carries 'existing OpenStreetMap lines tagged in the source column', which are OSM-derived (ODbL). A CC BY-only use would keep the modelled lines and drop source=osm. The lines are a model prediction, not surveyed infrastructure."
+coverage:
+  spatial: "global"
+  temporal: "model built 2019-2020"
+  resolution: "vector lines (grid.gpkg); 250 m rasters"
+analysisReady: false
+independenceGroup: "gridfinder-model"
+plannedUse: "#202: distance from each H3 r4 centre to the nearest predicted grid line (power_line_nearest_km), labelled as modelled. Not built yet: download not approved."
+snapshotPolicy: "If adopted: snapshot grid.gpkg with sha256 and CC BY 4.0 in MANIFEST.json; record which source classes were kept."

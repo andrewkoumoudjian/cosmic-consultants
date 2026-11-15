@@ -1,0 +1,32 @@
+# #202 licence row; probed live 2026-11-15. Not adopted: share-alike plus a person-created access token.
+datasetId: opencellid
+title: "OpenCelliD cell tower database"
+status: restricted
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "OpenCelliD (Unwired Labs)"
+  endpoint: "https://wiki.opencellid.org/wiki/Licensing"
+  probedAt: 2026-11-15T18:12:30Z
+  probeResult: "HTTP 200. The licensing page states CC BY-SA 4.0 for API results, dataset downloads and daily changes; data access goes through an account (API key/token)."
+probe:
+  kind: http
+  url: "https://wiki.opencellid.org/wiki/Licensing"
+  expect: ["OpenCellID data is licensed under CC BY-SA 4.0", "ShareAlike"]
+license:
+  id: cc-by-sa-4.0
+  textUrl: "https://wiki.opencellid.org/wiki/Licensing"
+  expect: ["OpenCellID data is licensed under CC BY-SA 4.0 , including API results, dataset downloads and daily changes"]
+  verified: true
+  note: "Checked live 2026-11-15: 'OpenCellID data is licensed under CC BY-SA 4.0, including API results, dataset downloads and daily changes.' and 'When sharing adapted material, follow the license's ShareAlike requirements.' A per-cell tower count would be adapted material under CC BY-SA 4.0. BLOCKED for #202: it needs the owner's share-alike decision, and the download needs an account token that a person must create (agents do not create accounts)."
+coverage:
+  spatial: "global, crowd-sourced cell positions; density follows contributors, not network coverage"
+  temporal: "continuously updated"
+  resolution: "cell/tower position estimates"
+analysisReady: false
+independenceGroup: "opencellid"
+plannedUse: "#202: towers seen per H3 r4 cell, labelled 'towers seen', never 'coverage'. Not built: licence decision and access token pending."
+snapshotPolicy: "If adopted: snapshot the full download with date, sha256 and CC BY-SA 4.0 in MANIFEST.json; publish the derived count under CC BY-SA 4.0 with attribution."

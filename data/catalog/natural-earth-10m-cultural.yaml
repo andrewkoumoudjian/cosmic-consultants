@@ -1,6 +1,6 @@
 # #203 source row; licence checked live before downloading the three shapefile zips.
 datasetId: natural-earth-10m-cultural
-title: "Natural Earth 1:10m cultural vectors (admin-0 countries, admin-1 states/provinces, populated places)"
+title: "Natural Earth 1:10m cultural vectors (admin-0 countries, admin-1 states/provinces, populated places, roads)"
 status: adopted
 bodies: [earth]
 dimensions: [operations]
@@ -11,7 +11,7 @@ source:
   archive: "Natural Earth (naturalearthdata.com), served from naciscdn.org"
   endpoint: "https://naciscdn.org/naturalearth/10m/cultural/"
   probedAt: 2026-11-15T17:28:48Z
-  probeResult: "HEAD 200 for ne_10m_admin_0_countries.zip (4,930,492 B), ne_10m_admin_1_states_provinces.zip (14,909,524 B) and ne_10m_populated_places_simple.zip (652,145 B)."
+  probeResult: "HEAD 200 for ne_10m_admin_0_countries.zip (4,930,492 B), ne_10m_admin_1_states_provinces.zip (14,909,524 B) and ne_10m_populated_places_simple.zip (652,145 B). #202 (2026-11-15): ne_10m_roads.zip (9,075,919 B, roads v5.0.0)."
 probe:
   kind: http
   url: "https://www.naturalearthdata.com/about/terms-of-use/"
@@ -28,7 +28,7 @@ coverage:
   resolution: "1:10,000,000 scale"
 analysisReady: true
 independenceGroup: "natural-earth-cartographic"
-plannedUse: "Readable labels for each H3 r4 cell: the country and first-level region containing the cell centre, and the nearest populated place within 50 km. Labels only; never a trait, a measurement or an exact site."
+plannedUse: "#202: nearest town (any distance) and nearest mapped major road per H3 r4 cell. #203: readable labels for each H3 r4 cell: the country and first-level region containing the cell centre, and the nearest populated place within 50 km. Labels only; never a trait, a measurement or an exact site."
 caveats:
   - "Natural Earth draws de facto boundaries and its own country names; they are cartographic, not legal or political statements."
   - "At 1:10m, small islands and narrow coasts can fall outside every polygon; those cells get an explicit null with a reason."
