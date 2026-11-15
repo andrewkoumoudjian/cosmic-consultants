@@ -4,7 +4,7 @@
  * picks, labels and groups. No site score is computed anywhere (AGENTS.md rule 4).
  */
 import { LIMIT_COLUMNS, funnelClass, limitRows, months, requirements, rows, search, type Dataset, type Row, type SearchResult } from '../../atlas/src/planner/engine.ts';
-import type { Dimension, PlanRequest } from '../../atlas/src/plan-url.ts';
+import type { BandEdit, Dimension, PlanRequest } from '../../atlas/src/plan-url.ts';
 
 export type Body = 'moon' | 'mars';
 export type Category = Dataset['runtime']['categories'][number];
@@ -82,9 +82,16 @@ export function siteFacts(data: Dataset, i: number): { label: string; value: str
   const lo = fmt(y('elev_min_m'), 'm'), hi = fmt(y('elev_max_m'), 'm');
   return [
     { label: 'Elevation', value: lo && hi ? `${lo.replace(' m', '')}–${hi}` : null },
+    { label: 'Water cover', value: fmt(y('water_pct'), '%') },
     { label: 'To a city', value: fmt(y('access_min_median'), 'min') },
     { label: 'To an airport', value: fmt(y('airport_km'), 'km') },
   ];
+}
+
+/** Update or insert a band edit, keeping hiStrict only when true (plan-url canonical form). */
+export function updateBandEdit(request: PlanRequest, dimension: Dimension, lo: number, hi: number, hiStrict?: boolean): PlanRequest {
+  const next: BandEdit = { dimension, lo, hi, ...(hiStrict ? { hiStrict: true } : {}) };
+  return { ...request, bandEdits: [...(request.bandEdits ?? []).filter(e => e.dimension !== dimension), next] };
 }
 
 /** Sort cells by one release column. Missing values go last; ties keep the engine's order. */

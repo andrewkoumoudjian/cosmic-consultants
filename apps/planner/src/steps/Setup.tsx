@@ -4,7 +4,7 @@ import { RadioGroup } from '@base-ui/react/radio-group';
 import { Radio } from '@base-ui/react/radio';
 import { requirements, type Dataset } from '../../../atlas/src/planner/engine.ts';
 import { LIMITS, MISSION_TYPES, validatePlan, type Dimension, type LimitKey, type MissionType, type PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { COLUMN_LABEL, DIMENSION_LABEL, MONTHS, objectiveTitle, objectivesFor, pickObjective, unitLabel, withDefaultPriorities, type Body, type Category } from '../model.ts';
+import { COLUMN_LABEL, DIMENSION_LABEL, MONTHS, objectiveTitle, objectivesFor, pickObjective, unitLabel, updateBandEdit, withDefaultPriorities, type Body, type Category } from '../model.ts';
 import { Page, RadioDot, Select } from '../ui.tsx';
 import moonArt from '../assets/moon-illustration.png';
 import marsArt from '../assets/mars-illustration.png';
@@ -63,8 +63,8 @@ const MONTH_OPTIONS = MONTHS.map((m, i) => ({ value: String(i + 1), label: m }))
 const TYPE_LABEL: Record<MissionType, string> = { robotic: 'Robotic', crewed: 'Crewed', instrument: 'Instrument' };
 const LIMIT_LABEL: Record<LimitKey, string> = { access: 'Travel to a city, min', protected: 'Protected land, %', airport: 'Airport, km', slope: 'Mean slope, °' };
 
-type Draft = { lo: string; hi: string };
-const badDraft = (d: Draft) => d.lo.trim() === '' || d.hi.trim() === '' || !Number.isFinite(Number(d.lo)) || !Number.isFinite(Number(d.hi)) || Number(d.lo) > Number(d.hi);
+type Draft = { lo: string; hi: string; hiStrict: boolean };
+const badDraft = (d: Pick<Draft, 'lo' | 'hi'>) => d.lo.trim() === '' || d.hi.trim() === '' || !Number.isFinite(Number(d.lo)) || !Number.isFinite(Number(d.hi)) || Number(d.lo) > Number(d.hi);
 
 export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }: {
   data: Dataset; category: Category; request: PlanRequest; onRequest: (r: PlanRequest) => void;
@@ -87,11 +87,12 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
     const must = (request.must ?? []).filter(x => x !== d), nice = (request.nice ?? []).filter(x => x !== d);
     onRequest({ ...request, must: p === 'must' ? [...must, d] : must, nice: p === 'nice' ? [...nice, d] : nice });
   };
-  const setBand = (d: Dimension, lo: string, hi: string) => {
-    setDrafts(x => ({ ...x, [d]: { lo, hi } }));
+  const setBand = (d: Dimension, lo: string, hi: string, hiStrict?: boolean) => {
+    const strict = hiStrict ?? drafts[d]?.hiStrict ?? rules.find(r => r.dimension === d)?.band?.hiStrict ?? false;
+    setDrafts(x => ({ ...x, [d]: { lo, hi, hiStrict: strict } }));
     const l = Number(lo), h = Number(hi);
     if (badDraft({ lo, hi })) return;
-    onRequest({ ...request, bandEdits: [...(request.bandEdits ?? []).filter(e => e.dimension !== d), { dimension: d, lo: l, hi: h }] });
+    onRequest(updateBandEdit(request, d, l, h, strict));
   };
   const resetBand = (d: Dimension) => {
     setDrafts(x => { const y = { ...x }; delete y[d]; return y; });
@@ -116,6 +117,7 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
             {rules.map(r => {
               const draft = drafts[r.dimension];
               const lo = draft?.lo ?? (r.band ? String(r.band.lo) : ''), hi = draft?.hi ?? (r.band ? String(r.band.hi) : '');
+              const strict = draft?.hiStrict ?? r.band?.hiStrict ?? false;
               const bad = !!draft && badDraft(draft);
               const edited = request.bandEdits?.some(e => e.dimension === r.dimension);
               return (
@@ -127,7 +129,10 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
                       <div className="band">
                         {(edited || draft) && <button className="icon-btn small" onClick={() => resetBand(r.dimension)} title="Back to the frozen band">reset</button>}
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} low`} value={lo} placeholder="low" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, e.target.value, hi)} />
-                        <span className="op" title={r.band?.hiStrict ? 'The upper value itself is excluded' : undefined}>≤ x {r.band?.hiStrict ? '<' : '≤'}</span>
+                        <button type="button" className="op op-toggle" disabled={lo.trim() === '' && hi.trim() === ''} aria-pressed={strict}
+                          aria-label={`${r.dimension} exclude upper bound`}
+                          title={strict ? 'The upper value itself is excluded (<) — click to include (≤)' : 'The upper value is included (≤) — click to exclude (<)'}
+                          onClick={() => setBand(r.dimension, lo, hi, !strict)}>≤ x {strict ? '<' : '≤'}</button>
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} high`} value={hi} placeholder="high" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, lo, e.target.value)} />
                         <span className="muted unit">{unitLabel(r.unit).trim()}</span>
                       </div>
@@ -173,6 +178,16 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
           ))}
         </div>
       </section>
+
+      {data.runtime.qualityWarnings.length > 0 && (
+        <section>
+          <h2 className="h2">Data caveats <span className="h2-note">read before filtering</span></h2>
+          <ul className="list">
+            {data.runtime.qualityWarnings.map(w => <li key={w}><span className="small muted">{w}</span></li>)}
+          </ul>
+        </section>
+      )}
+
       {blocked && <p className="warn">A band needs a number on both sides, low ≤ high. Fix it or press reset.</p>}
       {errors.length > 0 && <p className="warn">{errors.join('. ')}.</p>}
     </Page>

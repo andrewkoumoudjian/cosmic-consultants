@@ -1,11 +1,13 @@
 /** Step 4 Sites. Per-trait results only: no percentage, no average (AGENTS.md rule 4). */
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { requirements, type Dataset, type SearchResult } from '../../../atlas/src/planner/engine.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
 import { CELL_AREA, DIMENSION_LABEL, MAX_COMPARE, SERIES, coordLabel, fmt, siteFacts, sortByColumn, traitCells } from '../model.ts';
 import { Mark, Page, Select, Verdict } from '../ui.tsx';
 
 const Globe = lazy(() => import('../Globe.tsx'));
+
+type ListFilter = 'matches' | 'unknown' | 'misses';
 
 /** List orders. "engine" is the engine's own order; the rest sort by one measured column. */
 const ORDERS = [
@@ -27,10 +29,29 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
   onBack: () => void; onNext: () => void;
 }) {
   const pins = request.pins ?? [];
+  const [filter, setFilter] = useState<ListFilter>('matches');
   const [order, setOrder] = useState<Order>('engine');
-  const matched = useMemo(() => result.indices.filter(i => !removed.includes(data.h3[i]!)), [result, removed, data]);
-  const inPlay = useMemo(() => (order === 'engine' ? matched : sortByColumn(data, matched, order, 1)).slice(0, request.top ?? 50),
-    [matched, order, request.top, data]);
+  const pageSize = request.top ?? 50;
+  const [extra, setExtra] = useState(0);
+  useEffect(() => { setExtra(0); }, [filter, order, pageSize, result]);
+
+  const removedSet = useMemo(() => new Set(removed), [removed]);
+  const matched = useMemo(() => result.indices.filter(i => !removedSet.has(data.h3[i]!)), [result, removedSet, data]);
+  const unknownIdx = useMemo(() => {
+    const out: number[] = [];
+    for (let i = 0; i < result.classes.length; i++) if (result.classes[i] === 2 && !removedSet.has(data.h3[i]!)) out.push(i);
+    return out;
+  }, [result, removedSet, data]);
+  const missIdx = useMemo(() => {
+    const out: number[] = [];
+    for (let i = 0; i < result.classes.length; i++) if (result.classes[i] === 1 && !removedSet.has(data.h3[i]!)) out.push(i);
+    return out;
+  }, [result, removedSet, data]);
+
+  const baseList = filter === 'matches' ? matched : filter === 'unknown' ? unknownIdx : missIdx;
+  const sorted = useMemo(() => (order === 'engine' ? baseList : sortByColumn(data, baseList, order, 1)), [baseList, order, data]);
+  const inPlay = useMemo(() => sorted.slice(0, pageSize + extra), [sorted, pageSize, extra]);
+  const globeInPlay = useMemo(() => inPlay.slice(0, 200), [inPlay]);
   const pinIdx = pins.map(h => data.h3.indexOf(h)).filter(i => i >= 0);
   const [active, setActive] = useState<number | null>(() => pinIdx[0] ?? null);
   const c = result.counts;
@@ -63,25 +84,39 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
       <div className="finder">
         <div>
           <div className="list-head">
-            <Select label="Order" value={order} options={ORDERS.map(o => ({ value: o.value, label: o.label }))} onChange={setOrder} width={190} />
-            <span className="muted small">{pins.length}/{MAX_COMPARE} picked</span>
+            <Select label="Show group" value={filter} options={[
+              { value: 'matches', label: `Matches (${matched.length.toLocaleString('en-US')})` },
+              { value: 'unknown', label: `Unknown (${unknownIdx.length.toLocaleString('en-US')})` },
+              { value: 'misses', label: `Misses (${missIdx.length.toLocaleString('en-US')})` },
+            ]} onChange={setFilter} width={170} />
+            <Select label="Order" value={order} options={ORDERS.map(o => ({ value: o.value, label: o.label }))} onChange={setOrder} width={165} />
           </div>
-          {order === 'engine' && allTie && matched.length > 1 &&
+          <div className="list-meta small muted">
+            <span>Showing {inPlay.length.toLocaleString('en-US')} of {sorted.length.toLocaleString('en-US')}</span>
+            <span>{pins.length}/{MAX_COMPARE} picked</span>
+          </div>
+          {filter === 'matches' && order === 'engine' && allTie && matched.length > 1 &&
             <p className="muted small tie">All {matched.length.toLocaleString('en-US')} tie on the required traits, so this order is arbitrary. Sort by a measure, or pick on the globe.</p>}
           <div className="sites" role="list" aria-label="Sites">
+            {sorted.length === 0 && filter !== 'matches' &&
+              <p className="muted small" style={{ padding: '14px 6px' }}>{filter === 'unknown' ? 'No cells with unknown required traits.' : 'No cells missed a required trait.'}</p>}
             {inPlay.map(i => {
               const h = data.h3[i]!, at = pins.indexOf(h);
               const sortedBy = ORDERS.find(o => o.value === order)!;
               const sortVal = order === 'engine' ? null : fmt(data.yearly[order]?.[i], sortedBy.unit);
+              const canPinRow = eligible(h) && (at >= 0 || pins.length < MAX_COMPARE);
+              const layer = filter === 'matches' && !allTie ? result.layers.get(i) : undefined;
               return (
                 <div key={h} role="listitem" className="site" data-active={active === i ? '' : undefined} onClick={() => setActive(i)}>
                   <button className="pin" aria-pressed={at >= 0} aria-label={at >= 0 ? 'Stop comparing' : 'Compare'}
-                    disabled={at < 0 && pins.length >= MAX_COMPARE} style={at >= 0 ? { background: SERIES[at] } : undefined}
+                    disabled={!canPinRow} title={eligible(h) ? undefined : CLASS_WHY[result.classes[i]!]}
+                    style={at >= 0 ? { background: SERIES[at] } : undefined}
                     onClick={e => { e.stopPropagation(); togglePin(i); }} />
                   <span className="site-body">
                     <span className="site-line">
                       <span className="mono">{coordLabel(data, i)}</span>
-                      {order !== 'engine' && <span className="sort-val">{sortVal ?? 'no data'} <span className="faint">{sortedBy.note}</span></span>}
+                      {order !== 'engine' ? <span className="sort-val">{sortVal ?? 'no data'} <span className="faint">{sortedBy.note}</span></span>
+                        : layer !== undefined && <span className="faint small">Layer {layer}</span>}
                     </span>
                     <span className="site-traits small">
                       {traitCells(data, request, i).map(t => (
@@ -99,13 +134,20 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
                 <button className="icon-btn small" onClick={() => onRemoved(removed.filter(h => h !== data.h3[i]))}>restore</button>
               </div>
             ))}
+            {sorted.length > inPlay.length && (
+              <div className="more-rows">
+                <button className="btn btn-line small" onClick={() => setExtra(e => e + pageSize)}>
+                  Show {Math.min(pageSize, sorted.length - inPlay.length)} more ({(sorted.length - inPlay.length).toLocaleString('en-US')} left)
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
         <div className="content" style={{ gap: 48 }}>
           <div className="globe">
             <Suspense fallback={null}>
-              <Globe data={data} classes={result.classes} inPlay={inPlay} pins={pinIdx} active={active} onPick={setActive} />
+              <Globe data={data} classes={result.classes} inPlay={globeInPlay} pins={pinIdx} active={active} onPick={setActive} />
             </Suspense>
             <div className="globe-legend">
               <span><Mark verdict="match" />match</span><span><Mark verdict="unknown" />unknown</span><span><Mark verdict="miss" />miss</span>
@@ -185,7 +227,7 @@ function Compare({ data, request, sites }: { data: Dataset; request: PlanRequest
                   ];
                 })}
               </div>
-              <div className="scale"><span>{fe(Math.round(lo * 10) / 10)}</span><span>band {fe(r.band.lo)} – {fe(r.band.hi)}</span><span>{fe(Math.round(hi * 10) / 10)}</span></div>
+              <div className="scale"><span>{fe(Math.round(lo * 10) / 10)}</span><span>band {fe(r.band.lo)} {r.band.hiStrict ? '≤ x <' : '–'} {fe(r.band.hi)}</span><span>{fe(Math.round(hi * 10) / 10)}</span></div>
             </div>,
           ];
         })}

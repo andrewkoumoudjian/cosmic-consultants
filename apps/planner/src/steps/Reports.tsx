@@ -41,7 +41,17 @@ export function Limits({ data, request, sites, objective, onBack, onNext }: {
   const caveats = rules.map(r => ({ r, text: [cleanNote(r.basis), cleanNote(r.scaleCaveat)].filter(Boolean).join(' ') })).filter(c => c.text);
   return (
     <Page title="Limitations" back={onBack} next={onNext} aside={<SheetButton data={data} request={request} sites={sites} />}>
-      {!sites.length ? <NoSites /> : <>
+      {!sites.length ? (
+        <>
+          <NoSites />
+          {data.runtime.qualityWarnings.length > 0 && (
+            <section>
+              <h2 className="h2">Data caveats</h2>
+              <ul className="list">{data.runtime.qualityWarnings.map(w => <li key={w}><span className="small">{w}</span></li>)}</ul>
+            </section>
+          )}
+        </>
+      ) : <>
         <div className="sheet">
           <table>
             <thead><tr><th>Trait</th><th>Accepted band</th><SiteHead data={data} sites={sites} /></tr></thead>
@@ -175,10 +185,10 @@ export function Risks({ data, request, sites, checklist, onBack }: {
         </Tabs.Root>
 
         <section>
-          <h2 className="h2">Past campaigns</h2>
+          <h2 className="h2">Past campaigns <span className="h2-note">distance from each compared site</span></h2>
           <div className="sheet">
             <table>
-              <thead><tr><th>Campaign</th><th>Where</th><th className="num">Years</th><th>Agency</th>{sites.map((i, k) => <th key={i} className="num"><span className="swatch" style={{ background: SERIES[k] }} />distance</th>)}</tr></thead>
+              <thead><tr><th>Campaign</th><th>Where</th><th className="num">Years</th><th>Agency</th>{sites.map((i, k) => <th key={i} className="num mono"><span className="swatch" style={{ background: SERIES[k] }} />{coordLabel(data, i)}</th>)}</tr></thead>
               <tbody>
                 {campaigns.map(c => (
                   <tr key={c.campaignId}>

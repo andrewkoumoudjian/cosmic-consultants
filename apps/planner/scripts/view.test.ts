@@ -7,8 +7,9 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import type { Dataset, Objective, Rule, Runtime } from '../../atlas/src/planner/engine.ts';
-import { burnedInWindow, cleanNote, fmt, pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
+import { requirements, type Dataset, type Objective, type Rule, type Runtime } from '../../atlas/src/planner/engine.ts';
+import { decodePlan, encodePlan } from '../../atlas/src/plan-url.ts';
+import { burnedInWindow, cleanNote, fmt, pickObjective, sheetCsv, siteClass, siteFacts, supportedTraits, traitCells, updateBandEdit, GLYPH, newRequest } from '../src/model.ts';
 
 const base = resolve(import.meta.dirname, process.env.PLANNER_RELEASE ?? '../../atlas/public/data/planner-v1');
 const json = (name: string) => JSON.parse(readFileSync(resolve(base, name), 'utf8'));
@@ -140,3 +141,38 @@ test('rule notes lose the internal envelope tag and say ° instead of deg', () =
     'Max slope over a 100 m baseline <= 10° (Artemis III).');
   assert.equal(cleanNote(null), '');
 });
+
+test('updateBandEdit preserves and toggles hiStrict through URL round-trip and engine rules', () => {
+  const cat = data.runtime.categories.find(c => c.categoryId === 'landing-descent')!;
+  const req = newRequest(data, 'moon', cat);
+  const terrainDefault = requirements(data, req).find(r => r.dimension === 'terrain')!;
+  assert.equal(terrainDefault.band?.hiStrict, true);
+
+  const strictEdited = updateBandEdit(req, 'terrain', 2, 8, true);
+  assert.deepEqual(strictEdited.bandEdits, [{ dimension: 'terrain', lo: 2, hi: 8, hiStrict: true }]);
+  const decodedStrict = decodePlan(encodePlan(strictEdited));
+  assert.equal(decodedStrict.ok, true);
+  if (decodedStrict.ok) {
+    assert.deepEqual(decodedStrict.plan.bandEdits, [{ dimension: 'terrain', lo: 2, hi: 8, hiStrict: true }]);
+    assert.equal(requirements(data, decodedStrict.plan).find(r => r.dimension === 'terrain')?.band?.hiStrict, true);
+  }
+
+  const inclusiveEdited = updateBandEdit(strictEdited, 'terrain', 2, 8, false);
+  assert.deepEqual(inclusiveEdited.bandEdits, [{ dimension: 'terrain', lo: 2, hi: 8 }]);
+  assert.equal('hiStrict' in inclusiveEdited.bandEdits![0]!, false);
+  const decodedInclusive = decodePlan(encodePlan(inclusiveEdited));
+  assert.equal(decodedInclusive.ok, true);
+  if (decodedInclusive.ok) {
+    assert.equal(requirements(data, decodedInclusive.plan).find(r => r.dimension === 'terrain')?.band?.hiStrict, undefined);
+  }
+});
+
+test('siteFacts includes Water cover and keeps missing values null', () => {
+  const i = data.h3.indexOf('8401b65ffffffff');
+  assert.ok(i >= 0);
+  const facts = siteFacts(data, i);
+  const water = facts.find(f => f.label === 'Water cover');
+  assert.ok(water);
+  assert.equal(water.value, fmt(data.yearly.water_pct![i], '%'));
+});
+

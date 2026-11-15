@@ -34,13 +34,18 @@ The look above stays. These fix what the screens say, not how they look.
 - No ranks. On LI-5L all 7,599 matches tie, so the list says the order is
   arbitrary and offers real sorts (flattest, closest to a city, closest
   airport, lowest). Nothing is pre-picked for comparison.
+- Band inputs preserve strict upper bounds (`≤ x <`) and let the operator toggle
+  `<` vs `≤`.
+- The site list lets you switch between Matches, Unknown, and Misses, shows
+  `Showing X of Y` with `Show more` pagination, and marks Pareto layers when
+  matches are not all tied.
 - Each site row shows its per-trait verdict with the measured value. The cell
-  card on the globe adds elevation range, travel and airport distance.
+  card on the globe adds elevation range, water cover, travel and airport distance.
 - Compared cells get their true hexagon outline on the globe.
 - Things the release doesn't cover are named once in a short note, not as rows
   of "not checked". Missing values say "no data".
 - Rule notes lose internal tags (`moon-south-pole-v0 terrain:`). The release's
-  data caveats are shown in full on Limitations.
+  data caveats are shown on Requirements before filtering as well as on Limitations.
 - The field-notes checklist travels in the link (`#notes=`).
 
 ## JSheets
