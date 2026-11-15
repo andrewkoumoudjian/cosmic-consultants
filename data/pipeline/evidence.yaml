@@ -87,3 +87,10 @@ columns:
   dust_aod_max:             {kind: reanalysis, support: "MERRA-2 M2TMNXAER monthly, nearest grid box, max of months", family: merra2}
   dust_aod:                 {kind: reanalysis, support: "MERRA-2 M2TMNXAER monthly, nearest grid box", family: merra2}
   burned_pct:               {kind: observed, support: "MCD64A1 monthly burned share, hexagon aggregate, mapped years only", family: modis-mcd64}
+  # wind (MERRA-2 M2TMNXFLX/M2TMNXSLV, #89)
+  wind_speed_mean:          {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, mean of 2023 months", family: merra2}
+  wind_months_used:         {kind: reanalysis, support: "count of 2023 months contributing to wind_speed_mean", family: merra2}
+  wind_speed:               {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly 10 m SPEED, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  wind_speed_max:           {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly max 10 m wind SPEEDMAX, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  u10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m U10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  v10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m V10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
