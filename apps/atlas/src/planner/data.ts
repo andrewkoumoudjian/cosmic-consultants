@@ -142,3 +142,24 @@ export async function loadDataset(base = './data/planner-v1/', options: LoadOpti
   return dataset;
 }
 
+
+/** Load supplementary yearly measurements only when a consumer requests them. */
+export async function ensureYearly(data: Dataset, columns: string[]): Promise<void> {
+  const state = loaders.get(data);
+  if (!state) return;
+  for (const name of [...new Set(columns)]) {
+    if (name in data.yearly) continue;
+    if (!/^[a-z][a-z0-9_]*$/.test(name)) throw Error('Invalid yearly column name.');
+    const key = `yearly/${name}.bin`;
+    let pending = state.pending.get(key);
+    if (!pending) {
+      pending = (async () => {
+        const bytes = await fetchVerified(state.base, state.manifest, key, () => {});
+        if (bytes.byteLength !== data.h3.length * 4) throw Error(`Incomplete yearly column ${name}.`);
+        data.yearly[name] = new Float32Array(bytes);
+      })().finally(() => state.pending.delete(key));
+      state.pending.set(key, pending);
+    }
+    await pending;
+  }
+}
