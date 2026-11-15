@@ -1,0 +1,32 @@
+# Registry row (W31, issue #89). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: merra2-m2tmnxflx
+title: "MERRA-2 tavgM_2d_flx_Nx monthly single-level diagnostics (surface flux fields incl. 10 m wind speed: SPEED, SPEEDMAX)"
+status: candidate
+bodies: [earth]
+dimensions: [operations]
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "Earthdata (GES DISC)"
+  endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C1276812868-GES_DISC"
+  probedAt: 2026-11-14T22:20:24Z
+  probeResult: "CMR C1276812868-GES_DISC: HTTP 200, M2TMNXFLX v5.12.4, DOI 10.5067/0JRLVL8YV2Y4, granules 561"
+probe:
+  kind: cmr
+  conceptId: C1276812868-GES_DISC
+license:
+  id: cc0
+  textUrl: "https://www.earthdata.nasa.gov/engage/open-data-services-software-policies/data-use-guidance"
+  expect: ["licensed as Creative Commons Zero"]
+  verified: true
+  note: "NASA ESDIS default: CC0 unless the record is marked otherwise; UMM UseConstraints captured in the probe log."
+coverage:
+  spatial: "global"
+  temporal: "1980-01/ongoing monthly"
+  resolution: "0.5 x 0.625 deg"
+analysisReady: true
+independenceGroup: reanalysis
+plannedUse: "10 m mean wind speed per hexagon (wind_h_edl Earth proxy); SPEED/SPEEDMAX are speed fields, not |mean U, mean V|"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (#89) with sha256 + fetch date"

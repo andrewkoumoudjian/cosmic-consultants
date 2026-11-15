@@ -1,0 +1,24 @@
+siteId: moon-south-pole-artemis-envelope
+name: Moon south-polar Artemis target (generic envelope target)
+body: moon
+kind: region
+status: candidate
+lonMode: east-positive-minus180-180
+centreLat: null
+centreLon: null
+extentRadiusKm: null
+extentReason: 'no radius: the envelope names a generic south-polar region'
+missingReason: 'no numeric centre: data/envelopes/moon-south-pole-v0.json and the
+  values referenced from data/objectives/*.yaml point at a generic "Artemis III south-polar
+  candidate region"; NASA bounds the candidate set at six degrees from the pole but
+  publishes no centre'
+note: 'repo cross-reference: this is the site data/envelopes/moon-south-pole-v0.json
+  and the data/objectives/*.yaml envelopes actually name'
+source:
+  datasetId: artemis-iii-candidate-regions
+  file: release-2022-08-19-thirteen-regions.json
+  url: https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-identifies-candidate-regions-for-landing-next-americans-on-moon
+  fetchedAt: '2026-11-14T23:29:34Z'
+  sourceSha256: ff2466c4e7afa5adaeb3850c23a5e6616325ee1173abafec8d804cbfde57d7c7
+  quote: Each of these regions is located within six degrees of latitude of the lunar
+    South Pole and, collectively

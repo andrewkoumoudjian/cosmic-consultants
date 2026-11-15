@@ -1,0 +1,15 @@
+siteId: mars-landing-zhurong
+name: Zhurong rover, Utopia Planitia
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: null
+centreLon: null
+missingReason: 'no numeric centre: no official NASA/USGS document carrying Zhurong
+  touchdown coordinates could be snapshotted through p0ingest.snapshots.fetch within
+  this task; CNSA figures exist (about 25.1 N, 109.9 E, widely reported) but are not
+  citable here without a snapshotted source; the row mar-feature-utopia-planitia covers
+  the host area from the USGS gazetteer'
+note: landed 2021-05-14 in southern Utopia Planitia; coordinates deliberately left
+  null rather than typed from memory
