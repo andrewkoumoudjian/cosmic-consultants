@@ -1,27 +1,18 @@
 /** Step 4 Sites. Per-trait results only: no percentage, no average (AGENTS.md rule 4). */
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
-import { requirements, type Dataset, type SearchResult } from '../../../atlas/src/planner/engine.ts';
+import { rows, requirements, type Dataset, type SearchResult } from '../../../atlas/src/planner/engine.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { CELL_AREA, DIMENSION_LABEL, MAX_COMPARE, SERIES, coordLabel, fmt, siteFacts, sortByColumn, traitCells } from '../model.ts';
+import { CELL_AREA, DIMENSION_LABEL, FINDER_ORDERS, MAX_COMPARE, SERIES, bandLabel, columnBounds, coordLabel, fmt, siteFacts, sortByColumn, spiderValue, traitCells, type FinderOrder } from '../model.ts';
 import { Mark, Page, Select, Verdict } from '../ui.tsx';
 
 const Globe = lazy(() => import('../Globe.tsx'));
 
 type ListFilter = 'matches' | 'unknown' | 'misses';
 
-/** List orders. "engine" is the engine's own order; the rest sort by one measured column. */
-const ORDERS = [
-  { value: 'engine', label: 'Pareto order', unit: '', note: '' },
-  { value: 'slope_mean_deg', label: 'Flattest first', unit: 'deg', note: 'mean slope' },
-  { value: 'access_min_median', label: 'Closest to a city', unit: 'min', note: 'to a city' },
-  { value: 'airport_km', label: 'Closest airport', unit: 'km', note: 'to an airport' },
-  { value: 'elev_mean_m', label: 'Lowest first', unit: 'm', note: 'mean elevation' },
-] as const;
-type Order = (typeof ORDERS)[number]['value'];
-
-export function Finder({ data, request, result, removed, onRemoved, onPins, eligible, dropped, onBack, onNext }: {
+export function Finder({ data, request, result, removed, onRemoved, onPins, order, onOrder, eligible, dropped, onBack, onNext }: {
   data: Dataset; request: PlanRequest; result: SearchResult; removed: string[];
   onRemoved: (r: string[]) => void; onPins: (p: string[]) => void;
+  order: FinderOrder; onOrder: (o: FinderOrder) => void;
   /** Still in play: the engine's class 0 and not removed. Only these can be compared. */
   eligible: (h3: string) => boolean;
   /** Compared sites that left the comparison after an edit, as coordinates. */
@@ -30,7 +21,6 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
 }) {
   const pins = request.pins ?? [];
   const [filter, setFilter] = useState<ListFilter>('matches');
-  const [order, setOrder] = useState<Order>('engine');
   const pageSize = request.top ?? 50;
   const [extra, setExtra] = useState(0);
   useEffect(() => { setExtra(0); }, [filter, order, pageSize, result]);
@@ -51,12 +41,14 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
   const baseList = filter === 'matches' ? matched : filter === 'unknown' ? unknownIdx : missIdx;
   const sorted = useMemo(() => (order === 'engine' ? baseList : sortByColumn(data, baseList, order, 1)), [baseList, order, data]);
   const inPlay = useMemo(() => sorted.slice(0, pageSize + extra), [sorted, pageSize, extra]);
-  const globeInPlay = useMemo(() => inPlay.slice(0, 200), [inPlay]);
+  const globeInPlay = useMemo(() => inPlay.slice(0, 2000), [inPlay]);
   const pinIdx = pins.map(h => data.h3.indexOf(h)).filter(i => i >= 0);
   const [active, setActive] = useState<number | null>(() => pinIdx[0] ?? null);
   const c = result.counts;
-  // When every match sits on the same Pareto layer with the same gap, the engine order is just release order.
-  const allTie = useMemo(() => new Set(matched.map(i => result.layers.get(i))).size <= 1, [matched, result]);
+  // Distinguish true Pareto ties (e.g. LI-5L where all matches sit in Layer 1) from unranked searches where any rule lacks an accepted band.
+  const hasLayers = useMemo(() => matched.some(i => result.layers.has(i)), [matched, result]);
+  const allTie = useMemo(() => hasLayers && new Set(matched.map(i => result.layers.get(i))).size <= 1, [hasLayers, matched, result]);
+  const allUnranked = !hasLayers && matched.length > 1;
 
   const togglePin = (i: number) => {
     const h = data.h3[i]!;
@@ -89,7 +81,7 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
               { value: 'unknown', label: `Unknown (${unknownIdx.length.toLocaleString('en-US')})` },
               { value: 'misses', label: `Misses (${missIdx.length.toLocaleString('en-US')})` },
             ]} onChange={setFilter} width={170} />
-            <Select label="Order" value={order} options={ORDERS.map(o => ({ value: o.value, label: o.label }))} onChange={setOrder} width={165} />
+            <Select label="Order" value={order} options={FINDER_ORDERS.map(o => ({ value: o.value, label: o.label }))} onChange={onOrder} width={165} />
           </div>
           <div className="list-meta small muted">
             <span>Showing {inPlay.length.toLocaleString('en-US')} of {sorted.length.toLocaleString('en-US')}</span>
@@ -97,15 +89,17 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, elig
           </div>
           {filter === 'matches' && order === 'engine' && allTie && matched.length > 1 &&
             <p className="muted small tie">All {matched.length.toLocaleString('en-US')} tie on the required traits, so this order is arbitrary. Sort by a measure, or pick on the globe.</p>}
+          {filter === 'matches' && order === 'engine' && allUnranked &&
+            <p className="muted small tie">Pareto layers are omitted because an objective trait has no accepted band; sites are listed in release order. Sort by a measure, or pick on the globe.</p>}
           <div className="sites" role="list" aria-label="Sites">
             {sorted.length === 0 && filter !== 'matches' &&
               <p className="muted small" style={{ padding: '14px 6px' }}>{filter === 'unknown' ? 'No cells with unknown required traits.' : 'No cells missed a required trait.'}</p>}
             {inPlay.map(i => {
               const h = data.h3[i]!, at = pins.indexOf(h);
-              const sortedBy = ORDERS.find(o => o.value === order)!;
+              const sortedBy = FINDER_ORDERS.find(o => o.value === order)!;
               const sortVal = order === 'engine' ? null : fmt(data.yearly[order]?.[i], sortedBy.unit);
               const canPinRow = eligible(h) && (at >= 0 || pins.length < MAX_COMPARE);
-              const layer = filter === 'matches' && !allTie ? result.layers.get(i) : undefined;
+              const layer = filter === 'matches' && !allTie && hasLayers ? result.layers.get(i) : undefined;
               return (
                 <div key={h} role="listitem" className="site" data-active={active === i ? '' : undefined} onClick={() => setActive(i)}>
                   <button className="pin" aria-pressed={at >= 0} aria-label={at >= 0 ? 'Stop comparing' : 'Compare'}
@@ -186,6 +180,113 @@ function CellCard({ data, request, i, pinned, canPin, why, onPin }: { data: Data
   );
 }
 
+/** Multi-site spider fingerprint plotted strictly per spoke on each trait's own scale (no combined value, rule 4). */
+function SpiderChart({ data, request, sites }: { data: Dataset; request: PlanRequest; sites: number[] }) {
+  const rules = requirements(data, request);
+  const earthRules = rules.filter(r => r.earthColumn !== null && r.table !== null);
+  if (earthRules.length < 3) return null;
+
+  const siteRows = sites.map(i => rows(data, request, i));
+  const spokes = earthRules.map((r, k) => {
+    const vals = siteRows.map(sr => spiderValue(sr.find(x => x.dimension === r.dimension)!));
+    const known = vals.map(v => v.value).filter((v): v is number => v !== null);
+    let lo: number, hi: number;
+    if (r.band && r.band.lo < r.band.hi) {
+      lo = Math.min(r.band.lo, ...known);
+      hi = Math.max(r.band.hi, ...known);
+      const pad = (hi - lo) * 0.08;
+      const floor = r.band.lo >= 0 && known.every(v => v >= 0) ? 0 : -Infinity;
+      lo = Math.max(floor, lo - pad);
+      hi += pad;
+    } else {
+      const b = columnBounds(data, r.earthColumn!, r.table);
+      lo = b ? Math.min(b.min, r.band?.lo ?? Infinity, ...known) : Math.min(0, ...known);
+      hi = b ? Math.max(b.max, r.band?.hi ?? -Infinity, ...known) : Math.max(1, ...known);
+      if (lo === hi) { lo -= 1; hi += 1; }
+    }
+    const norm = (v: number) => 0.16 + Math.max(0, Math.min(1, (v - lo) / (hi - lo))) * 0.78;
+    const angle = -Math.PI / 2 + (k * 2 * Math.PI) / earthRules.length;
+    return { r, vals, lo, hi, norm, angle };
+  });
+
+  const cx = 230, cy = 165, R = 104;
+  const pt = (angle: number, frac: number) => [cx + Math.cos(angle) * R * frac, cy + Math.sin(angle) * R * frac] as const;
+  const ringPts = (frac: number) => spokes.map(s => pt(s.angle, frac).map(n => n.toFixed(1)).join(',')).join(' ');
+  const missingDims = rules.filter(r => !r.earthColumn || !r.table).map(r => DIMENSION_LABEL[r.dimension] ?? r.dimension);
+
+  return (
+    <div className="radar-wrap">
+      <div className="radar-head">
+        <span className="small muted">Trait fingerprint · each spoke uses its own scale (no combined index)</span>
+        {missingDims.length > 0 && <span className="small muted">Omitted (no Earth data): {missingDims.join(', ')}</span>}
+      </div>
+      <svg className="radar-svg" viewBox="0 0 460 330" role="img" aria-label="Multi-site trait spider chart">
+        {[0.35, 0.55, 0.75, 0.94].map(f => (
+          <polygon key={f} points={ringPts(f)} fill="none" stroke="#e8e8ec" strokeWidth={1} />
+        ))}
+        {spokes.map(s => {
+          const [x1, y1] = pt(s.angle, 0.16), [x2, y2] = pt(s.angle, 0.96);
+          const [lx, ly] = pt(s.angle, 1.18);
+          const cos = Math.cos(s.angle);
+          const anchor = cos > 0.25 ? 'start' : cos < -0.25 ? 'end' : 'middle';
+          const bandStart = s.r.band ? pt(s.angle, s.norm(s.r.band.lo)) : null;
+          const bandEnd = s.r.band ? pt(s.angle, s.norm(s.r.band.hi)) : null;
+          return (
+            <g key={s.r.dimension}>
+              <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#cfd0d8" strokeWidth={1} />
+              {bandStart && bandEnd && (
+                s.r.band!.lo === s.r.band!.hi
+                  ? <circle cx={bandStart[0]} cy={bandStart[1]} r={4.5} fill="rgba(48, 54, 230, 0.28)" stroke="#3036e6" strokeWidth={1.2} />
+                  : <line x1={bandStart[0]} y1={bandStart[1]} x2={bandEnd[0]} y2={bandEnd[1]} stroke="rgba(48, 54, 230, 0.32)" strokeWidth={6} strokeLinecap="round" />
+              )}
+              <text x={lx} y={ly} textAnchor={anchor} dominantBaseline="central" className="radar-lbl">
+                {DIMENSION_LABEL[s.r.dimension] ?? s.r.dimension}
+              </text>
+              <text x={lx} y={ly + 13} textAnchor={anchor} dominantBaseline="central" className="radar-sub">
+                {s.r.band ? bandLabel(s.r) : 'Earth range (no band)'}
+              </text>
+            </g>
+          );
+        })}
+
+        {sites.map((siteIdx, k) => {
+          const verts = spokes.map(s => {
+            const v = s.vals[k]!;
+            if (v.value === null) return null;
+            const [x, y] = pt(s.angle, s.norm(v.value));
+            return { x, y, v, s };
+          });
+          const complete = verts.every(v => v !== null);
+          const segs: [number, number][][] = [];
+          if (!complete) {
+            for (let a = 0; a < verts.length; a++) {
+              const cur = verts[a], nxt = verts[(a + 1) % verts.length];
+              if (cur && nxt) segs.push([[cur.x, cur.y], [nxt.x, nxt.y]]);
+            }
+          }
+          return (
+            <g key={siteIdx}>
+              {complete ? (
+                <polygon
+                  points={verts.map(v => `${v!.x.toFixed(1)},${v!.y.toFixed(1)}`).join(' ')}
+                  fill={SERIES[k]} fillOpacity={0.12} stroke={SERIES[k]} strokeWidth={2.2}
+                />
+              ) : segs.map((seg, si) => (
+                <line key={si} x1={seg[0]![0]} y1={seg[0]![1]} x2={seg[1]![0]} y2={seg[1]![1]} stroke={SERIES[k]} strokeWidth={2.2} strokeDasharray="4 2" />
+              ))}
+              {verts.map((v, vi) => v && (
+                <circle key={vi} cx={v.x} cy={v.y} r={4.2} fill={SERIES[k]} stroke="#fff" strokeWidth={1.4}>
+                  <title>{`${coordLabel(data, siteIdx)} · ${DIMENSION_LABEL[v.s.r.dimension]}: ${fmt(v.v.value, v.s.r.unit) ?? v.v.value}${v.v.range ? ` (window ${fmt(v.v.range[0], v.s.r.unit)} – ${fmt(v.v.range[1], v.s.r.unit)})` : ''}`}</title>
+                </circle>
+              ))}
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
 /** One strip per banded trait: the accepted band, then one lane per compared site with its value. */
 function Compare({ data, request, sites }: { data: Dataset; request: PlanRequest; sites: number[] }) {
   const cells = sites.map(i => traitCells(data, request, i));
@@ -194,6 +295,7 @@ function Compare({ data, request, sites }: { data: Dataset; request: PlanRequest
       <div className="compare-head">
         {sites.map((i, k) => <span key={i} className="mono"><span className="swatch" style={{ background: SERIES[k] }} />{coordLabel(data, i)}</span>)}
       </div>
+      <SpiderChart data={data} request={request} sites={sites} />
       <div className="fit">
         {requirements(data, request).map(r => {
           const vals = cells.map(cs => cs.find(x => x.dimension === r.dimension)!);

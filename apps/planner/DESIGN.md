@@ -29,24 +29,41 @@ not the source of truth. This file replaces that direction.
 The look above stays. These fix what the screens say, not how they look.
 
 - Numbers carry the precision a ≈1,770 km² cell can hold: coordinates to 0.1°,
-  slopes to 0.1° under 10°, temperatures in whole °C, elevations to 10 m,
-  travel in minutes under an hour and hours above. Never "-0", never "deg".
+  slopes to 0.1° under 10°, temperatures in whole °C, elevations to 1 m under
+  100 m or <20 m span (and 10 m above), travel in minutes under an hour and
+  hours above. Never "-0", never "deg".
+- Step 2 discloses the proxy objective ID resolved for each category alongside
+  its supported traits.
 - No ranks. On LI-5L all 7,599 matches tie, so the list says the order is
   arbitrary and offers real sorts (flattest, closest to a city, closest
-  airport, lowest). Nothing is pre-picked for comparison.
+  airport, lowest), synced in the URL hash (`#order=`). On unranked searches
+  (`OP-5LM`, `SE-3LM`) where an objective trait lacks an accepted band, the
+  list explains that Pareto layers are omitted rather than calling them tied.
 - Band inputs preserve strict upper bounds (`≤ x <`) and let the operator toggle
   `<` vs `≤`.
 - The site list lets you switch between Matches, Unknown, and Misses, shows
   `Showing X of Y` with `Show more` pagination, and marks Pareto layers when
   matches are not all tied.
+- Multi-site Compare renders a per-spoke spider fingerprint on objectives with
+  3+ Earth columns (normalized independently per spoke; missing vertices omitted;
+  no combined index) above the 1D band strips.
 - Each site row shows its per-trait verdict with the measured value. The cell
   card on the globe adds elevation range, water cover, travel and airport distance.
-- Compared cells get their true hexagon outline on the globe.
+- Compared cells get their true hexagon outline on the globe. The globe texture
+  renders a subtle dry-land shelf and H3 coastline outlines (`water_pct < 50%`)
+  above the `#060a26` sea and dims water-majority cells.
 - Things the release doesn't cover are named once in a short note, not as rows
   of "not checked". Missing values say "no data".
+- Step 5 separates hard physical limits (`Earth can't reproduce`) from
+  `Manageable operational caveats`. Step 6 surfaces water cover in Logistics.
+- Step 7 renders a qualitative `Simple risk matrix` (Severity × Release evidence,
+  zero invented 1–5 digits) + `Identified risks & mitigations`, uses monthly
+  window day/night temperature bounds next to annual peaks, and exposes full
+  `campaigns.json` objectives, constraints, and outcomes in the spreadsheet.
 - Rule notes lose internal tags (`moon-south-pole-v0 terrain:`). The release's
-  data caveats are shown on Requirements before filtering as well as on Limitations.
-- The field-notes checklist travels in the link (`#notes=`).
+  data caveats are shown on Requirements before filtering as well as on Limitations,
+  and a quiet footer discloses `planner-v1` status and data sources.
+- The field-notes checklist and Finder order travel in the link (`#order=`, `#notes=`).
 
 ## JSheets
 

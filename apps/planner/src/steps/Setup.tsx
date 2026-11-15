@@ -31,22 +31,28 @@ export function CategoryStep({ data, body, categoryId, onCategory, onBack, onNex
 }) {
   const cats = data.runtime.categories as CategoryMeta[];
   const groups = [...new Set(cats.map(c => c.group ?? 'Other'))];
+  const bodyObjs = objectivesFor(data, body).map(o => o.objectiveId).join(', ');
   return (
-    <Page title="What are you testing?" back={onBack} next={onNext} nextDisabled={!categoryId}>
+    <Page title="What are you testing?" back={onBack} next={onNext} nextDisabled={!categoryId}
+      aside={<span className="muted small">Maps supported traits onto {body === 'moon' ? 'Moon' : 'Mars'} objectives ({bodyObjs})</span>}>
       <RadioGroup value={categoryId ?? ''} onValueChange={v => onCategory(v as string)} aria-label="Category">
         {groups.map(g => (
           <section key={g}>
             <div className="group-name">{g}</div>
             <div className="cats">
               {cats.filter(c => (c.group ?? 'Other') === g).map(c => {
-                const { supported } = pickObjective(data, body, c);
+                const { objectiveId, supported } = pickObjective(data, body, c);
                 return (
                   <Radio.Root key={c.categoryId} value={c.categoryId} className="cat" nativeButton disabled={!supported.length}
                     data-unsupported={supported.length ? undefined : ''} title={supported.length ? undefined : 'None of its traits has Earth data in this release'}>
                     <RadioDot checked={c.categoryId === categoryId} />
                     <span className="cat-name">{c.name}</span>
-                    <span className="traits">{supported.length ? supported.map(d => <span key={d} className="tag">{DIMENSION_LABEL[d]}</span>)
-                      : <span className="no-data">no Earth data</span>}</span>
+                    <span className="traits">{supported.length ? (
+                      <>
+                        <span className="tag tag-obj mono" title={`Resolves to objective ${objectiveId}`}>{objectiveId}</span>
+                        {supported.map(d => <span key={d} className="tag">{DIMENSION_LABEL[d]}</span>)}
+                      </>
+                    ) : <span className="no-data">no Earth data</span>}</span>
                   </Radio.Root>
                 );
               })}
@@ -66,7 +72,7 @@ const LIMIT_LABEL: Record<LimitKey, string> = { access: 'Travel to a city, min',
 type Draft = { lo: string; hi: string; hiStrict: boolean };
 const badDraft = (d: Pick<Draft, 'lo' | 'hi'>) => d.lo.trim() === '' || d.hi.trim() === '' || !Number.isFinite(Number(d.lo)) || !Number.isFinite(Number(d.hi)) || Number(d.lo) > Number(d.hi);
 
-export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }: {
+export function Metrics({ data, category, request, onRequest, onBlocked, onBack, onNext }: {
   data: Dataset; category: Category; request: PlanRequest; onRequest: (r: PlanRequest) => void;
   /** True while a band field holds text that isn't a valid band, so nothing runs on the old band. */
   onBlocked: (blocked: boolean) => void; onBack: () => void; onNext: () => void;
@@ -105,11 +111,14 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
   };
   const int = (v: string) => (v.trim() === '' ? undefined : Number(v));
 
+  const activeDims = rules.filter(r => r.band !== null && r.earthColumn !== null).length;
+
   return (
     <Page title="Requirements" back={onBack} next={onNext} nextLabel="Find sites" nextDisabled={errors.length > 0 || blocked}
       aside={<Select label="Objective" width={300} value={request.objectiveId}
         options={objectivesFor(data, request.body).map(o => ({ value: o.objectiveId, label: `${o.objectiveId} · ${objectiveTitle(o)}` }))}
         onChange={id => onRequest(withDefaultPriorities(data, { ...request, objectiveId: id }))} />}>
+      <div className="stack">
       <div className="sheet">
         <table>
           <thead><tr><th>Trait</th><th>Measured on Earth as</th><th>Accepted band</th><th>Priority</th></tr></thead>
@@ -144,6 +153,8 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
             })}
           </tbody>
         </table>
+      </div>
+      <p className="muted small">Category <b>{category.name}</b> resolves to shared objective <span className="mono">{request.objectiveId}</span> ({activeDims} of {rules.length} objective dimensions carry both an accepted band and an Earth column).</p>
       </div>
 
       <section>

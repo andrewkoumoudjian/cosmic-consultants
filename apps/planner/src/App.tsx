@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { loadDataset, ensureMonthly, monthlyColumnsForObjective, type LoadProgress } from '../../atlas/src/planner/data.ts';
 import type { Dataset } from '../../atlas/src/planner/engine.ts';
 import { decodePlan, encodePlan, validatePlan, type PlanRequest } from '../../atlas/src/plan-url.ts';
-import { coordLabel, newRequest, runSearch, type Body } from './model.ts';
+import { coordLabel, newRequest, normalizeOrder, runSearch, type Body, type FinderOrder } from './model.ts';
 import { TopBar } from './ui.tsx';
 import { Location, CategoryStep, Metrics } from './steps/Setup.tsx';
 import { Finder } from './steps/Finder.tsx';
@@ -12,15 +12,16 @@ import { Limits, Logistics, Risks } from './steps/Reports.tsx';
 type Load = { state: 'loading'; progress?: LoadProgress } | { state: 'error'; message: string } | { state: 'ready'; data: Dataset };
 
 /** Reads the shared plan link once at start-up. The step lives in the hash, the plan in the query. */
-function fromUrl(): { request: PlanRequest | null; step: number; problems: string[]; notes: string } {
+function fromUrl(): { request: PlanRequest | null; step: number; problems: string[]; notes: string; order: FinderOrder } {
   const hash = new URLSearchParams(location.hash.slice(1));
   const notes = hash.get('notes') ?? ''; // the field-notes checklist travels with the link
+  const order = normalizeOrder(hash.get('order'));
   const raw = Number(hash.get('step'));
   const step = Number.isInteger(raw) && raw >= 1 && raw <= 7 ? raw : 1;
-  if (!location.search) return { request: null, step: 1, problems: [], notes };
+  if (!location.search) return { request: null, step: 1, problems: [], notes, order: 'engine' };
   const decoded = decodePlan(location.search);
-  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors, notes };
-  return { request: decoded.plan, step, problems: [], notes };
+  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors, notes, order };
+  return { request: decoded.plan, step, problems: [], notes, order };
 }
 
 export function App() {
@@ -33,6 +34,7 @@ export function App() {
   const [reached, setReached] = useState(initial.request ? (initial.request.pins?.length ? 7 : 4) : 1);
   const [removed, setRemoved] = useState<string[]>([]);
   const [checklist, setChecklist] = useState(initial.notes);
+  const [order, setOrder] = useState<FinderOrder>(initial.request ? initial.order : 'engine');
   const [dropped, setDropped] = useState<string[]>([]);
   const [monthlyFor, setMonthlyFor] = useState<string | null>(null);
   const [blocked, setBlocked] = useState(false);
@@ -61,9 +63,10 @@ export function App() {
   useEffect(() => {
     if (!request || validatePlan(request).length) return;
     const hash = new URLSearchParams({ step: String(step) });
+    if (order !== 'engine') hash.set('order', order);
     if (checklist) hash.set('notes', checklist);
     history.replaceState(null, '', `?${encodePlan(request)}#${hash}`);
-  }, [request, step, checklist]);
+  }, [request, step, order, checklist]);
 
   const ready = !!data && !!request && monthlyFor === request.objectiveId;
   const result = useMemo(() => (ready ? runSearch(data!, request!) : null), [ready, data, request]);
@@ -105,13 +108,19 @@ export function App() {
   const chooseCategory = (id: string) => {
     setCategoryId(id);
     setRequest(newRequest(d, body, d.runtime.categories.find(x => x.categoryId === id)!));
-    setRemoved([]); setDropped([]);
+    setRemoved([]); setDropped([]); setOrder('engine');
     setReached(3);
   };
   const chooseBody = (b: Body) => {
     if (b === body) return;
-    setBody(b); setCategoryId(undefined); setRequest(null); setRemoved([]); setDropped([]); setReached(1);
+    setBody(b); setCategoryId(undefined); setRequest(null); setRemoved([]); setDropped([]); setOrder('engine'); setReached(1);
     history.replaceState(null, '', location.pathname); // the old plan must not come back on refresh
+  };
+  const changeOrder = (next: FinderOrder) => {
+    setOrder(next);
+    if (request && next === 'slope_mean_deg' && request.sortBy !== 'terrain') {
+      setRequest({ ...request, sortBy: 'terrain' });
+    }
   };
 
   let screen;
@@ -120,7 +129,7 @@ export function App() {
   else if (!request || !category) screen = <MissingPlan onRestart={() => go(1)} />;
   else if (step === 3) screen = <Metrics data={d} category={category} request={request} onRequest={r => { setRequest(r); setReached(3); }} onBlocked={setBlocked} onBack={() => go(2)} onNext={() => go(4)} />;
   else if (!result) screen = <main className="loading"><span className="muted small">Loading monthly data</span></main>;
-  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => { setDropped([]); setRequest({ ...request, pins: p.length ? p : undefined }); }} eligible={eligible} dropped={dropped} onBack={() => go(3)} onNext={() => go(5)} />;
+  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => { setDropped([]); setRequest({ ...request, pins: p.length ? p : undefined }); }} order={order} onOrder={changeOrder} eligible={eligible} dropped={dropped} onBack={() => go(3)} onNext={() => go(5)} />;
   else if (step === 5) screen = <Limits data={d} request={request} sites={pinIdx} objective={objective!} onBack={() => go(4)} onNext={() => go(6)} />;
   else if (step === 6) screen = <Logistics data={d} request={request} sites={pinIdx} checklist={checklist} onChecklist={setChecklist} onBack={() => go(5)} onNext={() => go(7)} />;
   else screen = <Risks data={d} request={request} sites={pinIdx} checklist={checklist} onBack={() => go(6)} />;
@@ -135,6 +144,10 @@ export function App() {
           {screen}
         </motion.main>
       </AnimatePresence>
+      <footer className="release-bar muted small">
+        <span>Release <span className="mono">planner-v1</span> · scientific status: partial · {d.h3.length.toLocaleString('en-US')} H3 res-4 cells</span>
+        <span>Earth data: Copernicus DEM, MODIS, ESA Permafrost, ODbL travel, NASA EONET · manifest <span className="mono">{d.manifestHash.slice(0, 8)}</span></span>
+      </footer>
     </>
   );
 }

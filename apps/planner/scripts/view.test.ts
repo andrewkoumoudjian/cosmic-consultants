@@ -7,9 +7,9 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { requirements, type Dataset, type Objective, type Rule, type Runtime } from '../../atlas/src/planner/engine.ts';
+import { rows, requirements, type Dataset, type Objective, type Rule, type Runtime } from '../../atlas/src/planner/engine.ts';
 import { decodePlan, encodePlan } from '../../atlas/src/plan-url.ts';
-import { burnedInWindow, cleanNote, fmt, pickObjective, sheetCsv, siteClass, siteFacts, supportedTraits, traitCells, updateBandEdit, GLYPH, newRequest } from '../src/model.ts';
+import { burnedInWindow, cleanNote, columnBounds, elevRange, fmt, logisticsFacts, newRequest, normalizeOrder, pickObjective, riskAssessment, sheetCsv, siteClass, siteFacts, spiderValue, supportedTraits, tempInWindow, traitCells, updateBandEdit, GLYPH } from '../src/model.ts';
 
 const base = resolve(import.meta.dirname, process.env.PLANNER_RELEASE ?? '../../atlas/public/data/planner-v1');
 const json = (name: string) => JSON.parse(readFileSync(resolve(base, name), 'utf8'));
@@ -120,14 +120,17 @@ test('every CSV row with an empty value says why (re-check of #182, finding 3)',
   for (const r of body) if (r[col('value')] === '') assert.notEqual(r[col('reason')], '', `${r[col('kind')]} ${r[col('name')]} has no value and no reason`);
 });
 
-test('numbers show at a sensible precision, never as -0, and missing stays missing (owner review of #182)', () => {
+test('numbers show at a sensible precision, never as -0, and small elevation relief preserves 1 m precision', () => {
   assert.equal(fmt(-0.0001, 'deg'), '0.0°');
   assert.equal(fmt(-0.2, '%'), '0 %');
   assert.equal(fmt(0.0188, 'deg'), '0.0°');
   assert.equal(fmt(12.46, 'deg'), '12°');
   assert.equal(fmt(273.15, 'K'), '0 °C');
   assert.equal(fmt(0.1236, 'm'), '0 m');
+  assert.equal(fmt(4.835, 'm'), '5 m');
   assert.equal(fmt(1234, 'm'), '1,230 m');
+  assert.equal(elevRange(0, 4.835), '0–5 m');
+  assert.equal(elevRange(102, 104), '102–104 m');
   assert.equal(fmt(1400, 'min'), '23 h');
   assert.equal(fmt(90, 'min'), '1.5 h');
   assert.equal(fmt(3.4, 'min'), '3 min');
@@ -167,12 +170,50 @@ test('updateBandEdit preserves and toggles hiStrict through URL round-trip and e
   }
 });
 
-test('siteFacts includes Water cover and keeps missing values null', () => {
+test('siteFacts and logisticsFacts include Water cover and preserve 1 m small elevation range', () => {
   const i = data.h3.indexOf('8401b65ffffffff');
   assert.ok(i >= 0);
-  const facts = siteFacts(data, i);
-  const water = facts.find(f => f.label === 'Water cover');
-  assert.ok(water);
-  assert.equal(water.value, fmt(data.yearly.water_pct![i], '%'));
+  const sf = siteFacts(data, i);
+  assert.equal(sf.find(f => f.label === 'Water cover')?.value, fmt(data.yearly.water_pct![i], '%'));
+  assert.equal(sf.find(f => f.label === 'Elevation')?.value, '0–5 m');
+  const lf = logisticsFacts(data, i);
+  assert.equal(lf.find(f => f.label === 'Water cover in the cell')?.value, fmt(data.yearly.water_pct![i], '%'));
+  assert.equal(lf.find(f => f.label === 'Elevation, lowest to highest')?.value, '0–5 m');
+});
+
+test('tempInWindow reads seasonal monthly surface temps instead of mixing annual peaks', () => {
+  const i = data.h3.indexOf('8401b65ffffffff');
+  const cat = data.runtime.categories.find(c => c.categoryId === 'landing-descent')!;
+  const janReq = { ...newRequest(data, 'moon', cat), months: { start: 1, end: 1 } };
+  const tJan = tempInWindow(data, janReq, i);
+  assert.equal(fmt(tJan.dayMax, 'K'), '-15 °C');
+  assert.equal(fmt(tJan.nightMin, 'K'), '-15 °C');
+  assert.notEqual(fmt(tJan.dayMax, 'K'), fmt(data.yearly.lst_day_max_k![i], 'K'));
+});
+
+test('riskAssessment produces four qualitative categories grounded in release data', () => {
+  const i = data.h3.indexOf('8401b65ffffffff');
+  const cat = data.runtime.categories.find(c => c.categoryId === 'landing-descent')!;
+  const req = newRequest(data, 'moon', cat);
+  const fire = burnedInWindow(data, req, i);
+  const temp = tempInWindow(data, req, i);
+  const items = riskAssessment(data, req, i, fire, temp);
+  assert.deepEqual(items.map(x => x.id), ['medical', 'environment', 'ecological', 'blindSpots']);
+  assert.equal(items.find(x => x.id === 'medical')?.severity, 'High');
+  assert.equal(items.find(x => x.id === 'ecological')?.severity, 'High');
+  assert.equal(items.find(x => x.id === 'ecological')?.evidence, 'missing');
+  assert.equal(items.find(x => x.id === 'blindSpots')?.evidence, 'missing');
+});
+
+test('columnBounds, spiderValue, and normalizeOrder stay strictly data-grounded', () => {
+  const dustBounds = columnBounds(data, 'dust_aod', 'L1m');
+  assert.ok(dustBounds && dustBounds.min >= 0 && dustBounds.max < 2);
+  const marsCat = data.runtime.categories.find(c => c.categoryId === 'robotic-mobility-navigation')!;
+  const marsReq = newRequest(data, 'mars', marsCat);
+  const marsRows = rows(data, marsReq, 0);
+  const dustRow = marsRows.find(r => r.dimension === 'dustProcess')!;
+  assert.ok(spiderValue(dustRow).value !== null);
+  assert.equal(normalizeOrder('slope_mean_deg'), 'slope_mean_deg');
+  assert.equal(normalizeOrder('bad_order'), 'engine');
 });
 

@@ -234,6 +234,31 @@ details[open] summary { margin-bottom: 8px; }
 .loading .track { width: 220px; height: 2px; background: var(--rule); border-radius: 2px; overflow: hidden; }
 .loading .track i { display: block; height: 100%; background: var(--accent); transition: width 200ms var(--ease); }
 
+.tag-obj { background: var(--wash); color: var(--accent); border: 1px solid rgba(48, 54, 230, 0.22); }
+.tag-worked { background: var(--wash); color: var(--accent); margin-right: 4px; }
+.tag-lesson { background: rgba(168, 116, 0, 0.12); color: var(--unknown); margin-right: 4px; }
+.outcome-line + .outcome-line { margin-top: 6px; }
+.sheet-wide td.wrap { min-width: 190px; max-width: 280px; white-space: normal; }
+.sheet-wide th:first-child, .sheet-wide td:first-child { max-width: 220px; white-space: normal; }
+
+.radar-wrap { margin-bottom: 28px; border: 1px solid var(--rule); border-radius: 4px; background: #fff; padding: 18px 20px; }
+.radar-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.radar-svg { width: 100%; max-width: 460px; height: auto; display: block; margin: 0 auto; overflow: visible; }
+.radar-lbl { font: 500 12px/1 var(--sans); fill: var(--ink); }
+.radar-sub { font: 400 10px/1 var(--mono); fill: var(--muted); }
+
+.risk-matrix td { min-width: 120px; }
+.risk-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.sev-lbl { font-weight: 500; }
+.sev-high, .sev-tag-high { color: var(--miss); }
+.sev-tag-high { background: rgba(210, 63, 42, 0.10); }
+.sev-moderate, .sev-tag-moderate { color: var(--unknown); }
+.sev-tag-moderate { background: rgba(168, 116, 0, 0.12); }
+.sev-low, .sev-tag-low { color: var(--accent); }
+.sev-tag-low { background: var(--wash); }
+
+.release-bar { max-width: 1280px; margin: 0 auto; padding: 0 48px 36px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
 @media (max-width: 1000px) {
   .finder, .cols, .cats { grid-template-columns: 1fr; }
   .sites { position: static; max-height: 520px; }
@@ -242,11 +267,13 @@ details[open] summary { margin-bottom: 8px; }
   .bar { padding: 0 16px; gap: 12px; }
   .bar .brand { display: none; }
   .page { padding: 36px 16px 0; }
+  .release-bar { padding: 0 16px 28px; }
   .title { font-size: 38px; line-height: 42px; }
   .worlds { grid-template-columns: 1fr; }
   .season { grid-template-columns: 84px repeat(12, minmax(0, 1fr)); }
   .fit { grid-template-columns: 1fr; gap: 4px; }
   .globe { height: 400px; }
+  .sheet-wide th:first-child, .sheet-wide td:first-child { position: static; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; } }
 @media print { .bar, .footer, .globe, .no-print { display: none !important; } body { background: #fff; } }

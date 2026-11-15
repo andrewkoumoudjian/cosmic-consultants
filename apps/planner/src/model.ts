@@ -67,7 +67,7 @@ export function fmt(v: number | null | undefined, unit: string | null | undefine
     case '%': return `${fixed(v, 0)} %`;
     case '0-1': return `${fixed(v * 100, 0)} %`;
     case 'K': return `${fixed(v - 273.15, 0)} °C`;
-    case 'm': return `${noNegZero(Math.round(v / 10) * 10).toLocaleString('en-US')} m`;
+    case 'm': return Math.abs(v) < 100 ? `${fixed(v, 0)} m` : `${noNegZero(Math.round(v / 10) * 10).toLocaleString('en-US')} m`;
     case 'km': return `${fixed(v, 0)} km`;
     case 'min': return v < 60 ? `${fixed(v, 0)} min` : `${fixed(v / 60, v < 600 ? 1 : 0)} h`;
     case 'flag': case '0/1': return v >= 0.5 ? 'yes' : 'no';
@@ -76,16 +76,38 @@ export function fmt(v: number | null | undefined, unit: string | null | undefine
   }
 }
 
+/** Format an elevation range without collapsing small coastal relief (<20 m span) to 0–0 m. */
+export function elevRange(loVal: number | null | undefined, hiVal: number | null | undefined): string | null {
+  if (!finiteNum(loVal) || !finiteNum(hiVal)) return null;
+  if (Math.abs(hiVal - loVal) < 20 || (Math.abs(loVal) < 100 && Math.abs(hiVal) < 100)) {
+    return `${fixed(loVal, 0)}–${fixed(hiVal, 0)} m`;
+  }
+  const lo = fmt(loVal, 'm'), hi = fmt(hiVal, 'm');
+  return lo && hi ? `${lo.replace(' m', '')}–${hi}` : null;
+}
+
 /** A few measured facts for one cell, for the globe's cell card. */
 export function siteFacts(data: Dataset, i: number): { label: string; value: string | null }[] {
   const y = (c: string) => data.yearly[c]?.[i];
-  const lo = fmt(y('elev_min_m'), 'm'), hi = fmt(y('elev_max_m'), 'm');
   return [
-    { label: 'Elevation', value: lo && hi ? `${lo.replace(' m', '')}–${hi}` : null },
+    { label: 'Elevation', value: elevRange(y('elev_min_m'), y('elev_max_m')) },
     { label: 'Water cover', value: fmt(y('water_pct'), '%') },
     { label: 'To a city', value: fmt(y('access_min_median'), 'min') },
     { label: 'To an airport', value: fmt(y('airport_km'), 'km') },
   ];
+}
+
+/** Finder list orders shared between the UI and URL hash (#order=). */
+export const FINDER_ORDERS = [
+  { value: 'engine', label: 'Pareto order', unit: '', note: '' },
+  { value: 'slope_mean_deg', label: 'Flattest first', unit: 'deg', note: 'mean slope' },
+  { value: 'access_min_median', label: 'Closest to a city', unit: 'min', note: 'to a city' },
+  { value: 'airport_km', label: 'Closest airport', unit: 'km', note: 'to an airport' },
+  { value: 'elev_mean_m', label: 'Lowest first', unit: 'm', note: 'mean elevation' },
+] as const;
+export type FinderOrder = (typeof FINDER_ORDERS)[number]['value'];
+export function normalizeOrder(v: string | null | undefined): FinderOrder {
+  return FINDER_ORDERS.some(o => o.value === v) ? (v as FinderOrder) : 'engine';
 }
 
 /** Update or insert a band edit, keeping hiStrict only when true (plan-url canonical form). */
@@ -202,6 +224,40 @@ function worstMonthValue(r: Row): number | null {
   return pm.map(m => m.value!).sort((a, b) => margin(a) - margin(b))[0] ?? null;
 }
 
+const boundsCache = new WeakMap<Dataset, Map<string, { min: number; max: number } | null>>();
+
+/** Observed min/max across the published release for one column, cached per dataset. */
+export function columnBounds(data: Dataset, column: string, table: 'L1' | 'L1m' | 'L2' | null): { min: number; max: number } | null {
+  if (!table || (table !== 'L1' && table !== 'L1m')) return null;
+  let byCol = boundsCache.get(data);
+  if (!byCol) { byCol = new Map(); boundsCache.set(data, byCol); }
+  const key = `${table}:${column}`;
+  if (byCol.has(key)) return byCol.get(key) ?? null;
+  const arr = table === 'L1m' ? data.monthly[column] : data.yearly[column];
+  if (!arr) { byCol.set(key, null); return null; }
+  let min = Infinity, max = -Infinity;
+  for (let k = 0; k < arr.length; k++) {
+    const v = arr[k]!;
+    if (Number.isFinite(v)) {
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+  }
+  const res = Number.isFinite(min) && Number.isFinite(max) ? { min, max } : null;
+  byCol.set(key, res);
+  return res;
+}
+
+/** Observed per-spoke measurement for multi-site spider comparison; missing months keep the spoke null. */
+export function spiderValue(r: Row): { value: number | null; range: [number, number] | null } {
+  if (!r.perMonth) return { value: r.value, range: null };
+  if (r.perMonth.some(m => m.value === null)) return { value: null, range: null };
+  const vals = r.perMonth.map(m => m.value!);
+  const min = Math.min(...vals), max = Math.max(...vals);
+  if (r.band) return { value: worstMonthValue(r), range: vals.length > 1 ? [min, max] : null };
+  return { value: vals.length === 1 ? vals[0]! : (min + max) / 2, range: vals.length > 1 ? [min, max] : null };
+}
+
 export const GLYPH: Record<Row['verdict'], string> = { match: '✓', miss: '✕', unknown: '?' };
 export const CLASS_TEXT: Record<FunnelClass, string> = {
   allMatch: 'All required traits match',
@@ -233,13 +289,13 @@ export function monthWindowLabel(request: PlanRequest): string {
 
 export function logisticsFacts(data: Dataset, i: number) {
   const y = (c: string) => data.yearly[c]?.[i];
-  const lo = fmt(y('elev_min_m'), 'm'), hi = fmt(y('elev_max_m'), 'm');
   return [
     { label: 'Travel to the nearest city, median', value: fmt(y('access_min_median'), 'min') },
     { label: 'Travel, fastest 10 % of the cell', value: fmt(y('access_min_p10'), 'min') },
     { label: 'Nearest paved-runway airport', value: fmt(y('airport_km'), 'km') },
     { label: 'Protected land in the cell', value: fmt(y('protected_pct'), '%') },
-    { label: 'Elevation, lowest to highest', value: lo && hi ? `${lo.replace(' m', '')}–${hi}` : null },
+    { label: 'Water cover in the cell', value: fmt(y('water_pct'), '%') },
+    { label: 'Elevation, lowest to highest', value: elevRange(y('elev_min_m'), y('elev_max_m')) },
   ];
 }
 
@@ -252,6 +308,29 @@ export function burnedInWindow(data: Dataset, request: PlanRequest, i: number): 
   return { max: known.length ? Math.max(...known) : null, missing };
 }
 
+/** Hottest day & coldest night surface temperature over the window's months; missing months are named. */
+export function tempInWindow(data: Dataset, request: PlanRequest, i: number): {
+  dayMax: number | null; nightMin: number | null; dayMissing: string[]; nightMissing: string[];
+} {
+  const dayCol = data.monthly.lst_day_k, nightCol = data.monthly.lst_night_k;
+  const ms = months(request);
+  const dayKnown: number[] = [], dayMissing: string[] = [];
+  const nightKnown: number[] = [], nightMissing: string[] = [];
+  for (const m of ms) {
+    const label = MONTHS[m - 1]!;
+    const dv = dayCol?.[i * 12 + m - 1];
+    if (dv !== undefined && Number.isFinite(dv)) dayKnown.push(dv); else dayMissing.push(label);
+    const nv = nightCol?.[i * 12 + m - 1];
+    if (nv !== undefined && Number.isFinite(nv)) nightKnown.push(nv); else nightMissing.push(label);
+  }
+  return {
+    dayMax: dayKnown.length ? Math.max(...dayKnown) : null,
+    nightMin: nightKnown.length ? Math.min(...nightKnown) : null,
+    dayMissing,
+    nightMissing,
+  };
+}
+
 export function hazardFacts(data: Dataset, i: number) {
   const events = data.runtime.events[data.h3[i]!] ?? [];
   const byCategory = new Map<string, Record<string, unknown>[]>();
@@ -260,6 +339,116 @@ export function hazardFacts(data: Dataset, i: number) {
     byCategory.set(k, [...(byCategory.get(k) ?? []), e]);
   }
   return { events, byCategory, steep: data.yearly.slope_frac_gt30?.[i] ?? null };
+}
+
+export type RiskSeverity = 'High' | 'Moderate' | 'Low';
+export type RiskEvidence = 'observed' | 'curated' | 'missing';
+export type RiskItem = {
+  id: 'medical' | 'environment' | 'ecological' | 'blindSpots';
+  category: string;
+  shortLabel: string;
+  severity: RiskSeverity;
+  evidence: RiskEvidence;
+  basis: string;
+  mitigation: string;
+};
+
+/**
+ * Qualitative site risk assessment strictly grounded in release values and explicit blind spots (rule 3, ADR-0012).
+ * Never invents 1-5 probability digits or a combined numerical index.
+ */
+export function riskAssessment(
+  data: Dataset,
+  request: PlanRequest,
+  i: number,
+  fire: { max: number | null; missing: string[] } | null,
+  temp: { dayMax: number | null; nightMin: number | null; dayMissing: string[]; nightMissing: string[] } | null,
+): RiskItem[] {
+  const y = (c: string) => data.yearly[c]?.[i];
+  const access = y('access_min_median'), airport = y('airport_km');
+  const steep = y('slope_frac_gt30'), water = y('water_pct'), prot = y('protected_pct');
+  const hot = temp?.dayMax ?? (finiteNum(y('lst_day_max_k')) ? y('lst_day_max_k')! : null);
+  const cold = temp?.nightMin ?? (finiteNum(y('lst_night_min_k')) ? y('lst_night_min_k')! : null);
+  const events = data.runtime.events[data.h3[i]!] ?? [];
+  const unknownRows = rows(data, request, i).filter(r => r.verdict === 'unknown');
+
+  // 1. Medical & Evacuation
+  const medEvidence: RiskEvidence = finiteNum(access) || finiteNum(airport) ? 'observed' : 'missing';
+  const medSeverity: RiskSeverity = medEvidence === 'missing' ? 'Moderate'
+    : (finiteNum(access) && access >= 360) || (finiteNum(airport) && airport >= 300) ? 'High'
+    : (finiteNum(access) && access >= 90) || (finiteNum(airport) && airport >= 80) ? 'Moderate'
+    : 'Low';
+  const medBasis = [
+    `To a city: ${fmt(access, 'min') ?? 'no data'}`,
+    `Nearest airport: ${fmt(airport, 'km') ?? 'no data'}`,
+  ].join(' · ');
+  const medMitigation = medSeverity === 'High'
+    ? 'Establish a dedicated medevac plan, staged extraction transport, and redundant emergency comms before field deployment.'
+    : medSeverity === 'Moderate'
+    ? 'Verify emergency clinic capacity, evacuation travel times, and local comms coverage along access routes.'
+    : 'Confirm standard emergency transport routes and nearest hospital intake procedures.';
+
+  // 2. Environmental Hazards
+  const envCurated = events.length > 0 || (fire !== null && fire.missing.length > 0) || (temp !== null && (temp.dayMissing.length > 0 || temp.nightMissing.length > 0));
+  const envAnyObs = finiteNum(steep) || finiteNum(hot) || finiteNum(cold) || (fire?.max !== null && fire?.max !== undefined);
+  const envEvidence: RiskEvidence = envCurated ? 'curated' : envAnyObs ? 'observed' : 'missing';
+  const envHigh = events.length > 0
+    || (finiteNum(steep) && steep >= 0.15)
+    || (finiteNum(fire?.max) && fire!.max >= 5)
+    || (finiteNum(hot) && hot >= 318.15)
+    || (finiteNum(cold) && cold <= 233.15);
+  const envMod = (finiteNum(steep) && steep >= 0.03)
+    || (finiteNum(fire?.max) && fire!.max > 0)
+    || (finiteNum(hot) && hot >= 308.15)
+    || (finiteNum(cold) && cold <= 253.15);
+  const envSeverity: RiskSeverity = envEvidence === 'missing' ? 'Moderate' : envHigh ? 'High' : envMod ? 'Moderate' : 'Low';
+  const tempSource = temp && (temp.dayMax !== null || temp.nightMin !== null) ? 'window' : 'annual';
+  const envParts = [
+    `Ground >30°: ${fmt(steep, '0-1') ?? 'no data'}`,
+    `Surface (${tempSource}): ${fmt(cold, 'K') ?? 'no data'} to ${fmt(hot, 'K') ?? 'no data'}`,
+    `Burned in window: ${fire ? (fmt(fire.max, '%') ?? 'no data') : 'loading'}`,
+    `EONET events: ${events.length}`,
+  ];
+  const envMitSteps = [
+    finiteNum(steep) && steep >= 0.03 ? 'survey 100 m local slopes and rockfall zones around stations' : '',
+    events.length > 0 || (fire?.max ?? 0) > 0 ? 'monitor regional hazard bulletins and set abort/hold weather triggers' : '',
+    (finiteNum(hot) && hot >= 308.15) || (finiteNum(cold) && cold <= 253.15) ? 'specify crew cold/heat PPE and hardware thermal limits' : '',
+    'check local 7-day forecast prior to rollout (release holds historical aggregates only)',
+  ].filter(Boolean);
+  const envMitigation = envMitSteps.map((s, k) => (k === 0 ? s.charAt(0).toUpperCase() + s.slice(1) : s)).join('; ') + '.';
+
+  // 3. Ecological & Land-Use Impact
+  const ecoEvidence: RiskEvidence = finiteNum(prot) ? 'observed' : 'missing';
+  const ecoSeverity: RiskSeverity = finiteNum(prot)
+    ? (prot >= 25 ? 'High' : prot > 0 ? 'Moderate' : 'Low')
+    : (finiteNum(water) && water >= 25 ? 'High' : 'Moderate');
+  const ecoBasis = [
+    `Protected land: ${fmt(prot, '%') ?? 'no data in release'}`,
+    `Water cover: ${fmt(water, '%') ?? 'no data'}`,
+  ].join(' · ');
+  const ecoMitigation = [
+    finiteNum(prot) && prot > 0 ? 'Secure conservation permits and restrict traverse corridors outside sensitive habitat.'
+      : 'Verify national park boundaries, indigenous/local stewardship, and land-use permits before field commitment.',
+    finiteNum(water) && water >= 25 ? 'Inspect coastline/wetland imagery to ensure staging coordinates sit on dry ground.' : '',
+  ].filter(Boolean).join(' ');
+
+  // 4. Data Blind Spots
+  const mustUnknown = unknownRows.filter(r => r.priority === 'must').length;
+  const blindSeverity: RiskSeverity = mustUnknown > 0 || unknownRows.length >= 2 ? 'High' : 'Moderate';
+  const blindParts = [
+    `Traits unknown: ${unknownRows.length}${unknownRows.length ? ` (${unknownRows.map(r => DIMENSION_LABEL[r.dimension] ?? r.dimension).join(', ')})` : ''}`,
+    fire && fire.missing.length ? `Burned months missing: ${fire.missing.join(', ')}` : '',
+    temp && temp.dayMissing.length ? `Day-temp months missing: ${temp.dayMissing.join(', ')}` : '',
+    'Weather on the day & rescue cover not in release',
+  ].filter(Boolean);
+  const blindMitigation = 'Collect site-level weather, 100 m DEM/field scouting, and external data for unknown traits and local rescue cover.';
+
+  return [
+    { id: 'medical', category: 'Medical & Evacuation', shortLabel: 'Medical', severity: medSeverity, evidence: medEvidence, basis: medBasis, mitigation: medMitigation },
+    { id: 'environment', category: 'Environmental Hazards', shortLabel: 'Environment', severity: envSeverity, evidence: envEvidence, basis: envParts.join(' · '), mitigation: envMitigation },
+    { id: 'ecological', category: 'Ecological & Land-Use Impact', shortLabel: 'Ecological', severity: ecoSeverity, evidence: ecoEvidence, basis: ecoBasis, mitigation: ecoMitigation },
+    { id: 'blindSpots', category: 'Data Blind Spots & Coverage', shortLabel: 'Blind spots', severity: blindSeverity, evidence: 'missing', basis: blindParts.join(' · '), mitigation: blindMitigation },
+  ];
 }
 
 /**
@@ -283,7 +472,7 @@ export function sheetCsv(data: Dataset, request: PlanRequest, sites: number[]): 
       out.push([...base, 'trait', r.dimension, r.priority, r.verdict, shown, r.unit, r.band?.lo, r.band?.hi, r.gap, r.side, r.reason?.text, r.earthColumn, ...tail].map(cell).join(','));
     }
     for (const l of limitRows(data, request, i)) out.push([...base, 'limit', l.limit, 'must', l.outcome, l.value, '', '', l.max, '', '', l.value === null ? 'missing in release' : '', LIMIT_COLUMNS[l.limit], ...tail].map(cell).join(','));
-    for (const [col, unit] of [['access_min_median', 'min'], ['airport_km', 'km'], ['protected_pct', '%'], ['elev_mean_m', 'm']] as const) {
+    for (const [col, unit] of [['access_min_median', 'min'], ['airport_km', 'km'], ['protected_pct', '%'], ['water_pct', '%'], ['elev_mean_m', 'm']] as const) {
       const v = data.yearly[col]?.[i], known = v !== undefined && Number.isFinite(v);
       out.push([...base, 'logistics', col, '', '', known ? v : null, unit, '', '', '', '', known ? '' : 'missing in release', col, ...tail].map(cell).join(','));
     }
