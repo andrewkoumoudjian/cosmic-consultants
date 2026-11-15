@@ -3,9 +3,11 @@
 Working title: **Proving Grounds — Plan Moon and Mars field tests on Earth**.
 The product name remains a placeholder for the owner to approve.
 
-Status: **draft copy and storyboard, not a recorded video**. Updated 2026-11-14
-(America/Toronto), work order [#143](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/143),
-a copy/storyboard slice of [W13 #24](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/24).
+Status: **draft copy and storyboard, not a recorded video**. Updated 2026-11-15
+(America/Toronto), work order [W13 #24](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/24).
+The original copy landed through [#143](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/143).
+The selected submission build now has an independently replayed capture route:
+[receipt, screenshots and downloaded brief](submission-capture-2026-11-15/README.md).
 This replaces the obsolete ARL pitch with the workflow in
 [ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md) and the
 [mission plan](../plan/MISSION-PLANNER.md). It changes no scientific rules.
@@ -32,24 +34,28 @@ campaign still needs field checks, permissions and scientific review.”
 
 ## Evidence behind the script
 
-Baseline reviewed: main `60edc9c` (record the full revision for the final capture).
-That checkout still contains the older map; the workflow is being integrated
-in [#132](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/132).
+Capture rehearsal: 2026-11-15, using the owner's selected
+[submission planner](https://cosmic-planner-submission.pages.dev/planner).
+The served release manifest SHA-256 is
+`2cd4e1899bc6111dbe0c3c6251b1392ab4fa1fdf673cc6ea86542c52b1e4b0fe`.
+The [owner's deployment post](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6897826199)
+identifies app `6d6cf35` and engine `ae2b3ce`; those commit labels are reported
+deployment metadata, not recovered from a browser display. The manifest hash
+was independently fetched and matched to the downloaded brief.
 
 | Claim or screen | Source | Evidence and capture rule |
 |---|---|---|
-| Objective/month selection, compare, brief download, URL restore and unknown requirement | [#132 browser-test report](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888370270) | Reported as tested by the implementation session, not independently replayed by this pitch author. Capture the exact release before using these shots. |
+| Objective/month controls, comparison, brief download and unknown requirement | [Capture receipt](submission-capture-2026-11-15/README.md) | Independently replayed Moon / Robotic mobility & navigation / LI-5L / January. Selected one match, inspected unknowns in the list, opened limitations/logistics/risks and downloaded the brief. Month controls were observed at their January defaults; changing months and restoring a shared URL were not tested in this pass. |
 | Match/miss/unknown, native-unit gaps, no combined site score | [ADR-0005 D2–D4](../decisions/ADR-0005-mission-planning-workflow.md), [trait map](../../data/requirements/trait-map.yaml) | Governing rules and proposed bands. Verify the displayed rows, origins and caveats; these files alone are not runtime tests. |
 | Lean and Python/browser agreement | [Implementation-session evidence](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888310833), [Lean gates](../decisions/ADR-0001-scope-collaboration-lean-first.md) | Session-reported build/audit and conformance results. Link the actual release receipts for detailed proof claims; do not call the whole application or geology formally verified. |
 | Sources and hashes | [Pipeline](../plan/DATA-PIPELINE.md), [snapshot manifest](../../data/snapshots/MANIFEST.json) | Trace the displayed example to actual stored inputs before saying it is sourced. A catalog entry is not evidence of complete coverage. |
 | Physical limits | [ADR-0005 D4](../decisions/ADR-0005-mission-planning-workflow.md) | Show the objective's applicable list. pressureRegime covers lunar vacuum and thin Martian air; do not imply Earth reproduces either. |
 | Logistics, season, hazards and past campaigns | [Workflow steps 4–6](../plan/MISSION-PLANNER.md) | Include only what the recorded build supplies. Unavailable sections stay labelled; planned features are not delivered features. |
 
-The pitch author's preview probe failed with a TLS EOF error; no browser
-behavior was independently observed here. The implementation owner is
-[changing preview access](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888390807).
-Use the latest verified URL on #6. The earlier tailnet-only URL is not a
-judge-facing deployment; do not publish a private preview as a usable public demo.
+The earlier preview's TLS failure is historical. The public submission site
+loaded in this rehearsal. The separate dark `mission-ui` preview still has
+sample data; it is not the build selected for this capture. Recheck #6 and the
+served manifest before recording, since deployment contents can change.
 
 ## Thirty-second capture storyboard
 
@@ -58,16 +64,24 @@ means revise the shot/script or leave the video unready.
 
 | Time | Actual screen action | Voiceover |
 |---|---|---|
-| 0–5 s | Objective form with target body visible | “Where on Earth can we rehearse a Moon or Mars mission?” |
-| 5–12 s | Choose objective/months; show resulting requirements | “Choose the objective and months. Compare Earth sites against your test requirements.” |
-| 12–20 s | Compare sites, then open a real miss or unknown | “See what matches, what misses, and what the data cannot tell you.” |
-| 20–25 s | Show the applicable Earth limitations | “Keep gravity, air pressure and radiation limits in view.” |
-| 25–30 s | Download/open the brief, then the working title | “Export the evidence and gaps into a field-test brief.” |
+| 0–5 s | Destination: Moon; Category: Robotic mobility & navigation | “Where on Earth can we rehearse a Moon or Mars mission?” |
+| 5–12 s | Requirements: LI-5L, January; show terrain and illumination bands | “Choose the objective and months. Compare Earth sites against your test requirements.” |
+| 12–20 s | Sites: select a match, then show Unknown in the group menu | “See what matches and what the data cannot tell you.” |
+| 20–25 s | Limitations: keep gravity, pressure, radiation and the water-cover caveat visible | “A match still needs field checks. Earth cannot reproduce every condition.” |
+| 25–30 s | Risks: Download brief; show the saved Markdown file | “Export the evidence and gaps into a field-test brief.” |
 
 The slots total **30 seconds**, including the title card. Use one consistent
 request/site selection across compare, gaps and export. Open the downloaded
 brief to check its contents. Avoid a live result count or a named “best site”
 in the voiceover. Rehearse narration against the slots before recording.
+This is an edited sequence of real screens, not a promise that the full flow
+loads in 30 seconds. Unknown-site Compare controls were disabled in the
+rehearsal: show those rows in the Sites list rather than staging an unknown
+inside the comparison. The first listed match had 95% water cover, so do not
+present it as a recommended field site or crop away its warning. Show the
+source-QA caveats in the longer walkthrough. The brief currently omits the
+water-cover warning; show that warning on screen and say that the brief needs
+to be read alongside the reports.
 
 ## Two-to-three-minute walkthrough
 
@@ -112,8 +126,10 @@ segment to keep focus. This is separate from the 30-second video.
 - **Can a matching site host a campaign?** Access, permissions, costs, hazards
   and field measurements need separate review. EONET's zero recorded events
   is not a safety finding ([ADR-0006](../decisions/ADR-0006-eonet-for-risks.md)).
-- **Did known analogs validate the system?** No calibration result is claimed
-  here. A fixture or cited past campaign is not independent method validation.
+- **Did known analogs validate the system?** The separate
+  [calibration report](../qa/CALIBRATION.md) records a limited check against
+  known campaigns. This capture does not rerun or establish that result.
+  A fixture or cited past campaign is not independent method validation.
 - **What comes next?** Identify the selected test's source gaps and field
   checks, validate them with campaign teams, then expand requirements when
   the evidence and proof gates are ready.

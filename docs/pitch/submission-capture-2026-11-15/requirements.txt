@@ -1,0 +1,104 @@
+- banner:
+  - navigation "Steps":
+    - button "1Destination"
+    - button "2Category"
+    - button "3Requirements"
+    - button "4Sites" [disabled]
+    - button "5Limitations" [disabled]
+    - button "6Logistics" [disabled]
+    - button "7Risks" [disabled]
+  - button "Copy link"
+- main:
+  - heading "Requirements" [level=1]
+  - combobox "Objective":
+    - generic: LI-5L · Precision landing
+    - generic: ⌄
+  - textbox: LI-5L
+  - table:
+    - rowgroup:
+      - row "Trait Measured on Earth as Accepted band Priority":
+        - columnheader "Trait"
+        - columnheader "Measured on Earth as"
+        - columnheader "Accepted band"
+        - columnheader "Priority"
+    - rowgroup:
+      - row "Terrain Mean slope 0 terrain exclude upper bound 10 °":
+        - cell "Terrain"
+        - cell "Mean slope"
+        - cell "0 terrain exclude upper bound 10 °":
+          - textbox "terrain low":
+            - /placeholder: low
+            - text: "0"
+          - button "terrain exclude upper bound" [pressed]: ≤ x <
+          - textbox "terrain high":
+            - /placeholder: high
+            - text: "10"
+          - generic: °
+        - cell:
+          - combobox "terrain priority":
+            - generic: Required
+            - generic: ⌄
+          - textbox: must
+      - row "Illumination Noon sun elevation, monthly 0 illumination exclude upper bound 10 °":
+        - cell "Illumination"
+        - cell "Noon sun elevation, monthly"
+        - cell "0 illumination exclude upper bound 10 °":
+          - textbox "illumination low":
+            - /placeholder: low
+            - text: "0"
+          - button "illumination exclude upper bound": ≤ x ≤
+          - textbox "illumination high":
+            - /placeholder: high
+            - text: "10"
+          - generic: °
+        - cell:
+          - combobox "illumination priority":
+            - generic: Required
+            - generic: ⌄
+          - textbox: must
+  - paragraph: Category Robotic mobility & navigation resolves to shared objective LI-5L (2 of 2 objective dimensions carry both an accepted band and an Earth column).
+  - heading "Field window" [level=2]
+  - text: From
+  - combobox "First month":
+    - generic: Jan
+    - generic: ⌄
+  - textbox: "1"
+  - text: To
+  - combobox "Last month":
+    - generic: Jan
+    - generic: ⌄
+  - textbox: "1"
+  - text: Show
+  - combobox "Sites shown":
+    - generic: "50"
+    - generic: ⌄
+  - textbox: "50"
+  - heading "For the brief only these don't change which sites match" [level=2]
+  - text: Mission
+  - combobox "Mission type":
+    - generic: Robotic
+    - generic: ⌄
+  - textbox: robotic
+  - text: Days
+  - spinbutton "Days": "14"
+  - text: Team
+  - spinbutton "Team": "6"
+  - heading "Hard limits cells past a limit are left out" [level=2]
+  - text: Travel to a city, min
+  - spinbutton "Travel to a city, min"
+  - text: Protected land, %
+  - spinbutton "Protected land, %"
+  - text: Airport, km
+  - spinbutton "Airport, km"
+  - text: Mean slope, °
+  - spinbutton "Mean slope, °"
+  - heading "Data caveats read before filtering" [level=2]
+  - list:
+    - generic: Scientific acceptance is partial. Requirements and comparisons are conditional on the stated sources, scales and bands.
+    - generic: DEM nodata filtering was claimed by old column metadata but is not applied by the current terrain builder; values remain unchanged and scientifically unreviewed.
+    - generic: MOD11C3 QC-bit filtering is not applied; replay counts the actual raw-value threshold, not an invented QA pass.
+  - button "← Back"
+  - button "Find sites →"
+- contentinfo:
+  - generic: "Release planner-v1 · scientific status: partial · 91,800 H3 res-4 cells"
+  - generic: "Earth data: Copernicus DEM, MODIS, ESA Permafrost, ODbL travel, NASA EONET · manifest 2cd4e189"
