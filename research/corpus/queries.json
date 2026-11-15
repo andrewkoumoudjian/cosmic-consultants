@@ -1,0 +1,36 @@
+{
+  "formatVersion": 1,
+  "from": "docs/research/03-literature-inventory.md section 0 (reproducible method)",
+  "historicalCounts": {
+    "source": "OpenAlex full-text counts recorded on 2026-11-12 in doc 03 section 0",
+    "counts": {
+      "q1": 3491,
+      "q2": 1692,
+      "q3": 1341,
+      "q4": 199
+    }
+  },
+  "queries": [
+    {
+      "id": "q1",
+      "text": "terrestrial analog sites Mars Moon planetary analog",
+      "doc03Count": 3491
+    },
+    {
+      "id": "q2",
+      "text": "Mars landing site selection criteria human exploration",
+      "doc03Count": 1692
+    },
+    {
+      "id": "q3",
+      "text": "lunar regolith simulant ISRU resource",
+      "doc03Count": 1341
+    },
+    {
+      "id": "q4",
+      "text": "lunar south pole landing site",
+      "doc03Count": 199,
+      "note": "Doc 03 calls this the narrow lunar-south-pole query but does not quote the string; this text is a reconstruction and is recorded as such."
+    }
+  ]
+}
