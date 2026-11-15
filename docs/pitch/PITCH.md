@@ -1,81 +1,144 @@
-# Pitch plan
+# Pitch and demo script
 
-> **Product changed on 2026-11-14:** ARL is replaced by the mission planning
-> workflow ([ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md),
-> [plan](../plan/MISSION-PLANNER.md)). The pitch lane (W13, #24) rewrites this file.
+Working title: **Proving Grounds — Plan Moon and Mars field tests on Earth**.
+The product name remains a placeholder for the owner to approve.
 
-Working title: **Proving Grounds — Analog Readiness Levels for NASA's Moon-to-Mars objectives**
-(name is a placeholder; owner picks). No NASA logos or mission insignia
-anywhere (doc 07 §1.1). Planning document; the deck and video are built in
-W13 (#24) during the window, from the build that actually exists.
-Direction: ARL (ADR-0002), kept by the owner on 2026-11-14 (#46). Every
-claim in the final pitch must match what the build actually does.
+Status: **draft copy and storyboard, not a recorded video**. Updated 2026-11-14
+(America/Toronto), work order [#143](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/143),
+a copy/storyboard slice of [W13 #24](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/24).
+This replaces the obsolete ARL pitch with the workflow in
+[ADR-0005](../decisions/ADR-0005-mission-planning-workflow.md) and the
+[mission plan](../plan/MISSION-PLANNER.md). It changes no scientific rules.
 
-## The one-liner
+## What to say
 
-> Everyone can show you where Earth *looks* like Mars. We show NASA where on
-> Earth to **rehearse each Moon-to-Mars objective**, how ready that place is,
-> and what it can never rehearse there.
+**One-liner:** Plan a Moon or Mars field test on Earth: choose the objective
+and months, compare the requirements, and carry the matches, gaps and unknowns
+into a sourced mission brief.
 
-## Story arc (2–3 min live, or the walkthrough video)
+**Short spoken story, after the capture checks below pass:**
 
-1. **Problem.** Analog field sites get picked by tradition — the same few
-   deserts and Antarctic valleys. The challenge itself says these sites "are
-   not entirely well characterized", and NASA's objective OP-1L asks for
-   demonstrations on Earth to "shorten the timeframe for system testing and
-   readiness".
-2. **Insight.** Technology has a readiness scale (TRL). **Test sites don't.**
-   Whether a site is "a good Mars analog" depends on *what you want to test
-   there* — rover traverses, ice coring, or precision landing all need
-   different conditions.
-3. **Product.** Pick a NASA objective → global heatmap of Analog Readiness
-   Levels 0–6 → click a site → its readiness ladder: which evidence it has,
-   the dimension holding it back, and the "Earth cannot rehearse this" list.
-4. **The twist (Surprise us).** The opportunity layer: sites the data rates as
-   ready (ARL 3) that nobody has characterized in the field yet. "Here's where
-   the next field campaign should go, and what it would prove."
-5. **Why believe it.** Open NASA data with hashed snapshots behind every
-   number; the ladder rules are machine-checked in Lean (it can't quietly
-   average a bad dimension away); calibrated against known analogs (Haughton,
-   Mistastin, Dry Valleys, Atacama, Death Valley) — including where we
-   disagree with them.
-6. **Who uses it.** Analog-campaign planners, rover/instrument teams choosing
-   test sites, crew science-training planners (SE-1).
+“A field test needs a clear question: what are we trying to rehearse, and when?
+Proving Grounds starts with a Moon or Mars objective and a month window. We
+compare Earth sites against the test requirements, one trait at a time.
 
-## 30-second demo video (storyboard — W13 replaces shots with real captures)
+“A requirement can match, miss with a gap in its own units, or remain unknown.
+We keep the missing evidence visible. You can compare candidate sites, inspect
+the limits of the analogy, and export a brief with the requirements and sources.
 
-| Time | Shot | On-screen text / VO |
+“Earth cannot reproduce lunar or Martian gravity, air pressure and radiation.
+This helps a team plan a particular field test; choosing and authorizing a real
+campaign still needs field checks, permissions and scientific review.”
+
+## Evidence behind the script
+
+Baseline reviewed: main `60edc9c` (record the full revision for the final capture).
+That checkout still contains the older map; the workflow is being integrated
+in [#132](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/132).
+
+| Claim or screen | Source | Evidence and capture rule |
 |---|---|---|
-| 0–4 s | Earth globe, faint heatmap | "Where on Earth can we rehearse Mars?" |
-| 4–11 s | Select **OP-5: surface mobility & EVA (Mars)** → heatmap blooms | "Pick a NASA objective. See every place it can be rehearsed." |
-| 11–19 s | Click an opportunity site → dossier ladder ARL 3, limiting gate highlighted | "Readiness level, the evidence behind it, what's holding it back." |
-| 19–24 s | "Earth cannot rehearse" panel: gravity, thin air | "And what Earth can never test." |
-| 24–30 s | Switch to **SE-3: ice coring (Moon)** → map shifts to the poles; title card | "Proving Grounds: readiness levels for analog sites." |
+| Objective/month selection, compare, brief download, URL restore and unknown requirement | [#132 browser-test report](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888370270) | Reported as tested by the implementation session, not independently replayed by this pitch author. Capture the exact release before using these shots. |
+| Match/miss/unknown, native-unit gaps, no combined site score | [ADR-0005 D2–D4](../decisions/ADR-0005-mission-planning-workflow.md), [trait map](../../data/requirements/trait-map.yaml) | Governing rules and proposed bands. Verify the displayed rows, origins and caveats; these files alone are not runtime tests. |
+| Lean and Python/browser agreement | [Implementation-session evidence](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888310833), [Lean gates](../decisions/ADR-0001-scope-collaboration-lean-first.md) | Session-reported build/audit and conformance results. Link the actual release receipts for detailed proof claims; do not call the whole application or geology formally verified. |
+| Sources and hashes | [Pipeline](../plan/DATA-PIPELINE.md), [snapshot manifest](../../data/snapshots/MANIFEST.json) | Trace the displayed example to actual stored inputs before saying it is sourced. A catalog entry is not evidence of complete coverage. |
+| Physical limits | [ADR-0005 D4](../decisions/ADR-0005-mission-planning-workflow.md) | Show the objective's applicable list. pressureRegime covers lunar vacuum and thin Martian air; do not imply Earth reproduces either. |
+| Logistics, season, hazards and past campaigns | [Workflow steps 4–6](../plan/MISSION-PLANNER.md) | Include only what the recorded build supplies. Unavailable sections stay labelled; planned features are not delivered features. |
 
-## Mapping to judging criteria (provisional — 2025 criteria; replace after A0 reads the 2026 guide)
+The pitch author's preview probe failed with a TLS EOF error; no browser
+behavior was independently observed here. The implementation owner is
+[changing preview access](https://github.com/andrewkoumoudjian/cosmic-consultants/issues/6#issuecomment-6888390807).
+Use the latest verified URL on #6. The earlier tailnet-only URL is not a
+judge-facing deployment; do not publish a private preview as a usable public demo.
 
-| Criterion | Our answer |
-|---|---|
-| Impact | Mission planners get a decision tool keyed to NASA's own objectives (OP-1L) |
-| Creativity | First readiness ladder for analog sites (no prior scale found, doc 07 §3); opportunity layer |
-| Validity | Hashed open data, Lean-checked ladder logic, calibration with misses reported |
-| Relevance | Answers every brief requirement: identify (R1), characterize (R2), NASA data (R3), breakdowns (R4), exploration use (R5), map (R6) |
-| Presentation | 30-s video shows the full loop; live demo on the deployed map |
+## Thirty-second capture storyboard
 
-## Judge Q&A (prepare answers with real numbers from the build)
+Record the actual release. These are intended shots: a failed capture gate
+means revise the shot/script or leave the video unready.
 
-- **"Isn't ARL just a score?"** It's an evidence level for one named objective,
-  set by its weakest dimension, never averaged, always shown with the
-  per-dimension breakdown. No site gets an overall score.
-- **"Who chose the thresholds?"** We did, and published them per objective;
-  they come from the Moon/Mars target envelopes with cited sources. Change one
-  and the map changes.
-- **"Why Lean?"** It proves the ladder can't be gamed: more evidence never
-  lowers a level, and a strong dimension can't make up for a weak one. It
-  doesn't certify the geology; the data provenance does that.
-- **"Atacama is already known."** Exactly — it calibrates the ladder. The
-  opportunity layer is about the places that aren't.
-- **"What about gravity?"** Every objective lists what Earth can't rehearse.
-  Objectives that are mostly gravity or radiation are shown but never rated.
-- **"Next step?"** Feed field-campaign results back in as gate-4 evidence;
-  extend to all 63 objectives; let PIs submit evidence.
+| Time | Actual screen action | Voiceover |
+|---|---|---|
+| 0–5 s | Objective form with target body visible | “Where on Earth can we rehearse a Moon or Mars mission?” |
+| 5–12 s | Choose objective/months; show resulting requirements | “Choose the objective and months. Compare Earth sites against your test requirements.” |
+| 12–20 s | Compare sites, then open a real miss or unknown | “See what matches, what misses, and what the data cannot tell you.” |
+| 20–25 s | Show the applicable Earth limitations | “Keep gravity, air pressure and radiation limits in view.” |
+| 25–30 s | Download/open the brief, then the working title | “Export the evidence and gaps into a field-test brief.” |
+
+The slots total **30 seconds**, including the title card. Use one consistent
+request/site selection across compare, gaps and export. Open the downloaded
+brief to check its contents. Avoid a live result count or a named “best site”
+in the voiceover. Rehearse narration against the slots before recording.
+
+## Two-to-three-minute walkthrough
+
+1. **Set the question (about 25 s).** Select Mars OP-5LM or Moon LI-5L in the
+   recorded release. Explain the months and one band's origin: target,
+   precedent, team or user. Do not describe every band as NASA's choice.
+2. **Compare (about 40 s).** Explain one match and one miss or unknown with
+   its unit/reason. Use three-site comparison only if the release supports it;
+   otherwise state the limit rather than staging a fake drawer.
+3. **Change a requirement (about 30 s).** Change a band or month window and
+   show the actual response. A shortlist depends on stated requirements; it
+   is not a universal Moon/Mars-likeness score.
+4. **Explain the limits (about 25 s).** Show what Earth cannot test and one
+   missing measurement or scale caveat. Mean slope over a hexagon does not
+   certify every traverse within it.
+5. **Carry evidence forward (about 30 s).** Export the brief; point to the
+   active objective, months, sites, limitations and one traceable source.
+   Show unavailable later sections as unavailable rather than filling them.
+
+These segments total about 150 seconds. Add logistics, hazards or a cited
+campaign comparison only if supported by the capture, trimming another
+segment to keep focus. This is separate from the 30-second video.
+
+## Judge Q&A
+
+- **Who is it for?** Teams planning rover, instrument or human field rehearsals.
+  It organizes candidate-site evidence and open questions for a particular test.
+- **Who chooses the requirements?** Each band records its origin and rationale.
+  Some are team choices or proxies; edits are user choices. Even a sourced
+  number may have the wrong spatial or temporal scale for a particular test.
+- **Is it a site similarity score?** No. Comparison stays per trait. Where the
+  release uses Pareto layers, they order trade-offs without adding the traits
+  into a site score.
+- **What if data is missing?** It stays unknown with its reason. That is neither
+  a match nor proof a site is unsuitable. A missing band is also unknown.
+- **What does Lean establish?** It checks stated mathematical rules under their
+  assumptions. Release-specific build/audit and engine/browser tests support
+  the runtime claim within their scope. They do not certify source data,
+  ecological impact, field safety or a team's chosen threshold.
+- **Can Earth reproduce the Moon or Mars?** Only selected characteristics and
+  processes for a stated test. Gravity, pressure and radiation remain limits.
+- **Can a matching site host a campaign?** Access, permissions, costs, hazards
+  and field measurements need separate review. EONET's zero recorded events
+  is not a safety finding ([ADR-0006](../decisions/ADR-0006-eonet-for-risks.md)).
+- **Did known analogs validate the system?** No calibration result is claimed
+  here. A fixture or cited past campaign is not independent method validation.
+- **What comes next?** Identify the selected test's source gaps and field
+  checks, validate them with campaign teams, then expand requirements when
+  the evidence and proof gates are ready.
+
+## Recording and release receipt
+
+Before recording, save the app URL/commit, release manifest SHA-256, request
+JSON/share link, site IDs, capture date, supported steps and exported brief.
+Match one shown value and one unknown to their source/reason. Record synthetic
+versus real data; keep the mock label in every synthetic shot. The
+[#136 acceptance checklist PR](https://github.com/andrewkoumoudjian/cosmic-consultants/pull/137)
+can guide checks; it is a test plan, not evidence that a release passed.
+
+Before publication, W13/W14 owners check the current submission guide, measure
+final duration (for example, `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 demo.mp4`),
+test the project link without private network access, and review captured
+features and source/AI disclosures. The
+[organizer-ruling inventory](../research/07-spaceapps-rules-and-m2m-objectives.md)
+is dated research, not a fresh check of submission rules. Keep NASA branding
+and insignia out of generated material, retain required AI watermarks and
+exclude minors' recognizable likenesses/voices under the team's recording
+constraints. This copy is AI-assisted and needs team review.
+
+Do not claim first-ever novelty, complete Earth coverage, a universally best
+site, field safety, mission approval odds, completed calibration or scientific
+acceptance without separate evidence. Do not show the retired ARL ladder as
+the current product. Video, deck, final captures and submission remain
+outstanding W13/W14 deliverables.
