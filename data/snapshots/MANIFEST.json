@@ -8499,6 +8499,166 @@
       "license": "us-pd",
       "licenseVerified": true,
       "localPath": "data/snapshots/mola-megdr/megt90n000fb.lbl"
+    },
+    {
+      "datasetId": "lola-gdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/ldem_4.img",
+      "fetchedAt": "2026-11-14T23:25:53Z",
+      "sha256": "c04632eba6449af49e3108ed7c25b3b1c450600abd3690df4fc815853a1af476",
+      "bytes": 2073600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-gdr/ldem_4.img"
+    },
+    {
+      "datasetId": "lola-gdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/ldem_4.lbl",
+      "fetchedAt": "2026-11-14T23:25:57Z",
+      "sha256": "b5a197b4d417e3b5e0e84f8fe15f9a1d2203b8eb5d7213236c0ffbc86e940cc6",
+      "bytes": 5107,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-gdr/ldem_4.lbl"
+    },
+    {
+      "datasetId": "lola-gdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/cylindrical/img/ldem_4.xml",
+      "fetchedAt": "2026-11-14T23:25:58Z",
+      "sha256": "534384777b2eea7c98e5a19516f31e218d0b7b18a00134a51f04002a8aa2f57e",
+      "bytes": 11930,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-gdr/ldem_4.xml"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_75s_120m_201608.img",
+      "fetchedAt": "2026-11-14T23:23:51Z",
+      "sha256": "a354543b62871227a5066077f5ac61ed7e8dabd5268eb5a5aa4b147aa5bba61e",
+      "bytes": 116250752,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_75s_120m_201608.img"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_75s_120m_201608.lbl",
+      "fetchedAt": "2026-11-14T23:23:53Z",
+      "sha256": "1b597f85822c20e349469c9499e7bd85a48efc3a23b9dd9d82b658e59192883c",
+      "bytes": 4092,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_75s_120m_201608.lbl"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_75s_120m_201608_earth.img",
+      "fetchedAt": "2026-11-14T23:25:47Z",
+      "sha256": "443ad251a480dea19e96417dfcfe1cb87a91eb02ee158b262d78abe899258fff",
+      "bytes": 116250752,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_75s_120m_201608_earth.img"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_75s_120m_201608_earth.lbl",
+      "fetchedAt": "2026-11-14T23:25:49Z",
+      "sha256": "86eabf4611eaf18c4e9b170b205d517b014ec9e694bc93c80d693caf7c0ca015",
+      "bytes": 4112,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_75s_120m_201608_earth.lbl"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_85s_060m_201608.img",
+      "fetchedAt": "2026-11-14T23:21:32Z",
+      "sha256": "82dadf321dee28f1947c1fed81858d4cf50fe8eb2aa405aae114e8ab21c1efe1",
+      "bytes": 51166728,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_85s_060m_201608.img"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_85s_060m_201608.lbl",
+      "fetchedAt": "2026-11-14T23:21:33Z",
+      "sha256": "33decce957d5d4d9608557d8d969d1e1b94056a159b2563624ade4b528a0c917",
+      "bytes": 4094,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_85s_060m_201608.lbl"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_85s_060m_201608_earth.img",
+      "fetchedAt": "2026-11-14T23:22:54Z",
+      "sha256": "0958313069d6039b2474c875ff662f28dbcba2bd853d9ea458aa807b7948c11f",
+      "bytes": 51166728,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_85s_060m_201608_earth.img"
+    },
+    {
+      "datasetId": "lola-polar-illumination",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/extras/illumination/img/avgvisib_85s_060m_201608_earth.lbl",
+      "fetchedAt": "2026-11-14T23:22:56Z",
+      "sha256": "45a61697d779fdb9170bca2553f9e0188aeda1159811d3531c348df8f57f68bd",
+      "bytes": 4111,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-polar-illumination/avgvisib_85s_060m_201608_earth.lbl"
+    },
+    {
+      "datasetId": "lola-south-pole-ldem-2023",
+      "sourceUrl": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_60S_240MPP_ADJ.TIF",
+      "fetchedAt": "2026-11-15T00:10:52Z",
+      "sha256": "3f9663257b63022f2b0d5a623482ff3cadddceb91594a4e4ca14a94d8cec8b34",
+      "bytes": 218961039,
+      "license": "citation-required-no-license-stated",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-south-pole-ldem-2023/LDEM_60S_240MPP_ADJ.TIF"
+    },
+    {
+      "datasetId": "lola-south-pole-ldem-2023",
+      "sourceUrl": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDEM_80S_20MPP_ADJ.TIF",
+      "fetchedAt": "2026-11-15T01:41:58Z",
+      "sha256": "09b7ca80f9e6a146f970225d18af72fc02787669b3ef51b888e347d2b6845649",
+      "bytes": 2696082051,
+      "license": "citation-required-no-license-stated",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-south-pole-ldem-2023/LDEM_80S_20MPP_ADJ.TIF"
+    },
+    {
+      "datasetId": "lola-south-pole-ldem-2023",
+      "sourceUrl": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDRM_80S_50MPP_ADJ_RMSD_100M.TIF",
+      "fetchedAt": "2026-11-15T00:00:55Z",
+      "sha256": "de1f2989579caf103920244428cd786c3de3c5ddc4e9505138a79a1fb50f76fc",
+      "bytes": 616179877,
+      "license": "citation-required-no-license-stated",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-south-pole-ldem-2023/LDRM_80S_50MPP_ADJ_RMSD_100M.TIF"
+    },
+    {
+      "datasetId": "lola-south-pole-ldem-2023",
+      "sourceUrl": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LDRM_80S_50MPP_ADJ_SLP_100M.TIF",
+      "fetchedAt": "2026-11-14T23:35:27Z",
+      "sha256": "e6cf7c40e18a46b84611aeb15586264539d735cf00b43d83522ae2991c3a8be4",
+      "bytes": 619564078,
+      "license": "citation-required-no-license-stated",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-south-pole-ldem-2023/LDRM_80S_50MPP_ADJ_SLP_100M.TIF"
+    },
+    {
+      "datasetId": "lola-south-pole-ldem-2023",
+      "sourceUrl": "https://pgda.gsfc.nasa.gov/data/LOLA_20mpp/LPSR_80S_20MPP_ADJ.TIF",
+      "fetchedAt": "2026-11-14T23:17:30Z",
+      "sha256": "ad95311b81db773039af441dd66a017f024327858c6e0314b8c92bf2f470834e",
+      "bytes": 154221202,
+      "license": "citation-required-no-license-stated",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lola-south-pole-ldem-2023/LPSR_80S_20MPP_ADJ.TIF"
     }
   ]
 }
