@@ -465,3 +465,36 @@ to H3: these are lunar, not Earth, datasets.
   Tycho, Aristarchus, Mare Imbrium). Tests: `uv run python -m unittest
   discover -s tests` (plain and `-O`), including
   `tests/test_moon_geology.py`.
+
+## W46 (#105) Mars CRISM MTRDR spectral summary parameters (my own section)
+
+Mars, source-native grid (no H3). `python -m p0ingest.mars_crism --fetch`
+snapshots the PDS Geosciences MTRDR bundle `mrocr_4001`: the monthly index
+tabs (`mtrdr*_index.tab`, 2006-2012), bundle docs (aareadme, readme, errata,
+`mtr_map.cat`, `indxinfo.txt`, the MTRDR SIS) and 10 map-projected
+SPECTRAL_SUMMARY_PARAMETERS (SU) scenes around Jezero (FRT000066A4,
+HRL000040FF), Gale (FRT0001B696, FRT0000901A), Meridiani (FRT0000334D),
+Gusev (FRT00003192), Mawrth Vallis (FRT0000C596, FRT000119DC), and Nili
+Fossae (FRT0000805F); full per-region mapping lives in SCENES in the
+module. All ~1.2 GB pass through `snapshots.fetch` (URL, UTC fetch
+time, sha256, bytes, licence in MANIFEST.json). Us-pd licence, already
+verified in `data/catalog/crism-mro.yaml`.
+
+`python -m p0ingest.mars_crism` builds
+`_derived/planetary/crism-mtrdr/crism-mtrdr-summary.parquet`
+(5,264,901 rows). Key is `(observation_id, source_line, source_sample)`;
+`latitude`/`longitude` are pixel centres on each scene's equirectangular
+map, from the label corner pins (validated against all four corners).
+14 parameters with the source's own names and definitions — BD1900_2,
+BD1900R2, D2300, BD2290, BD2210_2, BD2165, SINDEX2, BD2100_2, BD2500_2,
+MIN2295_2480, MIN2345_2537, OLINDEX3, LCPINDEX2, HCPINDEX2 (Viviano-Beck
+et al. 2014), kept unthresholded. Fill value 65535 becomes null plus a
+per-row `missing_reason` whose keys are exactly that row's null parameter
+columns ("fill-65535"). `check` verifies MANIFEST hashes, keys, footprint
+bounds, missing reasons, and compares 18 spot pixels (168 band values)
+against direct raw reads of the .IMG cubes. Gaps in
+`preparation-report.json`: no licensed global CRISM summary-parameter
+mosaic exists in PDS; Gale Bradbury landing-site pixels are outside the
+archived v3 MTRDR scenes. TES-comparable caveats: scene positions carry
+~0.3-0.5 deg CRISM map uncertainty; indices are band-depth ratios, not
+abundances.
