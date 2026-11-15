@@ -10,19 +10,28 @@ discovery:
   doi: null
 source:
   archive: "LROC (ASU)"
-  endpoint: "https://www.lroc.im-ldi.com/atlases/pits"
+  endpoint: "https://www.lroc.im-ldi.com/atlases/pits/lroc_pits_atlas.pdf"
   probedAt: 2026-11-13T00:20:21Z
-  probeResult: "HTTP 200, 40605 B, sha256 74fb23d82359…"
+  probeResult: "HTTP 200, 40605 B, sha256 74fb23d82359…; 2026-11-14 the catalogue PDF (146,195,230 B) was snapshotted, see MANIFEST"
 probe:
   kind: http
   url: "https://www.lroc.im-ldi.com/atlases/pits"
   expect: ["Pits Atlas"]
 license:
-  id: unresolved
-  textUrl: null
-  expect: []
-  verified: false
-  note: "LROC terms not stated on page"
+  id: us-pd
+  textUrl: "https://www.lroc.im-ldi.com/about/terms"
+  expect: ["Data products available through the LROC Data Node of the PDS or through NASA PDS interfaces are in the public domain"]
+  verified: true
+  note: >
+    W39 (#98) licence evidence found 2026-11-14, superseding the W3 'not stated' note.
+    The LROC Terms of Use & Citation Policy page states: 'Data products available
+    through the LROC Data Node of the PDS or through NASA PDS interfaces are in the
+    public domain (see list of URLs below)' and lists lroc.im-ldi.com and
+    pds.lroc.im-ldi.com among those URLs; the pits catalogue table (a data table,
+    not an image) is served from www.lroc.im-ldi.com. Page probed live 2026-11-14
+    (HTTP 200, 45841 B, sha256 c4decdfcfe9712953d7db17418b30ed7f92a8d930f91688f14062a07908d430a).
+    Scope: the catalogue table; website images stay copyrighted per the same page.
+    Owner sign-off requested in the W39 PR.
 coverage:
   spatial: "global Moon"
   temporal: ""

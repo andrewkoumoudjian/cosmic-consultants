@@ -1,0 +1,31 @@
+siteId: moon-feature-slater
+name: Slater
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -88.0792
+centreLon: 111.2881
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Slater
+extent:
+  kind: bounding-box
+  minLat: -88.482
+  maxLat: -87.6536
+  minLon: 99.2083
+  maxLon: 123.4345
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 region "Slater Plain"
+usgsCrossCheck:
+  feature: Slater
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Slater;clean_name=Slater;approvaldt=2015/05/04 00:00:00;diameter=25.119000000000000;center_lon=111.288100000000000;center_lat=-88.079200000000000;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

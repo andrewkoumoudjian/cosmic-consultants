@@ -1,0 +1,31 @@
+siteId: moon-feature-haworth
+name: Haworth
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -87.45
+centreLon: 354.83000000000004
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Haworth
+extent:
+  kind: bounding-box
+  minLat: -88.2996
+  maxLat: -86.6038
+  minLon: 335.4468
+  maxLon: 374.3268
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of a 2024 candidate region
+usgsCrossCheck:
+  feature: Haworth
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Haworth;clean_name=Haworth;approvaldt=2008/10/30 00:00:00;diameter=51.423057999999997;center_lon=354.830000000000041;center_lat=-87.450000000000003;type=Crater,
+    craters;code=AA;approval=Adopted by IAU
