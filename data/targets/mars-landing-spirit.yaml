@@ -1,0 +1,23 @@
+siteId: mars-landing-spirit
+name: Spirit rover touchdown, Gusev Crater
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: -14.572
+centreLon: 175.478
+note: landed 2004-01-04; same page also quotes the 96 x 19 km landing ellipse centred
+  at 14.82 S, 175.15 E
+source:
+  datasetId: mars-lander-sites
+  file: nssdc-2003-027A-spirit.xhtml
+  url: https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-027A
+  fetchedAt: '2026-11-14T23:29:43Z'
+  sourceSha256: 325fea4c8713a6c000efd615fae856c497d92a93f9610540240bebc5a7da8512
+  quote: in Gusev Crater, at 14.572 S, 175.478 E
+usgsCrossCheck:
+  feature: Gusev
+  diffKm: 3.6
+  expectedMaxKm: 79
+  note: 'crater-scale: Gusev is a 158 km crater and the touchdown is 3.6 km from its
+    gazetteer centre; tolerance = half the crater diameter'

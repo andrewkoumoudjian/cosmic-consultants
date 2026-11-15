@@ -23,7 +23,7 @@ import pyarrow.parquet as pq
 from pyhdf.SD import SD, SDC
 
 from .grid import DERIVED, RES, cell_center, cmg_cell_map, group_index
-from .monthly import lst_monthly, write_monthly
+from .monthly import YEAR, lst_monthly, write_monthly
 from .snapshots import SNAP, load_manifest, sha256
 
 LST_SCALE = 0.02  # K per count, MOD11C3 V061; fill 0; valid 7500..65535
@@ -61,7 +61,8 @@ def thermal(order, starts):
     """One pass over the 12 MOD11C3 granules (monthly.lst_monthly).
     Returns per-cell L1 columns, the L1m monthly arrays, and the input files.
     Yearly extremes = max/min over the monthly medians (spec §5, one rule)."""
-    files = _manifest_files("modis-mod11c3")
+    # L1/L1m use 2023 only; other years are in the manifest for L1m-years (years.py).
+    files = [e for e in _manifest_files("modis-mod11c3") if f".A{YEAR}" in e["localPath"]]
     day_m, night_m, nboth, rsum, rn, thin_day, thin_night = lst_monthly(files, order, starts, _group_stat)
     rng = np.where(rn > 0, rsum / np.maximum(rn, 1), np.nan)
     with np.errstate(all="ignore"):
@@ -82,6 +83,9 @@ def row_reasons(lat: np.ndarray, cols: dict[str, np.ndarray]) -> list[str]:
     in_pf_model = ((lat >= 25) & (lat <= 85)) | ((lat >= -85) & (lat <= -60))
     checks = [
         ("thermal", np.isnan(cols["lst_day_max_k"]) | np.isnan(cols["lst_night_min_k"]), "no-lst-pixels"),
+        # extremes exist, but no pixel had a day AND a night value in the same month,
+        # so the diurnal range is null (found by the assembler, #69: 21 hexagons)
+        ("thermal", np.isnan(cols["lst_diurnal_range_mean_k"]), "no-same-month-day-night-pixels"),
         ("surfaceMaterial", np.isnan(cols["barren_pct"]), "no-landcover-pixels"),
         ("terrain", np.isnan(cols["slope_mean_deg"]) if "slope_mean_deg" in cols else np.ones(len(lat), bool), "no-dem-tile"),
     ]
@@ -90,7 +94,7 @@ def row_reasons(lat: np.ndarray, cols: dict[str, np.ndarray]) -> list[str]:
     for i in range(len(lat)):
         r = {"dustProcess": "dust-blocked"}
         for trait, mask, code in checks:
-            if mask[i]:
+            if mask[i] and trait not in r:  # first matching code wins
                 r[trait] = code
         if pf_null[i]:
             r["waterIce"] = "permafrost-not-modelled" if in_pf_model[i] else "outside-permafrost-model"

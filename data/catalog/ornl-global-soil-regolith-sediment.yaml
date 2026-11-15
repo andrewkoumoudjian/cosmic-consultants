@@ -1,0 +1,32 @@
+# Registry row (W26, issue #66). Descriptive fields are human-reviewed; source.probedAt,
+# source.probeResult and license.verified are written by scripts/registry_probe.py.
+datasetId: ornl-global-soil-regolith-sediment
+title: "Global 1-km Gridded Thickness of Soil, Regolith, and Sedimentary Deposit Layers (Pelletier et al. 2016, ORNL DAAC 1304)"
+status: candidate
+bodies: [earth]
+dimensions: [subsurface]
+discovery:
+  ckanName: null
+  doi: "10.3334/ORNLDAAC/1304"
+source:
+  archive: "Earthdata (ORNL DAAC, ORNL_CLOUD)"
+  endpoint: "https://cmr.earthdata.nasa.gov/search/concepts/C2216864025-ORNL_CLOUD"
+  probedAt: 2026-11-14T19:01:40Z
+  probeResult: "CMR C2216864025-ORNL_CLOUD: HTTP 200, Global_Soil_Regolith_Sediment_1304 v1, DOI 10.3334/ORNLDAAC/1304, granules 6"
+probe:
+  kind: cmr
+  conceptId: C2216864025-ORNL_CLOUD
+license:
+  id: ornl-daac-open-no-restriction
+  textUrl: "https://daac.ornl.gov/cgi-bin/dsviewer.pl?ds_id=1304"
+  expect: ["openly shared, without restriction"]
+  verified: true
+  note: "ORNL DAAC dataset page: 'openly shared, without restriction, in accordance with the EOSDIS Data Use and Citation Guidance'. Cite Pelletier et al. 2016, doi:10.3334/ORNLDAAC/1304. Data files sit behind Earthdata login (protected path)."
+coverage:
+  spatial: "land 60 S to 90 N (no Antarctica), 30 arcsec grid (43,200 x 18,000)"
+  temporal: "static ('geological present'); CMR time_start 1900-01-01 is a placeholder"
+  resolution: "30 arcsec (~1 km)"
+analysisReady: true
+independenceGroup: model-regolith-thickness
+plannedUse: "subsurface: regolith_thick_m (L1), median per hexagon of upland regolith thickness (uplands) and sedimentary deposit thickness (lowlands), capped at 50 m by the product"
+snapshotPolicy: "four GeoTIFF layers (upland regolith, lowland sediment, land-cover mask, average) + the PDF user guide, each hashed in MANIFEST.json; static, no refresh"

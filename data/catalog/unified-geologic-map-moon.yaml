@@ -10,19 +10,23 @@ discovery:
   doi: null
 source:
   archive: "USGS Astrogeology (Astropedia)"
-  endpoint: "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020"
+  endpoint: "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip"
   probedAt: 2026-11-13T00:22:06Z
-  probeResult: "HTTP 200, 26134 B, sha256 967908b8032a…"
+  probeResult: >
+    HTTP 200, 26134 B, sha256 967908b8032a…. W39 (#98) 2026-11-14: the GIS download
+    Unified_Geologic_Map_of_the_Moon_GIS_v2.zip (224,413,040 B) is snapshotted from
+    the link on that page; it contains the GeoUnits/GeoContacts shapefiles and the
+    Description-of-Map-Units csv used by moon_geology.py.
 probe:
   kind: http
   url: "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020"
   expect: ["Unified Geologic Map of the Moon"]
 license:
   id: cc0
-  textUrl: null
+  textUrl: "https://astrogeology.usgs.gov/search/map/unified_geologic_map_of_the_moon_1_5m_2020"
   expect: ["Use Constraints CC0"]
   verified: true
-  note: "page: 'CC0, but please cite authors'"
+  note: "page: 'CC0, but please cite authors'; Use Constraints section re-verified 2026-11-14 (page sha256 40f6d25b5fd2fd4b8a88debec866617e9d35009505be5826efeb05289a6ef671)"
 coverage:
   spatial: "global Moon"
   temporal: "Edition 2.0, 2020-03-03"

@@ -1,0 +1,24 @@
+name: ingest
+
+on:
+  push:
+    branches: [main]
+    paths: ['services/ingest/**', '.github/workflows/ingest.yml']
+  pull_request:
+    paths: ['services/ingest/**', '.github/workflows/ingest.yml']
+
+jobs:
+  reader-regressions:
+    name: Ingest reader regressions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install ingest with pinned dependencies
+        run: python -m pip install -e services/ingest
+      - name: Check source decoding and missingness regressions
+        run: |
+          python -m unittest discover -s services/ingest/tests -p 'test_*.py'
+          python -O -m unittest discover -s services/ingest/tests -p 'test_*.py'

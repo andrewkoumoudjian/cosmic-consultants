@@ -1,0 +1,31 @@
+siteId: mars-feature-elysium-planitia
+name: Elysium Planitia
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: 2.979
+centreLon: 154.7372
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Elysium Planitia
+extent:
+  kind: bounding-box
+  minLat: -7.7709
+  maxLat: 11.4038
+  minLon: 128.256
+  maxLon: 179.1131
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: hosts the InSight (2018) touchdown area
+usgsCrossCheck:
+  feature: Elysium Planitia
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Elysium Planitia;clean_name=Elysium Planitia;approvaldt=1973/01/01 00:00:00;diameter=3000.789299999999912;center_lon=154.737200000000001;center_lat=2.979000000000000;type=Planitia,
+    planitiae;code=PL;approval=Adopted by IAU
