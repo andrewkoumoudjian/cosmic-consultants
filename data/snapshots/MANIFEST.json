@@ -3410,6 +3410,146 @@
       "localPath": "data/snapshots/mola-megdr/megt90n000eb.lbl"
     },
     {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/aareadme.txt",
+      "fetchedAt": "2026-11-14T22:30:45Z",
+      "sha256": "7507f0c58143a79972134cc3cc7169a3f764bbcdb44346330e0c548d8d15b3a4",
+      "bytes": 5483,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/aareadme.txt"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/catalog/dataset.cat",
+      "fetchedAt": "2026-11-14T22:30:47Z",
+      "sha256": "f5d11d7f52829ddd64a5d084b00dd0860de73aa62972245fb6ebb822ab772ad6",
+      "bytes": 19189,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/dataset.cat"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/unsmoothed/2x2/h2o_2x2.lbl",
+      "fetchedAt": "2026-11-14T22:30:58Z",
+      "sha256": "e1424cfe0b6d77a88607d23ff42c43db2fa535df8ab990bc335a090cf05ca15a",
+      "bytes": 4732,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_2x2.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/unsmoothed/2x2/h2o_2x2.tab",
+      "fetchedAt": "2026-11-14T22:31:01Z",
+      "sha256": "05154f2f531fb0462f45b46c70db60d198db07f4fc8fc59cee0c75a8e66d0a64",
+      "bytes": 1045440,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_2x2.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/h2o_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:49Z",
+      "sha256": "1333eef6d604f45af7e9e9f2899e5586b7747b13ad746a389d83ab1adbcf7000",
+      "bytes": 4653,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/h2o_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:50Z",
+      "sha256": "5cec0d637755ddb7a451f58d7b24b6fb34f081e3391b40cdfca5410200da0236",
+      "bytes": 186624,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/k_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "210a986fa38a02a97b1d911c37d5792f8cfb59a0f6f077da2598b46ee2eabfb2",
+      "bytes": 4642,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/k_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/k_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "66eb41ab27c29aac6af75a1512630e894c211158d5bee476beaf801e1be4826d",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/k_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/kvsth_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:56Z",
+      "sha256": "4192cf8dd06d8975056ef9581fc9399c313024acccf69726d74dd8fc29d3b6b1",
+      "bytes": 4781,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/kvsth_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/kvsth_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:57Z",
+      "sha256": "11181262479dd743f8423bd9f02ff67b024bf19ec0ec3909f9d47e186140084d",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/kvsth_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/catalog/ref.cat",
+      "fetchedAt": "2026-11-14T22:30:48Z",
+      "sha256": "424b88e7e8704ada3ec14675a2ddbfd14fbeb18379bc9f5f215e91c9088ab40c",
+      "bytes": 3991,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/ref.cat"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/th_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:51Z",
+      "sha256": "57ea5618e023046980a986bde184d179ec249bc04c27c94def353277fff4676e",
+      "bytes": 4645,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/th_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/th_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:54Z",
+      "sha256": "6c6ce0c50aee39353e99723eab19fc3c9e4ad65bad88c3fbe4bc48b08cd18919",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/th_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/voldesc.cat",
+      "fetchedAt": "2026-11-14T22:30:48Z",
+      "sha256": "a9b884ee2e6858b6e3d3f54d48ed8db7dc8a1cc186cfdff13b355c38ad882eca",
+      "bytes": 1870,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/voldesc.cat"
+    },
+    {
       "datasetId": "ornl-global-soil-regolith-sediment",
       "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
       "fetchedAt": "2026-11-14T19:57:19Z",

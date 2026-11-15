@@ -499,6 +499,47 @@ archived v3 MTRDR scenes. TES-comparable caveats: scene positions carry
 ~0.3-0.5 deg CRISM map uncertainty; indices are band-depth ratios, not
 abundances.
 
+## Mars ice + neutron source tables (#106): GRS + SWIM (my own section)
+
+`python -m p0ingest.mars_ice fetch|build|check|drive` prepares static,
+dataset-native Mars maps. No resampling, no H3, no similarity work; the
+parent assembler joins what it needs.
+
+- **ody-grs-pds** (PDS Geosciences `ODY-M-GRS-5-ELEMENTS-V1.0`, product
+  version 2.0): the published derived element concentration maps from
+  2002-06-04 to 2005-04-03. Thirteen labelled snapshot files produce five
+  Parquet tables under `data/snapshots/_derived/planetary/ody-grs-pds/`:
+  `grs-weh-5deg-smoothed.parquet` (2,592 bins: WEH, the mapped H2O wt%,
+  with both published sigma columns), `grs-weh-2deg-unsmoothed.parquet`
+  (15,840 bins, published negatives retained), `grs-th-5deg-smoothed.parquet`,
+  `grs-k-5deg-smoothed.parquet` (both ppm) and
+  `grs-kth-ratio-5deg-smoothed.parquet` (K/Th ratio; its PDS label says
+  "parts per million" for a ratio — quirk kept as labelled). Keys are the
+  published bin centres (latitude, longitude); only the label
+  NOT_APPLICABLE_CONSTANT 9999.999 becomes null, with a per-row JSON
+  `missing_reason` whose keys are exactly that row's null value columns.
+  WEH is model-derived (inversion against forward-modelled counts with
+  water/iron correction factors, per catalog/dataset.cat). Sensing depth is
+  order ~1 m of regolith (gamma lines shallower, neutrons deeper) — a
+  literature property, not stated in metres in the archive. The suite
+  samples to a fixed depth for the whole 2002–2005 window: static map, no
+  time step to preserve.
+- **swim-mars-ice** (SWIM consistency layers, Morgan et al. 2021): blocked
+  during this work order. swim.psi.edu answered HTTP 523 (origin down) on
+  every probe since 2026-11-14 22:29 UTC; no PDS, ScienceBase or
+  data.nasa.gov mirror exists (searches returned 0). The registry row also
+  records the licence as unresolved — usable values need both a live fetch
+  and licence evidence. Evidence and retries are on issue #106 and the
+  board.
+
+`check` verifies every input hash/size against MANIFEST, output hashes,
+uniqueness of (latitude, longitude), exact published bin centres,
+documented plausibility ranges, `missing_reason`-vs-null agreement and 5
+raw spot checks per product against an independent whitespace-split parse
+(25 total). `swim_status` records a live SWIM probe into the wave of
+evidence. Unit tests: `python -m unittest discover -s tests`. Drive copy:
+`python -m p0ingest.mars_ice drive` (rclone + checksum verify).
+
 ## Mars THEMIS IR controlled mosaics, six landing-site ROIs (W45, #104, my own section)
 
 - `python -m p0ingest.mars_themis fetch` downloads, through
