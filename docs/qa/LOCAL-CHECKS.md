@@ -10,6 +10,7 @@ From a checkout with dependencies already prepared:
 python scripts/local_checks.py --group json
 python scripts/local_checks.py --group contracts --group atlas --keep-going
 python scripts/local_checks.py --group ingest --python /path/to/prepared/python
+python scripts/local_checks.py --group engine --python /path/to/prepared/python
 python scripts/local_checks.py --group lean --timeout 7200
 python scripts/local_checks.py --group atlas --dry-run
 python -m unittest discover -s scripts/tests -p test_local_checks.py
@@ -28,13 +29,17 @@ Copy that directory to your review evidence location if it must survive temp cle
 | contracts | `python scripts/validate_contracts.py --self-test` | Validator dependencies pinned in `.github/workflows/ci.yml` |
 | atlas | `npm run build`, `npm test` if the checkout defines it, `npm run check:mock` | Node/npm and atlas dependencies from its lockfile (`npm ci` separately) |
 | ingest | unittest discovery in `services/ingest/tests`, plain and `-O` | Prepared ingest environment per its pyproject and CI workflow |
+| engine | `python -m unittest discover -s tests -v`, plain and `-O`, from `services/engine` | Prepared engine/test dependencies per `services/engine/pyproject.toml` and `engine.yml`; CI uses Python 3.12 |
 | lean | sorry/admit text scan, `lake build`, `lake env lean Analog/Audit.lean` | elan/Lake, pinned `proofs/lean-toolchain` and Mathlib/cache already prepared |
 
-The runner is based on `.github/workflows/{ci,atlas,ingest}.yml` at main
-`e4925899150634819a4a170202e15b7b5723b9e7`. It records current workflow hashes;
+The runner is based on `.github/workflows/{ci,atlas,ingest,engine}.yml` at main
+`10cd74c` (the engine workflow joined the repository with #149). It records current workflow hashes;
 it does not interpret arbitrary YAML or promise to follow future workflow edits.
 Compare the planned commands with current workflows before citing parity. The
 optional atlas test also covers branches that add a package test script.
+The engine group runs unit/adapter tests only; it does not build a real-data
+release, rerun the browser golden-artifact check or run Playwright. Those remain
+separate acceptance steps with their own environment and input requirements.
 
 Each step has its own merged stdout/stderr log. `receipt.json` records the
 checkout revision/tree status, runner hash, local Python/platform, workflow

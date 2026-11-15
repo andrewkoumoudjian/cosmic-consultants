@@ -104,3 +104,37 @@ columns:
   dust_months_used: {kind: computed, role: diagnostic, support: "count of valid 2023 monthly DUEXTTAU values contributing to each source annual summary", family: merra2}
   dust_aod_max_month: {kind: computed, role: diagnostic, support: "1-based month of maximum valid 2023 monthly DUEXTTAU; earliest tie; calendar diagnostic", family: merra2}
   burned_years_mapped: {kind: computed, role: diagnostic, support: "count of mapped source years contributing to each cell/calendar-month summary, 2015-2024", family: modis-mcd64}
+  # EMIT L2B mineral identification v002 (#97; deterministic 197-granule sample; earth-wavelength spectral library)
+  emit_n_observed:              {kind: computed, role: diagnostic, support: "EMIT L2B V002 geologic-identified 60 m pixel-observations pooled over 197 sampled granules (organic/cyanide excluded)", family: nasa-emit-l2b}
+  emit_min_hydration_share:     {kind: observed, support: "EMIT L2B V002 share of identified pixels in hydration mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_hydration_bd_med:    {kind: observed, support: "EMIT L2B V002 median band depth for hydration mineral family (0.001-wide histogram)", family: nasa-emit-l2b}
+  emit_min_hydration_px:        {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for hydration mineral family", family: nasa-emit-l2b}
+  emit_min_fe_mg_smectite_share:  {kind: observed, support: "EMIT L2B V002 share of identified pixels in Fe/Mg-smectite mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_fe_mg_smectite_bd_med: {kind: observed, support: "EMIT L2B V002 median band depth for Fe/Mg-smectite mineral family", family: nasa-emit-l2b}
+  emit_min_fe_mg_smectite_px:     {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for Fe/Mg-smectite mineral family", family: nasa-emit-l2b}
+  emit_min_al_oh_share:         {kind: observed, support: "EMIT L2B V002 share of identified pixels in Al-OH (kaolinite/illite) mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_al_oh_bd_med:        {kind: observed, support: "EMIT L2B V002 median band depth for Al-OH mineral family", family: nasa-emit-l2b}
+  emit_min_al_oh_px:            {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for Al-OH mineral family", family: nasa-emit-l2b}
+  emit_min_sulfate_share:       {kind: observed, support: "EMIT L2B V002 share of identified pixels in sulfate (gypsum) mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_sulfate_bd_med:      {kind: observed, support: "EMIT L2B V002 median band depth for sulfate mineral family", family: nasa-emit-l2b}
+  emit_min_sulfate_px:          {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for sulfate mineral family", family: nasa-emit-l2b}
+  emit_min_carbonate_share:     {kind: observed, support: "EMIT L2B V002 share of identified pixels in carbonate (calcite/dolomite) mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_carbonate_bd_med:    {kind: observed, support: "EMIT L2B V002 median band depth for carbonate mineral family", family: nasa-emit-l2b}
+  emit_min_carbonate_px:        {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for carbonate mineral family", family: nasa-emit-l2b}
+  emit_min_mafic_bd_1um_share:  {kind: observed, support: "EMIT L2B V002 share of identified pixels in Fe2+/olivine 1 um mineral family (60 m -> H3 res-4)", family: nasa-emit-l2b}
+  emit_min_mafic_bd_1um_bd_med: {kind: observed, support: "EMIT L2B V002 median band depth for Fe2+/olivine 1 um mineral family", family: nasa-emit-l2b}
+  emit_min_mafic_bd_1um_px:     {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for Fe2+/olivine 1 um mineral family", family: nasa-emit-l2b}
+  emit_min_dust_proxy_share:    {kind: observed, support: "EMIT L2B V002 share of identified pixels in Fe3+ iron-oxide dust-proxy family (NOT TES DCI)", family: nasa-emit-l2b}
+  emit_min_dust_proxy_bd_med:   {kind: observed, support: "EMIT L2B V002 median band depth for Fe3+ iron-oxide dust-proxy family", family: nasa-emit-l2b}
+  emit_min_dust_proxy_px:       {kind: computed, role: diagnostic, support: "EMIT L2B V002 pixel-observation count for Fe3+ iron-oxide dust-proxy family", family: nasa-emit-l2b}
+  # MODIS/Terra MOD44B v061 Vegetation Continuous Fields (A2025 yearly)
+  vcf_percent_tree_cover_pct_median:        {kind: observed, support: "MOD44B v061 A2025 tree cover %, hexagon median over 0.05 deg lattice means", family: modis-mod44b}
+  vcf_percent_nontree_vegetation_pct_median: {kind: observed, support: "MOD44B v061 A2025 non-tree vegetation %, hexagon median over 0.05 deg lattice means", family: modis-mod44b}
+  vcf_percent_nonvegetated_pct_median:      {kind: observed, support: "MOD44B v061 A2025 non-vegetated (bare) %, hexagon median over 0.05 deg lattice means", family: modis-mod44b}
+  vcf_percent_tree_cover_pct_mean:          {kind: observed, support: "MOD44B v061 A2025 tree cover %, exact hexagon mean of valid 250 m pixels", family: modis-mod44b}
+  vcf_percent_nontree_vegetation_pct_mean:  {kind: observed, support: "MOD44B v061 A2025 non-tree vegetation %, exact hexagon mean of valid 250 m pixels", family: modis-mod44b}
+  vcf_percent_nonvegetated_pct_mean:        {kind: observed, support: "MOD44B v061 A2025 non-vegetated (bare) %, exact hexagon mean of valid 250 m pixels", family: modis-mod44b}
+  vcf_lattice_px:                           {kind: computed, role: diagnostic, support: "MOD44B v061 0.05 deg lattice pixel count in hexagon", family: modis-mod44b}
+  vcf_percent_tree_cover_valid_native_px:   {kind: computed, role: diagnostic, support: "MOD44B v061 valid 250 m pixel count in hexagon, tree cover", family: modis-mod44b}
+  vcf_percent_nontree_vegetation_valid_native_px: {kind: computed, role: diagnostic, support: "MOD44B v061 valid 250 m pixel count in hexagon, non-tree vegetation", family: modis-mod44b}
+  vcf_percent_nonvegetated_valid_native_px: {kind: computed, role: diagnostic, support: "MOD44B v061 valid 250 m pixel count in hexagon, non-vegetated", family: modis-mod44b}

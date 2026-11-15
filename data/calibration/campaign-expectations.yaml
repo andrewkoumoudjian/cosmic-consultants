@@ -1,0 +1,190 @@
+# W15 (#23): what we expect each past campaign's own site to show, frozen
+# BEFORE the engine is run on any of them (ADR-0005 D8; issue #23 kill
+# criterion). This file is never edited after the results commit. A wrong
+# expectation stays wrong and shows up as a disagreement in the results.
+#
+# Written by Claude Code / claude-opus-5-5 / T3 Code / Andrew Koumoudjian on
+# 2026-11-15. No assembled site value was read before this file was written;
+# predictions come from what is publicly known about each place.
+#
+# What this is NOT: a site score, a rating of how alike Earth and Mars are,
+# or scientific acceptance. It checks one thing: do the engine's per-trait
+# verdicts agree with what a field scientist would expect at a site NASA or
+# its partners already used, under the bands in data/requirements/trait-map.yaml.
+version: 1
+status: frozen
+issue: 23
+engine: services/engine planner workflow (frozen S7 semantics, Analog/Funnel.lean)
+
+# Every campaign in data/campaigns/ has objectiveId: null, so linking a campaign
+# to one of our three objectives is our reading, not the source's.
+mappingStatus: team interpretation (proposed); the sources do not name M2M objective IDs
+
+# Two ways to run each campaign's request.
+#  shipped:   priorities exactly as the trait map ships them (no must/nice in
+#             the request). OP-5LM: terrain is nice; surfaceMaterial,
+#             dustProcess and thermal default to must.
+#  bandsOnly: only the traits that have a band are must; the rest are nice.
+#             This shows what the funnel does once unbanded traits stop blocking.
+variants:
+  shipped: {}
+  bandsOnly:
+    OP-5LM:
+      must: [surfaceMaterial]
+      nice: [terrain, dustProcess, thermal]
+
+# Grid-wide expectations for each variant, across all 91,800 land hexagons.
+grid:
+  - objectiveId: OP-5LM
+    variant: shipped
+    expected:
+      matches: 0
+      paretoLayered: 0
+    confidence: certain
+    why: >-
+      dustProcess and thermal have no band in the trait map and default to must.
+      An unknown must-trait never counts as a match (S7), so no site can match.
+  - objectiveId: OP-5LM
+    variant: bandsOnly
+    expected:
+      matchesAtLeast: 1
+      paretoLayered: 0
+    confidence: certain for paretoLayered, high for matchesAtLeast
+    why: >-
+      Pareto layers are computed only for sites with no unknown trait. Two of the
+      four OP-5LM traits have no band, so they are unknown everywhere and no site
+      gets a layer. Some barren hexagon should match surfaceMaterial.
+
+campaigns:
+  - campaignId: mdrs-89
+    run: true
+    request:
+      body: mars
+      objectiveId: OP-5LM
+      missionType: crewed
+      months: {start: 1, end: 2}
+      durationDays: 14
+    monthsBasis: quote ("From 23 January through 6 February 2010")
+    mappingBasis: Simulated EVA operations is surface-mobility work (EVA suits, tools), the OP-5LM text.
+    expected:
+      surfaceMaterial:
+        verdict: match
+        confidence: medium
+        why: Hanksville badlands (Morrison/Mancos shale) are mostly bare ground, but a 1,770 km2 hexagon also takes in scrub.
+      terrain:
+        verdict: match
+        confidence: low
+        why: Badlands are locally steep, but the mean slope over a whole r4 hexagon should stay under 5 degrees.
+      dustProcess: {verdict: unknown, reason: no-band, confidence: certain}
+      thermal: {verdict: unknown, reason: no-band, confidence: certain}
+    expectedFunnel: {shipped: noMissSomeUnknown, bandsOnly: allMatch}
+
+  - campaignId: fmars-expedition-12
+    run: true
+    request:
+      body: mars
+      objectiveId: OP-5LM
+      missionType: crewed
+      months: {start: 7, end: 7}
+      durationDays: 30
+    monthsBasis: quote ("In July 2009 ... month-long simulated Mars expedition")
+    mappingBasis: EVA-based geophysical survey during a simulated Mars expedition is surface-mobility/EVA work.
+    expected:
+      surfaceMaterial:
+        verdict: match
+        confidence: medium
+        why: Devon Island around Haughton is polar desert with very sparse plant cover.
+      terrain:
+        verdict: match
+        confidence: medium
+        why: Haughton sits on a dissected plateau; the hexagon-mean slope should be gentle.
+      dustProcess: {verdict: unknown, reason: no-band, confidence: certain}
+      thermal: {verdict: unknown, reason: no-band, confidence: certain}
+    expectedFunnel: {shipped: noMissSomeUnknown, bandsOnly: allMatch}
+    note: Same r4 hexagon as hmp-2015 (8402543ffffffff); the yearly-trait verdicts should be identical.
+
+  - campaignId: hmp-2015
+    run: true
+    request:
+      body: mars
+      objectiveId: OP-5LM
+      missionType: crewed
+      months: {start: 7, end: 8}
+    monthsBasis: >-
+      interpretation. The source says only "summer field campaign"; July-August is
+      our reading of the Devon Island field season. No duration is quoted, so none is sent.
+    mappingBasis: >-
+      weak. The source names astrobiology and planetary-protection work; HMP is
+      also an EVA/rover test site, but this record does not quote that.
+    expected:
+      surfaceMaterial:
+        verdict: match
+        confidence: medium
+        why: Same hexagon as FMARS (polar desert).
+      terrain:
+        verdict: match
+        confidence: medium
+        why: Same hexagon as FMARS.
+      dustProcess: {verdict: unknown, reason: no-band, confidence: certain}
+      thermal: {verdict: unknown, reason: no-band, confidence: certain}
+    expectedFunnel: {shipped: noMissSomeUnknown, bandsOnly: allMatch}
+
+  - campaignId: desert-rats-2010
+    run: true
+    request:
+      body: mars
+      objectiveId: OP-5LM
+      missionType: crewed
+      months: {start: 8, end: 9}
+      durationDays: 14
+    monthsBasis: quote ("between 31 August and 13 September 2010")
+    mappingBasis: >-
+      Crewed-rover geology traverses are surface-mobility work. Desert RATS 2010
+      was not Mars-specific (the source says "volcanic terrains observed throughout
+      the Solar System"); OP-5LM is our closest objective.
+    expected:
+      surfaceMaterial:
+        verdict: match
+        confidence: low
+        why: Black Point basalt has sparse grass and shrub cover; bare ground should still be over half the hexagon, but it is close.
+      terrain:
+        verdict: match
+        confidence: medium
+        why: The lava flow is a gently sloping mesa; most of the hexagon is plateau.
+      dustProcess: {verdict: unknown, reason: no-band, confidence: certain}
+      thermal: {verdict: unknown, reason: no-band, confidence: certain}
+    expectedFunnel: {shipped: noMissSomeUnknown, bandsOnly: allMatch}
+
+  - campaignId: atacama-arads-2019
+    run: true
+    request:
+      body: mars
+      objectiveId: OP-5LM
+      missionType: robotic
+      months: {start: 9, end: 9}
+    monthsBasis: quote ("Our field work was performed in September 2019")
+    mappingBasis: >-
+      Rover-mounted drilling and sample handling is robotic surface operation. The
+      life-search purpose has no matching objective in data/objectives/.
+    expected:
+      surfaceMaterial:
+        verdict: match
+        confidence: high
+        why: The hyperarid core of the Atacama is close to fully bare.
+      terrain:
+        verdict: match
+        confidence: low
+        why: >-
+          The site is in the Coastal Cordillera near the coastal escarpment. The
+          hexagon may take in steep ground, so this could miss.
+      dustProcess: {verdict: unknown, reason: no-band, confidence: certain}
+      thermal: {verdict: unknown, reason: no-band, confidence: certain}
+    expectedFunnel: {shipped: noMissSomeUnknown, bandsOnly: allMatch}
+
+  - campaignId: hiseas-iv
+    run: false
+    reason: >-
+      Not run. HI-SEAS IV is a one-year isolation and habitat-microbiome study.
+      None of our three objectives (OP-5LM surface mobility, SE-3LM water ice,
+      LI-5L lunar infrastructure) covers it, and inventing a mapping would make the
+      calibration look broader than it is.

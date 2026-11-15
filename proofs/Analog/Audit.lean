@@ -33,7 +33,7 @@ import Analog
 #print axioms Analog.ReadinessProofs.s6g_not_rateable
 #print axioms Analog.ReadinessProofs.s6z_empty_required
 #print axioms Analog.ReadinessProofs.s6u_all_unknown
--- W21 (#80): S7 funnel + S8 closeness split (statements in #84; accepted after owner freeze)
+-- W21 (#80): S7 funnel + S8 closeness split (statements in #84; owner freeze pending)
 #print axioms Analog.FunnelProofs.s7a_match_iff
 #print axioms Analog.FunnelProofs.s7b_unknown_not_match
 #print axioms Analog.FunnelProofs.s7c_tighten_band
@@ -74,15 +74,16 @@ import Analog
 #print axioms PerpChief.TheoryModels1.paired_score_sum
 #print axioms PerpTheory.cantelli
 
--- #132: proofs of the unchanged, frozen S7 propositions
-#print axioms Analog.FunnelProofs.s7a_match_iff
-#print axioms Analog.FunnelProofs.s7b_unknown_not_match
-#print axioms Analog.FunnelProofs.s7c_tighten_band
-#print axioms Analog.FunnelProofs.s7d_add_must
-#print axioms Analog.FunnelProofs.s7e_window_matched
-#print axioms Analog.FunnelProofs.s7e_window_missed
-#print axioms Analog.FunnelProofs.s7f_class_allMatch_iff
-#print axioms Analog.FunnelProofs.s7g_nice_never_filters
-#print axioms Analog.FunnelProofs.s7h_more_months
-#print axioms Analog.FunnelProofs.s7i_unknown_limit_kept
-#print axioms Analog.FunnelProofs.s7z_empty_window
+-- W22 (#170): S9 Pareto layer peeling & S10 CVaR campaign optimization proofs
+#print axioms Analog.ParetoLayersProofs.s9a_layer_incomparable
+#print axioms Analog.ParetoLayersProofs.s9b_dominates_strictly_later
+#print axioms Analog.ParetoLayersProofs.s9c_equal_vectors_same_layer
+#print axioms Analog.ParetoLayersProofs.s9d_layer_partition
+#print axioms Analog.ParetoLayersProofs.s9e_unknown_excluded
+#print axioms Analog.ParetoLayersProofs.s9f_tradeoff_never_separated
+#print axioms Analog.ParetoLayersProofs.s9g_dp_recurrence
+#print axioms Analog.CampaignOptProofs.s10a_epigraph_tight
+#print axioms Analog.CampaignOptProofs.s10b_cvar_screening_exact
+#print axioms Analog.CampaignOptProofs.s10c_convex_feasible
+#print axioms Analog.CampaignOptProofs.s10d_dual_subopt_certificate
+#print axioms Analog.CampaignOptProofs.s10e_allocation_bounds

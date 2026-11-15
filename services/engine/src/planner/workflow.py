@@ -12,6 +12,9 @@ from .request import months_in_window
 from .logistics import limits, logistics
 from .risks import risks
 
+# A banded requirement Earth has no dataset for: not a per-site data gap (#166).
+NO_EARTH_COLUMN = {'code':'no-earth-column','text':'No Earth dataset for this trait.'}
+
 DIMENSIONS = {'terrain','thermal','illumination','dustProcess','waterIce','surfaceMaterial','subsurface','operations'}
 
 def verdict(value, band):
@@ -80,7 +83,9 @@ def _rows(tables,request,h3,r):
         source=tables.monthly.get((h3,m)) if r['table']=='L1m' else tables.context.get(h3) if r['table']=='L2' else tables.cells.get(h3)
         value=None if source is None or r['earthColumn'] is None else source.get(r['earthColumn'])
         result={'value':value,**verdict(value,r['band'])}
-        if result['verdict']=='unknown' and r['band'] is not None:
+        if result['verdict']=='unknown' and r['band'] is not None and (r['earthColumn'] is None or r['table'] is None):
+            result['reason']=dict(NO_EARTH_COLUMN)
+        elif result['verdict']=='unknown' and r['band'] is not None:
             result['reason']={'code':'missing-observation','text':reason_for(source,r['earthColumn'] or '',r['dimension'])}
         return result
     if r['table']=='L1m':
