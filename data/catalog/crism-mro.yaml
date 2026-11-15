@@ -26,8 +26,8 @@ license:
 coverage:
   spatial: "targeted + mapping"
   temporal: "2006-"
-  resolution: "unverified: 18-200 m/pixel"
+  resolution: "18-36 m/pixel in the W46 MTRDR scenes (verified from labels)"
 analysisReady: false
 independenceGroup: vnir-spectrometer
 plannedUse: "Mars mineralogy (phyllosilicates, sulfates, olivine) for surfaceMaterial envelopes"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order with sha256 + fetch date. W46 (#105) executed: 10 MTRDR SU scenes + monthly MTRDR index tabs + SIS/docs snapshotted under crism-mro/, 14 spectral summary parameters in _derived/planetary/crism-mtrdr/ (source-native grid, no thresholds)"

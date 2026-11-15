@@ -11,8 +11,8 @@ discovery:
 source:
   archive: "PASSC (unresolved)"
   endpoint: "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html"
-  probedAt: 2026-11-13T00:20:19Z
-  probeResult: "HTTP 200, 114 B, sha256 6dc9c7fc93bb… — PROBE FAILED (expectation not met)"
+  probedAt: 2026-11-14T23:30:44Z
+  probeResult: "HTTP 200, 114 B — parked-domain JS redirect to /lander (re-probe, W38 #97); not usable"
 probe:
   kind: http
   url: "http://www.passc.net/EarthImpactDatabase/New%20website_05-2018/Index.html"
@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "2026-11-12: the passc.net URL serves a parked-domain redirect to /lander; the database site appears gone. Find a maintained mirror or successor before use."
+  note: "2026-11-12 and re-probed 2026-11-14T23:30:44Z (W38 #97): passc.net serves a 114-byte JS redirect to /lander (parked domain); the database site appears gone. Find a maintained mirror or successor before use. No values used; no table shipped. Probe body evidence in services/ingest/src/p0ingest/earth_static.py probe_eid() and _derived/earth-static-probes.json."
 coverage:
   spatial: "global, point catalogue"
   temporal: ""
