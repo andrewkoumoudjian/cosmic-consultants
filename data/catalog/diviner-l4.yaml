@@ -25,9 +25,9 @@ license:
   note: "data.nasa.gov record lro-dlre-5-polar-resource-product-17cb1 declares us-pd (usa.gov/publicdomain). The portal also holds duplicate harvests of the same product labelled other-license-specified (usa.gov/government-works) and notspecified; licence evidence is the us-pd record, conflict noted (W3b, 2026-11-12)."
 coverage:
   spatial: "global + polar"
-  temporal: "2009-07-05/2020 (product-dependent)"
-  resolution: "unverified: product-dependent (polar 240 m-class)"
+  temporal: "static mission-cumulative, 2009-07-05/2019 (GCP 2015-04-01) — coarsest time steps (static), monthly-or-coarser rule satisfied"
+  resolution: "product-dependent (GCP 0.5 deg x 0.5 deg x 0.25 h local time; GDR 32 pix/deg; polar ~240 m); verification per product in preparation reports"
 analysisReady: false
 independenceGroup: thermal-radiometer
-plannedUse: "Moon thermal envelope: min/max/mean temperature, ice-stability depth (PRP)"
-snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"
+plannedUse: "Moon thermal envelope: min/max/mean temperature, ice-stability depth (PRP); #100 prepares GCP bolometric local-time maps (tsurf_max/min/range), L3 GDR CF-position and rock-abundance maps, and the north-pole PRP; H-parameter map does not exist in this archive (gap)"
+snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order with sha256 + fetch date (W6; done for GCP/GDR-L3/PRP by issue #100, W41, moon_diviner.py)"

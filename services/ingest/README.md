@@ -694,6 +694,53 @@ sources the work order asked for that cannot be fetched by this repo yet.
   in `_derived/earth-static-probes.json` (`python -m p0ingest.earth_static
   probe` re-runs it); catalog rows carry the probe results.
 
+## W41 (#100) source tables: Diviner derived maps (my own section)
+- `python -m p0ingest.moon_diviner fetch|build|check` prepares source-native
+  Moon tables from the LRO Diviner derived archive (PDS Geosciences node,
+  registry row `diviner-l4`), all static mission-cumulative products (no
+  daily/hourly granules, time-resolution rule satisfied). Raw bytes land in
+  `data/snapshots/diviner-l4/` via `p0ingest.snapshots.fetch` (URL, fetch
+  time, sha256, bytes in `MANIFEST.json`); derived parquets plus
+  `preparation-report.json` land in `data/snapshots/_derived/planetary/diviner-l4/`.
+- `gcp-tbol-localtime.parquet` (24,883,200 rows): Diviner Global Cumulative
+  Product bolometric brightness temperature, the mission-cumulative average
+  (2009-07-05..2015-04-01) per 0.5 deg x 0.5 deg cell x 0.25 h local-time bin
+  (native grid, 360x720x96; decode clat=-89.75+0.5*bin, clon=-179.75+0.5*bin,
+  lt=0.125+0.25*bin). 7,908,496 tbol nulls carry `missing_reason`: -9999 =
+  `source-no-observation` (bin empty), -9998 = `source-invalid-constant`.
+- `gcp-tsurf.parquet` (259,200 rows): tsurf_max/tsurf_min/tsurf_range over the
+  96 cumulative local-time bins of each cell, plus `support_bins` (valid bins
+  of 96) and a JSON `missing_reason` whose keys are exactly the null value
+  columns (`no-valid-source-bins`). Surrogate note: each bin holds the
+  2009-2015 cumulative average, so tsurf_max underestimates single-orbit
+  extremes.
+- `cf-position.parquet` (44,236,800 rows) and `rock-abundance.parquet`
+  (44,236,800 rows): the L3 GDR 32 pix/deg simple-cylindrical maps
+  (`dgdr_std_cf_clc_cyl_032_img`, ±60 deg: Christiansen Feature position in um,
+  silicate-composition proxy, model of channel 3/4/5 emissivity, obs
+  2009-2010; `dgdr_ra_avg_cyl_032_img`: rock abundance, the Bandfield et al.
+  2011 two-component thermal fit to night-time channels 6/7/8, areal rock
+  fraction 0-1, local time 19:30-05:30, obs 2009-2010). Values are DN *
+  label SCALING_FACTOR verbatim; nulls carry `source-missing-constant`
+  (-32768; CF also has exactly 1 outside-derived-range pixel) or none.
+  Source-native pixels only, no resampling to H3.
+- `diviner-north-prp.parquet` (2,880,000 rows): the north-pole PRP, the mirror
+  of the south one prepared by `p0ingest.planetary` (#74, #75): triangle
+  vertices in Moon-centered km, planetocentric lon/lat/alt of the centroid,
+  annual-average temperature at 2 cm depth (temp_avg) and annual maximum at
+  the surface (temp_max), both model values from thermal-model fits to the
+  first mapping-orbit year, and calculated ice-stability depth (1 kg m-2 per
+  Byr sublimation; model value, NOT measured ice). Only the label-declared
+  -999 exclusion applied (1,810,489 nulls). CAVEAT: 65,481 records carry an
+  undocumented ice_depth sentinel -1.00000 — not the -999 exclusion and not a
+  physical depth; kept verbatim, no invented QA, flagged in the report.
+- The H-parameter map does not exist in this archive (rock_abund_div has no
+  published derived-map sibling; gap recorded in the catalog row).
+- `python -m p0ingest.moon_diviner check` (also with `-O`) re-verifies
+  MANIFEST hashes and sizes, output sha256/rows, exact key domains, physical
+  ranges and 7 raw spot checks; exit 0 only if all pass. Both unit tests
+  (`tests/test_moon_diviner.py`, 32 cases) pass under plain python and `-O`.
+
 ## W37 (#96) PALSAR L-band radar backscatter, campaign-site regional table (my own section)
 
 `alos-palsar-rtc-high` (ASF Hi-Res RTC, 12.5 m, gamma0; licence "© NASA [Year],
