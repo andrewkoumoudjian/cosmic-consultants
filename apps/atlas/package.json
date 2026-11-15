@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "sync:objectives": "node scripts/sync-objectives.mjs",
     "check:mock": "node scripts/check-mock.mjs",
-    "test": "node --experimental-strip-types --test scripts/plan-url.test.ts scripts/workflow.test.ts scripts/acceptance.test.ts",
+    "test": "node --experimental-strip-types --test scripts/plan-url.test.ts scripts/workflow.test.ts scripts/acceptance.test.ts scripts/notices.test.ts",
     "check:planner": "node --experimental-strip-types scripts/check-planner.ts",
     "test:e2e": "playwright test"
   },

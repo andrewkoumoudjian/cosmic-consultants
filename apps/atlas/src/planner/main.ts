@@ -4,6 +4,7 @@ import { cellToBoundary } from 'h3-js';
 import { createMap } from '../map';
 import { decodePlan, encodePlan, validatePlan, type PlanRequest } from '../plan-url';
 import { ensureMonthly, loadDataset, monthlyColumnsForObjective, usedMonthlyColumns } from './data';
+import { priorityNotices } from './notices';
 import { brief, funnelClass, limitRows, months, requirements, rows, search, type Dataset, type Row, type SearchResult } from './engine';
 
 const element=<T extends HTMLElement>(id:string)=>{const e=document.getElementById(id);if(!e)throw Error(`Missing #${id}`);return e as T;};
@@ -46,7 +47,7 @@ function renderControls(){
  const dates=el('div',undefined,'form-row');
  dates.append(select('First month',monthNames.map((n,i)=>[String(i+1),n]),String(request.months.start),m=>{request.months.start=Number(m);run();}),select('Last month',monthNames.map((n,i)=>[String(i+1),n]),String(request.months.end),m=>{request.months.end=Number(m);run();}));controls.append(dates);
  const trip=el('div',undefined,'form-row');trip.append(field('Days',request.durationDays??14,1,365,n=>{request.durationDays=n;run();}),field('Team size',request.teamSize??6,1,1000,n=>{request.teamSize=n;run();}));controls.append(trip);
- controls.append(el('h3','Test requirements'),el('p','Required traits must match in every selected month. Preferred traits remain visible. Unknown bands start as preferred so you can explore.', 'muted'));
+ controls.append(el('h3','Test requirements'),el('p','Required traits must match in every selected month. Preferred traits remain visible. On the start page, traits without a test band start as preferred so you can explore. A shared link keeps its own priorities, or the trait map’s when it names none.', 'muted'));
  for(const r of requirements(data,request)){
   const box=el('div',undefined,'metric');box.append(el('strong',`${r.dimension} · ${r.earthColumn??'field evidence needed'}`),el('small',`${r.unit??'no global measurement'} · ${r.table==='L1m'?'monthly':'yearly / site context'}`));
   box.append(select('Priority',[['must','Required'],['nice','Preferred']],r.priority!,p=>{request.must=requirements(data,request).filter(x=>x.dimension===r.dimension?p==='must':x.priority==='must').map(x=>x.dimension);request.nice=requirements(data,request).filter(x=>!request.must!.includes(x.dimension)).map(x=>x.dimension);run();}));
@@ -69,7 +70,7 @@ function run(){
   const ms=months(request);status.className='';status.textContent=`Real source data · ${countFormat(data.h3.length)} land cells · ${ms.map(m=>monthNames[m-1]).join(', ')} · conditional results, scientific review partial`;
   status.dataset.computeMs=String(Math.round(performance.now()-start));
   const counter=element('counter');counter.replaceChildren(el('h2','2. Find and compare sites'));const funnel=el('div',undefined,'funnel');for(const [name,n]of [['Land cells',result.counts.land],['Within limits',result.counts.withinLimits],['Required traits match',result.counts.matches],['Need more evidence',result.counts.unknown]] as const){const stat=el('div',undefined,'stat');stat.append(el('strong',countFormat(n)),el('span',name));funnel.append(stat);}counter.append(funnel);
-  if(!request.must?.length)counter.append(el('p','All requirements are preferred: no trait filters the results.','warning'));
+  for(const note of priorityNotices(requirements(data,request)))counter.append(el('p',note,'warning'));
   show=request.top??20;renderResults();renderDetails();renderMap();element<HTMLButtonElement>('export').disabled=false;element<HTMLButtonElement>('print').disabled=false;
  }catch(e){status.className='error';status.textContent=String(e);}
 }
