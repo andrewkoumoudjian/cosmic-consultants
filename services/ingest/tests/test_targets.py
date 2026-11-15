@@ -279,12 +279,34 @@ class RowValidation(unittest.TestCase):
             self.assertTrue(any("kebab-case" in e for e in report.errors))
 
 
+_SNAPSHOTS_DIR = targets.REPO / "data" / "snapshots"
+_HAS_TARGET_SNAPSHOTS = (
+    (_SNAPSHOTS_DIR / "artemis-iii-candidate-regions").is_dir()
+    and (_SNAPSHOTS_DIR / "mars-lander-sites").is_dir()
+    and (_SNAPSHOTS_DIR / "usgs-planetary-nomenclature").is_dir()
+)
+
+
 class RepoTargets(unittest.TestCase):
+    @unittest.skipUnless(_HAS_TARGET_SNAPSHOTS, "target raw snapshots not present (gitignored in CI)")
     def test_every_repo_target_row_passes(self):
         reports = targets.validate_targets()
         self.assertTrue(reports, "expected data/targets/*.yaml to exist")
         failures = {r.site_id: r.errors for r in reports if not r.ok()}
         self.assertEqual(failures, {})
+
+    def test_repo_targets_yaml_structure_in_ci(self):
+        manifest = targets.load_manifest_records(_SNAPSHOTS_DIR / "MANIFEST.json")
+        paths = sorted(targets.TARGETS.glob("*.yaml"))
+        self.assertEqual(len(paths), 47)
+        for path in paths:
+            row = yaml.safe_load(path.read_text(encoding="utf-8"))
+            self.assertEqual(row["siteId"], path.stem)
+            self.assertIn(row["body"], targets.VALID_BODIES)
+            self.assertIn(row["kind"], targets.VALID_KINDS)
+            self.assertIn(row["status"], targets.VALID_STATUSES)
+            for src in row["sources"]:
+                self.assertIn(src["snapshotPath"], manifest)
 
     def test_targets_include_moon_and_mars_coverage(self):
         root = targets.TARGETS
@@ -297,6 +319,7 @@ class RepoTargets(unittest.TestCase):
 
 
 class Cli(unittest.TestCase):
+    @unittest.skipUnless(_HAS_TARGET_SNAPSHOTS, "target raw snapshots not present (gitignored in CI)")
     def test_main_exit_code_reflects_repo_state(self):
         self.assertEqual(targets.main(["-q"]), 0)
 
