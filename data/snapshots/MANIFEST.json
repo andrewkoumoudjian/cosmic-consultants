@@ -2,6 +2,47 @@
   "description": "Hashed dataset snapshots used by W6 ingest. Payload bytes are local (gitignored); this file is the provenance record (AGENTS.md rule 3).",
   "entries": [
     {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20250011660/downloads/AIIIUpdateLPSC2026.docx.txt",
+      "fetchedAt": "2026-11-14T23:29:37Z",
+      "sha256": "5ab51484f5d766b4ec1c8f06fd588ddc9ee219eb6f427f40d166206d5a7e7b8f",
+      "bytes": 7712,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/ntrs-20250011660-site-selection-update-fulltext.txt"
+    },
+    {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-identifies-candidate-regions-for-landing-next-americans-on-moon",
+      "fetchedAt": "2026-11-14T23:29:34Z",
+      "sha256": "ff2466c4e7afa5adaeb3850c23a5e6616325ee1173abafec8d804cbfde57d7c7",
+      "bytes": 20265,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/release-2022-08-19-thirteen-regions.json"
+    },
+    {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-provides-update-on-artemis-iii-moon-landing-regions",
+      "fetchedAt": "2026-11-14T23:29:35Z",
+      "sha256": "c58c6f2ef0a08dac4746a425d392a2a9c48f0e437a191010df65185b6fee76fe",
+      "bytes": 20593,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/release-2024-10-28-nine-regions.json"
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-site-coordinates",
+      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
+      "bytes": null,
+      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
+      "localPath": null,
+      "datasetId": "campaign-sources"
+    },
+    {
       "campaignId": "atacama-arads-2019",
       "sourceRef": "arads-2019-article",
       "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
@@ -90,17 +131,6 @@
       "datasetId": "campaign-sources"
     },
     {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-site-coordinates",
-      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
-      "bytes": null,
-      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
-      "localPath": null,
-      "datasetId": "campaign-sources"
-    },
-    {
       "datasetId": "copernicus-dem-glo30",
       "sourceUrl": "https://copernicus-dem-30m.s3.amazonaws.com/tileList.txt",
       "fetchedAt": "2026-11-14T15:25:30Z",
@@ -109,6 +139,936 @@
       "license": "copernicus-dem-licence",
       "licenseVerified": true,
       "localPath": "data/snapshots/copernicus-dem-glo30/tileList.txt"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_326/FRT00003192/FRT00003192_07_SU165J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:05:38Z",
+      "sha256": "837e51df48395a2d6cadf302b451f06dca5b53bb3877dba4ddef35a27bf3e934",
+      "bytes": 1808,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT00003192_07_SU165J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_326/FRT00003192/FRT00003192_07_SU165J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:08:12Z",
+      "sha256": "bf0ce358c16992d86189de5e72f40c923ba6943f72b37a46a347dcc729b06cb7",
+      "bytes": 150514320,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT00003192_07_SU165J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_326/FRT00003192/FRT00003192_07_SU165J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:05:37Z",
+      "sha256": "d47e743c0615cb905a3b9130d0c635162375ffbd51d3136ea4877636a6b8157e",
+      "bytes": 8387,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT00003192_07_SU165J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_334/FRT0000334D/FRT0000334D_07_SU165J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:04:41Z",
+      "sha256": "9da5cb2b25179cd323ffaef9c84de1f1e2ff1244b039076083abc5530fde3d0f",
+      "bytes": 1872,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000334D_07_SU165J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_334/FRT0000334D/FRT0000334D_07_SU165J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:07:30Z",
+      "sha256": "1c286c581dc2e8577baa3242b3361eef278db5ab39e7efc816e524f937549fba",
+      "bytes": 129296160,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000334D_07_SU165J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2006/2006_334/FRT0000334D/FRT0000334D_07_SU165J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:04:40Z",
+      "sha256": "1692543c3db59f1f9b91f7e4497737be2219a3e5cfa3babd1d1596bcea9a7615",
+      "bytes": 8384,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000334D_07_SU165J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_178/FRT000066A4/FRT000066A4_07_SU166J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T22:37:44Z",
+      "sha256": "e8401f067205ec9fa02fcf4784659b51419ad48576c2d0ddb50d5d6be374ad53",
+      "bytes": 1802,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000066A4_07_SU166J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_178/FRT000066A4/FRT000066A4_07_SU166J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:04:38Z",
+      "sha256": "2b7355e95f4128a24c26d456774e3263d5a3b281ebf4daa7a0fb6afea523e7a8",
+      "bytes": 162110160,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000066A4_07_SU166J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_178/FRT000066A4/FRT000066A4_07_SU166J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T22:37:44Z",
+      "sha256": "fcc56cbba44e7c456c71372450108b8004a566b235b0b8ee8ebfcce00467b037",
+      "bytes": 8386,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000066A4_07_SU166J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_277/FRT0000805F/FRT0000805F_07_SU166J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:10:29Z",
+      "sha256": "ccc4f8d158491c728a027ff23c264bfe55a11a539f3fec20d92af8a2c7cb82fe",
+      "bytes": 1884,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000805F_07_SU166J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_277/FRT0000805F/FRT0000805F_07_SU166J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:11:52Z",
+      "sha256": "cfd8282636162bb996e3c6b5837ec8519f20086a2dc6bc28a8f43e41d8e13c0d",
+      "bytes": 154405440,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000805F_07_SU166J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_277/FRT0000805F/FRT0000805F_07_SU166J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:10:28Z",
+      "sha256": "5795e5837c71f8653df0ec7ef16191936326046d311ea24d3cc493e6d30e2d98",
+      "bytes": 8386,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000805F_07_SU166J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_361/FRT0000901A/FRT0000901A_07_SU165J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:03:17Z",
+      "sha256": "b0b73c96ffd1dae592513b189f05ebdab0d8c8e8a1186d47ea7baabb548c2509",
+      "bytes": 1884,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000901A_07_SU165J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_361/FRT0000901A/FRT0000901A_07_SU165J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:05:35Z",
+      "sha256": "bfeb8dc2b42f8e8db4874f72f797c8bdb15fa0a27aad60a23c60848e58f12b48",
+      "bytes": 135264240,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000901A_07_SU165J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_361/FRT0000901A/FRT0000901A_07_SU165J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:03:15Z",
+      "sha256": "76c0a0aa9ef4edb9df43efe5645c2b3ec91f03e00939828e33d606d9a2c003bf",
+      "bytes": 8385,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000901A_07_SU165J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2008/2008_249/FRT0000C596/FRT0000C596_07_SU166J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:07:35Z",
+      "sha256": "f6a6cb6805e443e05150c6a0b5800a508d1308bd679f4cd431fc31c33d5d936f",
+      "bytes": 1885,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000C596_07_SU166J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2008/2008_249/FRT0000C596/FRT0000C596_07_SU166J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:10:32Z",
+      "sha256": "732dd6f9b797bb0d96ca78ac5506fc7f651ccde2d23666bf2c4e1214385ff236",
+      "bytes": 162436800,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000C596_07_SU166J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2008/2008_249/FRT0000C596/FRT0000C596_07_SU166J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:07:33Z",
+      "sha256": "44418b7f7dc0aa947159476f32b7bb75536b5a025931c8fbf6badcb2a6d5e4d5",
+      "bytes": 8384,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0000C596_07_SU166J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2009/2009_076/FRT000119DC/FRT000119DC_07_SU166J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T23:08:15Z",
+      "sha256": "7b00f61958a062c2c13d984343d0ae3d599753403514a04aee043bed4daa1319",
+      "bytes": 1886,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000119DC_07_SU166J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2009/2009_076/FRT000119DC/FRT000119DC_07_SU166J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:10:26Z",
+      "sha256": "cd22c6d25059872d66a54c2780e0d5bfc017c9f6c4125d3c59e1701e55c06569",
+      "bytes": 154138320,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000119DC_07_SU166J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2009/2009_076/FRT000119DC/FRT000119DC_07_SU166J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T23:08:13Z",
+      "sha256": "7af36edf6e8933bff27f6de9c24e929fe1d1f3634d55f220dd1348f8001155ac",
+      "bytes": 8385,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT000119DC_07_SU166J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2010/2010_288/FRT0001B696/FRT0001B696_07_SU165J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T22:38:44Z",
+      "sha256": "7b541ebf9df289c176df1e9a9d2f61c9db005218a1d00518087a63d723a9ddee",
+      "bytes": 1884,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0001B696_07_SU165J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2010/2010_288/FRT0001B696/FRT0001B696_07_SU165J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T23:03:14Z",
+      "sha256": "a8fb1def4aebb42551eda31df1924ea31a8ff2807277d4bba9b0deff9bd3a37a",
+      "bytes": 133401600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0001B696_07_SU165J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2010/2010_288/FRT0001B696/FRT0001B696_07_SU165J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T22:38:43Z",
+      "sha256": "11d4ad66a6483512421dc7c1da5593c1892d123b4fba679510d938e811f01803",
+      "bytes": 8390,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/FRT0001B696_07_SU165J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_029/HRL000040FF/HRL000040FF_07_SU183J_MTR3.HDR",
+      "fetchedAt": "2026-11-14T22:37:45Z",
+      "sha256": "089a0bd2443612399a0a8ebb98f6107154d6335f48b341ce30408874486ee2f4",
+      "bytes": 1802,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/HRL000040FF_07_SU183J_MTR3.HDR"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_029/HRL000040FF/HRL000040FF_07_SU183J_MTR3.IMG",
+      "fetchedAt": "2026-11-14T22:38:42Z",
+      "sha256": "145477d2e3658b5fcf6a9b12445e9f0627c61129bf96b502fd4848299f5a0c22",
+      "bytes": 82009200,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/HRL000040FF_07_SU183J_MTR3.IMG"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/MTRDR/2007/2007_029/HRL000040FF/HRL000040FF_07_SU183J_MTR3.LBL",
+      "fetchedAt": "2026-11-14T22:37:45Z",
+      "sha256": "7f736cf8f169fff336934903af4df862483d86bbe5a130e3de03c8a588862d1f",
+      "bytes": 8386,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/HRL000040FF_07_SU183J_MTR3.LBL"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/aareadme.txt",
+      "fetchedAt": "2026-11-14T22:33:19Z",
+      "sha256": "9efe981cb39c4840e21d7a7aa5b2df2106f5ce2cae497c9b442eeae6cf2ed7ee",
+      "bytes": 7068,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/aareadme.txt"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/document/crism_dpsis.pdf",
+      "fetchedAt": "2026-11-14T23:21:06Z",
+      "sha256": "f6bf571311b8568a8bb6f1d2cf4a6f8d1adabab7142f9cf9e4659f51c9d69709",
+      "bytes": 12621466,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/crism_dpsis.pdf"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/errata.txt",
+      "fetchedAt": "2026-11-14T22:33:20Z",
+      "sha256": "3a73e67c3b29ce13453528c7fb1d657639fe5be433dce4118de87d454aea62b6",
+      "bytes": 3930,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/errata.txt"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/indxinfo.txt",
+      "fetchedAt": "2026-11-14T22:33:21Z",
+      "sha256": "b055f66138f25c0f384094890e0c85c3e636d44d9ef2d55d39a5be65791310a0",
+      "bytes": 1382,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/indxinfo.txt"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/catalog/mtr_map.cat",
+      "fetchedAt": "2026-11-14T22:33:21Z",
+      "sha256": "645276f41e8ce51a52a5c488b2d10f04e123ddf0653f0dbb7d7bc797db52be7a",
+      "bytes": 19838,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtr_map.cat"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0609_index.lbl",
+      "fetchedAt": "2026-11-14T22:33:22Z",
+      "sha256": "cf84d1ea86936c60cbd02ab92e1e5ff26666db004302a641f1f2b9c94a425038",
+      "bytes": 30747,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0609_index.lbl"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0609_index.tab",
+      "fetchedAt": "2026-11-14T22:34:28Z",
+      "sha256": "d35ef3d97c73c271b3289490aa484e9daece99d02f0aa6317d989a851f743d24",
+      "bytes": 4902,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0609_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0611_index.tab",
+      "fetchedAt": "2026-11-14T22:34:29Z",
+      "sha256": "23191b742dc43c41191734bb6d8470e6d1d8ada8826eb2a91959b8cad0da55f6",
+      "bytes": 196080,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0611_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0612_index.tab",
+      "fetchedAt": "2026-11-14T22:34:30Z",
+      "sha256": "70c9e79849546529984a7811720ebc4b0b9be5643c706ab33be0ba948f5df1ae",
+      "bytes": 303924,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0612_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0701_index.tab",
+      "fetchedAt": "2026-11-14T22:34:32Z",
+      "sha256": "72456d92fb214a412b9bacef661daf90b7ca3066feb06b816eeb21fe939917d7",
+      "bytes": 387258,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0701_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0702_index.tab",
+      "fetchedAt": "2026-11-14T22:34:34Z",
+      "sha256": "b2b6bd1e125ac1a44ead1b80ec507afbdfc34134b09d2091f1319bcdfe651e62",
+      "bytes": 450984,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0702_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0703_index.tab",
+      "fetchedAt": "2026-11-14T22:34:36Z",
+      "sha256": "becfa3e7ccd3810522f0219f3d6825d659060362a0008346e5bc27c9f8100888",
+      "bytes": 411768,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0703_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0704_index.tab",
+      "fetchedAt": "2026-11-14T22:34:39Z",
+      "sha256": "97b15f8269a690935fadfa041d65ed5a71983761a3ee7c9aee3ac0a6d7edde66",
+      "bytes": 558828,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0704_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0705_index.tab",
+      "fetchedAt": "2026-11-14T22:34:41Z",
+      "sha256": "b39ed07bc4b05a03c106489477a161be495b58f3d680024bd935602137367912",
+      "bytes": 455886,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0705_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0706_index.tab",
+      "fetchedAt": "2026-11-14T22:34:44Z",
+      "sha256": "cea038c6487b94d98a9e5a5df84e76b57c4c61cfe7eb0179fbd877152b6b293b",
+      "bytes": 1156872,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0706_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0707_index.tab",
+      "fetchedAt": "2026-11-14T22:34:45Z",
+      "sha256": "ac3dcb137fc3aecf900c1e80a0b9c4aee6e512c5e7397c713af4b0014e76918c",
+      "bytes": 137256,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0707_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0708_index.tab",
+      "fetchedAt": "2026-11-14T22:34:46Z",
+      "sha256": "4312143f3aecb731efc76ce97480ef0e4ffeff87155a774fb178c4309e6adbd1",
+      "bytes": 666672,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0708_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0709_index.tab",
+      "fetchedAt": "2026-11-14T22:34:48Z",
+      "sha256": "cfd9e24f7bc57ce90071bf26f6bd6857e41519998a843d2868e81be9667b466f",
+      "bytes": 1495110,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0709_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0710_index.tab",
+      "fetchedAt": "2026-11-14T22:34:51Z",
+      "sha256": "d93a22ac7e39addaac16b66af69eb54cbe412b725af3dfda9306f7500020db31",
+      "bytes": 1965702,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0710_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0711_index.tab",
+      "fetchedAt": "2026-11-14T22:34:52Z",
+      "sha256": "a13f0978e832fee6b76a38da617a14a244d39add9282f28305d82d759f69ee59",
+      "bytes": 264708,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0711_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0712_index.tab",
+      "fetchedAt": "2026-11-14T22:34:53Z",
+      "sha256": "ec7fcfa20b4142c35913c339e2257f75408823096b42c97d2c266b41a103bc38",
+      "bytes": 1382364,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0712_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0801_index.tab",
+      "fetchedAt": "2026-11-14T22:34:57Z",
+      "sha256": "aef1305e94ba11a9f73d99432b2be0d150d4fd40497120ad9b28329541d8e008",
+      "bytes": 3352968,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0801_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0802_index.tab",
+      "fetchedAt": "2026-11-14T22:35:02Z",
+      "sha256": "040691c6be4a2cab4f830a789b5d1d697475213a62a17cdb829dc26749d69626",
+      "bytes": 2357862,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0802_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0803_index.tab",
+      "fetchedAt": "2026-11-14T22:35:04Z",
+      "sha256": "eb2f4ef831f1f5526ffe4f0174f533f19b4417b4f0dd9d4f4ca7be5ebedb2949",
+      "bytes": 1240206,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0803_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0804_index.tab",
+      "fetchedAt": "2026-11-14T22:35:06Z",
+      "sha256": "3f7d075de8431dffbb94a9589b208310d6ecf3447bd9420d0d2ddbc03690eea3",
+      "bytes": 1191186,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0804_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0805_index.tab",
+      "fetchedAt": "2026-11-14T22:35:08Z",
+      "sha256": "70be42fa1ac287c902fc7a371490855504f7242b87d82dc2062c31014a00c8ce",
+      "bytes": 975498,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0805_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0806_index.tab",
+      "fetchedAt": "2026-11-14T22:35:10Z",
+      "sha256": "ddb3d75d6603fae64a1b47b96c18cb9f0d413aa3888ec5ab55b6e682a7161413",
+      "bytes": 1607856,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0806_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0807_index.tab",
+      "fetchedAt": "2026-11-14T22:35:13Z",
+      "sha256": "7d63d258efb21de643fdab2669f6e339a956eb0f743091433650a71fc620d7e4",
+      "bytes": 1995114,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0807_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0808_index.tab",
+      "fetchedAt": "2026-11-14T22:35:15Z",
+      "sha256": "1080b9bcf75a009baf52a1c4e782bb19f6b1431424ec60445b970e5ea388da8c",
+      "bytes": 1946094,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0808_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0809_index.tab",
+      "fetchedAt": "2026-11-14T22:35:17Z",
+      "sha256": "59ef4b47b8e9933d2a3208e6e2dfdff5682cbee15b48fedd3796ce193a0c80b0",
+      "bytes": 1710798,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0809_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0810_index.tab",
+      "fetchedAt": "2026-11-14T22:35:20Z",
+      "sha256": "8fc811dfa999b7a953529eec4e772d86f2f1164607b5cd6bdef2eeb07ac9d161",
+      "bytes": 1500012,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0810_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0811_index.tab",
+      "fetchedAt": "2026-11-14T22:35:21Z",
+      "sha256": "6ecd4931e2d93436a18e12b6d5c9f877723e5475ff98c0840612449a19cb366d",
+      "bytes": 754908,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0811_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0812_index.tab",
+      "fetchedAt": "2026-11-14T22:35:22Z",
+      "sha256": "75607f21f985a5fd08a5c2388ae46b4e31532a2fdcd71ec9de943e1ce015a975",
+      "bytes": 196080,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0812_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0901_index.tab",
+      "fetchedAt": "2026-11-14T22:35:24Z",
+      "sha256": "63cc717e11dfe574419611d52887e1025277ec29676bb79a4e932a7f22a59ad3",
+      "bytes": 612750,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0901_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0902_index.tab",
+      "fetchedAt": "2026-11-14T22:35:27Z",
+      "sha256": "0e99d8a07ece2d9dc655b976978e1153f0697a3b0ca6b7312fcd2a0191e8d869",
+      "bytes": 857850,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0902_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0903_index.tab",
+      "fetchedAt": "2026-11-14T22:35:31Z",
+      "sha256": "7466920d12b4bd21cc6f304c6fca175628b4a71b5dd7636ab1ab4a81a74e0b95",
+      "bytes": 1259814,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0903_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0904_index.tab",
+      "fetchedAt": "2026-11-14T22:35:33Z",
+      "sha256": "db8da6944d87676f89e99a3603c256cf5e55490626cbaae44193ea7f6f3adb08",
+      "bytes": 1220598,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0904_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0905_index.tab",
+      "fetchedAt": "2026-11-14T22:35:34Z",
+      "sha256": "032c1c834f7a882c4df7af60b1697f8c3c104b5f64af526dbf7f33f9caa938b6",
+      "bytes": 1112754,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0905_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0906_index.tab",
+      "fetchedAt": "2026-11-14T22:35:34Z",
+      "sha256": "c3c30884362b12d3efd9e36966b54197565927b39286e3c4de97748bbf1ce22a",
+      "bytes": 720594,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0906_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0907_index.tab",
+      "fetchedAt": "2026-11-14T22:35:37Z",
+      "sha256": "41d5dcf3863ddd2d4676b844e30c2390f263a62fb38cca78ad79f0060d742820",
+      "bytes": 1808838,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0907_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr0908_index.tab",
+      "fetchedAt": "2026-11-14T22:35:38Z",
+      "sha256": "2a8bb32690f8da69b808fc9393b860613e4eda936876bfbcd530068a00b495ce",
+      "bytes": 892164,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr0908_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1001_index.tab",
+      "fetchedAt": "2026-11-14T22:35:40Z",
+      "sha256": "69376bc83e720ef83b77d13fe3406b32fc42949ab11fdd0e0d2f4fedfc8052be",
+      "bytes": 147060,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1001_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1002_index.tab",
+      "fetchedAt": "2026-11-14T22:35:43Z",
+      "sha256": "6d4095a2f8ad8416e5fc3cefcab68720e2a813a7ad5fef22f87529689b0fb67d",
+      "bytes": 2181390,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1002_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1003_index.tab",
+      "fetchedAt": "2026-11-14T22:35:47Z",
+      "sha256": "1e0a490b2c1fd3ea5bd3f3fb87939f34dd6e9ce025458638f88292d60ce0e177",
+      "bytes": 2632374,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1003_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1004_index.tab",
+      "fetchedAt": "2026-11-14T22:35:54Z",
+      "sha256": "fb8571be9f962ee0b7c80e44a02a14338a8902ea366068e50aa56dc3f72dd017",
+      "bytes": 2039232,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1004_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1005_index.tab",
+      "fetchedAt": "2026-11-14T22:35:57Z",
+      "sha256": "c95a4cafd5a41006978ae666b161f878f2bb8c726b2ef367a75afae5c4219047",
+      "bytes": 1632366,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1005_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1006_index.tab",
+      "fetchedAt": "2026-11-14T22:35:59Z",
+      "sha256": "f7557bb843506b0ac55e2965e7171ebba768f2b1ea8460bc86de0f65b49bd802",
+      "bytes": 705888,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1006_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1007_index.tab",
+      "fetchedAt": "2026-11-14T22:36:01Z",
+      "sha256": "124f2570c386d3f0c3ef854ee93384beb98fd4ccab9e125e7c9076586a6d09be",
+      "bytes": 720594,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1007_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1010_index.tab",
+      "fetchedAt": "2026-11-14T22:36:03Z",
+      "sha256": "59839d876f20591f50c31299d90c13565f49e081d9c5e8871c9704dc0d9fcf56",
+      "bytes": 485298,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1010_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1011_index.tab",
+      "fetchedAt": "2026-11-14T22:36:05Z",
+      "sha256": "0859eec133401124f07a2e0a388c454b07e6a8a0e13e02f4237101367bd6b27c",
+      "bytes": 279414,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1011_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1012_index.tab",
+      "fetchedAt": "2026-11-14T22:36:08Z",
+      "sha256": "44a5462da2ba5be427ba8ccdff5014a8c52b23e7420f65c7e9279fba8c7fcf23",
+      "bytes": 549024,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1012_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1101_index.tab",
+      "fetchedAt": "2026-11-14T22:36:09Z",
+      "sha256": "af4eb5f6426bdae13a1891cd156ae2347b165c627ab46b13c02d41bc1a470bd5",
+      "bytes": 19608,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1101_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1103_index.tab",
+      "fetchedAt": "2026-11-14T22:36:09Z",
+      "sha256": "d149f9ad167478de2015e358c0d80ad29813d8318fb1470d82799f57699f0575",
+      "bytes": 122550,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1103_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1104_index.tab",
+      "fetchedAt": "2026-11-14T22:36:10Z",
+      "sha256": "8290e87418519009d3d93b71d7c6ba70f2026f997ec5aeb7a6903928cbe8f0e8",
+      "bytes": 161766,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1104_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1105_index.tab",
+      "fetchedAt": "2026-11-14T22:36:10Z",
+      "sha256": "cf5e0ba656df606cb5fef878401d6845c5d19bab9cda5dd65f9a55adc2d4c2a4",
+      "bytes": 230394,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1105_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1106_index.tab",
+      "fetchedAt": "2026-11-14T22:36:11Z",
+      "sha256": "714ab791b336f59a1da0c2bdd5cc3cbbe77e483944ef8789ac95f5e0ce27055a",
+      "bytes": 245100,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1106_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1107_index.tab",
+      "fetchedAt": "2026-11-14T22:36:12Z",
+      "sha256": "3b048890d6e973974d00d1ca4ebe05908e5e256a5c7065af05f163723f4113e5",
+      "bytes": 63726,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1107_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1108_index.tab",
+      "fetchedAt": "2026-11-14T22:36:12Z",
+      "sha256": "482651c7571449db74393fddadf77419973c0f1e70fe6a511545c325722546ea",
+      "bytes": 411768,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1108_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1109_index.tab",
+      "fetchedAt": "2026-11-14T22:36:13Z",
+      "sha256": "903657ac85d28ae87e6b63ac4272b49f810647142c90a7fc6329fb9f39957de0",
+      "bytes": 215688,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1109_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1110_index.tab",
+      "fetchedAt": "2026-11-14T22:36:14Z",
+      "sha256": "9d636febf6a821ee6b46115c61e37c592819b3b43a73c00616c30f24c5a4c687",
+      "bytes": 259806,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1110_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1112_index.tab",
+      "fetchedAt": "2026-11-14T22:36:14Z",
+      "sha256": "222e4f90dcb50bb820e1087e33af91417878f6d7041edc6a19aa89550a3daf37",
+      "bytes": 700986,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1112_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1202_index.tab",
+      "fetchedAt": "2026-11-14T22:36:15Z",
+      "sha256": "eae3afed3c35ef1177543c92448ed0a7a23cfceaf19e92fbefe95cb0b5f2d261",
+      "bytes": 14706,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1202_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1203_index.tab",
+      "fetchedAt": "2026-11-14T22:36:15Z",
+      "sha256": "9a1a1dcfab1e66643dbd4cfbb4be7519519e288df07439e707486bae5964885d",
+      "bytes": 4902,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1203_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1204_index.tab",
+      "fetchedAt": "2026-11-14T22:36:15Z",
+      "sha256": "1f077cd9137c9bc5a25b6c007de0948ba16b57ecb670536ca07886c04bcc4578",
+      "bytes": 9804,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1204_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/index/mtrdr1205_index.tab",
+      "fetchedAt": "2026-11-14T22:36:16Z",
+      "sha256": "820a89ef6d4b5f1fe8bd1c1925793c0c8a2262930dc190b18991328299662fe0",
+      "bytes": 9804,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/mtrdr1205_index.tab"
+    },
+    {
+      "datasetId": "crism-mro",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mro/mro-m-crism-5-rdr-mptargeted-v1/mrocr_4001/readme.txt",
+      "fetchedAt": "2026-11-14T22:33:19Z",
+      "sha256": "6c4dfad3d6366e525fe741182ab3935bfec2145a3c7e4c6c8b574ac3a64da67d",
+      "bytes": 2096,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/crism-mro/readme.txt"
     },
     {
       "datasetId": "diviner-l4",
@@ -169,6 +1129,766 @@
       "license": "esa-cci-permafrost-terms",
       "licenseVerified": true,
       "localPath": "data/snapshots/esa-cci-permafrost-extent-nh/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/aareadme.txt",
+      "fetchedAt": "2026-11-14T22:35:59Z",
+      "sha256": "bd2076532d2dcc1f38079936c4de83ac7cbf5232661e8eb9becdf390c9dd7eec",
+      "bytes": 7010,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/aareadme.txt"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/catalog/edr_ds.cat",
+      "fetchedAt": "2026-11-14T22:36:00Z",
+      "sha256": "079573fbc43e2c0d6ccc47ecd1b9b0e44043f383c1f8623e88e052eda9a94061",
+      "bytes": 9424,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/edr_ds.cat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/label/lend_rdr_ald.fmt",
+      "fetchedAt": "2026-11-15T01:07:08Z",
+      "sha256": "b7f7766e82df1e08ac2d3596e13e1aba3e8d572c200e702e89dd22892b0fec8b",
+      "bytes": 7593,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_ald.fmt"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alde_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:44Z",
+      "sha256": "0fd30a01c99c644c431c6538e778e814bab692663a312dc82b08d860110261aa",
+      "bytes": 17856000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alde_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:33Z",
+      "sha256": "58fc5d4362b826f3259b7221d3f42ab4b316b7707b45d338df7d6b0b38d19a4f",
+      "bytes": 2613,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alde_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:10Z",
+      "sha256": "dd47542c70c3ef2d925ac7bd251a836404b0088075dbf36b105a5bfaa554a3c7",
+      "bytes": 17856000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alde_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:07:57Z",
+      "sha256": "db040260407fc7c774a04102cbfb70a00fa2c610b0d41415babd85245d98fb5a",
+      "bytes": 2613,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20111211.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_aldn_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:53Z",
+      "sha256": "01b854e284bdf86a4237d8f6e5c781ce9244c11bc0ec49a48669615d39a29bf5",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_aldn_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:46Z",
+      "sha256": "d7c5e2adae73bfa87ce287d7392934ebef19a15910891bbdb29c4eef06e24df2",
+      "bytes": 2571,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_aldn_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:15Z",
+      "sha256": "f766122c7aff26e5d04c49107896c1937d10721aaf2ac551b710a5c97aa2af18",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_aldn_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:08:11Z",
+      "sha256": "330d01d0e4a644f074450ec7bc67fe0ba87072a5843612e8259e1fa97e76d2d8",
+      "bytes": 2571,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20111211.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:57Z",
+      "sha256": "0d7dbda95930ebcb4217acd9667f1ef606fffc2a58a1ffab14562f162c5f817d",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:54Z",
+      "sha256": "98e93c543b174df8270e8a111b2dcfc2fc7d4e0a69bba05279b553c73362517d",
+      "bytes": 2575,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alds_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:21Z",
+      "sha256": "e6b1c2d54e3e00d649a1229b08507dd10c859039ae2df8e34cdf1480bb0031ef",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alds_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:08:16Z",
+      "sha256": "e9c17230dfca5107f703428fbff7f938fe3a1b29604494feb7a588b1a23557f7",
+      "bytes": 2575,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20111211.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/catalog/rdr_ds.cat",
+      "fetchedAt": "2026-11-14T22:36:01Z",
+      "sha256": "d2c925c560e50ed04f4879682f00e03d5900fec94138f9c6290cfb4fb62e6df1",
+      "bytes": 22880,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/rdr_ds.cat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/readme.txt",
+      "fetchedAt": "2026-11-14T22:35:58Z",
+      "sha256": "7c7f5094d9eb67a2b079664cb2eeca27753d5a17fa9d93c6f1624831cb251016",
+      "bytes": 1850,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/readme.txt"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_ELEM_ABUNDANCE.FMT",
+      "fetchedAt": "2026-11-14T22:35:44Z",
+      "sha256": "87c1b725aba228ecf44e7aa0c80efaf899aa3d4033b6bf85776bf60cd2913d99",
+      "bytes": 23574,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_ELEM_ABUNDANCE.FMT"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_20DEG.LBL",
+      "fetchedAt": "2026-11-14T22:35:57Z",
+      "sha256": "42a263e6a4f541b4e1a849230af3ac1ea7975aa2383f66feacd19cdb17e029db",
+      "bytes": 8054,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_20DEG.LBL"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_20DEG.TAB",
+      "fetchedAt": "2026-11-14T22:35:58Z",
+      "sha256": "2cae586c943ff41fcb5641040eb67f055b6dd75e0b850adb643f9083a584f52c",
+      "bytes": 100320,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_20DEG.TAB"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_2DEG.LBL",
+      "fetchedAt": "2026-11-14T22:35:45Z",
+      "sha256": "8eb4daac25d68cfe0a9a8d778d447949ceb2239e67635207475aa87f5f3b618e",
+      "bytes": 8102,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_2DEG.LBL"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_2DEG.TAB",
+      "fetchedAt": "2026-11-14T22:35:54Z",
+      "sha256": "e866953499813ec089067f1985dfb92fe7adc8957a2121bb115a3b27ea14e946",
+      "bytes": 9949280,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_2DEG.TAB"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_5DEG.LBL",
+      "fetchedAt": "2026-11-14T22:35:54Z",
+      "sha256": "cb35452c97a297ba3b3e6506bea66312dfdf362c823b6d12a538d0f41805bc21",
+      "bytes": 8110,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_5DEG.LBL"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/data/LPGRS_HIGH1_ELEM_ABUNDANCE_5DEG.TAB",
+      "fetchedAt": "2026-11-14T22:35:56Z",
+      "sha256": "4a9fd850a7b717ca5e6003e87342191cff6f6afe468acd7227a42db2a6b4cde5",
+      "bytes": 1575200,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/LPGRS_HIGH1_ELEM_ABUNDANCE_5DEG.TAB"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/aareadme.txt",
+      "fetchedAt": "2026-11-14T22:35:41Z",
+      "sha256": "3d3b3e747f49de83228c5e41520a6edfc4830b1a0b0160001a7035daa93c24c4",
+      "bytes": 6061,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/aareadme.txt"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/catalog/dataset.cat",
+      "fetchedAt": "2026-11-14T22:35:42Z",
+      "sha256": "769ea2d58bb544dfb6fc8643c4e30a1fc6d3d82d96e5c2d9215408a86ea446b1",
+      "bytes": 16259,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/dataset.cat"
+    },
+    {
+      "datasetId": "lp-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lunar/lp-l-grs-5-elem-abundance-v1/lp_9001/index/index.tab",
+      "fetchedAt": "2026-11-14T22:35:43Z",
+      "sha256": "e01b6b26b73568224f8d01d6833e9cdb4e7dfb208320d1f3fecd9664fb5b3688",
+      "bytes": 447,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lp-grs-pds/index.tab"
+    },
+    {
+      "datasetId": "lroc-nac-boulders-watkins",
+      "sourceUrl": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Research/Regolith/lunar_boulder_data_bundle",
+      "fetchedAt": "2026-11-14T22:33:42Z",
+      "sha256": "8bc74ea80d839b74a2b5073faf56db354f8a047fbd00d58b85118b8489356c31",
+      "bytes": 185154475,
+      "license": "unresolved",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/lroc-nac-boulders-watkins/lunar_boulder_data_bundle"
+    },
+    {
+      "datasetId": "lroc-pits-atlas",
+      "sourceUrl": "https://www.lroc.im-ldi.com/atlases/pits/lroc_pits_atlas.pdf",
+      "fetchedAt": "2026-11-14T23:23:26Z",
+      "sha256": "85ea85ce6972ad412f5c54709ef6be97a28908b03a402e2399036b6b9f739bd6",
+      "bytes": 146195230,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lroc-pits-atlas/lroc_pits_atlas.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20181101155636id_/https://www.jpl.nasa.gov/news/press_kits/insight/landing/download/mars_insight_landing_presskit.pdf",
+      "fetchedAt": "2026-11-14T23:30:37Z",
+      "sha256": "40b5665b89f09b0722dfdd074b2901cecfeea3876a3208dfc329987be9252911",
+      "bytes": 13315755,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-insight-landing-press-kit-2018.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20210203052000id_/https://www.jpl.nasa.gov/news/press_kits/mars_2020/download/mars_2020_landing_press_kit.pdf",
+      "fetchedAt": "2026-11-14T23:30:55Z",
+      "sha256": "2fa99f7cf81018ea5803a2dbb4d7b928d6a3561c5665c8d752245848fdc33ed9",
+      "bytes": 11235158,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-mars2020-landing-press-kit-2021.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20261022111725id_/https://www.jpl.nasa.gov/news/press_kits/MSLLanding.pdf",
+      "fetchedAt": "2026-11-14T23:30:01Z",
+      "sha256": "672093c03108c3c91b9b10e0121510dfe0c7eb66b74ade5839ff9b1be839b987",
+      "bytes": 5209940,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-msl-landing-press-kit-2012.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+      "fetchedAt": "2026-11-14T23:29:39Z",
+      "sha256": "7b9dddcaefad0f6a98f70abeb9ce66dce3fdab3094da44783ad132419664ee55",
+      "bytes": 15095,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1975-075C-viking1.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-083C",
+      "fetchedAt": "2026-11-14T23:29:40Z",
+      "sha256": "ae01237164675e15fbd8c9522d1a1b22f0e8920ddcef39e0870c4378b501fb60",
+      "bytes": 14863,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1975-083C-viking2.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-068A",
+      "fetchedAt": "2026-11-14T23:29:42Z",
+      "sha256": "812da9fad35f8c8431b40fe9a62ad912388ddd23b9eee0df504cd6e7791a4b26",
+      "bytes": 13323,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1996-068A-pathfinder.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-027A",
+      "fetchedAt": "2026-11-14T23:29:43Z",
+      "sha256": "325fea4c8713a6c000efd615fae856c497d92a93f9610540240bebc5a7da8512",
+      "bytes": 18805,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2003-027A-spirit.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+      "fetchedAt": "2026-11-14T23:29:44Z",
+      "sha256": "a3070bfb48aa5d005a9f885c45a25df5f4a57e8a37b4b39a2ce059002f04692c",
+      "bytes": 17153,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2003-032A-opportunity.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2007-034A",
+      "fetchedAt": "2026-11-14T23:29:46Z",
+      "sha256": "2c41af9ced80b744163d99c46aefd340a2da52f6e2a0fa5d33a585ee17daf31c",
+      "bytes": 14739,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2007-034A-phoenix.xhtml"
+    },
+    {
+      "datasetId": "mcs-mro",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MROM_0006/CATALOG/DATASET.CAT",
+      "fetchedAt": "2026-11-14T23:18:58Z",
+      "sha256": "511ebc7a9feca161575fd709b59d881935fa77bcab1d5d1f19449d2e1f6e779f",
+      "bytes": 18994,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mcs-mro/DATASET.CAT"
+    },
+    {
+      "datasetId": "mcs-mro",
+      "sourceUrl": "https://atmos.nmsu.edu/PDS/data/MROM_0006/LABEL/MCS_EDR.FMT",
+      "fetchedAt": "2026-11-14T23:18:56Z",
+      "sha256": "19dfacf5b306cf31bd32c15810a3ad9f7f754411e09ef50c7da33de84433c4c0",
+      "bytes": 84286,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mcs-mro/MCS_EDR.FMT"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202301.nc4",
+      "fetchedAt": "2026-11-14T19:47:08Z",
+      "sha256": "d9e078ac3dcb6ea8bc4bb57d05487e8483369a61b1db793e09d02666a196c78d",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202301.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202302.nc4",
+      "fetchedAt": "2026-11-14T19:50:23Z",
+      "sha256": "094a67030de5977ea2ac349799147c0f8e0eb87b8921c7861b6783706fc970ed",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202302.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202303.nc4",
+      "fetchedAt": "2026-11-14T19:50:36Z",
+      "sha256": "87f80740e62894956ba9ccb419c2923d6513bfab09045eb986d52cc5f0f79b3b",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202303.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202304.nc4",
+      "fetchedAt": "2026-11-14T19:50:51Z",
+      "sha256": "f8728da61c84f947594c09705fab0c33271836643e9ed023fbebc425f8916674",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202304.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202305.nc4",
+      "fetchedAt": "2026-11-14T19:51:08Z",
+      "sha256": "a655c88f63ecf95321a5aa94b4a6b44ae7d76b01673449ecd1301840e989003d",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202305.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202306.nc4",
+      "fetchedAt": "2026-11-14T19:52:02Z",
+      "sha256": "b4bee0ac72bf3b664791b1c2461a699968074a5e39be141e390f26fa1fd4a618",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202306.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202307.nc4",
+      "fetchedAt": "2026-11-14T19:52:39Z",
+      "sha256": "2f43edc48905cedb6324e4c2f6397c9c3ec3000dee366ccdcc71ade6693f5ff6",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202307.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202308.nc4",
+      "fetchedAt": "2026-11-14T19:53:35Z",
+      "sha256": "cd4809e71d26bab8d8d8fb23c9e38321a9e2f83726d54f2b64e7577b2f3f1282",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202308.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202309.nc4",
+      "fetchedAt": "2026-11-14T19:54:09Z",
+      "sha256": "a27754eb15823618833e36c32a1eef5e6ce8701247ad95406945d86cf0448695",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202309.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202310.nc4",
+      "fetchedAt": "2026-11-14T19:54:28Z",
+      "sha256": "4c331d2106b4cd7d97cbab5276569a1d2d75b91f3018a9bc24145af5eb3d47c8",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202310.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202311.nc4",
+      "fetchedAt": "2026-11-14T19:55:02Z",
+      "sha256": "1b541cc7677128e9ac29af8720224fcdaf92deb5344d5165790c25e8338a4298",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202311.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxaer",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202312.nc4",
+      "fetchedAt": "2026-11-14T19:55:58Z",
+      "sha256": "d699b4b86fb77f6b762f6a06e17c0ffc3bf05756abf56080c24ca5c04a4ac651",
+      "bytes": 83870720,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxaer/MERRA2_400.tavgM_2d_aer_Nx.202312.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202301.nc4",
+      "fetchedAt": "2026-11-14T22:22:49Z",
+      "sha256": "86fe913b40b3b0abdf6803d6d1975a77c11913fbcbe01490d930a3f9266730db",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202301.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202302.nc4",
+      "fetchedAt": "2026-11-14T22:23:07Z",
+      "sha256": "9ea5e8f585ea3975557dfeeee5b748212365374d7be664a46b837b37b0dd0aa9",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202302.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202303.nc4",
+      "fetchedAt": "2026-11-14T22:23:18Z",
+      "sha256": "8b472a9a0a89a2fc3f767d5e8832787731a686ef06207c8603e896bcdccddeeb",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202303.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202304.nc4",
+      "fetchedAt": "2026-11-14T22:23:36Z",
+      "sha256": "b18f6ee86b4d6b4ab2d2cb5aba16f5b8c338a9d59871effef209e6ced375331e",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202304.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202305.nc4",
+      "fetchedAt": "2026-11-14T22:23:48Z",
+      "sha256": "d0faf90701a46e12947a2c5201ab171b7082c29f46cd2696fc2942ddad75df68",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202305.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202306.nc4",
+      "fetchedAt": "2026-11-14T22:24:01Z",
+      "sha256": "2b4217d7012f415ac19c105957be4ddb508f322d5ecf08f349244ab0758ad95c",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202306.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202307.nc4",
+      "fetchedAt": "2026-11-14T22:24:17Z",
+      "sha256": "4ee89e65ef31852c20dabf7e2a962d061f412c233a942b426af246bd22a94b8e",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202307.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202308.nc4",
+      "fetchedAt": "2026-11-14T22:24:31Z",
+      "sha256": "b1fc46d6cd46e0696c7de9bddd93c8a297bc56936bc76de0115c952db48dd580",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202308.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202309.nc4",
+      "fetchedAt": "2026-11-14T22:24:50Z",
+      "sha256": "fb449c94078c35640429bd29210257e5f42e12257c5f34bc2caf500e7db63e0f",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202309.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202310.nc4",
+      "fetchedAt": "2026-11-14T22:25:03Z",
+      "sha256": "689e997921676fc0bd53a5ba943c4b787bdc961fb8ebc5ede31388b26b22c5ae",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202310.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202311.nc4",
+      "fetchedAt": "2026-11-14T22:25:27Z",
+      "sha256": "3a0effa99c9bd9dda1806309a9285f41b52a5b1922fbcf27c22a1d625270f349",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202311.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202312.nc4",
+      "fetchedAt": "2026-11-14T22:25:43Z",
+      "sha256": "cc20a5093379e826d76e502c17e93c67f3c0849f4b0d2debadea1d52b9f1f098",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202312.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202301.nc4",
+      "fetchedAt": "2026-11-14T22:26:08Z",
+      "sha256": "5093782fcebff8398d6986865e3edad5deec068ee1241d5b2d3e85f91072014f",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202301.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202302.nc4",
+      "fetchedAt": "2026-11-14T22:28:50Z",
+      "sha256": "14c3c45e657b28c27f67f91056ddc96e298186ff62ff245c0a131a86d70f5929",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202302.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202303.nc4",
+      "fetchedAt": "2026-11-14T22:29:14Z",
+      "sha256": "94ed97bfa34550f3a8530c07c0266de68e59c67f153871691f582ce9c5938b09",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202303.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202304.nc4",
+      "fetchedAt": "2026-11-14T22:29:32Z",
+      "sha256": "1c1c3dfc3db3a2b9b088204a2601ab141e0f81d529c46428a75bb2bc050c0983",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202304.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202305.nc4",
+      "fetchedAt": "2026-11-14T22:29:46Z",
+      "sha256": "cc5fbbfae95dd552ab2138eeca5ef802f228444fd489cfc931790bbbaf836f26",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202305.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202306.nc4",
+      "fetchedAt": "2026-11-14T22:30:35Z",
+      "sha256": "40a9c3a1a714ec56e70844a8b142967eabff6d697989d453dbfc87bdd4a445b7",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202306.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202307.nc4",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "2b72bda7197111ea716c1295a54987e237107548b7bfd6dfdb238066f10010b0",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202307.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202308.nc4",
+      "fetchedAt": "2026-11-14T22:31:47Z",
+      "sha256": "ad09ecef9e216ce1aa9c5abf5f8673dc14614d17f8fb57ead28095728be6e605",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202308.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202309.nc4",
+      "fetchedAt": "2026-11-14T22:32:21Z",
+      "sha256": "e81f51814a18b8a607bd260a15052bc72741fc73b655b68876744d2bc5472b0d",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202309.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202310.nc4",
+      "fetchedAt": "2026-11-14T22:32:34Z",
+      "sha256": "417bcebff91c7ede9953f2cdf52fe753477bfa747cfab48e3b930ca3f5a30487",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202310.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202311.nc4",
+      "fetchedAt": "2026-11-14T22:32:53Z",
+      "sha256": "db15cbad7e8934000e9d0a454bd5ae96a1935cc7802ee7f4cf1e30a362ff6396",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202311.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202312.nc4",
+      "fetchedAt": "2026-11-14T22:33:15Z",
+      "sha256": "8224e4e26c739f8404d276e0e8616f9d8b51c9167e95430b82bd8f71a7c4878b",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202312.nc4"
     },
     {
       "datasetId": "modis-mcd12c1",
@@ -299,6 +2019,25 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023349.061.2023361073709.hdf"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://lpdaac.usgs.gov/documents/1006/MCD64_User_Guide_V61.pdf",
+      "fetchedAt": "2026-11-14T19:47:00Z",
+      "sha256": "9fff6bd6dcd2d56327d3c0ecb7c0c4ba76bb3858ee5f4c1cc890e447e1ffc36f",
+      "bytes": 1007034,
+      "licenseNote": "MCD64A1 Collection 6.1 User Guide (NASA LP DAAC documentation, publicly accessible); stored locally to verify versioned Burn Date, QA and unmapped/water semantics quoted in the #65 probe log and metadata.",
+      "localPath": "data/snapshots/modis-mcd64a1/MCD64_User_Guide_V61.pdf"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=2000",
+      "fetchedAt": "2026-11-14T19:03:05Z",
+      "sha256": "689f752c96fb7461e31c0b48fef5683c3a65a954d89f5c3cda51dcedf151c887",
+      "bytes": 5209920,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt"
     },
     {
       "datasetId": "modis-mod11c3",
@@ -1499,6 +3238,1317 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
+    },
+    {
+      "datasetId": "modis-mod21c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MOD21C3.061/MOD21C3.A2023182.061.2023215182726/MOD21C3.A2023182.061.2023215182726.hdf",
+      "fetchedAt": "2026-11-14T22:30:11Z",
+      "sha256": "ce332c4b06ea28f6932496754cb30cf004d301f32ee29cc06f8dc08a6ac40e3d",
+      "bytes": 128409037,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mod21c3/MOD21C3.A2023182.061.2023215182726.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023001.061.2023033164343/MYD11C3.A2023001.061.2023033164343.hdf",
+      "fetchedAt": "2026-11-14T22:27:00Z",
+      "sha256": "ac7c6d30a4357e303f6f31e68891f25410bfb0a5ccab8fd2af6eb1bee2633dce",
+      "bytes": 71693887,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023001.061.2023033164343.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023032.061.2023060194236/MYD11C3.A2023032.061.2023060194236.hdf",
+      "fetchedAt": "2026-11-14T22:27:30Z",
+      "sha256": "e92a266fa710bf0f4fa849683fca43fd757123b48b67a70b043cc773e29abd64",
+      "bytes": 72810956,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023032.061.2023060194236.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023060.061.2023093152049/MYD11C3.A2023060.061.2023093152049.hdf",
+      "fetchedAt": "2026-11-14T22:26:53Z",
+      "sha256": "67bb8e23d3d74eadc975943eb8c52c4f92347dd5fdf24d6500705fcdfa71d584",
+      "bytes": 76696205,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023060.061.2023093152049.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023091.061.2023122195853/MYD11C3.A2023091.061.2023122195853.hdf",
+      "fetchedAt": "2026-11-14T22:27:10Z",
+      "sha256": "bb7f0faf01f3779c539f399f4798ad9e921e89f099cb8a10e23987553de6d05b",
+      "bytes": 75290381,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023091.061.2023122195853.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023121.061.2023153211939/MYD11C3.A2023121.061.2023153211939.hdf",
+      "fetchedAt": "2026-11-14T22:27:46Z",
+      "sha256": "263fe88cd24b2807b95b3d4e53848f944cc1631a43d7d1881646ab07076e0a93",
+      "bytes": 75265120,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023121.061.2023153211939.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023152.061.2023193054214/MYD11C3.A2023152.061.2023193054214.hdf",
+      "fetchedAt": "2026-11-14T22:27:49Z",
+      "sha256": "eaf1b9b71162b0025bb8ad1e995139045503ec30de98ee89adb4c3a40c6b3921",
+      "bytes": 73851122,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023152.061.2023193054214.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023182.061.2023215202151/MYD11C3.A2023182.061.2023215202151.hdf",
+      "fetchedAt": "2026-11-14T22:28:16Z",
+      "sha256": "c564413133f9c26c1fff6864eb0949dcad243c50b1557ed663fda95de6a48480",
+      "bytes": 73274015,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023182.061.2023215202151.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023213.061.2023250152704/MYD11C3.A2023213.061.2023250152704.hdf",
+      "fetchedAt": "2026-11-14T22:28:39Z",
+      "sha256": "e8c98361abf6a08b1b5d7b5ed008cf6be7cc4c2fb296c58827e4c8a80465aedf",
+      "bytes": 74288234,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023213.061.2023250152704.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023244.061.2023274184351/MYD11C3.A2023244.061.2023274184351.hdf",
+      "fetchedAt": "2026-11-14T22:28:43Z",
+      "sha256": "09e839fd2ba1a518717b5a1b8a9ccb86b27b8297b32deecdc7bdac7d32372c52",
+      "bytes": 75072045,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023244.061.2023274184351.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023274.061.2023305220624/MYD11C3.A2023274.061.2023305220624.hdf",
+      "fetchedAt": "2026-11-14T22:28:37Z",
+      "sha256": "0101c9d870efa55bd8934472bea3170aee4ff1bd719da122d91d79fe4f371236",
+      "bytes": 77664099,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023274.061.2023305220624.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023305.061.2023336214254/MYD11C3.A2023305.061.2023336214254.hdf",
+      "fetchedAt": "2026-11-14T22:29:17Z",
+      "sha256": "473806399ab5283bbdd8f708d81e1efa38476737650348ee2375709cbd82c2b1",
+      "bytes": 77472588,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023305.061.2023336214254.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023335.061.2024006163117/MYD11C3.A2023335.061.2024006163117.hdf",
+      "fetchedAt": "2026-11-14T22:29:27Z",
+      "sha256": "7ca2b9d375c8ec8073a620b9e1afc4be25d6ace03e3b10d885e4debcec5ba077",
+      "bytes": 73596059,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023335.061.2024006163117.hdf"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.img",
+      "fetchedAt": "2026-11-14T21:34:27Z",
+      "sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
+      "bytes": 2073600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.lbl",
+      "fetchedAt": "2026-11-14T21:34:22Z",
+      "sha256": "5a3fe60256afa1c35fea5d551fe0ab0a9198fb2bcd2c2e161d078aa69627ebac",
+      "bytes": 4796,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.img",
+      "fetchedAt": "2026-11-14T21:34:38Z",
+      "sha256": "d18d9b9ab8c5516d02e157dd2cde0f1d0d160c21940e953ba22391269a545e7b",
+      "bytes": 33177600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.lbl",
+      "fetchedAt": "2026-11-14T21:34:28Z",
+      "sha256": "0f2bd919dddb86d83489a008d3007bd915507c892a0f22ce49ad5dd5d2fc7d8a",
+      "bytes": 4813,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/aareadme.txt",
+      "fetchedAt": "2026-11-14T22:30:45Z",
+      "sha256": "7507f0c58143a79972134cc3cc7169a3f764bbcdb44346330e0c548d8d15b3a4",
+      "bytes": 5483,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/aareadme.txt"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/catalog/dataset.cat",
+      "fetchedAt": "2026-11-14T22:30:47Z",
+      "sha256": "f5d11d7f52829ddd64a5d084b00dd0860de73aa62972245fb6ebb822ab772ad6",
+      "bytes": 19189,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/dataset.cat"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/unsmoothed/2x2/h2o_2x2.lbl",
+      "fetchedAt": "2026-11-14T22:30:58Z",
+      "sha256": "e1424cfe0b6d77a88607d23ff42c43db2fa535df8ab990bc335a090cf05ca15a",
+      "bytes": 4732,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_2x2.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/unsmoothed/2x2/h2o_2x2.tab",
+      "fetchedAt": "2026-11-14T22:31:01Z",
+      "sha256": "05154f2f531fb0462f45b46c70db60d198db07f4fc8fc59cee0c75a8e66d0a64",
+      "bytes": 1045440,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_2x2.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/h2o_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:49Z",
+      "sha256": "1333eef6d604f45af7e9e9f2899e5586b7747b13ad746a389d83ab1adbcf7000",
+      "bytes": 4653,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/h2o_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:50Z",
+      "sha256": "5cec0d637755ddb7a451f58d7b24b6fb34f081e3391b40cdfca5410200da0236",
+      "bytes": 186624,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/h2o_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/k_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "210a986fa38a02a97b1d911c37d5792f8cfb59a0f6f077da2598b46ee2eabfb2",
+      "bytes": 4642,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/k_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/k_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "66eb41ab27c29aac6af75a1512630e894c211158d5bee476beaf801e1be4826d",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/k_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/kvsth_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:56Z",
+      "sha256": "4192cf8dd06d8975056ef9581fc9399c313024acccf69726d74dd8fc29d3b6b1",
+      "bytes": 4781,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/kvsth_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/kvsth_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:57Z",
+      "sha256": "11181262479dd743f8423bd9f02ff67b024bf19ec0ec3909f9d47e186140084d",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/kvsth_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/catalog/ref.cat",
+      "fetchedAt": "2026-11-14T22:30:48Z",
+      "sha256": "424b88e7e8704ada3ec14675a2ddbfd14fbeb18379bc9f5f215e91c9088ab40c",
+      "bytes": 3991,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/ref.cat"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/th_sr_5x5.lbl",
+      "fetchedAt": "2026-11-14T22:30:51Z",
+      "sha256": "57ea5618e023046980a986bde184d179ec249bc04c27c94def353277fff4676e",
+      "bytes": 4645,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/th_sr_5x5.lbl"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/data/smoothed/th_sr_5x5.tab",
+      "fetchedAt": "2026-11-14T22:30:54Z",
+      "sha256": "6c6ce0c50aee39353e99723eab19fc3c9e4ad65bad88c3fbe4bc48b08cd18919",
+      "bytes": 171072,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/th_sr_5x5.tab"
+    },
+    {
+      "datasetId": "ody-grs-pds",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/ody/ody-m-grs-5-elements-v1/odgm_xxxx/voldesc.cat",
+      "fetchedAt": "2026-11-14T22:30:48Z",
+      "sha256": "a9b884ee2e6858b6e3d3f54d48ed8db7dc8a1cc186cfdff13b355c38ad882eca",
+      "bytes": 1870,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ody-grs-pds/voldesc.cat"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
+      "fetchedAt": "2026-11-14T19:57:19Z",
+      "sha256": "0f9a45f104589283104746210179bf515153162ec125409a76ea17c3f7920d4d",
+      "bytes": 736258,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/Global_Soil_Regolith_Sediment.pdf"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif",
+      "fetchedAt": "2026-11-14T19:55:05Z",
+      "sha256": "9ba08f1c45ee38ed2f22316c51de9fdb218fe42256415ef3b90b4c53bf768181",
+      "bytes": 73091828,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:12Z",
+      "sha256": "86bcbc453662d544de4735a7e9e90c141ce14cdf1bcbc640d8d6d50105d6351d",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif",
+      "fetchedAt": "2026-11-14T19:53:27Z",
+      "sha256": "ce869b42692608e40f1c40cc0d16839d97665391765ad183fb80fc53bfc90027",
+      "bytes": 522582513,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:09Z",
+      "sha256": "bbb7b7f185e57533b72e21642737525a624af445c6b3cc2cd696853849753c67",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif",
+      "fetchedAt": "2026-11-14T19:54:36Z",
+      "sha256": "3fc82a6a8ba90404d7e1c2f41eb2a03f0fa6072aef2f48a6cfe1e843c4b7f5b9",
+      "bytes": 15654859,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:11Z",
+      "sha256": "ef4b5233580c044c2ab07ba26fa413ad2899d13835b397da7b50dc7619509177",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif",
+      "fetchedAt": "2026-11-14T19:51:22Z",
+      "sha256": "0b7b78aa885eb3796bf3900d87205def2d9f9900bc1f5790a416f6668ac2f03a",
+      "bytes": 85980757,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:06Z",
+      "sha256": "ae69159d171dfa2aa3eddf4267b3ef8bb684d8e7296b6d2b5a9c42fa91f14e2a",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif",
+      "fetchedAt": "2026-11-14T19:51:53Z",
+      "sha256": "5c190ef2f6b36585ea542c76516751a8730a9e37d93fadd7b348df970bbf0002",
+      "bytes": 217656520,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:08Z",
+      "sha256": "ac64e5edff2a291c47b4d2f6d88b014b38305c796c9786ea34b5d581cd7aac84",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif",
+      "fetchedAt": "2026-11-14T19:54:12Z",
+      "sha256": "15ae1c95f2a943798680487e8996fdcc7b94dbc48fa05dbfc9aee48c80b7e78a",
+      "bytes": 117974104,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif"
+    },
+    {
+      "datasetId": "ornl-global-soil-regolith-sediment",
+      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256",
+      "fetchedAt": "2026-11-14T19:55:10Z",
+      "sha256": "28b8cde070cc2884477b59c9a9b5fe2ab103b30a77858874166ccc47d4c4bbbe",
+      "bytes": 64,
+      "license": "ornl-daac-open-no-restriction",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256"
+    },
+    {
+      "datasetId": "ourairports",
+      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/airports.csv",
+      "fetchedAt": "2026-11-14T17:51:36Z",
+      "sha256": "5b3b48a429c8513853ff13a51a03282d1ef159ddf347f40203ff66b583574e8b",
+      "bytes": 12760412,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ourairports/airports.csv"
+    },
+    {
+      "datasetId": "ourairports",
+      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/runways.csv",
+      "fetchedAt": "2026-11-14T17:51:37Z",
+      "sha256": "84d66ace2234e57c39a6a1d61d02db116e45f963137446c0829bae0547456b31",
+      "bytes": 3974694,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ourairports/runways.csv"
+    },
+    {
+      "datasetId": "robbins-moon-craters",
+      "sourceUrl": "https://astrogeology.usgs.gov/ckan/dataset/f89f5478-b69a-486c-b9b5-30d7b0c5ad2b/resource/c4f25cc2-4f8a-4207-a845-5e176da3ac5a/download/lunar_crater_database_robbins_2018",
+      "fetchedAt": "2026-11-14T22:33:06Z",
+      "sha256": "694137e141138892555d0f976446875331d3317ea506ddf055d91b917ca307ab",
+      "bytes": 96227201,
+      "license": "unresolved",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/robbins-moon-craters/lunar_crater_database_robbins_2018"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt",
+      "fetchedAt": "2026-11-14T20:02:14Z",
+      "sha256": "7988bf46a9fe8f01063717461fd74ce1a50fbd395d0756264def33fb04d07d26",
+      "bytes": 10194,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/aareadme.txt"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dataset.cat",
+      "fetchedAt": "2026-11-14T20:02:15Z",
+      "sha256": "9da4280c29256e9f5d92eacdf7d94f8f0e0442a033513db6b30df1b516aa90f2",
+      "bytes": 7931,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/dataset.cat"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dsmap.cat",
+      "fetchedAt": "2026-11-14T20:02:15Z",
+      "sha256": "1ae6871f04951b49bfeb728532d9d0ef29a2a68e9118b301a6287ebd1179b566",
+      "bytes": 3288,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/dsmap.cat"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.img",
+      "fetchedAt": "2026-11-14T20:02:01Z",
+      "sha256": "d8b1ac57c5f2c6d4f43d7e5331591fae0254f48af7629bd0d230c2603da48f9a",
+      "bytes": 51840000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.lbl",
+      "fetchedAt": "2026-11-14T20:01:34Z",
+      "sha256": "9355e67000b0018768b04b2a8ebfed2b278099dde14e49633081a8ffe6d13631",
+      "bytes": 2408,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.img",
+      "fetchedAt": "2026-11-14T20:02:10Z",
+      "sha256": "23bab175ab99e5aa7b68a4b664f3d616f08c92fcc410188c116d5083103d16cb",
+      "bytes": 25920000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.lbl",
+      "fetchedAt": "2026-11-14T20:02:02Z",
+      "sha256": "4189613d7fe1407f991a27fd2809b708ef3087cb48ca297a2df8f492cfe2c9fd",
+      "bytes": 2478,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.img",
+      "fetchedAt": "2026-11-14T20:02:18Z",
+      "sha256": "fca7ec6fab8b3e81226e1d14dbb3a22509ad111bda4e03bf2b64f050bd550d0b",
+      "bytes": 25920000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.lbl",
+      "fetchedAt": "2026-11-14T20:02:11Z",
+      "sha256": "164838970c1405b2dc6cf367a74c60c0de96d18f05f5e924db6c00f77038ee8a",
+      "bytes": 2485,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.lbl"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.img",
+      "fetchedAt": "2026-11-14T20:02:13Z",
+      "sha256": "faee32838da40045ee7ebd21bed156cc649620312c01165b556d77a2128258f4",
+      "bytes": 51840000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.img"
+    },
+    {
+      "datasetId": "tes-mgs",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.lbl",
+      "fetchedAt": "2026-11-14T20:01:35Z",
+      "sha256": "c1c897d9bd5399292166f99d84a29a73e42432cedfb9dd9a81a1441b3004b72b",
+      "bytes": 2415,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=100",
+      "fetchedAt": "2026-11-14T23:16:41Z",
+      "sha256": "2960923c6728b7ea18154e0b1af254b9995f2c62230c0cb61e8024adf6983901",
+      "bytes": 340966,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/items"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc02_diacria_dir/mc02_diacria_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:54Z",
+      "sha256": "847f6a04bddee02f193bbfef5ca053886e8e0f89939da0836595389933b5f71c",
+      "bytes": 1278,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc02_diacria_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc02_diacria_nir/mc02_diacria_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:55Z",
+      "sha256": "b769c870bac7af7b975a6cc7d99fd14213ff8c3bd4fc51b0834b2986eb9d798f",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc02_diacria_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc03_arcadia_dir/mc03_arcadia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:56Z",
+      "sha256": "269ccfcb0fa3acc0e516ac36d697cb56fe1c5a6c42efad55045e9e4ca23f5464",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc03_arcadia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc03_arcadia_nir/mc03_arcadia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:57Z",
+      "sha256": "269ccfcb0fa3acc0e516ac36d697cb56fe1c5a6c42efad55045e9e4ca23f5464",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc03_arcadia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc04_mare_acidalium_dir/mc04_mare_acidalium_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:58Z",
+      "sha256": "727b111c6566a0da44d57545c96ac3a79e69cf3ed6d471f0a88340bdcf800aa3",
+      "bytes": 2472,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc04_mare_acidalium_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc04_mare_acidalium_nir/mc04_mare_acidalium_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:13:59Z",
+      "sha256": "1cd2169f16c669f9c6deff703f11d708bf22c71b24d1f2802ec88ede7374dffe",
+      "bytes": 1094,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc04_mare_acidalium_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc05_ismenius_lacus_dir/mc05_ismenius_lacus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:00Z",
+      "sha256": "364c60a71be7e2b1668a31d5e1b8497bf04a91adaa36ec2fa5dfd4f33e12d6a2",
+      "bytes": 1177,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc05_ismenius_lacus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc05_ismenius_lacus_nir/mc05_ismenius_lacus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:01Z",
+      "sha256": "364c60a71be7e2b1668a31d5e1b8497bf04a91adaa36ec2fa5dfd4f33e12d6a2",
+      "bytes": 1177,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc05_ismenius_lacus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc06_casius_dir/mc06_casius_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:03Z",
+      "sha256": "19418e15d31fd83c614cecf60bf0e4ec04972f8ed78021d76d864b2036909685",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc06_casius_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc06_casius_nir/mc06_casius_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:04Z",
+      "sha256": "19418e15d31fd83c614cecf60bf0e4ec04972f8ed78021d76d864b2036909685",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc06_casius_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc07_cebrenia_dir/mc07_cebrenia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:05Z",
+      "sha256": "ba267839963eedc9093666e8b3fa6e89518aa3da73a9f4276cde6d3104e57052",
+      "bytes": 1098,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc07_cebrenia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc07_cebrenia_nir/mc07_cebrenia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:06Z",
+      "sha256": "ba267839963eedc9093666e8b3fa6e89518aa3da73a9f4276cde6d3104e57052",
+      "bytes": 1098,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc07_cebrenia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc08_amazonis_dir/mc08_amazonis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:08Z",
+      "sha256": "deaae8260012fe3e4086215d96d1d5a84e73ae1b0dbeb3321f66c7db794ecfb9",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc08_amazonis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc08_amazonis_nir/mc08_amazonis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:09Z",
+      "sha256": "deaae8260012fe3e4086215d96d1d5a84e73ae1b0dbeb3321f66c7db794ecfb9",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc08_amazonis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc09_tharsis_dir/mc09_tharsis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:10Z",
+      "sha256": "ac090824f57505ded4202e342021af18aca841409ec840ca80cf54c7f89c7e49",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc09_tharsis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc09_tharsis_nir/mc09_tharsis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:12Z",
+      "sha256": "ac090824f57505ded4202e342021af18aca841409ec840ca80cf54c7f89c7e49",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc09_tharsis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc10_lunae_palus_dir/mc10_lunae_palus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:13Z",
+      "sha256": "44fe07542c63fbc325cdc6a6d7688d236c20c5de55357cd733d5e5ee811f8875",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc10_lunae_palus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc10_lunae_palus_nir/mc10_lunae_palus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:15Z",
+      "sha256": "44fe07542c63fbc325cdc6a6d7688d236c20c5de55357cd733d5e5ee811f8875",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc10_lunae_palus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc11_oxia_palus_dir/mc11_oxia_palus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:16Z",
+      "sha256": "ba19acb35ee4370f6fe5e08ae5dce339ff657c5f31d07617d8b0d9c1419ad91d",
+      "bytes": 1093,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc11_oxia_palus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc11_oxia_palus_nir/mc11_oxia_palus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:17Z",
+      "sha256": "cc55f35801136bee57c537ccc49d4070e6f64439e47178fb749d156faa2f60ea",
+      "bytes": 1187,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc11_oxia_palus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc12_arabia_dir/mc12_arabia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:18Z",
+      "sha256": "17a73d81422605543a726ff20195343ed34bab9952851778310fe3e9d5252580",
+      "bytes": 1176,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc12_arabia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc12_arabia_nir/mc12_arabia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:19Z",
+      "sha256": "c6e21839b4f17ef4c8a004dd93e86094f1a5359539755393d46dfe77864cf899",
+      "bytes": 1176,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc12_arabia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/mc13_syrtis_major_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:21Z",
+      "sha256": "45357be63119717f274efd47321c71d7c998b1b0ad6d5f38a77f4f200b678286",
+      "bytes": 1095,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/mc13_syrtis_major_dir.tif",
+      "fetchedAt": "2026-11-14T23:51:29Z",
+      "sha256": "8a906efc5820ec15dc6e5461f027220d00e1ac8e6f3629297b873af789511817",
+      "bytes": 435930009,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_nir/mc13_syrtis_major_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:22Z",
+      "sha256": "45357be63119717f274efd47321c71d7c998b1b0ad6d5f38a77f4f200b678286",
+      "bytes": 1095,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_nir/mc13_syrtis_major_nir.tif",
+      "fetchedAt": "2026-11-15T00:02:45Z",
+      "sha256": "b3593e1382fcda19d352b68799e6f20a7d5d4f9888b22c51ee90ce42095d00e4",
+      "bytes": 467698602,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc13_syrtis_major_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_dir/mc14_amenthes_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:24Z",
+      "sha256": "4827a26466a8e6fd083adcfe9cb7b95f70d3b4f14f2ad2787b01b34050b583f2",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_dir/mc14_amenthes_dir.tif",
+      "fetchedAt": "2026-11-14T23:51:49Z",
+      "sha256": "2af52848a75e961635784860da96c5b0952c14ca54f8d499980219632730f860",
+      "bytes": 448922535,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_nir/mc14_amenthes_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:25Z",
+      "sha256": "4827a26466a8e6fd083adcfe9cb7b95f70d3b4f14f2ad2787b01b34050b583f2",
+      "bytes": 1096,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc14_amenthes_nir/mc14_amenthes_nir.tif",
+      "fetchedAt": "2026-11-14T23:53:30Z",
+      "sha256": "fb31c010514e5e408a9469527c837af1722e9bed0212585d2e4f64161d9f142c",
+      "bytes": 461675695,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc14_amenthes_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_dir/mc15_elysium_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:26Z",
+      "sha256": "622de0ce779ce4a8521ced7a6b3a43036f3492630cab2b5f552c497557ef0ed1",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_dir/mc15_elysium_dir.tif",
+      "fetchedAt": "2026-11-15T00:00:16Z",
+      "sha256": "2b426cc01f63ade479e164c30a784cc924d08c778536982d1afb7644f7fc54fd",
+      "bytes": 428617143,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_nir/mc15_elysium_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:27Z",
+      "sha256": "622de0ce779ce4a8521ced7a6b3a43036f3492630cab2b5f552c497557ef0ed1",
+      "bytes": 1097,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc15_elysium_nir/mc15_elysium_nir.tif",
+      "fetchedAt": "2026-11-15T00:00:32Z",
+      "sha256": "83a5f8bc8828fdd0be3b6cac17b76a2df72549be234d56809036c9e2af0484fe",
+      "bytes": 468369102,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc15_elysium_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc16_memnonia_dir/mc16_memnonia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:28Z",
+      "sha256": "0fd77157b99abca11ee72820537edaa6cd8ac7ec3199ba2253693a6a75fccbd8",
+      "bytes": 1173,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc16_memnonia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc16_memnonia_nir/mc16_memnonia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:29Z",
+      "sha256": "7d0ddb8fc526d13b274a2a0105121e7d810db5624b7c35850098c564847016b0",
+      "bytes": 1079,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc16_memnonia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc17_phoenicis_lacus_dir/mc17_phoenicis_lacus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:30Z",
+      "sha256": "b9bd83f1770b78de63101bb779d39f564c008ebf3fda9a926e5975a9c7f60590",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc17_phoenicis_lacus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc17_phoenicis_lacus_nir/mc17_phoenicis_lacus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:32Z",
+      "sha256": "b9bd83f1770b78de63101bb779d39f564c008ebf3fda9a926e5975a9c7f60590",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc17_phoenicis_lacus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc18_coprates_dir/mc18_coprates_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:33Z",
+      "sha256": "75f79b65f22716125c43ae55aec3db300c964b906a7393c3f78e3492b9d28e98",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc18_coprates_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc18_coprates_nir/mc18_coprates_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:34Z",
+      "sha256": "75f79b65f22716125c43ae55aec3db300c964b906a7393c3f78e3492b9d28e98",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc18_coprates_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_dir/mc19_margaritifer_sinus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:35Z",
+      "sha256": "5cfe5b8ad4239fbfaad005ae2d7d010a738786a94e4bcc167abeca7aa69e1415",
+      "bytes": 1179,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_dir/mc19_margaritifer_sinus_dir.tif",
+      "fetchedAt": "2026-11-15T00:01:06Z",
+      "sha256": "1c597f682e86bfaae7813ffdd28c74054488aa0646448fd94ed937b51ea34db5",
+      "bytes": 437866001,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_nir/mc19_margaritifer_sinus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:37Z",
+      "sha256": "5cfe5b8ad4239fbfaad005ae2d7d010a738786a94e4bcc167abeca7aa69e1415",
+      "bytes": 1179,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc19_margaritifer_sinus_nir/mc19_margaritifer_sinus_nir.tif",
+      "fetchedAt": "2026-11-15T00:06:23Z",
+      "sha256": "cb7762d0961175d8466cc3c48ce57b45358a3d767284d95320cbee2f93730e9e",
+      "bytes": 458431056,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc19_margaritifer_sinus_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc20_sinus_sabaeus_dir/mc20_sinus_sabaeus_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:38Z",
+      "sha256": "0c750dabe39ca25ab0acee42df4876477dad148cc62c7ec389e02539deb9fde0",
+      "bytes": 1168,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc20_sinus_sabaeus_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc20_sinus_sabaeus_nir/mc20_sinus_sabaeus_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:39Z",
+      "sha256": "bd2bffe67d71513f5634e9c876fe04a0cf125fa290308ec74430c5882f6142be",
+      "bytes": 1074,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc20_sinus_sabaeus_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc21_iapygia_dir/mc21_iapygia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:40Z",
+      "sha256": "c52150ed1927f524d4c2204f985070894807282e1c249a754425416b41f6847e",
+      "bytes": 1087,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc21_iapygia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc21_iapygia_nir/mc21_iapygia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:40Z",
+      "sha256": "e3e98922d2b18dbba0eb5f3c6e86baf80dd0f18a17ad6ab7c6ee9c2622b1e837",
+      "bytes": 1181,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc21_iapygia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc22_mare_tyrrhenum_dir/mc22_mare_tyrrhenum_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:41Z",
+      "sha256": "84ca1abaff4021aa9e7d30a05a057efa192878c0ef5c4a3d3f16cc8035c8a9ab",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc22_mare_tyrrhenum_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc22_mare_tyrrhenum_nir/mc22_mare_tyrrhenum_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:43Z",
+      "sha256": "84ca1abaff4021aa9e7d30a05a057efa192878c0ef5c4a3d3f16cc8035c8a9ab",
+      "bytes": 1088,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc22_mare_tyrrhenum_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_dir/mc23_aeolis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:44Z",
+      "sha256": "f3a5c8725522156a701057eb44c1ffb6bc810cfd7c7a70e5bbe0d26096a5cc33",
+      "bytes": 1183,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_dir/mc23_aeolis_dir.tif",
+      "fetchedAt": "2026-11-15T00:06:36Z",
+      "sha256": "83611b7462b9477676caebeef3d27e40bb7db9a076e6ee86ddf917576f8e3f62",
+      "bytes": 451722323,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_dir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_nir/mc23_aeolis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:45Z",
+      "sha256": "f3a5c8725522156a701057eb44c1ffb6bc810cfd7c7a70e5bbe0d26096a5cc33",
+      "bytes": 1183,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc23_aeolis_nir/mc23_aeolis_nir.tif",
+      "fetchedAt": "2026-11-15T00:07:09Z",
+      "sha256": "02584772f3b20181bad2e4c670f58f769c48b9743d96ccb5e7c5eefa089cacd8",
+      "bytes": 459289666,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc23_aeolis_nir.tif"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc24_phaethontis_dir/mc24_phaethontis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:46Z",
+      "sha256": "99b61495f031282e5cde8da490e5268de4bff5b0204323e55331eac8c0645fa5",
+      "bytes": 1185,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc24_phaethontis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc24_phaethontis_nir/mc24_phaethontis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:47Z",
+      "sha256": "99b61495f031282e5cde8da490e5268de4bff5b0204323e55331eac8c0645fa5",
+      "bytes": 1185,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc24_phaethontis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc25_thaumasia_dir/mc25_thaumasia_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:48Z",
+      "sha256": "ca1c2e04069da98739c1cac18bf95134ea03084537fa421fe7f743c462cc615e",
+      "bytes": 1100,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc25_thaumasia_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc25_thaumasia_nir/mc25_thaumasia_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:49Z",
+      "sha256": "fbb9459b3d5fa3ee91945f38e817841b7c2e032fb8692c0ca877a6ad1af231a6",
+      "bytes": 1194,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc25_thaumasia_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc26_argyre_dir/mc26_argyre_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:50Z",
+      "sha256": "287dd332cd357be36cd655ce1729b9c993da8ebb54cf59d493b0f079e4c82e35",
+      "bytes": 1191,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc26_argyre_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc26_argyre_nir/mc26_argyre_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:51Z",
+      "sha256": "21f102cc850c6f2afe6f3abb94b764028ad2c228afa738b421108858f42a9172",
+      "bytes": 1191,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc26_argyre_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc27_noachis_dir/mc27_noachis_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:51Z",
+      "sha256": "e7bc4081bae139cb1e3612c2960c69d3dd7d85327ee17feea9408ff47af78ed7",
+      "bytes": 1086,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc27_noachis_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc27_noachis_nir/mc27_noachis_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:52Z",
+      "sha256": "e7bc4081bae139cb1e3612c2960c69d3dd7d85327ee17feea9408ff47af78ed7",
+      "bytes": 1086,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc27_noachis_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc28_hellas_dir/mc28_hellas_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:53Z",
+      "sha256": "bb5f6546c4dd088264c36aa6d2cbe62fdc13a2c2f9c27e74120e5386ad2ef6c5",
+      "bytes": 1193,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc28_hellas_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc28_hellas_nir/mc28_hellas_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:54Z",
+      "sha256": "2823234502f355a4a2c9781544781d06690613bbb007f3881e21c0c5e7c19db9",
+      "bytes": 1099,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc28_hellas_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc29_eridania_dir/mc29_eridania_dir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:55Z",
+      "sha256": "48de842917f16ae987758a9687e8952d7fc8a358feff31017e6c7439625b65a6",
+      "bytes": 1195,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc29_eridania_dir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc29_eridania_nir/mc29_eridania_nir.isis.lbl",
+      "fetchedAt": "2026-11-14T23:14:57Z",
+      "sha256": "48de842917f16ae987758a9687e8952d7fc8a358feff31017e6c7439625b65a6",
+      "bytes": 1195,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/mc29_eridania_nir.isis.lbl"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://astrogeo-ard.s3.us-west-2.amazonaws.com/mars/mo/themis/controlled_mosaics/mc13_syrtis_major_dir/provenance.txt",
+      "fetchedAt": "2026-11-14T23:40:57Z",
+      "sha256": "b2f9bf010a1e85bd486b5d7937898b9983f1e6aef8b25639cc1ae004cb52d515",
+      "bytes": 539,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/provenance.txt"
+    },
+    {
+      "datasetId": "themis-ir-controlled-mosaics",
+      "sourceUrl": "https://stac.astrogeology.usgs.gov/api/collections/mo_themis_controlled_mosaics/items?limit=100",
+      "fetchedAt": "2026-11-14T23:13:52Z",
+      "sha256": "2960923c6728b7ea18154e0b1af254b9995f2c62230c0cb61e8024adf6983901",
+      "bytes": 340966,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/themis-ir-controlled-mosaics/stac-items.json"
+    },
+    {
+      "datasetId": "travel-time-to-cities-2015",
+      "sourceUrl": "https://data.malariaatlas.org/geoserver/ows?service=CSW&version=2.0.1&request=DirectDownload&ResourceId=Explorer:2015_accessibility_to_cities_v1.0",
+      "fetchedAt": "2026-11-14T17:51:36Z",
+      "sha256": "5dbdef51be0be7107ee5b6fef85f2f00813328248e1b2535c3188efc9d0fd4f9",
+      "bytes": 381398991,
+      "license": "cc-by-3.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
+    },
+    {
+      "datasetId": "unified-geologic-map-moon",
+      "sourceUrl": "https://asc-astropedia.s3.us-west-2.amazonaws.com/Moon/Geology/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip",
+      "fetchedAt": "2026-11-14T22:31:41Z",
+      "sha256": "f3ec29803c1ad3b8c41a7fff3e9339bd66f9fbb8f63e30f13c52561b8d5559a1",
+      "bytes": 224413040,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/unified-geologic-map-moon/Unified_Geologic_Map_of_the_Moon_GIS_v2.zip"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:43Z",
+      "sha256": "753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910",
+      "bytes": 5421247,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MARS_nomenclature_center_pts.zip",
+      "note": "gzip JSONL ledger of every 2015-2024 MCD64A1 granule fetched by p0ingest.burned (url, sha256, bytes, time, pixel tallies); hashed here and in burned-r4-monthly.meta.json"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:41Z",
+      "sha256": "bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b",
+      "bytes": 23845070,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MOON_nomenclature_center_pts.zip"
     },
     {
       "datasetId": "modis-mod44b",
@@ -4419,276 +7469,6 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mod44b/MOD44B_User_Guide_V61.pdf"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
-      "fetchedAt": "2026-11-14T19:57:19Z",
-      "sha256": "0f9a45f104589283104746210179bf515153162ec125409a76ea17c3f7920d4d",
-      "bytes": 736258,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/Global_Soil_Regolith_Sediment.pdf"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif",
-      "fetchedAt": "2026-11-14T19:55:05Z",
-      "sha256": "9ba08f1c45ee38ed2f22316c51de9fdb218fe42256415ef3b90b4c53bf768181",
-      "bytes": 73091828,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/average_soil_and_sedimentary-deposit_thickness.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:12Z",
-      "sha256": "86bcbc453662d544de4735a7e9e90c141ce14cdf1bcbc640d8d6d50105d6351d",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/average_soil_and_sedimentary-deposit_thickness.tif.sha256"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif",
-      "fetchedAt": "2026-11-14T19:53:27Z",
-      "sha256": "ce869b42692608e40f1c40cc0d16839d97665391765ad183fb80fc53bfc90027",
-      "bytes": 522582513,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/hill-slope_valley-bottom.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:09Z",
-      "sha256": "bbb7b7f185e57533b72e21642737525a624af445c6b3cc2cd696853849753c67",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/hill-slope_valley-bottom.tif.sha256"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif",
-      "fetchedAt": "2026-11-14T19:54:36Z",
-      "sha256": "3fc82a6a8ba90404d7e1c2f41eb2a03f0fa6072aef2f48a6cfe1e843c4b7f5b9",
-      "bytes": 15654859,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/land_cover_mask.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:11Z",
-      "sha256": "ef4b5233580c044c2ab07ba26fa413ad2899d13835b397da7b50dc7619509177",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/land_cover_mask.tif.sha256"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif",
-      "fetchedAt": "2026-11-14T19:51:22Z",
-      "sha256": "0b7b78aa885eb3796bf3900d87205def2d9f9900bc1f5790a416f6668ac2f03a",
-      "bytes": 85980757,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_regolith_thickness.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:06Z",
-      "sha256": "ae69159d171dfa2aa3eddf4267b3ef8bb684d8e7296b6d2b5a9c42fa91f14e2a",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_regolith_thickness.tif.sha256"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif",
-      "fetchedAt": "2026-11-14T19:51:53Z",
-      "sha256": "5c190ef2f6b36585ea542c76516751a8730a9e37d93fadd7b348df970bbf0002",
-      "bytes": 217656520,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_hill-slope_soil_thickness.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:08Z",
-      "sha256": "ac64e5edff2a291c47b4d2f6d88b014b38305c796c9786ea34b5d581cd7aac84",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_hill-slope_soil_thickness.tif.sha256"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/protected/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif",
-      "fetchedAt": "2026-11-14T19:54:12Z",
-      "sha256": "15ae1c95f2a943798680487e8996fdcc7b94dbc48fa05dbfc9aee48c80b7e78a",
-      "bytes": 117974104,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif"
-    },
-    {
-      "datasetId": "ornl-global-soil-regolith-sediment",
-      "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/data/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256",
-      "fetchedAt": "2026-11-14T19:55:10Z",
-      "sha256": "28b8cde070cc2884477b59c9a9b5fe2ab103b30a77858874166ccc47d4c4bbbe",
-      "bytes": 64,
-      "license": "ornl-daac-open-no-restriction",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ornl-global-soil-regolith-sediment/upland_valley-bottom_and_lowland_sedimentary_deposit_thickness.tif.sha256"
-    },
-    {
-      "datasetId": "ourairports",
-      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/airports.csv",
-      "fetchedAt": "2026-11-14T17:51:36Z",
-      "sha256": "5b3b48a429c8513853ff13a51a03282d1ef159ddf347f40203ff66b583574e8b",
-      "bytes": 12760412,
-      "license": "public-domain",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ourairports/airports.csv"
-    },
-    {
-      "datasetId": "ourairports",
-      "sourceUrl": "https://davidmegginson.github.io/ourairports-data/runways.csv",
-      "fetchedAt": "2026-11-14T17:51:37Z",
-      "sha256": "84d66ace2234e57c39a6a1d61d02db116e45f963137446c0829bae0547456b31",
-      "bytes": 3974694,
-      "license": "public-domain",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/ourairports/runways.csv"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/aareadme.txt",
-      "fetchedAt": "2026-11-14T20:02:14Z",
-      "sha256": "7988bf46a9fe8f01063717461fd74ce1a50fbd395d0756264def33fb04d07d26",
-      "bytes": 10194,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/aareadme.txt"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dataset.cat",
-      "fetchedAt": "2026-11-14T20:02:15Z",
-      "sha256": "9da4280c29256e9f5d92eacdf7d94f8f0e0442a033513db6b30df1b516aa90f2",
-      "bytes": 7931,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/dataset.cat"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/catalog/dsmap.cat",
-      "fetchedAt": "2026-11-14T20:02:15Z",
-      "sha256": "1ae6871f04951b49bfeb728532d9d0ef29a2a68e9118b301a6287ebd1179b566",
-      "bytes": 3288,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/dsmap.cat"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.img",
-      "fetchedAt": "2026-11-14T20:02:01Z",
-      "sha256": "d8b1ac57c5f2c6d4f43d7e5331591fae0254f48af7629bd0d230c2603da48f9a",
-      "bytes": 51840000,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.img"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_day_2007.lbl",
-      "fetchedAt": "2026-11-14T20:01:34Z",
-      "sha256": "9355e67000b0018768b04b2a8ebfed2b278099dde14e49633081a8ffe6d13631",
-      "bytes": 2408,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_day_2007.lbl"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.img",
-      "fetchedAt": "2026-11-14T20:02:10Z",
-      "sha256": "23bab175ab99e5aa7b68a4b664f3d616f08c92fcc410188c116d5083103d16cb",
-      "bytes": 25920000,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.img"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_day_2007.lbl",
-      "fetchedAt": "2026-11-14T20:02:02Z",
-      "sha256": "4189613d7fe1407f991a27fd2809b708ef3087cb48ca297a2df8f492cfe2c9fd",
-      "bytes": 2478,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_msk_day_2007.lbl"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.img",
-      "fetchedAt": "2026-11-14T20:02:18Z",
-      "sha256": "fca7ec6fab8b3e81226e1d14dbb3a22509ad111bda4e03bf2b64f050bd550d0b",
-      "bytes": 25920000,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.img"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_msk_night_2007.lbl",
-      "fetchedAt": "2026-11-14T20:02:11Z",
-      "sha256": "164838970c1405b2dc6cf367a74c60c0de96d18f05f5e924db6c00f77038ee8a",
-      "bytes": 2485,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_msk_night_2007.lbl"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.img",
-      "fetchedAt": "2026-11-14T20:02:13Z",
-      "sha256": "faee32838da40045ee7ebd21bed156cc649620312c01165b556d77a2128258f4",
-      "bytes": 51840000,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.img"
-    },
-    {
-      "datasetId": "tes-mgs",
-      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-tes-5-timap-v1/mgst_9001/data/global_ti_night_2007.lbl",
-      "fetchedAt": "2026-11-14T20:01:35Z",
-      "sha256": "c1c897d9bd5399292166f99d84a29a73e42432cedfb9dd9a81a1441b3004b72b",
-      "bytes": 2415,
-      "license": "us-pd",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/tes-mgs/global_ti_night_2007.lbl"
-    },
-    {
-      "datasetId": "travel-time-to-cities-2015",
-      "sourceUrl": "https://data.malariaatlas.org/geoserver/ows?service=CSW&version=2.0.1&request=DirectDownload&ResourceId=Explorer:2015_accessibility_to_cities_v1.0",
-      "fetchedAt": "2026-11-14T17:51:36Z",
-      "sha256": "5dbdef51be0be7107ee5b6fef85f2f00813328248e1b2535c3188efc9d0fd4f9",
-      "bytes": 381398991,
-      "license": "cc-by-3.0",
-      "licenseVerified": true,
-      "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
     }
   ]
 }

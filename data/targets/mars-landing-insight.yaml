@@ -1,0 +1,24 @@
+siteId: mars-landing-insight
+name: InSight lander, Elysium Planitia
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: 4.5
+centreLon: 135.9
+note: 'landed 2018-11-26; press-kit precision: whole-tenths of a degree about the
+  named site'
+source:
+  datasetId: mars-lander-sites
+  file: jpl-insight-landing-press-kit-2018.pdf
+  url: https://web.archive.org/web/20181101155636id_/https://www.jpl.nasa.gov/news/press_kits/insight/landing/download/mars_insight_landing_presskit.pdf
+  fetchedAt: '2026-11-14T23:30:37Z'
+  sourceSha256: 40b5665b89f09b0722dfdd074b2901cecfeea3876a3208dfc329987be9252911
+  quote: 'Landing site: Near the equator, about 4.5 degrees north latitude, 135.9
+    degrees east longitude, in Elysium Planitia'
+usgsCrossCheck:
+  feature: Elysium Planitia
+  diffKm: 1115.6
+  expectedMaxKm: 1500
+  note: 'informational only: Elysium Planitia is a ~3001 km planitia; tolerance =
+    half the feature diameter'
