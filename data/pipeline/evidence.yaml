@@ -94,3 +94,8 @@ columns:
   wind_speed_max:           {kind: reanalysis, support: "MERRA-2 M2TMNXFLX monthly max 10 m wind SPEEDMAX, nearest 0.5x0.625 deg grid box, 2023", family: merra2}
   u10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m U10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
   v10m_mean:                {kind: reanalysis, support: "MERRA-2 M2TMNXSLV monthly 10 m V10M vector component (not combined into speed), nearest 0.5x0.625 deg grid box, 2023", family: merra2}
+  # aqua lst (MYD11C3 v061, #93; same MODIS TIR sensor lineage as modis-mod11, afternoon/night ~13:30/~01:30 overpass)
+  aqua_lst_day_k:           {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~13:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_night_k:         {kind: observed, support: "MYD11C3 0.05 deg monthly composite (~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_diurnal_k:       {kind: observed, support: "MYD11C3 monthly day minus night (~13:30/~01:30 local solar), hexagon aggregate, 2023; shares MODIS TIR sensor family with modis-mod11", family: modis-myd11}
+  aqua_lst_valid_pixels:    {kind: observed, support: "MYD11C3 CMG pixels in hexagon with both valid day and night LST in that month", family: modis-myd11}
