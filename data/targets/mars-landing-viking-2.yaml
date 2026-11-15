@@ -1,0 +1,23 @@
+siteId: mars-landing-viking-2
+name: Viking Lander 2, Utopia Planitia
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-0-360
+centreLat: 47.6673
+centreLon: 134.2809
+note: landed 1976-09-03; coordinate exactly as quoted
+source:
+  datasetId: mars-lander-sites
+  file: nssdc-1975-083C-viking2.xhtml
+  url: https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-083C
+  fetchedAt: '2026-11-14T23:29:40Z'
+  sourceSha256: ae01237164675e15fbd8c9522d1a1b22f0e8920ddcef39e0870c4378b501fb60
+  quote: The Viking 2 Lander touched down about 200 km west of the crater Mie in Utopia
+    Planitia at 47.6673 deg N latitude and 134.2809 deg E longitude
+usgsCrossCheck:
+  feature: Utopia Planitia
+  diffKm: 674.7
+  expectedMaxKm: 1780
+  note: 'informational only: Utopia Planitia is a ~3560 km planitia; tolerance = half
+    the feature diameter'
