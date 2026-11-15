@@ -1,0 +1,995 @@
+{
+  "version": 1,
+  "issue": 23,
+  "expectationsSha256": "024c37aa925afa556931aa46f5458b7ef8e636af574a8903791fe6ff7343253c",
+  "campaigns": [
+    {
+      "campaignId": "mdrs-89",
+      "run": true,
+      "site": {
+        "h3": "8429927ffffffff",
+        "name": "Mars Desert Research Station, Utah"
+      },
+      "mappingBasis": "Simulated EVA operations is surface-mobility work (EVA suits, tools), the OP-5LM text.",
+      "monthsBasis": "quote (\"From 23 January through 6 February 2010\")",
+      "variants": {
+        "shipped": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "mdrs-89",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 1,
+              "end": 2
+            },
+            "durationDays": 14
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 4.31216287612915,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 55.849998474121094,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 1,
+                  "value": 0.005605444777756929,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 2,
+                  "value": 0.010948882438242435,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 1,
+                  "value": 267.739990234375,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 2,
+                  "value": 265.6400146484375,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "noMissSomeUnknown",
+            "observed": "noMissSomeUnknown",
+            "agrees": true
+          }
+        },
+        "bandsOnly": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "mdrs-89",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 1,
+              "end": 2
+            },
+            "durationDays": 14,
+            "must": [
+              "surfaceMaterial"
+            ],
+            "nice": [
+              "terrain",
+              "dustProcess",
+              "thermal"
+            ]
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 4.31216287612915,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 55.849998474121094,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 1,
+                  "value": 0.005605444777756929,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 2,
+                  "value": 0.010948882438242435,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 1,
+                  "value": 267.739990234375,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 2,
+                  "value": 265.6400146484375,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "allMatch",
+            "observed": "allMatch",
+            "agrees": true
+          }
+        }
+      }
+    },
+    {
+      "campaignId": "fmars-expedition-12",
+      "run": true,
+      "site": {
+        "h3": "8402543ffffffff",
+        "name": "Flashline Mars Arctic Research Station, Devon Island"
+      },
+      "mappingBasis": "EVA-based geophysical survey during a simulated Mars expedition is surface-mobility/EVA work.",
+      "monthsBasis": "quote (\"In July 2009 ... month-long simulated Mars expedition\")",
+      "variants": {
+        "shipped": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "fmars-expedition-12",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 7,
+              "end": 7
+            },
+            "durationDays": 30
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.2745754718780518,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 89.31404876708984,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 0.010975885204970837,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 279.1099853515625,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "noMissSomeUnknown",
+            "observed": "noMissSomeUnknown",
+            "agrees": true
+          }
+        },
+        "bandsOnly": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "fmars-expedition-12",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 7,
+              "end": 7
+            },
+            "durationDays": 30,
+            "must": [
+              "surfaceMaterial"
+            ],
+            "nice": [
+              "terrain",
+              "dustProcess",
+              "thermal"
+            ]
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.2745754718780518,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 89.31404876708984,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 0.010975885204970837,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 279.1099853515625,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "allMatch",
+            "observed": "allMatch",
+            "agrees": true
+          }
+        }
+      }
+    },
+    {
+      "campaignId": "hmp-2015",
+      "run": true,
+      "site": {
+        "h3": "8402543ffffffff",
+        "name": "HMP Research Station (HMPRS), Devon Island"
+      },
+      "mappingBasis": "weak. The source names astrobiology and planetary-protection work; HMP is also an EVA/rover test site, but this record does not quote that.",
+      "monthsBasis": "interpretation. The source says only \"summer field campaign\"; July-August is our reading of the Devon Island field season. No duration is quoted, so none is sent.",
+      "variants": {
+        "shipped": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "hmp-2015",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 7,
+              "end": 8
+            }
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.2745754718780518,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 89.31404876708984,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 0.010975885204970837,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 8,
+                  "value": 0.0051538278348743916,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 279.1099853515625,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 8,
+                  "value": 272.17999267578125,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "noMissSomeUnknown",
+            "observed": "noMissSomeUnknown",
+            "agrees": true
+          }
+        },
+        "bandsOnly": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "hmp-2015",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 7,
+              "end": 8
+            },
+            "must": [
+              "surfaceMaterial"
+            ],
+            "nice": [
+              "terrain",
+              "dustProcess",
+              "thermal"
+            ]
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.2745754718780518,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 89.31404876708984,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 0.010975885204970837,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 8,
+                  "value": 0.0051538278348743916,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 7,
+                  "value": 279.1099853515625,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 8,
+                  "value": 272.17999267578125,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "allMatch",
+            "observed": "allMatch",
+            "agrees": true
+          }
+        }
+      }
+    },
+    {
+      "campaignId": "desert-rats-2010",
+      "run": true,
+      "site": {
+        "h3": "8448c9bffffffff",
+        "name": "Black Point Lava Flow test area, Arizona"
+      },
+      "mappingBasis": "Crewed-rover geology traverses are surface-mobility work. Desert RATS 2010 was not Mars-specific (the source says \"volcanic terrains observed throughout the Solar System\"); OP-5LM is our closest objective.",
+      "monthsBasis": "quote (\"between 31 August and 13 September 2010\")",
+      "variants": {
+        "shipped": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "desert-rats-2010",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 8,
+              "end": 9
+            },
+            "durationDays": 14
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.558485269546509,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "miss",
+              "gap": 46.414634227752686,
+              "side": "below",
+              "value": 3.5853657722473145,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": false
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 8,
+                  "value": 0.010328725911676884,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 9,
+                  "value": 0.00908476859331131,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 8,
+                  "value": 289.739990234375,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 9,
+                  "value": 285.4200134277344,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "noMissSomeUnknown",
+            "observed": "someMiss",
+            "agrees": false
+          }
+        },
+        "bandsOnly": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "desert-rats-2010",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "crewed",
+            "months": {
+              "start": 8,
+              "end": 9
+            },
+            "durationDays": 14,
+            "must": [
+              "surfaceMaterial"
+            ],
+            "nice": [
+              "terrain",
+              "dustProcess",
+              "thermal"
+            ]
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "match",
+              "value": 2.558485269546509,
+              "expected": "match",
+              "confidence": "medium",
+              "agrees": true
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "miss",
+              "gap": 46.414634227752686,
+              "side": "below",
+              "value": 3.5853657722473145,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": false
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 8,
+                  "value": 0.010328725911676884,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 9,
+                  "value": 0.00908476859331131,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 8,
+                  "value": 289.739990234375,
+                  "verdict": "unknown"
+                },
+                {
+                  "month": 9,
+                  "value": 285.4200134277344,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "allMatch",
+            "observed": "someMiss",
+            "agrees": false
+          }
+        }
+      }
+    },
+    {
+      "campaignId": "atacama-arads-2019",
+      "run": true,
+      "site": {
+        "h3": "84b2205ffffffff",
+        "name": "Atacama ARADS Area 1, northern Chile"
+      },
+      "mappingBasis": "Rover-mounted drilling and sample handling is robotic surface operation. The life-search purpose has no matching objective in data/objectives/.",
+      "monthsBasis": "quote (\"Our field work was performed in September 2019\")",
+      "variants": {
+        "shipped": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "atacama-arads-2019",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "robotic",
+            "months": {
+              "start": 9,
+              "end": 9
+            }
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "miss",
+              "gap": 0.2815122604370117,
+              "side": "above",
+              "value": 5.281512260437012,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": false
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 99.9375,
+              "expected": "match",
+              "confidence": "high",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 9,
+                  "value": 0.007227093446999788,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "must",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 9,
+                  "value": 283.3599853515625,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "noMissSomeUnknown",
+            "observed": "noMissSomeUnknown",
+            "agrees": true
+          }
+        },
+        "bandsOnly": {
+          "request": {
+            "version": 1,
+            "presetCampaignId": "atacama-arads-2019",
+            "body": "mars",
+            "objectiveId": "OP-5LM",
+            "missionType": "robotic",
+            "months": {
+              "start": 9,
+              "end": 9
+            },
+            "must": [
+              "surfaceMaterial"
+            ],
+            "nice": [
+              "terrain",
+              "dustProcess",
+              "thermal"
+            ]
+          },
+          "traits": [
+            {
+              "dimension": "terrain",
+              "priority": "nice",
+              "observed": "miss",
+              "gap": 0.2815122604370117,
+              "side": "above",
+              "value": 5.281512260437012,
+              "expected": "match",
+              "confidence": "low",
+              "agrees": false
+            },
+            {
+              "dimension": "surfaceMaterial",
+              "priority": "must",
+              "observed": "match",
+              "value": 99.9375,
+              "expected": "match",
+              "confidence": "high",
+              "agrees": true
+            },
+            {
+              "dimension": "dustProcess",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 9,
+                  "value": 0.007227093446999788,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            },
+            {
+              "dimension": "thermal",
+              "priority": "nice",
+              "observed": "unknown",
+              "reason": "no-band",
+              "perMonth": [
+                {
+                  "month": 9,
+                  "value": 283.3599853515625,
+                  "verdict": "unknown"
+                }
+              ],
+              "expected": "unknown",
+              "confidence": "certain",
+              "agrees": true
+            }
+          ],
+          "funnel": {
+            "expected": "allMatch",
+            "observed": "allMatch",
+            "agrees": true
+          }
+        }
+      }
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "run": false,
+      "reason": "Not run. HI-SEAS IV is a one-year isolation and habitat-microbiome study. None of our three objectives (OP-5LM surface mobility, SE-3LM water ice, LI-5L lunar infrastructure) covers it, and inventing a mapping would make the calibration look broader than it is."
+    }
+  ],
+  "grid": [
+    {
+      "objectiveId": "OP-5LM",
+      "variant": "shipped",
+      "request": {
+        "version": 1,
+        "missionType": "crewed",
+        "months": {
+          "start": 1,
+          "end": 12
+        },
+        "body": "mars",
+        "objectiveId": "OP-5LM"
+      },
+      "counts": {
+        "land": 91800,
+        "withinLimits": 91800,
+        "matches": 0,
+        "misses": 81097,
+        "unknown": 10703
+      },
+      "checks": {
+        "matches": {
+          "expected": 0,
+          "observed": 0,
+          "agrees": true
+        },
+        "paretoLayered": {
+          "expected": 0,
+          "observed": 0,
+          "agrees": true
+        }
+      }
+    },
+    {
+      "objectiveId": "OP-5LM",
+      "variant": "bandsOnly",
+      "request": {
+        "version": 1,
+        "missionType": "crewed",
+        "months": {
+          "start": 1,
+          "end": 12
+        },
+        "body": "mars",
+        "objectiveId": "OP-5LM",
+        "must": [
+          "surfaceMaterial"
+        ],
+        "nice": [
+          "terrain",
+          "dustProcess",
+          "thermal"
+        ]
+      },
+      "counts": {
+        "land": 91800,
+        "withinLimits": 91800,
+        "matches": 10703,
+        "misses": 81097,
+        "unknown": 0
+      },
+      "checks": {
+        "matchesAtLeast": {
+          "expected": 1,
+          "observed": 10703,
+          "agrees": true
+        },
+        "paretoLayered": {
+          "expected": 0,
+          "observed": 0,
+          "agrees": true
+        }
+      }
+    }
+  ],
+  "tally": {
+    "traitExpectations": 40,
+    "traitAgree": 36,
+    "funnelExpectations": 10,
+    "funnelAgree": 8,
+    "gridExpectations": 4,
+    "gridAgree": 4,
+    "campaignsRun": 5,
+    "campaignsNotRun": 1
+  },
+  "inputs": [
+    {
+      "path": "data/snapshots/_derived/assembled/assembly-report.json",
+      "sha256": "7bf0145ea489fa60cae7f68abe773d5cbb62e7bdca02495f1128178cc1019fd5"
+    },
+    {
+      "path": "data/snapshots/_derived/assembled/sites-r4.parquet",
+      "sha256": "8afc8547cb083fa81e2b9d3c4d22a148afa1705772958cd30e09d4986dba65f6"
+    },
+    {
+      "path": "data/snapshots/_derived/assembled/sites-r4-monthly.parquet",
+      "sha256": "1e7d2f93fc634e971995ae163044be708d408c3147a21810db5703fe25c80fc9"
+    },
+    {
+      "path": "data/snapshots/_derived/assembled/hazard-events.parquet",
+      "sha256": "e699d6d626965dfbbe0b86626ef6be6d06c4abc18055578e2cdc48b6ee8e0545"
+    },
+    {
+      "path": "assembly-report.json (as read)",
+      "sha256": "7bf0145ea489fa60cae7f68abe773d5cbb62e7bdca02495f1128178cc1019fd5"
+    }
+  ],
+  "expectationsCommit": "a906a04d9f6bbfa1204e84f258c54d1ffccac733"
+}
