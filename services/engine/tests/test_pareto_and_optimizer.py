@@ -6,6 +6,7 @@ import os
 import random
 import tempfile
 import unittest
+from fractions import Fraction
 from pathlib import Path
 
 from planner.optimizer import (
@@ -295,6 +296,27 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
             self.assertEqual(sol_micro.certificate.certification_status, "uncertified-numerical-tolerance")
             self.assertIsNone(sol_micro.certificate.certified_subopt_le)
 
+        # Binary float rounding of 0.1 + 0.9 == 1.0 in float64 must NOT hide the exact
+        # rational excess 1/36028797018963968 > 0 or falsely mark the solution certified.
+        prob_float_sum = CampaignProblem(
+            ["a", "b"], [2020], [[1.0, 1.0]], 1.0, [0.1, 0.9], [[1.0, 0.0], [0.0, 1.0]], [0.1, 0.9], [0.0, 0.0], 0.0
+        )
+        try:
+            sol_float_sum = solve_cvar_campaign(prob_float_sum)
+        except InfeasibleCampaignError:
+            pass
+        else:
+            exact_excess = sum(Fraction(v) for v in sol_float_sum.weights.values()) - Fraction(1)
+            self.assertGreater(exact_excess, Fraction(0))
+            self.assertGreater(sol_float_sum.certificate.primal_max_eq_violation, 0.0)
+            self.assertGreaterEqual(
+                Fraction(sol_float_sum.certificate.primal_max_eq_violation),
+                abs(exact_excess),
+            )
+            self.assertFalse(sol_float_sum.certificate.certified)
+            self.assertEqual(sol_float_sum.certificate.certification_status, "uncertified-numerical-tolerance")
+            self.assertIsNone(sol_float_sum.certificate.certified_subopt_le)
+
     def test_screening_tolerance_validation_and_approximate_certificate(self) -> None:
         prob = CampaignProblem(["a", "b"], [2020, 2021], [[2.0, 0.0], [0.0, 1.0]], 0.5, [1.0, 1.0], [], [], [0.0, 0.0], 0.0)
         sol_full = solve_cvar_campaign(prob, use_screening=False)
@@ -308,7 +330,12 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         self.assertEqual(sol_approx.certificate.objective_value, sol_approx.cvar)
         self.assertTrue(sol_approx.certificate.certified)
         self.assertIsNotNone(sol_approx.certificate.certified_subopt_le)
-        self.assertGreaterEqual(sol_approx.certificate.certified_subopt_le, sol_approx.cvar - sol_full.cvar - 1e-12)
+        self.assertGreaterEqual(sol_approx.certificate.certified_subopt_le, sol_approx.cvar - sol_full.cvar)
+        self.assertGreaterEqual(sol_approx.certificate.subopt_bound(1.0), sol_approx.cvar - sol_full.cvar)
+
+        for bad_l1 in (-1e-4, float("nan"), float("inf")):
+            with self.assertRaises(ValueError):
+                sol_approx.certificate.subopt_bound(bad_l1)
 
         for bad_tol in (-1e-4, float("nan"), float("inf")):
             with self.assertRaises(ValueError):
