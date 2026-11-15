@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T00:47:39Z",
+  "generatedAt": "2026-11-15T02:45:49Z",
   "remote": "ccdrive",
   "rootFolderId": "1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_",
   "folders": {
@@ -37,6 +37,10 @@
       "id": "182CFf13h6-rXt7fu8gj6H_Yz-P340e-d",
       "url": "https://drive.google.com/drive/folders/182CFf13h6-rXt7fu8gj6H_Yz-P340e-d"
     },
+    "aster-ged-ag1km": {
+      "id": "1n8vf8Fw17zNTIIOo_L-trZiEFkofPg3B",
+      "url": "https://drive.google.com/drive/folders/1n8vf8Fw17zNTIIOo_L-trZiEFkofPg3B"
+    },
     "copernicus-dem-glo30": {
       "id": "1GrB2HQ-0nq49b65_RlwTWx5PGvNW-JYs",
       "url": "https://drive.google.com/drive/folders/1GrB2HQ-0nq49b65_RlwTWx5PGvNW-JYs"
@@ -48,6 +52,10 @@
     "diviner-l4": {
       "id": "1m2zHOhR8zeP1Cyqc1WzxlEPfcbx01be3",
       "url": "https://drive.google.com/drive/folders/1m2zHOhR8zeP1Cyqc1WzxlEPfcbx01be3"
+    },
+    "emit-l2b-min-v002": {
+      "id": "1b1vIagFULPBUtXaUsH-7-R9AitexjpTl",
+      "url": "https://drive.google.com/drive/folders/1b1vIagFULPBUtXaUsH-7-R9AitexjpTl"
     },
     "eonet-v3-events": {
       "id": "1CJFaXOzI6FkM6a3qbes0yB0q6H6ndAb_",
@@ -61,17 +69,49 @@
       "id": "1m9p_b_bK7-UaAfg3yZiQI0h9E2UwkDx0",
       "url": "https://drive.google.com/drive/folders/1m9p_b_bK7-UaAfg3yZiQI0h9E2UwkDx0"
     },
+    "kaguya-mi-59mpp": {
+      "id": "1GCDupduGDF_evQIlch3FhhrvytJxn0z7",
+      "url": "https://drive.google.com/drive/folders/1GCDupduGDF_evQIlch3FhhrvytJxn0z7"
+    },
+    "lamp": {
+      "id": "1iyKeFN0Q8PRo2db1ywY0u2SWHQSDZruu",
+      "url": "https://drive.google.com/drive/folders/1iyKeFN0Q8PRo2db1ywY0u2SWHQSDZruu"
+    },
     "lend": {
       "id": "1Q5HrxZdqZ4qooyxgC_ks2Bmxy-XF9TIj",
       "url": "https://drive.google.com/drive/folders/1Q5HrxZdqZ4qooyxgC_ks2Bmxy-XF9TIj"
+    },
+    "lola-gdr": {
+      "id": "1Eo048HAR09OhIFGOu2xPCMzFFzLp1Fqk",
+      "url": "https://drive.google.com/drive/folders/1Eo048HAR09OhIFGOu2xPCMzFFzLp1Fqk"
     },
     "lola-polar-illumination": {
       "id": "1WUitA3JmSkdyN4QDFqq5vtDZCGmZKffO",
       "url": "https://drive.google.com/drive/folders/1WUitA3JmSkdyN4QDFqq5vtDZCGmZKffO"
     },
+    "lola-south-pole-ldem-2023": {
+      "id": "17SQM7A_X-6-qluZSznNNwutrvOu-rMyw",
+      "url": "https://drive.google.com/drive/folders/17SQM7A_X-6-qluZSznNNwutrvOu-rMyw"
+    },
     "lp-grs-pds": {
       "id": "18l_zfloVuyHQaHWipj9Xe5230JGujqjW",
       "url": "https://drive.google.com/drive/folders/18l_zfloVuyHQaHWipj9Xe5230JGujqjW"
+    },
+    "lroc-nac-boulders-watkins": {
+      "id": "19_WfxmhLsb2bbedOAhuoHYegCLB8q-Am",
+      "url": "https://drive.google.com/drive/folders/19_WfxmhLsb2bbedOAhuoHYegCLB8q-Am"
+    },
+    "lroc-pits-atlas": {
+      "id": "1dcijw8wthI-q9rQxYhASdObURciENSKo",
+      "url": "https://drive.google.com/drive/folders/1dcijw8wthI-q9rQxYhASdObURciENSKo"
+    },
+    "mars-climate-database-v62": {
+      "id": "1wNHRBcx8vBzjJx6pryOuOZ4gk3SXNnGj",
+      "url": "https://drive.google.com/drive/folders/1wNHRBcx8vBzjJx6pryOuOZ4gk3SXNnGj"
+    },
+    "mars-dust-climatology-lmd": {
+      "id": "1rXWu1GngLvHFJ2cDtFyV_S9NoPi5iryO",
+      "url": "https://drive.google.com/drive/folders/1rXWu1GngLvHFJ2cDtFyV_S9NoPi5iryO"
     },
     "mars-lander-sites": {
       "id": "1o6nXkD0Pz5Q51_p4CIZ0yIgGUfyl8Sp1",
@@ -93,6 +133,14 @@
       "id": "1MustB46QK_DUbNbKL9W1oHt9uiiALObB",
       "url": "https://drive.google.com/drive/folders/1MustB46QK_DUbNbKL9W1oHt9uiiALObB"
     },
+    "mgc3-mars-caves": {
+      "id": "1Nvu928Yw7-zbvrSefCGNmJKZ33zmCVh1",
+      "url": "https://drive.google.com/drive/folders/1Nvu928Yw7-zbvrSefCGNmJKZ33zmCVh1"
+    },
+    "minirf-pds": {
+      "id": "1Zcd41e77sUyWvNy3k3N0tmD6hPKTQspD",
+      "url": "https://drive.google.com/drive/folders/1Zcd41e77sUyWvNy3k3N0tmD6hPKTQspD"
+    },
     "modis-mcd12c1": {
       "id": "1BKuMz9CueRrAbzg0pP2Zpxt7REzxqv2v",
       "url": "https://drive.google.com/drive/folders/1BKuMz9CueRrAbzg0pP2Zpxt7REzxqv2v"
@@ -113,9 +161,17 @@
       "id": "1DyHbpnVaHsh1wv6HwBMs7Z6aibNX8mSB",
       "url": "https://drive.google.com/drive/folders/1DyHbpnVaHsh1wv6HwBMs7Z6aibNX8mSB"
     },
+    "modis-mod44b": {
+      "id": "1gyyelO_iViSWNaXp4S7jm_9Q2tky2eHN",
+      "url": "https://drive.google.com/drive/folders/1gyyelO_iViSWNaXp4S7jm_9Q2tky2eHN"
+    },
     "modis-myd11c3": {
       "id": "1SUoQEkJ8C5mlrgB8ir5J7Fs6X3H35mKj",
       "url": "https://drive.google.com/drive/folders/1SUoQEkJ8C5mlrgB8ir5J7Fs6X3H35mKj"
+    },
+    "mola-hrsc-blended-dem": {
+      "id": "1ihiHKwK8PAm1jf1f0LBvozSuITytnr3n",
+      "url": "https://drive.google.com/drive/folders/1ihiHKwK8PAm1jf1f0LBvozSuITytnr3n"
     },
     "mola-megdr": {
       "id": "1Yg36xVrwbkJb0dHCJCrzQrGCZ_mPt5XA",
@@ -132,6 +188,10 @@
     "ourairports": {
       "id": "1zfpAD9COdIxVH9omkTNbWcDt0IKpMOC_",
       "url": "https://drive.google.com/drive/folders/1zfpAD9COdIxVH9omkTNbWcDt0IKpMOC_"
+    },
+    "robbins-moon-craters": {
+      "id": "1tymyr74NU6YkJJdcYk2gr1SBvsImKoaP",
+      "url": "https://drive.google.com/drive/folders/1tymyr74NU6YkJJdcYk2gr1SBvsImKoaP"
     },
     "tes-mgs": {
       "id": "1QfePeV7SSfmuzxGm2k6Ib0MGDEKrEWKI",
@@ -280,6 +340,16 @@
       "isDir": false,
       "url": "https://drive.google.com/file/d/1fafu5q52AY6j1gC9WhQ4AjUCdnhF9X-r/view"
     },
+    "earth-static-probes.json": {
+      "id": "1zBEXRhTyNtXcWguPfE3QHHcbG7HDxx16",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1zBEXRhTyNtXcWguPfE3QHHcbG7HDxx16/view"
+    },
+    "emit-min": {
+      "id": "1uG5ptc-gSZp721aofD9F60qgHhJb0HbD",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1uG5ptc-gSZp721aofD9F60qgHhJb0HbD"
+    },
     "eonet-events-r4.parquet": {
       "id": "1L9JnpdO8q35-ceDpvSsHOnJhPX9sE7p8",
       "isDir": false,
@@ -319,6 +389,21 @@
       "id": "1R9C15fxIPnY2IPhGM-HuGrP0CpmhMrAG",
       "isDir": false,
       "url": "https://drive.google.com/file/d/1R9C15fxIPnY2IPhGM-HuGrP0CpmhMrAG/view"
+    },
+    "vcf-r4-cmg.npz": {
+      "id": "1bqh2yAZmCfrdQlpkf8L0gXB24L0UD6Sr",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1bqh2yAZmCfrdQlpkf8L0gXB24L0UD6Sr/view"
+    },
+    "vcf-r4.meta.json": {
+      "id": "1R4MNTLlHZrwM0gjzGbdjMQqgy6p-8VKk",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1R4MNTLlHZrwM0gjzGbdjMQqgy6p-8VKk/view"
+    },
+    "vcf-r4.parquet": {
+      "id": "1Yutoupn_u0ivZpoua_eQkFee3_yFATbB",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1Yutoupn_u0ivZpoua_eQkFee3_yFATbB/view"
     },
     "wind-r4-monthly.meta.json": {
       "id": "1_7EMFYEa0IXTRQmK3E2wR-CbZEn4_xOD",
@@ -360,10 +445,20 @@
       "isDir": false,
       "url": "https://drive.google.com/file/d/1h5CDXkrJYmwTmvBmjceyARwcokSiC8F7/view"
     },
+    "assembled/dataframe-inventory.json": {
+      "id": "1v9K4NOztVaem4BE3fehzIjwwM0CY4vxG",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1v9K4NOztVaem4BE3fehzIjwwM0CY4vxG/view"
+    },
     "assembled/hazard-events.parquet": {
       "id": "1FwkbWnH7cwoHJX62evNd-qrzbmIem4om",
       "isDir": false,
       "url": "https://drive.google.com/file/d/1FwkbWnH7cwoHJX62evNd-qrzbmIem4om/view"
+    },
+    "assembled/sites-r4-monthly-normalized.parquet": {
+      "id": "1Yf2qgpuT9tqKcn9xiXhmIPq5B69kQA1v",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1Yf2qgpuT9tqKcn9xiXhmIPq5B69kQA1v/view"
     },
     "assembled/sites-r4-monthly-spread.parquet": {
       "id": "1VilDCuY5zuX7OZ-MwJOx2I9WNKszhM64",
@@ -375,6 +470,11 @@
       "isDir": false,
       "url": "https://drive.google.com/file/d/18jRbKtRVfYEhL4opI5qHEcNr5hxSHm0R/view"
     },
+    "assembled/sites-r4-normalized.parquet": {
+      "id": "19Ha0roDopMS-9jpx8-MLSjpVEMwnMmYE",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/19Ha0roDopMS-9jpx8-MLSjpVEMwnMmYE/view"
+    },
     "assembled/sites-r4.parquet": {
       "id": "1TvVF1Wrh3ZSyMgquSY2E0ti75r7lUEKQ",
       "isDir": false,
@@ -385,20 +485,110 @@
       "isDir": false,
       "url": "https://drive.google.com/file/d/1FBpStgxRjukkDy3UcRrJXLaeJIyj2Rr9/view"
     },
+    "planetary/crism-mtrdr": {
+      "id": "1Sb5lUttK0xxLiRh6c2IvKkIV8Mnk4L2m",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1Sb5lUttK0xxLiRh6c2IvKkIV8Mnk4L2m"
+    },
+    "planetary/diviner-l4": {
+      "id": "1h0sTRRYw96R3dSVZV-L01A2fjHrAI3td",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1h0sTRRYw96R3dSVZV-L01A2fjHrAI3td"
+    },
     "planetary/diviner-south-prp.parquet": {
       "id": "1hD82tfotZunVlwc5RYCXP_8-CVEOFacj",
       "isDir": false,
       "url": "https://drive.google.com/file/d/1hD82tfotZunVlwc5RYCXP_8-CVEOFacj/view"
+    },
+    "planetary/kaguya-mi-59mpp": {
+      "id": "1utt1dfb44Tujq2sTpKyr8B6DCKQGaFvE",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1utt1dfb44Tujq2sTpKyr8B6DCKQGaFvE"
+    },
+    "planetary/lamp": {
+      "id": "1atA0i6zvReUliBtfAvNmsIAPwUn3YWsq",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1atA0i6zvReUliBtfAvNmsIAPwUn3YWsq"
     },
     "planetary/lend": {
       "id": "15pOZM8c8ag-2qn8z57Hv2FTVLJHncV58",
       "isDir": true,
       "url": "https://drive.google.com/drive/folders/15pOZM8c8ag-2qn8z57Hv2FTVLJHncV58"
     },
+    "planetary/lola-gdr": {
+      "id": "1G1vpqgPax0r3diApL90bjZJzrYKxoj3a",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1G1vpqgPax0r3diApL90bjZJzrYKxoj3a"
+    },
+    "planetary/lola-polar-illumination": {
+      "id": "1wLgTXeBITkyZY0fuMgqxUFqXiIXvald_",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1wLgTXeBITkyZY0fuMgqxUFqXiIXvald_"
+    },
+    "planetary/lola-south-pole-ldem-2023": {
+      "id": "1q2FSNVsNu0JsP4bWbHslfb8B0vNf7BtQ",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1q2FSNVsNu0JsP4bWbHslfb8B0vNf7BtQ"
+    },
     "planetary/lp-grs-pds": {
       "id": "17GdaHYNjoYlKOURIt04O98Juw1JKM2pe",
       "isDir": true,
       "url": "https://drive.google.com/drive/folders/17GdaHYNjoYlKOURIt04O98Juw1JKM2pe"
+    },
+    "planetary/lroc-nac-boulders-watkins": {
+      "id": "14FTrCu6XZUf0OEN9_qAt231wV9yFy7jo",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/14FTrCu6XZUf0OEN9_qAt231wV9yFy7jo"
+    },
+    "planetary/lroc-pits-atlas": {
+      "id": "1cpQEHFHqxZ4gdn69X7ywCo4zWBjHRtm0",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1cpQEHFHqxZ4gdn69X7ywCo4zWBjHRtm0"
+    },
+    "planetary/lroc-wac-global": {
+      "id": "1vSXjpgcFnlT1faPFvnl8z5-gYJ7_5LWH",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1vSXjpgcFnlT1faPFvnl8z5-gYJ7_5LWH"
+    },
+    "planetary/m3-pds": {
+      "id": "1Okb09h4LRozAP9wnz3tukW-aK1qpwZnW",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1Okb09h4LRozAP9wnz3tukW-aK1qpwZnW"
+    },
+    "planetary/mars-climate-database-v62": {
+      "id": "1M8wB3ESvvHlfD49PaT1N9DZemsLL6S9M",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1M8wB3ESvvHlfD49PaT1N9DZemsLL6S9M"
+    },
+    "planetary/mars-dust-climatology-lmd": {
+      "id": "15refIIB8RN3D71eOTVzUl7WxM_JR93US",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/15refIIB8RN3D71eOTVzUl7WxM_JR93US"
+    },
+    "planetary/mars_topo": {
+      "id": "12nLd0KR7tT6l2909hxXssdvOw8-6RzEW",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/12nLd0KR7tT6l2909hxXssdvOw8-6RzEW"
+    },
+    "planetary/mgc3-mars-caves": {
+      "id": "1jCzapmwxjX6OODEOOr4fmldpZJbxQZSQ",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1jCzapmwxjX6OODEOOr4fmldpZJbxQZSQ"
+    },
+    "planetary/minirf-pds": {
+      "id": "1VmqoMPO9Puwu6xUPuP1O9VoyjKnYr4yy",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1VmqoMPO9Puwu6xUPuP1O9VoyjKnYr4yy"
+    },
+    "planetary/moon-geology-preparation-report.json": {
+      "id": "1exYgUePyvnSRBthpNmfURuJM2xbIOVFu",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1exYgUePyvnSRBthpNmfURuJM2xbIOVFu"
+    },
+    "planetary/moon-spectral-gaps.json": {
+      "id": "1ghG2mWB1ZH6iXgMy2sRPFUCehEBZ6K39",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1ghG2mWB1ZH6iXgMy2sRPFUCehEBZ6K39/view"
     },
     "planetary/ody-grs-pds": {
       "id": "1uv-yzweJnmDEMa1jpjwOrHRNJF247qpc",
@@ -414,6 +604,11 @@
       "id": "1pMU8yFrnlJ0Pb_bw7NrcqNamlbHznv4h",
       "isDir": false,
       "url": "https://drive.google.com/file/d/1pMU8yFrnlJ0Pb_bw7NrcqNamlbHznv4h/view"
+    },
+    "planetary/robbins-moon-craters": {
+      "id": "1kR_Ab6qxNNWxT6ZG8-v-98BV8xzdVQvR",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1kR_Ab6qxNNWxT6ZG8-v-98BV8xzdVQvR"
     },
     "planetary/tes-thermal-inertia-day.parquet": {
       "id": "111_Vzj4DWvxOKfsEq5X2pbzwGQpohinN",
@@ -492,8 +687,13 @@
     "alos-palsar-rtc-high": [
       "palsar-r4-sites.parquet"
     ],
+    "modis-mod44b": [
+      "vcf-r4.parquet",
+      "vcf-r4.meta.json"
+    ],
     "diviner-l4": [
-      "planetary/diviner-south-prp.parquet"
+      "planetary/diviner-south-prp.parquet",
+      "planetary/diviner-l4"
     ],
     "tes-mgs": [
       "planetary/tes-thermal-inertia-day.parquet",
@@ -510,6 +710,63 @@
     ],
     "themis-ir-controlled-mosaics": [
       "planetary/themis-ir-controlled-mosaics"
+    ],
+    "crism-mro": [
+      "planetary/crism-mtrdr"
+    ],
+    "kaguya-mi-59mpp": [
+      "planetary/kaguya-mi-59mpp"
+    ],
+    "lamp": [
+      "planetary/lamp"
+    ],
+    "lroc-wac-global": [
+      "planetary/lroc-wac-global"
+    ],
+    "minirf-pds": [
+      "planetary/minirf-pds"
+    ],
+    "m3-pds": [
+      "planetary/m3-pds"
+    ],
+    "lola-gdr": [
+      "planetary/lola-gdr"
+    ],
+    "lola-polar-illumination": [
+      "planetary/lola-polar-illumination"
+    ],
+    "lola-south-pole-ldem-2023": [
+      "planetary/lola-south-pole-ldem-2023"
+    ],
+    "lroc-nac-boulders-watkins": [
+      "planetary/lroc-nac-boulders-watkins"
+    ],
+    "lroc-pits-atlas": [
+      "planetary/lroc-pits-atlas"
+    ],
+    "robbins-moon-craters": [
+      "planetary/robbins-moon-craters"
+    ],
+    "unified-geologic-map-moon": [
+      "planetary/unified-geologic-map-moon"
+    ],
+    "mars-dust-climatology-lmd": [
+      "planetary/mars-dust-climatology-lmd"
+    ],
+    "mgc3-mars-caves": [
+      "planetary/mgc3-mars-caves"
+    ],
+    "mola-megdr": [
+      "planetary/mars_topo"
+    ],
+    "mola-hrsc-blended-dem": [
+      "planetary/mars_topo"
+    ],
+    "ctx-dtms-usgs-stac": [
+      "planetary/mars_topo"
+    ],
+    "hirise-dtms-usgs-stac": [
+      "planetary/mars_topo"
     ]
   }
 }
