@@ -36,9 +36,12 @@ def synthetic() -> Tables:
     }
     monthly = {}
     for m in range(1, 13):
-        monthly[(A, m)] = {"h3": A, "month": m, "lst_day_k": 300.0 + m, "lst_night_k": 270.0 - m, "polar_night": False}
+        monthly[(A, m)] = {"h3": A, "month": m, "lst_day_k": 300.0 + m, "lst_night_k": 270.0 - m, "polar_night": False,
+                           "burned_pct": 0.5 * m}
         monthly[(B, m)] = {"h3": B, "month": m, "lst_day_k": None if m == 7 else 290.0, "lst_night_k": 260.0, "polar_night": False,
-                           "missing_reason": json.dumps({"lst_day_k": "too-few-lst-pixels"}) if m == 7 else None}
+                           "burned_pct": None,
+                           "missing_reason": json.dumps({"burned_pct": "outside-mcd64a1-tiles",
+                                                         **({"lst_day_k": "too-few-lst-pixels"} if m == 7 else {})})}
     ctx = {
         A: {"h3": A, "access_min_median": 95.0, "access_min_p10": 60.0, "airport_km": 85.2, "protected_pct": None,
             "eonet_dustHaze_events": 1, **{f"eonet_{c}_events": 0 for c in EONET_CATEGORIES if c != "dustHaze"},
@@ -123,7 +126,7 @@ class RiskTests(unittest.TestCase):
         rows = {r["hazard"]: r for r in risks(synthetic(), A, EXAMPLE)["rows"]}
         self.assertEqual((rows["coldestMonth"]["month"], rows["coldestMonth"]["value"]), (8, 262.0))
         self.assertEqual((rows["hottestMonth"]["month"], rows["hottestMonth"]["value"]), (8, 308.0))
-        self.assertIsNone(rows["burnedArea"]["value"])  # P1 columns absent: unknown, not 0
+        self.assertEqual(rows["burnedArea"]["value"], (3.0 + 3.5 + 4.0) / 3)  # L1m burned_pct, months 6-8
         self.assertEqual(rows["steepTerrain"]["value"], 0.02)
 
     def test_unknown_month_makes_extreme_unknown(self):
@@ -131,8 +134,58 @@ class RiskTests(unittest.TestCase):
         self.assertIsNone(rows["hottestMonth"]["value"])
         self.assertEqual(rows["hottestMonth"]["reason"]["code"], "too-few-lst-pixels")
         self.assertEqual(rows["coldestMonth"]["value"], 260.0)
+        self.assertIsNone(rows["burnedArea"]["value"])  # unknown, not 0
+        self.assertEqual(rows["burnedArea"]["reason"]["code"], "outside-mcd64a1-tiles")
         eonet = [r for r in rows.values() if r["kind"] == "eonet"]
         self.assertTrue(all(r["eventsRecorded"] is None and r["reason"]["code"] == "no-row-for-hexagon" for r in eonet))
+
+
+class AssembledInputTests(unittest.TestCase):
+    """Tables.from_parquet reads the assembled tables (#127), not the per-source files."""
+
+    def test_requires_assembled_sites_and_monthly(self):
+        from planner.tables import input_paths
+        with tempfile.TemporaryDirectory() as d:
+            derived = Path(d)
+            (derived / "cells-r4.parquet").write_bytes(b"")  # per-source file alone is not enough
+            with self.assertRaises(FileNotFoundError) as e:
+                input_paths(derived)
+            self.assertIn("p0ingest.assemble", str(e.exception))
+            (derived / "assembled").mkdir()
+            for name in ("sites-r4.parquet", "sites-r4-monthly.parquet"):
+                (derived / "assembled" / name).write_bytes(b"")
+            paths = input_paths(derived)  # hazard-events is optional
+            self.assertEqual(paths["sites"], derived / "assembled" / "sites-r4.parquet")
+            self.assertEqual(paths["events"], derived / "assembled" / "hazard-events.parquet")
+
+    @unittest.skipUnless(__import__("importlib").util.find_spec("pyarrow"), "pyarrow not installed (CI is stdlib only)")
+    def test_reads_assembled_parquet_with_column_keyed_reasons(self):
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+        with tempfile.TemporaryDirectory() as d:
+            out = Path(d) / "assembled"
+            out.mkdir()
+            pq.write_table(pa.table({"h3": [A, B], "dust_aod_mean": [0.12, None], "access_min_median": [95.0, None],
+                                     "missing_reason": ["{}", json.dumps({"dust_aod_mean": "no-merra2-cell", "access_min_median": "outside-raster"})]}),
+                           out / "sites-r4.parquet")
+            pq.write_table(pa.table({"h3": [A] * 12, "month": list(range(1, 13)), "burned_pct": [1.0] * 12,
+                                     "missing_reason": ["{}"] * 12}), out / "sites-r4-monthly.parquet")
+            pq.write_table(pa.table({"h3": [A], "event_id": ["SYN_1"], "category": ["dustHaze"]}), out / "hazard-events.parquet")
+            t = Tables.from_parquet(Path(d))
+        self.assertIs(t.context, t.cells)  # L2 columns live in sites-r4
+        self.assertEqual(t.cells[A]["dust_aod_mean"], 0.12)
+        self.assertEqual(t.monthly[(A, 7)]["burned_pct"], 1.0)
+        self.assertEqual([e["event_id"] for e in t.events[A]], ["SYN_1"])
+        self.assertEqual([i["path"] for i in t.inputs], [f"data/snapshots/_derived/assembled/{n}.parquet"
+                                                         for n in ("sites-r4", "sites-r4-monthly", "hazard-events")])
+        lg = logistics(t, B, EXAMPLE)
+        self.assertEqual(lg["accessMinMedian"]["reason"]["code"], "outside-raster")  # not "not-in-source"
+        l3 = {"objectives": [], "trait-map": {}, "campaigns": []}
+        with tempfile.TemporaryDirectory() as o:
+            publish(t, l3, Path(o))
+            meta = json.loads((Path(o) / "cells.json").read_text(encoding="utf-8"))
+        self.assertEqual(meta["nullReasons"]["dust_aod_mean"], {"no-merra2-cell": 1})
+        self.assertNotIn("not-in-source", json.dumps(meta["nullReasons"]["access_min_median"]))
 
 
 class PublishTests(unittest.TestCase):
@@ -145,7 +198,8 @@ class PublishTests(unittest.TestCase):
             self.assertEqual(sorted(m1["files"]), sorted(["cells.bin", "cells.json", "campaigns.json", "objectives.json",
                                                          "trait-map.json", "monthly/monthly.json"]
                                                         + [f"monthly/{c}.bin" for c in ("lst_day_k", "lst_night_k", "lst_diurnal_k",
-                                                           "sun_noon_elev_deg", "daylight_h", "polar_day", "polar_night", "dust_aod")]))
+                                                           "sun_noon_elev_deg", "daylight_h", "polar_day", "polar_night", "dust_aod",
+                                                           "burned_pct")]))
             meta = json.loads((Path(d1) / "cells.json").read_text(encoding="utf-8"))
             self.assertEqual(meta["h3"], sorted([A, B]))
             slope = dict(zip(meta["h3"], read_column(Path(d1), "slope_mean_deg")))

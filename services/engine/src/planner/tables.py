@@ -2,8 +2,13 @@
 (DATA-PIPELINE.md section 5). Rows are plain dicts keyed by column name;
 `None` is missing and keeps its `missing_reason` (rule 2: missing stays missing).
 
-`Tables.from_parquet(derived_dir)` reads the real files with pyarrow (imported
-only there). Tests build `Tables` directly from small synthetic rows.
+`Tables.from_parquet(derived_dir)` reads the assembled tables (stage A, #69/#127)
+under `<derived_dir>/assembled/` with pyarrow (imported only there):
+`sites-r4` holds L1 and L2 in one row per hexagon, `sites-r4-monthly` is L1m and
+`hazard-events` the EONET list. Their `missing_reason` is keyed by column. The
+per-source files (`cells-r4*`, `context-r4`) are not read: they lack dust and
+carry trait-keyed reasons, so the L4 would show null dust and `not-in-source`.
+Tests build `Tables` directly from small synthetic rows.
 """
 from __future__ import annotations
 
@@ -12,10 +17,21 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-L1_FILE = "cells-r4.parquet"
-L1M_FILE = "cells-r4-monthly.parquet"
-L2_FILE = "context-r4.parquet"
-EVENTS_FILE = "eonet-events-r4.parquet"
+SITES_FILE = "assembled/sites-r4.parquet"            # L1 + L2, one row per hexagon
+MONTHLY_FILE = "assembled/sites-r4-monthly.parquet"  # L1m, one row per (hexagon, month)
+EVENTS_FILE = "assembled/hazard-events.parquet"      # EONET named events per hexagon
+
+
+def input_paths(derived: Path) -> dict[str, Path]:
+    """The three assembled files under `derived`. Sites and monthly are required;
+    the event list is optional (no events means none listed, never zero rows invented)."""
+    paths = {"sites": derived / SITES_FILE, "monthly": derived / MONTHLY_FILE, "events": derived / EVENTS_FILE}
+    missing = [p for k, p in paths.items() if k != "events" and not p.exists()]
+    if missing:
+        raise FileNotFoundError(
+            f"{', '.join(str(p) for p in missing)} not found. Build them with "
+            "`python -m p0ingest.assemble` (services/ingest) or copy snapshots/_derived/assembled/ from Drive.")
+    return paths
 
 
 def sha256_file(path: Path) -> str:
@@ -68,20 +84,23 @@ class Tables:
     def from_parquet(cls, derived: Path) -> "Tables":
         import pyarrow.parquet as pq  # only needed for real data
 
-        def rows(name: str) -> list[dict]:
-            path = derived / name
+        paths = input_paths(derived)
+        inputs: list[dict] = []
+
+        def rows(key: str) -> list[dict]:
+            path = paths[key]
             if not path.exists():
                 return []
-            inputs.append({"path": f"data/snapshots/_derived/{name}", "sha256": sha256_file(path)})
+            inputs.append({"path": f"data/snapshots/_derived/{path.relative_to(derived).as_posix()}",
+                           "sha256": sha256_file(path)})
             return pq.read_table(path).to_pylist()
 
-        inputs: list[dict] = []
-        cells = {r["h3"]: r for r in rows(L1_FILE)}
-        monthly = {(r["h3"], int(r["month"])): r for r in rows(L1M_FILE)}
-        context = {r["h3"]: r for r in rows(L2_FILE)}
+        cells = {r["h3"]: r for r in rows("sites")}
+        monthly = {(r["h3"], int(r["month"])): r for r in rows("monthly")}
         events: dict[str, list[dict]] = {}
-        for r in rows(EVENTS_FILE):
+        for r in rows("events"):
             events.setdefault(r["h3"], []).append(r)
         if not cells:
-            raise FileNotFoundError(f"{derived / L1_FILE} is required")
-        return cls(cells, monthly, context, events, inputs)
+            raise ValueError(f"{paths['sites']} has no rows")
+        # sites-r4 carries the L2 columns too, so step 4/5 read the same row.
+        return cls(cells, monthly, cells, events, inputs)

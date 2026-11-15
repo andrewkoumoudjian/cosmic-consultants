@@ -43,16 +43,16 @@ def eonet_rows(tables: Tables, h3: str) -> list[dict]:
 
 
 def burned_row(tables: Tables, h3: str, months: list[int]) -> dict:
-    """Mean burned share over the requested months (P1: present only once
-    MCD64A1 columns exist in L2). Missing months make the value unknown."""
-    ctx = tables.context.get(h3)
-    cols = [f"burned_pct_{m:02d}" for m in months]
-    values = [None if ctx is None else ctx.get(c) for c in cols]
+    """Mean burned share over the requested months, from L1m `burned_pct`
+    (MCD64A1, per calendar month the mean over 2015-2024; #65, #127).
+    Any unknown month makes the value unknown, with that month's reason."""
+    rows = [tables.monthly.get((h3, m)) for m in months]
+    values = [None if r is None else r.get("burned_pct") for r in rows]
     row = {"hazard": "burnedArea", "kind": "burnedArea", "unit": "% of hexagon burned, mean over requested months (2015-2024 climatology)"}
-    if any(v is None for v in values) or not values:
+    if not values or any(v is None for v in values):
         row["value"] = None
-        missing = next((c for c, v in zip(cols, values) if v is None), cols[0] if cols else "burned_pct")
-        row["reason"] = _reason(ctx, missing)
+        gap = next((r for r, v in zip(rows, values) if v is None), None)
+        row["reason"] = _reason(gap, "burned_pct", "burnedArea")
     else:
         row["value"] = sum(values) / len(values)
     return row

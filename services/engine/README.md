@@ -1,6 +1,7 @@
 # services/engine: planner engine (W7, #20)
 
-Reads L1, L1m, L2 (`data/snapshots/_derived/*.parquet`) and L3 (`data/objectives`,
+Reads the assembled L1+L2, L1m and EONET tables (`data/snapshots/_derived/assembled/`
+`sites-r4`, `sites-r4-monthly`, `hazard-events`; #69, #127) and L3 (`data/objectives`,
 `data/requirements/trait-map.yaml`, `data/campaigns`), and writes L4 for the app
 plus one site plan per request (`contracts/site-plan.schema.json`, #78).
 Spec: `docs/plan/MISSION-PLANNER.md` (Engine) and `docs/plan/DATA-PIPELINE.md` (L4).
@@ -28,10 +29,17 @@ python -m unittest discover -s tests -v                 # stdlib only
 PYTHONPATH=src python -m planner publish ../../data/snapshots/_derived ../../apps/atlas/public/data/v1
 ```
 
-`publish` needs `pyarrow` and `pyyaml` (pinned in `pyproject.toml`) and the
-`_derived` files from the Drive mirror (see `services/ingest/README.md`).
+`publish` needs `pyarrow` and `pyyaml` (pinned in `pyproject.toml`) and
+`_derived/assembled/` (build it with `python -m p0ingest.assemble`, or copy
+`snapshots/_derived/assembled/` from the Drive mirror). It stops with a clear
+error if `sites-r4` or `sites-r4-monthly` is missing. It does not fall back to
+the per-source `cells-r4*` / `context-r4` files: those lack dust and use
+trait-keyed reasons, so L4 would show null dust and `not-in-source`.
 
-## Numeric policy (open, needed before golden verdicts)
+## Numeric policy (needed before golden verdicts)
+
+Being settled in #132: ADR-0011 there makes the published Float32 values the
+common numeric input for the engine and the browser, which is the proposal below.
 
 L4 stores Float32 (DATA-PIPELINE budget), so a value like 6.2 comes back as
 6.1999998… (a test pins this). The engine works in float64 and the atlas in
