@@ -48,9 +48,13 @@ export function value(data:Dataset,i:number,rule:Rule,m:number):number|null {
  if(!Number.isFinite(v))throw Error('Nonfinite published observation.');
  return v;
 }
+/** A banded requirement Earth has no dataset for: not a per-site data gap (#166). */
+export const NO_EARTH_COLUMN:Reason={code:'no-earth-column',text:'No Earth dataset for this trait.'};
 function observed(data:Dataset,i:number,r:Rule,m:number){
  const v=value(data,i,r,m),result=verdict(v,r.band);
- if(result.verdict==='unknown'&&r.band){
+ if(result.verdict==='unknown'&&r.band&&(!r.earthColumn||!r.table)){
+  result.reason=NO_EARTH_COLUMN;
+ }else if(result.verdict==='unknown'&&r.band){
   const reasonIndex=r.table==='L1m'?data.runtime.monthlyReasons[i*12+m-1]:data.runtime.yearlyReasons[i];
   const reasons=data.runtime.reasonSets[reasonIndex??0]??{};
   const reason=reasons[r.earthColumn??'']??reasons[r.dimension]??'not-in-source';

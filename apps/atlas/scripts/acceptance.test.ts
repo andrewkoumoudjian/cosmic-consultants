@@ -110,7 +110,7 @@ test('C04: known value with a null band, and a rule with no Earth column, stay u
   assert.equal(funnelClass([noBand!, noColumn!]), 'noMissSomeUnknown');
 });
 
-test('C04b: an Earth-unavailable rule that still has a band is explained as a missing column, not a missing observation', { todo: 'fails on main: tracked in #166' }, () => {
+test('C04b: an Earth-unavailable rule that still has a band is explained as a missing column, not a missing observation', () => {  // fixed in #166
   const d = dataset({
     dims: ['subsurface'],
     rules: [{ dimension: 'subsurface', table: null, earthColumn: null, unit: 'm', band: { lo: 0, hi: 1 } }],
@@ -119,6 +119,8 @@ test('C04b: an Earth-unavailable rule that still has a band is explained as a mi
   const row = rows(d, request({ must: ['subsurface'] }), 0)[0]!;
   assert.equal(row.verdict, 'unknown');
   assert.equal(row.reason?.code, 'no-earth-column');
+  assert.equal(row.gap, undefined);
+  assert.equal(funnelClass([row]), 'noMissSomeUnknown');
 });
 
 test('C05: monthly must thermal [0,10]: 5/null/11 miss (gap 1), 5/null/6 unknown, 5/6/7 match; months kept', () => {

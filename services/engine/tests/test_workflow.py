@@ -48,6 +48,18 @@ class WorkflowTests(unittest.TestCase):
         slope = next(r for r in b['verdicts'] if r['dimension']=='terrain')
         self.assertEqual(slope['reason']['text'], 'no-dem-tile')
 
+    def test_banded_rule_without_earth_column_says_no_earth_column(self):
+        # #166: a rule with a band but no Earth column is not a per-site data gap.
+        from planner.workflow import _rows, NO_EARTH_COLUMN
+        tables = synthetic()
+        for table in (None, 'L1'):
+            rule = {'dimension':'subsurface','table':table,'earthColumn':None,'unit':'m','band':{'lo':0,'hi':1},'origin':'team','priority':'must'}
+            row = _rows(tables, self.request, A, rule)
+            self.assertEqual((row['verdict'], row['value'], row['reason']), ('unknown', None, NO_EARTH_COLUMN))
+            self.assertNotIn('gap', row)
+        unbanded = {'dimension':'subsurface','table':None,'earthColumn':None,'unit':None,'band':None,'origin':'target','priority':'must'}
+        self.assertEqual(_rows(tables, self.request, A, unbanded)['reason']['code'], 'no-band')  # unchanged for today's SE-3LM rule
+
     def test_pareto_layers_preserve_ties_and_tradeoffs(self):
         from planner.workflow import pareto_layers
         self.assertEqual(pareto_layers([(0,2),(1,1),(2,0),(2,2),(0,2)]), [1,1,1,2,1])
