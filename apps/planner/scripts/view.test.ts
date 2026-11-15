@@ -107,3 +107,14 @@ test('burned area names a month with no data instead of dropping it (review of #
   assert.deepEqual(burnedInWindow(data, req, i), { max: 0, missing: ['Mar'] });
   assert.deepEqual(burnedInWindow(data, { ...req, months: { start: 3, end: 3 } }, i), { max: null, missing: ['Mar'] });
 });
+
+test('every CSV row with an empty value says why (re-check of #182, finding 3)', () => {
+  const cat = data.runtime.categories.find(c => c.categoryId === 'robotic-mobility-navigation')!;
+  const req = { ...newRequest(data, 'moon', cat), limits: { protected: 100, access: 100000, airport: 100000, slope: 90 } };
+  const i = data.h3.indexOf('8401b65ffffffff');
+  const [head, ...body] = parseCsv(sheetCsv(data, req, [i]));
+  const col = (n: string) => head!.indexOf(n);
+  const limit = body.find(r => r[col('kind')] === 'limit' && r[col('name')] === 'protected')!;
+  assert.deepEqual([limit[col('verdict')], limit[col('value')], limit[col('reason')], limit[col('earth_column')]], ['unknown', '', 'missing in release', 'protected_pct']);
+  for (const r of body) if (r[col('value')] === '') assert.notEqual(r[col('reason')], '', `${r[col('kind')]} ${r[col('name')]} has no value and no reason`);
+});

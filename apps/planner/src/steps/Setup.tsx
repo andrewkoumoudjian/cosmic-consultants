@@ -76,6 +76,8 @@ export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }:
   const drafts = draftState.objectiveId === request.objectiveId ? draftState.byDim : {};
   const setDrafts = (f: (x: Record<string, Draft>) => Record<string, Draft>) => setDraftState({ objectiveId: request.objectiveId, byDim: f(drafts) });
   const blocked = rules.some(r => drafts[r.dimension] && badDraft(drafts[r.dimension]!));
+  // every objective change starts clean, including a switch back to an earlier one (its bandEdits were dropped)
+  useEffect(() => { setDraftState({ objectiveId: request.objectiveId, byDim: {} }); }, [request.objectiveId]);
   useEffect(() => { onBlocked(blocked); }, [blocked]);
   useEffect(() => () => onBlocked(false), []);
 

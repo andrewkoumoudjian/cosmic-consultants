@@ -12,13 +12,16 @@ import { Limits, Logistics, Risks } from './steps/Reports.tsx';
 type Load = { state: 'loading'; progress?: LoadProgress } | { state: 'error'; message: string } | { state: 'ready'; data: Dataset };
 
 /** Reads the shared plan link once at start-up. The step lives in the hash, the plan in the query. */
-function fromUrl(): { request: PlanRequest | null; step: number; problems: string[] } {
-  const raw = Number(new URLSearchParams(location.hash.slice(1)).get('step'));
+function fromUrl(): { request: PlanRequest | null; step: number; problems: string[]; noPins: boolean } {
+  const hash = new URLSearchParams(location.hash.slice(1));
+  // `pins=none` in the hash records a comparison the user emptied on purpose, so a reload doesn't refill it
+  const noPins = hash.get('pins') === 'none';
+  const raw = Number(hash.get('step'));
   const step = Number.isInteger(raw) && raw >= 1 && raw <= 7 ? raw : 1;
-  if (!location.search) return { request: null, step: 1, problems: [] };
+  if (!location.search) return { request: null, step: 1, problems: [], noPins };
   const decoded = decodePlan(location.search);
-  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors };
-  return { request: decoded.plan, step, problems: [] };
+  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors, noPins };
+  return { request: decoded.plan, step, problems: [], noPins };
 }
 
 export function App() {
@@ -33,7 +36,7 @@ export function App() {
   const [checklist, setChecklist] = useState('');
   const [monthlyFor, setMonthlyFor] = useState<string | null>(null);
   // Auto-pick the first three sites only after a fresh search, never after the user clears the comparison.
-  const [autoPin, setAutoPin] = useState(!initial.request?.pins?.length);
+  const [autoPin, setAutoPin] = useState(!initial.request?.pins?.length && !initial.noPins);
   const [blocked, setBlocked] = useState(false);
   const reduce = useReducedMotion();
 
@@ -59,8 +62,9 @@ export function App() {
   // Keep the URL a shareable plan link.
   useEffect(() => {
     if (!request || validatePlan(request).length) return;
-    history.replaceState(null, '', `?${encodePlan(request)}#step=${step}`);
-  }, [request, step]);
+    const emptyByChoice = !autoPin && !request.pins?.length;
+    history.replaceState(null, '', `?${encodePlan(request)}#step=${step}${emptyByChoice ? '&pins=none' : ''}`);
+  }, [request, step, autoPin]);
 
   const ready = !!data && !!request && monthlyFor === request.objectiveId;
   const result = useMemo(() => (ready ? runSearch(data!, request!) : null), [ready, data, request]);

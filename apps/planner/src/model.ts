@@ -3,7 +3,7 @@
  * Every verdict here comes from apps/atlas/src/planner/engine.ts. This file only
  * picks, labels and groups. No site score is computed anywhere (AGENTS.md rule 4).
  */
-import { funnelClass, limitRows, months, requirements, rows, search, type Dataset, type Row, type SearchResult } from '../../atlas/src/planner/engine.ts';
+import { LIMIT_COLUMNS, funnelClass, limitRows, months, requirements, rows, search, type Dataset, type Row, type SearchResult } from '../../atlas/src/planner/engine.ts';
 import type { Dimension, PlanRequest } from '../../atlas/src/plan-url.ts';
 
 export type Body = 'moon' | 'mars';
@@ -197,7 +197,7 @@ export function sheetCsv(data: Dataset, request: PlanRequest, sites: number[]): 
       const shown = r.perMonth ? worstMonthValue(r) : r.value;
       out.push([...base, 'trait', r.dimension, r.priority, r.verdict, shown, r.unit, r.band?.lo, r.band?.hi, r.gap, r.side, r.reason?.text, r.earthColumn, ...tail].map(cell).join(','));
     }
-    for (const l of limitRows(data, request, i)) out.push([...base, 'limit', l.limit, 'must', l.outcome, l.value, '', '', l.max, '', '', '', '', ...tail].map(cell).join(','));
+    for (const l of limitRows(data, request, i)) out.push([...base, 'limit', l.limit, 'must', l.outcome, l.value, '', '', l.max, '', '', l.value === null ? 'missing in release' : '', LIMIT_COLUMNS[l.limit], ...tail].map(cell).join(','));
     for (const [col, unit] of [['access_min_median', 'min'], ['airport_km', 'km'], ['protected_pct', '%'], ['elev_mean_m', 'm']] as const) {
       const v = data.yearly[col]?.[i], known = v !== undefined && Number.isFinite(v);
       out.push([...base, 'logistics', col, '', '', known ? v : null, unit, '', '', '', '', known ? '' : 'missing in release', col, ...tail].map(cell).join(','));
