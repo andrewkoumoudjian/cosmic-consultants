@@ -34,7 +34,9 @@ from pathlib import Path
 import polars as pl
 import yaml
 
+from .features import FEATURE_SPECS, build_earth_features, load_optional_regional_sources
 from .grid import DERIVED
+from .planetary_assemble import build_planetary_targets
 from .snapshots import REPO, sha256
 
 REGISTRY = REPO / "data" / "pipeline" / "columns.yaml"
@@ -83,6 +85,8 @@ def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.
     ids = [f["feature_id"] for f in features]
     if len(set(ids)) != len(ids) or set(ids) != set(mappings):
         raise ValueError("feature preparation mapping must cover every unique inventory feature exactly once")
+    earth_feat_df = tables.get("earth-features-r4")
+    planetary_df = tables.get("planetary-targets")
     result = []
     for feature in features:
         mapping = mappings[feature["feature_id"]]
@@ -93,15 +97,28 @@ def feature_coverage(features: list[dict], mappings: dict, tables: dict[str, pl.
             present = frame is not None and column in frame.columns
             backing.append({"column": ref, "present": present,
                             "nullRate": frame[column].null_count() / frame.height if present and frame.height else None})
+        ef_col = mapping.get("earthFeatureColumn")
+        pl_cols = [c for c in mapping.get("planetaryTargetColumns", []) if planetary_df is not None and c in planetary_df.columns]
+        has_ef = bool(ef_col and earth_feat_df is not None and ef_col in earth_feat_df.columns)
         relation = feature["earth_match"]
-        state = "limitation" if relation == "mismatch" else "source-gap" if relation == "gap" else (
-            "partial-inputs" if any(x["present"] for x in backing) else "not-built")
+        if relation == "mismatch":
+            state = "limitation"
+        elif relation == "gap":
+            state = "source-gap"
+        elif has_ef:
+            state = "prepared"
+        elif any(x["present"] for x in backing):
+            state = "partial-inputs"
+        else:
+            state = "not-built"
         if state == "source-gap" and not absence_scope:
             raise ValueError(f"{feature['feature_id']}: source-gap features need a dated absenceScope")
-        result.append({**feature, "preparationState": state, "implemented": False,
+        result.append({**feature, "preparationState": state, "implemented": has_ef,
+                       **({"earthFeatureColumn": ef_col} if ef_col else {}),
+                       **({"planetaryTargetColumns": pl_cols} if pl_cols else {}),
                        **({"absenceScope": absence_scope} if state == "source-gap" else {}),
                        "relatedColumns": backing, "notes": mapping["notes"],
-                       "scientificStatus": "proposed" if relation != "mismatch" else "limitation",
+                       "scientificStatus": "prepared-proxy-or-direct" if has_ef else ("proposed" if relation != "mismatch" else "limitation"),
                        "meaning": "Related columns and candidate source names do not establish this feature's quantity, scale or validity."})
     return result
 
@@ -343,7 +360,7 @@ class Build:
     def normalize_and_check(self, tname: str, df: pl.DataFrame, tbl_scales: dict) -> tuple[pl.DataFrame, dict]:
         """Build the ADR-0005 D5 robust IQR normalized DataFrame and verify reversibility + null parity."""
         norm_df, info = normalize_frame(df, tbl_scales)
-        key_cols = [k for k in self.reg["tables"][tname]["key"] if k in df.columns]
+        key_cols = [k for k in self.reg["tables"].get(tname, {}).get("key", ["h3"]) if k in df.columns]
         same_rows = norm_df.height == df.height and norm_df.columns == df.columns
         if same_rows and key_cols:
             same_keys = bool(norm_df.select([pl.col(k).eq_missing(df[k]).all() for k in key_cols]).row(0) == tuple([True] * len(key_cols)))
@@ -385,7 +402,27 @@ class Build:
                    f"round_trip_err={rt_bad or 'none'}, stat_err={stat_bad or 'none'}")
         return norm_df, info
 
-    def coverage(self, sites: pl.DataFrame, monthly: pl.DataFrame) -> dict:
+    def _check_missing_reason_json(self, name: str, df: pl.DataFrame, value_cols: list[str]) -> None:
+        nulls = df.select(
+            pl.sum_horizontal([pl.col(c).is_null().cast(pl.Int32) for c in value_cols]).alias("n"),
+            pl.col("missing_reason").str.count_matches('":"').alias("r"),
+            pl.col("missing_reason").str.contains("null-without-reason").alias("w"),
+        )
+        self.check(
+            f"{name}: missing_reason lists exactly the null columns",
+            nulls.filter(pl.col("n") != pl.col("r")).height == 0 and not nulls["w"].any(),
+            f"{nulls.filter(pl.col('n') != pl.col('r')).height} rows differ, {int(nulls['w'].sum())} null without reason",
+        )
+        json_ok = df["missing_reason"].str.json_decode(infer_schema_length=None).null_count() == 0
+        self.check(f"{name}: missing_reason is valid JSON", json_ok)
+
+    def coverage(
+        self,
+        sites: pl.DataFrame,
+        monthly: pl.DataFrame,
+        earth_features: pl.DataFrame | None = None,
+        planetary_targets: pl.DataFrame | None = None,
+    ) -> dict:
         cols = [c | {"table": t} for t in self.reg["tables"] for c in self.reg["tables"][t]["columns"]]
         evidence = load_evidence()
         def backing(trait: str) -> list[dict]:
@@ -440,11 +477,21 @@ class Build:
         with feature_path.open(encoding="utf-8", newline="") as stream:
             features = list(csv.DictReader(stream))
         preparation = yaml.safe_load(mapping_path.read_text(encoding="utf-8"))
-        full = feature_coverage(features, preparation["features"], {"sites-r4": sites, "sites-r4-monthly": monthly},
+        table_map: dict[str, pl.DataFrame] = {"sites-r4": sites, "sites-r4-monthly": monthly}
+        if earth_features is not None:
+            table_map["earth-features-r4"] = earth_features
+        if planetary_targets is not None:
+            table_map["planetary-targets"] = planetary_targets
+        full = feature_coverage(features, preparation["features"], table_map,
                                 preparation.get("absenceScope"))
         for category in categories.values():
             category["featureCompleteness"] = "not-established"
             category["note"] = "Trait-column availability is not evidence that all tests in this category can be performed."
+        planetary_status = (
+            f"executed: {planetary_targets.height} source-native target profiles in assembled/planetary-targets.parquet (TES excluded pending projection review)"
+            if planetary_targets is not None
+            else "not-built: generic envelopes are not measured per-target feature tables"
+        )
         return {"objectives": objectives, "categories": categories, "earthCannot": self.reg["earthCannot"],
                 "columnEvidence": evidence["columns"],
                 "evidenceNote": "kind/support/family describe each stored column. Shared family means not independent. "
@@ -456,7 +503,7 @@ class Build:
                 "testCatalog": {"source": test_catalog["source"], "selection": test_catalog["selection"],
                                 "detailedMenus": test_catalog.get("detailedMenus", []),
                                 "sha256": sha256(test_path), "count": len(categories)},
-                "planetaryAssemblyStatus": "not-built: generic envelopes are not measured per-target feature tables",
+                "planetaryAssemblyStatus": planetary_status,
                 "campaignTestAssemblyStatus": "partial: quoted records preserved; source extraction of historical test conditions remains #74"}
 
     def dataframe_inventory(self, norm_summary: dict) -> dict:
@@ -488,7 +535,9 @@ class Build:
             "normalizationMethod": "ADR-0005 D5 robust IQR: (x - median) / IQR; diagnostics (ADR-0010), booleans, coordinates, and IQR=0 unscaled; nulls preserved",
             "earthAssembled": {k: v for k, v in self.report["outputs"].items() if k in (
                 "sites-r4", "sites-r4-normalized", "sites-r4-monthly", "sites-r4-monthly-normalized",
-                "sites-r4-monthly-spread", "hazard-events", "campaign-sites")},
+                "sites-r4-monthly-spread", "earth-features-r4", "earth-features-r4-normalized",
+                "hazard-events", "campaign-sites")},
+            "planetaryAssembled": {k: v for k, v in self.report["outputs"].items() if k == "planetary-targets"},
             "normalization": norm_summary,
             "earthPerSource": per_source,
             "planetaryPreparedLocal": planetary,
@@ -527,13 +576,52 @@ class Build:
             self.write("hazard-events", ev)
         print("[campaign-sites]", flush=True)
         self.write("campaign-sites", self.campaigns(sites))
-        print("[normalize: sites-r4, sites-r4-monthly]", flush=True)
+        print("[earth-features-r4]", flush=True)
+        palsar, arads_counts = load_optional_regional_sources()
+        earth_feats, earth_feat_meta = build_earth_features(
+            sites, monthly, spread=sp, palsar=palsar, arads_count_by_h3=arads_counts,
+        )
+        ef_keys_ok = (
+            earth_feats.height == self.master.height
+            and bool(earth_feats["h3"].eq(self.master["h3"]).all())
+        )
+        self.check("earth-features-r4: one row per land hexagon matching master key order", ef_keys_ok,
+                   f"{earth_feats.height:,} rows, {earth_feats.width} columns")
+        self._check_missing_reason_json(
+            "earth-features-r4",
+            earth_feats,
+            [c for c in earth_feats.columns if c not in ("h3", "lat", "lon", "missing_reason")],
+        )
+        self.write("earth-features-r4", earth_feats)
+        print("[planetary-targets]", flush=True)
+        planetary_df, planetary_meta = build_planetary_targets()
+        expected_targets = len(list((REPO / "data" / "targets").glob("*.yaml")))
+        self.check(
+            "planetary-targets: one row per target YAML and no Earth H3 assignment",
+            planetary_df.height == expected_targets and "h3" not in planetary_df.columns,
+            f"{planetary_df.height} targets (want {expected_targets}), {planetary_df.width} columns",
+        )
+        self.check(
+            "planetary-targets: TES thermal inertia remains null pending projection review",
+            planetary_df["mars_tes_ti_day_si"].null_count() == planetary_df.height
+            and planetary_df["mars_tes_ti_night_si"].null_count() == planetary_df.height,
+        )
+        pl_value_cols = [
+            c for c in planetary_df.columns
+            if c not in ("target_id", "name", "body", "kind", "status", "lon_mode", "has_numeric_centre", "missing_reason")
+        ]
+        self._check_missing_reason_json("planetary-targets", planetary_df, pl_value_cols)
+        self.write("planetary-targets", planetary_df)
+        print("[normalize: sites-r4, sites-r4-monthly, earth-features-r4]", flush=True)
         yearly_scales = self.table_scales("sites-r4", sites)
         monthly_scales = self.table_scales("sites-r4-monthly", monthly)
+        earth_feat_scales = earth_feat_meta["scales"]
         sites_norm, sites_norm_info = self.normalize_and_check("sites-r4", sites, yearly_scales)
         self.write("sites-r4-normalized", sites_norm)
         monthly_norm, monthly_norm_info = self.normalize_and_check("sites-r4-monthly", monthly, monthly_scales)
         self.write("sites-r4-monthly-normalized", monthly_norm)
+        ef_norm, ef_norm_info = self.normalize_and_check("earth-features-r4", earth_feats, earth_feat_scales)
+        self.write("earth-features-r4-normalized", ef_norm)
         print("[trait-scales, data-coverage, dataframe-inventory]", flush=True)
         OUT.mkdir(parents=True, exist_ok=True)
         from .clean_audit import build as cleaning_audit
@@ -554,21 +642,35 @@ class Build:
             "_tables": {
                 "sites-r4": yearly_scales,
                 "sites-r4-monthly": monthly_scales,
+                "earth-features-r4": earth_feat_scales,
             },
         }
-        cov_doc = self.coverage(sites, monthly)
+        cov_doc = self.coverage(sites, monthly, earth_features=earth_feats, planetary_targets=planetary_df)
         cov_doc["sourceQuality"] = quality
-        for name, obj in (("trait-scales", scales_doc), ("data-coverage", cov_doc)):
+        for name, obj in (
+            ("trait-scales", scales_doc),
+            ("earth-feature-scales", earth_feat_meta),
+            ("planetary-targets.meta", planetary_meta),
+            ("data-coverage", cov_doc),
+        ):
             p = OUT / f"{name}.json"
             p.write_text(json.dumps(obj, indent=2, default=float) + "\n", encoding="utf-8")
             self.report["outputs"][name] = {"path": str(p.relative_to(REPO)), "sha256": sha256(p), "bytes": p.stat().st_size}
         cleaning = OUT / "cleaning-report.json"
         self.report["outputs"]["cleaning-report"] = {"path": str(cleaning.relative_to(REPO)), "sha256": sha256(cleaning), "bytes": cleaning.stat().st_size}
-        inv_doc = self.dataframe_inventory({"sites-r4": sites_norm_info, "sites-r4-monthly": monthly_norm_info})
+        inv_doc = self.dataframe_inventory({
+            "sites-r4": sites_norm_info,
+            "sites-r4-monthly": monthly_norm_info,
+            "earth-features-r4": ef_norm_info,
+        })
         inv_path = OUT / "dataframe-inventory.json"
         inv_path.write_text(json.dumps(inv_doc, indent=2, default=float) + "\n", encoding="utf-8")
         self.report["outputs"]["dataframe-inventory"] = {"path": str(inv_path.relative_to(REPO)), "sha256": sha256(inv_path), "bytes": inv_path.stat().st_size}
-        self.report["normalization"] = {"sites-r4": sites_norm_info, "sites-r4-monthly": monthly_norm_info}
+        self.report["normalization"] = {
+            "sites-r4": sites_norm_info,
+            "sites-r4-monthly": monthly_norm_info,
+            "earth-features-r4": ef_norm_info,
+        }
         self.report["runtime_s"] = round(time.time() - t0, 1)
         self.report["result"] = "ALL PASS" if self.fails == 0 else f"{self.fails} CHECK(S) FAILED"
         (OUT / "assembly-report.json").write_text(json.dumps(self.report, indent=2, default=float) + "\n", encoding="utf-8")
