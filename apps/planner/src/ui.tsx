@@ -1,5 +1,5 @@
 /** Shared pieces: one top bar, a page frame, a footer, verdict marks and a Base UI select. */
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import type { Row } from '../../atlas/src/planner/engine.ts';
 
@@ -52,10 +52,16 @@ export function Select<T extends string>({ value, options, onChange, label, widt
 export const STEPS = ['Destination', 'Category', 'Requirements', 'Sites', 'Limitations', 'Logistics', 'Risks'] as const;
 
 export function TopBar({ step, reached, onStep, action }: { step: number; reached: number; onStep: (n: number) => void; action?: ReactNode }) {
+  const nav = useRef<HTMLElement>(null);
+  // on a phone the steps scroll sideways; keep the current one in view
+  useEffect(() => {
+    const el = nav.current, cur = el?.querySelector<HTMLElement>('[aria-current]');
+    if (el && cur) el.scrollTo({ left: cur.offsetLeft - (el.clientWidth - cur.offsetWidth) / 2 });
+  }, [step]);
   return (
     <header className="bar">
       <span className="brand">cosmic / consultants</span>
-      <nav className="steps" aria-label="Steps">
+      <nav className="steps" aria-label="Steps" ref={nav}>
         {STEPS.map((s, k) => (
           <button key={s} onClick={() => onStep(k + 1)} disabled={k + 1 > reached} aria-current={k + 1 === step ? 'step' : undefined}>
             <span className="n">{k + 1}</span>{s}

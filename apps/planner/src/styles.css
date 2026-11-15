@@ -35,7 +35,7 @@ h1, h2, p { margin: 0; }
   display: flex; align-items: center; gap: 36px; height: 60px; padding: 0 48px; border-bottom: 1px solid var(--rule); }
 .brand { font: 500 14px/1 var(--sans); letter-spacing: -0.01em; white-space: nowrap; }
 .brand b { color: var(--accent); font-weight: 500; }
-.steps { display: flex; gap: 4px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.steps { position: relative; display: flex; gap: 4px; flex: 1; overflow-x: auto; scrollbar-width: none; }
 .steps button { background: none; border: 0; padding: 6px 10px; cursor: pointer; color: var(--muted); white-space: nowrap; border-radius: 999px;
   transition: color 150ms var(--ease), background-color 150ms var(--ease); }
 .steps button:hover:not(:disabled) { color: var(--ink); }
@@ -99,7 +99,7 @@ h1, h2, p { margin: 0; }
 .tag { font-size: 12px; line-height: 20px; padding: 0 8px; border-radius: 999px; background: #efeff3; color: var(--muted); white-space: nowrap; }
 
 /* Sheets: thin grid, frozen first column, right-aligned numbers (JSheets look) */
-.sheet { overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: #fff; }
+.sheet { position: relative; overflow-x: auto; border: 1px solid var(--rule); border-radius: 4px; background: #fff; }
 table { width: 100%; border-collapse: separate; border-spacing: 0; }
 th { font: 500 12px/18px var(--sans); color: var(--muted); text-align: left; padding: 10px 14px; white-space: nowrap; background: #f6f6f8; border-bottom: 1px solid var(--rule); }
 td { padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
@@ -167,7 +167,8 @@ th .swatch, .site-lab .swatch { margin-right: 7px; vertical-align: 0; }
 .globe-legend { position: absolute; top: 16px; left: 18px; display: flex; gap: 16px; color: rgba(255, 255, 255, 0.72); font-size: 12px; pointer-events: none; }
 .globe-legend span { display: inline-flex; align-items: center; gap: 6px; }
 .globe-legend .mark.match { background: #b4b9ff; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.v { position: relative; }
+.sr { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .cell-card { position: absolute; left: 16px; bottom: 16px; background: rgba(8, 11, 34, 0.78); backdrop-filter: blur(10px); color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px; padding: 14px 16px; min-width: 250px; display: flex; flex-direction: column; gap: 6px; }
 .cell-card .muted { color: rgba(255, 255, 255, 0.6); }
