@@ -1,36 +1,30 @@
-# Registry row (W49, issue #108). USGS Astrogeology Gazetteer of Planetary
-# Nomenclature: named-feature centre points (per-target zip exports, linked from
-# the Gazetteer GIS_Downloads page). Used as the cross-check for every named
-# feature in data/targets/ and as the cited coordinate source for named-feature
-# rows. Descriptive fields human-checked; probe fields follow the template.
+# Registry row (#74 projection check). Descriptive fields human-reviewed 2026-11-14.
 datasetId: usgs-planetary-nomenclature
-title: "USGS Astrogeology Gazetteer of Planetary Nomenclature centre-point exports (Moon, Mars)"
+title: "Gazetteer of Planetary Nomenclature: feature centre points (Moon, Mars)"
 status: candidate
 bodies: [moon, mars]
-dimensions: [] # visualization/context only; no atlas dimension served
+dimensions: [placement-reference]
 discovery:
   ckanName: null
   doi: null
 source:
-  archive: "USGS Astrogeology Science Center"
+  archive: "USGS Astrogeology / IAU WGPSN"
   endpoint: "https://planetarynames.wr.usgs.gov/GIS_Downloads"
-  probedAt: null
-  probeResult: "unverified: GIS_Downloads page fetched 2026-11-14 (HTTP 200); per-body zips on asc-planetarynames-data.s3.us-west-2.amazonaws.com"
+  probedAt: 2026-11-14T21:35:00Z
+  probeResult: "HTTP 200 via redirect to asc-planetarynames-data.s3.us-west-2.amazonaws.com; MOON zip 23,845,070 B, MARS zip 5,421,247 B"
 probe:
   kind: http
-  url: "https://planetarynames.wr.usgs.gov/GIS_Downloads"
-  expect: ["nomenclature_center_pts"]
+  url: "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip"
 license:
   id: us-pd
-  textUrl: "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits"
-  expect: ["public domain", "US Government"]
-  verified: false
-  note: "US Government work product; no dataset-specific licence text is served by the Gazetteer site. USGS general copyright policy page cited as licence evidence, verification pending a live probe."
+  textUrl: "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip"
+  verified: true
+  note: "FGDC metadata inside each zip (metadata_nomenclature_points_<BODY>.xml) states useconst 'Public domain.'; origin IAU and USGS. Read 2026-11-14."
 coverage:
-  spatial: "global, all APPROVED names with centre lat/lon (planetocentric east-positive)"
-  temporal: "current export (refetched at use time; export version changes without notice)"
-  resolution: "point records (one per named feature)"
+  spatial: "all IAU-named features, Moon and Mars"
+  temporal: "gazetteer snapshot as fetched"
+  resolution: "point per named feature (centre lat/lon, diameter, feature type)"
 analysisReady: true
-independenceGroup: gazetteer
-plannedUse: "Cross-check of named target-site features in data/targets/ (W49, #108); coordinate source for named-feature rows"
-snapshotPolicy: "per-body centre-point zips + the GIS_Downloads index page, via p0ingest.snapshots.fetch"
+independenceGroup: nomenclature
+plannedUse: "independent position reference for checking map placement of planetary products; never a physical measurement"
+snapshotPolicy: "bytes snapshotted with sha256 + fetch date by p0ingest.projection_check fetch"

@@ -96,6 +96,14 @@ The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
 builders keep their own tables. The generic Drive sync script excludes
 `_derived/`; copy prepared outputs separately and verify their hashes.
 
+`data/pipeline/evidence.yaml` adds one descriptor (`kind`, `support`,
+`family`) per registry column so observations, reanalysis, models,
+catalogues, and geometry stay separated, `synthetic` values are rejected in
+assembled tables, `assemble` rejects `NaN`/infinite floats, and `source-gap`
+features carry a dated `absenceScope` stating the scope searched rather than a
+claim of absence. Counting `family` values is a discovery hint only;
+corroboration requires per-claim review.
+
 Run `python -m unittest discover -s tests -v` for the assembly regressions.
 
 ## Temperature history (W24, #64)
@@ -210,6 +218,92 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## Map placement check (#74)
+
+`uv run python -m p0ingest.projection_check fetch|run` checks where the native
+planetary products sit on their body, using independent references only:
+MOLA MEGDR topography (4 and 16 px/deg) and the USGS/IAU Gazetteer of
+Planetary Nomenclature. MOLA itself is first checked against named montes and
+planitiae. The report goes to `_derived/planetary/projection-check.json`.
+
+- TES thermal inertia: the label text is right (line 1 = 90 N, sample 1 =
+  180 W). The DSMAP equations' signs are wrong. The night map matches MOLA's
+  fine structure under that mapping only, and the day map agrees with the night
+  map under the same mapping only.
+- Not resolved: a residual apparent longitude offset (night peak about
+  +0.3 deg east). Day and night disagree on it, so it is not one grid error.
+  Slope-aspect response and the IAU 1991 (TES) vs MOLA frame difference both
+  move it. No correction is applied. Treat TES positions as uncertain at that
+  size until a cited frame transform exists.
+- Diviner PRP: centre lat/lon recomputed from the three body-fixed vertices
+  match the table, and named south-polar crater floors are colder than their
+  rims far more often than with east/west mirrored positions.
+
+This is placement evidence only. No value changes and no target association.
+
+## Output: `burned-r4-monthly.parquet` (W25, issue #65, Mistral Vibe helper)
+
+One row per land cell and calendar month (91,800 x 12 = 1,101,600 rows):
+`h3`, `month` (1-12), `burned_pct` [%], `years_mapped` (0-10),
+`missing_reason` (JSON). Source: MODIS MCD64A1 v061 monthly 500-m tiles
+(CMR `C2565786756-LPCLOUD`, licence CC0), 2015-2024, 32,160 granules
+(268 tiles x 120 months, live count re-probed at use time).
+
+- `burned_pct` is the mean over 2015-2024 of each year's share of burned
+  mapped-land pixels (Burn Date > 0 / >= 0; water -2 never in the
+  denominator). Only years with mapped pixel support count, and
+  `years_mapped` says how many did.
+- No mapped support -> null, never 0, with a reason per row:
+  `outside-mcd64a1-tiles` (no granule tile covers the cell at all, e.g.
+  all Antarctic land) or `no-mapped-land-in-period` (pixels exist, none
+  mapped land in that month any year).
+- Streaming rule as `terrain.py`: each granule is downloaded, decoded,
+  hashed and dropped. Every source URL/hash/bytes/time is in
+  `_derived/burned-r4-ledger.jsonl.gz` (hashed in the meta and MANIFEST).
+  A checkpoint commits counts + ledger length atomically; on restart the
+  partial ledger is truncated to the checkpoint so uncommitted granules
+  are re-fetched, never skipped, and reissued/duplicate granules are a
+  hard error (no double counting).
+- Run: `uv run python -m p0ingest.burned` (resumable; Earthdata token
+  needed). Spot checks: `uv run python -m p0ingest.burned --spots`.
+  Tests: `uv run python -m unittest tests.test_burned` (also under `-O`).
+
+## W31 (#89) wind: MERRA-2 10 m wind per hexagon
+
+One more source family, built by its own module; the parent assembler joins
+it. No other module was touched.
+
+- The mean wind speed comes from a real SPEED field: I opened real monthly
+  granules of both MERRA-2 collections and read their variable lists first.
+  M2TMNXSLV monthly has only the vector components U10M/V10M (`10-meter_east_wind`,
+  `10-meter_northward_wind`) and NO speed field; the monthly wind SPEED lives
+  in M2TMNXFLX (`surface_wind_speed`, m s-1). So `data/catalog/merra2-m2tmnxflx.yaml`
+  is a new registry row (CC0, license-verified by the registry probe), and
+  `wind.py` never computes speed from |mean U, mean V| (that is biased low by
+  Jensen's inequality; `check` proves 0 violations of mean speed >= |mean
+  vector|, the speed field being up to 12.4 m/s above that biased bound).
+- `python -m p0ingest.wind fetch` downloads 24 granules (12 FLX + 12 SLV,
+  2023, v5.12.4, ~1.8 GB - offset 0). `python -m p0ingest.wind build` maps
+  each master hexagon center to the NEAREST native 0.5 x 0.625 deg MERRA-2
+  grid center (pole rows clipped, longitude wrapped) and writes
+  `_derived/wind-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12;
+  columns `wind_speed` (SPEED monthly mean, m s-1), `wind_speed_max`
+  (SPEEDMAX monthly mean, the mean of hourly maxima), `u10m_mean`/`v10m_mean`
+  (labelled VECTOR COMPONENTS from M2TMNXSLV, direction context only) and
+  `missing_reason`) plus `_derived/wind-r4.parquet` (91,800 rows:
+  `wind_speed_mean` = mean of the 12 monthly speeds, `months_used`). All
+  24 granules verified fully covered their month; no fills anywhere, so no
+  row carries a reason (the machinery stays in place for next year).
+- Limits are explicit in both `.meta.json` files: 10 m Earth wind is not the
+  last km of Mars descent; air density differs (pressureRegime mismatch);
+  MERRA-2 is a reanalysis, not a measurement.
+- `python -m p0ingest.wind check` (also with `-O`, see above): exact key
+  domain (91,800 h3 x 12 months, master cell set), no duplicates, key/column
+  schema, aggregation consistency, missing_reason naming, physically
+  plausible ranges, the Jensen speed-field sanity check and 5 raw-granule
+  spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa) - all raw
+  vs parquet values MATCH; exit 0 only if all pass (`ALL PASS`).
 
 ## W49 (#108) target sites: cited Moon/Mars extraction points (my own section)
 

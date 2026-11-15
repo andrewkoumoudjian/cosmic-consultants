@@ -18,6 +18,12 @@ additionalEvidenceGaps:
 - Biological observations and contamination control
 - Local equipment, infrastructure and personnel
 - Permits, legal approvals and real field budgets
+absenceScope:
+  searchedOn: '2026-11-14'
+  searched: research/features/landing_site_features.csv Earth-counterpart inventory and the source
+    registry (data/catalog) as of this date; no external literature search has been performed.
+  statement: No Earth counterpart was identified within that scope. This is not evidence that none
+    exists. Fieldwork or a wider search can confirm or refute it. Missing values stay explicit.
 features:
   slope_2_5km:
     relatedColumns:
