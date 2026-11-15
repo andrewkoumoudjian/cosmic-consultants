@@ -11,9 +11,9 @@ Date: 2026-11-12. Status: **proposal for approval — nothing here is built.**
 Scope of this document: research + setup proposal only, per task. Three decisions at
 the end need the repo owner's call before any scaffolding.
 
-Inputs: [`01` NASA catalog](/home/drew/cosmic-consultants/docs/research/01-nasa-data-catalog.md) ·
-[`02` challenge brief](/home/drew/cosmic-consultants/docs/research/02-challenge-brief.md) ·
-[`03` literature](/home/drew/cosmic-consultants/docs/research/03-literature-inventory.md) ·
+Inputs: [`01` NASA catalog](../research/01-nasa-data-catalog.md) ·
+[`02` challenge brief](../research/02-challenge-brief.md) ·
+[`03` literature](../research/03-literature-inventory.md) ·
 GitHub history of `andrewkoumoudjian` / `QUARCC-Umbrella` (inventoried 2026-11-12, §2).
 
 ## 1. The proposed original implementation (one paragraph)
@@ -159,7 +159,7 @@ optional personal session-sync convenience, never load-bearing.** Operating prot
 | 4. Atlas | Map app (GIBS + Trek side-by-side), per-site dossiers with analogy vectors and breakdowns | Deployed static build; every figure traceable to `data/snapshots/` |
 | 5. Hardening | Sensitivity to WeightFamily, P4 novelty audit vs corpus, written report export | Audit table P1–P8 all green or explicitly waived |
 
-## 7. Decisions — RESOLVED 2026-11-12 (see [ADR-0001](/home/drew/cosmic-consultants/docs/decisions/ADR-0001-scope-collaboration-lean-first.md))
+## 7. Decisions — RESOLVED 2026-11-12 (see [ADR-0001](../decisions/ADR-0001-scope-collaboration-lean-first.md))
 
 Owner's answers: (1) **both targets, same methodology**; (2) **whichever is better
 for cross-agent collaboration** → GitHub Issues as system of record (§5);

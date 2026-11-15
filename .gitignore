@@ -26,3 +26,6 @@ apps/atlas/public/data/planner-v1/
 # Browser regression artifacts
 apps/atlas/test-results/
 apps/atlas/playwright-report/
+
+# Local git worktrees
+.worktrees/

@@ -16,7 +16,7 @@ at the top of citation-sorted lists. What follows is therefore:
    is a canonical program/reference verifiable at the given DOI/URL — annotated with
    what it gives us and what it forecloses for originality;
 3. the **originality gap analysis** the proposal in
-   [`04-monorepo-multiagent-lean-proposal.md`](/home/drew/cosmic-consultants/docs/proposals/04-monorepo-multiagent-lean-proposal.md) is built on.
+   [`04-monorepo-multiagent-lean-proposal.md`](../proposals/04-monorepo-multiagent-lean-proposal.md) is built on.
 
 Full-corpus harvesting (OpenAlex/Crossref/Semantic Scholar → deduped BibTeX in
 `research/corpus/`) is proposed as a build-phase work order, not hand-done here.

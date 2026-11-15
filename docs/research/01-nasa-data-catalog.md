@@ -17,7 +17,7 @@ Source of truth used: the live catalog file the portal itself renders,
 ## 1. The 16 catalog entries, with challenge relevance
 
 Relevance is scored against the analog challenge (see
-[`02-challenge-brief.md`](/home/drew/cosmic-consultants/docs/research/02-challenge-brief.md)):
+[`02-challenge-brief.md`](02-challenge-brief.md)):
 **T1** = can feed the core Earth↔Moon/Mars comparison, **T2** = supporting/context,
 **T3** = not usable for this challenge.
 

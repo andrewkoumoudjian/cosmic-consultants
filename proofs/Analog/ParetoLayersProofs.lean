@@ -2,7 +2,7 @@
 # W22 (#170): proofs of the S9 Pareto layer statements
 
 Proves every `S9...` Prop defined in `Analog/ParetoLayers.lean` cleanly with
-standard axioms only and zero `sorry`/`admit`.
+standard axioms only and no unproven placeholders or escape hatches.
 -/
 import Mathlib
 import Analog.ParetoLayers
