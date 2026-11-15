@@ -66,12 +66,17 @@ const STEPS: { route: Route; label: string }[] = [
   { route: 'metrics', label: '03 Metrics' },
 ];
 
-export function StepHeader({ title, sub, route, onStep, canVisit }: { title: string; sub: ReactNode; route?: Route; onStep?: (r: Route) => void; canVisit?: (r: Route) => boolean }) {
+export function StepHeader({ title, sub, route, onStep, canVisit, sample }: { title: string; sub: ReactNode; route?: Route; onStep?: (r: Route) => void; canVisit?: (r: Route) => boolean; sample?: boolean }) {
   const current = STEPS.findIndex((s) => s.route === route);
   return (
     <div className={`step-header${route ? '' : ' step-header--report'}`}>
       <h1 className="t-title">{title}</h1>
       <p className="t-body">{sub}</p>
+      {sample && (
+        <p className="sample-banner t-small" role="note">
+          <b>Design preview, sample data.</b> The sites and numbers on this screen are sample values from the Figma file, not engine output. Real results wait on the planner engine (#20, #183). Turn on &ldquo;Highlight placeholders&rdquo; to see each one.
+        </p>
+      )}
       {route && (
         <ol className="progress" aria-label="Steps">
           {STEPS.map((s, i) => {

@@ -35,6 +35,7 @@ export function Limitations({ go }: { go: (r: Route) => void }) {
       <StepHeader
         title="Limitation report."
         sub={`How well each site in play supports your ${reqs.length} mission requirements, and what no Earth site can reproduce.`}
+        sample
       />
       <div className="step-content report">
         <div className="tiles">

@@ -29,7 +29,7 @@ export function Logistics({ go }: { go: (r: Route) => void }) {
 
   return (
     <>
-      <StepHeader title="Logistics." sub={`What it takes to get ${plan.people} people and a rover to each site in play, and keep them working for ${plan.fieldDays} days.`} />
+      <StepHeader title="Logistics." sub={`What it takes to get ${plan.people} people and a rover to each site in play, and keep them working for ${plan.fieldDays} days.`} sample />
       <div className="step-content report">
         <div className="tiles">
           <Tile label="SITES COMPARED" value={sites.length} note={`Same ${plan.people}-person team, ${plan.fieldDays} field days`} pending={PLAN_PARAMETERS} />

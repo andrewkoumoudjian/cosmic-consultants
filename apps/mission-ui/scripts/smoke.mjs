@@ -1,17 +1,18 @@
 // Interaction smoke test against the preview server.
 import { chromium } from 'playwright';
 const out = process.argv[2];
-const b = await chromium.launch({ executablePath: process.env.LOCALAPPDATA + '/ms-playwright/chromium-1243/chrome-win64/chrome.exe', args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
+const base = process.env.BASE_URL ?? 'http://localhost:5181/';
+const b = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const p = await b.newPage({ viewport: { width: 1440, height: 1000 } });
 const errors = [];
 p.on('pageerror', (e) => errors.push(String(e)));
 p.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 const ok = (cond, msg) => console.log(`${cond ? 'PASS' : 'FAIL'} ${msg}`);
 
-await p.goto('http://localhost:5181/');
+await p.goto(base);
 await p.evaluate(() => localStorage.clear());
 await p.goto('about:blank');
-await p.goto('http://localhost:5181/#/location');
+await p.goto(base + '#/location');
 await p.waitForTimeout(800);
 await p.click('text=Mars');
 await p.click('text=Continue →');
@@ -86,7 +87,7 @@ ok(await p.isVisible('.app.show-pending'), 'highlight placeholders toggle');
 // save draft
 await p.click('text=Back');
 await p.waitForTimeout(300);
-await p.goto('http://localhost:5181/#/metrics');
+await p.goto(base + '#/metrics');
 await p.waitForTimeout(500);
 await p.click('text=Save draft');
 await p.waitForTimeout(300);
@@ -96,7 +97,7 @@ await p.keyboard.press('Escape');
 // phone width: no horizontal page scroll
 const m = await b.newPage({ viewport: { width: 390, height: 844 } });
 for (const r of ['location', 'category', 'metrics', 'sites', 'limitations', 'logistics', 'risks']) {
-  await m.goto(`http://localhost:5181/#/${r}`);
+  await m.goto(`${base}#/${r}`);
   await m.waitForTimeout(600);
   const over = await m.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   ok(over <= 0, `phone width ${r}: horizontal overflow ${over}px`);

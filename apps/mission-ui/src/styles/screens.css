@@ -342,11 +342,11 @@
 .risks-top { grid-template-columns: minmax(0, 528fr) minmax(0, 620fr); gap: 48px; }
 .rmatrix {
   display: grid;
-  grid-template-columns: 82px repeat(5, minmax(0, 1fr));
+  grid-template-columns: 82px repeat(3, minmax(0, 1fr));
   gap: 1px;
 }
 .rmatrix__ylab { display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; white-space: nowrap; }
-.rmatrix__cell { display: flex; flex-direction: column; gap: 4px; padding: 5px 6px; min-height: 54px; }
+.rmatrix__cell { display: flex; flex-direction: column; gap: 4px; padding: 5px 6px; min-height: 72px; }
 .rmatrix__cell--high { background: color-mix(in srgb, var(--status-critical) 17%, var(--mission-canvas)); }
 .rmatrix__cell--medium { background: color-mix(in srgb, var(--status-warning) 13%, var(--mission-canvas)); }
 .rmatrix__cell--low { background: color-mix(in srgb, var(--status-good) 14%, var(--mission-canvas)); }
@@ -374,7 +374,7 @@
 .exposure__cell.is-hover { box-shadow: inset 0 0 0 1px var(--mission-accent); }
 .exposure__note { padding-top: 6px; }
 
-.register { display: grid; grid-template-columns: 46px minmax(200px, 2.4fr) 32px 32px 104px minmax(130px, 1.5fr) minmax(220px, 3.2fr); }
+.register { display: grid; grid-template-columns: 46px minmax(200px, 2.4fr) 84px 84px 92px minmax(130px, 1.5fr) minmax(220px, 3.2fr); }
 .register__group { grid-column: 1 / -1; padding: 14px 10px; border-bottom: 1px solid var(--mission-border); }
 .register__row { display: contents; }
 .register__row > span { padding: 14px 10px; border-bottom: 1px solid var(--mission-border); align-self: stretch; transition: background 0.15s; min-width: 0; }
@@ -386,7 +386,7 @@
   .finder { flex-direction: column; }
   .candidates { width: 100%; }
   .risks-top { grid-template-columns: 1fr; }
-  .register { grid-template-columns: 40px minmax(180px, 2fr) 28px 28px 96px minmax(120px, 1.4fr) minmax(200px, 2.6fr); }
+  .register { grid-template-columns: 40px minmax(180px, 2fr) 78px 78px 86px minmax(120px, 1.4fr) minmax(200px, 2.6fr); }
 }
 
 @media (max-width: 1000px) {

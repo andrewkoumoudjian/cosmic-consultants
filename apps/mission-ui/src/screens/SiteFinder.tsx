@@ -19,8 +19,9 @@ export function SiteFinder({ go }: { go: (r: Route) => void }) {
   return (
     <>
       <StepHeader
-        title="Top analog sites."
-        sub={`Earth sites ranked against your ${mission.requirements.length} mission requirement${mission.requirements.length === 1 ? '' : 's'}. Remove any that clearly won't work, then compare the rest.`}
+        title="Candidate analog sites."
+        sub={`Earth sites to compare against your ${mission.requirements.length} mission requirement${mission.requirements.length === 1 ? '' : 's'}. No single score: each requirement is shown on its own. Remove any that clearly won't work, then compare the rest.`}
+        sample
       />
       <div className="step-content finder">
         <Candidates hoverSite={hoverSite} onHover={setHoverSite} />
@@ -50,12 +51,12 @@ function Candidates({ hoverSite, onHover }: { hoverSite: string | null; onHover:
         <PendingTag p={SITE_SHORTLIST} compact />
         <span className="flex" />
         <span>
-          {all.length - removed} ranked · {removed} removed
+          {all.length - removed} in play · {removed} removed
         </span>
       </div>
       <div className="divider" />
       <ol className="candidates__list">
-        {all.map((s, i) => {
+        {all.map((s) => {
           const reason = mission.removed[s.id];
           const color = seriesColor(mission, s.id);
           const inChart = !!color;
@@ -68,7 +69,7 @@ function Candidates({ hoverSite, onHover }: { hoverSite: string | null; onHover:
               onPointerLeave={() => onHover(null)}
             >
               <div className="site-row__content">
-                <span className="t-small t-muted site-row__rank">{String(i + 1).padStart(2, '0')}</span>
+                <span className="t-small t-muted site-row__rank" aria-hidden="true" />
                 <button
                   type="button"
                   className="site-row__marker"
@@ -162,7 +163,7 @@ function RequirementFit({ hoverSite, onHover }: { hoverSite: string | null; onHo
         <PendingTag p={REQUIREMENT_FIT} compact />
         <span className="flex" />
         <span>
-          Comparing {chart.length} of {inPlay} · score 0–100 per requirement
+          Comparing {chart.length} of {inPlay} · sample 0–100 each, rule not frozen
         </span>
       </div>
       <div className="fit__body">
