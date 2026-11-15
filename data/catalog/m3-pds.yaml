@@ -22,7 +22,7 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "Issue #41 rechecked the M3 volume page without establishing applicable reuse terms. A NASA/PDS host or another derived M3 product's licence is not a blanket grant for these volumes. Retained unresolved; see LICENCE-AUDIT-41.md."
+  note: "Issue #41 rechecked the M3 volume page without establishing applicable reuse terms. A NASA/PDS host or another derived M3 product's licence is not a blanket grant for these volumes. Retained unresolved; see LICENCE-AUDIT-41.md. #102 recheck 2026-11-14: still unresolved, no bytes fetched; no PDS-published global derived band-depth/parameter map located (img/data/m3/ lists per-strip V1/V2 volumes only), so mafic_bd_1um and oh_3um stay blocked on both grounds."
 coverage:
   spatial: "near-global Moon"
   temporal: "2008-2009"
