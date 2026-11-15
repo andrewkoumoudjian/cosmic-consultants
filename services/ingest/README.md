@@ -269,3 +269,38 @@ One row per land cell and calendar month (91,800 x 12 = 1,101,600 rows):
   needed). Spot checks: `uv run python -m p0ingest.burned --spots`.
   Tests: `uv run python -m unittest tests.test_burned` (also under `-O`).
 
+## W31 (#89) wind: MERRA-2 10 m wind per hexagon
+
+One more source family, built by its own module; the parent assembler joins
+it. No other module was touched.
+
+- The mean wind speed comes from a real SPEED field: I opened real monthly
+  granules of both MERRA-2 collections and read their variable lists first.
+  M2TMNXSLV monthly has only the vector components U10M/V10M (`10-meter_east_wind`,
+  `10-meter_northward_wind`) and NO speed field; the monthly wind SPEED lives
+  in M2TMNXFLX (`surface_wind_speed`, m s-1). So `data/catalog/merra2-m2tmnxflx.yaml`
+  is a new registry row (CC0, license-verified by the registry probe), and
+  `wind.py` never computes speed from |mean U, mean V| (that is biased low by
+  Jensen's inequality; `check` proves 0 violations of mean speed >= |mean
+  vector|, the speed field being up to 12.4 m/s above that biased bound).
+- `python -m p0ingest.wind fetch` downloads 24 granules (12 FLX + 12 SLV,
+  2023, v5.12.4, ~1.8 GB - offset 0). `python -m p0ingest.wind build` maps
+  each master hexagon center to the NEAREST native 0.5 x 0.625 deg MERRA-2
+  grid center (pole rows clipped, longitude wrapped) and writes
+  `_derived/wind-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12;
+  columns `wind_speed` (SPEED monthly mean, m s-1), `wind_speed_max`
+  (SPEEDMAX monthly mean, the mean of hourly maxima), `u10m_mean`/`v10m_mean`
+  (labelled VECTOR COMPONENTS from M2TMNXSLV, direction context only) and
+  `missing_reason`) plus `_derived/wind-r4.parquet` (91,800 rows:
+  `wind_speed_mean` = mean of the 12 monthly speeds, `months_used`). All
+  24 granules verified fully covered their month; no fills anywhere, so no
+  row carries a reason (the machinery stays in place for next year).
+- Limits are explicit in both `.meta.json` files: 10 m Earth wind is not the
+  last km of Mars descent; air density differs (pressureRegime mismatch);
+  MERRA-2 is a reanalysis, not a measurement.
+- `python -m p0ingest.wind check` (also with `-O`, see above): exact key
+  domain (91,800 h3 x 12 months, master cell set), no duplicates, key/column
+  schema, aggregation consistency, missing_reason naming, physically
+  plausible ranges, the Jensen speed-field sanity check and 5 raw-granule
+  spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa) - all raw
+  vs parquet values MATCH; exit 0 only if all pass (`ALL PASS`).
