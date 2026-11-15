@@ -2,6 +2,17 @@
   "description": "Hashed dataset snapshots used by W6 ingest. Payload bytes are local (gitignored); this file is the provenance record (AGENTS.md rule 3).",
   "entries": [
     {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-site-coordinates",
+      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
+      "bytes": null,
+      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
+      "localPath": null,
+      "datasetId": "campaign-sources"
+    },
+    {
       "campaignId": "atacama-arads-2019",
       "sourceRef": "arads-2019-article",
       "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
@@ -87,17 +98,6 @@
       "bytes": 5823240,
       "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
       "localPath": "data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf",
-      "datasetId": "campaign-sources"
-    },
-    {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-site-coordinates",
-      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
-      "bytes": null,
-      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
-      "localPath": null,
       "datasetId": "campaign-sources"
     },
     {
@@ -311,6 +311,246 @@
       "localPath": "data/snapshots/lp-grs-pds/index.tab"
     },
     {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202301.nc4",
+      "fetchedAt": "2026-11-14T22:22:49Z",
+      "sha256": "86fe913b40b3b0abdf6803d6d1975a77c11913fbcbe01490d930a3f9266730db",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202301.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202302.nc4",
+      "fetchedAt": "2026-11-14T22:23:07Z",
+      "sha256": "9ea5e8f585ea3975557dfeeee5b748212365374d7be664a46b837b37b0dd0aa9",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202302.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202303.nc4",
+      "fetchedAt": "2026-11-14T22:23:18Z",
+      "sha256": "8b472a9a0a89a2fc3f767d5e8832787731a686ef06207c8603e896bcdccddeeb",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202303.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202304.nc4",
+      "fetchedAt": "2026-11-14T22:23:36Z",
+      "sha256": "b18f6ee86b4d6b4ab2d2cb5aba16f5b8c338a9d59871effef209e6ced375331e",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202304.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202305.nc4",
+      "fetchedAt": "2026-11-14T22:23:48Z",
+      "sha256": "d0faf90701a46e12947a2c5201ab171b7082c29f46cd2696fc2942ddad75df68",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202305.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202306.nc4",
+      "fetchedAt": "2026-11-14T22:24:01Z",
+      "sha256": "2b4217d7012f415ac19c105957be4ddb508f322d5ecf08f349244ab0758ad95c",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202306.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202307.nc4",
+      "fetchedAt": "2026-11-14T22:24:17Z",
+      "sha256": "4ee89e65ef31852c20dabf7e2a962d061f412c233a942b426af246bd22a94b8e",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202307.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202308.nc4",
+      "fetchedAt": "2026-11-14T22:24:31Z",
+      "sha256": "b1fc46d6cd46e0696c7de9bddd93c8a297bc56936bc76de0115c952db48dd580",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202308.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202309.nc4",
+      "fetchedAt": "2026-11-14T22:24:50Z",
+      "sha256": "fb449c94078c35640429bd29210257e5f42e12257c5f34bc2caf500e7db63e0f",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202309.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202310.nc4",
+      "fetchedAt": "2026-11-14T22:25:03Z",
+      "sha256": "689e997921676fc0bd53a5ba943c4b787bdc961fb8ebc5ede31388b26b22c5ae",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202310.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202311.nc4",
+      "fetchedAt": "2026-11-14T22:25:27Z",
+      "sha256": "3a0effa99c9bd9dda1806309a9285f41b52a5b1922fbcf27c22a1d625270f349",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202311.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxflx",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXFLX.5.12.4/2023/MERRA2_400.tavgM_2d_flx_Nx.202312.nc4",
+      "fetchedAt": "2026-11-14T22:25:43Z",
+      "sha256": "cc20a5093379e826d76e502c17e93c67f3c0849f4b0d2debadea1d52b9f1f098",
+      "bytes": 77163710,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxflx/MERRA2_400.tavgM_2d_flx_Nx.202312.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202301.nc4",
+      "fetchedAt": "2026-11-14T22:26:08Z",
+      "sha256": "5093782fcebff8398d6986865e3edad5deec068ee1241d5b2d3e85f91072014f",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202301.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202302.nc4",
+      "fetchedAt": "2026-11-14T22:28:50Z",
+      "sha256": "14c3c45e657b28c27f67f91056ddc96e298186ff62ff245c0a131a86d70f5929",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202302.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202303.nc4",
+      "fetchedAt": "2026-11-14T22:29:14Z",
+      "sha256": "94ed97bfa34550f3a8530c07c0266de68e59c67f153871691f582ce9c5938b09",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202303.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202304.nc4",
+      "fetchedAt": "2026-11-14T22:29:32Z",
+      "sha256": "1c1c3dfc3db3a2b9b088204a2601ab141e0f81d529c46428a75bb2bc050c0983",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202304.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202305.nc4",
+      "fetchedAt": "2026-11-14T22:29:46Z",
+      "sha256": "cc5fbbfae95dd552ab2138eeca5ef802f228444fd489cfc931790bbbaf836f26",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202305.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202306.nc4",
+      "fetchedAt": "2026-11-14T22:30:35Z",
+      "sha256": "40a9c3a1a714ec56e70844a8b142967eabff6d697989d453dbfc87bdd4a445b7",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202306.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202307.nc4",
+      "fetchedAt": "2026-11-14T22:30:55Z",
+      "sha256": "2b72bda7197111ea716c1295a54987e237107548b7bfd6dfdb238066f10010b0",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202307.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202308.nc4",
+      "fetchedAt": "2026-11-14T22:31:47Z",
+      "sha256": "ad09ecef9e216ce1aa9c5abf5f8673dc14614d17f8fb57ead28095728be6e605",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202308.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202309.nc4",
+      "fetchedAt": "2026-11-14T22:32:21Z",
+      "sha256": "e81f51814a18b8a607bd260a15052bc72741fc73b655b68876744d2bc5472b0d",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202309.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202310.nc4",
+      "fetchedAt": "2026-11-14T22:32:34Z",
+      "sha256": "417bcebff91c7ede9953f2cdf52fe753477bfa747cfab48e3b930ca3f5a30487",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202310.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202311.nc4",
+      "fetchedAt": "2026-11-14T22:32:53Z",
+      "sha256": "db15cbad7e8934000e9d0a454bd5ae96a1935cc7802ee7f4cf1e30a362ff6396",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202311.nc4"
+    },
+    {
+      "datasetId": "merra2-m2tmnxslv",
+      "sourceUrl": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXSLV.5.12.4/2023/MERRA2_400.tavgM_2d_slv_Nx.202312.nc4",
+      "fetchedAt": "2026-11-14T22:33:15Z",
+      "sha256": "8224e4e26c739f8404d276e0e8616f9d8b51c9167e95430b82bd8f71a7c4878b",
+      "bytes": 78841049,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/merra2-m2tmnxslv/MERRA2_400.tavgM_2d_slv_Nx.202312.nc4"
+    },
+    {
       "datasetId": "modis-mcd12c1",
       "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MCD12C1.061/MCD12C1.A2023001.061.2024251212901/MCD12C1.A2023001.061.2024251212901.hdf",
       "fetchedAt": "2026-11-14T15:10:54Z",
@@ -439,6 +679,25 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mcd43c3-albedo/MCD43C3.A2023349.061.2023361073709.hdf"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://lpdaac.usgs.gov/documents/1006/MCD64_User_Guide_V61.pdf",
+      "fetchedAt": "2026-11-14T19:47:00Z",
+      "sha256": "9fff6bd6dcd2d56327d3c0ecb7c0c4ba76bb3858ee5f4c1cc890e447e1ffc36f",
+      "bytes": 1007034,
+      "licenseNote": "MCD64A1 Collection 6.1 User Guide (NASA LP DAAC documentation, publicly accessible); stored locally to verify versioned Burn Date, QA and unmapped/water semantics quoted in the #65 probe log and metadata.",
+      "localPath": "data/snapshots/modis-mcd64a1/MCD64_User_Guide_V61.pdf"
+    },
+    {
+      "datasetId": "modis-mcd64a1",
+      "sourceUrl": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C2565786756-LPCLOUD&temporal=2015-01-01T00:00:00Z,2024-12-31T23:59:59Z&page_size=2000",
+      "fetchedAt": "2026-11-14T19:03:05Z",
+      "sha256": "689f752c96fb7461e31c0b48fef5683c3a65a954d89f5c3cda51dcedf151c887",
+      "bytes": 5209920,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mcd64a1/granule-list-2015-2024.txt"
     },
     {
       "datasetId": "modis-mod11c3",
@@ -1641,6 +1900,176 @@
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
     },
     {
+      "datasetId": "modis-mod21c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MOD21C3.061/MOD21C3.A2023182.061.2023215182726/MOD21C3.A2023182.061.2023215182726.hdf",
+      "fetchedAt": "2026-11-14T22:30:11Z",
+      "sha256": "ce332c4b06ea28f6932496754cb30cf004d301f32ee29cc06f8dc08a6ac40e3d",
+      "bytes": 128409037,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-mod21c3/MOD21C3.A2023182.061.2023215182726.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023001.061.2023033164343/MYD11C3.A2023001.061.2023033164343.hdf",
+      "fetchedAt": "2026-11-14T22:27:00Z",
+      "sha256": "ac7c6d30a4357e303f6f31e68891f25410bfb0a5ccab8fd2af6eb1bee2633dce",
+      "bytes": 71693887,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023001.061.2023033164343.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023032.061.2023060194236/MYD11C3.A2023032.061.2023060194236.hdf",
+      "fetchedAt": "2026-11-14T22:27:30Z",
+      "sha256": "e92a266fa710bf0f4fa849683fca43fd757123b48b67a70b043cc773e29abd64",
+      "bytes": 72810956,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023032.061.2023060194236.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023060.061.2023093152049/MYD11C3.A2023060.061.2023093152049.hdf",
+      "fetchedAt": "2026-11-14T22:26:53Z",
+      "sha256": "67bb8e23d3d74eadc975943eb8c52c4f92347dd5fdf24d6500705fcdfa71d584",
+      "bytes": 76696205,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023060.061.2023093152049.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023091.061.2023122195853/MYD11C3.A2023091.061.2023122195853.hdf",
+      "fetchedAt": "2026-11-14T22:27:10Z",
+      "sha256": "bb7f0faf01f3779c539f399f4798ad9e921e89f099cb8a10e23987553de6d05b",
+      "bytes": 75290381,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023091.061.2023122195853.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023121.061.2023153211939/MYD11C3.A2023121.061.2023153211939.hdf",
+      "fetchedAt": "2026-11-14T22:27:46Z",
+      "sha256": "263fe88cd24b2807b95b3d4e53848f944cc1631a43d7d1881646ab07076e0a93",
+      "bytes": 75265120,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023121.061.2023153211939.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023152.061.2023193054214/MYD11C3.A2023152.061.2023193054214.hdf",
+      "fetchedAt": "2026-11-14T22:27:49Z",
+      "sha256": "eaf1b9b71162b0025bb8ad1e995139045503ec30de98ee89adb4c3a40c6b3921",
+      "bytes": 73851122,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023152.061.2023193054214.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023182.061.2023215202151/MYD11C3.A2023182.061.2023215202151.hdf",
+      "fetchedAt": "2026-11-14T22:28:16Z",
+      "sha256": "c564413133f9c26c1fff6864eb0949dcad243c50b1557ed663fda95de6a48480",
+      "bytes": 73274015,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023182.061.2023215202151.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023213.061.2023250152704/MYD11C3.A2023213.061.2023250152704.hdf",
+      "fetchedAt": "2026-11-14T22:28:39Z",
+      "sha256": "e8c98361abf6a08b1b5d7b5ed008cf6be7cc4c2fb296c58827e4c8a80465aedf",
+      "bytes": 74288234,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023213.061.2023250152704.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023244.061.2023274184351/MYD11C3.A2023244.061.2023274184351.hdf",
+      "fetchedAt": "2026-11-14T22:28:43Z",
+      "sha256": "09e839fd2ba1a518717b5a1b8a9ccb86b27b8297b32deecdc7bdac7d32372c52",
+      "bytes": 75072045,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023244.061.2023274184351.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023274.061.2023305220624/MYD11C3.A2023274.061.2023305220624.hdf",
+      "fetchedAt": "2026-11-14T22:28:37Z",
+      "sha256": "0101c9d870efa55bd8934472bea3170aee4ff1bd719da122d91d79fe4f371236",
+      "bytes": 77664099,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023274.061.2023305220624.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023305.061.2023336214254/MYD11C3.A2023305.061.2023336214254.hdf",
+      "fetchedAt": "2026-11-14T22:29:17Z",
+      "sha256": "473806399ab5283bbdd8f708d81e1efa38476737650348ee2375709cbd82c2b1",
+      "bytes": 77472588,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023305.061.2023336214254.hdf"
+    },
+    {
+      "datasetId": "modis-myd11c3",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/MYD11C3.061/MYD11C3.A2023335.061.2024006163117/MYD11C3.A2023335.061.2024006163117.hdf",
+      "fetchedAt": "2026-11-14T22:29:27Z",
+      "sha256": "7ca2b9d375c8ec8073a620b9e1afc4be25d6ace03e3b10d885e4debcec5ba077",
+      "bytes": 73596059,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/modis-myd11c3/MYD11C3.A2023335.061.2024006163117.hdf"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.img",
+      "fetchedAt": "2026-11-14T21:34:27Z",
+      "sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
+      "bytes": 2073600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.lbl",
+      "fetchedAt": "2026-11-14T21:34:22Z",
+      "sha256": "5a3fe60256afa1c35fea5d551fe0ab0a9198fb2bcd2c2e161d078aa69627ebac",
+      "bytes": 4796,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.img",
+      "fetchedAt": "2026-11-14T21:34:38Z",
+      "sha256": "d18d9b9ab8c5516d02e157dd2cde0f1d0d160c21940e953ba22391269a545e7b",
+      "bytes": 33177600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.lbl",
+      "fetchedAt": "2026-11-14T21:34:28Z",
+      "sha256": "0f2bd919dddb86d83489a008d3007bd915507c892a0f22ce49ad5dd5d2fc7d8a",
+      "bytes": 4813,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.lbl"
+    },
+    {
       "datasetId": "ornl-global-soil-regolith-sediment",
       "sourceUrl": "https://data.ornldaac.earthdata.nasa.gov/public/global_soil/Global_Soil_Regolith_Sediment/comp/Global_Soil_Regolith_Sediment.pdf",
       "fetchedAt": "2026-11-14T19:57:19Z",
@@ -1909,6 +2338,27 @@
       "license": "cc-by-3.0",
       "licenseVerified": true,
       "localPath": "data/snapshots/travel-time-to-cities-2015/2015_accessibility_to_cities_v1.0.zip"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:43Z",
+      "sha256": "753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910",
+      "bytes": 5421247,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MARS_nomenclature_center_pts.zip",
+      "note": "gzip JSONL ledger of every 2015-2024 MCD64A1 granule fetched by p0ingest.burned (url, sha256, bytes, time, pixel tallies); hashed here and in burned-r4-monthly.meta.json"
+    },
+    {
+      "datasetId": "usgs-planetary-nomenclature",
+      "sourceUrl": "https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip",
+      "fetchedAt": "2026-11-14T21:34:41Z",
+      "sha256": "bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b",
+      "bytes": 23845070,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/usgs-planetary-nomenclature/MOON_nomenclature_center_pts.zip"
     }
   ]
 }
