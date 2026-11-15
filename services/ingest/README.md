@@ -210,3 +210,43 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## W35 (#94) EMIT L2B mineral identification per hexagon (my own section)
+
+`python -m p0ingest.emit_minerals` builds `emit-min-r4.parquet`: EMIT L2B
+Estimated Mineral Identification (`emit-l2b-min-v002`, LP DAAC, CC0) per H3
+res-4 hexagon as a STATIC composite. Acquisition time is ignored (minerals do
+not change with season); the realised acquisition span 2022-08-10 to
+2026-11-09 is recorded in the meta. Keys are exactly the 91,800 land hexagons
+of `cells-r4.parquet`.
+
+- The full CMR collection is 135,534 granules / ~14.5 TB and cannot be
+  streamed on our budget, so a deterministic pseudo-random sample (order =
+  sha256 of the granule id; spreads over time and space) was streamed
+  download -> aggregate -> sha256+bytes ledger line -> delete. 197 granules /
+  8.73 GB made it into this build. Hexagons inside EMIT coverage that no
+  processed granule reached are null with reason `granule-not-processed`
+  (63,299 rows); never covered -> `outside-emit-coverage` (26,603); covered
+  and processed but 0 geologic identifications -> `no-identified-pixels`
+  (260). Two rows detected inconsistent after the run (`samples-lost-`
+  `processing-error`, see limits in the meta) are fully null, never invented.
+- Per hexagon and mineral family: share of geologic-identified pixel
+  observations, median band depth (0.001-wide histogram medians, max error
+  0.0005), and the pixel-observation count. Families are regex rules on the
+  granule's own library names: hydration (phyllosilicates + hydrated
+  evaporites), fe_mg_smectite (montmorillonite/chlorite/vermiculite + sibs),
+  al_oh (kaolin + illite), sulfate (gypsum), carbonate (calcite/dolomite),
+  mafic_bd_1um (fe2+ silicates + olivine), dust_proxy (fe3+ iron-oxide
+  coatings). THE crism_* FEATURE SLOTS ARE EARTH PROXIES ONLY: these are EMIT
+  mineral IDs at Earth wavelengths from the EMIT spectral library, NOT CRISM
+  indices and not numerically interchangeable with them; dust_proxy is also
+  NOT the Ruff TES dust-cover index. Pixel centre -> `h3.latlng_to_cell(_, 4)`.
+- Commands: `list` (paged CMR listing -> `granules.jsonl.gz`), `stream`
+  (resumable per-granule checkpoints + gzipped ledger; stream lock; max 4
+  downloads in flight), `build` (`emit-min-r4.parquet` + `emit-min-r4.meta.json`
+  under `data/snapshots/_derived/emit-min/`), `check` (exact keys, no dupes,
+  physical ranges, share==px/base, missing_reason keys exactly the null value
+  columns, and 5 raw spot granules re-aggregated and compared to the table).
+  All 39 module tests pass with plain python and `python -O`. Derived
+  products and the ledger are on ccdrive (`snapshots/_derived/emit-min/`);
+  the 5 spot raws are kept for `check` (`snapshots/emit-l2b-min-v002/`).

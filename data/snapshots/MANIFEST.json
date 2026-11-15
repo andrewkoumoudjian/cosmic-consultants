@@ -141,6 +141,46 @@
       "localPath": "data/snapshots/diviner-l4/dlre_prp_south.xml"
     },
     {
+      "datasetId": "emit-l2b-min-v002",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/EMITL2BMIN.002/EMIT_L2B_MIN_002_20220810T034103/EMIT_L2B_MIN_002_20220810T034103.nc",
+      "fetchedAt": "2026-11-14T22:27:32Z",
+      "sha256": "d63b297410a49f8efc03e08b608581940ca4b3562fbc91c2191981449f090416",
+      "bytes": 41126172,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/emit-l2b-min-v002/EMIT_L2B_MIN_002_20220810T034103.nc"
+    },
+    {
+      "datasetId": "emit-l2b-min-v002",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/EMITL2BMIN.002/EMIT_L2B_MIN_002_20220810T174307/EMIT_L2B_MIN_002_20220810T174307.nc",
+      "fetchedAt": "2026-11-14T22:30:33Z",
+      "sha256": "11bce7e93005103260b1d64240081e31e50154ddd0af16a7aa9bc47a3ad78c32",
+      "bytes": 42869867,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/emit-l2b-min-v002/EMIT_L2B_MIN_002_20220810T174307.nc"
+    },
+    {
+      "datasetId": "emit-l2b-min-v002",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/EMITL2BMIN.002/EMIT_L2B_MIN_002_20220810T174319/EMIT_L2B_MIN_002_20220810T174319.nc",
+      "fetchedAt": "2026-11-14T22:30:33Z",
+      "sha256": "348e3dcfd853cb7255b8ccb883f81881bec005a68502540163c153a1675da0ba",
+      "bytes": 42459765,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/emit-l2b-min-v002/EMIT_L2B_MIN_002_20220810T174319.nc"
+    },
+    {
+      "datasetId": "emit-l2b-min-v002",
+      "sourceUrl": "https://data.lpdaac.earthdatacloud.nasa.gov/lp-prod-protected/EMITL2BMIN.002/EMIT_L2B_MIN_002_20220810T174331/EMIT_L2B_MIN_002_20220810T174331.nc",
+      "fetchedAt": "2026-11-14T22:30:37Z",
+      "sha256": "2fe7d641e1a6e8444c7025bbd96a1b7af4d3f365ae917afdff6dfeb4a0f5dfcd",
+      "bytes": 42931568,
+      "license": "cc0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/emit-l2b-min-v002/EMIT_L2B_MIN_002_20220810T174331.nc"
+    },
+    {
       "datasetId": "eonet-v3-events",
       "sourceUrl": "https://eonet.gsfc.nasa.gov/api/v3/events?status=all&start=2015-01-01&end=2024-12-31&limit=100000",
       "fetchedAt": "2026-11-14T18:22:27Z",
