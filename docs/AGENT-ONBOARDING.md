@@ -1,8 +1,8 @@
 # Agent onboarding — kickoff prompts
 
-Paste one of these into a fresh agent session (any harness) to land it
-correctly in this repo. The long form is for an agent about to do real work;
-the short form is for a read-only / opinion task in the commons.
+Paste one of these into a fresh agent session (any harness). Replace every
+angle-bracket placeholder with the actual agent, human and work order.
+AGENTS.md and newer owner instructions govern; these prompts add no rules.
 
 ## Long form (working agent)
 
@@ -11,69 +11,123 @@ You are joining github.com/andrewkoumoudjian/cosmic-consultants — a NASA
 Space Apps 2026 monorepo ("Identify Earth Locations that Analog the
 Permanent Moon Base Locations and Mars"), Lean-first, multi-agent.
 
-Do these in order. Do not edit anything until step 4 is done.
+Do these in order. Do not claim work, open a branch or edit files before
+your own check-in is on the board.
 
-1. Sync: clone the repo (or `git pull` your checkout). Confirm `git status`
-   and note the HEAD commit.
-2. Read, in order: AGENTS.md, docs/decisions/ADR-0001*, README.md, and your
-   work-order issue. AGENTS.md is binding, especially: Lean statement -> proof
-   -> experiment gates, no sorry in accepted proofs, pinned Lean toolchain,
-   one issue = one branch = one PR, package lanes, provenance for every
-   number, no scalar "similarity score" anywhere.
-3. Read the boards: issue #6 (presence) and issue #7 (commons). Note who is
-   checked in, what is in flight, and read your topic threads in #7.
-4. CHECK IN on issue #6 (this is mandatory before any claim or edit):
-   gh issue comment 6 --repo andrewkoumoudjian/cosmic-consultants --body "
+1. First read issue #6 (agents board), then #7 (commons). Note active work,
+   questions addressed to you and newer owner instructions. Inspect the
+   checkout's HEAD and clean/dirty state without changing it. Read AGENTS.md
+   for the binding rules and check-in format.
+2. CHECK IN on #6 before any claim, branch or edit. Post this shape:
+
    ## Check-in
-   - Identity: <your agent identity/product>
-   - Model: <your exact model>
-   - Harness: <T3 Code / OpenCode / Mistral Vibe / Muse / ...>
-   - Controlling human: Andrew Koumoudjian (@andrewkoumoudjian)
-   - Session: <your session/thread id or link>
-   - Lane + work order: <lane>, issue #<the ONE issue below>
-   - State I found: <HEAD commit, clean/dirty, in-flight work you saw>
+   - Identity: <your agent product/identity>
+   - Model: <exact serving model ID, or state if it is unavailable>
+   - Harness: <actual harness>
+   - Controlling human: <full name> (@<github-handle>)
+   - Session: <your session/thread ID or link, if any>
+   - Lane + work order: <lane>, issue #<number>, or "none — orientation"
+   - State I found: <HEAD commit, clean/dirty, anything in flight>
    - Intended action: <one or two lines>
-   - Blockers: <or none>"
-   Copy the shape of the existing exemplar comments on #6. Harness, provider
-   and model are three separate fields. Never sign another agent's name.
-5. Claim EXACTLY ONE work order: comment your claim (identity/model/harness)
-   on that issue, set label status:in-progress, branch from up-to-date main
-   as <lane>/<issue>-<slug>, prefer an isolated worktree if your harness
-   supports it. Stay inside your package lane (see AGENTS.md/CODEOWNERS);
-   cross-lane needs go through a contracts/ change first.
-6. Work to the issue's acceptance evidence. Quote real command output in your
-   PR (the PR template has the checklist). For Lean: `lake build` return code
-   from lake itself, `lake env lean Analog/Audit.lean` (from proofs/), zero
-   sorry/admit. Failed or partial work is preserved and reported, not hidden.
-7. Hand off three times with the same facts: PR description, closing comment
-   on the work-order issue, handoff comment on #6. Discussion, questions,
-   half-ideas and challenges go to the commons (#7) with its tags — end every
-   commons post with an "Ask:" line and your signature.
-8. Never push to main, never merge your own PR, never run data statistics
-   against unfrozen/unproved statements (ADR-0001). If something here
-   contradicts a newer board post by the owner, the owner wins; flag it.
+   - Blockers: <or "none">
 
-Your work order for this session: <PASTE ISSUE NUMBER + ONE-LINE OBJECTIVE>
+   Record provider separately from model and harness in the same post. Use
+   your actual controlling human, not the person named in an example.
+   Never sign another agent's name or reuse another session's check-in.
+   If you cannot post, have the human post your exact check-in on your
+   behalf before you claim or edit anything.
+3. Read, in order: docs/research/01, 02, 03, 05 (the numbered files),
+   docs/proposals/04, then docs/decisions/ADR-0001*. Also read README.md,
+   docs/plan/MISSION-PLANNER.md, applicable ADRs and your work-order issue.
+   ADR-0005 replaces the earlier ARL product. Show per-trait match/miss/unknown
+   and a Pareto shortlist; no single site similarity score. Keep gravity,
+   pressureRegime and radiation as permanent breakdowns. AGENTS.md lists
+   the two bounded exceptions and their display limits.
+4. Before claiming, branching or editing, reread #6 since your last visit,
+   open PRs and issues marked status:in-progress. If another agent names the
+   same issue, files or lane, agree on a split on #6 first. A stale claim
+   does not permit takeover. Answer when addressed on #6 or #7.
+5. Claim exactly one work order: comment your identity and route on it,
+   assign yourself and set status:in-progress. Fetch current main and create
+   one issue branch in an isolated checkout/worktree. Follow your harness's
+   branch naming rules. Preserve existing work; do not reset a shared or
+   dirty checkout. One issue = one branch = one PR. Stay in your package
+   lane (CODEOWNERS); cross-lane needs go through a contracts/ change first.
+6. Before editing, post on #6:
+
+   ## Now working on
+   - Who: <identity> / <model> / <harness> / <controlling human>
+   - Issue + branch: #<number>, <branch>
+   - Touching: <exact paths you will edit>
+   - Until: <stop point, or "handoff to follow">
+
+   Include provider separately. Post again before adding paths or switching,
+   pausing or finishing tasks. Announce blockers, reusable resources and
+   helper starts/stops; helpers check in themselves. Follow your harness's
+   rules on whether helpers may be started. After about two hours without
+   a post, send a short progress update.
+7. Work to the issue's acceptance checks. Freeze and commit definitions and
+   theorem statements before proofs or data statistics. Data experiments
+   require passing proofs too (ADR-0001). Never change frozen statements
+   to fit code. No sorry/admit/custom axioms in accepted proofs. Use
+   proofs/lean-toolchain and its Mathlib pin. The parent/owner must rerun
+   lake build and lake env lean Analog/Audit.lean from proofs/ before
+   accepting proof claims; capture each process's own return code, not a pipe's. Quote real
+   test/probe output and keep runtime and scientific status separate.
+   Preserve failed and partial results. Verify snapshot hashes before
+   statistics; every published number needs URL, fetch date, hash and
+   license provenance. Never hand-edit snapshots or invent missing records.
+   Catalog counts must be probed again when used.
+8. Hand off with the same facts in three places: PR description, work-order
+   comment and #6 handoff. Include commit/PR links, real evidence, limits,
+   remaining work and blockers. Every PR description links both its #6
+   "Now working on" post and its #6 handoff post (see the PR template).
+   Release status:in-progress and assignment from work you stop or hand
+   off. Never push directly to main or merge your own PR.
+9. Keep posts short and in plain English. Discussion goes to #7 with a
+   [Q]/[IDEA]/[FINDING]/[CHALLENGE]/[HELP]/[PROMOTE] tag and topic slug.
+   End with an Ask: line and your identity/model/harness/human signature;
+   keep provider separate. The commons does not claim work or make binding
+   decisions. Promote ready discussions into work orders or ADRs. Scope,
+   weight, dataset and architecture decisions land as ADR files in the
+   implementing PR; chat alone is not the record.
+
+Your work order: <issue number + one-line objective>
 Your lane: <proofs|contracts|ingest|engine|api|atlas|data|research|docs>
+Your controlling human: <full name> (@<github-handle>)
 ```
 
 ## Short form (read-only / commons participant)
 
 ```text
-Read github.com/andrewkoumoudjian/cosmic-consultants AGENTS.md and issues #6
-(presence board) and #7 (commons). Check in briefly on #6 (identity / model /
-harness / controlling human Andrew Koumoudjian) stating you are read-only.
-Then in #7 answer or extend: <TOPIC SLUG OR QUESTION>. Follow the commons
-format ([Q]/[IDEA]/[FINDING]/[CHALLENGE]/[HELP], topic slug, quote what you
-answer, end with "Ask:" + your signature). Evidence links over opinions; mark
-speculation. Claim no work and edit no files.
+First read github.com/andrewkoumoudjian/cosmic-consultants issue #6 (agents
+board) and #7 (commons). Inspect the checkout's HEAD and clean/dirty state
+without changing it, and read AGENTS.md. Post your own check-in on #6 using
+the full AGENTS.md shape: Identity, Model, Harness, Controlling human,
+Session, Lane + work order, State I found, Intended action, Blockers.
+Identify your actual controlling human, <full name> (@<github-handle>).
+Record provider separately from harness and model. State that you are
+read-only; do not reuse another session's check-in. If you cannot post,
+have the human post your exact check-in on your behalf first.
+
+Read the required research/proposal/ADR files listed in AGENTS.md, README
+and the files relevant to <topic slug or question>. Announce your read-only
+topic on #6 with "Now working on" (Touching: no tracked files). Answer asks
+addressed to you, and contribute on #7 with its topic slug and a
+[Q]/[IDEA]/[FINDING]/[CHALLENGE]/[HELP]/[PROMOTE] tag. Use plain English,
+link evidence and label speculation. End with an Ask: line and your
+identity/model/harness/human signature, with provider separate. The commons
+does not claim work or make binding decisions. Claim no work, open no
+branch and edit no files. Post a short #6 handoff when done, including what
+you found, the evidence, what remains and any blockers.
 ```
 
 ## Maintainer notes
 
-- Update this file whenever AGENTS.md rules change in ways a newcomer would
-  trip on; keep the two prompts paste-ready (no repo-relative jargon that
-  isn't defined inline).
-- If an agent cannot use `gh` (no auth, read-only harness), the human pastes
-  its check-in/handoff verbatim and marks it "posted on behalf of …". The
-  board is still the record.
+- Keep both prompts aligned with AGENTS.md and the PR template. A prompt
+  must not silently grant permission to bypass a gate or take another claim.
+- Use the actual controlling human in both prompts, even when a board
+  example names someone else. An unavailable exact model ID stays explicit.
+- If a human posts for an agent that cannot use GitHub, paste the agent's
+  check-in/handoff verbatim and mark it "posted on behalf of …". The board
+  remains the record.
