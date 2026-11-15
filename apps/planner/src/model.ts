@@ -95,16 +95,27 @@ export type TraitCell = { dimension: Dimension; priority: 'must' | 'nice'; verdi
 export function traitCells(data: Dataset, request: PlanRequest, i: number): TraitCell[] {
   return rows(data, request, i).map(r => {
     const shown = r.perMonth ? worstMonthValue(r) : r.value;
+    const known = (r.perMonth ?? []).map(m => m.value).filter((v): v is number => v !== null);
     const detail = r.verdict === 'miss' ? `gap ${num(r.gap)} ${r.unit ?? ''} ${r.side}`.trim()
-      : r.verdict === 'unknown' ? r.reason?.text ?? 'unknown' : `${num(shown)} ${r.unit ?? ''}`.trim();
+      : r.verdict === 'unknown' ? r.reason?.text ?? 'unknown'
+      : known.length > 1 ? `${num(Math.min(...known))} – ${num(Math.max(...known))} ${r.unit ?? ''}`.trim() // every month, not one picked
+      : `${num(shown)} ${r.unit ?? ''}`.trim();
     return { dimension: r.dimension, priority: r.priority!, verdict: r.verdict, glyph: GLYPH[r.verdict], detail, value: shown };
   });
 }
 
+/**
+ * The one value to plot for a monthly trait: the worst month for a miss, the month closest to a band
+ * edge for a match, and nothing for an unknown window (a known month must not stand in for a missing one).
+ */
 function worstMonthValue(r: Row): number | null {
-  const pm = r.perMonth ?? [];
+  if (r.verdict === 'unknown') return null;
+  const pm = (r.perMonth ?? []).filter(m => m.value !== null);
   const miss = pm.filter(m => m.verdict === 'miss').sort((a, b) => b.gap! - a.gap!)[0];
-  return (miss ?? pm.find(m => m.value !== null) ?? pm[0])?.value ?? null;
+  if (miss) return miss.value;
+  if (!r.band) return pm[0]?.value ?? null;
+  const margin = (v: number) => Math.min(v - r.band!.lo, r.band!.hi - v);
+  return pm.map(m => m.value!).sort((a, b) => margin(a) - margin(b))[0] ?? null;
 }
 
 export const GLYPH: Record<Row['verdict'], string> = { match: '✓', miss: '✕', unknown: '?' };
@@ -145,6 +156,15 @@ export function logisticsFacts(data: Dataset, i: number) {
     { label: 'Protected land in the cell', value: num(y('protected_pct')), unit: '%' },
     { label: 'Mean elevation', value: num(y('elev_mean_m'), 4), unit: 'm' },
   ];
+}
+
+/** Most burned area over the window's months. A month with no data is listed, never dropped (AGENTS.md rule 3). */
+export function burnedInWindow(data: Dataset, request: PlanRequest, i: number): { max: number | null; missing: string[] } {
+  const col = data.monthly.burned_pct;
+  if (!col) return { max: null, missing: months(request).map(m => MONTHS[m - 1]!) };
+  const known: number[] = [], missing: string[] = [];
+  for (const m of months(request)) { const v = col[i * 12 + m - 1]!; if (Number.isFinite(v)) known.push(v); else missing.push(MONTHS[m - 1]!); }
+  return { max: known.length ? Math.max(...known) : null, missing };
 }
 
 export function hazardFacts(data: Dataset, i: number) {

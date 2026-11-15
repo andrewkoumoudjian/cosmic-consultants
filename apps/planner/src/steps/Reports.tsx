@@ -7,7 +7,7 @@ import { Tabs } from '@base-ui/react/tabs';
 import { brief, limitRows, months, requirements, rows, type Dataset, type Objective } from '../../../atlas/src/planner/engine.ts';
 import { ensureMonthly } from '../../../atlas/src/planner/data.ts';
 import type { PlanRequest } from '../../../atlas/src/plan-url.ts';
-import { BREAKDOWNS, CLASS_TEXT, DIMENSION_LABEL, MONTHS, SERIES, bandLabel, coordLabel, download, hazardFacts, logisticsFacts, num, seasonStrip, sheetCsv, siteClass, traitCells } from '../model.ts';
+import { BREAKDOWNS, CLASS_TEXT, DIMENSION_LABEL, MONTHS, SERIES, bandLabel, burnedInWindow, coordLabel, download, hazardFacts, logisticsFacts, num, seasonStrip, sheetCsv, siteClass, traitCells } from '../model.ts';
 import { Page, Verdict } from '../ui.tsx';
 
 function SiteHead({ data, sites }: { data: Dataset; sites: number[] }) {
@@ -192,7 +192,7 @@ const finite = (v: number | undefined | null): v is number => v !== undefined &&
 function SiteRisks({ data, request, i, burned }: { data: Dataset; request: PlanRequest; i: number; burned: 'loading' | 'ready' | 'missing' }) {
   const { events, byCategory, steep } = hazardFacts(data, i);
   const hot = data.yearly.lst_day_max_k?.[i], cold = data.yearly.lst_night_min_k?.[i];
-  const fire = burned === 'ready' ? months(request).map(m => data.monthly.burned_pct![i * 12 + m - 1]!).filter(Number.isFinite) : [];
+  const fire = burned === 'ready' ? burnedInWindow(data, request, i) : null;
   const unknownTraits = rows(data, request, i).filter(r => r.verdict === 'unknown').length;
   return (
     <div className="cols">
@@ -201,7 +201,8 @@ function SiteRisks({ data, request, i, burned }: { data: Dataset; request: PlanR
         <div className="kv"><span className="muted">Ground over 30°</span><span className="mono">{finite(steep) ? `${num(steep * 100)} %` : unknown}</span></div>
         <div className="kv"><span className="muted">Hottest day surface</span><span className="mono">{finite(hot) ? `${num(hot - 273.15)} °C` : unknown}</span></div>
         <div className="kv"><span className="muted">Coldest night surface</span><span className="mono">{finite(cold) ? `${num(cold - 273.15)} °C` : unknown}</span></div>
-        <div className="kv"><span className="muted">Most burned in window</span><span className="mono">{burned === 'loading' ? '…' : fire.length ? `${num(Math.max(...fire))} %` : unknown}</span></div>
+        <div className="kv"><span className="muted">Most burned in window</span><span className="mono">{burned === 'loading' ? '…' : !fire || fire.max === null ? unknown
+          : <>{num(fire.max)} %{fire.missing.length > 0 && <span className="v-unknown small"> · no data for {fire.missing.join(', ')}</span>}</>}</span></div>
         <div className="kv"><span className="muted">Traits unknown</span><span className={`mono${unknownTraits ? ' v-unknown' : ''}`}>{unknownTraits}</span></div>
         <div className="kv"><span className="muted">Rescue, weather on the day</span><span className="muted">not checked</span></div>
       </section>

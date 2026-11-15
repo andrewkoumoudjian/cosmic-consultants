@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Dataset, Objective, Rule, Runtime } from '../../atlas/src/planner/engine.ts';
-import { pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
+import { burnedInWindow, pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
 
 const base = resolve(import.meta.dirname, process.env.PLANNER_RELEASE ?? '../../atlas/public/data/planner-v1');
 const json = (name: string) => JSON.parse(readFileSync(resolve(base, name), 'utf8'));
@@ -96,4 +96,14 @@ test('JSheets CSV is rectangular and carries the engine verdict for every golden
     // missing stays empty with a reason, never a filled number (AGENTS.md rule 3)
     for (const r of traits) if (r[col('verdict')] === 'unknown') assert.ok(r[col('reason')] !== '', `${c.h3} unknown has a reason`);
   }
+});
+
+test('burned area names a month with no data instead of dropping it (review of #182, finding 5)', () => {
+  const i = data.h3.indexOf('84060abffffffff');
+  assert.ok(i >= 0);
+  const req = { ...newRequest(data, 'moon', data.runtime.categories[0]!), months: { start: 1, end: 3 } };
+  const col = data.monthly.burned_pct!;
+  assert.deepEqual([0, 1, 2].map(m => Number.isFinite(col[i * 12 + m]!)), [true, true, false], 'release still has Jan, Feb known and Mar missing');
+  assert.deepEqual(burnedInWindow(data, req, i), { max: 0, missing: ['Mar'] });
+  assert.deepEqual(burnedInWindow(data, { ...req, months: { start: 3, end: 3 } }, i), { max: null, missing: ['Mar'] });
 });

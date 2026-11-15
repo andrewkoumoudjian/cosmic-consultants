@@ -13,7 +13,8 @@ type Load = { state: 'loading'; progress?: LoadProgress } | { state: 'error'; me
 
 /** Reads the shared plan link once at start-up. The step lives in the hash, the plan in the query. */
 function fromUrl(): { request: PlanRequest | null; step: number; problems: string[] } {
-  const step = Number(new URLSearchParams(location.hash.slice(1)).get('step')) || 1;
+  const raw = Number(new URLSearchParams(location.hash.slice(1)).get('step'));
+  const step = Number.isInteger(raw) && raw >= 1 && raw <= 7 ? raw : 1;
   if (!location.search) return { request: null, step: 1, problems: [] };
   const decoded = decodePlan(location.search);
   if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors };
@@ -26,11 +27,14 @@ export function App() {
   const [body, setBody] = useState<Body>(initial.request?.body ?? 'moon');
   const [categoryId, setCategoryId] = useState<string | undefined>(initial.request?.category);
   const [request, setRequest] = useState<PlanRequest | null>(initial.request);
-  const [step, setStep] = useState(initial.request ? Math.min(Math.max(initial.step, 1), 7) : 1);
+  const [step, setStep] = useState(initial.request ? initial.step : 1);
   const [reached, setReached] = useState(initial.request ? (initial.request.pins?.length ? 7 : 4) : 1);
   const [removed, setRemoved] = useState<string[]>([]);
   const [checklist, setChecklist] = useState('');
   const [monthlyFor, setMonthlyFor] = useState<string | null>(null);
+  // Auto-pick the first three sites only after a fresh search, never after the user clears the comparison.
+  const [autoPin, setAutoPin] = useState(!initial.request?.pins?.length);
+  const [blocked, setBlocked] = useState(false);
   const reduce = useReducedMotion();
 
   useEffect(() => {
@@ -61,12 +65,24 @@ export function App() {
   const ready = !!data && !!request && monthlyFor === request.objectiveId;
   const result = useMemo(() => (ready ? runSearch(data!, request!) : null), [ready, data, request]);
 
-  // Pin the first three sites in play the first time results arrive with no pins.
+  // Only sites still in play can be compared: no required miss or unknown, inside the limits, not removed.
+  const eligible = (h: string) => {
+    const i = data!.h3.indexOf(h);
+    return i >= 0 && result!.classes[i] === 0 && !removed.includes(h);
+  };
   useEffect(() => {
-    if (!data || !request || !result || request.pins?.length) return;
-    const first = result.indices.map(i => data.h3[i]!).filter(h => !removed.includes(h)).slice(0, 3);
-    if (first.length) setRequest({ ...request, pins: first });
-  }, [result]);
+    if (!data || !request || !result) return;
+    const pins = request.pins ?? [];
+    if (autoPin && !pins.length) {
+      setAutoPin(false);
+      const first = result.indices.map(i => data.h3[i]!).filter(h => !removed.includes(h)).slice(0, 3);
+      if (first.length) setRequest({ ...request, pins: first });
+      return;
+    }
+    // a pin from an old link or a removed site leaves the comparison instead of reaching the reports
+    const kept = pins.filter(eligible);
+    if (kept.length !== pins.length) setRequest({ ...request, pins: kept.length ? kept : undefined });
+  }, [result, removed]);
 
   if (load.state === 'loading') {
     const p = load.progress;
@@ -82,35 +98,36 @@ export function App() {
 
   const d = load.data;
   const category = d.runtime.categories.find(c => c.categoryId === categoryId);
-  const go = (n: number) => { setStep(n); setReached(r => Math.max(r, n)); window.scrollTo({ top: 0 }); };
+  const go = (n: number) => { if (blocked && n > 3) return; setStep(n); setReached(r => Math.max(r, n)); window.scrollTo({ top: 0 }); };
   const objective = request ? d.objectives.find(o => o.objectiveId === request.objectiveId) : undefined;
-  const pinIdx = (request?.pins ?? []).map(h => d.h3.indexOf(h)).filter(i => i >= 0);
+  const pinIdx = result ? (request?.pins ?? []).filter(eligible).map(h => d.h3.indexOf(h)) : [];
 
   const chooseCategory = (id: string) => {
     setCategoryId(id);
     setRequest(newRequest(d, body, d.runtime.categories.find(x => x.categoryId === id)!));
-    setRemoved([]);
+    setRemoved([]); setAutoPin(true);
     setReached(3);
   };
   const chooseBody = (b: Body) => {
     if (b === body) return;
     setBody(b); setCategoryId(undefined); setRequest(null); setRemoved([]); setReached(1);
+    history.replaceState(null, '', location.pathname); // the old plan must not come back on refresh
   };
 
   let screen;
   if (step === 1) screen = <Location body={body} onBody={chooseBody} onNext={() => go(2)} />;
   else if (step === 2) screen = <CategoryStep data={d} body={body} categoryId={categoryId} onCategory={chooseCategory} onBack={() => go(1)} onNext={() => go(3)} />;
   else if (!request || !category) screen = <MissingPlan onRestart={() => go(1)} />;
-  else if (step === 3) screen = <Metrics data={d} category={category} request={request} onRequest={r => { setRequest({ ...r, pins: undefined }); setReached(3); }} onBack={() => go(2)} onNext={() => go(4)} />;
+  else if (step === 3) screen = <Metrics data={d} category={category} request={request} onRequest={r => { setRequest({ ...r, pins: undefined }); setReached(3); setAutoPin(true); }} onBlocked={setBlocked} onBack={() => go(2)} onNext={() => go(4)} />;
   else if (!result) screen = <main className="loading"><span className="muted small">Loading monthly data</span></main>;
-  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => setRequest({ ...request, pins: p })} onBack={() => go(3)} onNext={() => go(5)} />;
+  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => { setAutoPin(false); setRequest({ ...request, pins: p.length ? p : undefined }); }} eligible={eligible} onBack={() => go(3)} onNext={() => go(5)} />;
   else if (step === 5) screen = <Limits data={d} request={request} sites={pinIdx} objective={objective!} onBack={() => go(4)} onNext={() => go(6)} />;
   else if (step === 6) screen = <Logistics data={d} request={request} sites={pinIdx} checklist={checklist} onChecklist={setChecklist} onBack={() => go(5)} onNext={() => go(7)} />;
   else screen = <Risks data={d} request={request} sites={pinIdx} checklist={checklist} onBack={() => go(6)} />;
 
   return (
     <>
-      <TopBar step={step} reached={reached} onStep={go} action={request && <CopyLink />} />
+      <TopBar step={step} reached={blocked ? Math.min(reached, 3) : reached} onStep={go} action={request && <CopyLink />} />
       {initial.problems.length > 0 && step === 1 && <p className="warn" style={{ padding: '16px 40px 0' }}>This plan link couldn't be read: {initial.problems.join('; ')}.</p>}
       <AnimatePresence mode="wait" initial={false}>
         <motion.main key={step} initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}

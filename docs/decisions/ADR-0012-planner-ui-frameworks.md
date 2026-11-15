@@ -28,8 +28,9 @@ Three open PRs edit `apps/atlas/src/planner/engine.ts` and its tests (#157,
    `publicDir` points there, so a single release serves both apps.
 4. **Stack, with exact pins** (each released at least two weeks before
    2026-11-15): React 19.3.1, `@base-ui/react` 1.9.0 (unstyled, accessible
-   controls), `motion` 14.9.0, `globe.gl` 2.46.2 on `three` 0.187.0, Vite 7.3.8
-   and TypeScript 5.9.3 (the same as `apps/atlas`), `h3-js` 4.1.0, `@types/three`
+   controls), `motion` 14.9.0, `globe.gl` 2.46.2 on `three` 0.187.0, Vite 7.3.7
+   (released 2026-10-06; `apps/atlas` pins 7.3.8, released 2026-11-09, which is
+   too new for the two-week rule) and TypeScript 5.9.3 (the same as `apps/atlas`), `h3-js` 4.1.0, `@types/three`
    0.187.0 and `@types/node` 24.7.0 (the same as `apps/atlas`). Fonts are self-hosted through
    `@fontsource` (Geist Sans 5.3.0, Geist Mono 5.3.0, Source Serif 4 5.3.1), so the
    demo works offline.

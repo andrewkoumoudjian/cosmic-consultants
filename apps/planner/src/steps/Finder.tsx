@@ -7,9 +7,11 @@ import { Mark, Page, Verdict } from '../ui.tsx';
 
 const Globe = lazy(() => import('../Globe.tsx'));
 
-export function Finder({ data, request, result, removed, onRemoved, onPins, onBack, onNext }: {
+export function Finder({ data, request, result, removed, onRemoved, onPins, eligible, onBack, onNext }: {
   data: Dataset; request: PlanRequest; result: SearchResult; removed: string[];
-  onRemoved: (r: string[]) => void; onPins: (p: string[]) => void; onBack: () => void; onNext: () => void;
+  onRemoved: (r: string[]) => void; onPins: (p: string[]) => void;
+  /** Still in play: the engine's class 0 and not removed. Only these can be compared. */
+  eligible: (h3: string) => boolean; onBack: () => void; onNext: () => void;
 }) {
   const pins = request.pins ?? [];
   const inPlay = useMemo(() => result.indices.filter(i => !removed.includes(data.h3[i]!)).slice(0, request.top ?? 50), [result, removed, request.top, data]);
@@ -20,12 +22,13 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, onBa
   const togglePin = (i: number) => {
     const h = data.h3[i]!;
     if (pins.includes(h)) onPins(pins.filter(p => p !== h));
-    else if (pins.length < MAX_COMPARE) onPins([...pins, h]);
+    else if (pins.length < MAX_COMPARE && eligible(h)) onPins([...pins, h]);
   };
   const remove = (i: number) => {
     const h = data.h3[i]!;
     onRemoved([...removed, h]);
     if (pins.includes(h)) onPins(pins.filter(p => p !== h));
+    if (active === i) setActive(null);
   };
 
   return (
@@ -74,7 +77,8 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, onBa
               <span><Mark verdict="match" />match</span><span><Mark verdict="unknown" />unknown</span>
             </div>
             {active !== null && <CellCard data={data} request={request} i={active} pinned={pins.includes(data.h3[active]!)}
-              canPin={pins.length < MAX_COMPARE} onPin={() => togglePin(active)} />}
+              canPin={pins.length < MAX_COMPARE && eligible(data.h3[active]!)}
+              why={removed.includes(data.h3[active]!) ? 'Removed' : CLASS_WHY[result.classes[active]!]} onPin={() => togglePin(active)} />}
           </div>
           {pinIdx.length > 0 && <Compare data={data} request={request} sites={pinIdx} />}
         </div>
@@ -83,7 +87,10 @@ export function Finder({ data, request, result, removed, onRemoved, onPins, onBa
   );
 }
 
-function CellCard({ data, request, i, pinned, canPin, onPin }: { data: Dataset; request: PlanRequest; i: number; pinned: boolean; canPin: boolean; onPin: () => void }) {
+/** Why a site can't be compared, by the engine's search class (0 is in play). */
+const CLASS_WHY: (string | undefined)[] = [undefined, 'Misses a required trait', 'A required trait is unknown', 'Past a limit'];
+
+function CellCard({ data, request, i, pinned, canPin, why, onPin }: { data: Dataset; request: PlanRequest; i: number; pinned: boolean; canPin: boolean; why?: string; onPin: () => void }) {
   return (
     <div className="cell-card">
       <span className="mono">{coordLabel(data, i)}</span>
@@ -92,7 +99,8 @@ function CellCard({ data, request, i, pinned, canPin, onPin }: { data: Dataset; 
           <Verdict verdict={t.verdict}>{DIMENSION_LABEL[t.dimension]}</Verdict><span className="muted mono">{t.detail}</span>
         </span>
       ))}
-      {(pinned || canPin) && <button className="btn btn-line small" onClick={onPin}>{pinned ? 'Stop comparing' : 'Compare'}</button>}
+      {(pinned || canPin) ? <button className="btn btn-line small" onClick={onPin}>{pinned ? 'Stop comparing' : 'Compare'}</button>
+        : why && <span className="muted small">{why}</span>}
     </div>
   );
 }

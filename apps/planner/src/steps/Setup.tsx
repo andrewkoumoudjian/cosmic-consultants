@@ -1,5 +1,5 @@
 /** Steps 1 Destination, 2 Category, 3 Requirements. */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RadioGroup } from '@base-ui/react/radio-group';
 import { Radio } from '@base-ui/react/radio';
 import { requirements, type Dataset } from '../../../atlas/src/planner/engine.ts';
@@ -61,12 +61,23 @@ const MONTH_OPTIONS = MONTHS.map((m, i) => ({ value: String(i + 1), label: m }))
 const TYPE_LABEL: Record<MissionType, string> = { robotic: 'Robotic', crewed: 'Crewed', instrument: 'Instrument' };
 const LIMIT_LABEL: Record<LimitKey, string> = { access: 'Travel time, min', protected: 'Protected land, %', airport: 'Airport, km', slope: 'Mean slope, °' };
 
-export function Metrics({ data, request, onRequest, onBack, onNext }: {
-  data: Dataset; category: Category; request: PlanRequest; onRequest: (r: PlanRequest) => void; onBack: () => void; onNext: () => void;
+type Draft = { lo: string; hi: string };
+const badDraft = (d: Draft) => d.lo.trim() === '' || d.hi.trim() === '' || !Number.isFinite(Number(d.lo)) || !Number.isFinite(Number(d.hi)) || Number(d.lo) > Number(d.hi);
+
+export function Metrics({ data, request, onRequest, onBlocked, onBack, onNext }: {
+  data: Dataset; category: Category; request: PlanRequest; onRequest: (r: PlanRequest) => void;
+  /** True while a band field holds text that isn't a valid band, so nothing runs on the old band. */
+  onBlocked: (blocked: boolean) => void; onBack: () => void; onNext: () => void;
 }) {
   const rules = requirements(data, request);
   const errors = validatePlan(request);
-  const [drafts, setDrafts] = useState<Record<string, { lo: string; hi: string }>>({});
+  // Drafts belong to one objective. Switching objective drops them, so the fields show the band the engine uses.
+  const [draftState, setDraftState] = useState<{ objectiveId: string; byDim: Record<string, Draft> }>({ objectiveId: request.objectiveId, byDim: {} });
+  const drafts = draftState.objectiveId === request.objectiveId ? draftState.byDim : {};
+  const setDrafts = (f: (x: Record<string, Draft>) => Record<string, Draft>) => setDraftState({ objectiveId: request.objectiveId, byDim: f(drafts) });
+  const blocked = rules.some(r => drafts[r.dimension] && badDraft(drafts[r.dimension]!));
+  useEffect(() => { onBlocked(blocked); }, [blocked]);
+  useEffect(() => () => onBlocked(false), []);
 
   const setPriority = (d: Dimension, p: 'must' | 'nice') => {
     const must = (request.must ?? []).filter(x => x !== d), nice = (request.nice ?? []).filter(x => x !== d);
@@ -75,7 +86,7 @@ export function Metrics({ data, request, onRequest, onBack, onNext }: {
   const setBand = (d: Dimension, lo: string, hi: string) => {
     setDrafts(x => ({ ...x, [d]: { lo, hi } }));
     const l = Number(lo), h = Number(hi);
-    if (lo.trim() === '' || hi.trim() === '' || !Number.isFinite(l) || !Number.isFinite(h) || l > h) return;
+    if (badDraft({ lo, hi })) return;
     onRequest({ ...request, bandEdits: [...(request.bandEdits ?? []).filter(e => e.dimension !== d), { dimension: d, lo: l, hi: h }] });
   };
   const resetBand = (d: Dimension) => {
@@ -90,7 +101,7 @@ export function Metrics({ data, request, onRequest, onBack, onNext }: {
   const int = (v: string) => (v.trim() === '' ? undefined : Number(v));
 
   return (
-    <Page title="Requirements" back={onBack} next={onNext} nextLabel="Find sites" nextDisabled={errors.length > 0}
+    <Page title="Requirements" back={onBack} next={onNext} nextLabel="Find sites" nextDisabled={errors.length > 0 || blocked}
       aside={<Select label="Objective" width={300} value={request.objectiveId}
         options={objectivesFor(data, request.body).map(o => ({ value: o.objectiveId, label: `${o.objectiveId} · ${o.title}` }))}
         onChange={id => onRequest(withDefaultPriorities(data, { ...request, objectiveId: id }))} />}>
@@ -101,7 +112,7 @@ export function Metrics({ data, request, onRequest, onBack, onNext }: {
             {rules.map(r => {
               const draft = drafts[r.dimension];
               const lo = draft?.lo ?? (r.band ? String(r.band.lo) : ''), hi = draft?.hi ?? (r.band ? String(r.band.hi) : '');
-              const bad = !!draft && (draft.lo === '' || draft.hi === '' || !Number.isFinite(Number(draft.lo)) || !Number.isFinite(Number(draft.hi)) || Number(draft.lo) > Number(draft.hi));
+              const bad = !!draft && badDraft(draft);
               const edited = request.bandEdits?.some(e => e.dimension === r.dimension);
               return (
                 <tr key={r.dimension} className={r.priority === 'must' ? 'must' : undefined}>
@@ -110,7 +121,7 @@ export function Metrics({ data, request, onRequest, onBack, onNext }: {
                   <td className="num">
                     {r.earthColumn ? (
                       <div className="band" style={{ justifyContent: 'flex-end' }}>
-                        {edited && <button className="icon-btn small" onClick={() => resetBand(r.dimension)} title="Back to the frozen band">reset</button>}
+                        {(edited || draft) && <button className="icon-btn small" onClick={() => resetBand(r.dimension)} title="Back to the frozen band">reset</button>}
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} low`} value={lo} placeholder="low" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, e.target.value, hi)} />
                         <span className="muted">–</span>
                         <input className="field" inputMode="decimal" aria-label={`${r.dimension} high`} value={hi} placeholder="high" aria-invalid={bad || undefined} onChange={e => setBand(r.dimension, lo, e.target.value)} />
@@ -152,6 +163,7 @@ export function Metrics({ data, request, onRequest, onBack, onNext }: {
           ))}
         </div>
       </section>
+      {blocked && <p className="warn">A band needs a number on both sides, low ≤ high. Fix it or press reset.</p>}
       {errors.length > 0 && <p className="warn">{errors.join('. ')}.</p>}
     </Page>
   );
