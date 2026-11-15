@@ -14,7 +14,8 @@ blocked by a rate limit. **Nothing here has been read.** The curated core in
 |---|---|---|---|
 | `corpus.bib` | 3,889 BibTeX entries, one per DOI | 1,572,772 | `f652cc6e1237088d` |
 | `corpus-index.csv` | Same entries as a table: key, doi, title, year, type, container, source, queries | 754,979 | `665543366bbd34fe` |
-| `harvest-report.json` | Every request made, per-query counts, errors, counts by type and year | - | - |
+| `harvest-report.json` | Per-query request summary (first-page URL, page count, rows, error), counts by type and year, output hashes, BibTeX check | - | - |
+| `doi-spotcheck.json` | 10 sampled DOIs with the HTTP status and timestamp from a live probe | - | - |
 | `harvest.py` | The harness. Standard library only; installs nothing | - | - |
 | `queries.json` | The four queries, doc 03's 2026-11-12 OpenAlex counts, and a note on the reconstructed q4 | - | - |
 
@@ -25,7 +26,9 @@ blocked by a rate limit. **Nothing here has been read.** The curated core in
   `"lunar south pole landing site"` is a reconstruction and is labelled as one.
 - Crossref: `GET api.crossref.org/works?query.bibliographic=...&rows=200&offset=...&select=...`,
   five pages per query (1,000 rows), relevance order, 1 s between pages.
-  Every request returned HTTP 200.
+  The report stores the first-page URL per query, the page count and any error;
+  it does not store every page URL or a per-page status. No page failed (an error
+  would have stopped that query and been recorded).
 - OpenAlex: `GET api.openalex.org/works?search=...` with cursor paging. Every
   attempt returned **HTTP 429** (see below).
 - Dedupe: DOI, lowercased and stripped of the `https://doi.org/` prefix.
@@ -63,10 +66,24 @@ Quality warnings, measured not guessed:
 - This is a search snapshot, not a systematic review. It does not replace
   reading.
 
+## BibTeX validity
+
+`python research/corpus/harvest.py --validate-only` reads the written file and
+checks key uniqueness and brace balance. Current output, rc=0:
+
+```text
+entries 3889, uniqueKeys 3889, duplicateKeys [], braceBalance 0
+sha256 f652cc6e1237088d569ac19323d64f5e44db6265ad41addd97f046fcc81d4768
+```
+
+`assign_keys` now checks every emitted key against the full set, so a natural
+key cannot collide with an earlier suffixed one on a rerun.
+
 ## DOI spot-check
 
-Nine DOIs, at least one from each query, resolved through
-`api.crossref.org/works/{doi}` on 2026-11-15, all **HTTP 200**. Examples:
+Ten DOIs, at least one from each query, resolved through
+`api.crossref.org/works/{doi}` on 2026-11-15, all **HTTP 200**. The full list
+with statuses and timestamps is in `doi-spotcheck.json`. Examples:
 
 - `10.1007/978-1-4020-8682-3_28` - Scale Modeling for Landing of a Lunar Probe
 - `10.52202/083076-0079` - EXP 91 Aurora Mission: human adaptation on Mars

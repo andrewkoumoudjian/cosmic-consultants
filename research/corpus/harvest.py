@@ -231,16 +231,38 @@ def merge(records):
 
 
 def assign_keys(records):
-    used = {}
+    used = set()
     for record in records:
         family = "anon"
         if record["authors"]:
             first = record["authors"][0]
             family = first.split(",")[0] if "," in first else first.split(" ")[-1]
         base = ascii_slug(f"{family}{record['year']}{record['title'][:24]}")
-        used[base] = used.get(base, 0) + 1
-        record["key"] = base if used[base] == 1 else f"{base}{used[base]}"
+        key = base
+        suffix = 1
+        while key in used:
+            suffix += 1
+            key = f"{base}{suffix}"
+        used.add(key)
+        record["key"] = key
     return records
+
+
+def validate_bib(path):
+    text = path.read_text(encoding="utf-8")
+    keys = re.findall(r"(?m)^@\w+\{([^,]+),", text)
+    duplicates = sorted({key for key in keys if keys.count(key) > 1})
+    balance = text.count("{") - text.count("}")
+    report = {
+        "entries": len(keys),
+        "uniqueKeys": len(set(keys)),
+        "duplicateKeys": duplicates,
+        "braceBalance": balance,
+        "sha256": sha256(path),
+    }
+    if duplicates or balance != 0:
+        raise ValueError(f"invalid BibTeX output: {report}")
+    return report
 
 
 def write_bib(path, records):
@@ -289,9 +311,13 @@ def main(argv=None):
     parser.add_argument("--openalex-pages", type=int, default=20)
     parser.add_argument("--openalex-per-page", type=int, default=200)
     parser.add_argument("--skip-openalex", action="store_true")
+    parser.add_argument("--validate-only", action="store_true")
     args = parser.parse_args(argv)
 
     out = args.out
+    if args.validate_only:
+        print(json.dumps(validate_bib(out / "corpus.bib"), indent=2))
+        return 0
     queries_path = args.queries or out / "queries.json"
     config = json.loads(queries_path.read_text(encoding="utf-8"))
     queries = config["queries"]
@@ -312,6 +338,7 @@ def main(argv=None):
     index_path = out / "corpus-index.csv"
     write_bib(bib_path, merged)
     write_index(index_path, merged)
+    bib_check = validate_bib(bib_path)
 
     titles = {}
     near_duplicates = 0
@@ -349,6 +376,7 @@ def main(argv=None):
             bib_path.name: {"bytes": bib_path.stat().st_size, "sha256": sha256(bib_path)},
             index_path.name: {"bytes": index_path.stat().st_size, "sha256": sha256(index_path)},
         },
+        "bibCheck": bib_check,
         "readingStatus": "none read; doc 03 curated core remains the cited set",
     }
     report_path.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
