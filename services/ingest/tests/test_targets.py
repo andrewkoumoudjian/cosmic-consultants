@@ -302,11 +302,14 @@ class RepoTargets(unittest.TestCase):
         for path in paths:
             row = yaml.safe_load(path.read_text(encoding="utf-8"))
             self.assertEqual(row["siteId"], path.stem)
-            self.assertIn(row["body"], targets.VALID_BODIES)
-            self.assertIn(row["kind"], targets.VALID_KINDS)
-            self.assertIn(row["status"], targets.VALID_STATUSES)
-            for src in row["sources"]:
-                self.assertIn(src["snapshotPath"], manifest)
+            self.assertIn(row["body"], targets.BODIES)
+            self.assertIn(row["kind"], targets.KINDS)
+            self.assertIn(row["status"], targets.STATUSES)
+            src = row.get("source")
+            if isinstance(src, dict) and src.get("datasetId") and src.get("file"):
+                key = (src["datasetId"], src["file"])
+                self.assertIn(key, manifest)
+                self.assertEqual(src["sourceSha256"], manifest[key]["sha256"])
 
     def test_targets_include_moon_and_mars_coverage(self):
         root = targets.TARGETS
