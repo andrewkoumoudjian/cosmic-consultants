@@ -74,3 +74,41 @@ evidence:
   - field: years
     quote: The test was conducted between 31 August and 13 September 2010.
     sourceRef: desert-rats-2010-ntrs
+fieldRecord:
+  instruments:
+    - text: "Two crewed, pressurised rover prototypes with rear-mounted suit ports"
+      quote: "allowing for extravehicular activities (EVAs) through the use of rear-mounted suit ports"
+      sourceRef: desert-rats-2010-ntrs
+  environment:
+    - text: "A volcanic field in the high desert of Arizona"
+      quote: "a volcanic field that is analogous to volcanic terrains observed throughout the Solar System."
+      sourceRef: desert-rats-2010-ntrs
+  procedures:
+    - text: "Two crew per rover for a week each, with a shift change on day 7"
+      quote: "Two crewmembers lived in and operated each rover for a week"
+      sourceRef: desert-rats-2010-ntrs
+    - text: "Communication modes tested: continuous (CC) and twice a day (2XD)"
+      quote: "Three days of each week were tested with the rovers in continuous communications (CC) with mission operations and science backroom teams."
+      sourceRef: desert-rats-2010-ntrs
+  findings:
+    - text: "Lead-and-follow rovers gave each other better situational awareness"
+      quote: "LF rover crews were able to provide better situational awareness feedback for each other."
+      sourceRef: desert-rats-2010-ntrs
+  failures:
+    - text: "Continuous communications were never fully reached in high-relief terrain"
+      quote: "at no point did we truly reach continuous communications with mission control and science backrooms due to difficulties in deploying test assets to maintain communications in a terrain with significant relief."
+      sourceRef: desert-rats-2010-ntrs
+    - text: "The ~60 min end-of-day debriefs were too short to convey observations"
+      quote: "the scheduled ~60 min science debriefs at the end of the day were not adequate to convey our daily observations and hypotheses to the science team."
+      sourceRef: desert-rats-2010-ntrs
+  lessons:
+    - text: "Set up fallback protocols for loss of signal"
+      quote: "we recommend that a series of fallback communications operations protocols should be established to deal with loss of signal situations."
+      sourceRef: desert-rats-2010-ntrs
+    - text: "Add a data manager role"
+      quote: "A data manager position should be filled with oversight into this issue."
+      sourceRef: desert-rats-2010-ntrs
+  limitations:
+    - text: "The source reports the geologist crew members' opinions"
+      quote: "Here we report the opinions of the geologist crewmembers"
+      sourceRef: desert-rats-2010-ntrs

@@ -66,3 +66,71 @@ evidence:
     quote: >-
       Our field work was performed in September 2019 in the hyperarid core of the Atacama Desert in northern Chile
     sourceRef: arads-2019-article
+fieldRecord:
+  instruments:
+    - text: "KREX2 test-bed rover carrying all robotic systems"
+      quote: "All the robotic systems were integrated onto the KREX2 test bed rover"
+      sourceRef: arads-2019-article
+    - text: "TRIDENT drill (engineering model): 24.5 mm hole, up to 1 m deep"
+      quote: "The drill produces a 24.5-mm-diameter hole up to 1-m deep with a single string."
+      sourceRef: arads-2019-article
+    - text: "SOLID immunosensor for biomolecules"
+      quote: "SOLID is a microarray-based immunosensor, developed at the Centro de Astrobiología (CAB) in Spain."
+      sourceRef: arads-2019-article
+    - text: "PISCES capillary electrophoresis for amino acids"
+      quote: "It is a liquid-based analytical platform developed at the Jet Propulsion Laboratory (JPL) for end-to-end automated analysis of amino acids"
+      sourceRef: arads-2019-article
+    - text: "Wet Chemistry Laboratory (WCL) cell"
+      quote: "A Wet Chemistry Laboratory (WCL) cell was the third sample analysis instrument in the rover payload."
+      sourceRef: arads-2019-article
+  environment:
+    - text: "A biologically lean Mars analog site in the Atacama Desert"
+      quote: "was successfully conducted in a biologically lean Mars analog site."
+      sourceRef: arads-2019-article
+  procedures:
+    - text: "Science team in California uploaded a daily tactical plan; engineers in Chile ran the rover"
+      quote: "During the mission, the science team in California created and uploaded to a server a daily tactical plan for drilling and sample analysis."
+      sourceRef: arads-2019-article
+    - text: "Bite-sampling: drill 10 cm, bring the drill up, clear the cuttings"
+      quote: "Drilling was performed using the bite-sampling approach where the drill is brought to the surface to clear the cuttings from the hole after each 10 cm of drilling."
+      sourceRef: arads-2019-article
+    - text: "Six consecutive simulated mission days"
+      quote: "Six consecutive daily operations of a drilling mission were simulated in this manner."
+      sourceRef: arads-2019-article
+  findings:
+    - text: "PISCES found amino acids in both basins, none outside them"
+      quote: "Sample analysis from the PISCES instrument showed that amino acids were detected at all depths analyzed in both deep and shallow basins, but none was detected from the sample collected from the area outside the basins."
+      sourceRef: arads-2019-article
+    - text: "Drill telemetry was used to read the subsurface layers"
+      quote: "Drill telemetry was used to interpret the subsurface stratigraphy of materials that were drilled"
+      sourceRef: arads-2019-article
+  failures:
+    - text: "The drill jammed at 72 cm in a hard layer"
+      quote: "the drill bit encountered a layer (suspected to be either cemented halite or a gravel layer) and became jammed at a depth of 72 cm."
+      sourceRef: arads-2019-article
+    - text: "The automated jam-recovery routine did not prevent the jam"
+      quote: "However, this automated recovery routine failed to prevent the jam, and the auger ceased spinning in the hole at 72 cm depth."
+      sourceRef: arads-2019-article
+    - text: "The scoop camera lens was coated by windblown fines"
+      quote: "but that camera lens became coated with fines that were blown onto it by the wind."
+      sourceRef: arads-2019-article
+    - text: "SOLID may have clogged during the Area 2 samples"
+      quote: "the field engineer felt that lack of signal from Area 2 was due to a clogging problem with the instrument."
+      sourceRef: arads-2019-article
+  lessons:
+    - text: "Mars sampling needs much more automation of sample handling"
+      quote: "For Mars, there is a critical need for a high degree of automation of the sample handling to reduce the number of command cycles required, but with enough situational awareness that the operation can proceed safely."
+      sourceRef: arads-2019-article
+    - text: "Problem detection on the drill must be automated"
+      quote: "The lesson is that some situations may occur where operator commands may be necessary but detecting the problems and taking some action must be automated or the drill could fail catastrophically before the remote operators are aware of the problem."
+      sourceRef: arads-2019-article
+    - text: "Context is critical for choosing where to sample"
+      quote: "Contextual information is critical for sample site selection and data interpretation."
+      sourceRef: arads-2019-article
+  limitations:
+    - text: "Not every sample was analysed by both instruments"
+      quote: "However, due to problems experienced in the field, and the short duration of the test, not all samples were analyzed by both instruments"
+      sourceRef: arads-2019-article
+    - text: "Reading drill data on other planets still needs work"
+      quote: "This illustrates that the drill itself can be a powerful way to measure subsurface properties, but much remains to be done to enable interpretation of drill data on other planetary bodies."
+      sourceRef: arads-2019-article

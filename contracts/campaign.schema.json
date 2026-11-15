@@ -15,7 +15,8 @@
     "outcome",
     "sources",
     "nulls",
-    "evidence"
+    "evidence",
+    "fieldRecord"
   ],
   "properties": {
     "campaignId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
@@ -117,6 +118,21 @@
         }
       }
     },
+    "fieldRecord": {
+      "description": "Past-missions spreadsheet fields (#204). Every item is a short plain-English line plus a verbatim quote from one of this campaign's sources. An empty list means the cited sources do not say; it needs a matching nulls entry 'fieldRecord.<key>' with the reason.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instruments", "environment", "procedures", "findings", "failures", "lessons", "limitations"],
+      "properties": {
+        "instruments": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "environment": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "procedures": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "findings": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "failures": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "lessons": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } },
+        "limitations": { "type": "array", "items": { "$ref": "#/$defs/quotedItem" } }
+      }
+    },
     "evidence": {
       "description": "Verbatim support for top-level descriptive fields without their own quote fields.",
       "type": "array",
@@ -130,6 +146,18 @@
           "quote": { "type": "string", "minLength": 1 },
           "sourceRef": { "type": "string", "minLength": 1 }
         }
+      }
+    }
+  },
+  "$defs": {
+    "quotedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "quote", "sourceRef"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "quote": { "type": "string", "minLength": 1 },
+        "sourceRef": { "type": "string", "minLength": 1 }
       }
     }
   }

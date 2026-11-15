@@ -40,6 +40,10 @@ sources:
     localPath: data/snapshots/campaign-sources/hmp-haughton/hmp-workshop.pdf
     licenceNote: NASA workshop PDF; stored locally as a source snapshot for quote checks.
 nulls:
+  - field: fieldRecord.findings
+    reason: "The cited workshop abstract summarises the project since 1997 and reports no findings specific to HMP-2015."
+  - field: fieldRecord.failures
+    reason: "The cited abstract reports no failure for HMP-2015 (the difficulties it lists belong to the separate 2009 Northwest Passage Drive Expedition)."
   - field: objectivesExercised[0].objectiveId
     reason: The source names broad astrobiology and planetary-protection investigations but does not make one of this repository's objective IDs an obvious match.
 evidence:
@@ -59,3 +63,26 @@ evidence:
   - field: years
     quote: HMP-2015 marked the 19th summer field campaign of the project.
     sourceRef: hmp-workshop-2015
+fieldRecord:
+  instruments:
+    - text: "Modified Humvees used for crewed rover traverses at HMP (project-wide since 2003, not specific to HMP-2015)"
+      quote: "two modified Humvees based at the HMPRS"
+      sourceRef: hmp-workshop-2015
+  environment:
+    - text: "Devon Island: a vegetation-free polar desert"
+      quote: "Devon Island is the largest uninhabited island on Earth, and offers a wide expanse of vegetation-free terrain that is set in a polar desert."
+      sourceRef: hmp-workshop-2015
+  procedures:
+    - text: "Trips beyond 20 km were generally by helicopter"
+      quote: "Excursions for reconnaissance and/or brief sampling to areas beyond 20 km range were generally conducted by helicopter."
+      sourceRef: hmp-workshop-2015
+  findings: []
+  failures: []
+  lessons:
+    - text: "Simulate two pressurised rovers working in tandem"
+      quote: "simulations at HMP of dual-pressurized rover traverses (involving two rovers working in tandem and able to lend assistance to one another in a contingency) are recommended."
+      sourceRef: hmp-workshop-2015
+  limitations:
+    - text: "About 97% of HMP work has been within 20 km of the station"
+      quote: "approximately 97% of science and exploration investigations at HMP has taken place within a radial range of 20 km"
+      sourceRef: hmp-workshop-2015
