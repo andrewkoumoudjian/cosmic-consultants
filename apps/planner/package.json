@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Mission planner UI (ADR-0012): React + Base UI + Motion + globe.gl over the shared planner engine.",
+  "description": "Mission planner UI (ADR-0012): React + Base UI + Motion + globe.gl (three.js) over the shared planner engine.",
   "engines": {
     "node": ">=22.12"
   },
@@ -16,6 +16,7 @@
   "dependencies": {
     "@base-ui/react": "1.9.0",
     "@fontsource/geist-mono": "5.3.0",
+    "@fontsource/geist-sans": "5.3.0",
     "@fontsource/source-serif-4": "5.3.1",
     "globe.gl": "2.46.2",
     "h3-js": "4.1.0",

@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { Dataset, Objective, Rule, Runtime } from '../../atlas/src/planner/engine.ts';
-import { pickObjective, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
+import { pickObjective, sheetCsv, siteClass, supportedTraits, traitCells, GLYPH, newRequest } from '../src/model.ts';
 
 const base = resolve(import.meta.dirname, process.env.PLANNER_RELEASE ?? '../../atlas/public/data/planner-v1');
 const json = (name: string) => JSON.parse(readFileSync(resolve(base, name), 'utf8'));
@@ -68,4 +68,32 @@ test('no single site score anywhere in the view code (AGENTS.md rule 4)', () => 
   }
   const sample = traitCells(data, newRequest(data, 'mars', data.runtime.categories[0]!), 0);
   assert.doesNotMatch(JSON.stringify(sample), /score/i);
+});
+
+/** Minimal RFC 4180 reader, enough to check our own export. */
+function parseCsv(text: string): string[][] {
+  const out: string[][] = []; let row: string[] = [], f = '', q = false;
+  for (let k = 0; k < text.length; k++) {
+    const ch = text[k]!;
+    if (q) { if (ch === '"' && text[k + 1] === '"') { f += '"'; k++; } else if (ch === '"') q = false; else f += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === ',') { row.push(f); f = ''; }
+    else if (ch === '\n') { row.push(f); out.push(row); row = []; f = ''; }
+    else f += ch;
+  }
+  return out;
+}
+
+test('JSheets CSV is rectangular and carries the engine verdict for every golden case', () => {
+  const cases = json('golden-verdicts.json') as { h3: string; request: Parameters<typeof traitCells>[1]; verdicts: { dimension: string; verdict: string }[] }[];
+  for (const c of cases) {
+    const i = data.h3.indexOf(c.h3);
+    const [head, ...body] = parseCsv(sheetCsv(data, c.request, [i]));
+    assert.ok(body.every(r => r.length === head!.length), `${c.h3} row width`);
+    const col = (n: string) => head!.indexOf(n);
+    const traits = body.filter(r => r[col('kind')] === 'trait');
+    assert.deepEqual(traits.map(r => [r[col('name')], r[col('verdict')]]), c.verdicts.map(v => [v.dimension, v.verdict]), c.h3);
+    // missing stays empty with a reason, never a filled number (AGENTS.md rule 3)
+    for (const r of traits) if (r[col('verdict')] === 'unknown') assert.ok(r[col('reason')] !== '', `${c.h3} unknown has a reason`);
+  }
 });

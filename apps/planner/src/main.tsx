@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import '@fontsource/geist-sans/400.css';
+import '@fontsource/geist-sans/500.css';
 import '@fontsource/geist-mono/400.css';
-import '@fontsource/geist-mono/500.css';
+import '@fontsource/source-serif-4/300.css';
 import '@fontsource/source-serif-4/400.css';
 import '@fontsource/source-serif-4/600.css';
 import './styles.css';

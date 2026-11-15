@@ -4,7 +4,7 @@ import { loadDataset, ensureMonthly, monthlyColumnsForObjective, type LoadProgre
 import type { Dataset } from '../../atlas/src/planner/engine.ts';
 import { decodePlan, encodePlan, validatePlan, type PlanRequest } from '../../atlas/src/plan-url.ts';
 import { newRequest, runSearch, type Body } from './model.ts';
-import { Header, Sidebar } from './ui.tsx';
+import { TopBar } from './ui.tsx';
 import { Location, CategoryStep, Metrics } from './steps/Setup.tsx';
 import { Finder } from './steps/Finder.tsx';
 import { Limits, Logistics, Risks } from './steps/Reports.tsx';
@@ -73,34 +73,22 @@ export function App() {
     const pct = p ? Math.round((p.loadedFiles / Math.max(p.totalFiles, 1)) * 100) : 0;
     return (
       <main className="loading" aria-busy="true">
-        <div className="fig">Verifying the release</div>
-        <h1 className="t-section">Checking each data file against its SHA-256.</h1>
-        <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><i style={{ width: `${pct}%` }} /></div>
-        <div className="muted t-small">{p ? `${p.loadedFiles} of ${p.totalFiles} files · ${(p.loadedBytes / 1e6).toFixed(1)} MB · ${p.label}` : 'Starting…'}</div>
+        <div className="track" role="progressbar" aria-label="Verifying data" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><i style={{ width: `${pct}%` }} /></div>
+        <span className="muted small">Verifying data</span>
       </main>
     );
   }
-  if (load.state === 'error') {
-    return (
-      <main className="loading">
-        <div className="fig">The planner can't start</div>
-        <p className="notice error" style={{ maxWidth: 560, textAlign: 'left' }}>{load.message}</p>
-      </main>
-    );
-  }
+  if (load.state === 'error') return <main className="loading"><p className="warn" style={{ maxWidth: 520 }}>{load.message}</p></main>;
 
   const d = load.data;
   const category = d.runtime.categories.find(c => c.categoryId === categoryId);
   const go = (n: number) => { setStep(n); setReached(r => Math.max(r, n)); window.scrollTo({ top: 0 }); };
   const objective = request ? d.objectives.find(o => o.objectiveId === request.objectiveId) : undefined;
-  const crumbs = ['Missions', body === 'moon' ? 'Moon' : 'Mars', ...(category ? [category.name] : []), stepName(step)];
-  const pins = request?.pins ?? [];
-  const pinIdx = pins.map(h => d.h3.indexOf(h)).filter(i => i >= 0);
+  const pinIdx = (request?.pins ?? []).map(h => d.h3.indexOf(h)).filter(i => i >= 0);
 
   const chooseCategory = (id: string) => {
     setCategoryId(id);
-    const c = d.runtime.categories.find(x => x.categoryId === id)!;
-    setRequest(newRequest(d, body, c));
+    setRequest(newRequest(d, body, d.runtime.categories.find(x => x.categoryId === id)!));
     setRemoved([]);
     setReached(3);
   };
@@ -110,55 +98,41 @@ export function App() {
   };
 
   let screen;
-  if (step === 1) screen = <Location data={d} body={body} onBody={chooseBody} onNext={() => go(2)} reached={reached} onStep={go} />;
-  else if (step === 2) screen = <CategoryStep data={d} body={body} categoryId={categoryId} onCategory={chooseCategory} onBack={() => go(1)} onNext={() => go(3)} reached={reached} onStep={go} />;
+  if (step === 1) screen = <Location body={body} onBody={chooseBody} onNext={() => go(2)} />;
+  else if (step === 2) screen = <CategoryStep data={d} body={body} categoryId={categoryId} onCategory={chooseCategory} onBack={() => go(1)} onNext={() => go(3)} />;
   else if (!request || !category) screen = <MissingPlan onRestart={() => go(1)} />;
-  else if (step === 3) screen = <Metrics data={d} category={category} request={request} onRequest={r => { setRequest({ ...r, pins: undefined }); setReached(3); }} onBack={() => go(2)} onNext={() => go(4)} reached={reached} onStep={go} />;
-  else if (!result) screen = <p className="content muted">Loading monthly data for {request.objectiveId}…</p>;
-  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => setRequest({ ...request, pins: p })} onBack={() => go(3)} onNext={() => go(5)} reached={reached} onStep={go} />;
-  else if (step === 5) screen = <Limits data={d} request={request} sites={pinIdx} objective={objective!} onBack={() => go(4)} onNext={() => go(6)} reached={reached} onStep={go} />;
-  else if (step === 6) screen = <Logistics data={d} request={request} sites={pinIdx} checklist={checklist} onChecklist={setChecklist} onBack={() => go(5)} onNext={() => go(7)} reached={reached} onStep={go} />;
-  else screen = <Risks data={d} request={request} sites={pinIdx} checklist={checklist} onBack={() => go(6)} reached={reached} onStep={go} />;
+  else if (step === 3) screen = <Metrics data={d} category={category} request={request} onRequest={r => { setRequest({ ...r, pins: undefined }); setReached(3); }} onBack={() => go(2)} onNext={() => go(4)} />;
+  else if (!result) screen = <main className="loading"><span className="muted small">Loading monthly data</span></main>;
+  else if (step === 4) screen = <Finder data={d} request={request} result={result} removed={removed} onRemoved={setRemoved} onPins={p => setRequest({ ...request, pins: p })} onBack={() => go(3)} onNext={() => go(5)} />;
+  else if (step === 5) screen = <Limits data={d} request={request} sites={pinIdx} objective={objective!} onBack={() => go(4)} onNext={() => go(6)} />;
+  else if (step === 6) screen = <Logistics data={d} request={request} sites={pinIdx} checklist={checklist} onChecklist={setChecklist} onBack={() => go(5)} onNext={() => go(7)} />;
+  else screen = <Risks data={d} request={request} sites={pinIdx} checklist={checklist} onBack={() => go(6)} />;
 
   return (
-    <div className="shell">
-      <Sidebar step={step} reached={reached} onStep={go} manifestHash={d.manifestHash} />
-      <main className="main">
-        <Header crumbs={crumbs} action={request && <CopyLink />} />
-        {initial.problems.length > 0 && step === 1 && (
-          <p className="notice error" style={{ marginTop: 16 }}>That plan link couldn't be read: {initial.problems.join('; ')}.</p>
-        )}
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div key={step} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
-            initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? undefined : { opacity: 0, y: -4 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}>
-            {screen}
-          </motion.div>
-        </AnimatePresence>
-      </main>
-    </div>
+    <>
+      <TopBar step={step} reached={reached} onStep={go} action={request && <CopyLink />} />
+      {initial.problems.length > 0 && step === 1 && <p className="warn" style={{ padding: '16px 40px 0' }}>This plan link couldn't be read: {initial.problems.join('; ')}.</p>}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.main key={step} initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? undefined : { opacity: 0 }} transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+          {screen}
+        </motion.main>
+      </AnimatePresence>
+    </>
   );
-}
-
-function stepName(step: number) {
-  return ['Location', 'Mission category', 'Metrics', 'Site finder', 'Limitation report', 'Logistics', 'Risks & brief'][step - 1]!;
 }
 
 function CopyLink() {
   const [done, setDone] = useState(false);
   return (
-    <button className="btn btn-secondary" onClick={() => navigator.clipboard?.writeText(location.href).then(() => { setDone(true); setTimeout(() => setDone(false), 1600); })}>
-      {done ? 'Link copied ✓' : 'Copy plan link'}
+    <button className="btn btn-line" onClick={() => navigator.clipboard?.writeText(location.href).then(() => { setDone(true); setTimeout(() => setDone(false), 1500); })}>
+      {done ? 'Copied' : 'Copy link'}
     </button>
   );
 }
 
 function MissingPlan({ onRestart }: { onRestart: () => void }) {
   return (
-    <div className="content">
-      <p className="notice">Pick a location and a mission category first.</p>
-      <div><button className="btn btn-primary" onClick={onRestart}>Start at step 1</button></div>
-    </div>
+    <div className="page"><button className="btn btn-primary" onClick={onRestart} style={{ alignSelf: 'flex-start' }}>Start a plan →</button></div>
   );
 }
-

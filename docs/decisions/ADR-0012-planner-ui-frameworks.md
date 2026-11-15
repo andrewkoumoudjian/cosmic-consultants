@@ -31,7 +31,8 @@ Three open PRs edit `apps/atlas/src/planner/engine.ts` and its tests (#157,
    controls), `motion` 14.9.0, `globe.gl` 2.46.2 on `three` 0.187.0, Vite 7.3.8
    and TypeScript 5.9.3 (the same as `apps/atlas`), `h3-js` 4.1.0, `@types/three`
    0.187.0 and `@types/node` 24.7.0 (the same as `apps/atlas`). Fonts are self-hosted through
-   `@fontsource` (Geist Mono, Source Serif 4), so the demo works offline.
+   `@fontsource` (Geist Sans 5.3.0, Geist Mono 5.3.0, Source Serif 4 5.3.1), so the
+   demo works offline.
 5. **The design is followed where it's honest, and changed where it isn't.**
    - The Figma site finder ranks sites by one percentage ("92%", an "AVG"
      column). That breaks AGENTS.md rule 4. The new app shows each site's
@@ -44,15 +45,31 @@ Three open PRs edit `apps/atlas/src/planner/engine.ts` and its tests (#157,
      (rule 3).
    - The dot-matrix world map becomes a globe drawn from the 91,800 published
      land cells, each colored by its funnel class.
-6. **Look: a field atlas printed in two inks.** The owner shared a moodboard
-   on 2026-11-15 (links in `apps/planner/DESIGN.md`). The Figma layout stays,
-   but the dark grey palette becomes cobalt ink on bone paper. Verdicts are
-   cobalt ✓ (match), vermilion ✕ (miss) and ochre ? (unknown), always with a
-   glyph and a shape, never colour alone. Derek's Moon and Mars engravings and
-   radio icons are used as they are. The hero is parked until the owner asks for it.
-7. **JSheets:** the requirement and comparison tables follow a spreadsheet look
-   (fixed columns, mono numbers). The JSheets runtime itself isn't embedded in
-   this slice; that's a follow-up once its licence and package are checked.
+6. **Look: "Observatory".** The owner shared a moodboard on 2026-11-15 (links
+   in `apps/planner/DESIGN.md`). They rejected the first take (cobalt on bone
+   paper) as ugly, asked for no filler copy, and said the Figma file is a
+   loose guide, not the source of truth. So: a white page with one ink and one
+   ultramarine accent, big light serif titles, one top bar for navigation, and
+   no captions, stat cards or framed panels. The globe is the one dark object on
+   the page, styled after the three.js TSL Earth example: a navy sphere, an
+   ultramarine atmosphere, and the matching cells glowing like city lights.
+   Verdicts are ● match, ◆ miss with gap, ○ unknown: always a shape plus a
+   colour, never colour alone. Derek's Moon and Mars engravings and radio icons
+   are used as they are. The hero is parked until the owner asks for it.
+7. **JSheets is a desktop app, so we export to it.** Checked on 2026-11-15:
+   JSheets (matsonj/jsheets-releases) is a native Rust desktop app (egui, with
+   DuckDB inside). Its `.jsheets` files are DuckDB databases, and it opens CSV.
+   The release "source code" archive only holds the README, and every release
+   is newer than two weeks, so there's nothing we could pin or embed in a web
+   page. Instead:
+   - each report step has an "Open in JSheets (.csv)" button that saves a tidy
+     table: one row per compared site and trait (verdict, value, band, gap,
+     reason), plus limit and logistics rows. Every row carries the release
+     manifest hash. Missing values stay empty, with a reason;
+   - the in-app tables borrow the spreadsheet look (thin grid, header row,
+     frozen first column, right-aligned mono numbers).
+   A test checks that the CSV carries the engine's verdict for all 459 golden
+   cases.
 
 ## Consequences
 

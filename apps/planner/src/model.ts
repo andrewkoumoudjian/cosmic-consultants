@@ -12,7 +12,8 @@ export type FunnelClass = ReturnType<typeof funnelClass>;
 
 export const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 /** Figma site-finder series palette, in order, for compared sites. */
-export const SERIES = ['#3987e5', '#d95926', '#199e70'];
+/** Compared-site colours: read on the white page and on the night globe, and stay apart from the verdict colours. */
+export const SERIES = ['#12b5a5', '#e2479d', '#6fbf3a'];
 export const MAX_COMPARE = 3; // the plan-request contract allows at most three pins
 
 export const DIMENSION_LABEL: Record<string, string> = {
@@ -154,4 +155,39 @@ export function hazardFacts(data: Dataset, i: number) {
     byCategory.set(k, [...(byCategory.get(k) ?? []), e]);
   }
   return { events, byCategory, steep: data.yearly.slope_frac_gt30?.[i] ?? null };
+}
+
+/**
+ * Tidy table for JSheets (or any sheet tool): one row per compared site x trait, then one row per site x
+ * logistics measure. Values come straight from engine rows(); missing stays empty with a reason (rule 3).
+ */
+export function sheetCsv(data: Dataset, request: PlanRequest, sites: number[]): string {
+  const head = ['site_h3', 'lat', 'lon', 'kind', 'name', 'priority', 'verdict', 'value', 'unit', 'band_lo', 'band_hi', 'gap', 'side', 'reason', 'earth_column', 'manifest_sha256'];
+  const cell = (v: unknown) => {
+    // 9 significant digits round-trip a float32 exactly, without printing its float64 tail
+    const s = v === null || v === undefined ? '' : typeof v === 'number' ? String(Number(v.toPrecision(9))) : String(v);
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const out = [head.join(',')];
+  for (const i of sites) {
+    const { lat, lon } = latLon(data, i);
+    const base = [data.h3[i], lat.toFixed(4), lon.toFixed(4)];
+    const tail = [data.manifestHash];
+    for (const r of rows(data, request, i)) {
+      const shown = r.perMonth ? worstMonthValue(r) : r.value;
+      out.push([...base, 'trait', r.dimension, r.priority, r.verdict, shown, r.unit, r.band?.lo, r.band?.hi, r.gap, r.side, r.reason?.text, r.earthColumn, ...tail].map(cell).join(','));
+    }
+    for (const l of limitRows(data, request, i)) out.push([...base, 'limit', l.limit, 'must', l.outcome, l.value, '', '', l.max, '', '', '', '', ...tail].map(cell).join(','));
+    for (const [col, unit] of [['access_min_median', 'min'], ['airport_km', 'km'], ['protected_pct', '%'], ['elev_mean_m', 'm']] as const) {
+      const v = data.yearly[col]?.[i], known = v !== undefined && Number.isFinite(v);
+      out.push([...base, 'logistics', col, '', '', known ? v : null, unit, '', '', '', '', known ? '' : 'missing in release', col, ...tail].map(cell).join(','));
+    }
+  }
+  return out.join('\n') + '\n';
+}
+
+export function download(name: string, text: string, type: string) {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  Object.assign(document.createElement('a'), { href: url, download: name }).click();
+  URL.revokeObjectURL(url);
 }

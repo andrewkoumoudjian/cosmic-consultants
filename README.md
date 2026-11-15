@@ -111,18 +111,19 @@ python scripts/serve_planner.py apps/atlas/dist
 ### The new planner UI (`apps/planner`, ADR-0012)
 
 Same engine, same data release, a redesigned seven-step flow (React, Base UI,
-Motion and a dot globe). It reads the release from step 1 above.
+Motion and a three.js globe via globe.gl). It reads the release from step 1 above.
 
 ```bash
 cd apps/planner
 npm ci
 npm run build   # typecheck + Vite build
-npm test        # view layer agrees with the 459 golden cases
+npm test        # view layer and CSV export agree with the 459 golden cases
 npx vite preview --port 4185   # then open http://localhost:4185/
 ```
 
-The plan lives in the URL, so "Copy plan link" shares the exact plan. The look
-is described in `apps/planner/DESIGN.md`.
+The plan lives in the URL, so "Copy link" shares the exact plan. Steps 5–7 have
+"Open in JSheets (.csv)", which saves the compared sites as a tidy table for
+JSheets or any spreadsheet. The look is described in `apps/planner/DESIGN.md`.
 
 Engine tests and the calibration:
 
