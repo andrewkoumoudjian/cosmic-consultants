@@ -23,5 +23,7 @@ jobs:
         run: npm ci
       - name: Type-check and build the static atlas
         run: npm run build
+      - name: Plan request URL round-trip tests (W11b, #121)
+        run: npm test
       - name: Check the mock data against contracts/site.schema.json and the ARL rule
         run: npm run check:mock

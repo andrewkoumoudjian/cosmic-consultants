@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "request": {
+    "version": 1,
+    "body": "mars",
+    "objectiveId": "OP-5LM",
+    "category": "robotic-mobility-navigation",
+    "missionType": "robotic",
+    "months": { "start": 6, "end": 8 },
+    "durationDays": 14,
+    "teamSize": 6,
+    "limits": { "access": 240, "protected": 0 },
+    "must": ["terrain", "surfaceMaterial"],
+    "sortBy": "terrain",
+    "top": 20,
+    "pins": ["84b2203ffffffff", "8429927ffffffff"]
+  },
+  "site": {
+    "h3": "84b2203ffffffff",
+    "lat": -24.4496,
+    "lon": -69.3138,
+    "label": "SYNTHETIC example hexagon. Every value below is invented to show the format, not an assessment of this place."
+  },
+  "objective": { "objectiveId": "OP-5LM", "body": "mars" },
+  "verdicts": [
+    {
+      "dimension": "terrain",
+      "priority": "must",
+      "origin": "target",
+      "table": "L1",
+      "earthColumn": "slope_mean_deg",
+      "unit": "deg",
+      "band": { "lo": 0, "hi": 5 },
+      "value": 6.2,
+      "verdict": "miss",
+      "gap": 1.2,
+      "side": "above",
+      "successCriterion": "SYNTHETIC example: drive 5 km over slopes under 5 deg."
+    },
+    {
+      "dimension": "surfaceMaterial",
+      "priority": "must",
+      "origin": "team",
+      "table": "L1",
+      "earthColumn": "barren_pct",
+      "unit": "%",
+      "band": { "lo": 50, "hi": 100 },
+      "value": 71.0,
+      "verdict": "match"
+    },
+    {
+      "dimension": "dustProcess",
+      "priority": "must",
+      "origin": "target",
+      "table": "L1m",
+      "earthColumn": "dust_aod",
+      "unit": "unitless",
+      "band": null,
+      "value": null,
+      "verdict": "unknown",
+      "reason": { "code": "no-band", "text": "No Mars dust band has a traceable source yet." },
+      "perMonth": [
+        { "month": 6, "value": null, "verdict": "unknown", "reason": { "code": "no-band", "text": "No Mars dust band yet." } },
+        { "month": 7, "value": null, "verdict": "unknown", "reason": { "code": "no-band", "text": "No Mars dust band yet." } },
+        { "month": 8, "value": null, "verdict": "unknown", "reason": { "code": "no-band", "text": "No Mars dust band yet." } }
+      ]
+    },
+    {
+      "dimension": "thermal",
+      "priority": "must",
+      "origin": "target",
+      "table": "L1m",
+      "earthColumn": "lst_night_k",
+      "unit": "K",
+      "band": null,
+      "value": null,
+      "verdict": "unknown",
+      "reason": { "code": "no-band", "text": "Mars thermal band not snapshotted yet." },
+      "perMonth": [
+        { "month": 6, "value": 268.1, "verdict": "unknown", "reason": { "code": "no-band", "text": "Value known, no band to compare with." } },
+        { "month": 7, "value": 266.4, "verdict": "unknown", "reason": { "code": "no-band", "text": "Value known, no band to compare with." } },
+        { "month": 8, "value": 269.0, "verdict": "unknown", "reason": { "code": "no-band", "text": "Value known, no band to compare with." } }
+      ]
+    }
+  ],
+  "limits": [
+    { "limit": "access", "max": 240, "value": 95, "unit": "min", "outcome": "pass" },
+    { "limit": "protected", "max": 0, "value": 0, "unit": "%", "outcome": "pass" }
+  ],
+  "funnelClass": "someMiss",
+  "paretoLayer": null,
+  "notTestableOnEarth": [
+    { "mismatch": "gravity", "why": "Suit and vehicle dynamics change at Mars gravity (about 0.38 g)." },
+    { "mismatch": "pressureRegime", "why": "Thin CO2 atmosphere changes dust charging, suit pressure and heat loss." }
+  ],
+  "season": {
+    "months": [
+      { "month": 1, "mustTraitsMatch": false, "reachable": true },
+      { "month": 2, "mustTraitsMatch": false, "reachable": true },
+      { "month": 3, "mustTraitsMatch": false, "reachable": true },
+      { "month": 4, "mustTraitsMatch": false, "reachable": true },
+      { "month": 5, "mustTraitsMatch": false, "reachable": true },
+      { "month": 6, "mustTraitsMatch": false, "reachable": true },
+      { "month": 7, "mustTraitsMatch": false, "reachable": true },
+      { "month": 8, "mustTraitsMatch": false, "reachable": true },
+      { "month": 9, "mustTraitsMatch": false, "reachable": true },
+      { "month": 10, "mustTraitsMatch": false, "reachable": true },
+      { "month": 11, "mustTraitsMatch": false, "reachable": true },
+      { "month": 12, "mustTraitsMatch": false, "reachable": true }
+    ],
+    "fieldSeasonMonths": []
+  },
+  "logistics": {
+    "accessMinMedian": { "value": 95, "unit": "min" },
+    "accessMinP10": { "value": 60, "unit": "min" },
+    "airportKm": { "value": 85, "unit": "km" },
+    "protectedPct": { "value": 0, "unit": "%" },
+    "notes": ["SYNTHETIC: about 1.5 h from the nearest city, airport 85 km away, no protected land."],
+    "testSplit": {
+      "matchesHere": ["surfaceMaterial"],
+      "missesHere": ["terrain"],
+      "unknownHere": ["dustProcess", "thermal"],
+      "cannotTestOnEarth": ["gravity", "pressureRegime"]
+    },
+    "checklist": [
+      { "item": "permits", "prompt": "No protected land recorded here; check national and local permits anyway.", "answer": null, "from": "scientist" },
+      { "item": "costs", "prompt": "Travel-time proxy: about 1.5 h from a city.", "answer": null, "from": "scientist" }
+    ]
+  },
+  "risks": {
+    "eonetDisclaimer": "EONET is a curated list of notable events: 0 means none recorded in EONET, not that none happened.",
+    "rows": [
+      { "hazard": "wildfires", "kind": "eonet", "eventsRecorded": 0, "events": [] },
+      { "hazard": "dustHaze", "kind": "eonet", "eventsRecorded": 1, "events": [ { "eonetId": "SYNTHETIC_1", "title": "SYNTHETIC dust event", "date": "2023-07-04" } ] },
+      { "hazard": "steepTerrain", "kind": "terrain", "value": 0.02, "unit": "share of slopes over 30 deg" },
+      { "hazard": "coldestMonth", "kind": "temperature", "month": 7, "value": 266.4, "unit": "K" }
+    ]
+  },
+  "precedents": [
+    {
+      "campaignId": "mdrs-89",
+      "why": ["closestTraits"],
+      "closeness": 0.84,
+      "traitSet": ["terrain", "surfaceMaterial"],
+      "shapley": [
+        { "dimension": "terrain", "share": 0.61 },
+        { "dimension": "surfaceMaterial", "share": 0.23 }
+      ],
+      "missingTraits": []
+    },
+    {
+      "campaignId": "hmp-2015",
+      "why": ["closestTraits"],
+      "closeness": null,
+      "traitSet": ["terrain", "surfaceMaterial"],
+      "shapley": [],
+      "missingTraits": ["surfaceMaterial"]
+    }
+  ],
+  "approvalReadiness": [
+    { "item": "namedM2MObjective", "answer": "yes", "source": "data/objectives/op-5lm-mars.yaml" },
+    { "item": "fieldSeasonInWindow", "answer": "no", "source": "season.fieldSeasonMonths (SYNTHETIC)" },
+    { "item": "similarPastCampaign", "answer": "unknown", "source": "precedents (SYNTHETIC)" }
+  ],
+  "provenance": {
+    "synthetic": true,
+    "engine": "hand-written fixture for W20 (#78); no engine yet",
+    "buildManifestSha256": null,
+    "inputs": []
+  }
+}

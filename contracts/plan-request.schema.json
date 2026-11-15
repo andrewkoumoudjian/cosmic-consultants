@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/plan-request.schema.json",
+  "title": "PlanRequest",
+  "description": "What the scientist asks for in step 1 (MISSION-PLANNER.md). One request drives all six steps and lives in the URL, so a plan is a shareable link: ?body=mars&obj=OP-5LM&type=robotic&months=6-8&days=14&team=6&lim=access:240,protected:0&must=terrain,surfaceMaterial&sort=terrain&top=20&pins=<h3>,<h3>. Every field below maps to one URL key (named in its description). Nothing here is a weight: must/nice and one sort trait only (ADR-0005, AGENTS.md rule 4).",
+  "type": "object",
+  "required": ["version", "body", "objectiveId", "missionType", "months"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "body": { "type": "string", "enum": ["moon", "mars"], "description": "URL key: body" },
+    "objectiveId": { "type": "string", "pattern": "^[A-Z]{2,3}-[0-9]+(L|M|LM)?$", "description": "URL key: obj. Must name a data/objectives/ row for this body." },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "URL key: cat. Test category id from the team doc (it has grown from 8 to 19), kept free here so the list can change without a contract change."
+    },
+    "presetCampaignId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "description": "URL key: preset. A data/campaigns/ row whose published constraints filled the form." },
+    "missionType": { "type": "string", "enum": ["robotic", "crewed", "instrument"], "description": "URL key: type. Picks which requirement presets show." },
+    "months": {
+      "type": "object",
+      "description": "URL key: months, as start-end (e.g. 6-8). Inclusive; wraps over the new year when start > end (11-2 = Nov, Dec, Jan, Feb).",
+      "required": ["start", "end"],
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "end": { "type": "integer", "minimum": 1, "maximum": 12 }
+      }
+    },
+    "durationDays": { "type": "integer", "minimum": 1, "description": "URL key: days" },
+    "teamSize": { "type": "integer", "minimum": 1, "description": "URL key: team" },
+    "limits": {
+      "type": "object",
+      "description": "URL key: lim, as key:value pairs. Hard limits: a site outside any of them is filtered out. A site whose value is unknown is NOT filtered by that limit; it is flagged unknown.",
+      "additionalProperties": false,
+      "properties": {
+        "access": { "type": "number", "minimum": 0, "description": "max travel time to the nearest city [minutes], L2 access_min_median" },
+        "protected": { "type": "number", "minimum": 0, "maximum": 100, "description": "max share of protected land [%], L2 protected_pct" },
+        "airport": { "type": "number", "minimum": 0, "description": "max distance to the nearest paved-runway airport [km], L2 airport_km" },
+        "slope": { "type": "number", "minimum": 0, "maximum": 90, "description": "max mean slope [deg], L1 slope_mean_deg" }
+      }
+    },
+    "must": { "$ref": "#/$defs/dimensionList", "description": "URL key: must. Traits forced to must (filter). Overrides the trait map's priority." },
+    "nice": { "$ref": "#/$defs/dimensionList", "description": "URL key: nice. Traits forced to nice (shown, never filters). Must not overlap `must`." },
+    "bandEdits": {
+      "type": "array",
+      "description": "URL key: band, as dimension:lo..hi (append '<' for hiStrict). The user's own bands; each sets origin to 'user' in the site plan.",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "lo", "hi"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": { "$ref": "#/$defs/dimension" },
+          "lo": { "type": "number" },
+          "hi": { "type": "number" },
+          "hiStrict": { "type": "boolean" }
+        }
+      }
+    },
+    "sortBy": { "$ref": "#/$defs/dimension", "description": "URL key: sort. The ONE trait that orders sites inside a Pareto layer (gap on that trait, smallest first)." },
+    "top": { "type": ["integer", "null"], "minimum": 1, "description": "URL key: top. Show the first N sites in Pareto-layer order; null or absent = all." },
+    "pins": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/h3r4" },
+      "description": "URL key: pins. Up to 3 hexagons to compare. The app replaces the oldest on a 4th pin; the contract never holds 4."
+    },
+    "successCriteria": {
+      "type": "array",
+      "description": "Per requirement, one line on what 'tested' means. Not in the URL (too long); kept in the URL hash with the checklist.",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": { "$ref": "#/$defs/dimension" },
+          "text": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "string",
+      "enum": ["terrain", "thermal", "illumination", "dustProcess", "waterIce", "surfaceMaterial", "subsurface", "operations"]
+    },
+    "dimensionList": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/dimension" } },
+    "h3r4": { "type": "string", "pattern": "^84[0-9a-f]{13}$", "description": "H3 resolution-4 cell id (15 hex chars, resolution nibble 4)." }
+  }
+}

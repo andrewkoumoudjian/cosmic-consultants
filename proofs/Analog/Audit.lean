@@ -54,3 +54,16 @@ import Analog
 #print axioms PerpChief.Jumps.weissman
 #print axioms PerpChief.TheoryModels1.paired_score_sum
 #print axioms PerpTheory.cantelli
+
+-- #132: proofs of the unchanged, frozen S7 propositions
+#print axioms Analog.FunnelProofs.s7a_match_iff
+#print axioms Analog.FunnelProofs.s7b_unknown_not_match
+#print axioms Analog.FunnelProofs.s7c_tighten_band
+#print axioms Analog.FunnelProofs.s7d_add_must
+#print axioms Analog.FunnelProofs.s7e_window_matched
+#print axioms Analog.FunnelProofs.s7e_window_missed
+#print axioms Analog.FunnelProofs.s7f_class_allMatch_iff
+#print axioms Analog.FunnelProofs.s7g_nice_never_filters
+#print axioms Analog.FunnelProofs.s7h_more_months
+#print axioms Analog.FunnelProofs.s7i_unknown_limit_kept
+#print axioms Analog.FunnelProofs.s7z_empty_window

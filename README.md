@@ -58,3 +58,26 @@ lake exe cache get
 lake build
 lake env lean Analog/Audit.lean   # standard axioms only
 ```
+
+## Verify the contracts
+
+```bash
+python -m pip install "jsonschema==4.23.0" "pyyaml==6.0.2" "h3==4.1.2"
+python scripts/validate_contracts.py --self-test
+```
+
+CI runs the same check (`.github/workflows/ci.yml`, `contract-validation` job).
+On Python 3.14, use `"pyyaml>=6.0.3"` instead: 6.0.2 has no 3.14 wheel and
+needs a C compiler.
+
+## Verify the atlas
+
+```bash
+cd apps/atlas
+npm ci
+npm run build        # type-check + static build
+npm run check:mock   # mock sites, ARL rule, no-single-score rule
+```
+
+CI runs the same two checks (`.github/workflows/atlas.yml`). Needs Node 22.12
+or newer. The sites in `apps/atlas/mock/` are synthetic, and the app says so.
