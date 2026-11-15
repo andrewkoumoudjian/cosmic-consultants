@@ -111,6 +111,146 @@
       "localPath": "data/snapshots/copernicus-dem-glo30/tileList.txt"
     },
     {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/B05_011417_1756_XI_04S222W__B07_012551_1751_XN_04S222W/B05_011417_1756_XI_04S222W__B07_012551_1751_XN_04S222W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:19:58Z",
+      "sha256": "76d9376f0ce561e33ed7a68a46534076d0b241437aa79ee526ea5fe8882bdc5b",
+      "bytes": 281453,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/B05_011417_1756_XI_04S222W__B07_012551_1751_XN_04S222W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/B05_011562_1756_XI_04S222W__B08_012841_1751_XN_04S222W/B05_011562_1756_XI_04S222W__B08_012841_1751_XN_04S222W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:20:04Z",
+      "sha256": "4bc0afb9d3213f5dd80bcfb9a7ebd10ddc77007d5f12c72f9329d476d2f82c42",
+      "bytes": 581237,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/B05_011562_1756_XI_04S222W__B08_012841_1751_XN_04S222W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/B05_011765_1780_XN_02S005W__B08_012820_1779_XN_02S005W/B05_011765_1780_XN_02S005W__B08_012820_1779_XN_02S005W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:20:29Z",
+      "sha256": "686571ad9f5dd4b17d988e3cc6dd15454f398b8d5f7d6245a722017cda1aeb94",
+      "bytes": 4552573,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/B05_011765_1780_XN_02S005W__B08_012820_1779_XN_02S005W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/D03_028269_1752_XI_04S222W__D03_028335_1754_XI_04S222W/D03_028269_1752_XI_04S222W__D03_028335_1754_XI_04S222W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:11:23Z",
+      "sha256": "d10b879976b0ecca2540f1ad7470f481907951afed8c3cc55df2961b0e1770fd",
+      "bytes": 128355032,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/D03_028269_1752_XI_04S222W__D03_028335_1754_XI_04S222W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/D22_035909_1778_XN_02S005W__D21_035408_1772_XN_02S005W/D22_035909_1778_XN_02S005W__D21_035408_1772_XN_02S005W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:21:04Z",
+      "sha256": "0fc4d09e112c60de551af8fbbfe474ac3646f044edbffe3ab55148d7cb057865",
+      "bytes": 10300121,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/D22_035909_1778_XN_02S005W__D21_035408_1772_XN_02S005W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/F03_036997_1655_XI_14S185W__F04_037498_1655_XI_14S185W/F03_036997_1655_XI_14S185W__F04_037498_1655_XI_14S185W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:12:44Z",
+      "sha256": "547264d4bd712e7ba0857ff8e0d2b73c051392908952b5fd4a4939850b0fba10",
+      "bytes": 103986240,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/F03_036997_1655_XI_14S185W__F04_037498_1655_XI_14S185W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/F05_037752_2008_XN_20N282W__F05_037607_2008_XN_20N282W/F05_037752_2008_XN_20N282W__F05_037607_2008_XN_20N282W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:03:24Z",
+      "sha256": "8615b1283497128b17be3b76fc674b034ce05e76465843de8bd5ff6cfd002a34",
+      "bytes": 68524871,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/F05_037752_2008_XN_20N282W__F05_037607_2008_XN_20N282W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/G14_023524_1985_XN_18N282W__G13_023379_1985_XN_18N282W/G14_023524_1985_XN_18N282W__G13_023379_1985_XN_18N282W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:19:55Z",
+      "sha256": "d0e90604b6aa7cb0a54b2c04b243f48bc40831c2db695c099d43ec485b1a9014",
+      "bytes": 8278733,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/G14_023524_1985_XN_18N282W__G13_023379_1985_XN_18N282W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/J03_045781_1846_XN_04N224W__J04_046493_1842_XN_04N224W/J03_045781_1846_XN_04N224W__J04_046493_1842_XN_04N224W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:20:07Z",
+      "sha256": "8998573541f5c2544788c2dba6833ba14ba1af58036643acfaabbc3bb9c2ea4e",
+      "bytes": 1076066,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/J03_045781_1846_XN_04N224W__J04_046493_1842_XN_04N224W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/K12_058005_1845_XI_04N224W__K12_057939_1845_XI_04N224W/K12_058005_1845_XI_04N224W__K12_057939_1845_XI_04N224W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:11:49Z",
+      "sha256": "6ec407dbb0977e660fee167730ba632541d661600a30094862801fe826e93f47",
+      "bytes": 58228308,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/K12_058005_1845_XI_04N224W__K12_057939_1845_XI_04N224W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/K13_058564_1776_XN_02S005W__K14_058854_1776_XN_02S005W/K13_058564_1776_XN_02S005W__K14_058854_1776_XN_02S005W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:12:11Z",
+      "sha256": "68c2ecd156a3d7a6288ebb8180c4ef6da1ebbeb2010d618aac304588eede5951",
+      "bytes": 16472705,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/K13_058564_1776_XN_02S005W__K14_058854_1776_XN_02S005W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/K19_060720_1652_XN_14S184W__F02_036641_1653_XN_14S184W/K19_060720_1652_XN_14S184W__F02_036641_1653_XN_14S184W-DEM-geoid-adj.tif",
+      "fetchedAt": "2026-11-15T01:21:08Z",
+      "sha256": "3627b8aab6be01c63f4d1343ed0230570b81ac4ee14da94a1787eaf2ea7ad6d2",
+      "bytes": 718692,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/K19_060720_1652_XN_14S184W__F02_036641_1653_XN_14S184W-DEM-geoid-adj.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/N03_063453_1982_XN_18N282W__N03_063519_1982_XN_18N282W/N03_063453_1982_XN_18N282W__N03_063519_1982_XN_18N282W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:19:38Z",
+      "sha256": "f9320dbd5b5b6a96a643da0a4b0057f4b13a197acafdda24b80f999f871f2e45",
+      "bytes": 8305804,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/N03_063453_1982_XN_18N282W__N03_063519_1982_XN_18N282W_dtm.tif"
+    },
+    {
+      "datasetId": "ctx-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/ctx/controlled/usgs/N14_067844_2054_XN_25N250W__N13_067580_2051_XN_25N249W/N14_067844_2054_XN_25N250W__N13_067580_2051_XN_25N249W_dtm.tif",
+      "fetchedAt": "2026-11-15T01:11:59Z",
+      "sha256": "0043cb6094f4d35a39a43d47c62a7b53414caf3880e3e840e0c03dfe6d0c624e",
+      "bytes": 7731144,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/ctx-dtms-usgs-stac/N14_067844_2054_XN_25N250W__N13_067580_2051_XN_25N249W_dtm.tif"
+    },
+    {
       "datasetId": "diviner-l4",
       "sourceUrl": "https://pds-geosciences.wustl.edu/lro/urn-nasa-pds-lro_diviner_derived1/data_derived_prp/dlre_prp_south.lbl",
       "fetchedAt": "2026-11-14T20:01:34Z",
@@ -169,6 +309,86 @@
       "license": "esa-cci-permafrost-terms",
       "licenseVerified": true,
       "localPath": "data/snapshots/esa-cci-permafrost-extent-nh/ESACCI-PERMAFROST-L4-PFR-MODISLST_CRYOGRID-AREA4_PP-2023-fv05.0.nc"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/PSP_001513_1655_PSP_001777_1650/DTEEC_001513_1655_001777_1650_U01.tif",
+      "fetchedAt": "2026-11-15T02:22:33Z",
+      "sha256": "a40bfc1860a1153927b9bb0391d3f5ec8aaeedfd7904acff457936cb6e3494e4",
+      "bytes": 136073080,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_001513_1655_001777_1650_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/PSP_002387_1985_PSP_003798_1985/DTEEC_002387_1985_003798_1985_A01.tif",
+      "fetchedAt": "2026-11-15T01:21:59Z",
+      "sha256": "a833d7587015c56f1701d9433c6cbb7d170e0c7bdf2ae30cad6030cba166e30c",
+      "bytes": 144066483,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_002387_1985_003798_1985_A01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/PSP_009505_1755_PSP_009571_1755/DTEEC_009505_1755_009571_1755_U01.tif",
+      "fetchedAt": "2026-11-15T01:18:08Z",
+      "sha256": "1d5ea7854e2940750176030d5c576b17a1dbacfc2387aa8a80c3603a82230cbf",
+      "bytes": 272832622,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_009505_1755_009571_1755_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_018854_1755_ESP_018920_1755/DTEEC_018854_1755_018920_1755_U01.tif",
+      "fetchedAt": "2026-11-15T02:17:47Z",
+      "sha256": "6e882d88eb8bd7b3a48a3bc794531a852e4d0306868bd05cd03e85f90d6cf071",
+      "bytes": 156211149,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_018854_1755_018920_1755_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_021747_1780_ESP_022380_1780/DTEEC_021747_1780_022380_1780_U01.tif",
+      "fetchedAt": "2026-11-15T02:21:35Z",
+      "sha256": "88d63ba10f5a4441e0297c8bc64a398538c57c1a8c8b0f6b894a66dfe77902a5",
+      "bytes": 151926232,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_021747_1780_022380_1780_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_037262_1845_ESP_036761_1845/DTEEC_037262_1845_036761_1845_U01.tif",
+      "fetchedAt": "2026-11-15T01:20:04Z",
+      "sha256": "c0519354fc4a35d986cef68bd9cf587332b52023b4ec4679cf0f197cb742c0c4",
+      "bytes": 240381877,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_037262_1845_036761_1845_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_045994_1985_ESP_046060_1985/DTEEC_045994_1985_046060_1985_U01.tif",
+      "fetchedAt": "2026-11-15T01:04:18Z",
+      "sha256": "b710df2893d0c668e58ec6e4c3fffa4e1b8b1759b71fdb4c582dfe56ef479822",
+      "bytes": 157098530,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_045994_1985_046060_1985_U01.tif"
+    },
+    {
+      "datasetId": "hirise-dtms-usgs-stac",
+      "sourceUrl": "https://astrogeo-ard.s3-us-west-2.amazonaws.com/mars/mro/hirise/controlled/dtm/ESP_069665_2055_ESP_069731_2055/DTEEC_069665_2055_069731_2055_A01.tif",
+      "fetchedAt": "2026-11-15T02:20:18Z",
+      "sha256": "dc6ed15247b4a3672a423b71de605fdee43652b5fec7930151ead95a7f639cf1",
+      "bytes": 173084873,
+      "license": "cc0-1.0",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/hirise-dtms-usgs-stac/DTEEC_069665_2055_069731_2055_A01.tif"
     },
     {
       "datasetId": "modis-mcd12c1",
@@ -1499,6 +1719,86 @@
       "license": "cc0",
       "licenseVerified": true,
       "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf"
+    },
+    {
+      "datasetId": "mola-hrsc-blended-dem",
+      "sourceUrl": "https://planetarymaps.usgs.gov/mosaic/Mars/HRSC_MOLA_Blend/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif",
+      "fetchedAt": "2026-11-15T01:03:10Z",
+      "sha256": "e8bfe4c3b9dee9d5fdb8c4d49798869654e552e7b154712c9e12d6d117464419",
+      "bytes": 11384463908,
+      "license": "cc0+cc-by-sa-3.0-igo",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-hrsc-blended-dem/Mars_HRSC_MOLA_BlendDEM_Global_200mp_v2.tif"
+    },
+    {
+      "datasetId": "mola-hrsc-blended-dem",
+      "sourceUrl": "https://astrogeology.usgs.gov/ckan/dataset/6c177b5f-97af-4d70-adc3-92cf362b9890/resource/9b3025b4-484e-47b1-a782-d88abc387cc1/download/mars_hrsc_mola_blenddem_global_200mp_v2.lbl",
+      "fetchedAt": "2026-11-14T23:03:37Z",
+      "sha256": "53a0aa21b76ea3f86d1416dd5b8db131e1bc2f9f92bc74e15558733a1868f485",
+      "bytes": 1257,
+      "license": "cc0+cc-by-sa-3.0-igo",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-hrsc-blended-dem/mars_hrsc_mola_blenddem_global_200mp_v2.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.img",
+      "fetchedAt": "2026-11-14T22:37:58Z",
+      "sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
+      "bytes": 2073600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg004/megt90n000cb.lbl",
+      "fetchedAt": "2026-11-14T22:37:59Z",
+      "sha256": "5a3fe60256afa1c35fea5d551fe0ab0a9198fb2bcd2c2e161d078aa69627ebac",
+      "bytes": 4796,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000cb.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.img",
+      "fetchedAt": "2026-11-14T22:38:37Z",
+      "sha256": "d18d9b9ab8c5516d02e157dd2cde0f1d0d160c21940e953ba22391269a545e7b",
+      "bytes": 33177600,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg016/megt90n000eb.lbl",
+      "fetchedAt": "2026-11-14T22:38:38Z",
+      "sha256": "0f2bd919dddb86d83489a008d3007bd915507c892a0f22ce49ad5dd5d2fc7d8a",
+      "bytes": 4813,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000eb.lbl"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg032/megt90n000fb.img",
+      "fetchedAt": "2026-11-14T23:03:34Z",
+      "sha256": "09ae1c0956afcdc869bd82c55993849f67c16ef0efe73f38cb1ea204c186ad8b",
+      "bytes": 132710400,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000fb.img"
+    },
+    {
+      "datasetId": "mola-megdr",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg032/megt90n000fb.lbl",
+      "fetchedAt": "2026-11-14T23:03:36Z",
+      "sha256": "7ed187c0e6ce09cbf43e931e5efb0178312fb931003199daaa873c61c76b2e2f",
+      "bytes": 4820,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/mola-megdr/megt90n000fb.lbl"
     },
     {
       "datasetId": "ornl-global-soil-regolith-sediment",
