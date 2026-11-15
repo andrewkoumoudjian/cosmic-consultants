@@ -22,8 +22,22 @@ from pathlib import Path
 
 from .tables import Tables, reasons_of
 
+# Copied from verified earth-features-r4, never recomputed in the publisher.
+FEATURE_COLUMNS = {
+    "ati_terra_proxy": "K^-1", "ati_aqua_proxy": "K^-1",
+    "daylight_h_min": "h", "daylight_h_mean": "h", "daylight_h_max": "h",
+}
+FEATURE_NOTES = {
+    "ati_terra_proxy": "apparent thermal inertia proxy, (1 − albedo) / diurnal range; Terra; not measured thermal inertia",
+    "ati_aqua_proxy": "apparent thermal inertia proxy, (1 − albedo) / diurnal range; Aqua; not measured thermal inertia",
+    "daylight_h_min": "Minimum of monthly daylight hours; computed from latitude, without terrain shadows",
+    "daylight_h_mean": "Mean of monthly daylight hours; computed from latitude, without terrain shadows",
+    "daylight_h_max": "Maximum of monthly daylight hours; computed from latitude, without terrain shadows",
+}
+
 # L1 + L2 columns published to L4 (DATA-PIPELINE section 5 + #168 columns.yaml active columns).
 CELL_COLUMNS = {
+    **FEATURE_COLUMNS,
     "lat": "deg", "lon": "deg", "land_pct_mean": "%",
     "lst_day_max_k": "K", "lst_night_min_k": "K", "lst_diurnal_range_mean_k": "K",
     "barren_pct": "%", "snow_ice_pct": "%", "water_pct": "%", "permafrost_pct": "%",
@@ -137,7 +151,8 @@ def publish(tables: Tables, l3: dict, out: Path, l3_inputs: list[dict] | None = 
     for name in extra_columns:
         _write(out / "yearly" / f"{name}.bin", _f32([r.get(name) if r else None for r in cell_rows]), written, out)
     _write(out / "yearly" / "yearly.json", _json({"dtype":"float32-le", "null":"NaN", "count":len(order),
-           "columns":extra_columns, "nullReasons":_null_reasons(cell_rows,list(extra_columns))}), written, out)
+           "columns":extra_columns, "columnNotes":FEATURE_NOTES,
+           "nullReasons":_null_reasons(cell_rows,list(extra_columns))}), written, out)
 
     for name in MONTHLY_COLUMNS:
         values = [(tables.monthly.get((h, m)) or {}).get(name) for h in order for m in range(1, 13)]
