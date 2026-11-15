@@ -327,8 +327,8 @@ def build_earth_features(
         .then((1.0 - pl.col("albedo_bs_sw_mean")) / pl.col("aqua_lst_diurnal_mean_k"))
         .otherwise(None)
         .alias("ati_aqua_proxy"),
-        pl.when(pl.any_horizontal([pl.col(c).is_not_null() for c in EONET_COLS]))
-        .then(pl.sum_horizontal([pl.col(c).fill_null(0).cast(pl.Int64) for c in EONET_COLS]))
+        pl.when(pl.all_horizontal([pl.col(c).is_not_null() for c in EONET_COLS]))
+        .then(pl.sum_horizontal([pl.col(c).cast(pl.Int64) for c in EONET_COLS]))
         .otherwise(pl.lit(None, dtype=pl.Int64))
         .alias("eonet_total_events"),
     ])
@@ -405,7 +405,12 @@ def build_earth_features(
         _json_reason_fragment("wind_speed_seasonal_amp", pl.lit("no-valid-wind-months")),
         _json_reason_fragment("burned_pct_annual_mean", pl.lit("mcd64-unmapped-or-water")),
         _json_reason_fragment("burned_pct_annual_max", pl.lit("mcd64-unmapped-or-water")),
-        _json_reason_fragment("eonet_total_events", pl.lit("eonet-unavailable")),
+        _json_reason_fragment(
+            "eonet_total_events",
+            pl.when(pl.any_horizontal([pl.col(c).is_not_null() for c in EONET_COLS]))
+            .then(pl.lit("partial-eonet-categories-missing"))
+            .otherwise(pl.lit("eonet-unavailable")),
+        ),
         _json_reason_fragment(
             "palsar_gamma0_hh_db",
             pl.when(pl.col("__in_palsar_scope")).then(pl.lit("scene-batch-unfetched")).otherwise(pl.lit("outside-palsar-campaign-clusters")),

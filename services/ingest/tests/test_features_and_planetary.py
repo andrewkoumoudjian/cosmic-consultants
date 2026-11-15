@@ -217,6 +217,18 @@ class EarthFeaturesUnitTests(unittest.TestCase):
         self.assertEqual(mr0["lst_years_min_count"], "no-monthly-spread-rows")
         self.assertEqual(mr0["eonet_total_events"], "eonet-unavailable")
 
+    def test_partial_null_eonet_stays_null_with_reason(self):
+        sites, monthly, spread, palsar = self._sample_inputs()
+        sites = sites.with_columns(
+            [pl.lit(0, dtype=pl.Int64).alias(EONET_COLS[0])]
+            + [pl.lit(None, dtype=pl.Int64).alias(c) for c in EONET_COLS[1:]]
+        )
+        ef, _ = build_earth_features(sites, monthly, spread=spread, palsar=palsar)
+        self.assertEqual(ef["eonet_total_events"].null_count(), ef.height)
+        for r in ef.iter_rows(named=True):
+            mr = json.loads(r["missing_reason"])
+            self.assertEqual(mr["eonet_total_events"], "partial-eonet-categories-missing")
+
 
 class PlanetaryGeometryUnitTests(unittest.TestCase):
     def test_wkb_polygon_with_hole_and_lon_wrapping(self):
