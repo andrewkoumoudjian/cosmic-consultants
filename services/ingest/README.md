@@ -638,3 +638,53 @@ sources the work order asked for that cannot be fetched by this repo yet.
   redirect to a parked page and re-probes the same on 2026-11-14. Evidence
   in `_derived/earth-static-probes.json` (`python -m p0ingest.earth_static
   probe` re-runs it); catalog rows carry the probe results.
+
+## W37 (#96) PALSAR L-band radar backscatter, campaign-site regional table (my own section)
+
+`alos-palsar-rtc-high` (ASF Hi-Res RTC, 12.5 m, gamma0; licence "© NASA [Year],
+Includes Material © JAXA, METI [Year]", verified in the registry row). The global
+family is ~506k single-date scenes, so this is REGIONAL by the declared subset
+rule: for each of the six campaign files in `data/campaigns/`, the site hexagon
+plus its H3 ring-1 neighbours (7 cells per site; FMARS and HMP-2015 share a
+parent) -> exactly 35 keys. Per key: median HH and HV gamma0 in dB over a
+deterministic stride-30 subgrid (every 30th row and column of the 12.5 m raster
+= 1/900 of pixels, pooled across the scenes of the union cover), valid-subpixel
+counts, scene URs and acquisition dates (ALOS-1 scenes, 2006-2011). Pixel
+centres go through `h3.latlng_to_cell(lat, lon, 4)` after a per-window
+CRS->WGS84 projection — stated in both the docstring and the `.meta.json`.
+
+**Proxy limits (important):** PALSAR is L-band (1.26 GHz) LINEAR polarization.
+The engineering targets `radar_ka_backscatter` (Mars, Ka band) and `cpr_minirf`
+(Moon, circular polarization ratio) are a different band and polarization
+basis. No conversion was made and none is claimed — weak Earth-side analogue
+only.
+
+- `python -m p0ingest.palsar --query` — live CMR probe per cluster, greedy
+  fewest-scenes cover (a cell counts covered when its centre + 6 vertices lie
+  inside the UNION of chosen footprints; scenes are rotated strips), writes the
+  selection file and prints the size plan (real run 2026-11-14: 43 scenes,
+  14.74 GB, 0 uncovered cells).
+- `--fetch` would download the chosen scenes via `p0ingest.snapshots.fetch` (the ASF
+  host is added to the Earthdata-host tuple at call time; MANIFEST provenance).
+  **Still blocked 2026-11-15, post-EULA**: the Earthdata account HAS now approved
+  ASF's application/EULA (client_id BO_n7nTIlMljdvU6kRRB3g) but a PAT alone still
+  cannot drive datapool downloads — datapool/data.asf redirect to URS
+  `oauth/authorize` (app_type=401), which rejects EDL tokens in every form
+  (401 "HTTP Basic: Access denied" with bearer, basic and query-token variants);
+  `cumulus.asf.alaska.edu/s3credentials` DOES issue STS creds but its
+  DownloadRoleInRegion role denies `s3:GetObject` on `asf-cumulus-prod-protected`
+  for every RTC_HI_RES key layout probed; TEA `/locate` has no route for these
+  buckets; CMR publishes no `s3://` URLs for C1206487504-ASF. Full evidence on
+  issue #96. A working path needs an interactive Earthdata browser login (or a
+  username/password .netrc), not a PAT.
+- `--build` writes `_derived/palsar-r4-sites.parquet` + `.meta.json`; with the
+  fetch blocked the table carries 35 rows of explicit nulls with
+  `missing_reason` `asf-download-auth-unreachable` (missing stays missing on
+  purpose). A cell's median needs >= 50 valid subgrid pixels, else
+  `not-enough-valid-pixels`.
+- `--check` validates columns, keys (exactly the 35 subset cells), no
+  duplicates, the dB physical guard, and that `missing_reason` keys match the
+  null value columns of each row exactly; with raw scenes present it
+  recomputes 5 cells' medians straight from the raw zips and compares. The
+  pipeline is exercised offline by `tests/test_palsar.py` (synthetic RTC
+  GeoTIFFs; 17 tests; full suite green in normal and `-O` mode).
