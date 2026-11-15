@@ -25,13 +25,15 @@ can't test, logistics and risks, and export a brief.
 
 | Piece | Where | Landed in |
 |---|---|---|
-| Six-step planner in the browser, on real data | `apps/atlas/planner.html` | #132 (PR #149) |
-| Planner engine (verdicts, funnel, shortlist, logistics, risks, brief) | `services/engine/src/planner/` | #132 (PR #149), on #85 |
+| Seven-step Observatory planner UI (React, Base UI, Motion, three.js globe) | `apps/planner/` | #181 (PR #182) |
+| Seven-step Figma mission UI (`apps/mission-ui`, with placeholder badges) | `apps/mission-ui/` | #190 (PR #191) |
+| Six-step planner in the atlas app, on real data | `apps/atlas/planner.html` | #132 (PR #149) |
+| Planner engine (verdicts, funnel, shortlist, Pareto layers, CVaR optimizer, logistics, risks, brief) | `services/engine/src/planner/` | #132 (PR #149), #170 (PR #172) |
 | Release step that publishes hashed data for the browser, plus 459 golden cases checked in both Python and the browser | `planner.release`, `npm run check:planner` | #132 (PR #149) |
-| Assembled Earth tables: 91,800 land hexagons, yearly and monthly traits, EONET hazards | `services/ingest` (`p0ingest.assemble`) | #69 (PR #73), refreshed in #127 |
+| Assembled Earth & planetary feature tables: 91,800 land hexagons, yearly and monthly traits, EONET hazards | `services/ingest` (`p0ingest.assemble`) | #69 (PR #73), #127, #154 (PR #168) |
 | Six cited past analog campaigns | `data/campaigns/` | #60 (PR #63) |
 | Calibration: do past campaign sites pass their own objective? | [docs/qa/CALIBRATION.md](docs/qa/CALIBRATION.md) | #23 (PR #178) |
-| Lean proofs S1, S2, S4, S5, S6 and S7 (the funnel rules the engine follows) | `proofs/Analog/` | see [STATEMENTS.md](proofs/STATEMENTS.md) |
+| Lean proofs S1, S2, S4, S5, S6, S7, S9 and S10 (funnel, Pareto layers, CVaR optimizer) | `proofs/Analog/` | see [STATEMENTS.md](proofs/STATEMENTS.md) |
 | Shared JSON contracts between engine and app | `contracts/` | #78 (PR #79) and earlier |
 
 **What it doesn't do yet**, so nobody over-reads it:
@@ -39,8 +41,7 @@ can't test, logistics and risks, and export a brief.
 - **Science is partial.** Source quality checks are still open (#76). Some
   traits have no accepted band yet, so they show as unknown. For Mars OP-5LM
   that means no site gets a Pareto layer (see the calibration write-up).
-- **Not in main yet:** S8 proofs (past-mission closeness, PR #140), the campaign
-  optimizer (PR #172) and the new feature tables (PR #168).
+- **Not in main yet:** S8 proofs (past-mission closeness, PR #140).
 - **Hosted CI is down** (#139, a billing issue), so checks are run locally with
   saved receipts ([docs/qa/LOCAL-CHECKS.md](docs/qa/LOCAL-CHECKS.md)).
 
@@ -51,7 +52,16 @@ Deferred ADR-0004 material, kept for reference: [status](docs/STATUS.md),
 [coherence review](docs/design/coherence-review.md), [evidence design](docs/design/evidence-comparison.md),
 [implementation plan](docs/IMPLEMENTATION-PLAN.md).
 Delivery plan: [docs/PLAN-hackathon.md](docs/PLAN-hackathon.md) · pitch:
-[docs/pitch/PITCH.md](docs/pitch/PITCH.md) · AI disclosure: [AI-USAGE.md](AI-USAGE.md).
+[docs/pitch/PITCH.md](docs/pitch/PITCH.md) · AI disclosure: [AI-USAGE.md](AI-USAGE.md) ·
+license: [LICENSE](LICENSE).
+
+**Data licences.** The MIT licence covers this repository's own code and text.
+Third-party data keeps its own licence: each source's terms and required
+attribution are in its `data/catalog/<id>.yaml` row and in
+`data/snapshots/MANIFEST.json`. Examples: travel time to cities (Weiss et al.
+2018) is CC BY 3.0 and needs attribution. The MOLA–HRSC blended DEM is CC BY-SA
+3.0 IGO. Copernicus DEM follows the Copernicus DEM licence. WDPA protected-area
+data is licence-restricted and is not redistributed here.
 
 ## Agents: check in first
 

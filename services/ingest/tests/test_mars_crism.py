@@ -186,10 +186,11 @@ class CubeFillHandling(unittest.TestCase):
 
 class IntegrationIfSnapshotted(unittest.TestCase):
     TABLE = SNAP / "_derived" / "planetary" / "crism-mtrdr" / "crism-mtrdr-summary.parquet"
+    RAW_README = SNAP / "crism-mro" / "aareadme.txt"
 
     def setUp(self):
-        if not self.TABLE.exists():
-            self.skipTest("crism-mtrdr-summary table not built in this checkout")
+        if not self.TABLE.exists() or not self.RAW_README.exists():
+            self.skipTest("crism-mtrdr-summary table or raw crism-mro snapshots not present in this checkout")
 
     def test_module_check_passes(self):
         mc.check()  # keys, ranges, footprints, missing reasons, raw spot checks

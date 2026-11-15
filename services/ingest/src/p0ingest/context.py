@@ -41,11 +41,9 @@ PAVED_SURFACES = {"ASP", "CON", "ASPHALT", "CONCRETE", "BITUMINOUS", "PAVED", "A
 
 
 def _find_l1() -> Path:
-    candidates = [DERIVED / "cells-r4.parquet",
-                  Path("/home/drew/cosmic-consultants/data/snapshots/_derived/cells-r4.parquet")]
-    for path in candidates:
-        if path.is_file():
-            return path
+    path = DERIVED / "cells-r4.parquet"
+    if path.is_file():
+        return path
     raise FileNotFoundError("cells-r4.parquet not found locally; restore it from the Drive mirror first")
 
 

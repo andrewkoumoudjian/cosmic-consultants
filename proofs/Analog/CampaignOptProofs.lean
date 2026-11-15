@@ -3,7 +3,8 @@
 
 Proves every `S10...` Prop defined in `Analog/CampaignOpt.lean` cleanly,
 instantiating `Analog.Screening.cvar_screening_exact` and
-`Analog.Certificate.subopt_le` with standard axioms only and zero `sorry`/`admit`.
+`Analog.Certificate.subopt_le` with standard axioms only and no unproven
+placeholders or escape hatches.
 -/
 import Mathlib
 import Analog.CampaignOpt
