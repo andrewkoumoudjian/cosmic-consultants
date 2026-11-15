@@ -448,7 +448,9 @@ def evaluate_sites(
 
     Any candidate missing one or more axis observations is isolated in
     `excludedUnknown` with `paretoLayer = None` (S9e). Hard limits reject only
-    known values exceeding the cap (`S7i`).
+    known values exceeding the cap (`S7i`). `counts['comparable']` records all
+    eligible sites layered, while `counts['returned']` records the count
+    remaining in `comparable` after optional `max_layers` filtering.
     """
     if not axes:
         raise ValueError("At least one comparable physical axis is required")
@@ -544,6 +546,7 @@ def evaluate_sites(
             "excludedLimits": len(excluded_limits),
             "excludedUnknown": len(excluded_unknown),
             "comparable": len(comparable_items),
+            "returned": len(ranked),
             "layers": num_layers,
         },
         "comparable": ranked,

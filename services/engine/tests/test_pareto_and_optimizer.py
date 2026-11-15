@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import math
+import os
 import random
 import tempfile
 import unittest
@@ -116,6 +117,11 @@ class ParetoModelS9Tests(unittest.TestCase):
 
         chosen = select_diverse_frontier_candidates(res, max_candidates=3)
         self.assertEqual({d["h3"] for d in chosen}, {"840000000000001", "840000000000002", "840000000000003"})
+
+        res_l1 = evaluate_sites(rows, axes, limits={"slope": 10.0, "protected": 5.0}, target=target, max_layers=1)
+        self.assertEqual(res_l1["counts"]["comparable"], 4)
+        self.assertEqual(res_l1["counts"]["returned"], 3)
+        self.assertEqual(len(res_l1["comparable"]), 3)
 
     def test_build_target_axes_only_uses_populated_planetary_fields(self) -> None:
         sparse_target = {"target_id": "sparse", "body": "moon", "target_slope_local_deg": 3.5}
@@ -238,7 +244,7 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         with self.assertRaises(InfeasibleCampaignError):
             solve_cvar_campaign(prob)
 
-    def test_synthetic_parquet_years_missingness_exclusion(self) -> None:
+    def test_synthetic_parquet_years_missingness_exclusion_and_strict_constraints(self) -> None:
         import pyarrow as pa
         import pyarrow.parquet as pq
 
@@ -248,33 +254,81 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
             for yr in (2020, 2021, 2022):
                 rows.append({"h3": "840000000000001", "year": yr, "month": 7, "lst_day_k": 295.0, "lst_night_k": 265.0})
                 rows.append({"h3": "840000000000002", "year": yr, "month": 7, "lst_day_k": 290.0 if yr != 2021 else None, "lst_night_k": 260.0})
+                rows.append({"h3": "840000000000003", "year": yr, "month": 7, "lst_day_k": 296.0, "lst_night_k": 264.0})
             pq.write_table(pa.Table.from_pylist(rows), p)
 
             cands = [
                 {"h3": "840000000000001", "observations": {"access_min_median": 30.0}},
                 {"h3": "840000000000002", "observations": {"access_min_median": 20.0}},
+                {"h3": "840000000000003", "observations": {"access_min_median": 40.0}},
             ]
             prob, excluded = build_campaign_problem_from_years(
                 cands, p, month=7, thermal_band_k=(262.0, 298.0), alpha=0.34, max_weight_per_site=1.0
             )
-            self.assertEqual(prob.candidate_ids, ["840000000000001:m7"])
+            self.assertEqual(prob.candidate_ids, ["840000000000001:m7", "840000000000003:m7"])
             self.assertEqual(excluded, [{"h3": "840000000000002", "reason": "missing-year-2021-lst"}])
             sol = solve_cvar_campaign(prob)
-            self.assertAlmostEqual(sol.weights["840000000000001:m7"], 1.0, places=9)
+            self.assertAlmostEqual(sum(sol.weights.values()), 1.0, places=9)
+
+            # Infeasible explicit budget must be preserved and raise InfeasibleCampaignError
+            low_budget_prob, _ = build_campaign_problem_from_years(
+                cands, p, month=7, thermal_band_k=(262.0, 298.0), alpha=0.34, max_weight_per_site=1.0, budget=5.0
+            )
+            self.assertEqual(low_budget_prob.budget, 5.0)
+            with self.assertRaises(InfeasibleCampaignError):
+                solve_cvar_campaign(low_budget_prob)
+
+            # Infeasible explicit max_weight_per_site must be preserved and raise InfeasibleCampaignError
+            tight_cap_prob, _ = build_campaign_problem_from_years(
+                cands, p, month=7, thermal_band_k=(262.0, 298.0), alpha=0.34, max_weight_per_site=0.2, budget=100.0
+            )
+            self.assertEqual(tight_cap_prob.hi, (0.2, 0.2))
+            with self.assertRaises(InfeasibleCampaignError):
+                solve_cvar_campaign(tight_cap_prob)
+
+            # Missing expected year across all candidates must not shrink T silently
+            with self.assertRaises(InfeasibleCampaignError):
+                build_campaign_problem_from_years(
+                    cands,
+                    p,
+                    month=7,
+                    thermal_band_k=(262.0, 298.0),
+                    expected_years=(2020, 2021, 2022, 2023),
+                )
+
+            # Missing thermal band and target thermal fields must raise ValueError
+            with self.assertRaises(ValueError):
+                build_campaign_problem_from_years(cands, p, month=7)
 
 
 def _find_real_data_paths() -> tuple[Path, Path] | None:
+    """Locate assembled #168 outputs and cells-r4-monthly-years.parquet cleanly.
+
+    Reads optional `COSMIC_ASSEMBLED_DIR` and `COSMIC_MONTHLY_YEARS_PATH`
+    environment variables first, falling back to `data/snapshots/_derived/`.
+    """
     here = Path(__file__).resolve()
+    env_asm = os.environ.get("COSMIC_ASSEMBLED_DIR")
+    env_years = os.environ.get("COSMIC_MONTHLY_YEARS_PATH")
+
+    years_path: Path | None = Path(env_years) if env_years else None
+    if years_path is None:
+        for parent in here.parents:
+            cand = parent / "data" / "snapshots" / "_derived" / "cells-r4-monthly-years.parquet"
+            if cand.exists():
+                years_path = cand
+                break
+    if years_path is None or not years_path.exists():
+        return None
+
+    asm_candidates: list[Path] = []
+    if env_asm:
+        asm_candidates.append(Path(env_asm))
     for parent in here.parents:
-        main_years = parent / "data" / "snapshots" / "_derived" / "cells-r4-monthly-years.parquet"
-        asm_candidates = [
-            parent / "data" / "snapshots" / "_derived" / "assembled",
-            parent / ".worktrees" / "data-154-assemble-features" / "data" / "snapshots" / "_derived" / "assembled",
-        ]
-        if main_years.exists():
-            for asm in asm_candidates:
-                if (asm / "earth-features-r4.parquet").exists() and (asm / "planetary-targets.parquet").exists():
-                    return asm, main_years
+        asm_candidates.append(parent / "data" / "snapshots" / "_derived" / "assembled")
+    for asm in asm_candidates:
+        if (asm / "earth-features-r4.parquet").exists() and (asm / "planetary-targets.parquet").exists():
+            return asm, years_path
     return None
 
 
@@ -306,6 +360,7 @@ class RealDataIntegrationTests(unittest.TestCase):
             years_path,
             month=7,
             thermal_band_k=(245.0, 305.0),
+            expected_years=range(2014, 2024),
             alpha=0.2,
             max_weight_per_site=0.5,
             coverage_rules=[("barren_pct", 50.0, 0.3, ">=")],
@@ -331,6 +386,7 @@ class RealDataIntegrationTests(unittest.TestCase):
             years_path,
             month=1,
             thermal_band_k=(230.0, 275.0),
+            expected_years=range(2014, 2024),
             alpha=0.2,
             max_weight_per_site=0.5,
         )

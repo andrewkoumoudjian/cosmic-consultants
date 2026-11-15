@@ -157,7 +157,17 @@ class CampaignProblem:
 
 @dataclass(frozen=True)
 class DualCertificate:
-    """Audit artifact mirroring `Analog.CampaignOpt.S10d_dual_subopt_certificate`."""
+    """Audit artifact mirroring `Analog.CampaignOpt.S10d_dual_subopt_certificate`.
+
+    `S10d` is instantiated over the nonnegativity-augmented inequality system
+    `G_aug = [G_struct; -I]`, `h_aug = [h_struct; 0]` with multiplier vector
+    `lam_full = lam_struct + lam_nn >= 0`, so `dual_residual_linf` bounds
+    `||g + G_aug^T lam_full + E^T y||_inf`.
+
+    `l1_radius_bound` bounds `||z - z*||_1` for any optimal `(w*, t*, u*)`
+    (since an optimal VaR `t*` lies in `[L_min, L_max]` and `0 <= u_k* <= spread`);
+    for an arbitrary feasible `z*`, call `subopt_bound(||z - z*||_1)` directly.
+    """
 
     objective_value: float
     primal_max_ineq_violation: float
@@ -547,6 +557,7 @@ def build_campaign_problem_from_years(
     month: int,
     target_row: dict | None = None,
     thermal_band_k: tuple[float, float] | None = None,
+    expected_years: Iterable[int] | None = None,
     alpha: float = 0.2,
     max_weight_per_site: float = 0.5,
     budget: float | None = None,
@@ -555,9 +566,21 @@ def build_campaign_problem_from_years(
     """Construct a multi-year `CampaignProblem` from `cells-r4-monthly-years.parquet`.
 
     Each candidate dict comes from `pareto_model` / `earth-features-r4` and must
-    contain `h3` (and `observations`/`access_min_median`). Any candidate missing
-    ANY year observation across `2014..2023` for the active month is excluded cleanly
-    in `excluded_candidates` (`Rule 2`: never invent data).
+    contain `h3` (and `observations`/`access_min_median`).
+
+    Completeness (`Rule 2`: never invent data):
+    - When `expected_years` is provided (e.g. `range(2014, 2024)`), every candidate
+      missing ANY year in `expected_years` for `month` is excluded cleanly.
+    - When `expected_years` is `None`, completeness is checked over every year
+      observed in `years_parquet_path` for `month` across the supplied candidates.
+
+    Constraints (`S10e`):
+    - `max_weight_per_site` and explicit `budget` are preserved verbatim without
+      silent relaxation; infeasible values raise `InfeasibleCampaignError` when solved.
+    - When `budget` is `None`, defaults to the median `access_min_median` among kept
+      candidates.
+    - Requires `thermal_band_k` or finite `target_tsurf_min_k` / `target_tsurf_range_k`
+      on `target_row`.
     """
     import pyarrow as pa
     import pyarrow.compute as pc
@@ -568,6 +591,19 @@ def build_campaign_problem_from_years(
         raise ValueError("No candidates provided to build_campaign_problem_from_years")
     if not (1 <= month <= 12):
         raise ValueError("month must be in 1..12")
+    cap = float(max_weight_per_site)
+    if not math.isfinite(cap) or cap < 0.0:
+        raise ValueError("max_weight_per_site must be finite and >= 0")
+
+    t_min_target = None if target_row is None else target_row.get("target_tsurf_min_k")
+    t_range_target = None if target_row is None else target_row.get("target_tsurf_range_k")
+    has_min_target = t_min_target is not None and math.isfinite(float(t_min_target))
+    has_range_target = t_range_target is not None and math.isfinite(float(t_range_target))
+    if thermal_band_k is None and not (has_min_target or has_range_target):
+        raise ValueError(
+            "build_campaign_problem_from_years requires thermal_band_k or finite "
+            "target_tsurf_min_k / target_tsurf_range_k on target_row"
+        )
 
     h3_ids = [str(c["h3"]) for c in cand_list]
     tbl = pq.read_table(
@@ -582,12 +618,15 @@ def build_campaign_problem_from_years(
         y = int(r["year"])
         all_years.add(y)
         rows_by_h3_year[(str(r["h3"]), y)] = r
-    years = sorted(all_years)
-    if not years:
-        raise ValueError(f"No historical year rows found for month={month} and provided candidates")
 
-    t_min_target = None if target_row is None else target_row.get("target_tsurf_min_k")
-    t_range_target = None if target_row is None else target_row.get("target_tsurf_range_k")
+    if expected_years is not None:
+        years = sorted({int(y) for y in expected_years})
+        if not years:
+            raise ValueError("expected_years must not be empty when provided")
+    else:
+        years = sorted(all_years)
+        if not years:
+            raise ValueError(f"No historical year rows found for month={month} and provided candidates")
 
     def _annual_loss(row: dict) -> float | None:
         day_k = row.get("lst_day_k")
@@ -602,12 +641,10 @@ def build_campaign_problem_from_years(
             lo_k, hi_k = float(thermal_band_k[0]), float(thermal_band_k[1])
             return max(0.0, lo_k - n) + max(0.0, d - hi_k)
         loss_k = 0.0
-        if t_range_target is not None and math.isfinite(float(t_range_target)):
+        if has_range_target:
             loss_k += abs((d - n) - float(t_range_target))
-        if t_min_target is not None and math.isfinite(float(t_min_target)):
+        if has_min_target:
             loss_k += abs(n - float(t_min_target))
-        if t_range_target is None and t_min_target is None:
-            loss_k = d - n
         return loss_k
 
     kept: list[dict] = []
@@ -637,11 +674,12 @@ def build_campaign_problem_from_years(
         loss_cols.append(col_losses)
 
     if not kept:
-        raise InfeasibleCampaignError("Every candidate lacks complete 2014-2023 yearly data or access cost")
+        raise InfeasibleCampaignError(
+            f"Every candidate lacks complete yearly data ({years[0]}..{years[-1]}) or access cost"
+        )
 
     m = len(kept)
-    eff_hi = min(1.0, max(float(max_weight_per_site), 1.0 / m + 1e-9))
-    hi = [eff_hi] * m
+    hi = [cap] * m
     # Transpose loss_cols (m x T) -> loss_matrix (T x m)
     t_cnt = len(years)
     loss_matrix = [[loss_cols[j][i] for j in range(m)] for i in range(t_cnt)]
@@ -655,8 +693,6 @@ def build_campaign_problem_from_years(
         eff_budget = s_costs[len(s_costs) // 2]
     else:
         eff_budget = float(budget)
-    if eff_budget < min(costs):
-        eff_budget = min(costs)
 
     cov_rows: list[list[float]] = []
     req_vals: list[float] = []
