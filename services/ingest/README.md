@@ -352,6 +352,30 @@ algorithmic cross-check only, NOT independent) and the W34 monthly-only scope
 does not need it; building it later is a small job (same reader shape, 12 x
 128 MB). Filed as a possible follow-up with the parent assembler wiring.
 
+## W49 (#108) target sites: cited Moon/Mars extraction points (my own section)
+
+One YAML file per named site under `data/targets/` (see `data/targets/README.md`
+for the full schema and the per-null reasons). Rows carry planetocentric
+east-positive centres where the source publishes numerals, quoted verbatim from
+sha256-pinned snapshots only; NASA's Artemis releases publish region outlines as
+graphics only, so those rows have `centreLat`/`centreLon` null with an explicit
+`missingReason` instead of invented centres. Gazetteer-sourced feature rows
+re-compose their quote from the USGS centre-point DBF exports. Landing sites
+record the great-circle km to their host IAU feature in `usgsCrossCheck`
+(Curiosity 51.4 km from the Gale centre, Perseverance 45.6 km from Jezero's,
+Spirit 3.6 km from Gusev's, etc.); Zhurong is left coordinate-less with a
+`missingReason` because no snapshottable official NASA/USGS source carries its
+touchdown numbers.
+
+- `python -m p0ingest.targets` (quiet: `-q`) loads every `data/targets/*.yaml`,
+  checks required fields/enums/ranges, filename/id match, quote parsability
+  (lat/lon re-parsed from the quote and compared to the declared centre),
+  MANIFEST sha256/url match, gazetteer quote recomposition, and
+  `usgsCrossCheck` tolerance; exit 0 only when everything passes.
+- `tests/test_targets.py` covers the quote parsing, the DBF reader, the
+  convention folding and the per-row checks with synthetic fixtures, plus an
+  integration test that the real `data/targets/` rows all pass.
+
 ## W42 (#101) Moon neutron and gamma-ray maps: moon_nuclear
 
 `uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares:

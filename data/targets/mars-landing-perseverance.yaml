@@ -1,0 +1,25 @@
+siteId: mars-landing-perseverance
+name: Perseverance rover, Jezero Crater
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: 18.0
+centreLon: 77.0
+note: 'landed 2021-02-18; press-kit precision: whole degrees (~30 km); longitude unmarked
+  in the kit, read east-positive'
+source:
+  datasetId: mars-lander-sites
+  file: jpl-mars2020-landing-press-kit-2021.pdf
+  url: https://web.archive.org/web/20210203052000id_/https://www.jpl.nasa.gov/news/press_kits/mars_2020/download/mars_2020_landing_press_kit.pdf
+  fetchedAt: '2026-11-14T23:30:55Z'
+  sourceSha256: 2fa99f7cf81018ea5803a2dbb4d7b928d6a3561c5665c8d752245848fdc33ed9
+  quote: 'Landing site: Jezero Crater, about 18 degrees north latitude, 77 degrees
+    longitude'
+usgsCrossCheck:
+  feature: Jezero
+  diffKm: 45.6
+  expectedMaxKm: 48
+  note: 'crater-scale: Jezero is a 47.5 km crater; the press-kit point (whole-degree
+    precision, ~30 km) sits 45.6 km from the crater centre on its western side, inside
+    the diameter; tolerance = full crater diameter'

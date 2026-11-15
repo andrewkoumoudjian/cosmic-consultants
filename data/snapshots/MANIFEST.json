@@ -2,6 +2,47 @@
   "description": "Hashed dataset snapshots used by W6 ingest. Payload bytes are local (gitignored); this file is the provenance record (AGENTS.md rule 3).",
   "entries": [
     {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://ntrs.nasa.gov/api/citations/20250011660/downloads/AIIIUpdateLPSC2026.docx.txt",
+      "fetchedAt": "2026-11-14T23:29:37Z",
+      "sha256": "5ab51484f5d766b4ec1c8f06fd588ddc9ee219eb6f427f40d166206d5a7e7b8f",
+      "bytes": 7712,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/ntrs-20250011660-site-selection-update-fulltext.txt"
+    },
+    {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-identifies-candidate-regions-for-landing-next-americans-on-moon",
+      "fetchedAt": "2026-11-14T23:29:34Z",
+      "sha256": "ff2466c4e7afa5adaeb3850c23a5e6616325ee1173abafec8d804cbfde57d7c7",
+      "bytes": 20265,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/release-2022-08-19-thirteen-regions.json"
+    },
+    {
+      "datasetId": "artemis-iii-candidate-regions",
+      "sourceUrl": "https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-provides-update-on-artemis-iii-moon-landing-regions",
+      "fetchedAt": "2026-11-14T23:29:35Z",
+      "sha256": "c58c6f2ef0a08dac4746a425d392a2a9c48f0e437a191010df65185b6fee76fe",
+      "bytes": 20593,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/artemis-iii-candidate-regions/release-2024-10-28-nine-regions.json"
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-site-coordinates",
+      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
+      "bytes": null,
+      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
+      "localPath": null,
+      "datasetId": "campaign-sources"
+    },
+    {
       "campaignId": "atacama-arads-2019",
       "sourceRef": "arads-2019-article",
       "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
@@ -87,17 +128,6 @@
       "bytes": 5823240,
       "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
       "localPath": "data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf",
-      "datasetId": "campaign-sources"
-    },
-    {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-site-coordinates",
-      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
-      "bytes": null,
-      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
-      "localPath": null,
       "datasetId": "campaign-sources"
     },
     {
@@ -439,6 +469,96 @@
       "license": "us-pd",
       "licenseVerified": true,
       "localPath": "data/snapshots/lp-grs-pds/index.tab"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20181101155636id_/https://www.jpl.nasa.gov/news/press_kits/insight/landing/download/mars_insight_landing_presskit.pdf",
+      "fetchedAt": "2026-11-14T23:30:37Z",
+      "sha256": "40b5665b89f09b0722dfdd074b2901cecfeea3876a3208dfc329987be9252911",
+      "bytes": 13315755,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-insight-landing-press-kit-2018.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20210203052000id_/https://www.jpl.nasa.gov/news/press_kits/mars_2020/download/mars_2020_landing_press_kit.pdf",
+      "fetchedAt": "2026-11-14T23:30:55Z",
+      "sha256": "2fa99f7cf81018ea5803a2dbb4d7b928d6a3561c5665c8d752245848fdc33ed9",
+      "bytes": 11235158,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-mars2020-landing-press-kit-2021.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://web.archive.org/web/20261022111725id_/https://www.jpl.nasa.gov/news/press_kits/MSLLanding.pdf",
+      "fetchedAt": "2026-11-14T23:30:01Z",
+      "sha256": "672093c03108c3c91b9b10e0121510dfe0c7eb66b74ade5839ff9b1be839b987",
+      "bytes": 5209940,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/jpl-msl-landing-press-kit-2012.pdf"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C",
+      "fetchedAt": "2026-11-14T23:29:39Z",
+      "sha256": "7b9dddcaefad0f6a98f70abeb9ce66dce3fdab3094da44783ad132419664ee55",
+      "bytes": 15095,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1975-075C-viking1.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-083C",
+      "fetchedAt": "2026-11-14T23:29:40Z",
+      "sha256": "ae01237164675e15fbd8c9522d1a1b22f0e8920ddcef39e0870c4378b501fb60",
+      "bytes": 14863,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1975-083C-viking2.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1996-068A",
+      "fetchedAt": "2026-11-14T23:29:42Z",
+      "sha256": "812da9fad35f8c8431b40fe9a62ad912388ddd23b9eee0df504cd6e7791a4b26",
+      "bytes": 13323,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-1996-068A-pathfinder.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-027A",
+      "fetchedAt": "2026-11-14T23:29:43Z",
+      "sha256": "325fea4c8713a6c000efd615fae856c497d92a93f9610540240bebc5a7da8512",
+      "bytes": 18805,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2003-027A-spirit.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2003-032A",
+      "fetchedAt": "2026-11-14T23:29:44Z",
+      "sha256": "a3070bfb48aa5d005a9f885c45a25df5f4a57e8a37b4b39a2ce059002f04692c",
+      "bytes": 17153,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2003-032A-opportunity.xhtml"
+    },
+    {
+      "datasetId": "mars-lander-sites",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2007-034A",
+      "fetchedAt": "2026-11-14T23:29:46Z",
+      "sha256": "2c41af9ced80b744163d99c46aefd340a2da52f6e2a0fa5d33a585ee17daf31c",
+      "bytes": 14739,
+      "license": "us-pd",
+      "licenseVerified": false,
+      "localPath": "data/snapshots/mars-lander-sites/nssdc-2007-034A-phoenix.xhtml"
     },
     {
       "datasetId": "merra2-m2tmnxflx",

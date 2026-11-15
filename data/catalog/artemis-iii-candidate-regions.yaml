@@ -1,0 +1,37 @@
+# Registry row (W49, issue #108). NASA's Artemis III candidate landing
+# region announcements (names + scale; NASA has never published numeric
+# region centres as text) plus the official NTRS site-selection update.
+# Snapshots are taken via the WordPress JSON API (/wp-json/wp/v2/...) because
+# p0ingest.snapshots.fetch refuses text/html payloads; the JSON contains the
+# full release body, and the canonical page URL is recorded on each target row.
+datasetId: artemis-iii-candidate-regions
+title: "NASA Artemis III candidate landing region announcements (2022, 2024) + NTRS site-selection update"
+status: candidate
+bodies: [moon]
+dimensions: [terrain, illumination, waterIce] # only as planned extraction context
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA (nasa.gov news releases; NASA NTRS)"
+  endpoint: "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+  probedAt: null
+  probeResult: "unverified: 2022 + 2024 releases and NTRS 20250011660 full text fetched 2026-11-14 (HTTP 200)"
+probe:
+  kind: http
+  url: "https://www.nasa.gov/news-release/nasa-provides-update-on-artemis-iii-moon-landing-regions/"
+  expect: ["candidate", "Artemis III"]
+license:
+  id: us-pd
+  textUrl: "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  expect: ["public domain", "NASA"]
+  verified: false
+  note: "NASA news releases and NTRS records are US Government works (public domain). Content-usage policy page cited; live probe of the licence page pending."
+coverage:
+  spatial: "lunar south pole, within 6 deg latitude of the pole; each region approx 15 x 15 km (2022 release)"
+  temporal: "announcements dated 2022-08-19 (release 22-089) and 2024-10-28 (release 24-136); static"
+  resolution: "region labels only; numeric centres not published as text"
+analysisReady: true
+independenceGroup: nasa-programmatic
+plannedUse: "Moon target-side site list (W49, #108): which named regions/features the analog extraction covers"
+snapshotPolicy: "release JSON via nasa.gov wp-json + NTRS full text, via p0ingest.snapshots.fetch"
