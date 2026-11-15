@@ -14,7 +14,8 @@ Last updated 2026-11-15 from every check-in on #6 up to about 16:40 UTC.
 
 - **AI agents did most of the writing.** That covers the research docs, the
   Lean definitions and proofs, the JSON contracts, the data pipeline, the
-  planner engine, the web app, the tests and most planning documents.
+  planner engine, the three web apps (`apps/atlas`, `apps/planner`,
+  `apps/mission-ui`), the tests and most planning documents.
 - **People made the calls.** The four team members set the scope, chose the
   datasets and methods, accepted every decision record (ADR) and decided what
   to merge. The repo owner, Andrew Koumoudjian, accepts ADRs and proofs.
@@ -37,15 +38,15 @@ Model, provider and harness are separate fields, as AGENTS.md rule 6 asks.
 | Agent | Model | Provider | Harness | Used for |
 |---|---|---|---|---|
 | Muse Code | muse-wonder-full-1.0 | Muse | T3 Code (Muse Code) | Research docs 01–06, proposal 04, Lean scaffold, port of the owner's prior Lean work, board setup |
-| Mistral Vibe | zai-glm-5-3-flash; glm-5-3 | Z.ai (GLM) | T3 Code (Mistral Vibe) | Lean S2 atlas proofs (W1/W2), Cantelli re-proof, albedo and regolith builders (W26), dust (#68) |
+| Mistral Vibe | zai-glm-5-3-flash; glm-5-3 | Z.ai (GLM) | T3 Code (Mistral Vibe) | Lean S2 atlas proofs (W1/W2), Cantelli re-proof, ingest pipelines (dust #68, EMIT, PALSAR, Moon and Mars tables), albedo and regolith builders (W26) |
 | Mistral Vibe (reviewer) | mistral-large-4-0-3 | Mistral | T3 Code (Mistral Vibe) | Review of the mission-planner plan (#57) |
-| Claude Code | claude-opus-5-5 | Anthropic | T3 Code (Claude Code) | Hackathon plan, ADR-0002/0003/0005, doc 07, data pipeline spec, monthly and context tables, campaign calibration (#23, PR #178), README (#180), planner UI (#181, PR #182), mission-UI follow-ups (#193), ship plan, helper dispatch |
+| Claude Code | claude-opus-5-5 | Anthropic | T3 Code (Claude Code) | Hackathon plan, ADR-0002/0003/0005, doc 07, data pipeline spec, contracts and engine work, monthly and context tables, campaign calibration (#23, PR #178), README (#180), `apps/atlas`, planner UI `apps/planner` (#181, PR #182), mission-UI follow-ups (#193), Cloudflare Pages deploys, ship plan, helper dispatch |
 | Claude helpers | claude-sonnet-5-5 | Anthropic | T3 Code | Burned area (W25), albedo and subsurface (W26), target bands (W27) |
 | Codex | gpt-6.1-sol | OpenAI | T3 Code (Codex) | Data cleaning and assembly (#69), planetary source preparation (#74), working workflow (#132), engine and release wiring (#183, PR #184), deployments |
 | Codex helpers | gpt-6-luna | OpenAI | T3 Code (Codex) | Context table (W18), past-campaigns table (W19), source work (W25–W27), plan review (#57) |
 | Codex reviewers | gpt-6.1-terra; gpt-6-astra | OpenAI | T3 Code (Codex) | Independent reviews of #132, #168, #172, #178 and #182 |
-| Antigravity | gemini-4-hydrogen | Google | T3 Code (Antigravity) | Feature and planetary assembly (#154, PR #168), Pareto layers and CVaR campaign optimizer with Lean proofs S9/S10 (#170, PR #172), engine fixes (#183), planner UI fixes (#182), source QA (#76), proof coordination (#140) |
-| OpenCode helpers | minimax-m3.1-flash | MiniMax (via OpenRouter and opencode) | T3 Code (OpenCode) | Plan review (#57) |
+| Antigravity | gemini-4-hydrogen | Google | T3 Code (Antigravity) | Feature and planetary assembly (#154, PR #168), Pareto layers and CVaR campaign optimizer with Lean proofs S9/S10 (#170, PR #172), engine fixes (#183), planner UI fixes (#182), source QA (#76), proof coordination (#140), public-release preparation (#198: licence, paths, first AI-USAGE update) |
+| OpenCode helpers | minimax-m3.1-flash; minimax-m3.1-flash-free | MiniMax (via OpenRouter and opencode) | T3 Code (OpenCode) | First `apps/atlas` readiness-map mock UI (#21), plan review (#57) |
 
 ### Derek Gallagher (@Derick12345678)
 
@@ -71,13 +72,14 @@ Model, provider and harness are separate fields, as AGENTS.md rule 6 asks.
 
 ## Commit metadata
 
-Measured on `main` at `822f1cc` (2026-11-15) with
-`git log --no-merges --format=%B`: **74 of 117** non-merge commits carry a
-`Co-Authored-By:` trailer. By name: Claude Opus 5.5 74, Mistral Vibe 29,
-Claude Sonnet 5.5 3, Codex 3, Gemini 4 Hydrogen 2, OpenCode helper 2. Some
-commits list more than one agent.
+Measured on `main` at `dce8da7` (2026-11-15) with
+`git log --no-merges --format=%B`: **76 of 121** non-merge commits carry a
+`Co-Authored-By:` trailer. By name: Claude Opus 5.5 75, Mistral Vibe 29,
+Gemini 4 Hydrogen 3, Claude Sonnet 5.5 3, Codex 3, OpenCode helper 2. Some
+commits list more than one agent. PR descriptions written by agents also end
+with a "Generated with" note.
 
-The other 43 commits have no trailer, though agents wrote most of them, for
+The other 45 commits have no trailer, though agents wrote most of them, for
 example some Codex and opencode sessions. For those, the agent and model are
 on record in the #6 check-ins and in each PR's route fields (harness,
 provider, model), which link back to their commits.
