@@ -1,0 +1,369 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmic-consultants.dev/contracts/site-plan.schema.json",
+  "title": "SitePlan",
+  "description": "What the planner engine (W7) returns for ONE site under ONE plan request: steps 2-6 of MISSION-PLANNER.md and the data for the one-page brief. There is no site score, rating or total anywhere (AGENTS.md rule 4, ADR-0005): each trait is match, miss (with its gap in real units) or unknown (with its reason). The two bounded exceptions of ADR-0005 D5 appear only where allowed: past-mission closeness, always split per trait by Shapley values (precedents), and nothing from the optimizer. Every object is closed (additionalProperties false), so a 'score' field cannot be added. Arithmetic checks JSON Schema cannot express (Shapley shares sum to closeness, funnel class matches the verdicts, season months match the strip) live in scripts/validate_contracts.py.",
+  "type": "object",
+  "required": ["version", "request", "site", "objective", "verdicts", "funnelClass", "notTestableOnEarth", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": 1 },
+    "request": { "$ref": "https://cosmic-consultants.dev/contracts/plan-request.schema.json" },
+    "site": {
+      "type": "object",
+      "required": ["h3", "lat", "lon"],
+      "additionalProperties": false,
+      "properties": {
+        "h3": { "$ref": "#/$defs/h3r4" },
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lon": { "type": "number", "minimum": -180, "maximum": 180 },
+        "label": { "type": "string", "description": "Optional place name for display. Never implies an assessment of a named place beyond these numbers." }
+      }
+    },
+    "objective": {
+      "type": "object",
+      "required": ["objectiveId", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "objectiveId": { "type": "string", "pattern": "^[A-Z]{2,3}-[0-9]+(L|M|LM)?$" },
+        "body": { "type": "string", "enum": ["moon", "mars"] }
+      }
+    },
+    "verdicts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Step 3 gap card. Exactly one row per required trait of the objective (validator checks), in three groups by `verdict`.",
+      "items": { "$ref": "#/$defs/verdictRow" }
+    },
+    "limits": {
+      "type": "array",
+      "description": "Hard limits from the request. An unknown value is flagged, never treated as pass or fail.",
+      "items": {
+        "type": "object",
+        "required": ["limit", "max", "value", "outcome"],
+        "additionalProperties": false,
+        "properties": {
+          "limit": { "type": "string", "enum": ["access", "protected", "airport", "slope"] },
+          "max": { "type": "number" },
+          "value": { "type": ["number", "null"] },
+          "unit": { "type": "string" },
+          "outcome": { "type": "string", "enum": ["pass", "fail", "unknown"] },
+          "reason": { "$ref": "#/$defs/reason" }
+        }
+      }
+    },
+    "funnelClass": {
+      "type": "string",
+      "enum": ["allMatch", "someMiss", "noMissSomeUnknown"],
+      "description": "Step 2 funnel view, over the MUST rows only: someMiss if any must row is miss; else noMissSomeUnknown if any must row is unknown; else allMatch. A class, not a score."
+    },
+    "paretoLayer": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Pareto layer among sites that pass the limits (1 = no other site beats it on every gap). An order, not a score: it never adds traits together. null = not on any layer (filtered out by a limit or a must miss)."
+    },
+    "notTestableOnEarth": {
+      "type": "array",
+      "description": "Copied from the objective row; validator checks it equals data/objectives/.",
+      "items": {
+        "type": "object",
+        "required": ["mismatch", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "mismatch": { "type": "string", "enum": ["gravity", "pressureRegime", "radiation"] },
+          "why": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "season": {
+      "type": "object",
+      "description": "Step 4 twelve-month strip. fieldSeasonMonths = the months where mustTraitsMatch and reachable are both true.",
+      "required": ["months", "fieldSeasonMonths"],
+      "additionalProperties": false,
+      "properties": {
+        "months": {
+          "type": "array",
+          "minItems": 12,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "required": ["month", "mustTraitsMatch", "reachable"],
+            "additionalProperties": false,
+            "properties": {
+              "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+              "mustTraitsMatch": { "type": ["boolean", "null"], "description": "null = at least one must trait is unknown that month and none misses." },
+              "reachable": { "type": ["boolean", "null"], "description": "Passes the access limits; null = unknown." }
+            }
+          }
+        },
+        "fieldSeasonMonths": { "type": "array", "uniqueItems": true, "items": { "type": "integer", "minimum": 1, "maximum": 12 } }
+      }
+    },
+    "logistics": {
+      "type": "object",
+      "description": "Step 4. Values from L2; null keeps its reason.",
+      "additionalProperties": false,
+      "properties": {
+        "accessMinMedian": { "$ref": "#/$defs/measured" },
+        "accessMinP10": { "$ref": "#/$defs/measured" },
+        "airportKm": { "$ref": "#/$defs/measured" },
+        "protectedPct": { "$ref": "#/$defs/measured" },
+        "notes": { "type": "array", "items": { "type": "string" }, "description": "Plain-words notes written from the numbers above." },
+        "testSplit": {
+          "type": "object",
+          "description": "What you can actually test here. Validator checks it agrees with `verdicts`.",
+          "required": ["matchesHere", "missesHere", "unknownHere", "cannotTestOnEarth"],
+          "additionalProperties": false,
+          "properties": {
+            "matchesHere": { "$ref": "#/$defs/dimensionList" },
+            "missesHere": { "$ref": "#/$defs/dimensionList" },
+            "unknownHere": { "$ref": "#/$defs/dimensionList" },
+            "cannotTestOnEarth": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["gravity", "pressureRegime", "radiation"] } }
+          }
+        },
+        "checklist": {
+          "type": "array",
+          "description": "Planning fields no worldwide dataset fills. The scientist writes them; they go into the brief marked 'from the scientist'.",
+          "items": {
+            "type": "object",
+            "required": ["item", "prompt", "answer"],
+            "additionalProperties": false,
+            "properties": {
+              "item": { "type": "string", "enum": ["equipment", "infrastructure", "personnel", "permits", "costs", "other"] },
+              "prompt": { "type": "string", "description": "Prompt from what we do know, e.g. 'protected land: permit needed'." },
+              "answer": { "type": ["string", "null"] },
+              "from": { "const": "scientist" }
+            }
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "object",
+      "description": "Step 5. One row per hazard type, each its own flag. No combined risk score and no hazard rate.",
+      "required": ["eonetDisclaimer", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "eonetDisclaimer": { "type": "string", "minLength": 1, "description": "Shown next to the EONET rows (ADR-0006): EONET is a curated list; 0 means none recorded, not none happened." },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["hazard", "kind"],
+            "additionalProperties": false,
+            "properties": {
+              "hazard": { "type": "string", "enum": ["wildfires", "volcanoes", "severeStorms", "floods", "landslides", "dustHaze", "earthquakes", "snow", "tempExtremes", "drought", "burnedArea", "steepTerrain", "coldestMonth", "hottestMonth"] },
+              "kind": { "type": "string", "enum": ["eonet", "burnedArea", "terrain", "temperature"] },
+              "eventsRecorded": { "type": ["integer", "null"], "minimum": 0, "description": "EONET rows only: events recorded within 50 km, 2015-2024. 0 = none recorded in EONET." },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["eonetId", "title", "date"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "eonetId": { "type": "string" },
+                    "title": { "type": "string" },
+                    "date": { "type": "string", "format": "date" },
+                    "url": { "type": "string", "format": "uri" }
+                  }
+                }
+              },
+              "month": { "type": ["integer", "null"], "minimum": 1, "maximum": 12, "description": "Temperature rows: which month is the coldest / hottest." },
+              "value": { "type": ["number", "null"] },
+              "unit": { "type": "string" },
+              "reason": { "$ref": "#/$defs/reason" }
+            }
+          }
+        }
+      }
+    },
+    "precedents": {
+      "type": "array",
+      "description": "Step 6. Past campaigns that exercised the same objective and/or are closest in traits. closeness is squared distance over a fixed trait set, each trait scaled by its IQR over L1 (ADR-0005 D5); it is always shown split per trait by Shapley values, and it rates how alike two places are only for past missions.",
+      "items": {
+        "type": "object",
+        "required": ["campaignId", "why", "closeness", "traitSet", "shapley"],
+        "additionalProperties": false,
+        "properties": {
+          "campaignId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "why": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "enum": ["sameObjective", "closestTraits"] } },
+          "closeness": { "type": ["number", "null"], "minimum": 0, "description": "null = the campaign site lacks a trait in the set; then it is listed apart, not ranked, and missingTraits says which." },
+          "traitSet": { "$ref": "#/$defs/dimensionList" },
+          "shapley": {
+            "type": "array",
+            "description": "One share per trait in traitSet; the shares add up to closeness exactly (validator). Empty when closeness is null.",
+            "items": {
+              "type": "object",
+              "required": ["dimension", "share"],
+              "additionalProperties": false,
+              "properties": {
+                "dimension": { "$ref": "#/$defs/dimension" },
+                "share": { "type": "number" }
+              }
+            }
+          },
+          "sameDifferent": {
+            "type": "array",
+            "description": "Zero-spread and yes/no traits, shown as same/different instead of a share.",
+            "items": {
+              "type": "object",
+              "required": ["dimension", "same"],
+              "additionalProperties": false,
+              "properties": { "dimension": { "$ref": "#/$defs/dimension" }, "same": { "type": "boolean" } }
+            }
+          },
+          "missingTraits": { "$ref": "#/$defs/dimensionList" }
+        }
+      }
+    },
+    "approvalReadiness": {
+      "type": "array",
+      "description": "Checklist reviewers care about. Each item yes / no / unknown with a source. Not a probability of approval.",
+      "items": {
+        "type": "object",
+        "required": ["item", "answer", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "item": { "type": "string", "enum": ["namedM2MObjective", "similarPastCampaign", "fieldSeasonInWindow", "protectedLandOrPermitKnown", "hazardsListed", "costBandProxy"] },
+          "answer": { "type": "string", "enum": ["yes", "no", "unknown"] },
+          "source": { "type": "string", "minLength": 1 },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["synthetic", "engine", "inputs"],
+      "additionalProperties": false,
+      "properties": {
+        "synthetic": { "type": "boolean", "description": "true for mock / fixture plans. The app shows a banner while true." },
+        "engine": { "type": "string", "description": "Engine name and version or commit." },
+        "buildManifestSha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$", "description": "sha256 of the L4 build-manifest.json this plan was computed from; null for synthetic plans." },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "sha256"],
+            "additionalProperties": false,
+            "properties": {
+              "path": { "type": "string" },
+              "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "string",
+      "enum": ["terrain", "thermal", "illumination", "dustProcess", "waterIce", "surfaceMaterial", "subsurface", "operations"]
+    },
+    "dimensionList": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/dimension" } },
+    "h3r4": { "type": "string", "pattern": "^84[0-9a-f]{13}$" },
+    "reason": {
+      "type": "object",
+      "required": ["code", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "code": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$", "description": "Short missing_reason code, e.g. no-lst-pixels, too-few-lst-pixels, no-band, no-earth-column, dust-blocked." },
+        "text": { "type": "string", "minLength": 1 }
+      }
+    },
+    "measured": {
+      "type": "object",
+      "required": ["value", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "unit": { "type": "string" },
+        "reason": { "$ref": "#/$defs/reason" }
+      },
+      "if": { "properties": { "value": { "type": "null" } } },
+      "then": { "required": ["reason"] }
+    },
+    "band": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["lo", "hi"],
+          "additionalProperties": false,
+          "properties": { "lo": { "type": "number" }, "hi": { "type": "number" }, "hiStrict": { "type": "boolean" } }
+        }
+      ]
+    },
+    "monthVerdict": {
+      "type": "object",
+      "required": ["month", "value", "verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "month": { "type": "integer", "minimum": 1, "maximum": 12 },
+        "value": { "type": ["number", "null"] },
+        "verdict": { "type": "string", "enum": ["match", "miss", "unknown"] },
+        "gap": { "type": "number", "minimum": 0 },
+        "side": { "type": "string", "enum": ["below", "above"] },
+        "reason": { "$ref": "#/$defs/reason" }
+      },
+      "allOf": [{ "$ref": "#/$defs/verdictShape" }]
+    },
+    "verdictShape": {
+      "description": "match: value known and inside the band, no gap. miss: value known and outside, gap >= 0 (zero only at an excluded strict boundary) with its side. unknown: value or band missing, with a reason; unknown never counts as match.",
+      "allOf": [
+        {
+          "if": { "properties": { "verdict": { "const": "match" } }, "required": ["verdict"] },
+          "then": { "properties": { "value": { "type": "number" } }, "not": { "anyOf": [{ "required": ["gap"] }, { "required": ["side"] }] } }
+        },
+        {
+          "if": { "properties": { "verdict": { "const": "miss" } }, "required": ["verdict"] },
+          "then": { "required": ["gap", "side"], "properties": { "value": { "type": "number" } } }
+        },
+        {
+          "if": { "properties": { "verdict": { "const": "unknown" } }, "required": ["verdict"] },
+          "then": { "required": ["reason"], "not": { "anyOf": [{ "required": ["gap"] }, { "required": ["side"] }] } }
+        }
+      ]
+    },
+    "verdictRow": {
+      "type": "object",
+      "required": ["dimension", "priority", "origin", "table", "earthColumn", "unit", "band", "verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "dimension": { "$ref": "#/$defs/dimension" },
+        "priority": { "type": "string", "enum": ["must", "nice"] },
+        "origin": { "type": "string", "enum": ["target", "precedent", "team", "user"] },
+        "table": { "type": ["string", "null"], "enum": ["L1", "L1m", "L2", null] },
+        "earthColumn": { "type": ["string", "null"] },
+        "unit": { "type": ["string", "null"] },
+        "band": { "$ref": "#/$defs/band" },
+        "value": { "type": ["number", "null"], "description": "L1/L2 rows: the site's value. L1m rows: null here; the values are in perMonth." },
+        "verdict": { "type": "string", "enum": ["match", "miss", "unknown"], "description": "For L1m rows, over the requested months: miss if any month misses; else unknown if any month is unknown; else match (proposed rule, to be frozen in Lean S7 by W21)." },
+        "gap": { "type": "number", "minimum": 0, "description": "Distance outside the band in `unit`. For L1m rows, the largest monthly gap." },
+        "side": { "type": "string", "enum": ["below", "above"] },
+        "reason": { "$ref": "#/$defs/reason" },
+        "successCriterion": { "type": "string" },
+        "perMonth": { "type": "array", "minItems": 1, "maxItems": 12, "items": { "$ref": "#/$defs/monthVerdict" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "verdict": { "const": "match" } }, "required": ["verdict"] },
+          "then": { "not": { "anyOf": [{ "required": ["gap"] }, { "required": ["side"] }] } }
+        },
+        {
+          "if": { "properties": { "verdict": { "const": "miss" } }, "required": ["verdict"] },
+          "then": { "required": ["gap", "side"] }
+        },
+        {
+          "if": { "properties": { "verdict": { "const": "unknown" } }, "required": ["verdict"] },
+          "then": { "required": ["reason"], "not": { "anyOf": [{ "required": ["gap"] }, { "required": ["side"] }] } }
+        },
+        {
+          "if": { "properties": { "table": { "const": "L1m" } }, "required": ["table"] },
+          "then": { "required": ["perMonth"], "properties": { "value": { "type": "null" } } },
+          "else": { "not": { "required": ["perMonth"] } }
+        }
+      ]
+    }
+  }
+}

@@ -11,7 +11,7 @@ discovery:
 source:
   archive: "PDS Geosciences Node"
   endpoint: "https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/lrolol_1xxx/data/lola_gdr/"
-  probedAt: 2026-11-13T00:20:20Z
+  probedAt: 2026-11-14T22:33:47Z
   probeResult: "HTTP 200, 582 B, sha256 b8146dff064c…"
 probe:
   kind: http

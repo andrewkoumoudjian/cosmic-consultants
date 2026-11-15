@@ -1,5 +1,14 @@
 # services/ingest — W6 (#19): Earth P0 traits per H3 cell
 
+`python -m p0ingest.clean_audit` writes the #69 cleaning report. The assembler
+also runs it. It replays the current 2023 LST/land-cover thresholds against
+hashed raw inputs, counts output nulls separately and preserves unavailable
+historical input counts as unknown. The report exposes two current source
+quality gaps: MOD11C3 QC bits are not filtered, and the terrain reader does
+not apply a nodata mask. Metadata now describes those actual behaviours.
+No physical values are changed by this diagnostic; scientific review and
+source rebuilds remain separate work.
+
 Turns hashed NASA/ESA/Copernicus snapshots into one table: a row per H3 land
 cell (resolution 4, about 1,770 km² each, 91,800 cells), with the raw traits
 for terrain, thermal, illumination, surface material and water ice. Anything
@@ -69,6 +78,60 @@ noon sun height, day length and polar day/night on the 15th. Spec:
 - **`missing_reason`** in both files is JSON per row and names only that row's
   null traits.
 
+## Clean and assemble (W29, #69)
+
+Run `uv run python -m p0ingest.assemble` after source builders. It uses
+Polars and `data/pipeline/columns.yaml` to join yearly/monthly traits,
+historical monthly spread, named hazard events and campaign sites into
+`data/snapshots/_derived/assembled/`. The report records input/output hashes,
+key checks, unchanged-value checks, missingness and skipped planned sources.
+
+`data-coverage.json` includes every feature in the 55-feature inventory,
+using `data/pipeline/feature-preparation.yaml`. A related column is never
+reported as an implemented exact feature. Category availability is partial;
+field evidence, instrument-specific quantities and missing sources remain
+explicit. Historical spread describes 2014–2023; it is not a weather forecast.
+
+The Google Doc IDEA workflow governs the data modules (ADR-0007). Source
+builders keep their own tables. The generic Drive sync script excludes
+`_derived/`; copy prepared outputs separately and verify their hashes.
+
+The merged dust tables are required inputs. Contributing-month counts, valid
+pixel counts, modeled-thickness support fractions, burned mapped-year counts
+and the month of the dust maximum have
+`role: diagnostic` in the registry (ADR-0010). They stay in native units in
+both raw and normalized frames, with exact value/type checks. These diagnostics
+do not become physical traits or enter a closeness sum. The coverage report
+also retains all eight detailed menus separately from the Doc's 19-category
+table; exact test support still needs source review.
+
+`data/pipeline/evidence.yaml` adds one descriptor (`kind`, `support`,
+`family`) per registry column so observations, reanalysis, models,
+catalogues, and geometry stay separated, `synthetic` values are rejected in
+assembled tables, `assemble` rejects `NaN`/infinite floats, and `source-gap`
+features carry a dated `absenceScope` stating the scope searched rather than a
+claim of absence. Counting `family` values is a discovery hint only;
+corroboration requires per-claim review.
+
+Run `python -m unittest discover -s tests -v` for the assembly regressions.
+
+## Temperature history (W24, #64)
+
+`uv run python -m p0ingest.years fetch|build|check` prepares the 2014–2023
+monthly temperature panel. It uses the same monthly medians and 25% pixel
+coverage rule as the 2023 table. The output is
+`_derived/cells-r4-monthly-years.parquet`, keyed by `(h3, year, month)`.
+
+The check verifies the 120 input hashes and output hash, requires exactly
+one row for every land cell and calendar month, compares 2023 to L1m exactly,
+and checks per-row missing reasons. Run the key-validation regression tests
+with `python -m unittest discover -s tests -v`.
+
+These are monthly composites, not observed daily temperature extremes.
+They do not complete the separate `tsurf_max`, `tsurf_min` or `tsurf_range`
+features in the 55-feature inventory. Additional years are for historical
+conditions; this table does not predict future weather or mission losses.
+
 ## Planetary source preparation (#74)
 
 ```bash
@@ -133,3 +196,745 @@ branch; reconcile committed entries when integrating source work.
   thermal.
 - **subsurface / operations:** not in P0 yet.
 - **illumination:** computed from latitude only (no terrain shadowing).
+
+## W26 (#66) source tables: albedo + regolith (my own section)
+
+Two additional source families, built by their own modules. The parent
+assembler joins them; these tables do not edit L1/L1m/L2.
+
+- `python -m p0ingest.albedo --fetch` downloads 12 MCD43C3 v061 daily CMG
+  granules, dated the 15th of each 2023 month (a dated 16-day BRDF retrieval
+  window each, NOT a calendar-month mean). `python -m p0ingest.albedo` builds
+  `_derived/albedo-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12,
+  `albedo_ws_sw`, `albedo_bs_sw`, per-field valid-pixel counts, per-row
+  `missing_reason`) and `_derived/albedo-r4.parquet` (91,800 rows:
+  `albedo_ws_sw_mean`, `albedo_months_used`, same for black-sky). Only
+  `Albedo_Quality == 0` pixels count and a hexagon keeps a value only with
+  >= 25% valid-pixel support; each `.meta.json` carries the real QA counts,
+  per-sample window dates read from the files, units and model limits.
+- `python -m p0ingest.regolith --fetch` downloads the six Pelletier et al.
+  2016 (ORNL DAAC 1304) 30-arcsec GeoTIFFs + the user guide; downloads are
+  checked against the publisher's public sha256 sidecars. `python -m
+  p0ingest.regolith` builds `_derived/regolith-r4.parquet` (91,800 rows):
+  per-hex exact histogram medians of upland regolith thickness
+  (`regolith_thick_m`), upland soil, sedimentary deposit and the product's
+  weighted average, with support fractions, per-class pixel counts, the
+  native fill kept as null, the published 50 m upper valid bound retained,
+  and per-row `missing_reason` (e.g. `outside-product-coverage` south of
+  60 S). Model output, not a measurement; lunar regolith is NOT claimed
+  equivalent.
+- `python -m p0ingest.w26_check` (also with `-O`) runs the transformation
+  regression tests, the key-domain checks against the master cell set and
+  5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
+  against the raw sources; exit 0 only if all pass.
+
+## W43 (#102) Moon spectral and radar maps (my own section)
+
+`python -m p0ingest.moon_spectral fetch|build|check` — static, source-native
+lunar maps, each dataset in `data/snapshots/_derived/planetary/<datasetId>/`
+with its own `preparation-report.json`. No resampling to H3 anywhere.
+
+- `kaguya-mi-59mpp` — `kaguya-mi-feo-4ppd.parquet` (576,000 rows): FeO weight
+  percent from the Lemelin et al. 2016 Kaguya MI Mineral Map (May 2016,
+  JAXA / Univ. of Hawaii), fetched as the USGS 4 ppd reduction (50N-50S,
+  0.25 deg simple cylindrical, md5-verified against the archive .md5). One
+  native map sample per row. Gaps recorded in the report: no Kaguya MI TiO2
+  map is published on that host, and the MI reflectance bands exist only at
+  512 ppd (~21-24 GB per band, over the shared 20 GB raw cap).
+- `minirf-pds` — `minirf-cpr-32ppd.parquet` (66,355,200 rows): Mini-RF global
+  circular polarization ratio mosaic (`global_cpr_32ppd_simp_0c`), 32 ppd
+  global simple cylindrical, S-band 2380 MHz (12.6 cm), CPR = same-sense /
+  opposite-sense circular polarization, read little-endian (PDS3 `PC_REAL`).
+  The 64-bit label missing constant (-1.7976931e308) is not representable in
+  the stored 32-bit real, so every sample with |v| >= 1e38 is null with
+  `missing_reason` = `source-missing-constant` (24,159,572 pixels); other
+  non-finite samples are `source-not-finite`. Producer ratio artifacts
+  (32,082 negatives, min -23,777; 1,137 samples > 20, max 217,650) are kept
+  as stored — declared QA only, never clipped — and documented in the report
+  `outlierNote`; 99.9% of valid samples lie below 1.92. Static mosaic of
+  2009-2010 observations.
+- `lroc-wac-global` — `lroc-wac-albedo-3ppd.parquet` (583,200 rows): the
+  USGS 303 ppd reduction of the ASU LRO WAC global morphology mosaic
+  (shipped 109,164 x 54,582 uint8 GeoTIFF, nodata not declared), aggregated
+  by an integer 101x101 boxcar mean with the trailing 42 rows / 84 samples
+  (< 0.28 deg at the -90 / +180 edges) cropped, never resampled, to a
+  540 x 1080 grid (~0.333 deg, ~10 km/px) with `native_sample_count`
+  support per cell (all cells 10,201). Values are mean 8-bit grayscale DN —
+  relative reflectance, explicitly NOT physical Lambert/bolometric albedo;
+  recorded as `albedo_wac_dn` and a gap in the report. No nodata is
+  declared, so the honest rule is all-valid: the table has no missing rows.
+- `lamp` — `lamp-gdr-ratio-albedo-80n.parquet` + `-80s.parquet` (6,255,001
+  rows each): the published LAMP GDR v1.0 H2O absorption feature depth
+  maps (off-band 155.57-189.57 nm / on-band 129.57-155.57 nm albedo ratio),
+  cumulative (static; GDR has no monthly ratio maps), polar stereographic
+  2501x2501, 240 m/pixel, coverage pole-ward of 80 deg. Served as
+  `lya_offon` (feature-registry key name kept) but stated in-band: it is
+  off/on, not Lyman-alpha. `lya_offon` is no longer a pure registry gap.
+- `m3-pds` — NOT fetched. Licence unresolved since audit #41 (a PDS host is
+  not a blanket grant) and no PDS-published global derived band-depth map
+  was found (only per-strip L1B/L2, out of scope per the work order).
+  Evidence in `_derived/planetary/moon-spectral-gaps.json` and the m3-pds
+  preparation report; artifacts under `m3-pds/`.
+
+`check` verifies manifest hashes + licences for all 14 fetched inputs, exact
+column sets, exact row counts, physical ranges (fail-loudly), the
+null<->`missing_reason` contract, per-table key uniqueness and 25 raw spot
+checks (5 per table; the WAC cells are recomputed from the raw mosaic, the
+PDS maps are compared sample-by-sample; the Kaguya map is md5 + value
+checked against the GeoTIFF). Run with plain python and `python -O`.
+
+## Map placement check (#74)
+
+`uv run python -m p0ingest.projection_check fetch|run` checks where the native
+planetary products sit on their body, using independent references only:
+MOLA MEGDR topography (4 and 16 px/deg) and the USGS/IAU Gazetteer of
+Planetary Nomenclature. MOLA itself is first checked against named montes and
+planitiae. The report goes to `_derived/planetary/projection-check.json`.
+
+- TES thermal inertia: the label text is right (line 1 = 90 N, sample 1 =
+  180 W). The DSMAP equations' signs are wrong. The night map matches MOLA's
+  fine structure under that mapping only, and the day map agrees with the night
+  map under the same mapping only.
+- Not resolved: a residual apparent longitude offset (night peak about
+  +0.3 deg east). Day and night disagree on it, so it is not one grid error.
+  Slope-aspect response and the IAU 1991 (TES) vs MOLA frame difference both
+  move it. No correction is applied. Treat TES positions as uncertain at that
+  size until a cited frame transform exists.
+- Diviner PRP: centre lat/lon recomputed from the three body-fixed vertices
+  match the table, and named south-polar crater floors are colder than their
+  rims far more often than with east/west mirrored positions.
+
+This is placement evidence only. No value changes and no target association.
+
+## Output: `burned-r4-monthly.parquet` (W25, issue #65, Mistral Vibe helper)
+
+One row per land cell and calendar month (91,800 x 12 = 1,101,600 rows):
+`h3`, `month` (1-12), `burned_pct` [%], `years_mapped` (0-10),
+`missing_reason` (JSON). Source: MODIS MCD64A1 v061 monthly 500-m tiles
+(CMR `C2565786756-LPCLOUD`, licence CC0), 2015-2024, 32,160 granules
+(268 tiles x 120 months, live count re-probed at use time).
+
+- `burned_pct` is the mean over 2015-2024 of each year's share of burned
+  mapped-land pixels (Burn Date > 0 / >= 0; water -2 never in the
+  denominator). Only years with mapped pixel support count, and
+  `years_mapped` says how many did.
+- No mapped support -> null, never 0, with a reason per row:
+  `outside-mcd64a1-tiles` (no granule tile covers the cell at all, e.g.
+  all Antarctic land) or `no-mapped-land-in-period` (pixels exist, none
+  mapped land in that month any year).
+- Streaming rule as `terrain.py`: each granule is downloaded, decoded,
+  hashed and dropped. Every source URL/hash/bytes/time is in
+  `_derived/burned-r4-ledger.jsonl.gz` (hashed in the meta and MANIFEST).
+  A checkpoint commits counts + ledger length atomically; on restart the
+  partial ledger is truncated to the checkpoint so uncommitted granules
+  are re-fetched, never skipped, and reissued/duplicate granules are a
+  hard error (no double counting).
+- Run: `uv run python -m p0ingest.burned` (resumable; Earthdata token
+  needed). Spot checks: `uv run python -m p0ingest.burned --spots`.
+  Tests: `uv run python -m unittest tests.test_burned` (also under `-O`).
+
+## W31 (#89) wind: MERRA-2 10 m wind per hexagon
+
+One more source family, built by its own module; the parent assembler joins
+it. No other module was touched.
+
+- The mean wind speed comes from a real SPEED field: I opened real monthly
+  granules of both MERRA-2 collections and read their variable lists first.
+  M2TMNXSLV monthly has only the vector components U10M/V10M (`10-meter_east_wind`,
+  `10-meter_northward_wind`) and NO speed field; the monthly wind SPEED lives
+  in M2TMNXFLX (`surface_wind_speed`, m s-1). So `data/catalog/merra2-m2tmnxflx.yaml`
+  is a new registry row (CC0, license-verified by the registry probe), and
+  `wind.py` never computes speed from |mean U, mean V| (that is biased low by
+  Jensen's inequality; `check` proves 0 violations of mean speed >= |mean
+  vector|, the speed field being up to 12.4 m/s above that biased bound).
+- `python -m p0ingest.wind fetch` downloads 24 granules (12 FLX + 12 SLV,
+  2023, v5.12.4, ~1.8 GB - offset 0). `python -m p0ingest.wind build` maps
+  each master hexagon center to the NEAREST native 0.5 x 0.625 deg MERRA-2
+  grid center (pole rows clipped, longitude wrapped) and writes
+  `_derived/wind-r4-monthly.parquet` (1,101,600 rows: h3 x month 1-12;
+  columns `wind_speed` (SPEED monthly mean, m s-1), `wind_speed_max`
+  (SPEEDMAX monthly mean, the mean of hourly maxima), `u10m_mean`/`v10m_mean`
+  (labelled VECTOR COMPONENTS from M2TMNXSLV, direction context only) and
+  `missing_reason`) plus `_derived/wind-r4.parquet` (91,800 rows:
+  `wind_speed_mean` = mean of the 12 monthly speeds, `months_used`). All
+  24 granules verified fully covered their month; no fills anywhere, so no
+  row carries a reason (the machinery stays in place for next year).
+- Limits are explicit in both `.meta.json` files: 10 m Earth wind is not the
+  last km of Mars descent; air density differs (pressureRegime mismatch);
+  MERRA-2 is a reanalysis, not a measurement.
+- `python -m p0ingest.wind check` (also with `-O`, see above): exact key
+  domain (91,800 h3 x 12 months, master cell set), no duplicates, key/column
+  schema, aggregation consistency, missing_reason naming, physically
+  plausible ranges, the Jensen speed-field sanity check and 5 raw-granule
+  spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa) - all raw
+  vs parquet values MATCH; exit 0 only if all pass (`ALL PASS`).
+
+## Aqua LST monthly table (W34, #93, my own section)
+
+`python -m p0ingest.lst_aqua fetch` pulls the 12 monthly MYD11C3 V061
+(MODIS/Aqua LST/Emissivity, 0.05 deg CMG) granules of 2023 through
+`snapshots.fetch` (URL + fetch time + sha256 + bytes + licence in
+`data/snapshots/MANIFEST.json`, ~855 MB raw total, licence cc0, NASA ESDIS
+default, row already verified in `data/catalog/modis-myd11c3.yaml`).
+`python -m p0ingest.lst_aqua build` writes `_derived/aqua-lst-r4-monthly.parquet`
+(1,101,600 rows = 91,800 cells x 12 months) + `.meta.json`, the aqua twin of the
+Terra L1m table: monthly medians of day/night LST per hexagon. It imports
+`monthly.py` and `grid.py` read-only (never edits them): same 0.05 deg
+pixel-to-hexagon rule (pixel centre inside the H3 res-4 cell via
+`h3.latlng_to_cell`, land share > 0, support counts kept in
+`lst_valid_pixels`), same fill rule (raw counts < 7500 = fill, x0.02 K), same
+25%-pixel coverage rule (below it the month is null with reason
+`too-few-lst-pixels`), medians, sun geometry on the 15th from the cells table
+latitudes. `missing_reason` is per-row JSON whose keys are exactly that row's
+null value columns (`lst_day_k` / `lst_night_k` / `lst_diurnal_k`);
+`lst_diurnal_k` is null exactly when day or night is null. 2023 result:
+10,994 day nulls, 22,822 night nulls (1.0% / 2.1%).
+
+Why it matters: Aqua's composites come from ~13:30 (day) / ~01:30 (night) local
+solar time overpasses; Terra's table from ~10:30 / ~22:30. Together the two
+tables give four times of day per month for the tsurf_max / tsurf_min /
+tsurf_range proxies (monthly composites, NOT daily extremes) and for
+thermal-inertia ingredients. Sanity read against the Terra table: Aqua day is
++2.3 to +3.6 K warmer per month (afternoon vs mid-morning overpass), Aqua night
+~1.6 K cooler (01:30 vs 22:30) — physically consistent.
+
+`python -m p0ingest.lst_aqua check` (also with `-O`) verifies: exact key set
+(91,800 cells-r4 hexagons x 12 months, no duplicates, no extra/missing cells),
+physical ranges (lst 150-360 K, diurnal -80-80 K, support counts sane), per-row
+`missing_reason` keys equal to that row's null value columns, and 8 raw spot
+checks (need >= 5) that recomputed cell/month medians straight from the .hdf
+granules with an INDEPENDENT pixel lookup (re-derived per check run via
+`h3.latlng_to_cell`, not the cached map) match the table exactly.
+
+MOD21C3 probe (recorded, not built): `modis-mod21c3` (Terra TES algorithm,
+monthly 0.05 deg CMG, C2565791050-LPCLOUD, cc0 verified) is USABLE in
+principle — same CMG grid, monthly day/night LST (`LST_Day` / `LST_Night`,
+uint16, scale 0.02, valid 7500-65535) plus band-29/31/32 emissivity. One
+granule (A2023182, 128 MB) fetched and inspected 2026-11-14. NOT built here:
+it duplicates day/night LST from the same sensor family (registry note:
+algorithmic cross-check only, NOT independent) and the W34 monthly-only scope
+does not need it; building it later is a small job (same reader shape, 12 x
+128 MB). Filed as a possible follow-up with the parent assembler wiring.
+
+## W49 (#108) target sites: cited Moon/Mars extraction points (my own section)
+
+One YAML file per named site under `data/targets/` (see `data/targets/README.md`
+for the full schema and the per-null reasons). Rows carry planetocentric
+east-positive centres where the source publishes numerals, quoted verbatim from
+sha256-pinned snapshots only; NASA's Artemis releases publish region outlines as
+graphics only, so those rows have `centreLat`/`centreLon` null with an explicit
+`missingReason` instead of invented centres. Gazetteer-sourced feature rows
+re-compose their quote from the USGS centre-point DBF exports. Landing sites
+record the great-circle km to their host IAU feature in `usgsCrossCheck`
+(Curiosity 51.4 km from the Gale centre, Perseverance 45.6 km from Jezero's,
+Spirit 3.6 km from Gusev's, etc.); Zhurong is left coordinate-less with a
+`missingReason` because no snapshottable official NASA/USGS source carries its
+touchdown numbers.
+
+- `python -m p0ingest.targets` (quiet: `-q`) loads every `data/targets/*.yaml`,
+  checks required fields/enums/ranges, filename/id match, quote parsability
+  (lat/lon re-parsed from the quote and compared to the declared centre),
+  MANIFEST sha256/url match, gazetteer quote recomposition, and
+  `usgsCrossCheck` tolerance; exit 0 only when everything passes.
+- `tests/test_targets.py` covers the quote parsing, the DBF reader, the
+  convention folding and the per-row checks with synthetic fixtures, plus an
+  integration test that the real `data/targets/` rows all pass.
+
+## W42 (#101) Moon neutron and gamma-ray maps: moon_nuclear
+
+`uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares:
+
+1. **Lunar Prospector GRS (`lp-grs-pds`):** 2, 5 and 20 degree elemental
+   abundance maps (`lpgrs-high1-elem-abundance-{2,5,20}deg.parquet`), keeping
+   the upper-triangle error matrix plus label-declared 1-sigma columns.
+2. **LRO LEND ALD (`lend`):** all 6 `LEND_RDR_ALD` spatial relative neutron
+   count-rate maps (`ALDE` 1 deg global `-80..80`, `ALDN` 0.5 deg north polar
+   `80..90`, `ALDS` 0.5 deg south polar `-90..-80`; `20090915` Nominal Mission
+   and `20111211` Science Mission) under `data/snapshots/_derived/planetary/lend/`.
+   Zero-exposure cells (`exposure <= 0`, PDS `-1.0` sentinel) become explicit
+   `null` with JSON `missing_reason: "exposure-zero"`. Relative counting rates
+   are NOT converted into H/WEH wt% or epithermal suppression %; `h_wt_neutron`
+   remains recorded as a gap in `lend-pds-gap-report.json` alongside `LP-NS`.
+## Dust per hexagon: `_derived/dust-r4[-monthly].parquet` (W28, #68)
+
+MERRA-2 `M2TMNXAER` v5.12.4 (GES DISC, CC0), variable `DUEXTTAU`
+("Dust Extinction AOT [550 nm]", dimensionless) for all 12 months of 2023.
+Access was re-probed independently before fetching: HTTP 206 with token on
+2026-11-14T19:46Z (evidence in
+`data/snapshots/registry-probes/2026-11-14/dust-68-gesdisc-access.json`);
+the earlier 403 EULA block from 18:47Z is gone.
+
+- `uv run python -m p0ingest.dust fetch|build|check` — 12 granules,
+  `_derived/dust-r4-monthly.parquet` (h3, month, dust_aod, missing_reason;
+  1,101,600 rows) and `_derived/dust-r4.parquet` (h3, dust_aod_mean,
+  dust_aod_max, dust_aod_max_month, months_used, missing_reason; 91,800
+  rows), each with `.meta.json` (inputs + sha256, native grid, QA counts,
+  model limits).
+- **Mapping:** each hexagon's center goes to the nearest native 0.5 x 0.625
+  deg grid center (per-axis; lat clipped at the exact +/-90 rows; lon wraps
+  modulo 576). That's a nearest-center sample, NOT an area-weighted hexagon
+  mean and NOT a finer measurement. Up to 4 hexagons share one native cell.
+- **Annual rule:** mean/max use only documented valid monthly observations;
+  `dust_aod_max_month` is the earliest month hitting the max (ties -> earliest);
+  `months_used` stays in the table so partial-year support is visible. In this
+  2023 build every land cell has all 12 months (the granules contain zero
+  fill cells), so there are no nulls; the fill code paths still run and are
+  covered by `tests/test_dust_keys.py`.
+- **Limits, stated in the output metadata too:** MERRA-2 is a reanalysis, not
+  a direct measurement. DUEXTTAU is a column-integrated atmospheric dust
+  optical depth at 550 nm — a dustiness proxy for the air column, not surface
+  dust coverage, not a hazard rate, and NOT equivalent to a Mars opacity tau.
+- Parent note: the "dustProcess" line under Known gaps above is stale for
+  source preparation; integration into `cells-r4*` is the parent's (#69).
+
+## Moon geology context products (#98)
+
+`p0ingest.moon_geology` prepares two source-native Moon context tables plus
+two licence-blocked gap reports. Fetch, build and check via
+`uv run python -m p0ingest.moon_geology <fetch|build|check>`. No resampling
+to H3: these are lunar, not Earth, datasets.
+
+- `unified-geologic-map-moon` (USGS/Astropedia 1:5M unified geologic map,
+  CC0-verified). `_derived/planetary/unified-geologic-map-moon/
+  geo-units-polygons.parquet` keeps all 12,247 polygon records with WKB
+  geometry (little-endian Polygon/MultiPolygon), source-native units table
+  `map-units-domu.parquet` (49 DOMU rows) and per-record metadata. Source CRS
+  is Moon2000_EquidistantCylindrical_clon0 on the GCS_Moon_2000 sphere
+  (r=1,737,400 m); the `.prj` file content is verified against the declared
+  projection before building. Output is the exact linear inverse
+  (lon_deg = rad2deg(x/R), lat_deg = rad2deg(y/R)), so longitudes land in
+  [-180, 180). Ring nesting uses the immediate-smallest-container rule with
+  even depth = outer, odd depth = hole (3,159 holes attached; shapefile
+  winding is normalised on WKB write, vertices untouched). Point lookups
+  should use smallest-containing-polygon. 592 polygons carry source code
+  `Iohs`, which has no DOMU row (DOMU lists `Ios`); those rows get a null
+  `unit_name` with `missing_reason`, recorded not fixed.
+- `lroc-pits-atlas` (Catalog of Lunar Pits v1, March 2021; licence
+  established as US public domain via the LROC data-terms page). The 146 MB
+  catalog PDF is parsed with pypdf (no pdftotext on the build machine):
+  278 pits, one row each, with `lat_deg`, `lon_deg_east` (0-360 east-positive
+  exactly as printed), the verbatim coordinate strings, the six measured
+  value columns (inner/funnel max/min diameters, depth, long-axis azimuth)
+  each paired with its verbatim source string (including `>` / `<` prefixes),
+  and a `missing_reason` whose keys are exactly the null value columns.
+- `robbins-moon-craters` and `lroc-nac-boulders-watkins`: BLOCKED - neither
+  source publishes a licence statement (checked product pages, PDS bundle
+  documents and the PDS Imaging node; evidence with URLs and dates in the
+  gap reports). Per the missing-stays-missing rule their values are NOT used;
+  each writes `_derived/planetary/<datasetId>/gap-report.json`.
+- `check` verifies key uniqueness, physical ranges and reason/null matching
+  for pits, plus raw spot checks: 5 pit pages re-read from the PDF, and the
+  geologic table re-read from the shapefile (polygon roundtrip at records
+  0/999/2500/6000/12246) with 5 named site lookups (Apollo 11, Apollo 15,
+  Tycho, Aristarchus, Mare Imbrium). Tests: `uv run python -m unittest
+  discover -s tests` (plain and `-O`), including
+  `tests/test_moon_geology.py`.
+
+## W46 (#105) Mars CRISM MTRDR spectral summary parameters (my own section)
+
+Mars, source-native grid (no H3). `python -m p0ingest.mars_crism --fetch`
+snapshots the PDS Geosciences MTRDR bundle `mrocr_4001`: the monthly index
+tabs (`mtrdr*_index.tab`, 2006-2012), bundle docs (aareadme, readme, errata,
+`mtr_map.cat`, `indxinfo.txt`, the MTRDR SIS) and 10 map-projected
+SPECTRAL_SUMMARY_PARAMETERS (SU) scenes around Jezero (FRT000066A4,
+HRL000040FF), Gale (FRT0001B696, FRT0000901A), Meridiani (FRT0000334D),
+Gusev (FRT00003192), Mawrth Vallis (FRT0000C596, FRT000119DC), and Nili
+Fossae (FRT0000805F); full per-region mapping lives in SCENES in the
+module. All ~1.2 GB pass through `snapshots.fetch` (URL, UTC fetch
+time, sha256, bytes, licence in MANIFEST.json). Us-pd licence, already
+verified in `data/catalog/crism-mro.yaml`.
+
+`python -m p0ingest.mars_crism` builds
+`_derived/planetary/crism-mtrdr/crism-mtrdr-summary.parquet`
+(5,264,901 rows). Key is `(observation_id, source_line, source_sample)`;
+`latitude`/`longitude` are pixel centres on each scene's equirectangular
+map, from the label corner pins (validated against all four corners).
+14 parameters with the source's own names and definitions — BD1900_2,
+BD1900R2, D2300, BD2290, BD2210_2, BD2165, SINDEX2, BD2100_2, BD2500_2,
+MIN2295_2480, MIN2345_2537, OLINDEX3, LCPINDEX2, HCPINDEX2 (Viviano-Beck
+et al. 2014), kept unthresholded. Fill value 65535 becomes null plus a
+per-row `missing_reason` whose keys are exactly that row's null parameter
+columns ("fill-65535"). `check` verifies MANIFEST hashes, keys, footprint
+bounds, missing reasons, and compares 18 spot pixels (168 band values)
+against direct raw reads of the .IMG cubes. Gaps in
+`preparation-report.json`: no licensed global CRISM summary-parameter
+mosaic exists in PDS; Gale Bradbury landing-site pixels are outside the
+archived v3 MTRDR scenes. TES-comparable caveats: scene positions carry
+~0.3-0.5 deg CRISM map uncertainty; indices are band-depth ratios, not
+abundances.
+
+## Mars ice + neutron source tables (#106): GRS + SWIM (my own section)
+
+`python -m p0ingest.mars_ice fetch|build|check|drive` prepares static,
+dataset-native Mars maps. No resampling, no H3, no similarity work; the
+parent assembler joins what it needs.
+
+- **ody-grs-pds** (PDS Geosciences `ODY-M-GRS-5-ELEMENTS-V1.0`, product
+  version 2.0): the published derived element concentration maps from
+  2002-06-04 to 2005-04-03. Thirteen labelled snapshot files produce five
+  Parquet tables under `data/snapshots/_derived/planetary/ody-grs-pds/`:
+  `grs-weh-5deg-smoothed.parquet` (2,592 bins: WEH, the mapped H2O wt%,
+  with both published sigma columns), `grs-weh-2deg-unsmoothed.parquet`
+  (15,840 bins, published negatives retained), `grs-th-5deg-smoothed.parquet`,
+  `grs-k-5deg-smoothed.parquet` (both ppm) and
+  `grs-kth-ratio-5deg-smoothed.parquet` (K/Th ratio; its PDS label says
+  "parts per million" for a ratio — quirk kept as labelled). Keys are the
+  published bin centres (latitude, longitude); only the label
+  NOT_APPLICABLE_CONSTANT 9999.999 becomes null, with a per-row JSON
+  `missing_reason` whose keys are exactly that row's null value columns.
+  WEH is model-derived (inversion against forward-modelled counts with
+  water/iron correction factors, per catalog/dataset.cat). Sensing depth is
+  order ~1 m of regolith (gamma lines shallower, neutrons deeper) — a
+  literature property, not stated in metres in the archive. The suite
+  samples to a fixed depth for the whole 2002–2005 window: static map, no
+  time step to preserve.
+- **swim-mars-ice** (SWIM consistency layers, Morgan et al. 2021): blocked
+  during this work order. swim.psi.edu answered HTTP 523 (origin down) on
+  every probe since 2026-11-14 22:29 UTC; no PDS, ScienceBase or
+  data.nasa.gov mirror exists (searches returned 0). The registry row also
+  records the licence as unresolved — usable values need both a live fetch
+  and licence evidence. Evidence and retries are on issue #106 and the
+  board.
+
+`check` verifies every input hash/size against MANIFEST, output hashes,
+uniqueness of (latitude, longitude), exact published bin centres,
+documented plausibility ranges, `missing_reason`-vs-null agreement and 5
+raw spot checks per product against an independent whitespace-split parse
+(25 total). `swim_status` records a live SWIM probe into the wave of
+evidence. Unit tests: `python -m unittest discover -s tests`. Drive copy:
+`python -m p0ingest.mars_ice drive` (rclone + checksum verify).
+
+## Mars THEMIS IR controlled mosaics, six landing-site ROIs (W45, #104, my own section)
+
+- `python -m p0ingest.mars_themis fetch` downloads, through
+  `snapshots.fetch` (MANIFEST: URL, fetch time, sha256, bytes, licence), the
+  STAC item list of the USGS collection `mo_themis_controlled_mosaics`
+  (CC0-1.0), the ISIS3 mapping labels of all 28 quads x day/night, the
+  provenance.txt of the 10 used quads, and 10 quad GeoTIFFs (~4.3 GB raw:
+  Jezero -> mc13 Syrtis Major, Gale + Gusev -> mc23 Aeolis, Elysium/InSight ->
+  mc15, Utopia -> mc14 Amenthes, Meridiani -> mc19 Margaritifer Sinus). The
+  MCS (mcs-mro) EDR label and DATASET.CAT are fetched as probe evidence.
+  Three evidence-only URLs are best-effort (logged SKIP, never fatal): the
+  THEMIS global-TI FGDC docx 404s on every re-fetch of 2026-11-14, so its
+  licence evidence lives only as quoted text in
+  `data/catalog/themis-global-thermal-inertia.yaml`.
+- `python -m p0ingest.mars_themis build` writes
+  `data/snapshots/_derived/planetary/themis-ir-controlled-mosaics/themis-ir-{day,night}-rois.parquet`
+  (2,121,771 rows each = 6 sites x ~1 deg ROI on the NATIVE 100 m/pixel
+  IAU_2015:49910 simple-cylindrical grid; keys site/quad/source_line/
+  source_sample; pixel CENTRE -> lon/lat via the GeoTIFF affine, no H3 step
+  for Mars) plus `preparation-report.json` (S3 inputs, hashes, per-site
+  windows and clips, DN stats, gaps, cross-check).
+- `python -m p0ingest.mars_themis check` verifies MANIFEST licence flags,
+  input hashes, output hashes/sizes/row counts, unique keys, 8-bit physical
+  range, coordinates in physical range, missing_reason exactly matching null
+  DNs, and 24 raw spot checks (12 coordinates x day/night) reading the same
+  native pixel straight from the COG. Exit 0 in both plain and `-O` runs.
+- Features: `ir_brightness_dn` (8-bit DN). THE MOSAICS ARE QUALITATIVE: values
+  are NOT kelvin and NOT TIU, so `tsurf_max`/`tsurf_min`/`tsurf_range` and a
+  THEMIS `ti` are recorded as gaps. `ti` remains covered by the TES mosaic
+  (~3 km/px); the USGS 100 m quantitative THEMIS TI mosaic is blocked on an
+  unresolved licence (accconst=None/useconst=None, no explicit grant per the
+  LICENCE-AUDIT-41 precedent). MCS (mcs-mro) publishes only per-orbit
+  ~4-hour granules, i.e. finer than the at-most-monthly rule, so it is
+  probe-only; no monthly surface-temperature climatology could be used.
+- Diagnostic cross-check (nothing adjusted): THEMIS night DN vs TES thermal
+  inertia, Spearman rho per site (nominal 0.05 deg TES grid, both longitude
+  conventions): Gale ~0.42; Jezero 0.05-0.11; Elysium -0.03..0.08; Utopia
+  -0.00..0.03; Gusev 0.03..0.08; Meridiani -0.16. Weak overall, consistent
+  with per-quad DN stretching and the ~0.3-0.5 deg TES position uncertainty
+  (PR #87).
+
+## W38 (#97) earth_static: MOD44B VCF per-hex table + two blocked-source probes
+
+One delivered Earth context table plus recorded access evidence for the two
+sources the work order asked for that cannot be fetched by this repo yet.
+
+- `python -m p0ingest.earth_static --fetch` downloads, via
+  `p0ingest.snapshots.fetch` (so MANIFEST.json records url, fetch time,
+  sha256, bytes and licence), the v061 user guide and all 291 granules of
+  the latest complete yearly series of MOD44B Vegetation Continuous Fields
+  (collection C2565805839-LPCLOUD; CC0 in the catalog row). Completeness
+  rule: the newest series whose tile set equals the previous series's
+  (A2025 == A2024, 291 tiles each, decided in the CMR listing).
+- `python -m p0ingest.earth_static build` reads the native 4800x4800
+  250 m HDF4-EOS tiles, inverts the MODIS spherical sinusoid exactly
+  (phi = y/R, lambda = x/(R cos phi), R = 6371007.181 m — cross-checked
+  against GDAL in the tests), bins each tile's pixel centres into the
+  0.05 deg CMG lattice (3600x7200, `grid.py`), and maps lattice pixels to
+  the 91,800 master H3 res-4 cells through the pinned MOD11C3 land-share
+  map (`grid.cmg_cell_map`; pixel centre inside the H3 cell via
+  `h3.latlng_to_cell`). Per lattice pixel: mean of the valid (0-100)
+  native pixels; per hexagon: median over its lattice-pixel means and the
+  exact mean over its native pixels, with support counts at both scales.
+  Declared codes only: 200 water and 253 fill never enter statistics;
+  the guide declares no masking rule, so Quality/Cloud layers are NOT
+  applied. Tile-plane corners beyond the globe ellipse (|lon| > 180 after
+  inversion, observed residual code 11 there) are excluded as `offglobe`
+  and counted per layer. Output `_derived/vcf-r4.parquet` (91,800 rows,
+  `vcf_*_pct_median`, `vcf_*_pct_mean`, support counts, per-row
+  `missing_reason`), `_derived/vcf-r4-cmg.npz` (lattice sums/counts) and
+  `vcf-r4.meta.json` (rule, QA, known C61 sparse-training limit, inputs
+  with sha256). 2026-11-14 run: 291/291 granules, 9.9 GB raw, null rate
+  9.91 percent (high-latitude not-retrieved areas stay null, never 0).
+- `python -m p0ingest.earth_static check` verifies the key set is exactly
+  cells-r4's, no duplicates, physical ranges (0-100 or null), support
+  consistency, `missing_reason` keys equal to each row's null value
+  columns and 5 raw spot checks (central Amazon, central Sahara, boreal
+  Canada, Iowa cropland, Greenland ice sheet) that re-gather the covering
+  tiles' native pixels independently and compare against the stored
+  lattice npz. 2026-11-14: `"ok": true`, 0 errors, 5/5 green.
+- Probes, not delivered (no values used, tables not shipped):
+  `nsidc-ggd318-permafrost` data is access-blocked — the legacy NSIDC ECS
+  host refuses TCP and daacdata.apps.nsidc.org redirects to an interactive
+  URS OAuth login we do not have (the licence itself is resolved:
+  reuse with citation, Brown et al. 2002, DOI 10.7265/skbg-kf16 — catalog
+  row updated); `earth-impact-database` (passc.net) serves a 114-byte JS
+  redirect to a parked page and re-probes the same on 2026-11-14. Evidence
+  in `_derived/earth-static-probes.json` (`python -m p0ingest.earth_static
+  probe` re-runs it); catalog rows carry the probe results.
+
+## W41 (#100) source tables: Diviner derived maps (my own section)
+- `python -m p0ingest.moon_diviner fetch|build|check` prepares source-native
+  Moon tables from the LRO Diviner derived archive (PDS Geosciences node,
+  registry row `diviner-l4`), all static mission-cumulative products (no
+  daily/hourly granules, time-resolution rule satisfied). Raw bytes land in
+  `data/snapshots/diviner-l4/` via `p0ingest.snapshots.fetch` (URL, fetch
+  time, sha256, bytes in `MANIFEST.json`); derived parquets plus
+  `preparation-report.json` land in `data/snapshots/_derived/planetary/diviner-l4/`.
+- `gcp-tbol-localtime.parquet` (24,883,200 rows): Diviner Global Cumulative
+  Product bolometric brightness temperature, the mission-cumulative average
+  (2009-07-05..2015-04-01) per 0.5 deg x 0.5 deg cell x 0.25 h local-time bin
+  (native grid, 360x720x96; decode clat=-89.75+0.5*bin, clon=-179.75+0.5*bin,
+  lt=0.125+0.25*bin). 7,908,496 tbol nulls carry `missing_reason`: -9999 =
+  `source-no-observation` (bin empty), -9998 = `source-invalid-constant`.
+- `gcp-tsurf.parquet` (259,200 rows): tsurf_max/tsurf_min/tsurf_range over the
+  96 cumulative local-time bins of each cell, plus `support_bins` (valid bins
+  of 96) and a JSON `missing_reason` whose keys are exactly the null value
+  columns (`no-valid-source-bins`). Surrogate note: each bin holds the
+  2009-2015 cumulative average, so tsurf_max underestimates single-orbit
+  extremes.
+- `cf-position.parquet` (44,236,800 rows) and `rock-abundance.parquet`
+  (44,236,800 rows): the L3 GDR 32 pix/deg simple-cylindrical maps
+  (`dgdr_std_cf_clc_cyl_032_img`, ±60 deg: Christiansen Feature position in um,
+  silicate-composition proxy, model of channel 3/4/5 emissivity, obs
+  2009-2010; `dgdr_ra_avg_cyl_032_img`: rock abundance, the Bandfield et al.
+  2011 two-component thermal fit to night-time channels 6/7/8, areal rock
+  fraction 0-1, local time 19:30-05:30, obs 2009-2010). Values are DN *
+  label SCALING_FACTOR verbatim; nulls carry `source-missing-constant`
+  (-32768; CF also has exactly 1 outside-derived-range pixel) or none.
+  Source-native pixels only, no resampling to H3.
+- `diviner-north-prp.parquet` (2,880,000 rows): the north-pole PRP, the mirror
+  of the south one prepared by `p0ingest.planetary` (#74, #75): triangle
+  vertices in Moon-centered km, planetocentric lon/lat/alt of the centroid,
+  annual-average temperature at 2 cm depth (temp_avg) and annual maximum at
+  the surface (temp_max), both model values from thermal-model fits to the
+  first mapping-orbit year, and calculated ice-stability depth (1 kg m-2 per
+  Byr sublimation; model value, NOT measured ice). Only the label-declared
+  -999 exclusion applied (1,810,489 nulls). CAVEAT: 65,481 records carry an
+  undocumented ice_depth sentinel -1.00000 — not the -999 exclusion and not a
+  physical depth; kept verbatim, no invented QA, flagged in the report.
+- The H-parameter map does not exist in this archive (rock_abund_div has no
+  published derived-map sibling; gap recorded in the catalog row).
+- `python -m p0ingest.moon_diviner check` (also with `-O`) re-verifies
+  MANIFEST hashes and sizes, output sha256/rows, exact key domains, physical
+  ranges and 7 raw spot checks; exit 0 only if all pass. Both unit tests
+  (`tests/test_moon_diviner.py`, 32 cases) pass under plain python and `-O`.
+
+## W37 (#96) PALSAR L-band radar backscatter, campaign-site regional table (my own section)
+
+`alos-palsar-rtc-high` (ASF Hi-Res RTC, 12.5 m, gamma0; licence "© NASA [Year],
+Includes Material © JAXA, METI [Year]", verified in the registry row). The global
+family is ~506k single-date scenes, so this is REGIONAL by the declared subset
+rule: for each of the six campaign files in `data/campaigns/`, the site hexagon
+plus its H3 ring-1 neighbours (7 cells per site; FMARS and HMP-2015 share a
+parent) -> exactly 35 keys. Per key: median HH and HV gamma0 in dB over a
+deterministic stride-30 subgrid (every 30th row and column of the 12.5 m raster
+= 1/900 of pixels, pooled across the scenes of the union cover), valid-subpixel
+counts, scene URs and acquisition dates (ALOS-1 scenes, 2006-2011). Pixel
+centres go through `h3.latlng_to_cell(lat, lon, 4)` after a per-window
+CRS->WGS84 projection — stated in both the docstring and the `.meta.json`.
+
+**Proxy limits (important):** PALSAR is L-band (1.26 GHz) LINEAR polarization.
+The engineering targets `radar_ka_backscatter` (Mars, Ka band) and `cpr_minirf`
+(Moon, circular polarization ratio) are a different band and polarization
+basis. No conversion was made and none is claimed — weak Earth-side analogue
+only.
+
+- `python -m p0ingest.palsar --query` — live CMR probe per cluster, greedy
+  fewest-scenes cover (a cell counts covered when its centre + 6 vertices lie
+  inside the UNION of chosen footprints; scenes are rotated strips), writes the
+  selection file and prints the size plan (real run 2026-11-14: 43 scenes,
+  14.74 GB, 0 uncovered cells).
+- `--fetch` would download the chosen scenes via `p0ingest.snapshots.fetch` (the ASF
+  host is added to the Earthdata-host tuple at call time; MANIFEST provenance).
+  **Still blocked 2026-11-15, post-EULA**: the Earthdata account HAS now approved
+  ASF's application/EULA (client_id BO_n7nTIlMljdvU6kRRB3g) but a PAT alone still
+  cannot drive datapool downloads — datapool/data.asf redirect to URS
+  `oauth/authorize` (app_type=401), which rejects EDL tokens in every form
+  (401 "HTTP Basic: Access denied" with bearer, basic and query-token variants);
+  `cumulus.asf.alaska.edu/s3credentials` DOES issue STS creds but its
+  DownloadRoleInRegion role denies `s3:GetObject` on `asf-cumulus-prod-protected`
+  for every RTC_HI_RES key layout probed; TEA `/locate` has no route for these
+  buckets; CMR publishes no `s3://` URLs for C1206487504-ASF. Full evidence on
+  issue #96. A working path needs an interactive Earthdata browser login (or a
+  username/password .netrc), not a PAT.
+- `--build` writes `_derived/palsar-r4-sites.parquet` + `.meta.json`; with the
+  fetch blocked the table carries 35 rows of explicit nulls with
+  `missing_reason` `asf-download-auth-unreachable` (missing stays missing on
+  purpose). A cell's median needs >= 50 valid subgrid pixels, else
+  `not-enough-valid-pixels`.
+- `--check` validates columns, keys (exactly the 35 subset cells), no
+  duplicates, the dB physical guard, and that `missing_reason` keys match the
+  null value columns of each row exactly; with raw scenes present it
+  recomputes 5 cells' medians straight from the raw zips and compares. The
+  pipeline is exercised offline by `tests/test_palsar.py` (synthetic RTC
+  GeoTIFFs; 17 tests; full suite green in normal and `-O` mode).
+
+## W44 (#103) Mars topography + slopes: `mars_topo`
+
+Source-native Mars terrain from three families, prepared by
+`python -m p0ingest.mars_topo` (`src/p0ingest/mars_topo.py`); no resampling to
+H3, no scoring or comparison. All products are single-epoch elevation surfaces
+(time-resolution rule moot).
+
+- `mola-megdr`: MGS MOLA MEGDR median topography (PDS Geosciences, us-pd).
+  The 32 px/deg file (`megt90n000fb.img`, 5760x11520 int16, simple cylindrical,
+  planetocentric, lon 0-360 E) is prepared row-by-row into
+  `_derived/planetary/mars_topo/mars-topo-megdr32-elevation.parquet`: one row
+  per native pixel with `source_line`, `source_sample`, `latitude`,
+  `longitude`, `elevation_m` (metres relative to the GMM3 deg-50 areoid, as
+  published) and `slope_2_5km` — central finite difference between pixel
+  centres 2 px apart per direction (north-south baseline 3704.9 m; east-west
+  3704.9*cos(lat) m), kept only while BOTH baselines sit inside the 2-5 km
+  band (i.e. |lat| <= 57.3 deg); everything else stays null with a per-row
+  `missing_reason`. `mars-topo-site-stats-megdr32.parquet` carries
+  `relief_ellipse` (max-min elevation within `radius_m` = 10 km AROUND each
+  named site; the radius is a parameter, not a fixed value) and the max
+  in-band `slope_2_5km` within 10 km of each site. The 4/16 ppd MEGDR files
+  are snapshotted as provenance only.
+- `mola-hrsc-blended-dem`: USGS MOLA/HRSC blended DEM v2, 200 m/px (MOLA part
+  CC0, HRSC part CC BY-SA 3.0 IGO - derived redistribution must carry that
+  attribution). DateTime streams it in 256-line windows (RAM < 2 GB) and
+  writes `_derived/planetary/mars_topo/mars-topo-blended-3p2km-blocks.parquet`:
+  3.2 km blocks (32x32 native pixels) with `slope_200_500m_mean` (mean
+  central-difference slope at the 400 m baseline; `support_px` = native pixels
+  used) and `mars-topo-blended-site-pixels.parquet`: native 200 m pixels
+  within 200 m of each site with elevation + slope, never aggregated.
+- `ctx-dtms-usgs-stac` / `hirise-dtms-usgs-stac`: USGS Astrogeology STAC
+  controlled DTM collections (both CC0-1.0). Full walks produce
+  `mars-topo-dtm-footprints.parquet` (item id, centre lat/lon, bbox, GSD,
+  DTM asset URL, licence). Only tiles covering the six named sites (Jezero,
+  Gale, Elysium/InSight, Utopia/Zhurong, Meridiani, Gusev) are downloaded;
+  per-site stats tables hold `slope_20_40m` (CTX DTM, central difference at a
+  stated even span nearest the 30 m mid-band point), `slope_5m` (HiRISE DTM,
+  span nearest 3.5 m), `slope_trav_mean` (mean native-baseline slope inside
+  1000 m / 500 m of the site) and `relief_ellipse` from the DTM.
+- `check` re-reads the tables, verifies keys, physical ranges and that every
+  null's `missing_reason` JSON object has exactly the null value columns as
+  keys, and runs raw spot checks (raw MEGDR pixels at 30 site-offset
+  locations vs the parquet; < 0.5 m tolerance). `python -m unittest discover
+  -s tests` passes with plain python and `python -O`.
+
+## W35 (#94) EMIT L2B mineral identification per hexagon (my own section)
+
+`python -m p0ingest.emit_minerals` builds `emit-min-r4.parquet`: EMIT L2B
+Estimated Mineral Identification (`emit-l2b-min-v002`, LP DAAC, CC0) per H3
+res-4 hexagon as a STATIC composite. Acquisition time is ignored (minerals do
+not change with season); the realised acquisition span 2022-08-10 to
+2026-11-09 is recorded in the meta. Keys are exactly the 91,800 land hexagons
+of `cells-r4.parquet`.
+
+- The full CMR collection is 135,534 granules / ~14.5 TB and cannot be
+  streamed on our budget, so a deterministic pseudo-random sample (order =
+  sha256 of the granule id; spreads over time and space) was streamed
+  download -> aggregate -> sha256+bytes ledger line -> delete. 197 granules /
+  8.73 GB made it into this build. Hexagons inside EMIT coverage that no
+  processed granule reached are null with reason `granule-not-processed`
+  (63,299 rows); never covered -> `outside-emit-coverage` (26,603); covered
+  and processed but 0 geologic identifications -> `no-identified-pixels`
+  (260). Two rows detected inconsistent after the run (`samples-lost-`
+  `processing-error`, see limits in the meta) are fully null, never invented.
+- Per hexagon and mineral family: share of geologic-identified pixel
+  observations, median band depth (0.001-wide histogram medians, max error
+  0.0005), and the pixel-observation count. Families are regex rules on the
+  granule's own library names: hydration (phyllosilicates + hydrated
+  evaporites), fe_mg_smectite (montmorillonite/chlorite/vermiculite + sibs),
+  al_oh (kaolin + illite), sulfate (gypsum), carbonate (calcite/dolomite),
+  mafic_bd_1um (fe2+ silicates + olivine), dust_proxy (fe3+ iron-oxide
+  coatings). THE crism_* FEATURE SLOTS ARE EARTH PROXIES ONLY: these are EMIT
+  mineral IDs at Earth wavelengths from the EMIT spectral library, NOT CRISM
+  indices and not numerically interchangeable with them; dust_proxy is also
+  NOT the Ruff TES dust-cover index. Pixel centre -> `h3.latlng_to_cell(_, 4)`.
+- Commands: `list` (paged CMR listing -> `granules.jsonl.gz`), `stream`
+  (resumable per-granule checkpoints + gzipped ledger; stream lock; max 4
+  downloads in flight), `build` (`emit-min-r4.parquet` + `emit-min-r4.meta.json`
+  under `data/snapshots/_derived/emit-min/`), `check` (exact keys, no dupes,
+  physical ranges, share==px/base, missing_reason keys exactly the null value
+  columns, and 5 raw spot granules re-aggregated and compared to the table).
+  All 39 module tests pass with plain python and `python -O`. Derived
+  products and the ledger are on ccdrive (`snapshots/_derived/emit-min/`);
+  the 5 spot raws are kept for `check` (`snapshots/emit-l2b-min-v002/`).
+
+## W40 (#99) Moon LOLA polar products (my own section)
+
+`python -m p0ingest.moon_lola` acquires and prepares the source-native south-polar
+LOLA products (Barker et al. 2023 PGDA rasters, the 2016 PDS illumination maps and
+the coarse LOLA GDR), with no resampling to Earth grids and no scoring. All outputs
+go to `data/snapshots/_derived/planetary/<datasetId>/` as Parquet with per-row
+`missing_reason` (JSON object keyed exactly by the null columns of that row).
+
+- `--fetch` pulls every file through `snapshots.fetch` (MANIFEST: url, sha256,
+  bytes, time, licence). Datasets: `lola-south-pole-ldem-2023`
+  (LDEM_80S_20MPP_ADJ, LDEC_80S_20MPP_ADJ, LPSR_80S_20MPP_ADJ,
+  LDRM_80S_50MPP_ADJ_SLP_100M / _RMSD_100M, LDEM_60S_240MPP_ADJ),
+  `lola-polar-illumination` (avgvisib_85s_060m / 75s_120m, sun + _earth pairs),
+  `lola-gdr` (ldem_4 4 px/deg) and `usgs-planetary-nomenclature` (gazetteer
+  shapefile, used only to name spot-check features). Licences verified: NASA
+  PDS public domain / us-pd.
+- Elevation, 20 m/px polar stereographic (30400x30400), `ldem-80s-20mpp.parquet`:
+  one row per source pixel (`source_line`, `source_sample` keys), `elevation_m`
+  = the float32 LDEM_80S_20MPP_ADJ pixel value (already calibrated to metres
+  above the 1737400 m radius datum by the product; no rescaling applied),
+  `lola_spot_count` from LDEC, `psr_2023` from LPSR. Source nodata -> null +
+  `source-nodata`.
+- Slope/roughness, 50 m/px, `ldrm-80s-50mpp.parquet`: `slope_100m_deg` and
+  `rough_rms_100m_m` straight from the published LDRM layers (baseline is the
+  product's own 100 m; not recomputed).
+- 2 km slope, `ldem-60s-240mpp.parquet`: `elevation_m` from the 240 m/px LDEM and
+  `slope_2km_eva_deg` computed by fitting a plane to each ~2 km (101 px) window
+  (least squares on x/y/z with NaN-aware sums); windows touching the canvas edge
+  or missing elevation are null with `incomplete-window`. This is OUR derived
+  slope at an EVA-relevant 2 km baseline, clearly stated as such.
+- PSR aggregation, `psr-2km-1kmgrid.parquet`: 1 km cell grid in the LPSR map
+  metres; `psr_frac_2km` = nan-aware fraction of native 20 m shadow pixels in a
+  +-1 km square window; `psr_dist_km` = exact EDT distance to the nearest
+  PSR-positive cell (cell-grid quantised). Edge cells whose window would leave
+  the canvas are null with `psr-window-truncated`.
+- Illumination, `avgvisib-85s-060m.parquet` and `avgvisib-75s-120m.parquet`:
+  PDS3 int16 labels (LSB, scaling 4e-5, 0-based pixel registration) give
+  `illum_frac_pct` and `earth_vis_pct` = DN*scaling*100; the sample/line
+  convention is validated in-check by a >=0.9 never-sunlit vs 2023 LPSR mask
+  agreement (mirrored conventions score <=0.79).
+- GDR, `ldem-gdr-4ppd.parquet`: 720x1440 lat/lon grid (4 px/deg, LSB int16,
+  scale 0.5, offset 1737400 m), `elevation_m`; the -32768 null constant (if it
+  ever appears) -> null + `source-no-data-constant`.
+- `python -m p0ingest.moon_lola build` writes a preparation report next to the
+  tables; `check` verifies every table's exact key domains, duplicate keys,
+  physical ranges, missing-reason contract and runs 8 raw spot checks at
+  gazetteer features (Shackleton floor below rim and PSR, Malapert illumination
+  and slope table==raw, Tycho on the GDR grid, plus mask-agreement and
+  aggregation recomputations from raw pixels). Build is idempotent: existing
+  table parquets are reused and re-verified rather than rebuilt.
+- Known gap (partial, documented, not filled): `LDEC_80S_20MPP_ADJ.TIF` (the
+  LOLA per-pixel shot-count raster) was NOT fetched - the local PGDA download
+  was deferred by an orchestrator priority call (engine/workflow over
+  coverage) after repeated slow transfers, so `lola_spot_count` is null for
+  every row of `ldem-80s-20mpp.parquet` with `missing_reason`
+  `{"lola_spot_count":"source-not-fetched"}`. No value is invented; the
+  preparation report lists the gap. When LDEC lands on the shared drive,
+  refetching and rerunning `build check` fills the column - the code already
+  handles both cases. Also: `sun_elev_min` is not published as a numeric layer
+  in these products (the PDS maps are mean illumination fractions only) and no
+  Earth-visibility horizon product passed licence/provenance verification, so
+  those requested fields are recorded as gaps in the report, not invented.

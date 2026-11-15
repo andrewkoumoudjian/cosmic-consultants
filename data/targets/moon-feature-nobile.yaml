@@ -1,0 +1,31 @@
+siteId: moon-feature-nobile
+name: Nobile
+body: moon
+kind: feature
+status: candidate
+lonMode: east-positive-0-360
+centreLat: -85.2752
+centreLon: 53.2725
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Nobile
+extent:
+  kind: bounding-box
+  minLat: -86.455
+  maxLat: -84.0954
+  minLon: 37.321
+  maxLon: 69.2558
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake of 2024 regions "Nobile Rim 1" and "Nobile Rim 2"
+usgsCrossCheck:
+  feature: Nobile
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Nobile;clean_name=Nobile;approvaldt=1994/01/01 00:00:00;diameter=79.272329999999997;center_lon=53.272500000000001;center_lat=-85.275199999999998;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

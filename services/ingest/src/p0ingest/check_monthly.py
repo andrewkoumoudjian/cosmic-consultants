@@ -59,10 +59,11 @@ def main() -> int:
     bad = 0
     lat = l1.lat.to_numpy()
     in_model = ((lat >= 25) & (lat <= 85)) | ((lat >= -85) & (lat <= -60))
-    for i, (mr, dx, nx, bp, pf, sl) in enumerate(zip(l1.missing_reason, d1, n1, l1.barren_pct, l1.permafrost_pct, l1.slope_mean_deg)):
+    for i, (mr, dx, nx, dr, bp, pf, sl) in enumerate(zip(l1.missing_reason, d1, n1, l1.lst_diurnal_range_mean_k,
+                                                         l1.barren_pct, l1.permafrost_pct, l1.slope_mean_deg)):
         r = json.loads(mr)
         want = {"dustProcess"}
-        if np.isnan(dx) or np.isnan(nx): want.add("thermal")
+        if np.isnan(dx) or np.isnan(nx) or dr != dr: want.add("thermal")
         if bp != bp: want.add("surfaceMaterial")
         if sl != sl: want.add("terrain")
         if pf != pf:

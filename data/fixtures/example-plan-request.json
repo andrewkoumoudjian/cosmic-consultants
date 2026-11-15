@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "body": "mars",
+  "objectiveId": "OP-5LM",
+  "category": "robotic-mobility-navigation",
+  "missionType": "robotic",
+  "months": { "start": 6, "end": 8 },
+  "durationDays": 14,
+  "teamSize": 6,
+  "limits": { "access": 240, "protected": 0 },
+  "must": ["terrain", "surfaceMaterial"],
+  "sortBy": "terrain",
+  "top": 20,
+  "pins": ["84b2203ffffffff", "8429927ffffffff"],
+  "successCriteria": [
+    { "dimension": "terrain", "text": "SYNTHETIC example: drive 5 km over slopes under 5 deg." }
+  ]
+}

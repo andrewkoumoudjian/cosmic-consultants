@@ -1,0 +1,25 @@
+{
+  "probedAt": "2026-11-14T19:46:37Z",
+  "probedBy": "Mistral Vibe / glm-5-3 / T3 Code (provider acpRegistry_mistral_vibe) / Andrew Koumoudjian (@andrewkoumoudjian)",
+  "issue": 68,
+  "datasetId": "merra2-m2tmnxaer",
+  "collection": "C1276812866-GES_DISC",
+  "purpose": "recheck actual GES DISC data access for the 2023 M2TMNXAER monthly granules; issue #68 recorded an earlier HTTP 403 EULA Acceptance Failure at 2026-11-14T18:47Z, and a helper reported HTTP 200 at 19:01Z; this is an independent first-month partial-content probe",
+  "probe": {
+    "url": "https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/MERRA2_400.tavgM_2d_aer_Nx.202301.nc4",
+    "method": "GET with Range: bytes=0-1048575 and Earthdata bearer token (token contents never recorded)",
+    "status": 206,
+    "contentType": "binary/octet-stream",
+    "contentRange": "bytes 0-1048575/83870720",
+    "totalBytes": 83870720,
+    "firstMiBSha256": "223cb8c89c539c36949058d84f278d7e33dbea60d1461d52db802095c735e709",
+    "fileMagicHex": "894844460d0a1a0a",
+    "interpretation": "HDF5 (netCDF4) payload served by GES DISC; the earlier Earthdata app-approval block no longer applies. Full granules are fetched through services/ingest/src/p0ingest/dust.py fetch with sha256 + bytes recorded in data/snapshots/MANIFEST.json."
+  },
+  "cmr": {
+    "url": "https://cmr.earthdata.nasa.gov/search/granules.json?collection_concept_id=C1276812866-GES_DISC&temporal=2023-01-01T00:00:00Z,2023-12-31T23:59:59Z&page_size=50&sort_key=start_date",
+    "status": 200,
+    "hits": 12,
+    "interpreted": "exactly one granule per month of 2023, stream MERRA2_400, all 12 on https://data.gesdisc.earthdata.nasa.gov/data/MERRA2_MONTHLY/M2TMNXAER.5.12.4/2023/"
+  }
+}
