@@ -23,10 +23,11 @@ license:
   verified: true
   note: "license field of the USGS STAC collection record"
 coverage:
-  spatial: "unverified: Mars quadrangles"
-  temporal: "Odyssey mission"
-  resolution: "unverified: 100 m/pixel"
+  spatial: "28 Mars quadrangle groups (MC-02..MC-29, 56 STAC items = day `_dir` + night `_nir` per quad); polar quads absent (W45 probe, 2026-11-14)"
+  temporal: "static controlled mosaics (images 2018-07 to 2021-10 per STAC item datetimes; no per-pixel date)"
+  resolution: "100 m/pixel, 8-bit per quad; SimpleCylindrical projection with per-quad centre meridian (ISIS labels in MANIFEST)"
+  quantitative: "NO: 8-bit qualitative brightness image mosaics, not calibrated temperature or TIU (USGS item description; W45 probe)"
 analysisReady: true
 independenceGroup: thermal-imager
-plannedUse: "Mars thermophysical character (day/night IR)"
+plannedUse: "Mars thermophysical character: day/night IR BRIGHTNESS structure at landing-site ROIs; cannot serve tsurf_max/min/range or TIU ti (qualitative DN only)"
 snapshotPolicy: "registry probe only; bytes are snapshotted by the ingest work order (W6) with sha256 + fetch date"

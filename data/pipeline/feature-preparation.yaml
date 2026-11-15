@@ -84,9 +84,12 @@ features:
     notes: No global Earth counterpart identified in inventory; investigate literature/local
       sources; missing stays explicit.
   ti:
-    relatedColumns: []
-    notes: ATI derivation not built; LST/albedo prerequisites and physical interpretation
-      need review.
+    relatedColumns:
+    - sites-r4-monthly.lst_diurnal_k
+    - sites-r4-monthly.aqua_lst_diurnal_k
+    - sites-r4.albedo_ws_sw_mean
+    - sites-r4.albedo_bs_sw_mean
+    notes: ATI derivation not built; Terra/Aqua monthly LST diurnal range (~10:30/~22:30 and ~13:30/~01:30) and albedo prerequisites exist, physical TI derivation needs review.
   albedo:
     relatedColumns:
     - sites-r4.albedo_ws_sw_mean
@@ -141,18 +144,18 @@ features:
   tsurf_max:
     relatedColumns:
     - sites-r4.lst_day_max_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_day_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~10:30 and ~13:30 day overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_min:
     relatedColumns:
     - sites-r4.lst_night_min_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_night_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist (~22:30 and ~01:30 night overpasses); named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_range:
     relatedColumns:
     - sites-r4-monthly.lst_diurnal_k
-    notes: Monthly MOD11C3 summaries and history exist; named feature requires daily/same-day
-      retrieval processing. Do not rename monthly averages as observed extrema.
+    - sites-r4-monthly.aqua_lst_diurnal_k
+    notes: Monthly MOD11C3/MYD11C3 summaries and history exist; named feature requires daily/same-day retrieval processing. Do not rename monthly averages as observed extrema.
   tsurf_ann_max_psr:
     relatedColumns: []
     notes: Keep explicit target-body limitation; do not invent an Earth match.

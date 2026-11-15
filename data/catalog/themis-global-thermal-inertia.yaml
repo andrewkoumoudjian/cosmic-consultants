@@ -1,0 +1,33 @@
+# Registry row (W45, issue #104). THEMIS quantitative global thermal-inertia mosaic.
+# Kept as a gap record: its licence could not be resolved, so its values are NOT used.
+datasetId: themis-global-thermal-inertia
+title: "Mars THEMIS-Derived Global Thermal Inertia Mosaic (USGS Astropedia, ~100 m/px)"
+status: candidate
+bodies: [mars]
+dimensions: [thermal]
+discovery:
+  ckanName: "USGS Astrogeology collection mars-themis-derived-global-thermal-inertia-mosaic (Astropedia CKAN id 3a0624e9-e7d3-41e7-aa50-9a8d080cf3cc for the Qualitative 00N000E sheet)"
+  doi: null
+source:
+  archive: "USGS Astrogeology Science Center (ASC Astropedia) + ASU Mars Space Flight Facility"
+  endpoint: "https://asc-astropedia.s3.us-west-2.amazonaws.com/?list-type=2&prefix=Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/&max-keys=10"
+  probedAt: 2026-11-14T00:00:00Z
+  probeResult: "S3 listing HTTP 200 (2026-11-14): Qualitative-8-Bit/ 24 sheets THEMIS_TI_Mosaic_Qual_<lat><lon>_100mpp.cub (~633 MB each) + ancillary GeoTIFFs; Quantitative-32-Bit/ 24 sheets THEMIS_TI_Mosaic_Quant_<lat><lon>_100mpp.cub (~2.53 GB each) + ancillary GeoTIFFs. Product pages only exist for the Qualitative sheets on astrogeology.usgs.gov."
+probe:
+  kind: http
+  url: "https://asc-astropedia.s3.us-west-2.amazonaws.com/?list-type=2&prefix=Mars/Odyssey/THEMIS-Global-Thermal-Inertia-Mosaic/Qualitative-8-Bit/&max-keys=100"
+  expect: ["THEMIS_TI_Mosaic_Qual_00N000E_100mpp.cub", "Qualitative-8-Bit"]
+license:
+  id: unresolved
+  textUrl: "https://astrogeology.usgs.gov/ckan/dataset/3a0624e9-e7d3-41e7-aa50-9a8d080cf3cc/resource/6556a9a1-33ba-4347-8e98-3155a78262a3/download/themis_ti_mosaic_qual_00n000e_100mpp_cub.docx"
+  expect: ["accconst", "useconst"]
+  verified: false
+  note: "FGDC metadata inside the USGS sheet .cub.docx declares accconst=None and useconst=None. Per LICENCE-AUDIT-41 precedent (mars-geologic-map-sim3292) 'None' constraints are not an explicit licence grant, so the licence stays unresolved. No data.nasa.gov record exists for this product (probed 2026-11-14: package_search 'themis thermal inertia' count 26, none for this mosaic). Easy access is denied: ckan.astrogeology.usgs.gov and api.astrogeology.usgs.gov fail connections (HTTP code 000). The .cub.docx evidence resource itself returned HTTP 404 on every re-fetch (2026-11-14, ~18:20 and ~23:20 UTC) after one successful direct fetch earlier the same day whose bytes did not persist, so no evidence file is snapshotted; the constraint text above was read from that direct fetch. Values are therefore NOT ingested (AGENTS.md rule 3); gap recorded on issue #104 and board #6."
+coverage:
+  spatial: "Mars 60S-30N, six 60 deg longitude bands (24 sheets); sheets labelled 00N/30N/30S/60S x 000E..300E"
+  temporal: "static mosaic (THEMIS night IR accumulations; sheet publication 2014-05-30, quantitative release later)"
+  resolution: "100 m/pixel (592.747 px/deg per the Qualitative sheet product metadata); 8-bit qualitative and 32-bit quantitative variants"
+analysisReady: false
+independenceGroup: thermal-imager
+plannedUse: "would serve ti (TIU) at 100 m; BLOCKED: licence unresolved - do not ingest values until an explicit licence grant is recorded"
+snapshotPolicy: "licence-evidence files only (FGDC .cub.docx) unless the owner resolves the licence; values not snapshotted. The .cub.docx resource returned HTTP 404 on every re-fetch of 2026-11-14 after one successful direct fetch whose bytes did not persist, so no evidence file exists yet"
