@@ -19,3 +19,10 @@ data/snapshots/*
 # Secrets (NASA API key lives in services/api env)
 .env
 .env.*
+
+# Reproducible planner release from the verified local assembly
+apps/atlas/public/data/planner-v1/
+
+# Browser regression artifacts
+apps/atlas/test-results/
+apps/atlas/playwright-report/

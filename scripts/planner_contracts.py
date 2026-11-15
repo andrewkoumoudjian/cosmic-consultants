@@ -219,8 +219,8 @@ def _check_one(at, got, value, band, hi_strict) -> list[str]:
     elif verdict == "miss":
         if side != got.get("side"):
             errs.append(f"{at}: side {got.get('side')} but the value is {side} the band")
-        # A value exactly at hi with hiStrict misses by 0; the schema needs gap > 0, so it is reported as the smallest step.
-        if gap > 0 and abs(got["gap"] - gap) > TOL * max(1.0, abs(gap)):
+        # An excluded strict boundary has exactly zero geometric distance.
+        if abs(got["gap"] - gap) > TOL * max(1.0, abs(gap)):
             errs.append(f"{at}: gap {got['gap']} but the distance outside the band is {gap}")
     return errs
 

@@ -6,15 +6,15 @@ Existing design: ADR-0005 and ADR-0007; docs/plan/MISSION-PLANNER.md. Dependenci
 
 ## Frozen core statement
 
-`proofs/Analog/Funnel.lean` from PR #84 is frozen unchanged for #132 under Andrew's explicit implementation instruction. SHA256: `8e77499733448106d65756adeab4f2ee5d908e0b4365aa7f18be07925850e59c`. Its definitions and twelve S7 propositions cover known/inside bands, unknowns, month aggregation, must/nice, tighter requirements and unknown operational limits. Empty/reversed/strict bands, empty months and empty must sets were reviewed: empty must is vacuous in this formal model; the UI must make an empty selection explicit. The statements do not validate source physics, application arithmetic or thresholds. Proofs go in a separate module, without changing the frozen file.
+`proofs/Analog/Funnel.lean` from PR #84 is frozen unchanged for #132 under Andrew's explicit implementation instruction. SHA256: `8e77499733448106d65756adeab4f2ee5d908e0b4365aa7f18be07925850e59c`. Its definitions and eleven S7 propositions cover known/inside bands, unknowns, month aggregation, must/nice, tighter requirements and unknown operational limits. Empty/reversed/strict bands, empty months and empty must sets were reviewed: empty must is vacuous in this formal model; the UI must make an empty selection explicit. The statements do not validate source physics, application arithmetic or thresholds. Proofs go in a separate module, without changing the frozen file.
 
 ## Implementation tasks
 
-- [ ] Prove S7 and extend the pinned axiom audit; capture direct build/Lean exit codes.
-- [ ] Add an assembled-data adapter and verified L4 release command. Reuse existing publisher; verdicts use the same published Float32 values as the browser. Preserve per-cell/month null reasons in a release supplement.
-- [ ] Implement requirements, monthly verdicts/gaps, limits, Pareto layers and brief output with tests, including strict boundaries, ties and unknowns. A strict upper boundary can miss with zero geometric gap; record the strict boundary explicitly instead of inventing an epsilon.
-- [ ] Wire a planner entry in the existing atlas: body/objective/category/months, metric bands and must/nice, finder, map, three-site comparison, gaps, logistics/risks and Markdown/print export. Keep available source warnings visible.
-- [ ] Validate real requests for both bodies, build/test the app and publish a reviewable PR. No scientific acceptance or full-feature completion claim.
+- [x] Prove S7 and extend the pinned axiom audit; capture direct build/Lean exit codes.
+- [x] Add an assembled-data adapter and verified L4 release command. Reuse existing publisher; verdicts use the same published Float32 values as the browser. Preserve per-cell/month null reasons in a release supplement.
+- [x] Implement requirements, monthly verdicts/gaps, limits, Pareto layers and brief output with tests, including strict boundaries, ties and unknowns. A strict upper boundary can miss with zero geometric gap; record the strict boundary explicitly instead of inventing an epsilon.
+- [x] Wire a planner entry in the existing atlas: body/objective/category/months, metric bands and must/nice, finder, map, three-site comparison, gaps, logistics/risks and Markdown/print export. Keep available source warnings visible.
+- [x] Validate real requests for both bodies, build/test the app and publish a reviewable PR. No scientific acceptance or full-feature completion claim.
 
 ## Interfaces
 

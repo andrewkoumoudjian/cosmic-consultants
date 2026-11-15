@@ -302,14 +302,14 @@
         "month": { "type": "integer", "minimum": 1, "maximum": 12 },
         "value": { "type": ["number", "null"] },
         "verdict": { "type": "string", "enum": ["match", "miss", "unknown"] },
-        "gap": { "type": "number", "exclusiveMinimum": 0 },
+        "gap": { "type": "number", "minimum": 0 },
         "side": { "type": "string", "enum": ["below", "above"] },
         "reason": { "$ref": "#/$defs/reason" }
       },
       "allOf": [{ "$ref": "#/$defs/verdictShape" }]
     },
     "verdictShape": {
-      "description": "match: value known and inside the band, no gap. miss: value known and outside, gap > 0 with its side. unknown: value or band missing, with a reason; unknown never counts as match.",
+      "description": "match: value known and inside the band, no gap. miss: value known and outside, gap >= 0 (zero only at an excluded strict boundary) with its side. unknown: value or band missing, with a reason; unknown never counts as match.",
       "allOf": [
         {
           "if": { "properties": { "verdict": { "const": "match" } }, "required": ["verdict"] },
@@ -339,7 +339,7 @@
         "band": { "$ref": "#/$defs/band" },
         "value": { "type": ["number", "null"], "description": "L1/L2 rows: the site's value. L1m rows: null here; the values are in perMonth." },
         "verdict": { "type": "string", "enum": ["match", "miss", "unknown"], "description": "For L1m rows, over the requested months: miss if any month misses; else unknown if any month is unknown; else match (proposed rule, to be frozen in Lean S7 by W21)." },
-        "gap": { "type": "number", "exclusiveMinimum": 0, "description": "Distance outside the band in `unit`. For L1m rows, the largest monthly gap." },
+        "gap": { "type": "number", "minimum": 0, "description": "Distance outside the band in `unit`. For L1m rows, the largest monthly gap." },
         "side": { "type": "string", "enum": ["below", "above"] },
         "reason": { "$ref": "#/$defs/reason" },
         "successCriterion": { "type": "string" },
