@@ -2,6 +2,8 @@ import functools
 import gzip
 import http.client
 import importlib.util
+import os
+import shutil
 import tempfile
 import threading
 import unittest
@@ -42,7 +44,10 @@ class PreviewHTTPTests(unittest.TestCase):
         self.thread.join(timeout=2)
 
     def request(self, encoding=None, extra=None, method="GET"):
-        connection = http.client.HTTPConnection(*self.server.server_address, timeout=3)
+        return self.request_from(self.server, encoding, extra, method)
+
+    def request_from(self, server, encoding=None, extra=None, method="GET"):
+        connection = http.client.HTTPConnection(*server.server_address, timeout=3)
         try:
             connection.putrequest(method, "/planner.html", skip_accept_encoding=True)
             if encoding is not None:
@@ -138,6 +143,69 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual((status, body), (200, b""))
         self.assertEqual(headers["Content-Encoding"], "gzip")
         self.assertEqual(int(headers["Content-Length"]), len(self.gz))
+
+    def test_stale_sidecars_are_skipped_after_a_rebuild(self):
+        root = Path(self.temp.name)
+        status, headers, body = self.request("gzip")
+        self.assertEqual((status, headers.get("Content-Encoding"), body), (200, "gzip", self.gz))
+
+        rebuilt = b"Rebuilt compiled asset.\n" * 20
+        (root / "planner.html").write_bytes(rebuilt)
+        newer = (root / "planner.html.gz").stat().st_mtime_ns + 1_000_000_000
+        os.utime(root / "planner.html", ns=(newer, newer))
+
+        for encoding in ("gzip, identity", "br, identity"):
+            with self.subTest(encoding=encoding):
+                status, headers, body = self.request(encoding)
+                self.assertEqual((status, body), (200, rebuilt))
+                self.assertNotIn("Content-Encoding", headers)
+
+        status, headers, body = self.request("gzip;q=1, identity;q=0")
+        self.assertEqual((status, body), (406, b""))
+
+        fresh_gz = gzip.compress(rebuilt, mtime=0)
+        (root / "planner.html.gz").write_bytes(fresh_gz)
+        os.utime(root / "planner.html.gz", ns=(newer, newer))
+        status, headers, body = self.request("gzip")
+        self.assertEqual((status, headers.get("Content-Encoding"), body), (200, "gzip", fresh_gz))
+
+    def test_sidecar_with_equal_mtime_stays_fresh(self):
+        root = Path(self.temp.name)
+        timestamp = (root / "planner.html.gz").stat().st_mtime_ns
+        os.utime(root / "planner.html", ns=(timestamp, timestamp))
+        status, headers, body = self.request("gzip")
+        self.assertEqual((status, headers.get("Content-Encoding"), body), (200, "gzip", self.gz))
+
+    def test_x_gzip_is_treated_as_gzip(self):
+        status, headers, body = self.request("x-gzip;q=0.5, identity;q=0.1")
+        self.assertEqual(status, 200)
+        self.assertEqual(headers.get("Content-Encoding"), "gzip")
+        self.assertEqual(body, self.gz)
+
+    def test_startup_builds_a_fresh_brotli_sidecar(self):
+        if shutil.which("brotli") is None:
+            self.skipTest("brotli CLI is not installed")
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "planner.html").write_bytes(b"Fresh startup asset.\n" * 20)
+            totals = module.build_sidecars(root)
+            br = root / "planner.html.br"
+            self.assertIsNotNone(totals[3])
+            self.assertGreater(totals[2], 0)
+            self.assertGreaterEqual(br.stat().st_mtime_ns, (root / "planner.html").stat().st_mtime_ns)
+
+            server = module.Server(("127.0.0.1", 0), functools.partial(QuietHandler, directory=str(root)))
+            thread = threading.Thread(target=lambda: server.serve_forever(poll_interval=0.01), daemon=True)
+            thread.start()
+            try:
+                status, headers, body = self.request_from(server, "br, gzip")
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join(timeout=2)
+            self.assertEqual(status, 200)
+            self.assertEqual(headers.get("Content-Encoding"), "br")
+            self.assertEqual(body, br.read_bytes())
 
 
 if __name__ == "__main__":

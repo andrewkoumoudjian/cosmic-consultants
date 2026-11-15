@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Serve only a compiled planner site on loopback, with precompressed assets."""
+"""Serve only a compiled planner site on loopback, with precompressed assets.
+
+Sidecars are built at startup. At request time a sidecar is served only while
+it is not older than its identity file, best effort by mtime; stale sidecars
+are skipped, so clients fall back to another acceptable representation.
+Restart the server to rebuild.
+"""
 import argparse
 import functools
 import gzip
@@ -27,6 +33,8 @@ def encoding_qualities(value):
                 weight = weight.strip()
                 quality = float(weight) if re.fullmatch(r'(?:0(?:\.\d{0,3})?|1(?:\.0{0,3})?)', weight) else 0.0
         qualities[name] = min(qualities.get(name, quality), quality)
+    if 'x-gzip' in qualities:
+        qualities['gzip'] = min(qualities.get('gzip', qualities['x-gzip']), qualities['x-gzip'])
     return qualities
 
 
@@ -51,11 +59,14 @@ class Handler(SimpleHTTPRequestHandler):
             return super().send_head()
         qualities = encoding_qualities(','.join(self.headers.get_all('Accept-Encoding', [])))
         identity_quality = qualities.get('identity', 0.0 if qualities.get('*') == 0 else 1.0)
+        identity_mtime = path.stat().st_mtime_ns
         candidates = []
         for encoding, suffix in (('br', '.br'), ('gzip', '.gz'), ('identity', '')):
             candidate = path.with_name(path.name + suffix)
             quality = identity_quality if encoding == 'identity' else qualities.get(encoding, qualities.get('*', 0.0))
             if quality > 0 and candidate.is_file():
+                if suffix and candidate.stat().st_mtime_ns < identity_mtime:
+                    continue
                 candidates.append((quality, encoding, candidate))
         if not candidates:
             self.send_response(406)
@@ -89,14 +100,8 @@ class Handler(SimpleHTTPRequestHandler):
         return f
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('directory', type=Path)
-    parser.add_argument('--port', type=int, default=4184)
-    args = parser.parse_args()
-    root = args.directory.resolve()
-    if not (root / 'planner.html').is_file():
-        raise SystemExit('Expected a compiled planner site.')
+def build_sidecars(root):
+    """Build missing or stale sidecars; return wire byte totals and the brotli path."""
     brotli_bin = shutil.which('brotli')
     raw = gz_wire = br_wire = 0
     for p in root.rglob('*'):
@@ -109,10 +114,22 @@ def main():
         if brotli_bin:
             br = p.with_name(p.name + '.br')
             if not br.exists() or br.stat().st_mtime < p.stat().st_mtime:
-                subprocess.run([brotli_bin, '-f', '-q', '5', str(p), '-o', str(br)], check=True)
+                subprocess.run([brotli_bin, '-f', '-n', '-q', '5', str(p), '-o', str(br)], check=True)
             br_wire += br.stat().st_size
         raw += len(b)
         gz_wire += gz.stat().st_size
+    return raw, gz_wire, br_wire, brotli_bin
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('directory', type=Path)
+    parser.add_argument('--port', type=int, default=4184)
+    args = parser.parse_args()
+    root = args.directory.resolve()
+    if not (root / 'planner.html').is_file():
+        raise SystemExit('Expected a compiled planner site.')
+    raw, gz_wire, br_wire, brotli_bin = build_sidecars(root)
     msg = f'Serving compiled site only: {raw:,} raw bytes -> {gz_wire:,} gzip'
     if brotli_bin:
         msg += f', {br_wire:,} brotli'
