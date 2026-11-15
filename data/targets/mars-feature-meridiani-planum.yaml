@@ -24,7 +24,7 @@ usgsCrossCheck:
 source:
   datasetId: usgs-planetary-nomenclature
   file: MARS_nomenclature_center_pts.zip
-  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip
   fetchedAt: '2026-11-14T23:23:52Z'
   sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
   quote: name=Meridiani Planum;clean_name=Meridiani Planum;approvaldt=2003/01/01 00:00:00;diameter=1058.529999999999973;center_lon=356.860000000000014;center_lat=-0.040000000000000;type=Planum,

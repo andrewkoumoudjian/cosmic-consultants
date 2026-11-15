@@ -24,7 +24,7 @@ usgsCrossCheck:
 source:
   datasetId: usgs-planetary-nomenclature
   file: MARS_nomenclature_center_pts.zip
-  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MARS_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip
   fetchedAt: '2026-11-14T23:23:52Z'
   sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
   quote: name=Ares Vallis;clean_name=Ares Vallis;approvaldt=1973/01/01 00:00:00;diameter=1757.665799999999990;center_lon=334.391700000000014;center_lat=10.292400000000001;type=Vallis,

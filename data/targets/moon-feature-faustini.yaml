@@ -24,7 +24,7 @@ usgsCrossCheck:
 source:
   datasetId: usgs-planetary-nomenclature
   file: MOON_nomenclature_center_pts.zip
-  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
   fetchedAt: '2026-11-14T23:23:41Z'
   sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
   quote: name=Faustini;clean_name=Faustini;approvaldt=1994/01/01 00:00:00;diameter=42.484639999999999;center_lon=84.309899999999999;center_lat=-87.183199999999999;type=Crater,

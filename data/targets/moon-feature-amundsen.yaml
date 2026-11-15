@@ -24,7 +24,7 @@ usgsCrossCheck:
 source:
   datasetId: usgs-planetary-nomenclature
   file: MOON_nomenclature_center_pts.zip
-  url: https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
   fetchedAt: '2026-11-14T23:23:41Z'
   sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
   quote: name=Amundsen;clean_name=Amundsen;approvaldt=1964/01/01 00:00:00;diameter=103.394720000000007;center_lon=83.069100000000006;center_lat=-84.439800000000005;type=Crater,
