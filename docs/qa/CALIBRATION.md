@@ -16,14 +16,20 @@ score, and it doesn't make the rules scientifically accepted.
 ## How it was run
 
 1. **Expectations frozen first.** `data/calibration/campaign-expectations.yaml`
-   (sha256 `024c37aa…3253c`) was committed as `a906a04` (2026-11-15T11:30:35Z) and pushed
-   to `origin` before the runner existed. No assembled site value was read before that. Each campaign
-   gets a request (body, objective, mission type, months from the quoted dates)
-   plus an expected verdict and confidence per trait.
+   (sha256 `024c37aa…3253c`) was committed as `a906a04` at 11:30:35Z. GitHub's
+   branch activity log shows the branch created at `a906a04` at 11:30:36Z; the
+   runner commit `916c2cd` is 11:32:13Z, and the next push was 11:34:37Z.
+   "No assembled site value was read before the freeze" is the author's
+   statement; git can't prove it. Each campaign gets a request (body, objective,
+   mission type, months from the quoted dates) plus an expected verdict and
+   confidence per trait.
 2. **Runner added second.** `services/engine/src/planner/calibrate.py` calls
    the existing `site_plan` and `search` (frozen S7 semantics) on each campaign's
    own r4 hexagon and lines up expected next to observed. It never rewrites the
-   expectations and refuses a file that isn't marked `frozen`.
+   expectations. It refuses to run unless the file is marked `frozen`, is
+   committed, and is byte-identical to the commit that first added it. A frozen
+   expectation the engine doesn't return, or one for a site outside the grid, is
+   kept and counted as **not held**, so the denominator can't shrink.
 3. **Results committed last.** `data/calibration/results/` holds the full
    JSON (per-month rows included) and the Markdown table.
 

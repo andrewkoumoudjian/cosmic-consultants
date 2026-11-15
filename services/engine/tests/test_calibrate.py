@@ -29,7 +29,7 @@ EXP = {
          "expectedFunnel": {"shipped": "noMissSomeUnknown"}},
         {"campaignId": "site-out", "run": True, "mappingBasis": "test", "monthsBasis": "test",
          "request": {"body": "mars", "objectiveId": "OP-5LM", "missionType": "crewed", "months": {"start": 1, "end": 1}},
-         "expected": {}},
+         "expected": {"terrain": {"verdict": "match"}}, "expectedFunnel": {"shipped": "allMatch"}},
         {"campaignId": "site-skip", "run": False, "reason": "no objective fits"},
     ],
 }
@@ -90,6 +90,10 @@ class CalibrationTests(unittest.TestCase):
         res = self.run_cal()
         by = {c["campaignId"]: c for c in res["campaigns"]}
         self.assertEqual(by["site-out"]["outcome"], "site-outside-grid")
+        rows = by["site-out"]["variants"]["shipped"]["traits"]
+        self.assertEqual([(r["dimension"], r["agrees"], r["unresolved"]) for r in rows], [("terrain", False, True)])
+        self.assertEqual(res["tally"]["campaignsNotEvaluated"], 1)
+        self.assertEqual(res["tally"]["campaignsRun"], 2)
         self.assertEqual(by["site-skip"], {"campaignId": "site-skip", "run": False, "reason": "no objective fits"})
         self.assertEqual(res["tally"]["campaignsNotRun"], 1)
 
@@ -98,8 +102,9 @@ class CalibrationTests(unittest.TestCase):
         g = res["grid"][0]
         self.assertEqual(g["checks"]["matches"], {"expected": 0, "observed": 0, "agrees": True})
         t = res["tally"]
-        self.assertEqual((t["traitExpectations"], t["traitAgree"]), (10, 4))  # a: 4 of 6, b: 0 of 4
-        self.assertEqual((t["funnelExpectations"], t["funnelAgree"]), (3, 2))
+        self.assertEqual((t["traitExpectations"], t["traitAgree"]), (12, 4))  # a: 4 of 6, b: 0 of 4, out: 0 of 2
+        self.assertEqual((t["traitUnresolved"], t["funnelUnresolved"]), (2, 1))
+        self.assertEqual((t["funnelExpectations"], t["funnelAgree"]), (4, 2))
 
     def test_no_score_and_markdown(self):
         from planner.calibrate import markdown
@@ -109,6 +114,55 @@ class CalibrationTests(unittest.TestCase):
         md = markdown(res)
         self.assertIn("not a site score", md)
         self.assertIn("**no**", md)
+
+    def test_expectation_missing_from_engine_is_kept_as_not_held(self):
+        from unittest import mock
+        import planner.calibrate as cal
+        real = cal.site_plan
+
+        def drop_terrain(*args, **kwargs):
+            plan = real(*args, **kwargs)
+            plan["verdicts"] = [r for r in plan["verdicts"] if r["dimension"] != "terrain"]
+            return plan
+        with mock.patch.object(cal, "site_plan", drop_terrain):
+            res = self.run_cal()
+        traits, _ = self.traits(res, "site-a", "shipped")
+        self.assertEqual(traits["terrain"]["observed"], "absent-from-engine")
+        self.assertFalse(traits["terrain"]["agrees"])
+        self.assertTrue(traits["terrain"]["unresolved"])
+        self.assertEqual(res["tally"]["traitExpectations"], 12)  # denominator unchanged
+
+    def test_duplicate_engine_dimension_fails(self):
+        from unittest import mock
+        import planner.calibrate as cal
+        real = cal.site_plan
+
+        def dup(*args, **kwargs):
+            plan = real(*args, **kwargs)
+            plan["verdicts"] = plan["verdicts"] + plan["verdicts"][:1]
+            return plan
+        with mock.patch.object(cal, "site_plan", dup), self.assertRaises(ValueError):
+            self.run_cal()
+
+    def test_freeze_commit_refuses_uncommitted_or_edited_file(self):
+        import subprocess
+        from planner.calibrate import freeze_commit
+        repo = Path(self.tmp.name) / "repo"
+        repo.mkdir()
+        git = lambda *a: subprocess.run(["git", "-C", str(repo), *a], check=True, capture_output=True)
+        git("init", "-q"); git("config", "user.email", "t@example.invalid"); git("config", "user.name", "t")
+        f = repo / "exp.yaml"
+        f.write_text("status: frozen\n")
+        with self.assertRaises(ValueError):
+            freeze_commit(repo, f)  # not committed yet
+        git("add", "exp.yaml"); git("commit", "-q", "-m", "freeze")
+        first = freeze_commit(repo, f)
+        f.write_text("status: frozen\nedited: true\n")
+        git("commit", "-q", "-am", "edit after freeze")
+        with self.assertRaises(ValueError):
+            freeze_commit(repo, f)  # later commit changed it, label still says frozen
+        f.write_text("status: frozen\n")
+        self.assertEqual(freeze_commit(repo, f), first)  # content identical to the freeze again
 
     def test_unfrozen_expectations_are_refused(self):
         exp = copy.deepcopy(EXP)

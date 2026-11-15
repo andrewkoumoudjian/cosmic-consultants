@@ -60,6 +60,11 @@ def compare_trait(dimension: str, expected: dict | None, row: dict) -> dict:
     return out
 
 
+def unresolved(dimension: str, expected: dict, why: str) -> dict:
+    return {"dimension": dimension, "priority": None, "observed": why, "expected": expected["verdict"],
+            "confidence": expected.get("confidence"), "agrees": False, "unresolved": True}
+
+
 def run_campaign(tables, l3, exp: dict, campaign: dict, campaign_record: dict) -> dict:
     cid = campaign["campaignId"]
     if not campaign.get("run", False):
@@ -68,12 +73,26 @@ def run_campaign(tables, l3, exp: dict, campaign: dict, campaign_record: dict) -
     result = {"campaignId": cid, "run": True, "site": {"h3": h3, "name": campaign_record["site"]["name"]},
               "mappingBasis": campaign["mappingBasis"], "monthsBasis": campaign["monthsBasis"], "variants": {}}
     if h3 not in tables.cells:
+        # Not evaluated: every frozen expectation stays in the report as unresolved,
+        # so a missing site can never shrink the denominator.
         result["outcome"] = "site-outside-grid"
+        for name in exp["variants"]:
+            expected_funnel = campaign.get("expectedFunnel", {}).get(name)
+            result["variants"][name] = {
+                "traits": [unresolved(d, e, "site-outside-grid") for d, e in campaign["expected"].items()],
+                "funnel": {"expected": expected_funnel, "observed": "site-outside-grid",
+                           "agrees": None if expected_funnel is None else False, "unresolved": expected_funnel is not None},
+            }
         return result
     for name, variant in exp["variants"].items():
         request = build_request(campaign, variant)
         plan = site_plan(tables, l3, request, h3, None, False)
+        dims = [r["dimension"] for r in plan["verdicts"]]
+        if len(dims) != len(set(dims)):
+            raise ValueError(f"Engine returned a dimension twice for {cid}: {dims}")
         traits = [compare_trait(r["dimension"], campaign["expected"].get(r["dimension"]), r) for r in plan["verdicts"]]
+        # A frozen expectation the engine did not return is kept and counted as not held.
+        traits += [unresolved(d, e, "absent-from-engine") for d, e in campaign["expected"].items() if d not in dims]
         expected_funnel = campaign.get("expectedFunnel", {}).get(name)
         result["variants"][name] = {
             "request": request,
@@ -103,25 +122,43 @@ def run_grid(tables, l3, exp: dict, item: dict) -> dict:
 def tally(campaigns: list[dict], grid: list[dict]) -> dict:
     """How many frozen expectations held. Counts predictions, not site quality."""
     t = {"traitExpectations": 0, "traitAgree": 0, "funnelExpectations": 0, "funnelAgree": 0,
-         "gridExpectations": 0, "gridAgree": 0, "campaignsRun": 0, "campaignsNotRun": 0}
+         "gridExpectations": 0, "gridAgree": 0, "traitUnresolved": 0, "funnelUnresolved": 0,
+         "campaignsRun": 0, "campaignsNotEvaluated": 0, "campaignsNotRun": 0}
     for c in campaigns:
         if not c["run"]:
             t["campaignsNotRun"] += 1
             continue
-        t["campaignsRun"] += 1
+        t["campaignsNotEvaluated" if c.get("outcome") else "campaignsRun"] += 1
         for v in c["variants"].values():
             for tr in v["traits"]:
                 if tr["agrees"] is not None:
                     t["traitExpectations"] += 1
                     t["traitAgree"] += bool(tr["agrees"])
+                    t["traitUnresolved"] += bool(tr.get("unresolved"))
             if v["funnel"]["agrees"] is not None:
                 t["funnelExpectations"] += 1
                 t["funnelAgree"] += bool(v["funnel"]["agrees"])
+                t["funnelUnresolved"] += bool(v["funnel"].get("unresolved"))
     for g in grid:
         for ch in g["checks"].values():
             t["gridExpectations"] += 1
             t["gridAgree"] += bool(ch["agrees"])
     return t
+
+
+def freeze_commit(repo: Path, path: Path) -> str:
+    """The commit that first added the expectations file. Refuses to run if the
+    file is uncommitted or differs from that commit in any way."""
+    rel = str(path.resolve().relative_to(repo.resolve()))
+    log = subprocess.run(["git", "-C", str(repo), "log", "--diff-filter=A", "--format=%H", "--", rel],
+                         capture_output=True, text=True)
+    added = log.stdout.split() if log.returncode == 0 else []
+    if not added:
+        raise ValueError("Expectations file is not committed; freeze it in its own commit first.")
+    commit = added[-1]
+    if subprocess.run(["git", "-C", str(repo), "diff", "--quiet", commit, "--", rel]).returncode != 0:
+        raise ValueError(f"Expectations file changed since its freeze commit {commit[:7]}.")
+    return commit
 
 
 def run(tables, l3, expectations_path: Path, campaigns_dir: Path) -> dict:
@@ -144,6 +181,8 @@ def _fmt(tr: dict) -> str:
         return f"miss (gap {tr['gap']:.3g} {tr['side']})"
     if tr["observed"] == "unknown":
         return f"unknown ({tr['reason']})"
+    if tr.get("unresolved"):
+        return f"not evaluated ({tr['observed']})"
     return "match"
 
 
@@ -155,20 +194,18 @@ def markdown(result: dict) -> str:
     lines += [f"Trait expectations held: {t['traitAgree']} of {t['traitExpectations']}. "
               f"Funnel expectations held: {t['funnelAgree']} of {t['funnelExpectations']}. "
               f"Grid expectations held: {t['gridAgree']} of {t['gridExpectations']}. "
-              f"Campaigns run: {t['campaignsRun']}; not run: {t['campaignsNotRun']}.", "",
+              f"Unresolved (counted as not held): {t['traitUnresolved']} trait, {t['funnelUnresolved']} funnel. "
+              f"Campaigns run: {t['campaignsRun']}; not evaluated: {t['campaignsNotEvaluated']}; not run: {t['campaignsNotRun']}.", "",
               "This counts our predictions. It is not a site score.", ""]
     lines += ["| Campaign | Variant | Trait | Priority | Expected | Observed | Value | Holds? |", "|---|---|---|---|---|---|---|---|"]
     for c in result["campaigns"]:
         if not c["run"]:
             continue
-        if c.get("outcome"):
-            lines.append(f"| {c['campaignId']} | — | — | — | — | {c['outcome']} | — | — |")
-            continue
         for vname, v in c["variants"].items():
             for tr in v["traits"]:
                 value = "" if tr.get("value") is None else f"{tr['value']:.4g}"
                 holds = "—" if tr["agrees"] is None else ("yes" if tr["agrees"] else "**no**")
-                lines.append(f"| {c['campaignId']} | {vname} | {tr['dimension']} | {tr['priority']} | "
+                lines.append(f"| {c['campaignId']} | {vname} | {tr['dimension']} | {tr['priority'] or '—'} | "
                              f"{tr['expected']} | {_fmt(tr)} | {value} | {holds} |")
             f = v["funnel"]
             lines.append(f"| {c['campaignId']} | {vname} | *funnel* | — | {f['expected']} | {f['observed']} | | "
@@ -194,11 +231,10 @@ def main(argv=None):
     a = p.parse_args(argv)
     start = perf_counter()
     exp_path = a.repo / "data/calibration/campaign-expectations.yaml"
+    commit = freeze_commit(a.repo, exp_path)
     tables = from_assembled(a.assembled, a.repo / "data/pipeline/columns.yaml")
     result = run(tables, load_l3(a.repo), exp_path, a.repo / "data/campaigns")
-    commit = subprocess.run(["git", "-C", str(a.repo), "log", "-1", "--format=%H", "--", str(exp_path)],
-                            capture_output=True, text=True).stdout.strip()
-    result["expectationsCommit"] = commit or None
+    result["expectationsCommit"] = commit
     report = a.assembled / "assembly-report.json"
     result["inputs"].append({"path": "assembly-report.json (as read)", "sha256": _sha(report)})
     a.out.mkdir(parents=True, exist_ok=True)

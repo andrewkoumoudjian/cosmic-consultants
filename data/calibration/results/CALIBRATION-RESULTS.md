@@ -2,7 +2,7 @@
 
 Expectations sha256 `024c37aa925afa556931aa46f5458b7ef8e636af574a8903791fe6ff7343253c`, frozen at commit `a906a04d9f6bbfa1204e84f258c54d1ffccac733` before this run.
 
-Trait expectations held: 36 of 40. Funnel expectations held: 8 of 10. Grid expectations held: 4 of 4. Campaigns run: 5; not run: 1.
+Trait expectations held: 36 of 40. Funnel expectations held: 8 of 10. Grid expectations held: 4 of 4. Unresolved (counted as not held): 0 trait, 0 funnel. Campaigns run: 5; not evaluated: 0; not run: 1.
 
 This counts our predictions. It is not a site score.
 

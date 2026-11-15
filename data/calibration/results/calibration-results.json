@@ -966,7 +966,10 @@
     "funnelAgree": 8,
     "gridExpectations": 4,
     "gridAgree": 4,
+    "traitUnresolved": 0,
+    "funnelUnresolved": 0,
     "campaignsRun": 5,
+    "campaignsNotEvaluated": 0,
     "campaignsNotRun": 1
   },
   "inputs": [
