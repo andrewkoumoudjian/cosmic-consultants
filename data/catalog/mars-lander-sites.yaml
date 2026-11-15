@@ -1,0 +1,37 @@
+# Registry row (W49, issue #108). Official sources for the landed-mission site
+# coordinates on Mars: NSSDC spacecraft pages (text/xml), JPL landing press-kit
+# PDFs (via web.archive.org raw-archive snapshots, original jpl.nasa.gov URLs
+# recorded per file), and the USGS gazetteer export for named-feature cross
+# checks (separate row: usgs-planetary-nomenclature). No scoring, extraction
+# targets only.
+datasetId: mars-lander-sites
+title: "Official Mars landed-mission site coordinate documents (NSSDC pages + JPL landing press kits)"
+status: candidate
+bodies: [mars]
+dimensions: []
+discovery:
+  ckanName: null
+  doi: null
+source:
+  archive: "NASA NSSDC (GSFC); NASA/JPL press kits via Internet Archive"
+  endpoint: "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C"
+  probedAt: null
+  probeResult: "unverified: six NSSDC pages + three press-kit PDFs fetched 2026-11-14 (HTTP 200)"
+probe:
+  kind: http
+  url: "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C"
+  expect: ["touched down", "Chryse Planitia"]
+license:
+  id: us-pd
+  textUrl: "https://www.nasa.gov/nasa-brand-center/images-and-media/"
+  expect: ["public domain", "NASA"]
+  verified: false
+  note: "NSSDC pages and JPL press kits are NASA/US-Government works (public domain). NSSDC serves its pages as text/xml, which the fetch tool accepts. Live licence-page probe pending."
+coverage:
+  spatial: "point coordinates (planetocentric or planetographic as quoted per page) for Viking 1/2, Pathfinder, Spirit, Opportunity, Phoenix, Curiosity, InSight, Perseverance; Zhurong has no reachable snapshot-able official source"
+  temporal: "static mission records; press kits dated 2012 (MSL), 2018 (InSight), 2021 (Mars 2020)"
+  resolution: "per-site points; some press-kit values are coarse (recorded per row)"
+analysisReady: true
+independenceGroup: mission-reports
+plannedUse: "Mars target-side landed-site list (W49, #108); past-mission site extraction context only"
+snapshotPolicy: "one MIME-safe document per mission (NSSDC xhtml or press-kit PDF), via p0ingest.snapshots.fetch; Zhurong gap stays explicit"

@@ -22,7 +22,15 @@ license:
   textUrl: null
   expect: []
   verified: false
-  note: "Issue #41 rechecked the product's Astropedia page without establishing applicable reuse terms. Publication or preview-image rights are not assumed to cover the database. Retained unresolved; see LICENCE-AUDIT-41.md."
+  note: >
+    Issue #41 rechecked the product's Astropedia page without establishing applicable
+    reuse terms. Publication or preview-image rights are not assumed to cover the
+    database. Retained unresolved; see LICENCE-AUDIT-41.md. W39 (#98) re-probe
+    2026-11-14: the PDS bundle (185,154,475 B, snapshotted with licenseVerified=false)
+    declares urn:nasa:pds:watkins_lunar_boulder_data:* but states no licence, rights
+    or redistribution terms; the Astropedia page has no 'Use Constraints' section; the
+    advertised pdsimage2 Individual_Investigations URL returned HTTP 404. Values not
+    used; see data/snapshots/_derived/planetary/lroc-nac-boulders-watkins/gap-report.json.
 coverage:
   spatial: "unverified: selected sites"
   temporal: ""

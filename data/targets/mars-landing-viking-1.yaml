@@ -1,0 +1,23 @@
+siteId: mars-landing-viking-1
+name: Viking Lander 1 (Thomas A. Mutch Memorial Station), western Chryse Planitia
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-0-360
+centreLat: 22.27
+centreLon: 312.05
+note: landed 1976-07-20; coordinate exactly as quoted, planetocentric as stated
+source:
+  datasetId: mars-lander-sites
+  file: nssdc-1975-075C-viking1.xhtml
+  url: https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1975-075C
+  fetchedAt: '2026-11-14T23:29:39Z'
+  sourceSha256: 7b9dddcaefad0f6a98f70abeb9ce66dce3fdab3094da44783ad132419664ee55
+  quote: The Viking 1 Lander touched down in western Chryse Planitia at 22.27 deg
+    N latitude and 312.05 deg E longitude (planetocentric)
+usgsCrossCheck:
+  feature: Chryse Planitia
+  diffKm: 547.3
+  expectedMaxKm: 771
+  note: 'informational only: Chryse Planitia is a ~1542 km planitia, not a landing
+    ellipse; distance recorded for provenance, tolerance = half the feature diameter'

@@ -1,0 +1,31 @@
+siteId: mars-feature-gusev
+name: Gusev
+body: mars
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: -14.530800000000001
+centreLon: 175.5244
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Gusev
+extent:
+  kind: bounding-box
+  minLat: -15.8649
+  maxLat: -13.1972
+  minLon: 174.1496
+  maxLon: 176.9052
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: Spirit landed inside Gusev (2004)
+usgsCrossCheck:
+  feature: Gusev
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MARS_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MARS_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:52Z'
+  sourceSha256: 753f29654d14e3f3e75f8bbe2b8fc36d4a6b43e16d9d74c122150a3797c31910
+  quote: name=Gusev;clean_name=Gusev;approvaldt=1976/01/01 00:00:00;diameter=158.125000000000000;center_lon=175.524400000000014;center_lat=-14.530800000000001;type=Crater,
+    craters;code=AA;approval=Adopted by IAU
