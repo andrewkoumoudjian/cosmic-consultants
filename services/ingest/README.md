@@ -210,3 +210,52 @@ assembler joins them; these tables do not edit L1/L1m/L2.
   regression tests, the key-domain checks against the master cell set and
   5-site spot checks (Death Valley, Haughton, Atacama, McMurdo, Mauna Loa)
   against the raw sources; exit 0 only if all pass.
+
+## W38 (#97) earth_static: MOD44B VCF per-hex table + two blocked-source probes
+
+One delivered Earth context table plus recorded access evidence for the two
+sources the work order asked for that cannot be fetched by this repo yet.
+
+- `python -m p0ingest.earth_static --fetch` downloads, via
+  `p0ingest.snapshots.fetch` (so MANIFEST.json records url, fetch time,
+  sha256, bytes and licence), the v061 user guide and all 291 granules of
+  the latest complete yearly series of MOD44B Vegetation Continuous Fields
+  (collection C2565805839-LPCLOUD; CC0 in the catalog row). Completeness
+  rule: the newest series whose tile set equals the previous series's
+  (A2025 == A2024, 291 tiles each, decided in the CMR listing).
+- `python -m p0ingest.earth_static build` reads the native 4800x4800
+  250 m HDF4-EOS tiles, inverts the MODIS spherical sinusoid exactly
+  (phi = y/R, lambda = x/(R cos phi), R = 6371007.181 m — cross-checked
+  against GDAL in the tests), bins each tile's pixel centres into the
+  0.05 deg CMG lattice (3600x7200, `grid.py`), and maps lattice pixels to
+  the 91,800 master H3 res-4 cells through the pinned MOD11C3 land-share
+  map (`grid.cmg_cell_map`; pixel centre inside the H3 cell via
+  `h3.latlng_to_cell`). Per lattice pixel: mean of the valid (0-100)
+  native pixels; per hexagon: median over its lattice-pixel means and the
+  exact mean over its native pixels, with support counts at both scales.
+  Declared codes only: 200 water and 253 fill never enter statistics;
+  the guide declares no masking rule, so Quality/Cloud layers are NOT
+  applied. Tile-plane corners beyond the globe ellipse (|lon| > 180 after
+  inversion, observed residual code 11 there) are excluded as `offglobe`
+  and counted per layer. Output `_derived/vcf-r4.parquet` (91,800 rows,
+  `vcf_*_pct_median`, `vcf_*_pct_mean`, support counts, per-row
+  `missing_reason`), `_derived/vcf-r4-cmg.npz` (lattice sums/counts) and
+  `vcf-r4.meta.json` (rule, QA, known C61 sparse-training limit, inputs
+  with sha256). 2026-11-14 run: 291/291 granules, 9.9 GB raw, null rate
+  9.91 percent (high-latitude not-retrieved areas stay null, never 0).
+- `python -m p0ingest.earth_static check` verifies the key set is exactly
+  cells-r4's, no duplicates, physical ranges (0-100 or null), support
+  consistency, `missing_reason` keys equal to each row's null value
+  columns and 5 raw spot checks (central Amazon, central Sahara, boreal
+  Canada, Iowa cropland, Greenland ice sheet) that re-gather the covering
+  tiles' native pixels independently and compare against the stored
+  lattice npz. 2026-11-14: `"ok": true`, 0 errors, 5/5 green.
+- Probes, not delivered (no values used, tables not shipped):
+  `nsidc-ggd318-permafrost` data is access-blocked — the legacy NSIDC ECS
+  host refuses TCP and daacdata.apps.nsidc.org redirects to an interactive
+  URS OAuth login we do not have (the licence itself is resolved:
+  reuse with citation, Brown et al. 2002, DOI 10.7265/skbg-kf16 — catalog
+  row updated); `earth-impact-database` (passc.net) serves a 114-byte JS
+  redirect to a parked page and re-probes the same on 2026-11-14. Evidence
+  in `_derived/earth-static-probes.json` (`python -m p0ingest.earth_static
+  probe` re-runs it); catalog rows carry the probe results.
