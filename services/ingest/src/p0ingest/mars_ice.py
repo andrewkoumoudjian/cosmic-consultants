@@ -9,8 +9,8 @@ Two static, dataset-native map families. No resampling, no H3, no daily or
    ratio map). The water map is model-derived (see catalog/dataset.cat in
    the snapshot), and only the label's NOT_APPLICABLE_CONSTANT becomes null.
 2. SWIM ice consistency layers (PSI, Morgan et al. 2021), when the source
-   host is reachable; sw() and swim_status() record live evidence. During
-   the #106 session start swim.psi.edu returned HTTP 523 (origin down) on
+   host is reachable; swim_status() records live evidence. During the
+   #106 session start swim.psi.edu returned HTTP 523 (origin down) on
    every attempt; those probes are recorded, not hidden.
 
 Missing stays missing: each prepared row carries a JSON `missing_reason`
@@ -293,7 +293,7 @@ def check() -> None:
             raise ValueError(f"row count mismatch: {name}")
         keys = table.select(["latitude", "longitude", "missing_reason"])
         rows = list(table.select(target + ["source_row"]).iter_rows(named=True))
-        for row in report and list(table.drop(["source_row"]).iter_rows(named=True)):
+        for row in list(table.drop(["source_row"]).iter_rows(named=True)):
             try:
                 reasons = set(json.loads(row["missing_reason"])) if row["missing_reason"] else set()
             except json.JSONDecodeError as exc:
