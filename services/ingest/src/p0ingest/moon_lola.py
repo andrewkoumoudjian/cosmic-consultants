@@ -45,8 +45,7 @@ PDS_ILL = ("https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/"
            "lrolol_1xxx/extras/illumination/img/")
 PDS_GDR = ("https://pds-geosciences.wustl.edu/lro/lro-l-lola-3-rdr-v1/"
            "lrolol_1xxx/data/lola_gdr/cylindrical/img/")
-GAZETTEER = ("https://asc-planetarynames-data.s3.us-west-2.amazonaws.com/"
-             "MOON_nomenclature_center_pts.zip")
+GAZETTEER = "https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip"
 MOON_R_M = 1_737_400.0
 
 LDEM_2023 = "lola-south-pole-ldem-2023"

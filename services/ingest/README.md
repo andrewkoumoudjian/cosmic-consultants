@@ -924,9 +924,17 @@ go to `data/snapshots/_derived/planetary/<datasetId>/` as Parquet with per-row
   physical ranges, missing-reason contract and runs 8 raw spot checks at
   gazetteer features (Shackleton floor below rim and PSR, Malapert illumination
   and slope table==raw, Tycho on the GDR grid, plus mask-agreement and
-  aggregation recomputations from raw pixels). Issue #99 asked for
-  `sun_elev_min` and Earth-visibility **horizon** files; sun_elev_min is not
-  published as a numeric layer in these products (the PDS maps are mean
-  illumination fractions only) and no horizon product passed licence/
-  provenance verification, so those fields are recorded as gaps in the report,
-  not invented.
+  aggregation recomputations from raw pixels). Build is idempotent: existing
+  table parquets are reused and re-verified rather than rebuilt.
+- Known gap (partial, documented, not filled): `LDEC_80S_20MPP_ADJ.TIF` (the
+  LOLA per-pixel shot-count raster) was NOT fetched - the local PGDA download
+  was deferred by an orchestrator priority call (engine/workflow over
+  coverage) after repeated slow transfers, so `lola_spot_count` is null for
+  every row of `ldem-80s-20mpp.parquet` with `missing_reason`
+  `{"lola_spot_count":"source-not-fetched"}`. No value is invented; the
+  preparation report lists the gap. When LDEC lands on the shared drive,
+  refetching and rerunning `build check` fills the column - the code already
+  handles both cases. Also: `sun_elev_min` is not published as a numeric layer
+  in these products (the PDS maps are mean illumination fractions only) and no
+  Earth-visibility horizon product passed licence/provenance verification, so
+  those requested fields are recorded as gaps in the report, not invented.
