@@ -2,17 +2,6 @@
   "description": "Hashed dataset snapshots used by W6 ingest. Payload bytes are local (gitignored); this file is the provenance record (AGENTS.md rule 3).",
   "entries": [
     {
-      "campaignId": "hiseas-iv",
-      "sourceRef": "hiseas-site-coordinates",
-      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
-      "fetchedAt": "2026-11-14T17:59:08Z",
-      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
-      "bytes": null,
-      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
-      "localPath": null,
-      "datasetId": "campaign-sources"
-    },
-    {
       "campaignId": "atacama-arads-2019",
       "sourceRef": "arads-2019-article",
       "sourceUrl": "https://journals.sagepub.com/doi/10.1089/ast.2022.0055",
@@ -98,6 +87,17 @@
       "bytes": 5823240,
       "licenseNote": "NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.",
       "localPath": "data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf",
+      "datasetId": "campaign-sources"
+    },
+    {
+      "campaignId": "hiseas-iv",
+      "sourceRef": "hiseas-site-coordinates",
+      "sourceUrl": "https://www.soest.hawaii.edu/earthsciences/academics/theses/Arroyo-Flores_KD_2023_Report.pdf",
+      "fetchedAt": "2026-11-14T17:59:08Z",
+      "sha256": "12da5b9f0f54beb342d308c5a35f31d0b46fd82d5b5a3c5b0e0fc08755b436dd",
+      "bytes": null,
+      "licenseNote": "URL and SHA-256 retained; local copy omitted because reuse terms for this university report were not stated.",
+      "localPath": null,
       "datasetId": "campaign-sources"
     },
     {
@@ -189,6 +189,136 @@
       "license": "us-pd",
       "licenseVerified": true,
       "localPath": "data/snapshots/lend/edr_ds.cat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/label/lend_rdr_ald.fmt",
+      "fetchedAt": "2026-11-15T01:07:08Z",
+      "sha256": "b7f7766e82df1e08ac2d3596e13e1aba3e8d572c200e702e89dd22892b0fec8b",
+      "bytes": 7593,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_ald.fmt"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alde_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:44Z",
+      "sha256": "0fd30a01c99c644c431c6538e778e814bab692663a312dc82b08d860110261aa",
+      "bytes": 17856000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alde_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:33Z",
+      "sha256": "58fc5d4362b826f3259b7221d3f42ab4b316b7707b45d338df7d6b0b38d19a4f",
+      "bytes": 2613,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alde_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:10Z",
+      "sha256": "dd47542c70c3ef2d925ac7bd251a836404b0088075dbf36b105a5bfaa554a3c7",
+      "bytes": 17856000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alde_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:07:57Z",
+      "sha256": "db040260407fc7c774a04102cbfb70a00fa2c610b0d41415babd85245d98fb5a",
+      "bytes": 2613,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alde_20111211.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_aldn_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:53Z",
+      "sha256": "01b854e284bdf86a4237d8f6e5c781ce9244c11bc0ec49a48669615d39a29bf5",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_aldn_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:46Z",
+      "sha256": "d7c5e2adae73bfa87ce287d7392934ebef19a15910891bbdb29c4eef06e24df2",
+      "bytes": 2571,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_aldn_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:15Z",
+      "sha256": "f766122c7aff26e5d04c49107896c1937d10721aaf2ac551b710a5c97aa2af18",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_aldn_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:08:11Z",
+      "sha256": "330d01d0e4a644f074450ec7bc67fe0ba87072a5843612e8259e1fa97e76d2d8",
+      "bytes": 2571,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_aldn_20111211.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.dat",
+      "fetchedAt": "2026-11-15T01:07:57Z",
+      "sha256": "0d7dbda95930ebcb4217acd9667f1ef606fffc2a58a1ffab14562f162c5f817d",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20090915.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2009/20090915/lend_rdr_alds_20090915.lbl",
+      "fetchedAt": "2026-11-15T01:07:54Z",
+      "sha256": "98e93c543b174df8270e8a111b2dcfc2fc7d4e0a69bba05279b553c73362517d",
+      "bytes": 2575,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20090915.lbl"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alds_20111211.dat",
+      "fetchedAt": "2026-11-15T01:08:21Z",
+      "sha256": "e6b1c2d54e3e00d649a1229b08507dd10c859039ae2df8e34cdf1480bb0031ef",
+      "bytes": 4464000,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20111211.dat"
+    },
+    {
+      "datasetId": "lend",
+      "sourceUrl": "https://pds-geosciences.wustl.edu/lro/lro-l-lend-2-edr-v1/lrolen_0xxx/data/2011/20111211/lend_rdr_alds_20111211.lbl",
+      "fetchedAt": "2026-11-15T01:08:16Z",
+      "sha256": "e9c17230dfca5107f703428fbff7f938fe3a1b29604494feb7a588b1a23557f7",
+      "bytes": 2575,
+      "license": "us-pd",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/lend/lend_rdr_alds_20111211.lbl"
     },
     {
       "datasetId": "lend",

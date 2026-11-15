@@ -354,43 +354,16 @@ does not need it; building it later is a small job (same reader shape, 12 x
 
 ## W42 (#101) Moon neutron and gamma-ray maps: moon_nuclear
 
-`uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares the PDS
-Lunar Prospector GRS elemental abundance maps (issue #101) and records the
-neutron-mapping gap.
+`uv run python -m p0ingest.moon_nuclear fetch|build|check` prepares:
 
-- **What is prepared:** `data/snapshots/_derived/planetary/lp-grs-pds/`
-  (`lpgrs-high1-elem-abundance-{2deg,5deg,20deg}.parquet`, 11,306 / 1,790 /
-  114 rows). Straight decoding of `LPGRS_HIGH1_ELEM_ABUNDANCE_{2DEG,5DEG,
-  20DEG}.TAB` (LP-L-GRS-5-ELEM-ABUNDANCE-V1.0, Prettyman et al. 2006): the
-  archive's own equal-area pixels with their lat/lon bounds, all published
-  weight fractions (oxides g/g, K/Th/U ppm), and the complete 45-term
-  error matrix as raw columns. The only added values are the label-declared
-  1-sigma columns `feo_1sigma_g_g`, `k_1sigma_ppm`, `th_1sigma_ppm` (square
-  root of the E[5,5]/E[6,6]/E[7,7] diagonals; label text says the diagonal
-  square root is the propagated uncertainty).
-- **Footprint:** GRS footprint ~5 deg of arc length at 100 km altitude per
-  the labels; the 2-deg pixels oversample it, and the archive itself flags
-  the 2-deg oxides other than FeO/TiO2/K/Th as poorly evaluated. The
-  2-degree table's `neutron_den` column also sits ~1e-4 g/cm3 while the
-  5/20-degree tables sit ~1.5e-6 g/cm3, same declared unit, no explanation
-  in the archive documentation; values are kept exactly as published and
-  both observations are recorded in `preparation-report.json`.
-- **Neutron gap (h_wt_neutron / the LEND row):** every neutron spectrometer
-  product in PDS is a time series - LEND is daily EDR/RDR binary tables
-  (bundle `lro-l-lend-2-edr-v1/lrolen_0xxx`, "binary time series tables"
-  per its readme), the LP Neutron Spectrometer is one mission-long
-  8/32-second counting-rate table (LP-L-NS-3-RDR-V1.0 index). Neither has a
-  PDS map product, and converting a count rate into a suppression
-  percentage or an H/WEH wt% would be a new scientific product, so no
-  neutron table is written. Evidence files are snapshotted under
-  `data/snapshots/lend/` (MANIFEST) and summarised in
-  `_derived/planetary/lend/lend-pds-gap-report.json`.
-- **Checks:** `check` verifies manifest hashes and licences, label-declared
-  row/column counts, unique ordered pixel keys, per-product physical
-  ranges, that `missing_reason` JSON keys equal the row's null value
-  columns exactly, the 1-sigma sqrt consistency, 5 re-decoded raw rows per
-  table (plain-IO path), and 5-deg regional physics: FeO about 26 wt% /
-  Th about 4.9 ppm in Procellarum, FeO 18 wt% at Mare Tranquillitatis, FeO
-  5.6 wt% and Th 1.1 ppm in the farside highlands, average atomic mass
-  21.4-23.9 amu as documented in dataset.cat. Passes with plain `python`
-  and `python -O`.
+1. **Lunar Prospector GRS (`lp-grs-pds`):** 2, 5 and 20 degree elemental
+   abundance maps (`lpgrs-high1-elem-abundance-{2,5,20}deg.parquet`), keeping
+   the upper-triangle error matrix plus label-declared 1-sigma columns.
+2. **LRO LEND ALD (`lend`):** all 6 `LEND_RDR_ALD` spatial relative neutron
+   count-rate maps (`ALDE` 1 deg global `-80..80`, `ALDN` 0.5 deg north polar
+   `80..90`, `ALDS` 0.5 deg south polar `-90..-80`; `20090915` Nominal Mission
+   and `20111211` Science Mission) under `data/snapshots/_derived/planetary/lend/`.
+   Zero-exposure cells (`exposure <= 0`, PDS `-1.0` sentinel) become explicit
+   `null` with JSON `missing_reason: "exposure-zero"`. Relative counting rates
+   are NOT converted into H/WEH wt% or epithermal suppression %; `h_wt_neutron`
+   remains recorded as a gap in `lend-pds-gap-report.json` alongside `LP-NS`.

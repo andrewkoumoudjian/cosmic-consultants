@@ -287,5 +287,91 @@ def _null_count(frame: pl.DataFrame) -> int:
     return sum(frame[c].null_count() for c in frame.columns if c != "missing_reason")
 
 
+
+
+class LendAldDecodeTests(unittest.TestCase):
+    """Offline tests for LRO LEND_RDR_ALD binary format parsing and null rules."""
+
+    def test_binary_record_layout_and_zero_exposure_nulling(self):
+        import numpy as np
+        from p0ingest.moon_nuclear import (
+            LEND_ID_COLUMNS,
+            LEND_RECORD_BYTES,
+            LEND_RECORD_DTYPE,
+            parse_lend_label,
+            read_lend_ald,
+        )
+
+        self.assertEqual(LEND_RECORD_DTYPE.itemsize, LEND_RECORD_BYTES)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lbl = root / "LEND_RDR_ALDS_TEST.LBL"
+            lbl.write_text(
+                'PDS_VERSION_ID = "PDS3"\n'
+                'FILE_RECORDS = 2\n'
+                'RECORD_BYTES = 310\n'
+                'PRODUCT_ID = "LEND_RDR_ALDS_TEST"\n'
+                'PRODUCT_TYPE = "LEND_RDR_ALD"\n'
+                'DATA_SET_ID = "LRO-L-LEND-4/5-RDR-V1.0"\n'
+                'MISSION_PHASE_NAME = "SCIENCE MISSION"\n'
+                'START_TIME = 2011-12-11T00:00:00\n'
+                'STOP_TIME = 2016-09-14T00:00:00\n'
+                '^TABLE = "LEND_RDR_ALDS_TEST.DAT"\n'
+                'OBJECT = TABLE\n'
+                '  COLUMNS = 23\n'
+                '  ROW_BYTES = 310\n'
+                '  ROWS = 2\n'
+                '  ^STRUCTURE = "LEND_RDR_ALD.FMT"\n'
+                'END_OBJECT = TABLE\n'
+                'END\n'
+            )
+            arr = np.zeros(2, dtype=LEND_RECORD_DTYPE)
+            arr["start_utc"] = [b"2011-12-11T00:00:00.000", b"2011-12-11T00:00:00.000"]
+            arr["stop_utc"] = [b"2016-09-14T00:00:00.000", b"2016-09-14T00:00:00.000"]
+            arr["lat"] = [-84.75, -89.75]
+            arr["lon"] = [324.25, 129.75]
+            # Row 0: STN1 and CSETN exposed; SETN/STN2/STN3 zero-exposure sentinel -1.0
+            arr["stn1_exposure"][0] = 120.0
+            arr["stn1_rate"][0] = 15.25
+            arr["stn1_err"][0] = 0.35
+            arr["csetn_exposure"][0] = 120.0
+            arr["csetn_rate"][0] = 4.79
+            arr["csetn_err"][0] = 0.28
+            for det in ("setn", "stn2", "stn3"):
+                arr[f"{det}_exposure"][0] = 0.0
+                arr[f"{det}_rate"][0] = -1.0
+                arr[f"{det}_err"][0] = -1.0
+            # Row 1: all detectors zero exposure
+            for det in ("stn1", "setn", "stn2", "stn3", "csetn"):
+                arr[f"{det}_exposure"][1] = 0.0
+                arr[f"{det}_rate"][1] = -1.0
+                arr[f"{det}_err"][1] = -1.0
+            arr["shen_rate"][:] = -1.0
+            arr["shen_err"][:] = -1.0
+
+            dat = root / "LEND_RDR_ALDS_TEST.DAT"
+            arr.tofile(dat)
+            label = parse_lend_label(lbl)
+            frame = read_lend_ald(dat, label)
+            _check_null_reason(frame, LEND_ID_COLUMNS)
+
+            self.assertEqual(frame.height, 2)
+            self.assertAlmostEqual(frame["csetn_rate_rel"][0], 4.79, places=5)
+            self.assertAlmostEqual(frame["lon_deg"][0], -35.75, places=5)
+            self.assertIsNone(frame["setn_rate_rel"][0])
+            self.assertIsNone(frame["csetn_rate_rel"][1])
+            r0 = json.loads(frame["missing_reason"][0])
+            self.assertEqual(len(r0), 9)
+            self.assertTrue(all(v == "exposure-zero" for v in r0.values()))
+            r1 = json.loads(frame["missing_reason"][1])
+            self.assertEqual(len(r1), 15)
+
+            # Non-zero SHEN exposure must fail loudly rather than silently dropping data
+            arr["shen_exposure"][0, 0] = 10.0
+            arr.tofile(dat)
+            with self.assertRaises(ValueError):
+                read_lend_ald(dat, label)
+
+
 if __name__ == "__main__":
     unittest.main()
