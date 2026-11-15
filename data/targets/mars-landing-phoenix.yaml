@@ -1,0 +1,18 @@
+siteId: mars-landing-phoenix
+name: Phoenix lander, martian north polar region
+body: mars
+kind: landing-site
+status: historical
+lonMode: east-positive-minus180-180
+centreLat: 68.15
+centreLon: -125.9
+note: landed 2008-05-25; no IAU-named host feature within a useful distance (the "Green
+  Valley" is not an IAU name), so no usgsCrossCheck
+source:
+  datasetId: mars-lander-sites
+  file: nssdc-2007-034A-phoenix.xhtml
+  url: https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=2007-034A
+  fetchedAt: '2026-11-14T23:29:46Z'
+  sourceSha256: 2c41af9ced80b744163d99c46aefd340a2da52f6e2a0fa5d33a585ee17daf31c
+  quote: nominally at 68.15 N, 125.9 W, a relatively boulder-free area with a high
+    (30-60%) ratio of ice to rock

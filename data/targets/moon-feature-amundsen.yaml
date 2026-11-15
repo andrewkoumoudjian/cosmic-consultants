@@ -1,0 +1,31 @@
+siteId: moon-feature-amundsen
+name: Amundsen
+body: moon
+kind: feature
+status: historical
+lonMode: east-positive-0-360
+centreLat: -84.4398
+centreLon: 83.0691
+coordinateSource: usgs-planetary-nomenclature
+usgsFeatureName: Amundsen
+extent:
+  kind: bounding-box
+  minLat: -86.2561
+  maxLat: -82.8462
+  minLon: 67.6019
+  maxLon: 104.116
+latitudeNote: planetocentric, east-positive 0-360, as exported by the USGS gazetteer
+note: namesake "Amundsen Rim" was a 2022 candidate region, dropped in 2024
+usgsCrossCheck:
+  feature: Amundsen
+  diffKm: 0.0
+  expectedMaxKm: 0.0
+  note: cited coordinate IS the gazetteer centre; recorded difference is 0 km by construction
+source:
+  datasetId: usgs-planetary-nomenclature
+  file: MOON_nomenclature_center_pts.zip
+  url: https://planetarynames.wr.usgs.gov/shapefiles/MOON_nomenclature_center_pts.zip
+  fetchedAt: '2026-11-14T23:23:41Z'
+  sourceSha256: bcb1a37a195babb159ee1f720a6c64d03842de87d10a7ba7d754f8873477606b
+  quote: name=Amundsen;clean_name=Amundsen;approvaldt=1964/01/01 00:00:00;diameter=103.394720000000007;center_lon=83.069100000000006;center_lat=-84.439800000000005;type=Crater,
+    craters;code=AA;approval=Adopted by IAU

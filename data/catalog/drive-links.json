@@ -1,0 +1,515 @@
+{
+  "generatedAt": "2026-11-15T00:47:39Z",
+  "remote": "ccdrive",
+  "rootFolderId": "1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_",
+  "folders": {
+    "snapshots": {
+      "id": "1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_",
+      "url": "https://drive.google.com/drive/folders/1W4s6X4HTHmF7Xvd8eb1x3FlO-osP07V_"
+    },
+    "_derived": {
+      "id": "1oqImrQ1c8jHbaEi3R_sFgYNoRb2nIGoN",
+      "url": "https://drive.google.com/drive/folders/1oqImrQ1c8jHbaEi3R_sFgYNoRb2nIGoN"
+    },
+    "campaign-sources": {
+      "id": "1fo1JPzfgreOZgk63LjYjy17xYvRLNB2z",
+      "url": "https://drive.google.com/drive/folders/1fo1JPzfgreOZgk63LjYjy17xYvRLNB2z"
+    },
+    "registry-probes": {
+      "id": "16dW3vt0QZUk5QrrrmcEWJIIKCHJ2748S",
+      "url": "https://drive.google.com/drive/folders/16dW3vt0QZUk5QrrrmcEWJIIKCHJ2748S"
+    },
+    "_derived/assembled": {
+      "id": "1cl9368bI5lPkM6Kwb-oU5GxEQ4HR7xjy",
+      "url": "https://drive.google.com/drive/folders/1cl9368bI5lPkM6Kwb-oU5GxEQ4HR7xjy"
+    },
+    "_derived/campaign-measurements": {
+      "id": "1SemrPqGBRDebev-d67tJ0jcNMg8qZ0ZO",
+      "url": "https://drive.google.com/drive/folders/1SemrPqGBRDebev-d67tJ0jcNMg8qZ0ZO"
+    },
+    "_derived/planetary": {
+      "id": "1qGymGFOaz2Vqiueq5w8CM20_azDaJFmB",
+      "url": "https://drive.google.com/drive/folders/1qGymGFOaz2Vqiueq5w8CM20_azDaJFmB"
+    }
+  },
+  "rawFolders": {
+    "artemis-iii-candidate-regions": {
+      "id": "182CFf13h6-rXt7fu8gj6H_Yz-P340e-d",
+      "url": "https://drive.google.com/drive/folders/182CFf13h6-rXt7fu8gj6H_Yz-P340e-d"
+    },
+    "copernicus-dem-glo30": {
+      "id": "1GrB2HQ-0nq49b65_RlwTWx5PGvNW-JYs",
+      "url": "https://drive.google.com/drive/folders/1GrB2HQ-0nq49b65_RlwTWx5PGvNW-JYs"
+    },
+    "crism-mro": {
+      "id": "1g4N0i3bkVCzoTCOHuQeifj8QOdZ7tp2q",
+      "url": "https://drive.google.com/drive/folders/1g4N0i3bkVCzoTCOHuQeifj8QOdZ7tp2q"
+    },
+    "diviner-l4": {
+      "id": "1m2zHOhR8zeP1Cyqc1WzxlEPfcbx01be3",
+      "url": "https://drive.google.com/drive/folders/1m2zHOhR8zeP1Cyqc1WzxlEPfcbx01be3"
+    },
+    "eonet-v3-events": {
+      "id": "1CJFaXOzI6FkM6a3qbes0yB0q6H6ndAb_",
+      "url": "https://drive.google.com/drive/folders/1CJFaXOzI6FkM6a3qbes0yB0q6H6ndAb_"
+    },
+    "esa-cci-permafrost-extent-antarctica": {
+      "id": "1-KM7qOpY5z_jJF4hCcig3N0mhjdBfQC9",
+      "url": "https://drive.google.com/drive/folders/1-KM7qOpY5z_jJF4hCcig3N0mhjdBfQC9"
+    },
+    "esa-cci-permafrost-extent-nh": {
+      "id": "1m9p_b_bK7-UaAfg3yZiQI0h9E2UwkDx0",
+      "url": "https://drive.google.com/drive/folders/1m9p_b_bK7-UaAfg3yZiQI0h9E2UwkDx0"
+    },
+    "lend": {
+      "id": "1Q5HrxZdqZ4qooyxgC_ks2Bmxy-XF9TIj",
+      "url": "https://drive.google.com/drive/folders/1Q5HrxZdqZ4qooyxgC_ks2Bmxy-XF9TIj"
+    },
+    "lola-polar-illumination": {
+      "id": "1WUitA3JmSkdyN4QDFqq5vtDZCGmZKffO",
+      "url": "https://drive.google.com/drive/folders/1WUitA3JmSkdyN4QDFqq5vtDZCGmZKffO"
+    },
+    "lp-grs-pds": {
+      "id": "18l_zfloVuyHQaHWipj9Xe5230JGujqjW",
+      "url": "https://drive.google.com/drive/folders/18l_zfloVuyHQaHWipj9Xe5230JGujqjW"
+    },
+    "mars-lander-sites": {
+      "id": "1o6nXkD0Pz5Q51_p4CIZ0yIgGUfyl8Sp1",
+      "url": "https://drive.google.com/drive/folders/1o6nXkD0Pz5Q51_p4CIZ0yIgGUfyl8Sp1"
+    },
+    "mcs-mro": {
+      "id": "1-SjPOw-o2LW8IawsIkWx-gfOEDODoiEb",
+      "url": "https://drive.google.com/drive/folders/1-SjPOw-o2LW8IawsIkWx-gfOEDODoiEb"
+    },
+    "merra2-m2tmnxaer": {
+      "id": "1bMqAP72wWv__f_QvXxJwvphldK75sJfw",
+      "url": "https://drive.google.com/drive/folders/1bMqAP72wWv__f_QvXxJwvphldK75sJfw"
+    },
+    "merra2-m2tmnxflx": {
+      "id": "1jL5B_gCQgOaCSBaRdx5kBUy2sVzR3BpR",
+      "url": "https://drive.google.com/drive/folders/1jL5B_gCQgOaCSBaRdx5kBUy2sVzR3BpR"
+    },
+    "merra2-m2tmnxslv": {
+      "id": "1MustB46QK_DUbNbKL9W1oHt9uiiALObB",
+      "url": "https://drive.google.com/drive/folders/1MustB46QK_DUbNbKL9W1oHt9uiiALObB"
+    },
+    "modis-mcd12c1": {
+      "id": "1BKuMz9CueRrAbzg0pP2Zpxt7REzxqv2v",
+      "url": "https://drive.google.com/drive/folders/1BKuMz9CueRrAbzg0pP2Zpxt7REzxqv2v"
+    },
+    "modis-mcd43c3-albedo": {
+      "id": "1A9nXCYGQ4obfrLoIsdHnQg_ku1PNbke8",
+      "url": "https://drive.google.com/drive/folders/1A9nXCYGQ4obfrLoIsdHnQg_ku1PNbke8"
+    },
+    "modis-mcd64a1": {
+      "id": "1u_xF4GYWv95mM5wvppc8TbRt-U9IFYxs",
+      "url": "https://drive.google.com/drive/folders/1u_xF4GYWv95mM5wvppc8TbRt-U9IFYxs"
+    },
+    "modis-mod11c3": {
+      "id": "1b-2aVLKEnF1wJtGdmzEvotmnB89JB0nk",
+      "url": "https://drive.google.com/drive/folders/1b-2aVLKEnF1wJtGdmzEvotmnB89JB0nk"
+    },
+    "modis-mod21c3": {
+      "id": "1DyHbpnVaHsh1wv6HwBMs7Z6aibNX8mSB",
+      "url": "https://drive.google.com/drive/folders/1DyHbpnVaHsh1wv6HwBMs7Z6aibNX8mSB"
+    },
+    "modis-myd11c3": {
+      "id": "1SUoQEkJ8C5mlrgB8ir5J7Fs6X3H35mKj",
+      "url": "https://drive.google.com/drive/folders/1SUoQEkJ8C5mlrgB8ir5J7Fs6X3H35mKj"
+    },
+    "mola-megdr": {
+      "id": "1Yg36xVrwbkJb0dHCJCrzQrGCZ_mPt5XA",
+      "url": "https://drive.google.com/drive/folders/1Yg36xVrwbkJb0dHCJCrzQrGCZ_mPt5XA"
+    },
+    "ody-grs-pds": {
+      "id": "1FFgG8mKMWUqV-pwtiDlqy64k7n1c_WUT",
+      "url": "https://drive.google.com/drive/folders/1FFgG8mKMWUqV-pwtiDlqy64k7n1c_WUT"
+    },
+    "ornl-global-soil-regolith-sediment": {
+      "id": "1nEBLqj9wp1PilJ74XNPHWqGARv88A28t",
+      "url": "https://drive.google.com/drive/folders/1nEBLqj9wp1PilJ74XNPHWqGARv88A28t"
+    },
+    "ourairports": {
+      "id": "1zfpAD9COdIxVH9omkTNbWcDt0IKpMOC_",
+      "url": "https://drive.google.com/drive/folders/1zfpAD9COdIxVH9omkTNbWcDt0IKpMOC_"
+    },
+    "tes-mgs": {
+      "id": "1QfePeV7SSfmuzxGm2k6Ib0MGDEKrEWKI",
+      "url": "https://drive.google.com/drive/folders/1QfePeV7SSfmuzxGm2k6Ib0MGDEKrEWKI"
+    },
+    "themis-ir-controlled-mosaics": {
+      "id": "19p2izx3YiAIE6yL1I0Gum7I88EEN1DSK",
+      "url": "https://drive.google.com/drive/folders/19p2izx3YiAIE6yL1I0Gum7I88EEN1DSK"
+    },
+    "travel-time-to-cities-2015": {
+      "id": "1gW54wAb1GzgohZ6EtsnmtBEJouP2SI-Z",
+      "url": "https://drive.google.com/drive/folders/1gW54wAb1GzgohZ6EtsnmtBEJouP2SI-Z"
+    },
+    "unified-geologic-map-moon": {
+      "id": "1zJuBoj0QI-7fMjekbrdFu_LhMCMbvd58",
+      "url": "https://drive.google.com/drive/folders/1zJuBoj0QI-7fMjekbrdFu_LhMCMbvd58"
+    },
+    "usgs-planetary-nomenclature": {
+      "id": "1KVVHpdJU5JCYybAd4P1eGiU1op5Ah10-",
+      "url": "https://drive.google.com/drive/folders/1KVVHpdJU5JCYybAd4P1eGiU1op5Ah10-"
+    }
+  },
+  "derivedItems": {
+    "albedo-r4-monthly.meta.json": {
+      "id": "1zKR7cB93CacAvahTjc29c6-Q2ptdPdj6",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1zKR7cB93CacAvahTjc29c6-Q2ptdPdj6/view"
+    },
+    "albedo-r4-monthly.parquet": {
+      "id": "1QcG9liWrIm5JaEnZN3aTJ6zF_EYX56Bf",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1QcG9liWrIm5JaEnZN3aTJ6zF_EYX56Bf/view"
+    },
+    "albedo-r4.meta.json": {
+      "id": "1mpU1r0T0y45R5KHgQZMwkOaFPaDv0O0s",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1mpU1r0T0y45R5KHgQZMwkOaFPaDv0O0s/view"
+    },
+    "albedo-r4.parquet": {
+      "id": "1sftSX3uZyzuevitB1skMhYGY-f1jGPDo",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1sftSX3uZyzuevitB1skMhYGY-f1jGPDo/view"
+    },
+    "aqua-lst-r4-monthly.meta.json": {
+      "id": "1Xs62CVNxWowhe7Ndl-o-T7GiGMZfW5qn",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1Xs62CVNxWowhe7Ndl-o-T7GiGMZfW5qn/view"
+    },
+    "aqua-lst-r4-monthly.parquet": {
+      "id": "1st-JgVua5fC4cV18QE-kjkqLAOvtYV_k",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1st-JgVua5fC4cV18QE-kjkqLAOvtYV_k/view"
+    },
+    "burned-r4-counts.npz": {
+      "id": "12unYLeJ1H_cMkgVygPP7VSCBveD_AeN7",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/12unYLeJ1H_cMkgVygPP7VSCBveD_AeN7/view"
+    },
+    "burned-r4-ledger.jsonl.gz": {
+      "id": "1uo9vhiK-BPAA36kPAQBXaAK7u_ns8XjT",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1uo9vhiK-BPAA36kPAQBXaAK7u_ns8XjT/view"
+    },
+    "burned-r4-monthly.meta.json": {
+      "id": "1VjELL2GOEDAnU0GgE1evzrv0q94YwE0U",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1VjELL2GOEDAnU0GgE1evzrv0q94YwE0U/view"
+    },
+    "burned-r4-monthly.parquet": {
+      "id": "1_jo50KQ1ssEMh2HoNN_bRx4nNpgFEau7",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1_jo50KQ1ssEMh2HoNN_bRx4nNpgFEau7/view"
+    },
+    "burned-r4-run.log": {
+      "id": "1U1MYyTu69grUe25-NK0zvmXEZqtC0NWI",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1U1MYyTu69grUe25-NK0zvmXEZqtC0NWI/view"
+    },
+    "burned-r4-run.rc": {
+      "id": "14rriYtuttjiwxzj4QcKXq_4DVUu8W20K",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/14rriYtuttjiwxzj4QcKXq_4DVUu8W20K/view"
+    },
+    "burned-r4-run2.log": {
+      "id": "1emqkAHAniUhhPabrdkeJcYkM3vWP04sL",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1emqkAHAniUhhPabrdkeJcYkM3vWP04sL/view"
+    },
+    "cells-r4-monthly-years.meta.json": {
+      "id": "1hOHKNgY5MZtE_qoOl49rF2Q9qC2iT0uN",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1hOHKNgY5MZtE_qoOl49rF2Q9qC2iT0uN/view"
+    },
+    "cells-r4-monthly-years.parquet": {
+      "id": "12EjKGqh9C6OijFPjYxbfDWesqXILi4AB",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/12EjKGqh9C6OijFPjYxbfDWesqXILi4AB/view"
+    },
+    "cells-r4-monthly.meta.json": {
+      "id": "1d9E_rEldfyp5Ut659HSb4MzmKHDDkJV7",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1d9E_rEldfyp5Ut659HSb4MzmKHDDkJV7/view"
+    },
+    "cells-r4-monthly.parquet": {
+      "id": "1bgme6y_F7IWKFN8BcABSS58unCte0-YZ",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1bgme6y_F7IWKFN8BcABSS58unCte0-YZ/view"
+    },
+    "cells-r4.meta.json": {
+      "id": "1MRCJ6J3hjGinWAoGUmCLwMAePdwz7iUD",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1MRCJ6J3hjGinWAoGUmCLwMAePdwz7iUD/view"
+    },
+    "cells-r4.parquet": {
+      "id": "1M3SHgLieJ1UoaPmt7pGzAugWWFTes9xi",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1M3SHgLieJ1UoaPmt7pGzAugWWFTes9xi/view"
+    },
+    "context-r4.meta.json": {
+      "id": "1kOVkdAGeIy3ELWcckmVSzWhr3MNY6XXi",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1kOVkdAGeIy3ELWcckmVSzWhr3MNY6XXi/view"
+    },
+    "context-r4.parquet": {
+      "id": "1Zjt3eemo_e6a6xxSQzW8_9-PeMaey2uL",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1Zjt3eemo_e6a6xxSQzW8_9-PeMaey2uL/view"
+    },
+    "dust-r4-monthly.meta.json": {
+      "id": "1f2DH_6LubraWMQHsKH10OgTEfV4zMPyd",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1f2DH_6LubraWMQHsKH10OgTEfV4zMPyd/view"
+    },
+    "dust-r4-monthly.parquet": {
+      "id": "1_tDS70MOwiXi3oNMSOrpKBtKRYt3teH1",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1_tDS70MOwiXi3oNMSOrpKBtKRYt3teH1/view"
+    },
+    "dust-r4.meta.json": {
+      "id": "1cy7mkbUS1WW7pH-K1ZQo1fSWivj9qH4Y",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1cy7mkbUS1WW7pH-K1ZQo1fSWivj9qH4Y/view"
+    },
+    "dust-r4.parquet": {
+      "id": "1fafu5q52AY6j1gC9WhQ4AjUCdnhF9X-r",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1fafu5q52AY6j1gC9WhQ4AjUCdnhF9X-r/view"
+    },
+    "eonet-events-r4.parquet": {
+      "id": "1L9JnpdO8q35-ceDpvSsHOnJhPX9sE7p8",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1L9JnpdO8q35-ceDpvSsHOnJhPX9sE7p8/view"
+    },
+    "palsar-r4-scene-selection.json": {
+      "id": "1exF7DmVCr_T4CeVgdytSzjTDEiE5QS5E",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1exF7DmVCr_T4CeVgdytSzjTDEiE5QS5E/view"
+    },
+    "palsar-r4-sites.meta.json": {
+      "id": "1yAkk6SGziY-DdPvVyFbgSuvgIT693Q1N",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1yAkk6SGziY-DdPvVyFbgSuvgIT693Q1N/view"
+    },
+    "palsar-r4-sites.parquet": {
+      "id": "10R4GYk02jOnSlBQafBVU3asdtMwuQly-",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/10R4GYk02jOnSlBQafBVU3asdtMwuQly-/view"
+    },
+    "regolith-r4.meta.json": {
+      "id": "1w4zDUs9TJ_s5RwfetLVYj_C3Gw6prlTQ",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1w4zDUs9TJ_s5RwfetLVYj_C3Gw6prlTQ/view"
+    },
+    "regolith-r4.parquet": {
+      "id": "1oFOwVjLcdoLI20BsH7YyGUT5lH1--5S_",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1oFOwVjLcdoLI20BsH7YyGUT5lH1--5S_/view"
+    },
+    "terrain-r4-ledger.jsonl.gz": {
+      "id": "1bMg72d1kBm_yYSlBoYqRCf2RegXphruN",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1bMg72d1kBm_yYSlBoYqRCf2RegXphruN/view"
+    },
+    "terrain-r4.meta.json": {
+      "id": "1R9C15fxIPnY2IPhGM-HuGrP0CpmhMrAG",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1R9C15fxIPnY2IPhGM-HuGrP0CpmhMrAG/view"
+    },
+    "wind-r4-monthly.meta.json": {
+      "id": "1_7EMFYEa0IXTRQmK3E2wR-CbZEn4_xOD",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1_7EMFYEa0IXTRQmK3E2wR-CbZEn4_xOD/view"
+    },
+    "wind-r4-monthly.parquet": {
+      "id": "1dk-mtSf7hVyhp_vrDMCZyWk-xCZa9Pe8",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1dk-mtSf7hVyhp_vrDMCZyWk-xCZa9Pe8/view"
+    },
+    "wind-r4.meta.json": {
+      "id": "1eERDE-7QL9cVSgcuNy3wr5LPhUVjOMDq",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1eERDE-7QL9cVSgcuNy3wr5LPhUVjOMDq/view"
+    },
+    "wind-r4.parquet": {
+      "id": "1qA9T0IyO3LVF2rEOC1TjrFdSk1o49b-k",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1qA9T0IyO3LVF2rEOC1TjrFdSk1o49b-k/view"
+    },
+    "assembled/assembly-report.json": {
+      "id": "1oax3ff2bPMdMnyOJC3hQ1NF5Vt8yi4pb",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1oax3ff2bPMdMnyOJC3hQ1NF5Vt8yi4pb/view"
+    },
+    "assembled/campaign-sites.parquet": {
+      "id": "1qEvBA2Nk17YBFqlWmH2IPPZFr5aSIxgo",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1qEvBA2Nk17YBFqlWmH2IPPZFr5aSIxgo/view"
+    },
+    "assembled/cleaning-report.json": {
+      "id": "1uum_yowQQiTOoTBYI_voTjcJwm_aUoMh",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1uum_yowQQiTOoTBYI_voTjcJwm_aUoMh/view"
+    },
+    "assembled/data-coverage.json": {
+      "id": "1h5CDXkrJYmwTmvBmjceyARwcokSiC8F7",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1h5CDXkrJYmwTmvBmjceyARwcokSiC8F7/view"
+    },
+    "assembled/hazard-events.parquet": {
+      "id": "1FwkbWnH7cwoHJX62evNd-qrzbmIem4om",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1FwkbWnH7cwoHJX62evNd-qrzbmIem4om/view"
+    },
+    "assembled/sites-r4-monthly-spread.parquet": {
+      "id": "1VilDCuY5zuX7OZ-MwJOx2I9WNKszhM64",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1VilDCuY5zuX7OZ-MwJOx2I9WNKszhM64/view"
+    },
+    "assembled/sites-r4-monthly.parquet": {
+      "id": "18jRbKtRVfYEhL4opI5qHEcNr5hxSHm0R",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/18jRbKtRVfYEhL4opI5qHEcNr5hxSHm0R/view"
+    },
+    "assembled/sites-r4.parquet": {
+      "id": "1TvVF1Wrh3ZSyMgquSY2E0ti75r7lUEKQ",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1TvVF1Wrh3ZSyMgquSY2E0ti75r7lUEKQ/view"
+    },
+    "assembled/trait-scales.json": {
+      "id": "1FBpStgxRjukkDy3UcRrJXLaeJIyj2Rr9",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1FBpStgxRjukkDy3UcRrJXLaeJIyj2Rr9/view"
+    },
+    "planetary/diviner-south-prp.parquet": {
+      "id": "1hD82tfotZunVlwc5RYCXP_8-CVEOFacj",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1hD82tfotZunVlwc5RYCXP_8-CVEOFacj/view"
+    },
+    "planetary/lend": {
+      "id": "15pOZM8c8ag-2qn8z57Hv2FTVLJHncV58",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/15pOZM8c8ag-2qn8z57Hv2FTVLJHncV58"
+    },
+    "planetary/lp-grs-pds": {
+      "id": "17GdaHYNjoYlKOURIt04O98Juw1JKM2pe",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/17GdaHYNjoYlKOURIt04O98Juw1JKM2pe"
+    },
+    "planetary/ody-grs-pds": {
+      "id": "1uv-yzweJnmDEMa1jpjwOrHRNJF247qpc",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1uv-yzweJnmDEMa1jpjwOrHRNJF247qpc"
+    },
+    "planetary/preparation-report.json": {
+      "id": "1F5-S2Qd5NmRqbVzCX5fK3qdfiI3QREpn",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1F5-S2Qd5NmRqbVzCX5fK3qdfiI3QREpn/view"
+    },
+    "planetary/projection-check.json": {
+      "id": "1pMU8yFrnlJ0Pb_bw7NrcqNamlbHznv4h",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1pMU8yFrnlJ0Pb_bw7NrcqNamlbHznv4h/view"
+    },
+    "planetary/tes-thermal-inertia-day.parquet": {
+      "id": "111_Vzj4DWvxOKfsEq5X2pbzwGQpohinN",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/111_Vzj4DWvxOKfsEq5X2pbzwGQpohinN/view"
+    },
+    "planetary/tes-thermal-inertia-night.parquet": {
+      "id": "1Iy9IV4Bhc-QbaXZcaXEZMewbzZ7GAA8u",
+      "isDir": false,
+      "url": "https://drive.google.com/file/d/1Iy9IV4Bhc-QbaXZcaXEZMewbzZ7GAA8u/view"
+    },
+    "planetary/themis-ir-controlled-mosaics": {
+      "id": "1DtI1nw8r9ZTUV-LeDPTvr-XLD1rOVLbh",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/1DtI1nw8r9ZTUV-LeDPTvr-XLD1rOVLbh"
+    },
+    "planetary/unified-geologic-map-moon": {
+      "id": "14ghpM0mRQifYUlO68meccv5U0u4u_tdX",
+      "isDir": true,
+      "url": "https://drive.google.com/drive/folders/14ghpM0mRQifYUlO68meccv5U0u4u_tdX"
+    }
+  },
+  "datasetDerived": {
+    "modis-mod11c3": [
+      "cells-r4.parquet",
+      "cells-r4-monthly.parquet",
+      "cells-r4-monthly-years.parquet"
+    ],
+    "modis-mcd12c1": [
+      "cells-r4.parquet"
+    ],
+    "esa-cci-permafrost-extent-nh": [
+      "cells-r4.parquet"
+    ],
+    "esa-cci-permafrost-extent-antarctica": [
+      "cells-r4.parquet"
+    ],
+    "copernicus-dem-glo30": [
+      "cells-r4.parquet",
+      "terrain-r4.meta.json"
+    ],
+    "ourairports": [
+      "context-r4.parquet"
+    ],
+    "travel-time-to-cities-2015": [
+      "context-r4.parquet"
+    ],
+    "eonet-v3-events": [
+      "context-r4.parquet",
+      "eonet-events-r4.parquet"
+    ],
+    "modis-mcd43c3-albedo": [
+      "albedo-r4.parquet",
+      "albedo-r4-monthly.parquet"
+    ],
+    "ornl-global-soil-regolith-sediment": [
+      "regolith-r4.parquet"
+    ],
+    "modis-mcd64a1": [
+      "burned-r4-monthly.parquet"
+    ],
+    "modis-myd11c3": [
+      "aqua-lst-r4-monthly.parquet"
+    ],
+    "merra2-m2tmnxaer": [
+      "dust-r4.parquet",
+      "dust-r4-monthly.parquet"
+    ],
+    "merra2-m2tmnxflx": [
+      "wind-r4.parquet",
+      "wind-r4-monthly.parquet"
+    ],
+    "merra2-m2tmnxslv": [
+      "wind-r4-monthly.parquet"
+    ],
+    "alos-palsar-rtc-high": [
+      "palsar-r4-sites.parquet"
+    ],
+    "diviner-l4": [
+      "planetary/diviner-south-prp.parquet"
+    ],
+    "tes-mgs": [
+      "planetary/tes-thermal-inertia-day.parquet",
+      "planetary/tes-thermal-inertia-night.parquet"
+    ],
+    "lend": [
+      "planetary/lend"
+    ],
+    "lp-grs-pds": [
+      "planetary/lp-grs-pds"
+    ],
+    "ody-grs-pds": [
+      "planetary/ody-grs-pds"
+    ],
+    "themis-ir-controlled-mosaics": [
+      "planetary/themis-ir-controlled-mosaics"
+    ]
+  }
+}

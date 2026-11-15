@@ -1,0 +1,25 @@
+siteId: moon-artemis3-candidate-malapert-massif
+name: Malapert Massif
+body: moon
+kind: region
+status: candidate
+lonMode: east-positive-minus180-180
+centreLat: null
+centreLon: null
+extentRadiusKm: null
+extentReason: 'no radius: the 2024 release restates no region size (the 2022 generation
+  quoted 15 by 15 km)'
+missingReason: no numeric centre published as text in NASA's 2024 release (region
+  outlines appear only in the release graphic); the named-feature rows carry gazetteer
+  centres for the features these regions are named after
+note: one of the nine candidate Artemis III lunar landing regions announced by NASA
+  on 2024-10-28
+source:
+  datasetId: artemis-iii-candidate-regions
+  file: release-2024-10-28-nine-regions.json
+  url: https://www.nasa.gov/wp-json/wp/v2/press-release?slug=nasa-provides-update-on-artemis-iii-moon-landing-regions
+  fetchedAt: '2026-11-14T23:29:35Z'
+  sourceSha256: c58c6f2ef0a08dac4746a425d392a2a9c48f0e437a191010df65185b6fee76fe
+  quote: 'The refined candidate Artemis III lunar landing regions are, in no priority
+    order: Peak near Cabeus B Haworth Malapert Massif Mons Mouton Plateau Mons Mouton
+    Nobile Rim 1 Nobile Rim 2 de Gerlache Rim 2 Slater Plain'
