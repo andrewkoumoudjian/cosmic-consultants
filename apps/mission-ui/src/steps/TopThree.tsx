@@ -97,7 +97,7 @@ function Radar({ scores, names, rules, onTip }: { scores: Closeness[][]; names: 
         <polygon key={v} points={rules.map((_, d) => pt(d, v).join(',')).join(' ')} fill="none" stroke={v === 100 ? '#3a3e47' : '#272a31'} strokeWidth={1} />
       ))}
       {rules.map((_, d) => { const [x, y] = pt(d, 100); return <line key={d} x1={cx} y1={cy} x2={x} y2={y} stroke="#272a31" />; })}
-      {[50, 100].map(v => <text key={v} x={cx + 4} y={pt(0, v)[1] + 12} className="radar-sub">{v}</text>)}
+      {[50, 100].map(v => <text key={v} x={cx - 6} y={pt(0, v)[1] + 14} textAnchor="end" className="radar-sub">{v}</text>)}
 
       {scores.map((cs, k) => {
         // Draw and shade only between neighbouring spokes that both have a score; missing data leaves a gap, never a 0.

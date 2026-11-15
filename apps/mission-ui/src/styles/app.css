@@ -611,3 +611,17 @@ tbody tr.clickable:hover td { background: var(--surface-2); }
   .lim-pair, .risks-main, .ll-grid { grid-template-columns: minmax(0, 1fr); }
   .lim-bars li { grid-template-columns: 110px minmax(0, 1fr) 64px; gap: 10px; }
 }
+
+/* phone: keep the top bar and header tabs inside 390 px */
+@media (max-width: 900px) {
+  .topbar-in { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  .brand { min-width: 0; }
+  .brand-name { font-size: 18px; }
+  .top-actions .btn.ghost { display: none; }
+  .step-head { gap: 12px; }
+  .tabs { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .context { max-width: 100%; justify-content: flex-start; }
+  .context > * { min-width: 0; max-width: 100%; }
+}
+
+@media (max-width: 520px) { .flash-row { grid-template-columns: minmax(0, 1fr); } .flash-lines div { flex-wrap: wrap; } }
