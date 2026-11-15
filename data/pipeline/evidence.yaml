@@ -54,6 +54,12 @@ columns:
   access_min_median:        {kind: modeled, support: "Weiss et al. 2015 travel time to cities, hexagon median", family: weiss-travel-time}
   access_min_p10:           {kind: modeled, support: "Weiss et al. 2015 travel time to cities, hexagon 10th percentile", family: weiss-travel-time}
   airport_km:               {kind: catalogue, support: "OurAirports catalogue; completeness not guaranteed", family: ourairports}
+  # #203 place labels (Natural Earth 1:10m, public domain): text for the cell centre, never a trait
+  place_country:            {kind: catalogue, support: "Natural Earth admin-0 polygon containing the H3 cell centre; de facto cartographic boundaries", family: natural-earth}
+  place_country_a3:         {kind: catalogue, support: "Natural Earth admin-0 ADM0_A3 code of the polygon containing the cell centre", family: natural-earth}
+  place_admin1:             {kind: catalogue, support: "Natural Earth admin-1 polygon containing the H3 cell centre", family: natural-earth}
+  place_nearest:            {kind: catalogue, support: "Nearest Natural Earth populated place within 50 km of the cell centre; not every settlement is listed", family: natural-earth}
+  place_nearest_km:         {kind: computed, support: "Great-circle distance cell centre to place_nearest, R = 6371.0088 km", family: natural-earth}
   protected_pct:            {kind: catalogue, support: "protected-area polygons, hexagon share (see context-r4 meta licences)", family: protected-areas}
   eonet_wildfires_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}
   eonet_volcanoes_events:     {kind: catalogue, support: "EONET reported events 2015-2024; count of reports, not hazard frequency", family: nasa-eonet}

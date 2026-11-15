@@ -8699,6 +8699,36 @@
       "license": "citation-required-no-license-stated",
       "licenseVerified": true,
       "localPath": "data/snapshots/lola-south-pole-ldem-2023/LPSR_80S_20MPP_ADJ.TIF"
+    },
+    {
+      "datasetId": "natural-earth-10m-cultural",
+      "sourceUrl": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_0_countries.zip",
+      "fetchedAt": "2026-11-15T17:29:05Z",
+      "sha256": "ce1ac7036499a0edd641fbc093cd209a98f96a49d2eca8480aaacad35138a7f6",
+      "bytes": 4930492,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/natural-earth-10m-cultural/ne_10m_admin_0_countries.zip"
+    },
+    {
+      "datasetId": "natural-earth-10m-cultural",
+      "sourceUrl": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_1_states_provinces.zip",
+      "fetchedAt": "2026-11-15T17:29:06Z",
+      "sha256": "efc59726337323058f9446210adc96673179cd344e053666ee3d28cb58ba2b05",
+      "bytes": 14909524,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/natural-earth-10m-cultural/ne_10m_admin_1_states_provinces.zip"
+    },
+    {
+      "datasetId": "natural-earth-10m-cultural",
+      "sourceUrl": "https://naciscdn.org/naturalearth/10m/cultural/ne_10m_populated_places_simple.zip",
+      "fetchedAt": "2026-11-15T17:29:07Z",
+      "sha256": "2963ee08f7743f13f37d5243acd77a2f7a510e26a36c7e04b920f1b381f2b251",
+      "bytes": 652145,
+      "license": "public-domain",
+      "licenseVerified": true,
+      "localPath": "data/snapshots/natural-earth-10m-cultural/ne_10m_populated_places_simple.zip"
     }
   ]
 }
