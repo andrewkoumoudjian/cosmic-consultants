@@ -13,8 +13,8 @@ class AssemblyValidation(unittest.TestCase):
         report = build.coverage(pl.DataFrame(), pl.DataFrame())
         self.assertEqual(len(report["categories"]), 19)
         self.assertEqual(report["testCatalog"]["selection"]["maxMetrics"], 8)
-        for category in ["robotic-mobility-navigation", "geological-exploration-sampling"]:
-            self.assertEqual(len(report["categories"][category]["detailedMetricMenuText"]), 12)
+        for category, count in [("robotic-mobility-navigation", 12), ("geological-exploration-sampling", 8)]:
+            self.assertEqual(len(report["categories"][category]["detailedMetricMenuText"]), count)
             self.assertEqual(report["categories"][category]["dataSupportStatus"], "not-established")
         self.assertEqual(report["planetaryAssemblyStatus"].split(":")[0], "not-built")
 
