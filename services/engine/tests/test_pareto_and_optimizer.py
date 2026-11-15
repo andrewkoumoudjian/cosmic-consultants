@@ -244,6 +244,34 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         with self.assertRaises(InfeasibleCampaignError):
             solve_cvar_campaign(prob)
 
+    def test_constraint_scaling_and_near_boundary_infeasibility_raise(self) -> None:
+        # Zero cap with unit sum and huge unrelated budget must raise InfeasibleCampaignError.
+        prob_scaled = CampaignProblem(["a"], [2020], [[1.0]], 1.0, [0.0], [], [], [10.0], 1e9)
+        with self.assertRaises(InfeasibleCampaignError):
+            solve_cvar_campaign(prob_scaled)
+
+        # Near-boundary budget infeasibility must raise cleanly.
+        prob_near = CampaignProblem(["a"], [2020], [[1.0]], 1.0, [1.0], [], [], [10.0], 10.0 - 1e-5)
+        with self.assertRaises(InfeasibleCampaignError):
+            solve_cvar_campaign(prob_near)
+
+    def test_screening_tolerance_validation_and_approximate_certificate(self) -> None:
+        prob = CampaignProblem(["a", "b"], [2020, 2021], [[2.0, 0.0], [0.0, 1.0]], 0.5, [1.0, 1.0], [], [], [0.0, 0.0], 0.0)
+        sol_full = solve_cvar_campaign(prob, use_screening=False)
+        sol_exact = solve_cvar_campaign(prob, use_screening=True)
+        self.assertTrue(sol_exact.screening_exact)
+        self.assertAlmostEqual(sol_exact.cvar, sol_full.cvar, places=9)
+
+        # Positive screen_tol that stops early must NOT claim screening_exact=True or a 0.0 full-problem bound.
+        sol_approx = solve_cvar_campaign(prob, use_screening=True, initial_scenarios=1, screen_tol=2.0)
+        self.assertFalse(sol_approx.screening_exact)
+        self.assertEqual(sol_approx.certificate.objective_value, sol_approx.cvar)
+        self.assertGreaterEqual(sol_approx.certificate.certified_subopt_le, sol_approx.cvar - sol_full.cvar - 1e-12)
+
+        for bad_tol in (-1e-4, float("nan"), float("inf")):
+            with self.assertRaises(ValueError):
+                solve_cvar_campaign(prob, screen_tol=bad_tol)
+
     def test_synthetic_parquet_years_missingness_exclusion_and_strict_constraints(self) -> None:
         import pyarrow as pa
         import pyarrow.parquet as pq

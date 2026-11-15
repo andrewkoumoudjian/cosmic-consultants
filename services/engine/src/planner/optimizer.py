@@ -308,18 +308,20 @@ def _solve_canonical_lp(
         c_p1 = [0.0] * n_orig + [1.0] * n_art
 
         basis_p1, x_p1 = _simplex_core(A_p1, b_tab, c_p1, basis)
-        p1_obj = math.fsum(c_p1[j] * v for j, v in zip(basis_p1, x_p1))
-        feas_tol = 1e-7 * max(1.0, max((abs(v) for v in b_tab), default=0.0))
-        if p1_obj > feas_tol:
-            raise InfeasibleCampaignError(
-                f"Campaign constraints are infeasible (Phase I residual={p1_obj:.3e})"
-            )
+        art_row_of_col = {n_orig + idx: r for idx, r in enumerate(art_rows)}
+        for j, val in zip(basis_p1, x_p1):
+            if j >= n_orig:
+                r_orig = art_row_of_col[j]
+                row_tol = 1e-8 + 1e-11 * abs(b_tab[r_orig])
+                if val > row_tol:
+                    raise InfeasibleCampaignError(
+                        f"Campaign constraints are infeasible (row {r_orig} Phase I residual={val:.3e})"
+                    )
 
         active_rows = list(range(m_rows))
         cur_A = [row[:] for row in A_tab]
         cur_b = list(b_tab)
         cur_basis = list(basis_p1)
-        art_row_of_col = {n_orig + idx: r for idx, r in enumerate(art_rows)}
 
         row_pos = 0
         while row_pos < len(cur_basis):
@@ -368,8 +370,28 @@ def _solve_canonical_lp(
 
     x_sol = [0.0] * n_orig
     for j, val in zip(basis_p2, x_p2):
+        if val < -1e-8:
+            raise InfeasibleCampaignError(
+                f"Campaign constraints are infeasible (negative basic variable x[{j}]={val:.3e})"
+            )
         x_sol[j] = max(0.0, val)
     z_opt = x_sol[:n_z]
+
+    # Verify exact per-row primal feasibility on the unscaled canonical system before returning.
+    for r in range(r_s):
+        viol = _dot(G_struct[r], z_opt) - h_struct[r]
+        row_tol = 1e-8 + 1e-11 * abs(h_struct[r])
+        if viol > row_tol:
+            raise InfeasibleCampaignError(
+                f"Campaign inequality row {r} infeasible (violation={viol:.3e} > tol={row_tol:.3e})"
+            )
+    for l in range(p_eq):
+        viol = abs(_dot(E[l], z_opt) - e[l])
+        row_tol = 1e-8 + 1e-11 * abs(e[l])
+        if viol > row_tol:
+            raise InfeasibleCampaignError(
+                f"Campaign equality row {l} infeasible (violation={viol:.3e} > tol={row_tol:.3e})"
+            )
 
     pi_p2 = _solve_linear(B_opt, [c_orig[j] for j in basis_p2], transpose=True)
     pi_tab = [0.0] * m_rows
@@ -495,16 +517,26 @@ def solve_cvar_campaign(
     *,
     use_screening: bool = True,
     initial_scenarios: int | None = None,
-    screen_tol: float = 1e-8,
+    screen_tol: float = 0.0,
 ) -> CampaignSolution:
     """Solve the multi-year Rockafellar–Uryasev CVaR campaign optimization LP.
 
     When `use_screening=True` (`S10b_cvar_screening_exact`), begins with a tail
     subset `S` containing at least `ceil(alpha * T)` high-loss years (ensuring
-    `c * |S| >= 1`), solves the screened LP, checks all dropped years `i not in S`
-    for `loss_i <= t* + screen_tol`, and expands `S` until every omitted year
-    is certified inactive.
+    `c * |S| >= 1`), solves the screened LP, checks omitted years `i not in S`,
+    and expands `S` until every omitted year satisfies `loss_i <= t* + screen_tol`.
+
+    `screen_tol` defaults to `0.0` (exact `S10b` condition `loss_i <= t*`). When
+    a caller passes `screen_tol > 0`, `screening_exact` is `True` ONLY when every
+    omitted scenario strictly satisfies `loss_i <= t*`; otherwise `screening_exact`
+    is `False` and the returned `DualCertificate` is extended to the full `T`-year
+    LP (`lam_omitted = 0`, `lam_nn_u = c`) so `certified_subopt_le` remains a
+    sound `S10d` bound on the full multi-year objective.
     """
+    screen_tol_f = float(screen_tol)
+    if not math.isfinite(screen_tol_f) or screen_tol_f < 0.0:
+        raise ValueError("screen_tol must be finite and >= 0")
+
     t_cnt = problem.n_years
     min_active = max(1, math.ceil(problem.alpha * t_cnt))
     if not use_screening or t_cnt <= min_active:
@@ -520,10 +552,10 @@ def solve_cvar_campaign(
     iterations = 0
     while True:
         iterations += 1
-        w, var_t, _, cert = _solve_screened_lp(problem, active)
+        w, var_t, u_sub, cert = _solve_screened_lp(problem, active)
         losses = [_dot(problem.loss_matrix[i], w) for i in range(t_cnt)]
         active_set = set(active)
-        violators = [i for i in range(t_cnt) if i not in active_set and losses[i] > var_t + screen_tol]
+        violators = [i for i in range(t_cnt) if i not in active_set and losses[i] > var_t + screen_tol_f]
         if not violators:
             break
         active = sorted(active_set | set(violators))
@@ -532,7 +564,29 @@ def solve_cvar_campaign(
     dropped = [i for i in range(t_cnt) if i not in active_set]
     all_excess = [max(0.0, losses[i] - var_t) for i in range(t_cnt)]
     full_cvar = var_t + problem.c * math.fsum(all_excess)
-    screening_exact = all(losses[i] <= var_t + screen_tol for i in dropped)
+    screening_exact = all(losses[i] <= var_t for i in dropped)
+
+    if not screening_exact:
+        L = problem.loss_matrix
+        L_min = min(x for row in L for x in row)
+        L_max = max(x for row in L for x in row)
+        spread = max(0.0, L_max - L_min)
+        omitted_excess = [all_excess[i] for i in dropped]
+        full_comp_gap = cert.complementarity_gap + problem.c * math.fsum(omitted_excess)
+        # Extend z to full T-year LP (u_i = all_excess[i] for i in dropped, lam_omitted = 0, lam_nn_u = c).
+        z_screened_l1 = cert.l1_radius_bound - (1.0 + (1.0 + len(active)) * spread)
+        z_full_l1 = z_screened_l1 + math.fsum(omitted_excess)
+        full_l1_bound = z_full_l1 + (1.0 + (1.0 + t_cnt) * spread)
+        cert = DualCertificate(
+            objective_value=full_cvar,
+            primal_max_ineq_violation=cert.primal_max_ineq_violation,
+            primal_max_eq_violation=cert.primal_max_eq_violation,
+            dual_min_multiplier=min(cert.dual_min_multiplier, 0.0),
+            dual_residual_linf=cert.dual_residual_linf,
+            complementarity_gap=full_comp_gap,
+            l1_radius_bound=full_l1_bound,
+            certified_subopt_le=full_comp_gap + cert.dual_residual_linf * full_l1_bound,
+        )
 
     return CampaignSolution(
         weights={cid: float(w[j]) for j, cid in enumerate(problem.candidate_ids)},
