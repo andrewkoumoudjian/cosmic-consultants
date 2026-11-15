@@ -162,7 +162,22 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         self.assertLessEqual(sol_screen.certificate.primal_max_eq_violation, 1e-9)
         self.assertGreaterEqual(sol_screen.certificate.dual_min_multiplier, 0.0)
         self.assertLessEqual(sol_screen.certificate.dual_residual_linf, 1e-9)
-        self.assertLessEqual(sol_screen.certificate.certified_subopt_le, 1e-8)
+        self._assert_certificate_sound(sol_screen.certificate, max_bound=1e-8)
+
+    def _assert_certificate_sound(self, cert, *, max_bound: float) -> None:
+        self.assertLessEqual(cert.dual_residual_linf, 1e-8)
+        if cert.certified:
+            self.assertEqual(cert.certification_status, "exact")
+            self.assertEqual(cert.primal_max_ineq_violation, 0.0)
+            self.assertEqual(cert.primal_max_eq_violation, 0.0)
+            self.assertGreaterEqual(cert.dual_min_multiplier, 0.0)
+            self.assertIsNotNone(cert.certified_subopt_le)
+            self.assertLessEqual(cert.certified_subopt_le, max_bound)
+        else:
+            self.assertEqual(cert.certification_status, "uncertified-numerical-tolerance")
+            self.assertIsNone(cert.certified_subopt_le)
+            self.assertLessEqual(max(cert.primal_max_ineq_violation, cert.primal_max_eq_violation), 1e-11)
+            self.assertLessEqual(cert.numerical_subopt_estimate, max_bound)
 
     def test_random_screened_vs_full_equivalence_and_convexity(self) -> None:
         rng = random.Random(998877)
@@ -217,9 +232,7 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
                 self.assertGreaterEqual(_dot(cov[r], w_mix), req[r] - 1e-8)
             self.assertLessEqual(_dot(cost, w_mix), budget + 1e-8)
 
-            cert = s_scr.certificate
-            self.assertLessEqual(cert.dual_residual_linf, 1e-8)
-            self.assertLessEqual(cert.certified_subopt_le, 1e-6)
+            self._assert_certificate_sound(s_scr.certificate, max_bound=1e-6)
 
             seed_losses = [_dot(row, w_seed) for row in L]
             cvar_seed = min(
@@ -250,10 +263,37 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         with self.assertRaises(InfeasibleCampaignError):
             solve_cvar_campaign(prob_scaled)
 
+        # Near-boundary cap infeasibilities (1e-9 and 1e-14 below 1.0) must raise cleanly.
+        for eps in (1e-9, 1e-14):
+            prob_cap = CampaignProblem(["a"], [2020], [[1.0]], 1.0, [1.0 - eps], [], [], [0.0], 0.0)
+            with self.assertRaises(InfeasibleCampaignError):
+                solve_cvar_campaign(prob_cap)
+
         # Near-boundary budget infeasibility must raise cleanly.
-        prob_near = CampaignProblem(["a"], [2020], [[1.0]], 1.0, [1.0], [], [], [10.0], 10.0 - 1e-5)
+        for eps in (1e-5, 1e-9):
+            prob_near = CampaignProblem(["a"], [2020], [[1.0]], 1.0, [1.0], [], [], [10.0], 10.0 - eps)
+            with self.assertRaises(InfeasibleCampaignError):
+                solve_cvar_campaign(prob_near)
+
+        # Cross-constraint infeasibility at 1e-11 must raise; if any microscopic 1e-14 case slips
+        # inside solver float tolerance, it must never be marked certified or report certified_subopt_le=0.
+        prob_cross_reject = CampaignProblem(
+            ["a", "b"], [2020], [[1.0, 2.0]], 1.0, [1.0, 1.0], [[1.0, 0.0]], [0.5], [1.0, 0.0], 0.5 - 1e-11
+        )
         with self.assertRaises(InfeasibleCampaignError):
-            solve_cvar_campaign(prob_near)
+            solve_cvar_campaign(prob_cross_reject)
+
+        prob_cross_micro = CampaignProblem(
+            ["a", "b"], [2020], [[1.0, 2.0]], 1.0, [1.0, 1.0], [[1.0, 0.0]], [0.5], [1.0, 0.0], 0.5 - 1e-14
+        )
+        try:
+            sol_micro = solve_cvar_campaign(prob_cross_micro)
+        except InfeasibleCampaignError:
+            pass
+        else:
+            self.assertFalse(sol_micro.certificate.certified)
+            self.assertEqual(sol_micro.certificate.certification_status, "uncertified-numerical-tolerance")
+            self.assertIsNone(sol_micro.certificate.certified_subopt_le)
 
     def test_screening_tolerance_validation_and_approximate_certificate(self) -> None:
         prob = CampaignProblem(["a", "b"], [2020, 2021], [[2.0, 0.0], [0.0, 1.0]], 0.5, [1.0, 1.0], [], [], [0.0, 0.0], 0.0)
@@ -266,6 +306,8 @@ class CampaignOptimizerS10Tests(unittest.TestCase):
         sol_approx = solve_cvar_campaign(prob, use_screening=True, initial_scenarios=1, screen_tol=2.0)
         self.assertFalse(sol_approx.screening_exact)
         self.assertEqual(sol_approx.certificate.objective_value, sol_approx.cvar)
+        self.assertTrue(sol_approx.certificate.certified)
+        self.assertIsNotNone(sol_approx.certificate.certified_subopt_le)
         self.assertGreaterEqual(sol_approx.certificate.certified_subopt_le, sol_approx.cvar - sol_full.cvar - 1e-12)
 
         for bad_tol in (-1e-4, float("nan"), float("inf")):
@@ -397,7 +439,12 @@ class RealDataIntegrationTests(unittest.TestCase):
         sol_full = solve_cvar_campaign(prob, use_screening=False)
         self.assertAlmostEqual(sol_scr.cvar, sol_full.cvar, places=6)
         self.assertTrue(sol_scr.screening_exact)
-        self.assertLessEqual(sol_scr.certificate.certified_subopt_le, 1e-6)
+        self.assertLessEqual(
+            sol_scr.certificate.certified_subopt_le
+            if sol_scr.certificate.certified
+            else sol_scr.certificate.numerical_subopt_estimate,
+            1e-6,
+        )
         self.assertAlmostEqual(sum(sol_scr.weights.values()), 1.0, places=8)
 
         moon_res = rank_earth_for_target(
@@ -420,7 +467,12 @@ class RealDataIntegrationTests(unittest.TestCase):
         )
         moon_sol = solve_cvar_campaign(moon_prob, use_screening=True)
         self.assertTrue(moon_sol.screening_exact)
-        self.assertLessEqual(moon_sol.certificate.certified_subopt_le, 1e-6)
+        self.assertLessEqual(
+            moon_sol.certificate.certified_subopt_le
+            if moon_sol.certificate.certified
+            else moon_sol.certificate.numerical_subopt_estimate,
+            1e-6,
+        )
         self.assertAlmostEqual(sum(moon_sol.weights.values()), 1.0, places=8)
 
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from fractions import Fraction
 from pathlib import Path
 from typing import Iterable, Sequence
 
@@ -164,9 +165,12 @@ class DualCertificate:
     `lam_full = lam_struct + lam_nn >= 0`, so `dual_residual_linf` bounds
     `||g + G_aug^T lam_full + E^T y||_inf`.
 
-    `l1_radius_bound` bounds `||z - z*||_1` for any optimal `(w*, t*, u*)`
-    (since an optimal VaR `t*` lies in `[L_min, L_max]` and `0 <= u_k* <= spread`);
-    for an arbitrary feasible `z*`, call `subopt_bound(||z - z*||_1)` directly.
+    `certified` is `True` ONLY when every `S10d` feasibility hypothesis holds with
+    zero violation at the returned float vector (`primal_max_ineq_violation == 0.0`,
+    `primal_max_eq_violation == 0.0`, and `dual_min_multiplier >= 0.0`). When
+    floating-point rounding leaves positive tolerance residuals (`> 0.0`), `certified`
+    is `False`, `certified_subopt_le` is `None`, and `numerical_subopt_estimate`
+    records the uncertified float diagnostic `comp_gap + M_dual * l1_bound`.
     """
 
     objective_value: float
@@ -176,7 +180,10 @@ class DualCertificate:
     dual_residual_linf: float
     complementarity_gap: float
     l1_radius_bound: float
-    certified_subopt_le: float
+    certified_subopt_le: float | None
+    certified: bool = False
+    certification_status: str = "uncertified-numerical-tolerance"
+    numerical_subopt_estimate: float = 0.0
 
     def subopt_bound(self, z_minus_zs_l1: float) -> float:
         """Evaluate exact `S10d` RHS for a given L1 deviation `||z - z*||_1`."""
@@ -312,10 +319,11 @@ def _solve_canonical_lp(
         for j, val in zip(basis_p1, x_p1):
             if j >= n_orig:
                 r_orig = art_row_of_col[j]
-                row_tol = 1e-8 + 1e-11 * abs(b_tab[r_orig])
+                row_norm = math.fsum(abs(v) for v in A_orig[r_orig][:n_z])
+                row_tol = 1e-12 + 1e-13 * (abs(b_tab[r_orig]) + row_norm)
                 if val > row_tol:
                     raise InfeasibleCampaignError(
-                        f"Campaign constraints are infeasible (row {r_orig} Phase I residual={val:.3e})"
+                        f"Campaign constraints are infeasible (row {r_orig} Phase I residual={val:.3e} > tol={row_tol:.3e})"
                     )
 
         active_rows = list(range(m_rows))
@@ -370,7 +378,7 @@ def _solve_canonical_lp(
 
     x_sol = [0.0] * n_orig
     for j, val in zip(basis_p2, x_p2):
-        if val < -1e-8:
+        if val < -1e-12:
             raise InfeasibleCampaignError(
                 f"Campaign constraints are infeasible (negative basic variable x[{j}]={val:.3e})"
             )
@@ -380,14 +388,16 @@ def _solve_canonical_lp(
     # Verify exact per-row primal feasibility on the unscaled canonical system before returning.
     for r in range(r_s):
         viol = _dot(G_struct[r], z_opt) - h_struct[r]
-        row_tol = 1e-8 + 1e-11 * abs(h_struct[r])
+        row_norm = math.fsum(abs(v) for v in G_struct[r])
+        row_tol = 1e-12 + 1e-13 * (abs(h_struct[r]) + row_norm)
         if viol > row_tol:
             raise InfeasibleCampaignError(
                 f"Campaign inequality row {r} infeasible (violation={viol:.3e} > tol={row_tol:.3e})"
             )
     for l in range(p_eq):
         viol = abs(_dot(E[l], z_opt) - e[l])
-        row_tol = 1e-8 + 1e-11 * abs(e[l])
+        row_norm = math.fsum(abs(v) for v in E[l])
+        row_tol = 1e-12 + 1e-13 * (abs(e[l]) + row_norm)
         if viol > row_tol:
             raise InfeasibleCampaignError(
                 f"Campaign equality row {l} infeasible (violation={viol:.3e} > tol={row_tol:.3e})"
@@ -499,15 +509,23 @@ def _solve_screened_lp(
     z_star_l1_max = 1.0 + (1.0 + s_len) * spread
     l1_bound = math.fsum(abs(v) for v in z_opt) + z_star_l1_max
 
+    dual_min = min(lam_full, default=0.0)
+    min_z = min(z_opt, default=0.0)
+    num_est = comp_gap + M_dual * l1_bound
+    is_certified = max_ineq_viol == 0.0 and max_eq_viol == 0.0 and dual_min >= 0.0 and min_z >= 0.0
+
     cert = DualCertificate(
         objective_value=_dot(g, z_opt) + L_min,
         primal_max_ineq_violation=max_ineq_viol,
         primal_max_eq_violation=max_eq_viol,
-        dual_min_multiplier=min(lam_full, default=0.0),
+        dual_min_multiplier=dual_min,
         dual_residual_linf=M_dual,
         complementarity_gap=comp_gap,
         l1_radius_bound=l1_bound,
-        certified_subopt_le=comp_gap + M_dual * l1_bound,
+        certified_subopt_le=num_est if is_certified else None,
+        certified=is_certified,
+        certification_status="exact" if is_certified else "uncertified-numerical-tolerance",
+        numerical_subopt_estimate=num_est,
     )
     return w, t_abs, u_sub, cert
 
@@ -531,11 +549,21 @@ def solve_cvar_campaign(
     omitted scenario strictly satisfies `loss_i <= t*`; otherwise `screening_exact`
     is `False` and the returned `DualCertificate` is extended to the full `T`-year
     LP (`lam_omitted = 0`, `lam_nn_u = c`) so `certified_subopt_le` remains a
-    sound `S10d` bound on the full multi-year objective.
+    sound `S10d` bound on the full multi-year objective whenever exact primal
+    feasibility holds (`certified=True`).
     """
     screen_tol_f = float(screen_tol)
     if not math.isfinite(screen_tol_f) or screen_tol_f < 0.0:
         raise ValueError("screen_tol must be finite and >= 0")
+
+    if sum(Fraction(h) for h in problem.hi) < Fraction(1):
+        raise InfeasibleCampaignError(
+            "Campaign constraints are infeasible (exact sum(hi) < 1; simplex cannot sum to 1)"
+        )
+    if all(c >= 0.0 for c in problem.cost) and min(Fraction(c) for c in problem.cost) > Fraction(problem.budget):
+        raise InfeasibleCampaignError(
+            "Campaign constraints are infeasible (minimum nonnegative candidate cost exceeds budget)"
+        )
 
     t_cnt = problem.n_years
     min_active = max(1, math.ceil(problem.alpha * t_cnt))
@@ -577,15 +605,31 @@ def solve_cvar_campaign(
         z_screened_l1 = cert.l1_radius_bound - (1.0 + (1.0 + len(active)) * spread)
         z_full_l1 = z_screened_l1 + math.fsum(omitted_excess)
         full_l1_bound = z_full_l1 + (1.0 + (1.0 + t_cnt) * spread)
+        omitted_ineq_viol = max(
+            (max(0.0, (losses[i] - L_min) - (var_t - L_min) - all_excess[i]) for i in dropped),
+            default=0.0,
+        )
+        full_max_ineq_viol = max(cert.primal_max_ineq_violation, omitted_ineq_viol)
+        dual_min_ext = min(cert.dual_min_multiplier, 0.0)
+        full_num_est = full_comp_gap + cert.dual_residual_linf * full_l1_bound
+        is_certified_ext = (
+            cert.certified
+            and full_max_ineq_viol == 0.0
+            and cert.primal_max_eq_violation == 0.0
+            and dual_min_ext >= 0.0
+        )
         cert = DualCertificate(
             objective_value=full_cvar,
-            primal_max_ineq_violation=cert.primal_max_ineq_violation,
+            primal_max_ineq_violation=full_max_ineq_viol,
             primal_max_eq_violation=cert.primal_max_eq_violation,
-            dual_min_multiplier=min(cert.dual_min_multiplier, 0.0),
+            dual_min_multiplier=dual_min_ext,
             dual_residual_linf=cert.dual_residual_linf,
             complementarity_gap=full_comp_gap,
             l1_radius_bound=full_l1_bound,
-            certified_subopt_le=full_comp_gap + cert.dual_residual_linf * full_l1_bound,
+            certified_subopt_le=full_num_est if is_certified_ext else None,
+            certified=is_certified_ext,
+            certification_status="exact" if is_certified_ext else "uncertified-numerical-tolerance",
+            numerical_subopt_estimate=full_num_est,
         )
 
     return CampaignSolution(
