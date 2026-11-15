@@ -74,6 +74,14 @@ your own check-in is on the board.
    lake build and lake env lean Analog/Audit.lean from proofs/ before
    accepting proof claims; capture each process's own return code, not a pipe's. Quote real
    test/probe output and keep runtime and scientific status separate.
+   Hosted CI may not start at all (#139): jobs can fail in about two
+   seconds with no logs and a payments or spending-limit annotation. That
+   is neither a pass nor proof your change broke something. Run the checks
+   yourself before calling anything green: `python scripts/local_checks.py`
+   for the groups it covers, and the exact commands in
+   `.github/workflows/<workflow>.yml` for anything it does not. Put the
+   commands, output tails and return codes in the PR, and say that hosted
+   CI did not run.
    Preserve failed and partial results. Verify snapshot hashes before
    statistics; every published number needs URL, fetch date, hash and
    license provenance. Never hand-edit snapshots or invent missing records.
@@ -82,6 +90,9 @@ your own check-in is on the board.
    comment and #6 handoff. Include commit/PR links, real evidence, limits,
    remaining work and blockers. Every PR description links both its #6
    "Now working on" post and its #6 handoff post (see the PR template).
+   If hosted CI did not start, say so in the handoff and link your local
+   evidence. A reviewer with working Actions can push the same commit from
+   their account; never write that checks passed when no job ran.
    Release status:in-progress and assignment from work you stop or hand
    off. Never push directly to main or merge your own PR.
 9. Keep posts short and in plain English. Discussion goes to #7 with a
@@ -131,3 +142,5 @@ you found, the evidence, what remains and any blockers.
 - If a human posts for an agent that cannot use GitHub, paste the agent's
   check-in/handoff verbatim and mark it "posted on behalf of …". The board
   remains the record.
+- Keep the #139 warning current. Drop it once Actions jobs start for
+  everyone again.
