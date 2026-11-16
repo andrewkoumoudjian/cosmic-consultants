@@ -66,19 +66,10 @@
     approach: function (node, tl) {
       var hx = q(node, '.hx');
       var fit = q(node, '.hx.fit');
-      var nums = q(node, '[data-count]');
-      var fitLine = node.querySelector('.fitline');
       gsap.set(fit, { fill: '#1f2330' });
-      gsap.set(fitLine, { opacity: 0 });
       tl.fromTo(hx, { opacity: 0, scale: 0.6, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out', stagger: { each: 0.0024, from: 'start' } }, 0.2);
-      nums.forEach(function (n, i) {
-        var target = Number(n.getAttribute('data-count'));
-        var o = { v: 0 };
-        var at = i === 0 ? 0.35 : 2.35;
-        tl.to(o, { v: target, duration: i === 0 ? 1.5 : 1.1, ease: 'power2.out', onUpdate: function () { n.textContent = Math.round(o.v).toLocaleString('en-US'); } }, at);
-      });
-      tl.fromTo(fitLine, { x: 40, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 2.25);
-      tl.to(fit, { fill: '#a5b4fc', duration: 0.35, ease: 'power2.out', stagger: { each: 0.03, from: 'start' } }, 2.3);
+      // the cells that fit the test light up once the grid has landed
+      tl.to(fit, { fill: '#a5b4fc', duration: 0.35, ease: 'power2.out', stagger: { each: 0.03, from: 'start' } }, 1.6);
     },
     team: function (node, tl) {
       var people = q(node, '[data-person]');
@@ -135,11 +126,10 @@
 
   function resetScene(node) {
     if (!hasGsap) return;
-    var all = q(node, '[data-anim],[data-glide],[data-person],.vrow,.vg,[data-punch],.hx,.fitline,[data-cap],[data-ring],[data-shot]');
+    var all = q(node, '[data-anim],[data-glide],[data-person],.vrow,.vg,[data-punch],.hx,[data-cap],[data-ring],[data-shot]');
     gsap.killTweensOf(all);
     gsap.set(all, { clearProps: 'transform,opacity' });
     q(node, '.hx.fit').forEach(function (h) { h.style.fill = ''; });
-    q(node, '[data-count]').forEach(function (n) { n.textContent = Number(n.getAttribute('data-count')).toLocaleString('en-US'); });
   }
 
   function go(next) {

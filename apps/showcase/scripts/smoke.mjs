@@ -59,7 +59,9 @@ for (let i = 0; i < ids.length; i++) {
 }
 
 const links = await deck().evaluate(() => [...document.querySelectorAll('a[href]')].map((a) => a.href));
-ok(links.filter((h) => h.includes('linkedin.com/in/')).length === 5, 'five LinkedIn links');
+const li = links.filter((h) => h.includes('linkedin.com/in/'));
+ok(li.length === 10 && new Set(li).size === 5, 'five LinkedIn links, on the cover and on the team slide');
+ok(links.filter((h) => h === 'https://github.com/andrewkoumoudjian/cosmic-consultants').length === 2, 'GitHub link only on the first and last slides');
 ok(links.some((h) => h === 'https://github.com/andrewkoumoudjian/cosmic-consultants'), 'GitHub repo link');
 ok(links.filter((h) => h.includes('/apps/mission-ui/src/steps/')).length === 8, 'eight source links, one per step');
 ok(links.filter((h) => h.includes('cosmic-mission-ui.pages.dev')).length >= 10, 'live app and per-step demo links');

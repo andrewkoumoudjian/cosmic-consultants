@@ -127,7 +127,6 @@ function scene(id, label, inner, extraClass = '') {
   return `
 <div id="scene-${id}" class="scene-frame clip ${extraClass}" data-composition-id="${id}" data-label="${esc(label)}" data-start="${start}" data-duration="${SLOT}" data-width="1920" data-height="1080" data-track-index="1" data-hold>
 ${inner}
-  <div class="foot" data-anim><span class="foot-brand"><i class="mark"></i>Analog Atlas</span>${ext(REPO, 'github.com/andrewkoumoudjian/cosmic-consultants', 'link foot-link')}</div>
 </div>`;
 }
 
@@ -140,22 +139,26 @@ const stars = (() => {
 
 const cover = scene('cover', 'Analog Atlas', `
   ${stars}
-  <img class="planet planet-moon" data-glide src="assets/img/moon.webp" alt="The Moon, from the team's Figma illustration" width="560" height="560" />
-  <img class="planet planet-mars" data-glide src="assets/img/mars.webp" alt="Mars, from the team's Figma illustration" width="560" height="560" />
+  <img class="cover-moon" data-glide src="assets/img/moon-cover.webp" alt="The Moon, from the team's Figma illustration" width="1000" height="1000" />
   <div class="cover-copy">
-    <p class="eyebrow" data-anim>NASA SPACE APPS CHALLENGE 2026 · COSMIC CONSULTANTS</p>
     <h1 class="t-hero" data-anim>Analog Atlas</h1>
-    <p class="lead" data-anim>Find the places on Earth that best stand in for the Moon and Mars.</p>
-    <p class="hint" data-anim>Use ← → to move, or let it play.</p>
+    <p class="lead" data-anim>Identifying terrestrial analog sites for lunar and Martian surface testing.</p>
+    <p class="cover-gh" data-anim>${ext(REPO, 'github.com/andrewkoumoudjian/cosmic-consultants ↗')}</p>
+    <div class="cover-team" data-anim>
+      <p class="cover-team-label">Cosmic Consultants · NASA Space Apps Challenge 2026</p>
+      <ul class="cover-people">
+        ${TEAM.map((p) => `<li>${ext(p.url, `${p.name} <span class="in" aria-label="on LinkedIn">in</span>`, 'link person-link')}</li>`).join('')}
+      </ul>
+    </div>
+    <p class="hint" data-anim>← → to move, or let it play</p>
   </div>`);
 
 const verdictGlyph = { match: '●', miss: '◆', unknown: '○', never: '✕' };
 const verdictWord = { match: 'Match', miss: 'Miss', unknown: 'Unknown', never: 'Never on Earth' };
 const problem = scene('problem', 'The problem', `
   <div class="col-text">
-    <p class="eyebrow" data-anim>THE PROBLEM</p>
     <h2 class="t-title" data-anim>Every mission is rehearsed on Earth first.</h2>
-    <p class="lead" data-anim>But no place on Earth is the Moon or Mars. Teams need to know which parts match, where, and when.</p>
+    <p class="lead" data-anim>Teams need to know which parts match, where, and when.</p>
   </div>
   <div class="card table-card" data-glide>
     <p class="card-head">One Earth site vs. Shackleton crater <span class="muted">48.3°N 114.1°E</span></p>
@@ -187,12 +190,8 @@ const hexes = (() => {
 
 const approach = scene('approach', 'How it works', `
   <div class="col-text">
-    <p class="eyebrow" data-anim>HOW IT WORKS</p>
     <h2 class="t-title" data-anim>Every place on Earth, trait by trait.</h2>
-    <div class="counters" data-anim>
-      <p><span class="num" data-count="91800">91,800</span><span class="unit">land cells, each ≈1,770 km²</span></p>
-      <p class="fitline"><span class="num accent" data-count="7599">7,599</span><span class="unit">fit the demo plan</span></p>
-    </div>
+    <p class="lead approach-lead" data-anim>Enter the test and the location, and receive the information to pick the right location on Earth.</p>
   </div>
   <div class="hexwrap" data-glide>${hexes}</div>
   <p class="lead small approach-note" data-anim>Sites that tie are never forced into a ranking. Each keeps a verdict per trait: match, miss with its gap, or unknown.</p>
@@ -201,7 +200,6 @@ const approach = scene('approach', 'How it works', `
 const FRAME_W = 1000, SCALE = FRAME_W / 1440, FRAME_H = 700;
 const stepScenes = STEPS.map((s) => scene(`step-${s.n}`, `${pad(s.n)} ${s.label}`, `
   <div class="col-text col-step">
-    <p class="eyebrow" data-anim>STEP ${pad(s.n)} / 08 · ${s.label.toUpperCase()}</p>
     <h2 class="t-title" data-anim>${s.title}</h2>
     <p class="lead" data-anim>${s.lead}</p>
     <ol class="caps">
@@ -221,7 +219,6 @@ const stepScenes = STEPS.map((s) => scene(`step-${s.n}`, `${pad(s.n)} ${s.label}
 
 const demo = scene('demo', 'Live demo', `
   <div class="col-text col-demo">
-    <p class="eyebrow" data-anim>LIVE DEMO</p>
     <h2 class="t-title" data-anim>Try it.</h2>
     <p class="lead" data-anim>This is the real app, loaded with the demo plan: the Moon, precision landing, three sites compared.</p>
     <p class="buttons" data-anim>${ext(`${DEMO_URL}#step=4`, 'Open the demo plan ↗', 'btn primary')}${ext(APP_URL, 'Start your own plan ↗', 'btn')}</p>
@@ -238,7 +235,6 @@ const demo = scene('demo', 'Live demo', `
 const initials = (n) => n.split(/\s+/).filter((w) => /^[A-Z]/.test(w)).slice(0, 2).map((w) => w[0]).join('');
 const team = scene('team', 'The team', `
   <div class="team-head">
-    <p class="eyebrow" data-anim>THE TEAM</p>
     <h2 class="t-title" data-anim>Cosmic Consultants</h2>
     <p class="lead" data-anim>Built for NASA Space Apps 2026: identify Earth locations that analog permanent Moon base sites and Mars.</p>
   </div>
@@ -255,7 +251,7 @@ const TOTAL = scenes.length * SLOT;
 const notes = {
   cover: 'Analog Atlas: find places on Earth that stand in for the Moon and Mars.',
   problem: 'One real comparison from the app. Some traits match, some miss with a gap, one is unknown, and three never match on Earth.',
-  approach: '91,800 H3 cells (res 4). The demo plan (Moon, precision landing) leaves 7,599 that fit; ties are not ranked.',
+  approach: 'Enter the test and the location; the grid lights up the cells that fit. Ties are not ranked.',
   demo: 'The embedded app is live. Click inside it; arrow keys still move the deck once you click outside.',
   team: 'LinkedIn links for each of us; the code is public on GitHub.',
 };
