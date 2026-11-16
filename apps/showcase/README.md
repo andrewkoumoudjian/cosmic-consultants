@@ -28,8 +28,24 @@ python -m http.server 4173      # or: npm run dev
 # open http://127.0.0.1:4173/
 ```
 
-Deploy by uploading this folder as-is (for example `npx wrangler pages deploy . --project-name analog-atlas-showcase`).
-`node_modules/`, `out/` and `.hyperframes/` aren't needed.
+## Deploy
+
+It's static: upload this folder as-is. `vercel.json` tells Vercel there's
+nothing to install or build, and `.vercelignore` leaves out the dev-only files.
+
+**Vercel, from your machine:**
+
+```bash
+cd apps/showcase
+npx vercel@latest login          # once
+npx vercel@latest                # preview deploy; answer "./" for the directory, no to "modify settings"
+npx vercel@latest --prod         # production URL
+```
+
+**Vercel, from GitHub:** New Project → import `andrewkoumoudjian/cosmic-consultants`
+→ Root Directory `apps/showcase` → Framework Preset `Other` → Deploy.
+
+Cloudflare Pages works the same way: `npx wrangler pages deploy . --project-name analog-atlas-showcase`.
 
 ## Edit it
 

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "echo 'static site: no install'",
+  "buildCommand": "echo 'static site: no build (run npm run build locally to regenerate the HTML)'",
+  "outputDirectory": ".",
+  "headers": [
+    {
+      "source": "/composition/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+    }
+  ]
+}
