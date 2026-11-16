@@ -152,7 +152,6 @@ html, body {
 
 /* ---------- approach ---------- */
 .hexwrap { position: absolute; left: 900px; top: 160px; width: 900px; }
-.approach-note { position: absolute; left: 900px; top: 660px; width: 900px; }
 .hexes { width: 900px; height: auto; display: block; }
 .hx { fill: #1f2330; }
 .hx.fit { fill: var(--accent); }

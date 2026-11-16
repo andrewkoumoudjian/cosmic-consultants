@@ -194,7 +194,6 @@ const approach = scene('approach', 'How it works', `
     <p class="lead approach-lead" data-anim>Enter the test and the location, and receive the information to pick the right location on Earth.</p>
   </div>
   <div class="hexwrap" data-glide>${hexes}</div>
-  <p class="lead small approach-note" data-anim>Sites that tie are never forced into a ranking. Each keeps a verdict per trait: match, miss with its gap, or unknown.</p>
   <p class="sources" data-anim>Earth data: Copernicus DEM · NASA MODIS · MERRA-2 · ESA CCI Permafrost · travel time (Weiss et al. 2018) · OurAirports · NASA EONET</p>`);
 
 const FRAME_W = 1000, SCALE = FRAME_W / 1440, FRAME_H = 700;
@@ -251,7 +250,7 @@ const TOTAL = scenes.length * SLOT;
 const notes = {
   cover: 'Analog Atlas: find places on Earth that stand in for the Moon and Mars.',
   problem: 'One real comparison from the app. Some traits match, some miss with a gap, one is unknown, and three never match on Earth.',
-  approach: 'Enter the test and the location; the grid lights up the cells that fit. Ties are not ranked.',
+  approach: 'Enter the test and the location; the grid lights up the cells that fit.',
   demo: 'The embedded app is live. Click inside it; arrow keys still move the deck once you click outside.',
   team: 'LinkedIn links for each of us; the code is public on GitHub.',
 };
