@@ -32,7 +32,7 @@ page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 
 await page.goto(base);
 await page.waitForTimeout(2500);
-const deck = () => page.frames().find((f) => f.url().includes('composition/index.html'));
+const deck = () => page.frames().find((f) => /\/composition\/(index\.html)?$/.test(f.url()));
 ok(!!deck(), 'composition loads inside the player');
 
 // Auto-play is on by default: the cover advances by itself.

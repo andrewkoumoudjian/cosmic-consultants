@@ -341,7 +341,7 @@ const wrapper = `<!doctype html>
   </head>
   <body>
     <hyperframes-slideshow tabindex="0" style="display: block; position: relative; width: 100vw; height: 100vh">
-      <hyperframes-player interactive style="position: absolute; inset: 0" src="composition/index.html"></hyperframes-player>
+      <hyperframes-player interactive style="position: absolute; inset: 0" src="composition/"></hyperframes-player>
       <script type="application/hyperframes-slideshow+json">
 ${island}
       </script>

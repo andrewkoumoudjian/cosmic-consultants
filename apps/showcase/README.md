@@ -38,8 +38,10 @@ npx wrangler@4 login                 # once, opens the browser
 npm run deploy:cloudflare            # copies the site into dist/ and uploads it
 ```
 
-The first run creates the `analog-atlas-showcase` project and prints
-`https://analog-atlas-showcase.pages.dev`. Run the same command to update it.
+**Live: https://analog-atlas-showcase.pages.dev/** (project `analog-atlas-showcase`).
+Run the same command to update it. Creating the project from scratch on wrangler 4.16x
+needs one `npx wrangler@4 pages project create <name> --production-branch main --force`
+(without `--force` it tries Workers hosting and fails); never pass `--force` afterwards.
 
 It's static: any host works if you upload `dist/` (`npm run dist`) or this folder as-is. `vercel.json` tells Vercel there's
 nothing to install or build, and `.vercelignore` leaves out the dev-only files.
