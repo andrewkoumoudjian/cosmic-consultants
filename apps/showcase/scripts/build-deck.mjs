@@ -150,7 +150,7 @@ const cover = scene('cover', 'Analog Atlas', `
         ${TEAM.map((p) => `<li>${ext(p.url, `${p.name} <span class="in" aria-label="on LinkedIn">in</span>`, 'link person-link')}</li>`).join('')}
       </ul>
     </div>
-    <p class="hint" data-anim>← → to move, or let it play</p>
+    <p class="hint" data-anim>← → to move, or let it play.<br /><b>Ctrl-click (⌘-click on Mac) a link to open it.</b></p>
   </div>`);
 
 const verdictGlyph = { match: '●', miss: '◆', unknown: '○', never: '✕' };
@@ -221,7 +221,7 @@ const demo = scene('demo', 'Live demo', `
     <h2 class="t-title" data-anim>Try it.</h2>
     <p class="lead" data-anim>This is the real app, loaded with the demo plan: the Moon, precision landing, three sites compared.</p>
     <p class="buttons" data-anim>${ext(`${DEMO_URL}#step=4`, 'Open the demo plan ↗', 'btn primary')}${ext(APP_URL, 'Start your own plan ↗', 'btn')}</p>
-    <p class="note" data-anim>Click around inside the window. The deck waits here.</p>
+    <p class="note" data-anim>Click around inside the window. <b>Ctrl-click (⌘-click on Mac) the buttons</b> to open them in a new tab.</p>
   </div>
   <div class="browser demo-frame" data-glide>
     <div class="chrome" data-layout-ignore><i></i><i></i><i></i><span>cosmic-mission-ui.pages.dev · demo plan</span></div>
@@ -240,7 +240,8 @@ const team = scene('team', 'The team', `
   <ul class="people">
     ${TEAM.map((p) => `<li class="person" data-person><span class="avatar" aria-hidden="true">${initials(p.name)}</span><span class="pname">${p.name}</span>${ext(p.url, 'LinkedIn ↗', 'link plink')}</li>`).join('\n    ')}
   </ul>
-  <p class="buttons team-links" data-anim>${ext(REPO, 'Code on GitHub ↗', 'btn primary')}${ext(APP_URL, 'Open Analog Atlas ↗', 'btn')}</p>`);
+  <p class="buttons team-links" data-anim>${ext(REPO, 'Code on GitHub ↗', 'btn primary')}${ext(APP_URL, 'Open Analog Atlas ↗', 'btn')}</p>
+  <p class="hint team-hint" data-anim><b>Ctrl-click (⌘-click on Mac) a link to open it.</b></p>`);
 
 const ALL = [cover, problem, approach, ...stepScenes, demo, team].join('\n');
 const TOTAL = scenes.length * SLOT;
@@ -289,6 +290,7 @@ ${island}
     </script>
     <div id="root" data-composition-id="root" data-start="0" data-duration="${TOTAL}" data-width="1920" data-height="1080">
 ${ALL}
+      <div id="link-toast" class="link-toast" role="status" aria-live="polite"></div>
     </div>
 
     <!-- Root timeline: establishes the seekable range the player drives. -->

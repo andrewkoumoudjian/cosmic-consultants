@@ -157,6 +157,26 @@
     });
   }
 
+  // Plain clicks on links don't leave the player frame; Ctrl/⌘-click does.
+  // Say so on the spot instead of letting the click look broken.
+  var toast = document.getElementById('link-toast');
+  var mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  var toastTimer = 0;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    if (!toast) return;
+    var copy = a.cloneNode(true);
+    Array.prototype.forEach.call(copy.querySelectorAll('.in'), function (n) { n.remove(); });
+    var label = copy.textContent.replace(/\s*↗\s*$/, '').trim();
+    toast.textContent = (mac ? '⌘-click' : 'Ctrl-click') + ' to open “' + label + '” in a new tab';
+    toast.classList.add('is-on');
+    if (hasGsap && !reduce) gsap.fromTo(toast, { y: -14 }, { y: 0, duration: 0.3, ease: 'power3.out', overwrite: true });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('is-on'); }, 3200);
+  });
+
   function update(t) { go(indexAt(t)); }
   window.__hfSetTime = update;
   update(0);

@@ -244,3 +244,26 @@ html, body {
 .pname { font: 600 32px/1.2 'Geist Sans', system-ui, sans-serif; min-height: 78px; }
 .plink { font: 500 28px/1 'Geist Sans', system-ui, sans-serif; }
 .team-links { position: absolute; left: 120px; top: 868px; }
+
+/* ---------- link hint ---------- */
+.hint b, .note b { font-weight: 600; color: var(--text); }
+.team-hint { position: absolute; left: 120px; top: 968px; }
+.link-toast {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 36px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 18px 30px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--canvas);
+  font: 600 32px/1.2 'Geist Sans', system-ui, sans-serif;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+.link-toast.is-on { opacity: 1; visibility: visible; }
