@@ -1,0 +1,17 @@
+{
+  "name": "@cosmic-consultants/showcase",
+  "private": true,
+  "type": "module",
+  "description": "Analog Atlas showcase: an animated HyperFrames slide deck (static site) about the problem, each step of the UI, a live demo and the team.",
+  "scripts": {
+    "capture": "node scripts/capture-ui.mjs",
+    "dev": "python -m http.server 4173 --bind 127.0.0.1",
+    "check": "npx --yes hyperframes@0.9.55 check composition --json",
+    "present": "npx --yes hyperframes@0.9.55 present composition",
+    "smoke": "node scripts/smoke.mjs",
+    "build": "node scripts/build-deck.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
