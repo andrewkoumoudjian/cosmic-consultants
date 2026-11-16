@@ -9,7 +9,9 @@
     "check": "npx --yes hyperframes@0.9.55 check composition --json",
     "present": "npx --yes hyperframes@0.9.55 present composition",
     "smoke": "node scripts/smoke.mjs",
-    "build": "node scripts/build-deck.mjs"
+    "build": "node scripts/build-deck.mjs",
+    "dist": "node scripts/dist.mjs",
+    "deploy:cloudflare": "node scripts/dist.mjs && npx --yes wrangler@4 pages deploy dist --project-name analog-atlas-showcase --branch main"
   },
   "devDependencies": {
     "playwright": "1.56.1"

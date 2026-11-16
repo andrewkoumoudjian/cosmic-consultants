@@ -30,7 +30,18 @@ python -m http.server 4173      # or: npm run dev
 
 ## Deploy
 
-It's static: upload this folder as-is. `vercel.json` tells Vercel there's
+**Cloudflare Pages (direct upload, no GitHub access needed):**
+
+```bash
+cd apps/showcase
+npx wrangler@4 login                 # once, opens the browser
+npm run deploy:cloudflare            # copies the site into dist/ and uploads it
+```
+
+The first run creates the `analog-atlas-showcase` project and prints
+`https://analog-atlas-showcase.pages.dev`. Run the same command to update it.
+
+It's static: any host works if you upload `dist/` (`npm run dist`) or this folder as-is. `vercel.json` tells Vercel there's
 nothing to install or build, and `.vercelignore` leaves out the dev-only files.
 
 **Vercel, from your machine:**
