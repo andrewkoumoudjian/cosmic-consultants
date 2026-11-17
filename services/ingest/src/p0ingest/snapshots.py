@@ -91,7 +91,7 @@ def fetch(dataset_id: str, url: str, filename: str | None = None, retries: int =
     dest_dir = SNAP / dataset_id
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest = dest_dir / (filename or url.rsplit("/", 1)[-1].split("?")[0])
-    rel = str(dest.relative_to(REPO))
+    rel = dest.relative_to(REPO).as_posix()  # "/" on every OS, matching existing manifest entries
     m = load_manifest()
     known = next((e for e in m["entries"] if e["localPath"] == rel), None)
     if dest.exists() and known:

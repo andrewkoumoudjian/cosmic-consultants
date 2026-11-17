@@ -321,6 +321,11 @@ class Build:
             if name not in df.columns or name in ("lat", "lon"):
                 continue
             s = df[name]
+            if c.get("role") == "label":
+                res[name] = {"kind": "label", "trait": c["trait"], "unit": c["unit"],
+                             "n": s.len() - s.null_count(), "inSum": False, "scaled": False,
+                             "unscaledReason": "label", "note": "Readable place label (#203); text, never a trait or a measurement."}
+                continue
             if c.get("role") == "diagnostic":
                 res[name] = {"kind": "diagnostic", "trait": c["trait"], "unit": c["unit"],
                              "n": s.len() - s.null_count(), "inSum": False, "scaled": False,
@@ -377,7 +382,7 @@ class Build:
                    not null_mismatches and mr_ok,
                    f"mismatched columns={null_mismatches}, missing_reason_ok={mr_ok}")
         diagnostic_bad = [
-            col for col, sc in tbl_scales.items() if sc.get("kind") == "diagnostic"
+            col for col, sc in tbl_scales.items() if sc.get("kind") in ("diagnostic", "label")
             and (norm_df[col].dtype != df[col].dtype or not norm_df[col].equals(df[col]))
         ]
         self.check(f"{tname}-normalized: diagnostics keep source values and types",
@@ -702,6 +707,9 @@ def normalize_frame(
             continue
         if sc.get("kind") == "diagnostic":
             unscaled_cols[col] = "source-diagnostic"
+            continue
+        if sc.get("kind") == "label":
+            unscaled_cols[col] = "label"
             continue
         if sc.get("kind") == "yes/no":
             unscaled_cols[col] = "boolean"

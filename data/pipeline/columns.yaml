@@ -20,6 +20,8 @@
 #            from the trait (default: source column name, then trait)
 #   role     optional diagnostic: support/calendar field, retained in native units
 #            and excluded from physical-trait scaling (ADR-0010)
+#            optional label: readable text such as a place name (#203); never a
+#            trait or a measurement, never scaled, shown as 'cell centre is in X'
 
 version: 1
 
@@ -40,6 +42,7 @@ sources:
   aqua-lst-r4-monthly:   {path: aqua-lst-r4-monthly.parquet,   key: [h3, month],          issue: 93}
   emit-min-r4:           {path: emit-min/emit-min-r4.parquet,  key: [h3],                 issue: 97}
   vcf-r4:                {path: vcf-r4.parquet,                key: [h3],                 issue: null}
+  place-names-r4:        {path: place-names-r4.parquet,        key: [h3],                 issue: 203}
 
 tables:
   sites-r4:
@@ -133,6 +136,12 @@ tables:
       - {name: vcf_percent_tree_cover_valid_native_px, from: vcf-r4.vcf_percent_tree_cover_valid_native_px, unit: count, trait: null, role: diagnostic, steps: [3], status: active, clean: [mod44b-valid-0-100]}
       - {name: vcf_percent_nontree_vegetation_valid_native_px, from: vcf-r4.vcf_percent_nontree_vegetation_valid_native_px, unit: count, trait: null, role: diagnostic, steps: [3], status: active, clean: [mod44b-valid-0-100]}
       - {name: vcf_percent_nonvegetated_valid_native_px, from: vcf-r4.vcf_percent_nonvegetated_valid_native_px, unit: count, trait: null, role: diagnostic, steps: [3], status: active, clean: [mod44b-valid-0-100]}
+      # #203 (Natural Earth 1:10m, public domain): readable labels for the cell centre; planned until place-names-r4 is built
+      - {name: place_country, from: place-names-r4.place_country, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-centre-in-polygon, ne-single-polygon-only]}
+      - {name: place_country_a3, from: place-names-r4.place_country_a3, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-centre-in-polygon, ne-single-polygon-only]}
+      - {name: place_admin1, from: place-names-r4.place_admin1, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-centre-in-polygon, ne-single-polygon-only]}
+      - {name: place_nearest, from: place-names-r4.place_nearest, unit: text, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-nearest-50km]}
+      - {name: place_nearest_km, from: place-names-r4.place_nearest_km, unit: km, trait: null, role: label, steps: [2, 4], status: planned, clean: [ne-nearest-50km]}
 
   sites-r4-monthly:
     key: [h3, month]
