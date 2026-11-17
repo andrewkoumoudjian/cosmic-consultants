@@ -1,6 +1,9 @@
 """Release boundary checks: assumptions, error visibility, and split measurements."""
 import copy
+import hashlib
 import json
+import math
+import struct
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,6 +19,36 @@ REPO = Path(__file__).resolve().parents[3]
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_feature_arrays_are_lazy_hashed_and_keep_nan_and_proxy_notes(self):
+        from planner.publish import FEATURE_COLUMNS
+        from test_engine import B
+        tables=synthetic()
+        values={'ati_terra_proxy':0.03125,'ati_aqua_proxy':0.0,
+                'daylight_h_min':0.0,'daylight_h_mean':12.5,'daylight_h_max':24.0}
+        for name,v in values.items():
+            tables.cells[A][name]=v
+            tables.cells[B][name]=None
+        tables.cells[B]['missing_reason']=json.dumps({name:'missing-'+name for name in values})
+        with tempfile.TemporaryDirectory() as d:
+            out=Path(d)
+            manifest=publish(tables,{},out)
+            startup=json.loads((out/'cells.json').read_text())
+            extra=json.loads((out/'yearly/yearly.json').read_text(encoding='utf-8'))
+            self.assertEqual((out/'cells.bin').stat().st_size,len(tables.cells)*26*4)
+            for name in FEATURE_COLUMNS:
+                self.assertNotIn(name,[c['name'] for c in startup['columns']])
+                path='yearly/'+name+'.bin'
+                raw=(out/path).read_bytes()
+                self.assertEqual(hashlib.sha256(raw).hexdigest(),manifest['files'][path])
+                decoded=struct.unpack('<'+'f'*len(tables.cells),raw)
+                self.assertEqual(decoded[tables.order().index(A)],values[name])
+                self.assertTrue(math.isnan(decoded[tables.order().index(B)]))
+                self.assertEqual(extra['nullReasons'][name],{'missing-'+name:1})
+            self.assertIn('apparent thermal inertia proxy, (1 − albedo) / diurnal range',extra['columnNotes']['ati_terra_proxy'])
+            first=(out/'build-manifest.json').read_bytes()
+            publish(tables,{},out)
+            self.assertEqual((out/'build-manifest.json').read_bytes(),first)
+
     def test_examples_require_origin_and_basis_for_every_parameter(self):
         config = yaml.safe_load((REPO/'data/pipeline/release-scenarios.yaml').read_text())
         validator = Draft202012Validator(json.loads((REPO/'contracts/release-scenarios.schema.json').read_text()))

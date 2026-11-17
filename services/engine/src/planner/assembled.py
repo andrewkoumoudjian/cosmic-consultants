@@ -3,8 +3,8 @@ import json
 import math
 import struct
 from pathlib import Path
-from .tables import Tables, sha256_file
-from .publish import CELL_COLUMNS, CONTEXT_COLUMNS, MONTHLY_COLUMNS
+from .tables import Tables, sha256_file, reasons_of, reason_for
+from .publish import CELL_COLUMNS, CONTEXT_COLUMNS, MONTHLY_COLUMNS, FEATURE_COLUMNS
 
 PHYSICAL=set(CELL_COLUMNS)|set(CONTEXT_COLUMNS)|set(MONTHLY_COLUMNS)
 
@@ -34,6 +34,8 @@ def from_assembled(root:Path,registry_path:Path|None=None)->Tables:
         frame=pq.read_table(path)
         if name=='sites-r4-monthly':
             frame=frame.select([c for c in frame.column_names if c in set(MONTHLY_COLUMNS)|{'h3','month','missing_reason','burned_pct'}])
+        if name=='earth-features-r4':
+            frame=frame.select([c for c in frame.column_names if c in set(FEATURE_COLUMNS)|{'h3','missing_reason'}])
         result=frame.to_pylist()
         if len(result)!=report['outputs'][name]['rows']:raise ValueError('Assembly row count changed')
         for r in result:
@@ -42,6 +44,25 @@ def from_assembled(root:Path,registry_path:Path|None=None)->Tables:
     cell_rows=rows('sites-r4');cells={r['h3']:r for r in cell_rows}
     month_rows=rows('sites-r4-monthly');monthly={(r['h3'],r['month']):r for r in month_rows}
     if not cells or len(cells)!=len(cell_rows):raise ValueError('Empty or duplicate site keys')
+    feature_path=root/'earth-features-r4.parquet'
+    if feature_path.exists() and 'earth-features-r4' not in report['outputs']:
+        raise ValueError('Earth features are absent from the verified assembly report')
+    feature_rows=rows('earth-features-r4') if feature_path.exists() else []
+    features={r['h3']:r for r in feature_rows}
+    if feature_rows and (len(features)!=len(feature_rows) or set(features)!=set(cells)):
+        raise ValueError('Earth feature keys must match site keys exactly without duplicates')
+    if feature_path.exists() and not feature_rows:
+        raise ValueError('Earth feature table is empty')
+    for h,row in cells.items():
+        source=features.get(h)
+        reasons=reasons_of(row)
+        for column in FEATURE_COLUMNS:
+            row[column]=source.get(column) if source is not None else None
+            if row[column] is None:
+                reasons[column]=reason_for(source,column) if source is not None else 'earth-features-not-in-assembly'
+            else:
+                reasons.pop(column,None)
+        row['missing_reason']=json.dumps(reasons,sort_keys=True)
     if len(monthly)!=len(month_rows) or len(month_rows)!=len(cells)*12:raise ValueError('Incomplete or duplicate monthly keys')
     if any(h not in cells or m not in range(1,13) for h,m in monthly):raise ValueError('Invalid monthly key domain')
     events={}
