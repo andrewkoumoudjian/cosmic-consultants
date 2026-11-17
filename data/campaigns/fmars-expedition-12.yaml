@@ -61,3 +61,44 @@ evidence:
   - field: years
     quote: In July 2009, the twelfth crew inhabited the remote outpost for a month-long simulated Mars expedition.
     sourceRef: nasa-geophysical-2010
+fieldRecord:
+  instruments:
+    - text: "Nanometrics Trillium Compact seismometer, deployed 3 km from the habitat"
+      quote: "We deployed a Nanometrics Trillium Compact seismometer 3 km west of FMARS near an outcrop known as Marine Rock."
+      sourceRef: nasa-geophysical-2010
+    - text: "Solar-powered Taurus seismograph with an Ethernet radio link to the habitat"
+      quote: "We used a solar-powered Taurus seismograph to power the station and record the data and an Ethernet radio to transmit the data back to FMARS in real time."
+      sourceRef: nasa-geophysical-2010
+    - text: "Geonics TEM47 transmitter and PROTEM receiver for a time-domain electromagnetic (TDEM) survey"
+      quote: "We completed the TDEM survey on the Haynes Ridge next to the FMARS habitat using a TEM47 transmitter and PROTEM receiver on loan from Geonics Limited."
+      sourceRef: nasa-geophysical-2010
+  environment:
+    - text: "Rim of Haughton Crater, a polar desert on Devon Island"
+      quote: "The remote outpost is located on the western rim of the 23 Ma Haughton Crater in a polar desert environment geologically and biologically similar to Mars."
+      sourceRef: nasa-geophysical-2010
+  procedures:
+    - text: "Daily EVAs in spacesuits"
+      quote: "conducted daily EVAs wearing spacesuits to learn how humans might live and work on Mars."
+      sourceRef: nasa-geophysical-2010
+    - text: "TDEM soundings at three stations, with centre and offset receiver positions"
+      quote: "For each of the three stations, we took a suite of measurements with the receiver loop in the center and two offset positions perpendicular to the profile azimuth."
+      sourceRef: nasa-geophysical-2010
+  findings:
+    - text: "The ridge rock was too resistive for the small TDEM loop to resolve"
+      quote: "As it turned out, the dolomite rock comprising Haynes Ridge was too resistive for such a small induced moment."
+      sourceRef: nasa-geophysical-2010
+  failures:
+    - text: "All passive seismic data was lost to a faulty cable"
+      quote: "Unfortunately, all data was compromised due to a faulty cable."
+      sourceRef: nasa-geophysical-2010
+  lessons:
+    - text: "Laying TDEM loops by hand is a poor use of astronaut time; automate it or mount the loop on a rover"
+      quote: "Laying out a large loop by hand for TDEM work is probably not a practical or efficient use of astronaut time, so automating that process with robotics or by making the loop mobile on a rover would be better strategies."
+      sourceRef: nasa-geophysical-2010
+  limitations:
+    - text: "Resolving layering would have needed a much larger loop and a stronger transmitter"
+      quote: "To have any hope of resolving layering, we needed a loop size at least 100 m and a transmitter with 20 A power."
+      sourceRef: nasa-geophysical-2010
+    - text: "The source is a conference abstract with preliminary results"
+      quote: "The poster will highlight preliminary results and lessons learned from a human factors standpoint."
+      sourceRef: nasa-geophysical-2010

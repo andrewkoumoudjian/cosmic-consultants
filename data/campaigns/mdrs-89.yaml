@@ -40,6 +40,8 @@ sources:
     localPath: data/snapshots/campaign-sources/mdrs-89/nasa-2010-report.pdf
     licenceNote: NTRS lists Public Use Permitted; source PDF is stored locally for quote checks.
 nulls:
+  - field: fieldRecord.failures
+    reason: "The cited abstract reports no failure for the MDRS seismic survey."
   - field: objectivesExercised[0].objectiveId
     reason: The source describes EVA and geophysical work but does not state a specific M2M objective ID.
 evidence:
@@ -61,3 +63,35 @@ evidence:
   - field: years
     quote: From 23 January through 6 February 2010, the 89th crew inhabited the MDRS for a two-week mission.
     sourceRef: nasa-geophysical-2010
+fieldRecord:
+  instruments:
+    - text: "Geostuff land streamer for a 2-D seismic refraction profile"
+      quote: "We obtained a 2-D profile of the subsurface near MDRS using a Geostuff Land Streamer"
+      sourceRef: nasa-geophysical-2010
+  environment:
+    - text: "Sedimentary canyons and sparse biology near Hanksville, Utah"
+      quote: "The sedimentary canyon formations and sparse biology of the area provide a good analog Mars environment for conducting simulated EVA operations."
+      sourceRef: nasa-geophysical-2010
+  procedures:
+    - text: "The streamer was towed behind an ATV used as a Mars rover"
+      quote: "We towed the streamer along the ground using one of our ATV Mars rovers."
+      sourceRef: nasa-geophysical-2010
+    - text: "Seismic source: a sledgehammer on a metal plate"
+      quote: "A sledgehammer striking a metal plate served as the seismic source."
+      sourceRef: nasa-geophysical-2010
+  findings:
+    - text: "120 shots at 30 locations over two EVAs, covering 109 m"
+      quote: "Over two EVAs, we successfully took 120 shots of data at 30 locations with 6 geophone spreads covering 109 meters."
+      sourceRef: nasa-geophysical-2010
+  failures: []
+  lessons:
+    - text: "Land streamers deploy more easily than planted geophones but are heavy and bulky"
+      quote: "Land streamers are much easier to deploy than individually planted geophones, but they are heavy and bulky to handle."
+      sourceRef: nasa-geophysical-2010
+    - text: "Wireless geophones could save mass and volume"
+      quote: "Wireless geophones could be deployed in a more versatile sensor web framework while also saving valuable mass and volume."
+      sourceRef: nasa-geophysical-2010
+  limitations:
+    - text: "The source is a conference abstract with preliminary results"
+      quote: "The poster will highlight preliminary results and lessons learned from a human factors standpoint."
+      sourceRef: nasa-geophysical-2010

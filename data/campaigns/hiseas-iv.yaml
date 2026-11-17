@@ -73,3 +73,53 @@ evidence:
     quote: >-
       The 1-year Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission took place from August 28th, 2015 to August 28th, 2016
     sourceRef: hiseas-iv-article
+fieldRecord:
+  instruments:
+    - text: "Swabs on four habitat surfaces and skin wipes from each crew member"
+      quote: "Habitat/furniture surface samples were taken with swabs at  four different locations."
+      sourceRef: hiseas-iv-article
+    - text: "16S rRNA amplicon sequencing plus quantitative PCR"
+      quote: "Besides amplicon sequencing, all samples plus laboratory controls"
+      sourceRef: hiseas-iv-article
+  environment:
+    - text: "An 11 m dome at 2.5 km altitude on the barren slopes of Mauna Loa"
+      quote: "an 11 m in diameter spherical-shaped dome located at 2.5 km of altitude on the barren slopes of the Mauna Loa volcano"
+      sourceRef: hiseas-iv-article
+  procedures:
+    - text: "Year-long isolation with a 20-minute communication delay each way"
+      quote: "The crew was physically isolated from other human beings for the whole mission duration and communications had a high latency (20-min delay in both directions)."
+      sourceRef: hiseas-iv-article
+    - text: "Outside work in mock spacesuits alongside research and chores"
+      quote: "Time was mostly spent on research work (including outside work, wearing mock spacesuits), test subject duties, physical exercise, and household chores."
+      sourceRef: hiseas-iv-article
+    - text: "Microbiome samples every other week"
+      quote: "Microbiome samples were taken every other week."
+      sourceRef: hiseas-iv-article
+  findings:
+    - text: "Surface microbiomes stayed stable; crew skin microbiomes changed and grew more diverse"
+      quote: "The microbiome composition and diversity associated with abiotic surfaces was found to be rather stable, whereas the microbial skin profiles of individual crew members were highly dynamic, resulting in an increased microbiome diversity at the end of the isolation period."
+      sourceRef: hiseas-iv-article
+  failures:
+    - text: "A malfunctioning sanitary facility delayed microbial mixing between crew and habitat"
+      quote: "which was mainly caused by a malfunctioning sanitary facility."
+      sourceRef: hiseas-iv-article
+    - text: "Contamination came from the composting toilet"
+      quote: "the contamination caused by the composting toilet"
+      sourceRef: hiseas-iv-article
+  lessons:
+    - text: "Define microbiome baselines and monitoring targets"
+      quote: "We identify key targets of microbial monitoring, and emphasize the need for defined baselines of microbiome diversity and abundance on surfaces and crew skin."
+      sourceRef: hiseas-iv-article
+    - text: "Test an automatic microbial warning system in future missions"
+      quote: "should emphasize on actual tests on a microbial warning system that could be based on automatic sampling technologies"
+      sourceRef: hiseas-iv-article
+  limitations:
+    - text: "No pre-isolation baseline was taken"
+      quote: "First of all, no baseline (i.e., before the start of the isolation experiment) of the indoor and skin microbiome was defined."
+      sourceRef: hiseas-iv-article
+    - text: "The habitat only partly mimicked a real crewed mission"
+      quote: "In general, the entire infrastructure and setting mimicked only partially a real extraterrestrial, crewed mission."
+      sourceRef: hiseas-iv-article
+    - text: "The methods could not assess infection risk"
+      quote: "From a microbiological point of view, our methods were not suitable to determine an elevated risk of infection or transfer of antimicrobial resistant pathogens to crew members."
+      sourceRef: hiseas-iv-article

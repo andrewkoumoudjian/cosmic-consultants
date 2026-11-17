@@ -214,6 +214,9 @@ def campaign_quote_rows(doc: dict):
             yield f"{key}[{i}].quote", row["quote"], row["sourceRef"]
     for i, row in enumerate(doc.get("evidence", [])):
         yield f"evidence[{i}].quote", row["quote"], row["sourceRef"]
+    for key, rows in (doc.get("fieldRecord") or {}).items():
+        for i, row in enumerate(rows):
+            yield f"fieldRecord.{key}[{i}].quote", row["quote"], row["sourceRef"]
 
 
 def check_campaign(cv, doc: dict, label: str, manifest_by_source: dict) -> list[str]:
@@ -224,6 +227,12 @@ def check_campaign(cv, doc: dict, label: str, manifest_by_source: dict) -> list[
     cell = h3.latlng_to_cell(site["lat"], site["lon"], 4)
     if site["h3r4"] != cell:
         errs.append(f"{label}: h3r4 {site['h3r4']} != computed {cell}")
+    null_fields = {row["field"] for row in doc.get("nulls", [])}
+    for key, rows in doc["fieldRecord"].items():
+        if not rows and f"fieldRecord.{key}" not in null_fields:
+            errs.append(f"{label}: fieldRecord.{key} is empty without a nulls entry giving the reason")
+        if rows and f"fieldRecord.{key}" in null_fields:
+            errs.append(f"{label}: fieldRecord.{key} has items but is also listed in nulls")
     refs = {row["ref"]: row for row in doc["sources"]}
     if len(refs) != len(doc["sources"]):
         errs.append(f"{label}: duplicate source ref")
@@ -370,6 +379,9 @@ def self_test_campaigns(cv) -> list[str]:
         c = with_fake(copy.deepcopy(base)); c["site"]["quote"] = "Habitat Site Coordinates: 76o 26' N"; cases.append(("site quote not verbatim in the source", c))
         c = with_fake(copy.deepcopy(base)); c["outcome"][0]["kind"] = "success"; cases.append(("bad outcome kind", c))
         c = with_fake(copy.deepcopy(base)); c["evidence"] = c["evidence"][:2]; cases.append(("fewer than 3 evidence quotes", c))
+        c = with_fake(copy.deepcopy(base)); c["fieldRecord"]["lessons"] = []; cases.append(("empty fieldRecord list without a nulls reason", c))
+        c = with_fake(copy.deepcopy(base)); c["fieldRecord"]["procedures"][0]["sourceRef"] = "no-such-ref"; cases.append(("fieldRecord quote points to a missing sourceRef", c))
+        c = with_fake(copy.deepcopy(base)); c.pop("fieldRecord"); cases.append(("fieldRecord missing", c))
         for name, doc in cases:
             found = relevant(check_campaign(cv, doc, name, manifest))
             print(f"{'OK  ' if found else 'FAIL'} self-test rejects: {name}" + (f"  [{found[0]}]" if found else ""))
