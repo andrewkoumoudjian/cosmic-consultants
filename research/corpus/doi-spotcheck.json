@@ -1,0 +1,68 @@
+{
+    "formatVersion":  1,
+    "endpoint":  "https://api.crossref.org/works/{doi}",
+    "checkedAt":  "2026-11-15T07:16:13Z",
+    "selection":  "the four DOIs quoted in COVERAGE.md, three more from the same earlier sample, and the first index row of each query q1-q4",
+    "results":  [
+                    {
+                        "doi":  "10.1007/978-1-4020-8682-3_28",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:09Z",
+                        "title":  "Scale Modeling for Landing of a Lunar Probe"
+                    },
+                    {
+                        "doi":  "10.52202/083076-0079",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:10Z",
+                        "title":  "EXP 91 Aurora Mission: Assessment of Human Adaptation in a Mars Analog Environment"
+                    },
+                    {
+                        "doi":  "10.21203/rs.3.rs-11172801/v1",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:10Z",
+                        "title":  "Design of Lunar Soil Simulant for Lunar Landing Applications and Its Mechanical Property Evolution under Impact Loading"
+                    },
+                    {
+                        "doi":  "10.3847/psj/adbc6c",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:10Z",
+                        "title":  "Prospectivity Modeling of the NASA VIPER Landing Site at Mons Mouton near the Lunar South Pole"
+                    },
+                    {
+                        "doi":  "10.22215/etd/2025-16500",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:11Z",
+                        "title":  "Autonomous Aerial Drone Landing Site Selection on a Maritime Vessel"
+                    },
+                    {
+                        "doi":  "10.52202/083078-0039",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:11Z",
+                        "title":  "An Integrated Probabilistic Multidisciplinary 3D Modelling Methodology to Advance Lunar Resource Assessments for ISRU Evaluations Supporting Moon-To-Mars Exploration"
+                    },
+                    {
+                        "doi":  "10.52202/078359-0030",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:11Z",
+                        "title":  "Laser-Welded Lunar Landing Pad Based on Sintered Lunar Regolith"
+                    },
+                    {
+                        "doi":  "10.12681/eadd/39753",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:12Z",
+                        "title":  "Study and design of analog to digital and digital to analog converters"
+                    },
+                    {
+                        "doi":  "10.71008/gumushane.thesis.2026.226",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:12Z",
+                        "title":  "Neutrosophic multi-criteria decision making and gis-based integrated model proposal for post-disaster temporary container settlement site selection: The case of Hatay"
+                    },
+                    {
+                        "doi":  "10.14264/58ecd6e",
+                        "status":  200,
+                        "checkedAt":  "2026-11-15T07:16:13Z",
+                        "title":  "Modifying Slusher Design to Operate under Lunar Conditions for In-Situ Resource Utilisation (ISRU) Mining"
+                    }
+                ]
+}

@@ -1,0 +1,160 @@
+{
+  "formatVersion": 1,
+  "started": "2026-11-15T06:18:12+00:00",
+  "finished": "2026-11-15T06:19:51+00:00",
+  "queriesFile": "queries.json",
+  "sources": [
+    {
+      "source": "crossref",
+      "query": "q1",
+      "url": "https://api.crossref.org/works?query.bibliographic=terrestrial+analog+sites+Mars+Moon+planetary+analog&rows=200&offset=0&select=DOI%2Ctitle%2Cissued%2Ccontainer-title%2Cauthor%2Ctype%2CURL",
+      "pages": 5,
+      "fetched": 1000,
+      "totalReported": 711621,
+      "error": null,
+      "started": "2026-11-15T06:18:12+00:00",
+      "finished": "2026-11-15T06:18:24+00:00"
+    },
+    {
+      "source": "crossref",
+      "query": "q2",
+      "url": "https://api.crossref.org/works?query.bibliographic=Mars+landing+site+selection+criteria+human+exploration&rows=200&offset=0&select=DOI%2Ctitle%2Cissued%2Ccontainer-title%2Cauthor%2Ctype%2CURL",
+      "pages": 5,
+      "fetched": 1000,
+      "totalReported": 4435013,
+      "error": null,
+      "started": "2026-11-15T06:18:24+00:00",
+      "finished": "2026-11-15T06:18:33+00:00"
+    },
+    {
+      "source": "crossref",
+      "query": "q3",
+      "url": "https://api.crossref.org/works?query.bibliographic=lunar+regolith+simulant+ISRU+resource&rows=200&offset=0&select=DOI%2Ctitle%2Cissued%2Ccontainer-title%2Cauthor%2Ctype%2CURL",
+      "pages": 5,
+      "fetched": 1000,
+      "totalReported": 466720,
+      "error": null,
+      "started": "2026-11-15T06:18:33+00:00",
+      "finished": "2026-11-15T06:18:41+00:00"
+    },
+    {
+      "source": "crossref",
+      "query": "q4",
+      "url": "https://api.crossref.org/works?query.bibliographic=lunar+south+pole+landing+site&rows=200&offset=0&select=DOI%2Ctitle%2Cissued%2Ccontainer-title%2Cauthor%2Ctype%2CURL",
+      "pages": 5,
+      "fetched": 1000,
+      "totalReported": 1412296,
+      "error": null,
+      "started": "2026-11-15T06:18:41+00:00",
+      "finished": "2026-11-15T06:18:49+00:00"
+    },
+    {
+      "source": "openalex",
+      "query": "q1",
+      "url": "https://api.openalex.org/works?search=terrestrial+analog+sites+Mars+Moon+planetary+analog&per-page=200&cursor=%2A&select=id%2Cdoi%2Ctitle%2Cpublication_year%2Ctype%2Cprimary_location%2Cauthorships",
+      "pages": 0,
+      "fetched": 0,
+      "totalReported": null,
+      "error": "HTTP 429: {\"error\":\"Rate limit exceeded\",\"message\":\"Insufficient budget. This request has no API key, so it counts against the free daily budget shared by everyone on your network's IP address, and that budget is used up ($0 remaining; resets at midnight UTC). Use your own key instead: add ?api_key=YOUR_KEY to the URL, or send it as an \\\"Authorization: Bearer YOUR_KEY\\\" header. Keys are free and have their ",
+      "started": "2026-11-15T06:18:49+00:00",
+      "finished": "2026-11-15T06:19:04+00:00"
+    },
+    {
+      "source": "openalex",
+      "query": "q2",
+      "url": "https://api.openalex.org/works?search=Mars+landing+site+selection+criteria+human+exploration&per-page=200&cursor=%2A&select=id%2Cdoi%2Ctitle%2Cpublication_year%2Ctype%2Cprimary_location%2Cauthorships",
+      "pages": 0,
+      "fetched": 0,
+      "totalReported": null,
+      "error": "HTTP 429: {\"error\":\"Rate limit exceeded\",\"message\":\"Insufficient budget. This request has no API key, so it counts against the free daily budget shared by everyone on your network's IP address, and that budget is used up ($0 remaining; resets at midnight UTC). Use your own key instead: add ?api_key=YOUR_KEY to the URL, or send it as an \\\"Authorization: Bearer YOUR_KEY\\\" header. Keys are free and have their ",
+      "started": "2026-11-15T06:19:04+00:00",
+      "finished": "2026-11-15T06:19:20+00:00"
+    },
+    {
+      "source": "openalex",
+      "query": "q3",
+      "url": "https://api.openalex.org/works?search=lunar+regolith+simulant+ISRU+resource&per-page=200&cursor=%2A&select=id%2Cdoi%2Ctitle%2Cpublication_year%2Ctype%2Cprimary_location%2Cauthorships",
+      "pages": 0,
+      "fetched": 0,
+      "totalReported": null,
+      "error": "HTTP 429: {\"error\":\"Rate limit exceeded\",\"message\":\"Insufficient budget. This request has no API key, so it counts against the free daily budget shared by everyone on your network's IP address, and that budget is used up ($0 remaining; resets at midnight UTC). Use your own key instead: add ?api_key=YOUR_KEY to the URL, or send it as an \\\"Authorization: Bearer YOUR_KEY\\\" header. Keys are free and have their ",
+      "started": "2026-11-15T06:19:20+00:00",
+      "finished": "2026-11-15T06:19:35+00:00"
+    },
+    {
+      "source": "openalex",
+      "query": "q4",
+      "url": "https://api.openalex.org/works?search=lunar+south+pole+landing+site&per-page=200&cursor=%2A&select=id%2Cdoi%2Ctitle%2Cpublication_year%2Ctype%2Cprimary_location%2Cauthorships",
+      "pages": 0,
+      "fetched": 0,
+      "totalReported": null,
+      "error": "HTTP 429: {\"error\":\"Rate limit exceeded\",\"message\":\"Insufficient budget. This request has no API key, so it counts against the free daily budget shared by everyone on your network's IP address, and that budget is used up ($0 remaining; resets at midnight UTC). Use your own key instead: add ?api_key=YOUR_KEY to the URL, or send it as an \\\"Authorization: Bearer YOUR_KEY\\\" header. Keys are free and have their ",
+      "started": "2026-11-15T06:19:35+00:00",
+      "finished": "2026-11-15T06:19:51+00:00"
+    }
+  ],
+  "perQuery": {
+    "q1": {
+      "text": "terrestrial analog sites Mars Moon planetary analog",
+      "doc03OpenAlexCount": 3491,
+      "records": 995
+    },
+    "q2": {
+      "text": "Mars landing site selection criteria human exploration",
+      "doc03OpenAlexCount": 1692,
+      "records": 997
+    },
+    "q3": {
+      "text": "lunar regolith simulant ISRU resource",
+      "doc03OpenAlexCount": 1341,
+      "records": 997
+    },
+    "q4": {
+      "text": "lunar south pole landing site",
+      "doc03OpenAlexCount": 199,
+      "records": 996
+    }
+  },
+  "rawRecords": 4000,
+  "mergedRecords": 3889,
+  "withDoi": 3889,
+  "withoutDoi": 0,
+  "nearDuplicateTitles": 153,
+  "byYear": {
+    "2027": 7,
+    "2026": 380,
+    "2025": 368,
+    "2024": 277,
+    "2023": 208,
+    "2022": 201,
+    "2021": 190,
+    "2020": 142,
+    "2019": 89,
+    "2018": 82,
+    "2017": 83,
+    "2016": 89,
+    "2015": 85,
+    "2014": 87,
+    "2013": 61
+  },
+  "byType": {
+    "article": 1614,
+    "book": 17,
+    "incollection": 633,
+    "inproceedings": 929,
+    "misc": 615,
+    "phdthesis": 35,
+    "techreport": 46
+  },
+  "outputs": {
+    "corpus.bib": {
+      "bytes": 1572772,
+      "sha256": "f652cc6e1237088d569ac19323d64f5e44db6265ad41addd97f046fcc81d4768"
+    },
+    "corpus-index.csv": {
+      "bytes": 754979,
+      "sha256": "665543366bbd34fe052df38af2c2deda82f785255d81ef3754f0928cb1bad8de"
+    }
+  },
+  "readingStatus": "none read; doc 03 curated core remains the cited set"
+}
