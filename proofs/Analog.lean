@@ -37,6 +37,7 @@ import Analog.Funnel
 import Analog.Closeness
 
 import Analog.FunnelProofs
+import Analog.ClosenessProofs
 import Analog.ParetoLayers
 import Analog.ParetoLayersProofs
 import Analog.CampaignOpt
