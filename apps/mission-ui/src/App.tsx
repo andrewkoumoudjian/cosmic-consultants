@@ -16,21 +16,24 @@ import { Limitations } from './steps/Limitations.tsx';
 import { Logistics } from './steps/Logistics.tsx';
 import { Risks, decodeRatings, encodeRatings, type Ratings } from './steps/Risks.tsx';
 import { PastMissions } from './steps/Missions.tsx';
+import { useEngineResults } from './engine-results-ui.tsx';
+import { engineBrief, selectedTarget } from './engine-results.ts';
 
 type Load = { state: 'loading'; progress?: LoadProgress } | { state: 'error'; message: string } | { state: 'ready'; data: Dataset };
 const LAST = STEPS.length;
 
 function fromUrl() {
   const hash = new URLSearchParams(location.hash.slice(1));
+  const targetId = hash.get('target') ?? undefined;
   const notes = hash.get('notes') ?? '';
   const order = normalizeOrder(hash.get('order'));
   const ratings = decodeRatings(hash.get('risk'));
   const raw = Number(hash.get('step'));
   const step = Number.isInteger(raw) && raw >= 1 && raw <= LAST ? raw : 1;
-  if (!location.search) return { request: null as PlanRequest | null, step: 1, problems: [] as string[], notes, order: 'engine' as FinderOrder, ratings };
+  if (!location.search) return { request: null as PlanRequest | null, step: 1, problems: [] as string[], notes, order: 'engine' as FinderOrder, ratings, targetId };
   const decoded = decodePlan(location.search);
-  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors, notes, order, ratings };
-  return { request: decoded.plan, step, problems: [], notes, order, ratings };
+  if (!decoded.ok) return { request: null, step: 1, problems: decoded.errors, notes, order, ratings, targetId };
+  return { request: decoded.plan, step, problems: [], notes, order, ratings, targetId };
 }
 
 export function App() {
@@ -45,6 +48,7 @@ export function App() {
   const [checklist] = useState(initial.notes);
   const [order, setOrder] = useState<FinderOrder>(initial.request ? initial.order : 'engine');
   const [ratings, setRatings] = useState<Ratings>(initial.ratings);
+  const [targetId, setTargetId] = useState<string | undefined>(initial.targetId);
   const [dropped, setDropped] = useState<string[]>([]);
   const [monthlyFor, setMonthlyFor] = useState<string | null>(null);
   const [blocked, setBlocked] = useState(false);
@@ -58,6 +62,7 @@ export function App() {
   }, [initial]);
 
   const data = load.state === 'ready' ? load.data : null;
+  const engine = useEngineResults(data);
 
   useEffect(() => {
     if (!data || !request) return;
@@ -75,8 +80,9 @@ export function App() {
     if (checklist) hash.set('notes', checklist);
     const r = encodeRatings(ratings);
     if (r) hash.set('risk', r);
+    if (targetId) hash.set('target', targetId);
     history.replaceState(null, '', `?${encodePlan(request)}#${hash}`);
-  }, [request, step, order, checklist, ratings]);
+  }, [request, step, order, checklist, ratings, targetId]);
 
   useEffect(() => { document.title = `${STEPS[step - 1]!.label} · Analog Atlas`; }, [step]);
 
@@ -124,6 +130,7 @@ export function App() {
   const chooseBody = (b: Body) => {
     if (b === body) return;
     setBody(b); setCategoryId(undefined); setRequest(null); setRemoved([]); setDropped([]); setOrder('engine'); setRatings({}); setReached(1);
+    setTargetId(undefined);
     history.replaceState(null, '', location.pathname);
   };
   const changeOrder = (next: FinderOrder) => {
@@ -131,7 +138,8 @@ export function App() {
     if (request && next === 'slope_mean_deg' && request.sortBy !== 'terrain') setRequest({ ...request, sortBy: 'terrain' });
   };
 
-  const common = request && objective && result ? { data: d, request, sites: pinIdx, objective, result } : null;
+  const common = request && objective && result ? { data: d, request, sites: pinIdx, objective, result, engine, targetId, onTarget: setTargetId } : null;
+  const target = engine.state === 'ready' && request ? selectedTarget(engine.data, request.body, targetId) : undefined;
   let screen;
   if (step === 1) screen = <Destination data={d} body={body} onBody={chooseBody} onNext={() => go(2)} />;
   else if (step === 2) screen = <CategoryStep data={d} body={body} categoryId={categoryId} onCategory={chooseCategory} onBack={() => go(1)} onNext={() => go(3)} />;
@@ -171,7 +179,7 @@ export function App() {
                   <Button className="btn sm" title="A tidy CSV: one row per site and trait, with the data manifest hash"
                     onClick={() => download(`analog-atlas-${request.objectiveId}.csv`, sheetCsv(d, request, pinIdx), 'text/csv')}>CSV</Button>
                   <Button className="btn sm primary" title="The plan, verdicts and checklist as a Markdown brief"
-                    onClick={() => download(`analog-atlas-brief-${request.objectiveId}.md`, brief(d, request, pinIdx, checklist), 'text/markdown')}>Brief</Button>
+                    onClick={() => download(`analog-atlas-brief-${request.objectiveId}.md`, brief(d, request, pinIdx, checklist) + (engine.state === 'ready' && target ? engineBrief(engine.data, target, request.durationDays) : '\nPlanetary engine results unavailable.\n'), 'text/markdown')}>Brief</Button>
                 </>
               )}
             </div>

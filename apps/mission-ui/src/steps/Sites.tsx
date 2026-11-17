@@ -14,13 +14,14 @@ import { isWet, spread } from '../place.ts';
 import { Button, NavFoot, Select, SiteBadge, StepHead, Switch, Verdict } from '../ui.tsx';
 import { TopThree } from './TopThree.tsx';
 import type { Anchor } from '../Globe.tsx';
+import { EngineCandidates, SiteMeasurements, type EngineProps } from '../engine-results-ui.tsx';
 
 const Globe = lazy(() => import('../Globe.tsx'));
 type ListFilter = 'matches' | 'unknown' | 'misses';
 const CLASS_WHY: (string | undefined)[] = [undefined, 'misses a required trait', 'a required trait is unknown', 'past one of your hard limits'];
 const SPREAD_KM = 300;
 
-export function Sites({ data, request, result, removed, onRemoved, onPins, order, onOrder, eligible, dropped, onBack, onNext }: {
+export function Sites({ data, request, result, removed, onRemoved, onPins, order, onOrder, eligible, dropped, onBack, onNext, engine, targetId, onTarget }: EngineProps & {
   data: Dataset; request: PlanRequest; result: SearchResult; removed: string[];
   onRemoved: (r: string[]) => void; onPins: (p: string[]) => void;
   order: FinderOrder; onOrder: (o: FinderOrder) => void; eligible: (h3: string) => boolean; dropped: string[];
@@ -90,6 +91,9 @@ export function Sites({ data, request, result, removed, onRemoved, onPins, order
       {c.matches === 0 && <p className="note warn">No site meets every required trait. Make one Preferred, widen a band, or change the months.</p>}
       {dropped.length > 0 && <p className="note">Left the comparison because they no longer match: <span className="mono">{dropped.join(', ')}</span></p>}
 
+      <EngineCandidates data={data} request={request} engine={engine} targetId={targetId} onTarget={onTarget}
+        eligible={eligible} onCompare={togglePin} onInspect={i => { setActive(i); document.querySelector('.globe-card')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); }} />
+
       <div className="sf-main">
         <section className="card sf-list-card" aria-label="Ranked candidates">
           <div className="sf-controls">
@@ -149,6 +153,8 @@ export function Sites({ data, request, result, removed, onRemoved, onPins, order
           <TopThree data={data} request={request} ranked={top3} />
         </div>
       </div>
+
+      {active !== null && <SiteMeasurements data={data} i={active} engine={engine} />}
 
       <NavFoot onBack={onBack} onNext={onNext} nextLabel="Limitations" nextDisabled={pinIdx.length === 0}
         hint={pinIdx.length === 0 ? 'Press Compare on up to three sites' : undefined} />

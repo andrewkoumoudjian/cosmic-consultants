@@ -1,0 +1,20 @@
+.engine-results { min-width: 0; gap: 14px; }
+.engine-results .card-head { flex-wrap: wrap; gap: 12px; }
+.engine-table { border-collapse: collapse; width: 100%; font-size: 13px; text-align: left; }
+.engine-table th, .engine-table td { border-bottom: 1px solid var(--border, #303440); padding: 10px 12px; vertical-align: top; }
+.engine-table th { font-weight: 500; color: var(--text-2, #b5b9c6); }
+.engine-table td:first-child { white-space: nowrap; }
+.engine-unit { display: block; font-size: 11px; opacity: .7; margin-top: 4px; }
+.engine-details { border-top: 1px solid var(--border, #303440); padding-top: 12px; }
+.engine-details summary { cursor: pointer; font-size: 13px; }
+.engine-details[open] > :not(summary) { margin-top: 12px; }
+.engine-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.engine-facts dt { font-size: 12px; color: var(--text-2, #b5b9c6); }
+.engine-facts dd { margin: 4px 0 0; font-family: var(--font-mono); font-size: 12px; }
+.engine-hash { overflow-wrap: anywhere; }
+.engine-results a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 640px) {
+  .engine-results .card-head { align-items: flex-start; }
+  .engine-table th, .engine-table td { padding: 8px; }
+  .engine-results .table-wrap { max-width: 100%; overflow-x: auto; }
+}
