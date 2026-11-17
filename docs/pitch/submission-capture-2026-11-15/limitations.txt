@@ -1,0 +1,66 @@
+- banner:
+  - navigation "Steps":
+    - button "1Destination"
+    - button "2Category"
+    - button "3Requirements"
+    - button "4Sites"
+    - button "5Limitations"
+    - button "6Logistics" [disabled]
+    - button "7Risks" [disabled]
+  - button "Copy link"
+- main:
+  - heading "Limitations" [level=1]
+  - button "Open in JSheets (.csv)"
+  - table:
+    - rowgroup:
+      - row "Trait Accepted band 68.6°N 54.6°E":
+        - columnheader "Trait"
+        - columnheader "Accepted band"
+        - columnheader "68.6°N 54.6°E": 68.6°N 54.6°E
+    - rowgroup:
+      - row "Terrain 0 ≤ x < 10° Match 0.0°":
+        - cell "Terrain"
+        - cell "0 ≤ x < 10°"
+        - cell "Match 0.0°":
+          - generic: Match
+          - generic: 0.0°
+      - row "Illumination 0 ≤ x ≤ 10° Match 0.1°":
+        - cell "Illumination"
+        - cell "0 ≤ x ≤ 10°"
+        - cell "Match 0.1°":
+          - generic: Match
+          - generic: 0.1°
+  - heading "Earth can't reproduce hard physical limits" [level=2]
+  - list:
+    - generic: Gravity
+    - generic: Earth has 1 g. The Moon has 0.17 g and Mars 0.38 g.
+    - generic: Air pressure
+    - generic: Earth has 1 atm of air. The Moon has vacuum; Mars has thin CO2.
+    - generic: Radiation
+    - generic: Earth's magnetic field and air block radiation the Moon and Mars receive.
+  - heading "Manageable operational caveats field checks" [level=2]
+  - list:
+    - generic: 240 m cell scale & local terrain
+    - generic: Each H3 cell summarizes a ≈1,770 km² hexagon at 240 m DEM spacing. Check 100 m traverse corridors and landing hazards using local imagery or field scouting.
+    - generic: Proxy Earth stand-ins (Illumination)
+    - generic: Team-selected proxy columns approximate the planetary target; verify the underlying planetary parameter (e.g. surface albedo or subsurface ice) in pre-mission testing.
+    - generic: Surface water cover > 25 % (68.6°N 54.6°E 95 %)
+    - generic: Confirm dry-land staging coordinates outside lakes, wetlands, or coastal waters before deployment.
+  - heading "Unknown" [level=2]
+  - paragraph: None.
+  - heading "Where the bands come from" [level=2]
+  - list:
+    - generic: Terrain
+    - generic: "Max slope over a 100 m baseline <= 10° (Artemis III). Same number, different statistic: Earth is a mean over a 240 m grid, the Moon band is a max over 100 m. A mean under 10° does not guarantee every 100 m patch is under 10°."
+    - generic: Illumination
+    - generic: "Landing tests need a low sun and long shadows like the lunar south pole. We use a noon sun above the horizon and at or below 10° as the stand-in (polar night fails: no light to land by); it only happens at high latitudes in winter months. Computed from latitude only; no terrain shadows."
+  - heading "Data caveats" [level=2]
+  - list:
+    - generic: Scientific acceptance is partial. Requirements and comparisons are conditional on the stated sources, scales and bands.
+    - generic: DEM nodata filtering was claimed by old column metadata but is not applied by the current terrain builder; values remain unchanged and scientifically unreviewed.
+    - generic: MOD11C3 QC-bit filtering is not applied; replay counts the actual raw-value threshold, not an invented QA pass.
+  - button "← Back"
+  - button "Continue →"
+- contentinfo:
+  - generic: "Release planner-v1 · scientific status: partial · 91,800 H3 res-4 cells"
+  - generic: "Earth data: Copernicus DEM, MODIS, ESA Permafrost, ODbL travel, NASA EONET · manifest 2cd4e189"

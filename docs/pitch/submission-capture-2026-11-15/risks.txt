@@ -1,0 +1,195 @@
+- banner:
+  - navigation "Steps":
+    - button "1Destination"
+    - button "2Category"
+    - button "3Requirements"
+    - button "4Sites"
+    - button "5Limitations"
+    - button "6Logistics"
+    - button "7Risks"
+  - button "Copy link"
+- main:
+  - heading "Risks" [level=1]
+  - button "Open in JSheets (.csv)"
+  - button "Print"
+  - button "Download brief"
+  - tablist "Compared sites":
+    - tab "68.6°N 54.6°E" [selected]: 68.6°N 54.6°E
+  - tabpanel "68.6°N 54.6°E":
+    - heading "Simple risk matrix qualitative severity vs release evidence (no fabricated 1–5 digits)" [level=2]
+    - table:
+      - rowgroup:
+        - row "Severity \\ Evidence Measured in cell Curated / partial Not in release data":
+          - columnheader "Severity \\ Evidence"
+          - columnheader "Measured in cell"
+          - columnheader "Curated / partial"
+          - columnheader "Not in release data"
+      - rowgroup:
+        - row "High Medical — Ecological":
+          - cell "High"
+          - cell "Medical":
+            - generic: Medical
+          - cell "—"
+          - cell "Ecological":
+            - generic: Ecological
+        - row "Moderate — — Blind spots":
+          - cell "Moderate"
+          - cell "—"
+          - cell "—"
+          - cell "Blind spots":
+            - generic: Blind spots
+        - row "Low Environment — —":
+          - cell "Low"
+          - cell "Environment":
+            - generic: Environment
+          - cell "—"
+          - cell "—"
+    - heading "Identified risks & mitigations" [level=2]
+    - table:
+      - rowgroup:
+        - row "Category Severity Evidence Measured basis Suggested mitigation":
+          - columnheader "Category"
+          - columnheader "Severity"
+          - columnheader "Evidence"
+          - columnheader "Measured basis"
+          - columnheader "Suggested mitigation"
+      - rowgroup:
+        - 'row "Medical & Evacuation High Measured in cell To a city: 23 h · Nearest airport: 128 km Establish a dedicated medevac plan, staged extraction transport, and redundant emergency comms before field deployment."':
+          - cell "Medical & Evacuation"
+          - cell "High"
+          - cell "Measured in cell"
+          - 'cell "To a city: 23 h · Nearest airport: 128 km"'
+          - cell "Establish a dedicated medevac plan, staged extraction transport, and redundant emergency comms before field deployment."
+        - 'row "Environmental Hazards Low Measured in cell Ground >30°: 0 % · Surface (window): -15 °C to -15 °C · Burned in window: 0 % · EONET events: 0 Check local 7-day forecast prior to rollout (release holds historical aggregates only)."':
+          - cell "Environmental Hazards"
+          - cell "Low"
+          - cell "Measured in cell"
+          - 'cell "Ground >30°: 0 % · Surface (window): -15 °C to -15 °C · Burned in window: 0 % · EONET events: 0"'
+          - cell "Check local 7-day forecast prior to rollout (release holds historical aggregates only)."
+        - 'row "Ecological & Land-Use Impact High Not in release data Protected land: no data in release · Water cover: 95 % Verify national park boundaries, indigenous/local stewardship, and land-use permits before field commitment. Inspect coastline/wetland imagery to ensure staging coordinates sit on dry ground."':
+          - cell "Ecological & Land-Use Impact"
+          - cell "High"
+          - cell "Not in release data"
+          - 'cell "Protected land: no data in release · Water cover: 95 %"'
+          - cell "Verify national park boundaries, indigenous/local stewardship, and land-use permits before field commitment. Inspect coastline/wetland imagery to ensure staging coordinates sit on dry ground."
+        - 'row "Data Blind Spots & Coverage Moderate Not in release data Traits unknown: 0 · Weather on the day & rescue cover not in release Collect site-level weather, 100 m DEM/field scouting, and external data for unknown traits and local rescue cover."':
+          - cell "Data Blind Spots & Coverage"
+          - cell "Moderate"
+          - cell "Not in release data"
+          - 'cell "Traits unknown: 0 · Weather on the day & rescue cover not in release"'
+          - cell "Collect site-level weather, 100 m DEM/field scouting, and external data for unknown traits and local rescue cover."
+    - heading "Conditions Jan window vs annual" [level=2]:
+      - text: Conditions
+      - generic: Jan window vs annual
+    - generic: Ground over 30°
+    - generic: 0 %
+    - generic: Hottest day in window
+    - text: "-15 °C"
+    - generic: · annual 19 °C
+    - generic: Coldest night in window
+    - text: "-15 °C"
+    - generic: · annual -20 °C
+    - generic: Most burned in window
+    - generic: 0 %
+    - generic: Traits unknown
+    - generic: "0"
+    - paragraph: "Not in this data: rescue cover, weather on the day."
+    - heading "Events on record NASA EONET" [level=2]
+    - paragraph: None recorded. EONET is curated, so this does not mean safe.
+  - heading "Past campaigns analog mission spreadsheet & distance from each compared site" [level=2]
+  - table:
+    - rowgroup:
+      - row "Campaign Where Years Agency Objectives exercised Published constraints Outcome 68.6°N 54.6°E":
+        - columnheader "Campaign"
+        - columnheader "Where"
+        - columnheader "Years"
+        - columnheader "Agency"
+        - columnheader "Objectives exercised"
+        - columnheader "Published constraints"
+        - columnheader "Outcome"
+        - columnheader "68.6°N 54.6°E": 68.6°N 54.6°E
+    - rowgroup:
+      - 'row "Atacama Rover Astrobiology Drilling Studies (ARADS) Atacama ARADS Area 1, northern Chile 2019 NASA Robotic drilling, sample handling, and life-search protocols in a Mars analog environment Command cycles to drill and deliver the deepest sample: 55 command cycles to 80 cm depth worked The field demonstration detected biomolecules in the deep basin samples. lesson The paper reports that technical problems may have prevented analysis of shallower-basin samples. 13,871 km"':
+        - cell "Atacama Rover Astrobiology Drilling Studies (ARADS)"
+        - cell "Atacama ARADS Area 1, northern Chile"
+        - cell "2019"
+        - cell "NASA"
+        - cell "Robotic drilling, sample handling, and life-search protocols in a Mars analog environment":
+          - generic: Robotic drilling, sample handling, and life-search protocols in a Mars analog environment
+        - 'cell "Command cycles to drill and deliver the deepest sample: 55 command cycles to 80 cm depth"':
+          - text: "Command cycles to drill and deliver the deepest sample:"
+          - generic: 55 command cycles to 80 cm depth
+        - cell "worked The field demonstration detected biomolecules in the deep basin samples. lesson The paper reports that technical problems may have prevented analysis of shallower-basin samples.":
+          - generic: worked The field demonstration detected biomolecules in the deep basin samples.
+          - generic: lesson The paper reports that technical problems may have prevented analysis of shallower-basin samples.
+        - cell "13,871 km"
+      - 'row "Desert RATS 2010 geology crew operations test Black Point Lava Flow test area, Arizona 2010 NASA Simulated geological science traverses with crewed rovers Rover test period: 14 days lesson No rover operations mode was consistently best in the reported comparisons. 8,357 km"':
+        - cell "Desert RATS 2010 geology crew operations test"
+        - cell "Black Point Lava Flow test area, Arizona"
+        - cell "2010"
+        - cell "NASA"
+        - cell "Simulated geological science traverses with crewed rovers":
+          - generic: Simulated geological science traverses with crewed rovers
+        - 'cell "Rover test period: 14 days"':
+          - text: "Rover test period:"
+          - generic: 14 days
+        - cell "lesson No rover operations mode was consistently best in the reported comparisons.":
+          - generic: lesson No rover operations mode was consistently best in the reported comparisons.
+        - cell "8,357 km"
+      - 'row "Flashline Mars Arctic Research Station Expedition 12 Flashline Mars Arctic Research Station, Devon Island 2009 The Mars Society Time-domain electromagnetic survey during a simulated Mars expedition Number of EVAs used for the electromagnetic survey: 4 EVAs lesson The researchers recommended simpler instrument controls for work in spacesuits. 3,806 km"':
+        - cell "Flashline Mars Arctic Research Station Expedition 12"
+        - cell "Flashline Mars Arctic Research Station, Devon Island"
+        - cell "2009"
+        - cell "The Mars Society"
+        - cell "Time-domain electromagnetic survey during a simulated Mars expedition":
+          - generic: Time-domain electromagnetic survey during a simulated Mars expedition
+        - 'cell "Number of EVAs used for the electromagnetic survey: 4 EVAs"':
+          - text: "Number of EVAs used for the electromagnetic survey:"
+          - generic: 4 EVAs
+        - cell "lesson The researchers recommended simpler instrument controls for work in spacesuits.":
+          - generic: lesson The researchers recommended simpler instrument controls for work in spacesuits.
+        - cell "3,806 km"
+      - 'row "Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission HI-SEAS habitat, Mauna Loa, Hawaiʻi 2015–2016 NASA, University of Hawaii Isolated crew and habitat microbiome monitoring for future Moon or Mars outposts Simulated communication delay: 20 minutes each way worked The study found stable surface microbiome composition alongside changing crew skin microbiomes. lesson The study linked delayed microbiome homogenization to a malfunctioning sanitary facility. 9,908 km"':
+        - cell "Hawaii Space Exploration Analog and Simulation IV (HI-SEAS IV) mission"
+        - cell "HI-SEAS habitat, Mauna Loa, Hawaiʻi"
+        - cell "2015–2016"
+        - cell "NASA, University of Hawaii"
+        - cell "Isolated crew and habitat microbiome monitoring for future Moon or Mars outposts":
+          - generic: Isolated crew and habitat microbiome monitoring for future Moon or Mars outposts
+        - 'cell "Simulated communication delay: 20 minutes each way"':
+          - text: "Simulated communication delay:"
+          - generic: 20 minutes each way
+        - cell "worked The study found stable surface microbiome composition alongside changing crew skin microbiomes. lesson The study linked delayed microbiome homogenization to a malfunctioning sanitary facility.":
+          - generic: worked The study found stable surface microbiome composition alongside changing crew skin microbiomes.
+          - generic: lesson The study linked delayed microbiome homogenization to a malfunctioning sanitary facility.
+        - cell "9,908 km"
+      - 'row "HMP-2015 field campaign HMP Research Station (HMPRS), Devon Island 2015 NASA Astrobiology and planetary protection investigations Radial range containing most investigations: 20 km radius lesson The paper says HMP field work informed planning for future Mars exploration. 3,806 km"':
+        - cell "HMP-2015 field campaign"
+        - cell "HMP Research Station (HMPRS), Devon Island"
+        - cell "2015"
+        - cell "NASA"
+        - cell "Astrobiology and planetary protection investigations":
+          - generic: Astrobiology and planetary protection investigations
+        - 'cell "Radial range containing most investigations: 20 km radius"':
+          - text: "Radial range containing most investigations:"
+          - generic: 20 km radius
+        - cell "lesson The paper says HMP field work informed planning for future Mars exploration.":
+          - generic: lesson The paper says HMP field work informed planning for future Mars exploration.
+        - cell "3,806 km"
+      - 'row "Mars Desert Research Station Crew 89 Mars Desert Research Station, Utah 2010 The Mars Society Simulated EVA operations and an active seismic survey Mission duration: 2 weeks lesson The paper recommends simple, readable instrument controls for EVA work. 8,051 km"':
+        - cell "Mars Desert Research Station Crew 89"
+        - cell "Mars Desert Research Station, Utah"
+        - cell "2010"
+        - cell "The Mars Society"
+        - cell "Simulated EVA operations and an active seismic survey":
+          - generic: Simulated EVA operations and an active seismic survey
+        - 'cell "Mission duration: 2 weeks"':
+          - text: "Mission duration:"
+          - generic: 2 weeks
+        - cell "lesson The paper recommends simple, readable instrument controls for EVA work.":
+          - generic: lesson The paper recommends simple, readable instrument controls for EVA work.
+        - cell "8,051 km"
+  - button "← Back"
+- contentinfo:
+  - generic: "Release planner-v1 · scientific status: partial · 91,800 H3 res-4 cells"
+  - generic: "Earth data: Copernicus DEM, MODIS, ESA Permafrost, ODbL travel, NASA EONET · manifest 2cd4e189"

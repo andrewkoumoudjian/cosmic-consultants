@@ -1,0 +1,73 @@
+- banner:
+  - navigation "Steps":
+    - button "1Destination"
+    - button "2Category"
+    - button "3Requirements"
+    - button "4Sites"
+    - button "5Limitations"
+    - button "6Logistics"
+    - button "7Risks" [disabled]
+  - button "Copy link"
+- main:
+  - heading "Logistics" [level=1]
+  - button "Open in JSheets (.csv)"
+  - table:
+    - rowgroup:
+      - row "Measure 68.6°N 54.6°E":
+        - columnheader "Measure"
+        - columnheader "68.6°N 54.6°E": 68.6°N 54.6°E
+    - rowgroup:
+      - row "Travel to the nearest city, median 23 h":
+        - cell "Travel to the nearest city, median"
+        - cell "23 h"
+      - row "Travel, fastest 10 % of the cell 23 h":
+        - cell "Travel, fastest 10 % of the cell"
+        - cell "23 h"
+      - row "Nearest paved-runway airport 128 km":
+        - cell "Nearest paved-runway airport"
+        - cell "128 km"
+      - row "Protected land in the cell no data":
+        - cell "Protected land in the cell"
+        - cell "no data"
+      - row "Water cover in the cell 95 %":
+        - cell "Water cover in the cell"
+        - cell "95 %"
+      - row "Elevation, lowest to highest 0–5 m":
+        - cell "Elevation, lowest to highest"
+        - cell "0–5 m"
+  - paragraph: "Not in this data: cost, permits, vehicles, comms. Use the checklist."
+  - heading "By month" [level=2]
+  - table "Required traits per month":
+    - generic: Jan
+    - generic: Feb
+    - generic: Mar
+    - generic: Apr
+    - generic: May
+    - generic: Jun
+    - generic: Jul
+    - generic: Aug
+    - generic: Sep
+    - generic: Oct
+    - generic: Nov
+    - generic: Dec
+    - generic: 68.6°N 54.6°E
+    - 'generic "Jan: All required traits match"': ●
+    - 'generic "Feb: All required traits match"': ●
+    - 'generic "Mar: Misses a required trait"': ◆
+    - 'generic "Apr: Misses a required trait"': ◆
+    - 'generic "May: Misses a required trait"': ◆
+    - 'generic "Jun: Misses a required trait"': ◆
+    - 'generic "Jul: Misses a required trait"': ◆
+    - 'generic "Aug: Misses a required trait"': ◆
+    - 'generic "Sep: Misses a required trait"': ◆
+    - 'generic "Oct: Misses a required trait"': ◆
+    - 'generic "Nov: All required traits match"': ●
+    - 'generic "Dec: Misses a required trait"': ◆
+  - heading "Checklist" [level=2]
+  - textbox "Equipment Permits People Budget Comms Emergency access":
+    - /placeholder: "Equipment\nPermits\nPeople\nBudget\nComms\nEmergency access"
+  - button "← Back"
+  - button "Continue →"
+- contentinfo:
+  - generic: "Release planner-v1 · scientific status: partial · 91,800 H3 res-4 cells"
+  - generic: "Earth data: Copernicus DEM, MODIS, ESA Permafrost, ODbL travel, NASA EONET · manifest 2cd4e189"
