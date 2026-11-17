@@ -1,12 +1,17 @@
 # cosmic-consultants
 
+**▶ Showcase: [analog-atlas-showcase.pages.dev](https://analog-atlas-showcase.pages.dev/)**: the problem, every step of the app, a live demo and the team, as an animated slide deck ([source](apps/showcase/)).
+**App: [cosmic-mission-ui.pages.dev](https://cosmic-mission-ui.pages.dev/)**
+
 Monorepo for the NASA Space Apps Challenge 2026 — **Identify Earth Locations
 that Analog the Permanent Moon Base Locations and Mars**.
 
 ---
 
 ### Video and presentation
-[[Placeholder]](https://youtu.be/AUAR8uRvY1Y)
+[![Analog Atlas: NASA Space Apps demo (video)](https://img.youtube.com/vi/TZJBSW3aALE/hqdefault.jpg)](https://youtu.be/TZJBSW3aALE)
+
+**▶ [Watch the demo video](https://youtu.be/TZJBSW3aALE)**
 
 **Live app: [Analog Atlas](https://cosmic-mission-ui.pages.dev/)**, built from `apps/mission-ui` on the real
 `planner-v1` release (Cloudflare Pages). Scientific status: partial.
