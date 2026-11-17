@@ -1,0 +1,216 @@
+{
+  "generatedAt": "2026-11-15T16:38:37+00:00",
+  "datasetId": "copernicus-dem-glo30",
+  "license": {
+    "licenseId": "copernicus-dem-licence",
+    "verified": true
+  },
+  "overviewLevel": 2,
+  "tiles": [
+    {
+      "tile": "Copernicus_DSM_COG_10_N68_00_E055_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        225
+      ],
+      "demNodata": null,
+      "demSha256": "d14b53b25b87a161cd13b89a3034133902cab434239426acc0558b6b2532ae7e",
+      "wbmSha256": "73980c535c7a079eaf7dc2c9d748efb21dd4ace9c20ed5427c4fa74bf93e756e",
+      "edmSha256": "4ac6aa210f49fdbfcad83a1e682240a73f1cb726f224ccf1b4b2e2d90e78a8db",
+      "exactZeroElevPixels": 45363,
+      "oceanNonZeroElevPixels": 407,
+      "wbmCounts": {
+        "0": 54860,
+        "1": 45770,
+        "2": 587,
+        "3": 33
+      },
+      "edmCounts": {
+        "1": 54851,
+        "8": 45775,
+        "9": 591,
+        "10": 33
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_N47_00_W087_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        450
+      ],
+      "demNodata": null,
+      "demSha256": "76840febc4f9bc9a12bbae390858a7ecabbf6781df124fa16f0a92a34735b7fe",
+      "wbmSha256": "ec6b86346a78d0517ad712d9252b272ed2193e0049c503adebbb583ecc825207",
+      "edmSha256": "7288650489d93dab9b6511a02c81146327923364f95473bcdbcf8ada6321516f",
+      "exactZeroElevPixels": 0,
+      "oceanNonZeroElevPixels": 0,
+      "wbmCounts": {
+        "2": 202500
+      },
+      "edmCounts": {
+        "9": 202500
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_N53_00_E108_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        300
+      ],
+      "demNodata": null,
+      "demSha256": "6799131f5aeeb3dc4fcfd1d47cb2f5a2526832302226dedd97571c8687876329",
+      "wbmSha256": "bce8f79b677f62bc977c9ec0bbd48577d42a5d3b39717705a42ccdbc1be676bc",
+      "edmSha256": "577582527b2897d815e7a6f7cf01a417bfc3f5391f27d7829c9bacac84f7afe3",
+      "exactZeroElevPixels": 0,
+      "oceanNonZeroElevPixels": 0,
+      "wbmCounts": {
+        "0": 39605,
+        "2": 95387,
+        "3": 8
+      },
+      "edmCounts": {
+        "1": 39397,
+        "2": 201,
+        "4": 2,
+        "9": 95392,
+        "10": 8
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_S04_00_W064_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        450
+      ],
+      "demNodata": null,
+      "demSha256": "62d8a09d48f1372efce0301b1d44fd62e393062c1b53477866111b7333cac8c3",
+      "wbmSha256": "ee3a4068c27152fd19fb8d9eae4dc07bbcdc354a57ea9f02b1510dc22c7a32a1",
+      "edmSha256": "d3a2355aa1da35f22854632489d95940465c078c42e23eab805113ed4c713724",
+      "exactZeroElevPixels": 0,
+      "oceanNonZeroElevPixels": 0,
+      "wbmCounts": {
+        "0": 187909,
+        "2": 7818,
+        "3": 6773
+      },
+      "edmCounts": {
+        "1": 187719,
+        "2": 21,
+        "9": 7883,
+        "10": 6877
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_N38_00_W111_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        450
+      ],
+      "demNodata": null,
+      "demSha256": "65f2c73d3d587d7a7342b2b6f35c935c4161724437bfe8246257946b00f2af07",
+      "wbmSha256": "353e0f7095f5a9af59aef4b76437e47b2e4e4956184d4be1dc513677a9c567e5",
+      "edmSha256": "5386ff2246fe986a2e3524254f7057d17bd7bb12c0960de870052d769fd292e5",
+      "exactZeroElevPixels": 0,
+      "oceanNonZeroElevPixels": 0,
+      "wbmCounts": {
+        "0": 202173,
+        "2": 4,
+        "3": 323
+      },
+      "edmCounts": {
+        "1": 195882,
+        "2": 6238,
+        "4": 1,
+        "9": 4,
+        "10": 375
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_S24_00_W070_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        450
+      ],
+      "demNodata": null,
+      "demSha256": "1118dd08cf01eb3011061b4cf5e642e74c2de8fde3212b584c91e6195f1121ae",
+      "wbmSha256": "360472953e68cb90f84a2143dbf8d29bd66c403668b392c45fe910e1dc6c679c",
+      "edmSha256": "4d3c3c0f7270b98a39ad63a1f0fce9eebbc09957df3392030defe6d512558292",
+      "exactZeroElevPixels": 0,
+      "oceanNonZeroElevPixels": 0,
+      "wbmCounts": {
+        "0": 202500
+      },
+      "edmCounts": {
+        "1": 202421,
+        "2": 36,
+        "4": 43
+      }
+    },
+    {
+      "tile": "Copernicus_DSM_COG_10_N75_00_W090_00_DEM",
+      "overviewLevel": 2,
+      "shape": [
+        450,
+        150
+      ],
+      "demNodata": null,
+      "demSha256": "58228edcb99d660101036f93e8fcd4a886364c892b88635b2aebed7d7cb7ef84",
+      "wbmSha256": "fbe9ca9cdd08c64c928f73e93f5ae20e123efc6069df0dc76ca998ccde8cd513",
+      "edmSha256": "eb54855d6657d08dd677ed19f366881e97b4333187660fddfe8f4e416454080f",
+      "exactZeroElevPixels": 14804,
+      "oceanNonZeroElevPixels": 421,
+      "wbmCounts": {
+        "0": 52142,
+        "1": 15225,
+        "2": 133
+      },
+      "edmCounts": {
+        "1": 52129,
+        "2": 10,
+        "8": 15228,
+        "9": 133
+      }
+    }
+  ],
+  "historicalLedgerAudit": {
+    "tileListSha256": "10604e3052c98a09e9216f1a8f0a555a04148419757575f783d4937fd44316dc",
+    "ledgerSha256": "53470ed0bc8385a78731c76fbe6560ca9252262e3ddb643a2c64b47019e9335b",
+    "expectedTiles": 26450,
+    "ledgerTiles": 26450,
+    "missingTiles": 0,
+    "extraTiles": 0,
+    "errorTiles": 0,
+    "tilesWithArraySha256": 26450,
+    "tilesWithMaskFields": 0,
+    "waterMasked": false,
+    "shapes": {
+      "450x450": 11861,
+      "450x300": 2459,
+      "450x225": 3582,
+      "450x150": 4552,
+      "450x90": 2196,
+      "450x45": 1800
+    },
+    "appliedNodataFilterCount": 0,
+    "invalidInputValues": null,
+    "maskedWaterPixels": null,
+    "maskedVoidPixels": null,
+    "retainedLandPixels": null,
+    "terrainNpzSha256": "fc79637f1f3600653ab9723a23cbd6a10cf0dd21f1409c4d452da01823865a1f",
+    "totalOutputDemPixels": 2923236898,
+    "cellsOverlap": {
+      "totalCells": 91800,
+      "cellsWithDemPixels": 91285,
+      "cellsNullSlope": 515,
+      "cellsWaterPctGt50WithSlope": 7619,
+      "cellsLandPctLt50WithSlope": 6400,
+      "cellsZeroSlopeZeroElev": 763
+    }
+  }
+}

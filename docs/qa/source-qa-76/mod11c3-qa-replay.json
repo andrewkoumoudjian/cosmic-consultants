@@ -1,0 +1,2151 @@
+{
+  "generatedAt": "2026-11-15T16:38:29+00:00",
+  "datasetId": "modis-mod11c3",
+  "license": {
+    "licenseId": "cc0",
+    "verified": true
+  },
+  "granuleCount": 120,
+  "granuleCount2023": 12,
+  "cellCount": 91800,
+  "minPixelShare": 0.25,
+  "elapsedS": 245.5,
+  "sides": {
+    "Day": {
+      "totalPixels": 3110400000,
+      "retainedRawGe7500": 1061238815,
+      "maskedRawLt7500": 2049161185,
+      "mandatoryQaAllPixels": [
+        573736325,
+        487502490,
+        11334617,
+        2037826568
+      ],
+      "lstErrorOnValid": [
+        800857331,
+        255818265,
+        4355702,
+        207517
+      ],
+      "dataQualityOnValid": [
+        436654822,
+        171622741,
+        350607719,
+        102353533
+      ],
+      "emisErrorOnValid": [
+        1037832008,
+        441651,
+        663186,
+        22301970
+      ],
+      "anomalies": {
+        "rawGe7500WithBadMandQa": 0,
+        "rawLt7500WithGoodMandQa": 0
+      },
+      "cellMonths2023Kept": {
+        "P0-baseline": 1089887,
+        "P1-err-le-3k": 1089878,
+        "P2-err-le-2k": 1089224,
+        "P3-mand-qa-00-only": 116912,
+        "P4-err-le-1k": 905351
+      },
+      "cellYearMonthsAllKept": {
+        "P0-baseline": 10899346,
+        "P1-err-le-3k": 10899265,
+        "P2-err-le-2k": 10892533,
+        "P3-mand-qa-00-only": 5746542,
+        "P4-err-le-1k": 9002126
+      }
+    },
+    "Night": {
+      "totalPixels": 3110400000,
+      "retainedRawGe7500": 1053817781,
+      "maskedRawLt7500": 2056582219,
+      "mandatoryQaAllPixels": [
+        523775555,
+        530042226,
+        18755697,
+        2037826522
+      ],
+      "lstErrorOnValid": [
+        812072707,
+        236206315,
+        5166161,
+        372598
+      ],
+      "dataQualityOnValid": [
+        276621485,
+        52924194,
+        437621935,
+        286650167
+      ],
+      "emisErrorOnValid": [
+        1040365199,
+        417655,
+        617038,
+        12417889
+      ],
+      "anomalies": {
+        "rawGe7500WithBadMandQa": 0,
+        "rawLt7500WithGoodMandQa": 0
+      },
+      "cellMonths2023Kept": {
+        "P0-baseline": 1080764,
+        "P1-err-le-3k": 1080699,
+        "P2-err-le-2k": 1079386,
+        "P3-mand-qa-00-only": 125940,
+        "P4-err-le-1k": 933568
+      },
+      "cellYearMonthsAllKept": {
+        "P0-baseline": 10802596,
+        "P1-err-le-3k": 10801846,
+        "P2-err-le-2k": 10788223,
+        "P3-mand-qa-00-only": 5083952,
+        "P4-err-le-1k": 9348987
+      }
+    }
+  },
+  "granules": [
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014001.061.2021321165755.hdf",
+      "sha256": "43876907b82c9ad463370d644f295e3b44be51809f21a516cc95302b0cfbb3a6",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17075182,
+          "retainedInputValues": 8844818
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17165516,
+          "retainedInputValues": 8754484
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014032.061.2021324163036.hdf",
+      "sha256": "cda06993d277749d044c4b165525e2c40639f923065c0425e82a7d48417bcc6e",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17094589,
+          "retainedInputValues": 8825411
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17227667,
+          "retainedInputValues": 8692333
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014060.061.2021329042956.hdf",
+      "sha256": "401cf087fe0b5d105bb6b074d27fc369943437d68d7b841f82caaf9b1afceeb0",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17072376,
+          "retainedInputValues": 8847624
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17135554,
+          "retainedInputValues": 8784446
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014091.061.2021331041226.hdf",
+      "sha256": "050bf8915475edd4c798196a38ace3c1b16a92588234593ddaf4062bd58c1bac",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066689,
+          "retainedInputValues": 8853311
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17110809,
+          "retainedInputValues": 8809191
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014121.061.2021333175533.hdf",
+      "sha256": "75a9122fbff366cb89c85e46f9b8aebd0b9602e01a74a5d299f5955263bef908",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17062983,
+          "retainedInputValues": 8857017
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17095926,
+          "retainedInputValues": 8824074
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014152.061.2021335172331.hdf",
+      "sha256": "9ab87d472ee8854f32c43a68654e3f593b35e297f2af45aa88170ca1adc8eb28",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17077189,
+          "retainedInputValues": 8842811
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097622,
+          "retainedInputValues": 8822378
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014182.061.2021338041916.hdf",
+      "sha256": "accc018350a145afdd8e4d4922302f473b32e9053a8fff78ee7f7f0db7e92a06",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17103277,
+          "retainedInputValues": 8816723
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17123221,
+          "retainedInputValues": 8796779
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014213.061.2021339145154.hdf",
+      "sha256": "4274bf45f5729e03f5e8d4c594254161f833217ded4c8004f5f81edaf97a0d65",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17093204,
+          "retainedInputValues": 8826796
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17119651,
+          "retainedInputValues": 8800349
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014244.061.2021342062939.hdf",
+      "sha256": "4b22f098c5536a5c0a843e2266d5e768b170154def429624b66f370c2110eab0",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076066,
+          "retainedInputValues": 8843934
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17099888,
+          "retainedInputValues": 8820112
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014274.061.2021344003930.hdf",
+      "sha256": "1d2d0a16bea2aa5fdbae6ec885a142d3b3b27c3b852bcdfd3246b6984cbd33ee",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070514,
+          "retainedInputValues": 8849486
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17090280,
+          "retainedInputValues": 8829720
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014305.061.2021345193359.hdf",
+      "sha256": "dfc04e4566346b6c81750aa4a57d7b9f83ca51f0154f34e4c37587cf2330f594",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065970,
+          "retainedInputValues": 8854030
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17103454,
+          "retainedInputValues": 8816546
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2014335.061.2021347074745.hdf",
+      "sha256": "b6477b324539a93f90f584d06643e07f7e84c9f33ae295dfe280c3e2b2135360",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068345,
+          "retainedInputValues": 8851655
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17139794,
+          "retainedInputValues": 8780206
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015001.061.2021349005324.hdf",
+      "sha256": "42e18c63755879fb4d3d3de3fbcb730989a939687aa184cefd967277714eaf9d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17075035,
+          "retainedInputValues": 8844965
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17159580,
+          "retainedInputValues": 8760420
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015032.061.2021350152716.hdf",
+      "sha256": "b2095f591c3958ec02b018c921ee39f8743f93e6d8d5213a75251b2d1e1236f1",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17072707,
+          "retainedInputValues": 8847293
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17173549,
+          "retainedInputValues": 8746451
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015060.061.2021352013135.hdf",
+      "sha256": "a281ab6d283e1302b5a8e6f27ab3a608a486aa8742bb60622c81392715e49dc0",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17075605,
+          "retainedInputValues": 8844395
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17154492,
+          "retainedInputValues": 8765508
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015091.061.2021353122049.hdf",
+      "sha256": "860617451415fe6d8495efb4ef8bca7331fba528daae727180884f4e6a705bee",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066705,
+          "retainedInputValues": 8853295
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17124815,
+          "retainedInputValues": 8795185
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015121.061.2021357101450.hdf",
+      "sha256": "47433c5cb65b50b977883e01e8431e707e4ccde0e1f532b78a63752bec038dcd",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065395,
+          "retainedInputValues": 8854605
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17084361,
+          "retainedInputValues": 8835639
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015152.061.2021358204659.hdf",
+      "sha256": "20ef450bf84c9074e2c5dd171c4b2a078fdbd5d1178790f020eb8ebd7f079a9e",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17080125,
+          "retainedInputValues": 8839875
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17089717,
+          "retainedInputValues": 8830283
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015182.061.2021360043245.hdf",
+      "sha256": "b75e4cfd28cebf80f6dec4555f3262d5a146a43f2cf23e244d814a8af848c832",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17080891,
+          "retainedInputValues": 8839109
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17082807,
+          "retainedInputValues": 8837193
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015213.061.2021361100124.hdf",
+      "sha256": "d7d0a34c3b5fedba500dcdfb881528ebbe706f28db3cab463616c0fc5f32a223",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17103507,
+          "retainedInputValues": 8816493
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17110612,
+          "retainedInputValues": 8809388
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015244.061.2021362162838.hdf",
+      "sha256": "255f50ccfe6caa50081733e4cd785aabe875f5d143add30248a3ace238346975",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076591,
+          "retainedInputValues": 8843409
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17074761,
+          "retainedInputValues": 8845239
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015274.061.2021363221538.hdf",
+      "sha256": "9b5682b417b12024c2fbd3e685998b4c3d5fd4376dabd31f7cd025a2bf25799d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076565,
+          "retainedInputValues": 8843435
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17079176,
+          "retainedInputValues": 8840824
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015305.061.2022001084541.hdf",
+      "sha256": "ce21d27711fe695978aa1c8927bc4dedc3118b5e6f363ad7a1553872939648d6",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067057,
+          "retainedInputValues": 8852943
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097437,
+          "retainedInputValues": 8822563
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2015335.061.2022002104233.hdf",
+      "sha256": "9470aa883efd363f80e15dbaad9f921fc5549a7020e57dd28a6a5f83c345cdf0",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066388,
+          "retainedInputValues": 8853612
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17105195,
+          "retainedInputValues": 8814805
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016001.061.2022003124021.hdf",
+      "sha256": "a3b09091aacc760a6fb45e72d4a6fba6307ff8fb44a00d3049242fe9aeb7b7ad",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067182,
+          "retainedInputValues": 8852818
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17108550,
+          "retainedInputValues": 8811450
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016032.061.2022012233905.hdf",
+      "sha256": "4dcc78dffd2e5e9d6cc0f17bd63bb6d685c1515287e8542b731e8c19d0a86f25",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17089365,
+          "retainedInputValues": 8830635
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17157081,
+          "retainedInputValues": 8762919
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016061.061.2022013212434.hdf",
+      "sha256": "b45f4058402c5b94d948b8b8a2df199b81b9168ae9f115b721161d163733e3fe",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17075506,
+          "retainedInputValues": 8844494
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17175352,
+          "retainedInputValues": 8744648
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016092.061.2022015021957.hdf",
+      "sha256": "170a9a3d6832a2d47683453a29526de459f814ab63d037e6caaa0d0d91ae70fe",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068181,
+          "retainedInputValues": 8851819
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17135022,
+          "retainedInputValues": 8784978
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016122.061.2022016003703.hdf",
+      "sha256": "f58ca0290b3e9ab72cd0f5817fb4abc131ac11d1ad0b892663d07d2ccd911a5e",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070709,
+          "retainedInputValues": 8849291
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17100649,
+          "retainedInputValues": 8819351
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016153.061.2022016221146.hdf",
+      "sha256": "d95ba8e32309b80b21b20f316c01979ff9aec93f48bea46ee98752be67c77399",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070158,
+          "retainedInputValues": 8849842
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17098097,
+          "retainedInputValues": 8821903
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016183.061.2022018055805.hdf",
+      "sha256": "2b69c83621ebb7859045b5b0a664f2530d6a28942f4a5274c9fb9d0454af3246",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17116877,
+          "retainedInputValues": 8803123
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17145291,
+          "retainedInputValues": 8774709
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016214.061.2022019051824.hdf",
+      "sha256": "5f801c69f04913b51f5ade7683df11e91df79e9e762ff4c4c886fb2731c00783",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17094213,
+          "retainedInputValues": 8825787
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17102292,
+          "retainedInputValues": 8817708
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016245.061.2022020023303.hdf",
+      "sha256": "de5cac2011f9dca27dd0af63ef0bc85f23cf1cb1d42c97a7e127077a0a5f69b1",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076027,
+          "retainedInputValues": 8843973
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17130268,
+          "retainedInputValues": 8789732
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016275.061.2022021001136.hdf",
+      "sha256": "668baf3e1ca37a8a240028884b5a825ceafd3ae2bfdd4679c61dacbe3de62941",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070090,
+          "retainedInputValues": 8849910
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17142195,
+          "retainedInputValues": 8777805
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016306.061.2022021200026.hdf",
+      "sha256": "a6a3e6548e217f8bf3362dc15ab093295652b645bc349ab8741303dabf085ac2",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069223,
+          "retainedInputValues": 8850777
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17149258,
+          "retainedInputValues": 8770742
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2016336.061.2022022155619.hdf",
+      "sha256": "5b85df951914df21f8423d8312aee25a982b7759e336463e56725cf34cca89a8",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068486,
+          "retainedInputValues": 8851514
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17199186,
+          "retainedInputValues": 8720814
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017001.061.2022024151514.hdf",
+      "sha256": "e7704c146d9b0654ca597948f856cc1a86bb2a2890f94870f62c63a7fe363a8c",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17071695,
+          "retainedInputValues": 8848305
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17220904,
+          "retainedInputValues": 8699096
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017032.061.2021303062906.hdf",
+      "sha256": "13f990359d92adbf7b0d90c139ab5bba4f626238362511c656077f832da97ea3",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17078728,
+          "retainedInputValues": 8841272
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17236010,
+          "retainedInputValues": 8683990
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017060.061.2021303062931.hdf",
+      "sha256": "1ff5550eeb26e6a6d5f7f1e5bd82d6370419746560cf5db79a7051e210365039",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066882,
+          "retainedInputValues": 8853118
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17169522,
+          "retainedInputValues": 8750478
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017091.061.2021303062922.hdf",
+      "sha256": "b97e3086e5285c1df9f75232987aeabcf37525ca1139c7465e782465f76e2dfa",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17064231,
+          "retainedInputValues": 8855769
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17150485,
+          "retainedInputValues": 8769515
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017121.061.2021303062924.hdf",
+      "sha256": "2eec1eb4a2114e112d20f05181353fb076514a5f2043127e9946aeb5c2e3f9ef",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063367,
+          "retainedInputValues": 8856633
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17101673,
+          "retainedInputValues": 8818327
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017152.061.2021306102554.hdf",
+      "sha256": "658e6e4b58ba2e78e60077d3aca5115f4e9efee1d8f1c850fde11c6de8b6ce3f",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17078365,
+          "retainedInputValues": 8841635
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17111451,
+          "retainedInputValues": 8808549
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017182.061.2021308043120.hdf",
+      "sha256": "44621b7ceca26061fb78b374ddf23de4f3b9125e28b563c607c3f905057792b8",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17104765,
+          "retainedInputValues": 8815235
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17145988,
+          "retainedInputValues": 8774012
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017213.061.2021309131707.hdf",
+      "sha256": "6e8a5c0bc18a00786e8c355b2278a182397987e5f83787be4d9735a66d4f835c",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17096496,
+          "retainedInputValues": 8823504
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17132779,
+          "retainedInputValues": 8787221
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017244.061.2021310123246.hdf",
+      "sha256": "e1d5c67fb467edad099eee45f41b67f703e864dd04dfe1aa3d0f06e33ef35d8b",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17077640,
+          "retainedInputValues": 8842360
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17105334,
+          "retainedInputValues": 8814666
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017274.061.2021311132018.hdf",
+      "sha256": "3d8bfccfb75180d69ae0b40e0bd8328fd866a6ca8f551899ce7062ec3604a9c5",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068080,
+          "retainedInputValues": 8851920
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17106364,
+          "retainedInputValues": 8813636
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017305.061.2021312101016.hdf",
+      "sha256": "6fc7b99d57a6fa89c73a94a691078f1a6f0ba27d12af95ad6a53678254a271a7",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070785,
+          "retainedInputValues": 8849215
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17148950,
+          "retainedInputValues": 8771050
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2017335.061.2021313111745.hdf",
+      "sha256": "4d59aa80b2a5bcf69724f39563825311240d4acbb9b7d4805a5913a6733ce8ba",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069932,
+          "retainedInputValues": 8850068
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17184800,
+          "retainedInputValues": 8735200
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018001.061.2021319132953.hdf",
+      "sha256": "dcb0b35ab4c53894f6204acdf3c165f931dca15834ae90bc95df3404f07c8b66",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17073044,
+          "retainedInputValues": 8846956
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17190478,
+          "retainedInputValues": 8729522
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018032.061.2021328113521.hdf",
+      "sha256": "041e4840e1dd2c477f3aee4555a9133200b1bc7719e41a6fbac8d673cdb802f9",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076782,
+          "retainedInputValues": 8843218
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17180510,
+          "retainedInputValues": 8739490
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018060.061.2021331221230.hdf",
+      "sha256": "393bb601d0bdc357e29108c95ab6823793993cd531cc734896abd25e0093b906",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17064352,
+          "retainedInputValues": 8855648
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17124591,
+          "retainedInputValues": 8795409
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018091.061.2021331221231.hdf",
+      "sha256": "b7bab8bf5d0306e18c15f7a678fa87a3b5a1f1c5ca81fb95b9e61049b92c7c3f",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068905,
+          "retainedInputValues": 8851095
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17177604,
+          "retainedInputValues": 8742396
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018121.061.2021350141515.hdf",
+      "sha256": "a14d6ff53708816c5681620539f80e104ec6a1349a5d1c7c703774609e51728e",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067687,
+          "retainedInputValues": 8852313
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17140592,
+          "retainedInputValues": 8779408
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018152.061.2021350141459.hdf",
+      "sha256": "12037ae5447f0738a36b89c820c171390e6f4a1349ffcadda2ec26c20ab79f6a",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17084034,
+          "retainedInputValues": 8835966
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17121586,
+          "retainedInputValues": 8798414
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018182.061.2021350141511.hdf",
+      "sha256": "12367cebc7b31a0ec6b246758769cb82c0aceb53066e7e83336e520602529f6f",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17121614,
+          "retainedInputValues": 8798386
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17157684,
+          "retainedInputValues": 8762316
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018213.061.2021350141511.hdf",
+      "sha256": "038bba61e66b2f8f81445fb4264369905f39de68971e2f489796dfc58c1f4509",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17118633,
+          "retainedInputValues": 8801367
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17129933,
+          "retainedInputValues": 8790067
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018244.061.2021350141512.hdf",
+      "sha256": "0c362cc4a9dee2223a5cd2fd36c3fbb315d094e8fd3ea78bbbe25a465a35e095",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17074245,
+          "retainedInputValues": 8845755
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17094169,
+          "retainedInputValues": 8825831
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018274.061.2021351105931.hdf",
+      "sha256": "5c84fa0c075712c4d21bdeb81f6850f985642209cc33cce4dd4a047e10678718",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063951,
+          "retainedInputValues": 8856049
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17105586,
+          "retainedInputValues": 8814414
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018305.061.2021362034516.hdf",
+      "sha256": "f68f2642d262227a23217c6d982c3b796bca7ccac7491bde3eba8e6f3716fd0a",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069181,
+          "retainedInputValues": 8850819
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17182372,
+          "retainedInputValues": 8737628
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2018335.061.2021365193951.hdf",
+      "sha256": "35d4fe805338f963d33f07f9902baf7d8ccf823009ec0ff7e4c77d5087481407",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070929,
+          "retainedInputValues": 8849071
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17152532,
+          "retainedInputValues": 8767468
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019001.061.2022018132527.hdf",
+      "sha256": "53d2e82a156471f02cf9e8005c094c32e6453c36e8a1cf63542050a099249338",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17073262,
+          "retainedInputValues": 8846738
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17202320,
+          "retainedInputValues": 8717680
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019032.061.2020352191125.hdf",
+      "sha256": "14c6c3710986fd923f451f9f0e2488550f1aed14b30659ac68d8294f33952357",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17082247,
+          "retainedInputValues": 8837753
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17163627,
+          "retainedInputValues": 8756373
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019060.061.2020352193656.hdf",
+      "sha256": "3862da80ddbc6e61bf5eb7fbbaed3d9a385c7e3119e906a1a5fb800361c00906",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070494,
+          "retainedInputValues": 8849506
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17153877,
+          "retainedInputValues": 8766123
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019091.061.2020352195021.hdf",
+      "sha256": "8575a68ba39b9927c4fae67db53850d154e5138f54500d5274df0daf13807d0d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063382,
+          "retainedInputValues": 8856618
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17134713,
+          "retainedInputValues": 8785287
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019121.061.2020354013528.hdf",
+      "sha256": "e64b119cf3319d3a742663d3be26bd6a9def910d78cee61347dcaa47c3ba2143",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066351,
+          "retainedInputValues": 8853649
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17094433,
+          "retainedInputValues": 8825567
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019152.061.2020355101541.hdf",
+      "sha256": "bf1dba018030800920c9271efbfa8caf65232bf19b58e98906a3736015be41bd",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070965,
+          "retainedInputValues": 8849035
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17093652,
+          "retainedInputValues": 8826348
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019182.061.2020357054550.hdf",
+      "sha256": "3e2862179c6d2b2bc8b9cf6de7529c90c1bc5038bb5fe28a296df3e6a3187eeb",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17088542,
+          "retainedInputValues": 8831458
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17100606,
+          "retainedInputValues": 8819394
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019213.061.2020359034216.hdf",
+      "sha256": "77fa50881a1c27437bf76735ccb9cde4afef3aaf339b7a79be971266dfb6138a",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17105909,
+          "retainedInputValues": 8814091
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17130378,
+          "retainedInputValues": 8789622
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019244.061.2020361221659.hdf",
+      "sha256": "69cc757211cc26f599dfb8935d102a40703b3a6e1a81449477c416cc05ef2485",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076093,
+          "retainedInputValues": 8843907
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097971,
+          "retainedInputValues": 8822029
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019274.061.2020365225116.hdf",
+      "sha256": "abfb2114c7f20f9feda9743d5d34f18a5e6f4948cccb2f270c15d529e5e7c624",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069612,
+          "retainedInputValues": 8850388
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17112956,
+          "retainedInputValues": 8807044
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019305.061.2021001103916.hdf",
+      "sha256": "17b704f2a8f57caac1590d7eac081e18334e0768a735c135a355a91fd3cebc5a",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063930,
+          "retainedInputValues": 8856070
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17116259,
+          "retainedInputValues": 8803741
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2019335.061.2021003075234.hdf",
+      "sha256": "64f1f6322978563165b24dc90de651be939b09314a28ec082998936b14c3aad9",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067524,
+          "retainedInputValues": 8852476
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17184138,
+          "retainedInputValues": 8735862
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020001.061.2021005132339.hdf",
+      "sha256": "b259561ead2d31132cca17e2c3bfd880fc721e594d5157aa17383380e1f9724b",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065347,
+          "retainedInputValues": 8854653
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097526,
+          "retainedInputValues": 8822474
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020032.061.2021006182041.hdf",
+      "sha256": "410bac044dfbe7d259a4fff83583a63a3b2d7f59e270635f0b7f3ce337fac336",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069457,
+          "retainedInputValues": 8850543
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17159840,
+          "retainedInputValues": 8760160
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020061.061.2021011195513.hdf",
+      "sha256": "614a51051aaa31499744f34e8e1402b47d84bf977a690323ee745fabf2d353ae",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063651,
+          "retainedInputValues": 8856349
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17132473,
+          "retainedInputValues": 8787527
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020092.061.2021011200628.hdf",
+      "sha256": "4ee184e9a30c6c5c8b99a1bdc2e9d6027f8f2af9ca5323b378171db7d03451c8",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17064697,
+          "retainedInputValues": 8855303
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17150944,
+          "retainedInputValues": 8769056
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020122.061.2021011202030.hdf",
+      "sha256": "c3fe1f1a5e972af60bbb0d32c104219e5b82ecb5af504afd94ce403b91b0cc07",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066878,
+          "retainedInputValues": 8853122
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17112006,
+          "retainedInputValues": 8807994
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020153.061.2021012103333.hdf",
+      "sha256": "7a5754e66253ce5ac1f96b82e829d00e8e97931f3babe9b70145390c68f43bc2",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17073786,
+          "retainedInputValues": 8846214
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17114548,
+          "retainedInputValues": 8805452
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020183.061.2021013113245.hdf",
+      "sha256": "842e486be9d208c354951233658aef4d3681448b220d6e2c015a189d3dc84797",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17107756,
+          "retainedInputValues": 8812244
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17141743,
+          "retainedInputValues": 8778257
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020214.061.2021014160553.hdf",
+      "sha256": "0a1063c9e68fcfb0c40871a77d27946d769cc46fd6ad6ae5cd7641975e3a6e12",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17086411,
+          "retainedInputValues": 8833589
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17106753,
+          "retainedInputValues": 8813247
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020245.061.2021017045548.hdf",
+      "sha256": "30b1a0b867718c96ea1cfb1d9e20316af3add3c3853111e651ea0c1906bb9101",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17081999,
+          "retainedInputValues": 8838001
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17129630,
+          "retainedInputValues": 8790370
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020275.061.2021018042434.hdf",
+      "sha256": "ea809e1bd51b2a8b9b14218469082ec1f49bbee4c5b6030ad0008ac034f9f23d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17081644,
+          "retainedInputValues": 8838356
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17126193,
+          "retainedInputValues": 8793807
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020306.061.2021019034710.hdf",
+      "sha256": "e70fccfb0cf14981dcf8a1ef2934b3c90cb32b5ddc65e6e6111272be6095e655",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067003,
+          "retainedInputValues": 8852997
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17122197,
+          "retainedInputValues": 8797803
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2020336.061.2021027125458.hdf",
+      "sha256": "dde079af131e33807e59dbb704781763a6953fcc0d25ebb64fc416d61de47d26",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17071710,
+          "retainedInputValues": 8848290
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17177731,
+          "retainedInputValues": 8742269
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021001.061.2021043155222.hdf",
+      "sha256": "b4842e76270c5a563d2d49176a1caa63dcb8aafc02e2e0ffc84f646ca8503b4a",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17076491,
+          "retainedInputValues": 8843509
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17193892,
+          "retainedInputValues": 8726108
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021032.061.2021062101628.hdf",
+      "sha256": "e186780a8ccfe90d9797803b66128c9e943064bdc96aa8781fca4d0298ea96ba",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17079871,
+          "retainedInputValues": 8840129
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17210313,
+          "retainedInputValues": 8709687
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021060.061.2021092234459.hdf",
+      "sha256": "c037828715baa1bc36efd92b1c399dd6c0e3d57a5b90c02107c1526f5f6d7ebf",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070309,
+          "retainedInputValues": 8849691
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17173601,
+          "retainedInputValues": 8746399
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021091.061.2021123170049.hdf",
+      "sha256": "e60896d619ea8def98ed515a576088847456d9d91da60988ee63924cb78cfd57",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066237,
+          "retainedInputValues": 8853763
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17146507,
+          "retainedInputValues": 8773493
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021121.061.2021152092200.hdf",
+      "sha256": "ebf0bade926a9483fece4ef933b359cdc346636f6148dc39740e74913d334fc2",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17064372,
+          "retainedInputValues": 8855628
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17111341,
+          "retainedInputValues": 8808659
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021152.061.2021190161921.hdf",
+      "sha256": "003e1eaebeb112b7555cdbb86cf5689d82ae99c5738ac284479644634ea82d20",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069662,
+          "retainedInputValues": 8850338
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17089688,
+          "retainedInputValues": 8830312
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021182.061.2021213130808.hdf",
+      "sha256": "e4dea98739e77b1524e6094c25f85673826c1806f0b79d269ef74c0a2e8e30c8",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17085887,
+          "retainedInputValues": 8834113
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17109195,
+          "retainedInputValues": 8810805
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021213.061.2021244114947.hdf",
+      "sha256": "1cb58a7862eefeb23348d7514d6bce7dca5d16593bb517645282391383529cac",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17089937,
+          "retainedInputValues": 8830063
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17134544,
+          "retainedInputValues": 8785456
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021244.061.2021320185901.hdf",
+      "sha256": "0d3b2868ca76e882b7fb0caa2be215cdf1aba1c01c72871a60df133484dc101d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17073917,
+          "retainedInputValues": 8846083
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17141760,
+          "retainedInputValues": 8778240
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021274.061.2022066153649.hdf",
+      "sha256": "16841047bfe4da3ec72bb0725e5b70970a54db7ffadc00a6baaab6c0aa5e69b2",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065729,
+          "retainedInputValues": 8854271
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17099948,
+          "retainedInputValues": 8820052
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021305.061.2021335102508.hdf",
+      "sha256": "a2a5c264f188f1b332a059aeeba5aebd5a1f5e897c781fd772a8d4c85b1114e8",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069375,
+          "retainedInputValues": 8850625
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17210427,
+          "retainedInputValues": 8709573
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2021335.061.2022004023023.hdf",
+      "sha256": "d85825a4fd10c55f9d8da2f9410ca6a47dc6b3869c309565fac5157f34b917c7",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17082731,
+          "retainedInputValues": 8837269
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17248472,
+          "retainedInputValues": 8671528
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022001.061.2022032100901.hdf",
+      "sha256": "971357b86a0e4f2f5c5e36ebbd7d62447516da3474a5ae361263067366790cda",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17068884,
+          "retainedInputValues": 8851116
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17153595,
+          "retainedInputValues": 8766405
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022032.061.2022060091925.hdf",
+      "sha256": "26cb9ea22172323c0758ebaaef255ec3e06e9df7103781ed22596cdb4f1ecb70",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17078449,
+          "retainedInputValues": 8841551
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17226268,
+          "retainedInputValues": 8693732
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022060.061.2022108234323.hdf",
+      "sha256": "86f71957032d7586ad2baef4dde149e2517527043956835a7aa9b84613714483",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17078065,
+          "retainedInputValues": 8841935
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17202455,
+          "retainedInputValues": 8717545
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022091.061.2022125144200.hdf",
+      "sha256": "5eb56da957d871dd48a42bf0ea8672d1535dc36187b58dd89f687489036e432f",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067495,
+          "retainedInputValues": 8852505
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17142857,
+          "retainedInputValues": 8777143
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022121.061.2022158004631.hdf",
+      "sha256": "a72fc60bf89b343ec1816e24c703144d1affb10380ec10068bb1fdd83eeda8d3",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067289,
+          "retainedInputValues": 8852711
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17120437,
+          "retainedInputValues": 8799563
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022152.061.2022201162837.hdf",
+      "sha256": "6e96a9522116325a937ac303953e4775fdd1e2e4b175b634cf7b060c1604eb09",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17085530,
+          "retainedInputValues": 8834470
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17141266,
+          "retainedInputValues": 8778734
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022182.061.2022227150912.hdf",
+      "sha256": "9bfeb6b8d664932e8a519b72010485a4862bd616d7a52bb78d857def8be6d96d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17091811,
+          "retainedInputValues": 8828189
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17137600,
+          "retainedInputValues": 8782400
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022213.061.2022244124553.hdf",
+      "sha256": "a71e49da59952f7cc4b4271e1b63d79ae69b7ff9a24d8895625f885c716296d4",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17085006,
+          "retainedInputValues": 8834994
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17115135,
+          "retainedInputValues": 8804865
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022244.061.2022274171315.hdf",
+      "sha256": "071bac3536f75af92f2524b20b00f3dfaaee044ea4cc5089fbd226459a6eb032",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17084607,
+          "retainedInputValues": 8835393
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17135765,
+          "retainedInputValues": 8784235
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022274.061.2022306042023.hdf",
+      "sha256": "80b3e4388d2848fcbb95a31d33278bab26a726172ef4dc20857bea120911f3b1",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17093422,
+          "retainedInputValues": 8826578
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17173808,
+          "retainedInputValues": 8746192
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022305.061.2022336141029.hdf",
+      "sha256": "21b10f1c2d962bc480c76cb3d620b6e6020d9d46aff4ba3911b3af41508ed5e6",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17071036,
+          "retainedInputValues": 8848964
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17158019,
+          "retainedInputValues": 8761981
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2022335.061.2023003224414.hdf",
+      "sha256": "634e9e10125236b55ddfe8f98b2292fb568892a78b11df3528433400147c369d",
+      "is2023": false,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17069978,
+          "retainedInputValues": 8850022
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17168540,
+          "retainedInputValues": 8751460
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023001.061.2023033164320.hdf",
+      "sha256": "04f1f63e4f89f4bebfe0cf5d3bfdf6d52fd5919e4ba99a6684fc4f5ac38fb9c6",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17073957,
+          "retainedInputValues": 8846043
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17189647,
+          "retainedInputValues": 8730353
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023032.061.2023060110104.hdf",
+      "sha256": "507f994f566b838fc7948b03f93c6ab28e8697222853de7748db2df94a13b52e",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17081929,
+          "retainedInputValues": 8838071
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17240599,
+          "retainedInputValues": 8679401
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023060.061.2023093150817.hdf",
+      "sha256": "7d1cdec5aff04f6ca426fbeedd88f753d305a6faea43e4edeb50d21a7711e8ed",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065520,
+          "retainedInputValues": 8854480
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17167712,
+          "retainedInputValues": 8752288
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023091.061.2023121144153.hdf",
+      "sha256": "8b3b1997e6fba471a9e7d2d100d0d122b2d03b2c7d57979ad27b59307762b0f5",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065076,
+          "retainedInputValues": 8854924
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17139638,
+          "retainedInputValues": 8780362
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023121.061.2023153212208.hdf",
+      "sha256": "86a009658de5b307fa93fc55bf445d2278ff2667313232b5c6dc526f2461562b",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17063595,
+          "retainedInputValues": 8856405
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17099989,
+          "retainedInputValues": 8820011
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023152.061.2023193054115.hdf",
+      "sha256": "92bbf04041e628d6f73b7669ede5b6e498e3b1483306dac7dc971c2d676e1c00",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17070071,
+          "retainedInputValues": 8849929
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17111904,
+          "retainedInputValues": 8808096
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023182.061.2023215224507.hdf",
+      "sha256": "ea65fd9d852aded4ed7b8c8f764f3a66b586b4ee6f574f60faec12b10f9804f9",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17095918,
+          "retainedInputValues": 8824082
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17122486,
+          "retainedInputValues": 8797514
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023213.061.2023250152840.hdf",
+      "sha256": "b261fdfff0acf600f76f7b4ca3df20dbffd205f76ae2837bfdc4f557834bb4d1",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097703,
+          "retainedInputValues": 8822297
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17097653,
+          "retainedInputValues": 8822347
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023244.061.2023274102304.hdf",
+      "sha256": "f819fb4140afa5c3ffd08c5ba4762821b486b1f11607b6e37d4582d8736c969c",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17079859,
+          "retainedInputValues": 8840141
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17109403,
+          "retainedInputValues": 8810597
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023274.061.2023305093855.hdf",
+      "sha256": "bccf14748af869a610594b68085346ae27e90ff2391f7da9bac4fb5a3d034254",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17067319,
+          "retainedInputValues": 8852681
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17086954,
+          "retainedInputValues": 8833046
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023305.061.2023336214247.hdf",
+      "sha256": "883a7007764f1b924e731ed9e21f3669d78824e1acf299bb956345acb34b162b",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17065592,
+          "retainedInputValues": 8854408
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17104396,
+          "retainedInputValues": 8815604
+        }
+      }
+    },
+    {
+      "localPath": "data/snapshots/modis-mod11c3/MOD11C3.A2023335.061.2024006162849.hdf",
+      "sha256": "7aa238c23d52f3a9f1c9e7aec7b5ac0b3c718df745ac141d39d27ad175831ea5",
+      "is2023": true,
+      "sides": {
+        "Day": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17066611,
+          "retainedInputValues": 8853389
+        },
+        "Night": {
+          "inputValues": 25920000,
+          "maskedInputValues": 17148869,
+          "retainedInputValues": 8771131
+        }
+      }
+    }
+  ]
+}
